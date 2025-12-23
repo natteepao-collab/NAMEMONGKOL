@@ -23,15 +23,20 @@ export const ThaksaTable: React.FC<ThaksaTableProps> = ({ thaksa, day }) => {
                 <table className="w-full text-left border-collapse">
                     <thead>
                         <tr className="bg-slate-800/80 text-slate-300 text-sm uppercase">
-                            <th className="p-4 font-semibold border-b border-white/10 w-1/4">ภูมิ</th>
-                            <th className="p-4 font-semibold border-b border-white/10 w-2/4">ความหมาย</th>
-                            <th className="p-4 font-semibold border-b border-white/10 w-1/4 text-center">อักษรที่พบ</th>
+                            <th className="p-4 font-semibold border-b border-white/10 w-[15%]">ภูมิ</th>
+                            <th className="p-4 font-semibold border-b border-white/10 w-[45%]">ความหมาย</th>
+                            <th className="p-4 font-semibold border-b border-white/10 w-[20%] text-center">ในชื่อ</th>
+                            <th className="p-4 font-semibold border-b border-white/10 w-[20%] text-center">ในนามสกุล</th>
                         </tr>
                     </thead>
                     <tbody className="text-sm">
                         {Object.entries(thaksaMeanings).map(([key, info]) => {
-                            const matchedChars = thaksa.analysis[key];
-                            const hasChars = matchedChars && matchedChars.length > 0;
+                            const matchedName = thaksa.analysis[key];
+                            const matchedSurname = thaksa.surnameAnalysis ? thaksa.surnameAnalysis[key] : [];
+
+                            const hasName = matchedName && matchedName.length > 0;
+                            const hasSurname = matchedSurname && matchedSurname.length > 0;
+
                             const isKali = key === 'kali';
                             const isSi = key === 'si';
 
@@ -50,15 +55,35 @@ export const ThaksaTable: React.FC<ThaksaTableProps> = ({ thaksa, day }) => {
                                     <td className="p-4 text-slate-400">
                                         {info.desc}
                                     </td>
-                                    <td className="p-4 text-center">
-                                        {hasChars ? (
+                                    {/* Name Column */}
+                                    <td className="p-4 text-center border-l border-white/5">
+                                        {hasName ? (
                                             <div className="flex justify-center gap-1 flex-wrap">
-                                                {matchedChars.map((c, i) => (
+                                                {matchedName.map((c, i) => (
                                                     <span key={i} className={`
                                                     inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold
                                                     ${isKali ? 'bg-rose-500 text-white shadow-lg shadow-rose-900/20' :
                                                             isSi ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-900/20' :
                                                                 'bg-slate-700 text-slate-200'}
+                                                `}>
+                                                        {c}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <span className="text-slate-600">-</span>
+                                        )}
+                                    </td>
+                                    {/* Surname Column */}
+                                    <td className="p-4 text-center border-l border-white/5">
+                                        {hasSurname ? (
+                                            <div className="flex justify-center gap-1 flex-wrap">
+                                                {matchedSurname.map((c, i) => (
+                                                    <span key={i} className={`
+                                                    inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold
+                                                    ${isKali ? 'bg-rose-500/70 text-white shadow-lg shadow-rose-900/20 opacity-90' :
+                                                            isSi ? 'bg-emerald-500/70 text-white shadow-lg shadow-emerald-900/20 opacity-90' :
+                                                                'bg-slate-700/70 text-slate-200 opacity-90'}
                                                 `}>
                                                         {c}
                                                     </span>
@@ -84,7 +109,10 @@ export const ThaksaTable: React.FC<ThaksaTableProps> = ({ thaksa, day }) => {
                         <div>
                             <h5 className="font-semibold text-rose-200 mb-1">ข้อควรระวัง</h5>
                             <p className="text-sm text-slate-300">
-                                ชื่อนี้มีอักษรที่เป็น <span className="font-bold text-rose-400 underline">กาลกิณี</span> จำนวน {thaksa.kaliChars.length} ตัว ({thaksa.kaliChars.join(', ')})
+                                พบอักษร <span className="font-bold text-rose-400 underline">กาลกิณี</span> ในชื่อ {thaksa.kaliChars.length} ตัว ({thaksa.kaliChars.join(', ')})
+                                {thaksa.surnameHasKali && (
+                                    <> และในนามสกุล {thaksa.surnameKaliChars?.length} ตัว ({thaksa.surnameKaliChars?.join(', ')})</>
+                                )}
                                 <br />
                                 <span className="text-slate-400 text-xs mt-1 block">แนะนำ: หากสามารถเลี่ยงได้จะเป็นมงคลกว่า หรือหมั่นทำบุญสะเดาะเคราะห์ตามความเชื่อส่วนบุคคล</span>
                             </p>

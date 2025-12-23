@@ -1,14 +1,15 @@
 export type DayKey = 'sunday' | 'monday' | 'tuesday' | 'wednesday' | 'wednesday_night' | 'thursday' | 'friday' | 'saturday';
 
 export interface PairDefinition {
-    level: 0 | 1 | 2; // 0=Neutral, 1=Good, 2=Bad
-    desc: string;
+    grade: 'good' | 'bad' | 'neutral';
+    title: string;
+    description: string;
+    tags: string[];
 }
 
-export interface PairAnalysis {
+export interface PairAnalysis extends PairDefinition {
     pair: string;
-    level: 0 | 1 | 2;
-    desc: string;
+    level: 0 | 1 | 2; // 0=Neutral, 1=Good, 2=Bad (Derived from grade)
 }
 
 export interface ThaksaDayConfig {
@@ -48,11 +49,16 @@ export interface PredictionResult {
 
 export interface ThaksaAnalysisResult {
     analysis: Record<string, string[]>;
+    surnameAnalysis?: Record<string, string[]>;
     hasKali: boolean;
     kaliChars: string[];
+    surnameHasKali?: boolean;
+    surnameKaliChars?: string[];
 }
 
 export interface AnalysisResult {
+    name: string;
+    surname: string;
     nameScore: number;
     surnameScore: number;
     totalScore: number;

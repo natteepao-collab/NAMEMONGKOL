@@ -17,18 +17,18 @@ export const getPrediction = (number: number): PredictionResult => {
     let desc = 'ความหมายกลางๆ';
 
     if (def) {
-        desc = def.desc;
-        if (def.level === 1) { // Good
+        desc = def.description;
+        if (def.grade === 'good') { // Good
             level = 'ดีมาก';
             color = 'text-emerald-400';
             bgGradient = 'from-emerald-300 to-green-300';
             stars = 5;
-        } else if (def.level === 2) { // Bad
+        } else if (def.grade === 'bad') { // Bad
             level = 'ควรระวัง';
             color = 'text-rose-400';
             bgGradient = 'from-rose-300 to-red-300';
             stars = 1;
-        } else { // Neutral (0)
+        } else { // Neutral
             level = 'ปานกลาง';
             color = 'text-amber-400';
             bgGradient = 'from-amber-300 to-orange-300';

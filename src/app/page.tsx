@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { ChevronRight, Share2, Sparkles } from 'lucide-react';
+import { saveAnalysisResult } from '@/services/analysisService';
 import { InputForm } from '@/components/InputForm';
 import { ResultHeader } from '@/components/ResultHeader';
 import { PairAnalysisCard } from '@/components/PairAnalysisCard';
@@ -26,14 +27,15 @@ export default function Home() {
     if (!name.trim()) return;
 
     setLoading(true);
-    setTimeout(() => {
+    setTimeout(async () => {
       const nameScore = calculateScore(name);
       const surnameScore = calculateScore(surname);
       const totalScore = nameScore + surnameScore;
 
       const namePairs = analyzePairs(name);
       const surnamePairs = analyzePairs(surname);
-      const fullTextForThaksa = (name + surname).replace(/\s/g, '');
+      const cleanName = name.replace(/\s/g, '');
+      const cleanSurname = surname.replace(/\s/g, '');
 
       // Get predictions for all scores
       const namePrediction = getPrediction(nameScore);
@@ -41,6 +43,8 @@ export default function Home() {
       const totalPrediction = getPrediction(totalScore);
 
       setResult({
+        name,
+        surname,
         nameScore,
         surnameScore,
         totalScore,
@@ -49,10 +53,25 @@ export default function Home() {
         namePrediction,
         surnamePrediction,
         prediction: totalPrediction,
-        thaksa: analyzeThaksa(fullTextForThaksa, day),
+        thaksa: analyzeThaksa(cleanName, day, cleanSurname),
         ayatana: calculateAyatana(totalScore)
       });
       setLoading(false);
+
+      // Auto-save to Supabase
+      try {
+        await saveAnalysisResult({
+          name,
+          surname,
+          day,
+          nameScore,
+          surnameScore,
+          totalScore
+        });
+        console.log('Auto-saved analysis result');
+      } catch (error) {
+        console.error('Failed to auto-save:', error);
+      }
     }, 800);
   };
 

@@ -12,7 +12,7 @@ export const thaksaConfig: Record<string, ThaksaDayConfig> = {
     sunday: {
         name: 'วันอาทิตย์',
         borivan: VOWELS,
-        ayu: ['ก', 'ข', 'ฃ', 'ค', 'ฅ', 'ฆ', 'ง'],
+        ayu: ['ก', 'ข', 'ค', 'ฆ', 'ง'],
         dech: ['จ', 'ฉ', 'ช', 'ซ', 'ฌ', 'ญ'],
         si: ['ฎ', 'ฏ', 'ฐ', 'ฑ', 'ฒ', 'ณ'],
         mula: ['ด', 'ต', 'ถ', 'ท', 'ธ', 'น'],
@@ -22,7 +22,7 @@ export const thaksaConfig: Record<string, ThaksaDayConfig> = {
     },
     monday: {
         name: 'วันจันทร์',
-        borivan: ['ก', 'ข', 'ฃ', 'ค', 'ฅ', 'ฆ', 'ง'],
+        borivan: ['ก', 'ข', 'ค', 'ฆ', 'ง'],
         ayu: ['จ', 'ฉ', 'ช', 'ซ', 'ฌ', 'ญ'],
         dech: ['ฎ', 'ฏ', 'ฐ', 'ฑ', 'ฒ', 'ณ'],
         si: ['ด', 'ต', 'ถ', 'ท', 'ธ', 'น'],
@@ -40,7 +40,7 @@ export const thaksaConfig: Record<string, ThaksaDayConfig> = {
         mula: ['ย', 'ร', 'ล', 'ว'],
         ussaha: ['ศ', 'ษ', 'ส', 'ห', 'ฬ', 'ฮ'],
         montri: VOWELS,
-        kali: ['ก', 'ข', 'ฃ', 'ค', 'ฅ', 'ฆ', 'ง']
+        kali: ['ก', 'ข', 'ค', 'ฆ', 'ง']
     },
     wednesday: {
         name: 'วันพุธ (กลางวัน)',
@@ -50,7 +50,7 @@ export const thaksaConfig: Record<string, ThaksaDayConfig> = {
         si: ['ย', 'ร', 'ล', 'ว'],
         mula: ['ศ', 'ษ', 'ส', 'ห', 'ฬ', 'ฮ'],
         ussaha: VOWELS,
-        montri: ['ก', 'ข', 'ฃ', 'ค', 'ฅ', 'ฆ', 'ง'],
+        montri: ['ก', 'ข', 'ค', 'ฆ', 'ง'],
         kali: ['จ', 'ฉ', 'ช', 'ซ', 'ฌ', 'ญ']
     },
     wednesday_night: {
@@ -58,7 +58,7 @@ export const thaksaConfig: Record<string, ThaksaDayConfig> = {
         borivan: ['ย', 'ร', 'ล', 'ว'],
         ayu: ['ศ', 'ษ', 'ส', 'ห', 'ฬ', 'ฮ'],
         dech: VOWELS,
-        si: ['ก', 'ข', 'ฃ', 'ค', 'ฅ', 'ฆ', 'ง'],
+        si: ['ก', 'ข', 'ค', 'ฆ', 'ง'],
         mula: ['จ', 'ฉ', 'ช', 'ซ', 'ฌ', 'ญ'],
         ussaha: ['ฎ', 'ฏ', 'ฐ', 'ฑ', 'ฒ', 'ณ'],
         montri: ['ด', 'ต', 'ถ', 'ท', 'ธ', 'น'],
@@ -70,7 +70,7 @@ export const thaksaConfig: Record<string, ThaksaDayConfig> = {
         ayu: ['ย', 'ร', 'ล', 'ว'],
         dech: ['ศ', 'ษ', 'ส', 'ห', 'ฬ', 'ฮ'],
         si: VOWELS,
-        mula: ['ก', 'ข', 'ฃ', 'ค', 'ฅ', 'ฆ', 'ง'],
+        mula: ['ก', 'ข', 'ค', 'ฆ', 'ง'],
         ussaha: ['จ', 'ฉ', 'ช', 'ซ', 'ฌ', 'ญ'],
         montri: ['ฎ', 'ฏ', 'ฐ', 'ฑ', 'ฒ', 'ณ'],
         kali: ['ด', 'ต', 'ถ', 'ท', 'ธ', 'น']
@@ -79,7 +79,7 @@ export const thaksaConfig: Record<string, ThaksaDayConfig> = {
         name: 'วันศุกร์',
         borivan: ['ศ', 'ษ', 'ส', 'ห', 'ฬ', 'ฮ'],
         ayu: VOWELS,
-        dech: ['ก', 'ข', 'ฃ', 'ค', 'ฅ', 'ฆ', 'ง'],
+        dech: ['ก', 'ข', 'ค', 'ฆ', 'ง'],
         si: ['จ', 'ฉ', 'ช', 'ซ', 'ฌ', 'ญ'],
         mula: ['ฎ', 'ฏ', 'ฐ', 'ฑ', 'ฒ', 'ณ'],
         ussaha: ['ด', 'ต', 'ถ', 'ท', 'ธ', 'น'],
@@ -93,7 +93,7 @@ export const thaksaConfig: Record<string, ThaksaDayConfig> = {
         dech: ['ย', 'ร', 'ล', 'ว'],
         si: ['ศ', 'ษ', 'ส', 'ห', 'ฬ', 'ฮ'],
         mula: VOWELS,
-        ussaha: ['ก', 'ข', 'ฃ', 'ค', 'ฅ', 'ฆ', 'ง'],
+        ussaha: ['ก', 'ข', 'ค', 'ฆ', 'ง'],
         montri: ['จ', 'ฉ', 'ช', 'ซ', 'ฌ', 'ญ'],
         kali: ['ฎ', 'ฏ', 'ฐ', 'ฑ', 'ฒ', 'ณ']
     }

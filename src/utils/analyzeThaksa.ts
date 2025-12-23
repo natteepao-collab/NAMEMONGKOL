@@ -1,20 +1,17 @@
 import { thaksaConfig } from '@/data/thaksaConfig';
-import { ThaksaAnalysisResult } from '@/types';
+import { ThaksaAnalysisResult, ThaksaDayConfig } from '@/types';
 
-export const analyzeThaksa = (name: string, dayKey: string): ThaksaAnalysisResult | null => {
-    if (!dayKey || !thaksaConfig[dayKey]) return null;
-    const config = thaksaConfig[dayKey];
-    const nameChars = name.split('');
-
+const analyzeText = (text: string, config: ThaksaDayConfig): Record<string, string[]> => {
     const analysis: Record<string, string[]> = {
         borivan: [], ayu: [], dech: [], si: [],
         mula: [], ussaha: [], montri: [], kali: []
     };
 
-    nameChars.forEach(char => {
-        for (const [key, chars] of Object.entries(config)) {
+    const chars = text.split('');
+    chars.forEach(char => {
+        for (const [key, allowedChars] of Object.entries(config)) {
             if (key === 'name') continue;
-            if (Array.isArray(chars) && chars.includes(char)) {
+            if (Array.isArray(allowedChars) && allowedChars.includes(char)) {
                 if (!analysis[key].includes(char)) {
                     analysis[key].push(char);
                 }
@@ -22,9 +19,22 @@ export const analyzeThaksa = (name: string, dayKey: string): ThaksaAnalysisResul
         }
     });
 
+    return analysis;
+};
+
+export const analyzeThaksa = (name: string, dayKey: string, surname?: string): ThaksaAnalysisResult | null => {
+    if (!dayKey || !thaksaConfig[dayKey]) return null;
+    const config = thaksaConfig[dayKey];
+
+    const nameAnalysis = analyzeText(name, config);
+    const surnameAnalysis = surname ? analyzeText(surname, config) : undefined;
+
     return {
-        analysis,
-        hasKali: analysis.kali.length > 0,
-        kaliChars: analysis.kali
+        analysis: nameAnalysis,
+        surnameAnalysis,
+        hasKali: nameAnalysis.kali.length > 0,
+        kaliChars: nameAnalysis.kali,
+        surnameHasKali: surname ? (surnameAnalysis?.kali.length || 0) > 0 : false,
+        surnameKaliChars: surnameAnalysis?.kali || []
     };
 };

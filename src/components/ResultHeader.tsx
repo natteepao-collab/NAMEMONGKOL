@@ -9,6 +9,17 @@ interface ResultHeaderProps {
 export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
     return (
         <>
+            <div className="flex flex-col items-center mb-8 animate-fade-in-up">
+                <div className="flex items-center gap-3 mb-2">
+                    <div className="p-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm shadow-xl">
+                        <User className="w-6 h-6 text-amber-400" />
+                    </div>
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400 text-center">
+                    {result.name} {result.surname}
+                </h2>
+                <div className="h-px w-32 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent mt-6"></div>
+            </div>
             <div className="grid grid-cols-2 gap-4">
                 <div className="glass-card p-4 rounded-2xl text-center relative overflow-hidden group hover:scale-[1.02] transition-transform">
                     <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${result.namePrediction.bgGradient}`}></div>

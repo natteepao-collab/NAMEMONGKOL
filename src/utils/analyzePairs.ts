@@ -1,9 +1,14 @@
 import { charValues } from '@/data/charValues';
 import { pairDefinitions } from '@/data/pairDefinitions';
-import { PairAnalysis } from '@/types';
+import { PairAnalysis, PairDefinition } from '@/types';
 
-const getPairMeaning = (pair: string) => {
-    return pairDefinitions[pair] || { level: 0, desc: 'ความหมายทั่วไป' };
+const getPairMeaning = (pair: string): PairDefinition => {
+    return pairDefinitions[pair] || {
+        grade: 'neutral',
+        title: 'ความหมายทั่วไป',
+        description: 'ยังไม่มีข้อมูลสำหรับคู่ตัวเลขนี้',
+        tags: []
+    };
 };
 
 export const analyzePairs = (text: string): PairAnalysis[] => {
@@ -22,10 +27,15 @@ export const analyzePairs = (text: string): PairAnalysis[] => {
     for (let i = 0; i < numbers.length - 1; i++) {
         const pairStr = `${numbers[i]}${numbers[i + 1]}`;
         const info = getPairMeaning(pairStr);
+
+        let level: 0 | 1 | 2 = 0;
+        if (info.grade === 'good') level = 1;
+        if (info.grade === 'bad') level = 2;
+
         pairs.push({
             pair: pairStr,
-            level: info.level as 0 | 1 | 2,
-            desc: info.desc
+            level,
+            ...info
         });
     }
     return pairs;
