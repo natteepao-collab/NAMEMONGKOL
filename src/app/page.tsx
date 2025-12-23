@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { ChevronRight, Share2, Sparkles } from 'lucide-react';
 import { saveAnalysisResult } from '@/services/analysisService';
 import { InputForm } from '@/components/InputForm';
@@ -102,9 +103,9 @@ export default function Home() {
             NAMEMONGKOL
           </span>
         </div>
-        <button className="text-sm text-slate-400 hover:text-white transition-colors">
+        <Link href="/about" className="text-sm text-slate-400 hover:text-white transition-colors">
           เกี่ยวกับเรา
-        </button>
+        </Link>
       </nav>
 
       <main className="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-[80vh]">
