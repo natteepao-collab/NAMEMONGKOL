@@ -33,3 +33,50 @@ export const analyzeThaksa = (name: string, dayKey: DayKey): ThaksaAnalysisResul
         kaliChars: analysis.kali
     };
 };
+
+export const getDayFromName = (name: string): string => {
+    if (!name) return '';
+
+    const firstChar = name.charAt(0);
+
+    // Iterate through all days to find which one has this character as Borivan
+    for (const dayKey of Object.keys(thaksaConfig) as DayKey[]) {
+        const dayConfig = thaksaConfig[dayKey];
+        if (dayConfig.borivan.includes(firstChar)) {
+            // Check if the name contains any Kali characters for this day
+            const hasKali = name.split('').some(char => dayConfig.kali.includes(char));
+            if (hasKali) {
+                return '-';
+            }
+            return dayConfig.name;
+        }
+    }
+
+    return 'ไม่ระบุ';
+};
+
+export interface SuitabilityResult {
+    suitable: string[];
+    unsuitable: string[];
+}
+
+export const analyzeNameSuitability = (name: string): SuitabilityResult => {
+    if (!name) return { suitable: [], unsuitable: [] };
+
+    const suitable: string[] = [];
+    const unsuitable: string[] = [];
+    const nameChars = name.split('');
+
+    for (const dayKey of Object.keys(thaksaConfig) as DayKey[]) {
+        const dayConfig = thaksaConfig[dayKey];
+        const hasKali = nameChars.some(char => dayConfig.kali.includes(char));
+
+        if (hasKali) {
+            unsuitable.push(dayConfig.name);
+        } else {
+            suitable.push(dayConfig.name);
+        }
+    }
+
+    return { suitable, unsuitable };
+};
