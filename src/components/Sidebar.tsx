@@ -1,21 +1,45 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Home, Search, Info, Menu, X, Sparkles, LogIn } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Home, Search, Info, Menu, X, Sparkles, LogIn, LogOut, User as UserIcon } from 'lucide-react';
+import { supabase } from '@/utils/supabase';
+import { User } from '@supabase/supabase-js';
 
 export const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [user, setUser] = useState<User | null>(null);
     const pathname = usePathname();
+    const router = useRouter();
 
     const toggleSidebar = () => setIsOpen(!isOpen);
+
+    useEffect(() => {
+        const getUser = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            setUser(user);
+        };
+
+        getUser();
+
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+            setUser(session?.user ?? null);
+        });
+
+        return () => subscription.unsubscribe();
+    }, []);
+
+    const handleLogout = async () => {
+        await supabase.auth.signOut();
+        router.refresh();
+        setIsOpen(false);
+    };
 
     const menuItems = [
         { name: 'วิเคราะห์ชื่อ', icon: Home, path: '/' },
         { name: 'ค้นหาชื่อมงคล', icon: Search, path: '/search' },
         { name: 'เกี่ยวกับเรา', icon: Info, path: '/about' },
-        { name: 'เข้าสู่ระบบ', icon: LogIn, path: '/login' },
     ];
 
     return (
@@ -72,6 +96,45 @@ export const Sidebar = () => {
                                 </Link>
                             );
                         })}
+
+                        {/* Divider */}
+                        <div className="my-4 border-t border-white/10" />
+
+                        {user ? (
+                            <>
+                                <div className="px-4 py-2 mb-2">
+                                    <p className="text-xs text-slate-500 mb-1">เข้าใช้งานโดย</p>
+                                    <div className="flex items-center gap-2 text-slate-200 font-medium truncate">
+                                        <div className="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500">
+                                            <UserIcon size={14} />
+                                        </div>
+                                        {user.user_metadata?.name || user.email?.split('@')[0]}
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={handleLogout}
+                                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-red-400 hover:bg-red-500/10 hover:text-red-300"
+                                >
+                                    <LogOut className="w-5 h-5 transition-colors text-red-400 group-hover:text-red-300" />
+                                    <span className="font-medium">ออกจากระบบ</span>
+                                </button>
+                            </>
+                        ) : (
+                            <Link
+                                href="/login"
+                                onClick={() => setIsOpen(false)}
+                                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${pathname === '/login'
+                                    ? 'bg-gradient-to-r from-amber-500/20 to-amber-500/5 text-amber-200 border border-amber-500/20 shadow-lg shadow-amber-900/20'
+                                    : 'text-slate-400 hover:bg-white/5 hover:text-white'
+                                    }`}
+                            >
+                                <LogIn
+                                    className={`w-5 h-5 transition-colors ${pathname === '/login' ? 'text-amber-400' : 'text-slate-500 group-hover:text-slate-300'
+                                        }`}
+                                />
+                                <span className="font-medium">เข้าสู่ระบบ</span>
+                            </Link>
+                        )}
                     </nav>
                 </div>
 

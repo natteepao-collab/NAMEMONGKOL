@@ -2,23 +2,46 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Mail, Lock, ArrowRight, Facebook, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Mail, Lock, ArrowRight, Facebook, Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react';
+import { supabase } from '@/utils/supabase';
 
 export default function LoginPage() {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [rememberMe, setRememberMe] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
+        setError(null);
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        try {
+            const { error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+            if (error) throw error;
 
-        console.log('Login with:', email, password);
-        setIsLoading(false);
+            console.log('Login successful');
+            router.refresh(); // Update server components/middleware state
+            router.push('/'); // Redirect to home
+
+        } catch (err: unknown) {
+            console.error('Login error:', err);
+            const errorMessage = (err as Error).message;
+            if (errorMessage === 'Invalid login credentials') {
+                setError('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
+            } else {
+                setError(errorMessage || 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
+            }
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -39,6 +62,13 @@ export default function LoginPage() {
                             ยินดีต้อนรับกลับเข้าสู่ระบบ
                         </p>
                     </div>
+
+                    {error && (
+                        <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-200 text-sm flex items-start gap-2">
+                            <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
+                            <span>{error}</span>
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-1">
@@ -87,7 +117,13 @@ export default function LoginPage() {
 
                         <div className="flex items-center justify-between text-sm">
                             <label className="flex items-center gap-2 cursor-pointer group">
-                                <input type="checkbox" className="w-4 h-4 rounded border-white/10 bg-white/5 text-amber-500 focus:ring-amber-500 focus:ring-offset-0" disabled={isLoading} />
+                                <input
+                                    type="checkbox"
+                                    checked={rememberMe}
+                                    onChange={(e) => setRememberMe(e.target.checked)}
+                                    className="w-4 h-4 rounded border-white/10 bg-white/5 text-amber-500 focus:ring-amber-500 focus:ring-offset-0"
+                                    disabled={isLoading}
+                                />
                                 <span className="text-slate-400 group-hover:text-slate-300 transition-colors">จดจำฉัน</span>
                             </label>
                             <a href="#" className="text-amber-400 hover:text-amber-300 transition-colors pointer-events-auto">ลืมรหัสผ่าน?</a>
