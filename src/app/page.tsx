@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ChevronRight, Share2, Sparkles } from 'lucide-react';
+import { ChevronRight, Sparkles } from 'lucide-react';
 import { saveAnalysisResult } from '@/services/analysisService';
 import { InputForm } from '@/components/InputForm';
 import { ResultHeader } from '@/components/ResultHeader';
@@ -10,6 +10,7 @@ import { PairAnalysisCard } from '@/components/PairAnalysisCard';
 import { ThaksaTable } from '@/components/ThaksaTable';
 import { AyatanaCard } from '@/components/AyatanaCard';
 import { PredictionCard } from '@/components/PredictionCard';
+import { ShareButton } from '@/components/ShareButton';
 import { calculateScore } from '@/utils/calculateScore';
 import { analyzePairs } from '@/utils/analyzePairs';
 import { analyzeThaksa } from '@/utils/analyzeThaksa';
@@ -147,10 +148,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mt-4 flex gap-3">
-              <button className="flex-1 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-sm font-medium transition-colors flex items-center justify-center gap-2">
-                <Share2 className="w-4 h-4" /> แบ่งปันผลลัพธ์
-              </button>
+            <div className="mt-4">
+              <ShareButton result={result} />
             </div>
           </div>
         )}

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Search, Info, Menu, X, Sparkles } from 'lucide-react';
+import { Home, Search, Info, Menu, X, Sparkles, LogIn } from 'lucide-react';
 
 export const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +15,7 @@ export const Sidebar = () => {
         { name: 'วิเคราะห์ชื่อ', icon: Home, path: '/' },
         { name: 'ค้นหาชื่อมงคล', icon: Search, path: '/search' },
         { name: 'เกี่ยวกับเรา', icon: Info, path: '/about' },
+        { name: 'เข้าสู่ระบบ', icon: LogIn, path: '/login' },
     ];
 
     return (
@@ -59,8 +60,8 @@ export const Sidebar = () => {
                                     href={item.path}
                                     onClick={() => setIsOpen(false)}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group ${isActive
-                                            ? 'bg-gradient-to-r from-amber-500/20 to-amber-500/5 text-amber-200 border border-amber-500/20 shadow-lg shadow-amber-900/20'
-                                            : 'text-slate-400 hover:bg-white/5 hover:text-white'
+                                        ? 'bg-gradient-to-r from-amber-500/20 to-amber-500/5 text-amber-200 border border-amber-500/20 shadow-lg shadow-amber-900/20'
+                                        : 'text-slate-400 hover:bg-white/5 hover:text-white'
                                         }`}
                                 >
                                     <item.icon

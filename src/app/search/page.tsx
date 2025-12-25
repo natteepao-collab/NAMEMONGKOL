@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
-import { Search, Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Search, Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import { auspiciousNames } from '@/data/auspiciousNames';
 import { calculateScore } from '@/utils/numerologyUtils';
 import { getDayFromName, analyzeNameSuitability } from '@/utils/thaksaUtils';
@@ -16,63 +16,67 @@ function NameRow({ name }: { name: string }) {
     return (
         <>
             <tr
-                className="hover:bg-white/5 transition-colors group cursor-pointer border-b border-white/5 last:border-0"
+                className={`group cursor-pointer border-b border-white/5 last:border-0 transition-all duration-300 ${isExpanded ? 'bg-white/[0.04]' : 'hover:bg-white/[0.04]'}`}
                 onClick={() => setIsExpanded(!isExpanded)}
             >
-                <td className="px-6 py-4 font-medium text-slate-200 group-hover:text-amber-200 transition-colors">
-                    <div className="flex items-center gap-2">
-                        {isExpanded ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
-                        {name}
+                <td className="px-8 py-5">
+                    <div className="flex items-center gap-3 transition-transform duration-300 group-hover:translate-x-1">
+                        <div className={`p-1 rounded-full bg-white/5 transition-colors ${isExpanded ? 'text-amber-400 bg-amber-400/10' : 'text-slate-500 group-hover:text-amber-400 group-hover:bg-amber-400/10'}`}>
+                            {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                        </div>
+                        <span className="text-lg font-medium text-slate-200 group-hover:text-amber-200 transition-colors">
+                            {name}
+                        </span>
                     </div>
                 </td>
-                <td className="px-6 py-4 text-slate-400">
+                <td className="px-8 py-5 text-slate-400 group-hover:text-slate-300 transition-colors">
                     {day}
                 </td>
-                <td className="px-6 py-4 text-center">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">
+                <td className="px-8 py-5 text-center">
+                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/10 to-purple-500/10 text-amber-300 font-bold border border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.05)] group-hover:border-amber-500/40 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] group-hover:text-amber-200 group-hover:scale-110 transition-all duration-300">
                         {score}
                     </span>
                 </td>
             </tr>
             {isExpanded && suitability && (
-                <tr className="bg-white/[0.02]">
-                    <td colSpan={3} className="px-6 py-4">
-                        <div className="pl-6 space-y-3 text-sm">
-                            <div className="flex items-start gap-3">
-                                <div className="mt-1 min-w-[20px] text-emerald-400">
+                <tr className="bg-white/[0.02] animate-fade-in">
+                    <td colSpan={3} className="p-0">
+                        <div className="px-8 py-6 space-y-4 border-b border-white/5 bg-gradient-to-b from-black/20 to-transparent shadow-inner">
+                            <div className="flex items-start gap-4 p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
+                                <div className="mt-1 min-w-[24px] text-emerald-400 p-1 rounded-full bg-emerald-500/10">
                                     <CheckCircle className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <span className="font-semibold text-emerald-300 block mb-1">วันที่ใช้ได้ (ไม่มีกาลกิณี):</span>
+                                    <span className="font-semibold text-emerald-300 block mb-2 text-sm uppercase tracking-wider">วันที่ใช้ได้ (มงคล)</span>
                                     <div className="flex flex-wrap gap-2">
                                         {suitability.suitable.length > 0 ? (
                                             suitability.suitable.map((d, i) => (
-                                                <span key={i} className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-200 text-xs">
+                                                <span key={i} className="px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-200 text-sm hover:bg-emerald-500/20 transition-colors">
                                                     {d}
                                                 </span>
                                             ))
                                         ) : (
-                                            <span className="text-slate-500">- ไม่มี -</span>
+                                            <span className="text-slate-500 italic">- ไม่มี -</span>
                                         )}
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-3">
-                                <div className="mt-1 min-w-[20px] text-rose-400">
+                            <div className="flex items-start gap-4 p-4 rounded-xl bg-rose-500/5 border border-rose-500/10">
+                                <div className="mt-1 min-w-[24px] text-rose-400 p-1 rounded-full bg-rose-500/10">
                                     <XCircle className="w-4 h-4" />
                                 </div>
                                 <div>
-                                    <span className="font-semibold text-rose-300 block mb-1">วันที่ห้ามใช้ (มีกาลกิณี):</span>
+                                    <span className="font-semibold text-rose-300 block mb-2 text-sm uppercase tracking-wider">วันที่ห้ามใช้ (กาลกิณี)</span>
                                     <div className="flex flex-wrap gap-2">
                                         {suitability.unsuitable.length > 0 ? (
                                             suitability.unsuitable.map((d, i) => (
-                                                <span key={i} className="px-2 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-200 text-xs">
+                                                <span key={i} className="px-3 py-1 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-200 text-sm hover:bg-rose-500/20 transition-colors">
                                                     {d}
                                                 </span>
                                             ))
                                         ) : (
-                                            <span className="text-slate-500">- ไม่มี -</span>
+                                            <span className="text-slate-500 italic">- ไม่มี -</span>
                                         )}
                                     </div>
                                 </div>
@@ -85,11 +89,15 @@ function NameRow({ name }: { name: string }) {
     );
 }
 
+const ITEMS_PER_PAGE = 50;
+
 export default function SearchPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedDay, setSelectedDay] = useState<DayKey | 'all'>('all');
     const [targetSum, setTargetSum] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
 
+    // Filter Logic
     const filteredNames = useMemo(() => {
         return auspiciousNames.filter((name) => {
             // 1. Search Term
@@ -111,6 +119,25 @@ export default function SearchPage() {
             return true;
         });
     }, [searchTerm, selectedDay, targetSum]);
+
+    // Reset to page 1 when filters change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchTerm, selectedDay, targetSum]);
+
+    // Pagination Logic
+    const totalPages = Math.ceil(filteredNames.length / ITEMS_PER_PAGE);
+    const currentItems = useMemo(() => {
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        return filteredNames.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    }, [currentPage, filteredNames]);
+
+    const handlePageChange = (newPage: number) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setCurrentPage(newPage);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-amber-500 selection:text-white relative overflow-hidden">
@@ -191,24 +218,27 @@ export default function SearchPage() {
                 </div>
 
                 {/* Results Table */}
-                <div className="overflow-x-auto rounded-xl border border-white/5 bg-white/5 backdrop-blur-xl">
-                    <table className="w-full text-left text-sm md:text-base">
-                        <thead className="bg-white/5 text-slate-300">
-                            <tr>
-                                <th className="px-6 py-4 font-semibold">ชื่อมงคล</th>
-                                <th className="px-6 py-4 font-semibold">วัน</th>
-                                <th className="px-6 py-4 font-semibold text-center">ผลรวมเลขศาสตร์</th>
+                <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-xl mb-8 shadow-2xl shadow-black/20">
+                    <table className="w-full text-left">
+                        <thead>
+                            <tr className="bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-amber-500/10 border-b border-white/10 text-amber-200">
+                                <th className="px-8 py-5 font-semibold text-lg tracking-wide">ชื่อมงคล</th>
+                                <th className="px-8 py-5 font-semibold text-lg tracking-wide">วัน</th>
+                                <th className="px-8 py-5 font-semibold text-lg tracking-wide text-center">ผลรวมเลขศาสตร์</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
-                            {filteredNames.length > 0 ? (
-                                filteredNames.map((name, index) => (
+                            {currentItems.length > 0 ? (
+                                currentItems.map((name, index) => (
                                     <NameRow key={index} name={name} />
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={3} className="px-6 py-12 text-center text-slate-500">
-                                        ไม่พบรายชื่อที่ตรงกับเงื่อนไข
+                                    <td colSpan={3} className="px-8 py-16 text-center text-slate-500">
+                                        <div className="flex flex-col items-center gap-3">
+                                            <Sparkles className="w-8 h-8 opacity-20" />
+                                            <span>ไม่พบรายชื่อที่ตรงกับเงื่อนไข</span>
+                                        </div>
                                     </td>
                                 </tr>
                             )}
@@ -216,9 +246,41 @@ export default function SearchPage() {
                     </table>
                 </div>
 
-                <div className="mt-4 text-center text-slate-500 text-sm">
-                    แสดงผล {filteredNames.length} รายชื่อ
-                </div>
+                {/* Pagination Controls */}
+                {filteredNames.length > ITEMS_PER_PAGE && (
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
+                        <div>
+                            แสดงผล {((currentPage - 1) * ITEMS_PER_PAGE) + 1} - {Math.min(currentPage * ITEMS_PER_PAGE, filteredNames.length)} จาก {filteredNames.length} รายชื่อ
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                className="p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                            >
+                                <ChevronLeft className="w-5 h-5" />
+                            </button>
+
+                            <span className="px-4 py-2 rounded-lg border border-white/10 bg-white/5">
+                                หน้า {currentPage} / {totalPages}
+                            </span>
+
+                            <button
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                                className="p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                            >
+                                <ChevronRight className="w-5 h-5" />
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {filteredNames.length > 0 && filteredNames.length <= ITEMS_PER_PAGE && (
+                    <div className="mt-4 text-center text-slate-500 text-sm">
+                        แสดงผล {filteredNames.length} รายชื่อ
+                    </div>
+                )}
             </div>
         </div>
     );
