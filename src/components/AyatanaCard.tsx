@@ -14,7 +14,7 @@ export const AyatanaCard: React.FC<AyatanaCardProps> = ({ ayatana }) => {
             </h4>
             <div className="text-center p-4 bg-slate-800/50 rounded-xl border border-slate-700">
                 <div className="text-3xl font-bold text-white mb-1">{ayatana.score}</div>
-                <div className="text-amber-300 font-medium mb-2">"{ayatana.title}"</div>
+                <div className="text-amber-300 font-medium mb-2">&quot;{ayatana.title}&quot;</div>
                 <p className="text-sm text-slate-400">{ayatana.desc}</p>
             </div>
         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Search, Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import { auspiciousNames } from '@/data/auspiciousNames';
 import { calculateScore } from '@/utils/numerologyUtils';
@@ -120,10 +120,22 @@ export default function SearchPage() {
         });
     }, [searchTerm, selectedDay, targetSum]);
 
-    // Reset to page 1 when filters change
-    useEffect(() => {
+    // Reset to page 1 when filters change is now handled in event handlers
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
         setCurrentPage(1);
-    }, [searchTerm, selectedDay, targetSum]);
+    };
+
+    const handleDayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedDay(e.target.value as DayKey | 'all');
+        setCurrentPage(1);
+    };
+
+    const handleSumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTargetSum(e.target.value);
+        setCurrentPage(1);
+    };
 
     // Pagination Logic
     const totalPages = Math.ceil(filteredNames.length / ITEMS_PER_PAGE);
@@ -173,7 +185,7 @@ export default function SearchPage() {
                             <input
                                 type="text"
                                 value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onChange={handleSearchChange}
                                 className="block w-full pl-11 pr-4 py-4 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all"
                                 placeholder="ค้นหาชื่อ..."
                             />
@@ -189,7 +201,7 @@ export default function SearchPage() {
                             </div>
                             <select
                                 value={selectedDay}
-                                onChange={(e) => setSelectedDay(e.target.value as DayKey | 'all')}
+                                onChange={handleDayChange}
                                 className="block w-full pl-11 pr-4 py-3 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all appearance-none cursor-pointer"
                             >
                                 <option value="all">ทุกวันเกิด</option>
@@ -209,7 +221,7 @@ export default function SearchPage() {
                             <input
                                 type="number"
                                 value={targetSum}
-                                onChange={(e) => setTargetSum(e.target.value)}
+                                onChange={handleSumChange}
                                 className="block w-full px-4 py-3 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all"
                                 placeholder="ระบุผลรวมที่ต้องการ... (เช่น 24)"
                             />

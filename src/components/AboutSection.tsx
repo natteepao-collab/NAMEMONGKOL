@@ -29,13 +29,13 @@ const AboutSection = () => {
                     <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
                         เกี่ยวกับ NAMEMONGKOL <br className="hidden md:block" />
                         <span className="text-slate-300">ผสานศาสตร์แห่งตัวเลขและทักษาปกรณ์</span> <br className="hidden md:block" />
-                        เพื่อ <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-violet-500 font-bold">"ชื่อมงคล"</span> ของคุณ
+                        เพื่อ <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-violet-500 font-bold">&quot;ชื่อมงคล&quot;</span> ของคุณ
                     </h1>
 
                     <div className="bg-slate-800/30 backdrop-blur-md rounded-2xl p-6 md:p-8 max-w-4xl mx-auto border border-white/5 mt-10 shadow-2xl">
                         <p className="text-slate-300 leading-relaxed text-lg text-left indent-8">
                             ยินดีต้อนรับสู่ <strong>NAMEMONGKOL</strong> แพลตฟอร์มวิเคราะห์ชื่อและนามสกุลอัจฉริยะ
-                            เราเชื่อว่า "ชื่อ" คือพรข้อแรกของชีวิตและเป็นจุดเริ่มต้นของความสำเร็จ
+                            เราเชื่อว่า &quot;ชื่อ&quot; คือพรข้อแรกของชีวิตและเป็นจุดเริ่มต้นของความสำเร็จ
                             เราจึงพัฒนาระบบที่รวบรวมหลักการทางโหราศาสตร์ไทยโบราณ ผสมผสานกับเทคโนโลยีการคำนวณที่แม่นยำ
                             เพื่อช่วยให้คุณค้นหา <strong>ชื่อมงคล</strong> ที่สมพงศ์กับดวงชะตาที่สุด
                         </p>

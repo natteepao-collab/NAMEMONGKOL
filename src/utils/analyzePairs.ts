@@ -16,7 +16,7 @@ export const analyzePairs = (text: string): PairAnalysis[] => {
 
     // 1. Convert text to array of values, filtering only valid chars
     const numbers: number[] = [];
-    for (let char of text) {
+    for (const char of text) {
         if (charValues[char]) {
             numbers.push(charValues[char]);
         }
