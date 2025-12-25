@@ -39,6 +39,9 @@ export async function generateMetadata(
     openGraph: {
       title: title,
       description: description,
+      images: [`/api/og?name=${encodeURIComponent(cleanName)}&surname=${encodeURIComponent(cleanSurname)}&score=${totalScore}`],
+      url: `/?name=${encodeURIComponent(cleanName)}&surname=${encodeURIComponent(cleanSurname)}&day=${searchParams.day || 'sunday'}`,
+      type: 'website',
     }
   }
 }
