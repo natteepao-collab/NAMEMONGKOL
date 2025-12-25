@@ -44,6 +44,24 @@ export default function LoginPage() {
         }
     };
 
+    const handleGoogleLogin = async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: `${window.location.origin}/auth/callback`,
+                },
+            });
+            if (error) throw error;
+        } catch (err: unknown) {
+            console.error('Google login error:', err);
+            setError((err as Error).message || 'เกิดข้อผิดพลาดในการเข้าสู่ระบบด้วย Google');
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-amber-500 selection:text-white relative overflow-hidden flex items-center justify-center p-4">
             {/* Background Decor */}
@@ -158,7 +176,12 @@ export default function LoginPage() {
                     </div>
 
                     <div className="space-y-3">
-                        <button className="w-full py-3 px-4 bg-white text-slate-900 font-medium rounded-xl hover:bg-slate-100 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed" disabled={isLoading}>
+                        <button
+                            type="button"
+                            onClick={handleGoogleLogin}
+                            className="w-full py-3 px-4 bg-white text-slate-900 font-medium rounded-xl hover:bg-slate-100 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                            disabled={isLoading}
+                        >
                             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M23.52 12.29C23.52 11.43 23.44 10.71 23.3 10.05H12V14.53H18.57C18.3 16.08 17.38 17.5 15.93 18.53V21.75H19.75C21.99 19.66 23.52 16.47 23.52 12.29Z" fill="#4285F4" />
                                 <path d="M12 24C15.24 24 17.96 22.92 19.98 21.05L16.2 17.7C15.09 18.45 13.67 18.9 12 18.9C8.84 18.9 6.16 16.71 5.2 13.8L1.35 16.79C3.36 20.9 7.42 24 12 24Z" fill="#34A853" />

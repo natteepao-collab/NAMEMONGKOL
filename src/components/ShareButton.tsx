@@ -8,9 +8,10 @@ import { AnalysisResult } from '@/types';
 
 interface ShareButtonProps {
     result?: AnalysisResult | null;
+    day?: string;
 }
 
-export const ShareButton: React.FC<ShareButtonProps> = ({ result }) => {
+export const ShareButton: React.FC<ShareButtonProps> = ({ result, day }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [copied, setCopied] = useState(false);
 
@@ -60,7 +61,17 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ result }) => {
     };
 
     const handleShare = (platform: 'facebook' | 'line' | 'copy') => {
-        const url = window.location.href;
+        // Construct URL with query parameters
+        let url = window.location.href;
+
+        if (result && day) {
+            const params = new URLSearchParams();
+            params.set('name', result.name);
+            params.set('surname', result.surname);
+            params.set('day', day);
+            url = `${window.location.origin}?${params.toString()}`;
+        }
+
         const text = result
             ? `วิเคราะห์ชื่อมงคล: ${result.name} ${result.surname} - ผลรวม ${result.totalScore} ความหมาย: ${result.prediction?.desc}`
             : 'วิเคราะห์ชื่อมงคลกับ NameMongkol';
