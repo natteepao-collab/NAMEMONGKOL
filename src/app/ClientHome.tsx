@@ -125,17 +125,32 @@ function HomeContent() {
 
             {/* Header */}
             <nav className="relative z-10 w-full px-6 py-4 flex justify-between items-center backdrop-blur-md border-b border-white/5 bg-[#0f172a]/80">
-                <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
-                        <Sparkles className="w-5 h-5 text-white" />
+                <Link href="/" className="flex items-center gap-3 group">
+                    <div className="relative">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 to-amber-300 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
+                        <div className="relative w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform duration-300">
+                            <Sparkles className="w-6 h-6 text-white" />
+                        </div>
                     </div>
-                    <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200">
-                        NAMEMONGKOL
-                    </span>
-                </div>
-                <Link href="/about" className="text-sm text-slate-400 hover:text-white transition-colors">
-                    เกี่ยวกับเรา
+
+                    <div className="hidden md:block w-px h-8 bg-white/10 mx-2"></div>
+
+                    <div className="flex flex-col">
+                        <span className="text-xl font-bold tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 drop-shadow-sm">
+                            NAMEMONGKOL
+                        </span>
+                        <span className="text-[10px] text-amber-500/80 font-medium tracking-widest uppercase hidden md:block">
+                            Numerology Analysis
+                        </span>
+                    </div>
                 </Link>
+
+                <div className="flex items-center gap-6">
+                    <Link href="/about" className="text-sm font-medium text-slate-400 hover:text-amber-400 transition-colors relative group">
+                        เกี่ยวกับเรา
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all group-hover:w-full"></span>
+                    </Link>
+                </div>
             </nav>
 
             <main className="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-[80vh]">
