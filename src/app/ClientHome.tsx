@@ -146,6 +146,10 @@ function HomeContent() {
                 </Link>
 
                 <div className="flex items-center gap-6">
+                    <Link href="/premium-search" className="text-sm font-medium text-slate-400 hover:text-amber-400 transition-colors relative group">
+                        ชื่อมงคลคัดพิเศษ
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all group-hover:w-full"></span>
+                    </Link>
                     <Link href="/about" className="text-sm font-medium text-slate-400 hover:text-amber-400 transition-colors relative group">
                         เกี่ยวกับเรา
                         <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all group-hover:w-full"></span>
