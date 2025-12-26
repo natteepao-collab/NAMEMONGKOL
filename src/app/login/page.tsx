@@ -62,6 +62,24 @@ export default function LoginPage() {
         }
     };
 
+    const handleFacebookLogin = async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'facebook',
+                options: {
+                    redirectTo: `${window.location.origin}/auth/callback`,
+                },
+            });
+            if (error) throw error;
+        } catch (err: unknown) {
+            console.error('Facebook login error:', err);
+            setError((err as Error).message || 'เกิดข้อผิดพลาดในการเข้าสู่ระบบด้วย Facebook');
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-amber-500 selection:text-white relative overflow-hidden flex items-center justify-center p-4">
             {/* Background Decor */}
@@ -190,7 +208,12 @@ export default function LoginPage() {
                             </svg>
                             <span>ดำเนินการต่อด้วย Google</span>
                         </button>
-                        <button className="w-full py-3 px-4 bg-[#1877F2] hover:bg-[#166fe5] text-white font-medium rounded-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed" disabled={isLoading}>
+                        <button
+                            type="button"
+                            onClick={handleFacebookLogin}
+                            className="w-full py-3 px-4 bg-[#1877F2] hover:bg-[#166fe5] text-white font-medium rounded-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                            disabled={isLoading}
+                        >
                             <Facebook className="w-5 h-5 fill-current" />
                             <span>ดำเนินการต่อด้วย Facebook</span>
                         </button>
