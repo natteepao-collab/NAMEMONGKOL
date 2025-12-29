@@ -1,3 +1,6 @@
+import { calculateScore, analyzePairs } from './numerologyUtils';
+import { thaksaConfig, DayKey } from '../data/thaksa';
+
 export interface PremiumNameData {
     name: string;
     totalScore: number;
@@ -5,58 +8,65 @@ export interface PremiumNameData {
     scoreBreakdown: string[];
 }
 
+const SHORT_DAY_NAMES: Record<DayKey, string> = {
+    sunday: 'อาทิตย์',
+    monday: 'จันทร์',
+    tuesday: 'อังคาร',
+    wednesday: 'พุธ(กลางวัน)',
+    wednesday_night: 'พุธ(กลางคืน)',
+    thursday: 'พฤหัสบดี',
+    friday: 'ศุกร์',
+    saturday: 'เสาร์'
+};
+
 export const parsePremiumNames = (rawData: string): PremiumNameData[] => {
-    const lines = rawData.trim().split('\n');
+    // Split by newlines and handle potential empty lines
+    const lines = rawData.split('\n').map(line => line.trim()).filter(line => line !== '');
     const results: PremiumNameData[] = [];
     const seenNames = new Set<string>();
 
-    for (const line of lines) {
-        if (!line.trim()) continue;
+    for (const name of lines) {
+        // Skip comments or empty lines if any slipped through
+        if (name.startsWith('//') || !name) continue;
 
-        // Split by tab first, as that's the most likely separator for spreadsheet data
-        let parts = line.split('\t').map(p => p.trim()).filter(p => p !== '');
+        // Skip duplicates
+        if (seenNames.has(name)) continue;
+        seenNames.add(name);
 
-        // If tabs didn't work (length < 4), try splitting by multiple spaces
-        if (parts.length < 4) {
-            // Use regex to split by 2 or more spaces, but be careful about the days part which might have spaces
-            // Logic:
-            // 1. Name is first part
-            // 2. Score is number
-            // 3. Days is string
-            // 4. Breakdown contains numbers and 🟢
+        // 1. Calculate Score
+        const totalScore = calculateScore(name);
 
-            // Let's try a strict column extraction regex
-            // Name (space) Score (space) Days (space) Breakdown
-            const match = line.match(/^(\S+)\s+(\d+)\s+(.+?)\s+([\d🟢\s\-]+)$/);
-            if (match) {
-                parts = [match[1], match[2], match[3], match[4]];
+        // 2. Identify Suitable Days (No Kali/Galkinee)
+        const suitableDays: string[] = [];
+        (Object.keys(thaksaConfig) as DayKey[]).forEach((key) => {
+            const dayConfig = thaksaConfig[key];
+            const kaliChars = dayConfig.kali;
+
+            // Check if name contains any kali char for this day
+            let hasKali = false;
+            for (const char of name) {
+                if (kaliChars.includes(char)) {
+                    hasKali = true;
+                    break;
+                }
             }
-        }
 
-        if (parts.length >= 4) {
-            const name = parts[0];
-            const totalScore = parseInt(parts[1], 10);
-            const daysStr = parts[2];
-            const breakdownStr = parts[3];
-
-            // Clean up days
-            const suitableDays = daysStr.split(',').map(d => d.trim());
-
-            // Clean up breakdown
-            // Format: "16🟢 - 66🟢 - ..."
-            const scoreBreakdown = breakdownStr.split('-').map(s => s.trim());
-
-            // Deduplication check
-            if (!seenNames.has(name)) {
-                seenNames.add(name);
-                results.push({
-                    name,
-                    totalScore,
-                    suitableDays,
-                    scoreBreakdown
-                });
+            if (!hasKali) {
+                suitableDays.push(SHORT_DAY_NAMES[key]);
             }
-        }
+        });
+
+        // 3. Generate Score Breakdown (Pairs)
+        const pairData = analyzePairs(name);
+        // Format: "16🟢"
+        const scoreBreakdown = pairData.map(p => `${p.pair}🟢`);
+
+        results.push({
+            name,
+            totalScore,
+            suitableDays,
+            scoreBreakdown
+        });
     }
 
     return results;

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { Search, Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { auspiciousNames } from '@/data/auspiciousNames';
 import { calculateScore } from '@/utils/numerologyUtils';
 import { getDayFromName, analyzeNameSuitability } from '@/utils/thaksaUtils';
@@ -96,6 +96,14 @@ export default function SearchPage() {
     const [selectedDay, setSelectedDay] = useState<DayKey | 'all'>('all');
     const [targetSum, setTargetSum] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
+    const [isSumFocused, setIsSumFocused] = useState(false);
+    const [hasTyped, setHasTyped] = useState(false);
+
+    // Calculate unique scores for datalist
+    const uniqueScores = useMemo(() => {
+        const scores = new Set(auspiciousNames.map(name => calculateScore(name)));
+        return Array.from(scores).sort((a, b) => a - b);
+    }, []);
 
     // Filter Logic
     const filteredNames = useMemo(() => {
@@ -134,6 +142,7 @@ export default function SearchPage() {
 
     const handleSumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTargetSum(e.target.value);
+        setHasTyped(true);
         setCurrentPage(1);
     };
 
@@ -217,14 +226,61 @@ export default function SearchPage() {
                         </div>
 
                         {/* Sum Filter */}
-                        <div className="relative">
+                        <div className="relative group">
                             <input
                                 type="number"
                                 value={targetSum}
                                 onChange={handleSumChange}
-                                className="block w-full px-4 py-3 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all"
-                                placeholder="ระบุผลรวมที่ต้องการ... (เช่น 24)"
+                                onFocus={(e) => {
+                                    setIsSumFocused(true);
+                                    setHasTyped(false);
+                                    e.target.select();
+                                }}
+                                onBlur={() => setTimeout(() => setIsSumFocused(false), 200)} // Delay to allow click
+                                className="block w-full px-4 py-3 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                placeholder="ระบุผลรวม... (หรือเลือก)"
                             />
+
+                            <div className={`absolute top-full left-0 w-full mt-2 max-h-60 overflow-y-auto bg-[#1e293b] border border-white/10 rounded-xl shadow-xl z-50 transition-all duration-200 custom-scrollbar ${isSumFocused ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-2 invisible'}`}>
+                                {uniqueScores
+                                    .filter(score => (isSumFocused && !hasTyped) || !targetSum || score.toString().includes(targetSum))
+                                    .map(score => (
+                                        <div
+                                            key={score}
+                                            onClick={() => {
+                                                setTargetSum(score.toString());
+                                                setCurrentPage(1);
+                                            }}
+                                            className="px-4 py-3 hover:bg-white/5 cursor-pointer text-slate-300 hover:text-amber-400 transition-colors border-b border-white/5 last:border-0 flex items-center justify-between group/item"
+                                        >
+                                            <span className="font-medium">ผลรวม {score}</span>
+                                            {targetSum === score.toString() && <CheckCircle size={16} className="text-emerald-400" />}
+                                        </div>
+                                    ))}
+                                {uniqueScores.filter(score => !targetSum || score.toString().includes(targetSum)).length === 0 && (
+                                    <div className="px-4 py-3 text-slate-500 text-center italic text-sm">
+                                        ไม่พบผลรวมที่ค้นหา
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
+                                {targetSum ? (
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setTargetSum('');
+                                            setHasTyped(false);
+                                            setIsSumFocused(false);
+                                        }}
+                                        className="text-slate-400 hover:text-rose-400 transition-colors"
+                                    >
+                                        <X size={16} />
+                                    </button>
+                                ) : (
+                                    <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform duration-300 ${isSumFocused ? 'rotate-180' : ''}`} />
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
