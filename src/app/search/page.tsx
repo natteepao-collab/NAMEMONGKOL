@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { Search, Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { auspiciousNames } from '@/data/auspiciousNames';
 import { calculateScore } from '@/utils/numerologyUtils';
 import { getDayFromName, analyzeNameSuitability } from '@/utils/thaksaUtils';
@@ -92,7 +92,7 @@ function NameRow({ name }: { name: string }) {
 const ITEMS_PER_PAGE = 50;
 
 export default function SearchPage() {
-    const [searchTerm, setSearchTerm] = useState('');
+
     const [selectedDay, setSelectedDay] = useState<DayKey | 'all'>('all');
     const [targetSum, setTargetSum] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
@@ -108,8 +108,7 @@ export default function SearchPage() {
     // Filter Logic
     const filteredNames = useMemo(() => {
         return auspiciousNames.filter((name) => {
-            // 1. Search Term
-            if (searchTerm && !name.includes(searchTerm)) return false;
+
 
             // 2. Day Filter (Suitability)
             if (selectedDay !== 'all') {
@@ -126,14 +125,11 @@ export default function SearchPage() {
 
             return true;
         });
-    }, [searchTerm, selectedDay, targetSum]);
+    }, [selectedDay, targetSum]);
 
     // Reset to page 1 when filters change is now handled in event handlers
 
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(e.target.value);
-        setCurrentPage(1);
-    };
+
 
     const handleDayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedDay(e.target.value as DayKey | 'all');
@@ -184,22 +180,7 @@ export default function SearchPage() {
 
                 {/* Search & Filter Section */}
                 <div className="max-w-4xl mx-auto mb-12 space-y-4">
-                    {/* Main Search Bar */}
-                    <div className="relative group">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 via-purple-500 to-amber-500 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <Search className="h-5 w-5 text-slate-400 group-focus-within:text-amber-400 transition-colors" />
-                            </div>
-                            <input
-                                type="text"
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                                className="block w-full pl-11 pr-4 py-4 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all"
-                                placeholder="ค้นหาชื่อ..."
-                            />
-                        </div>
-                    </div>
+
 
                     {/* Filters */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
