@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, Suspense, useCallback } from 'react';
+import React, { useState, useEffect, Suspense, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ChevronRight, Sparkles, Loader2 } from 'lucide-react';
@@ -21,12 +21,16 @@ import { AnalysisResult } from '@/types';
 
 function HomeContent() {
     const searchParams = useSearchParams();
-    const [name, setName] = useState('');
-    const [surname, setSurname] = useState('');
-    const [day, setDay] = useState('sunday');
+    const initialName = searchParams.get('name') ?? '';
+    const initialSurname = searchParams.get('surname') ?? '';
+    const initialDay = searchParams.get('day') ?? 'sunday';
+
+    const [name, setName] = useState(initialName);
+    const [surname, setSurname] = useState(initialSurname);
+    const [day, setDay] = useState(initialDay);
     const [result, setResult] = useState<AnalysisResult | null>(null);
     const [loading, setLoading] = useState(false);
-    const [initialized, setInitialized] = useState(false);
+    const didInitFromParams = useRef(false);
 
     const performAnalysis = useCallback(async (inputName: string, inputSurname: string, inputDay: string) => {
         if (!inputName.trim()) return;
@@ -83,23 +87,16 @@ function HomeContent() {
         }
     }, []);
 
-    // Handle URL params on mount
+    // Handle URL params on first mount
     useEffect(() => {
-        if (initialized) return;
+        if (didInitFromParams.current) return;
+        didInitFromParams.current = true;
 
-        const paramName = searchParams.get('name');
-        const paramSurname = searchParams.get('surname');
-        const paramDay = searchParams.get('day');
-
-        if (paramName) {
-            setName(paramName);
-            setSurname(paramSurname || '');
-            if (paramDay) setDay(paramDay);
-
-            performAnalysis(paramName, paramSurname || '', paramDay || 'sunday');
+        if (initialName) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            performAnalysis(initialName, initialSurname, initialDay);
         }
-        setInitialized(true);
-    }, [searchParams, performAnalysis, initialized]);
+    }, [performAnalysis, initialName, initialSurname, initialDay]);
 
     const handleAnalyzeClick = () => {
         performAnalysis(name, surname, day);
@@ -124,8 +121,8 @@ function HomeContent() {
             </div>
 
             {/* Header */}
-            <nav className="relative z-10 w-full px-6 py-4 flex justify-between items-center backdrop-blur-md border-b border-white/5 bg-[#0f172a]/80">
-                <Link href="/" className="flex items-center gap-3 group">
+            <nav className="lg:hidden sticky top-0 z-50 w-full px-4 lg:px-6 flex justify-center items-center backdrop-blur-md border-b border-white/5 bg-[#0f172a]/80 h-[calc(env(safe-area-inset-top)+4rem)] pt-[env(safe-area-inset-top)]">
+                <Link href="/" className="flex items-center gap-3 group absolute left-1/2 -translate-x-1/2">
                     <div className="relative">
                         <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 to-amber-300 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
                         <div className="relative w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform duration-300">
@@ -145,7 +142,7 @@ function HomeContent() {
                     </div>
                 </Link>
 
-                <div className="flex items-center gap-6">
+                <div className="hidden sm:flex items-center gap-6">
                     <Link href="/premium-search" className="text-sm font-medium text-slate-400 hover:text-amber-400 transition-colors relative group">
                         ชื่อมงคลคัดพิเศษ
                         <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all group-hover:w-full"></span>
@@ -157,7 +154,7 @@ function HomeContent() {
                 </div>
             </nav>
 
-            <main className="relative z-10 container mx-auto px-4 py-8 flex flex-col items-center justify-center min-h-[80vh]">
+            <main className="relative z-10 container mx-auto px-4 py-6 sm:py-8 flex flex-col items-center justify-center min-h-[80vh] pb-[calc(env(safe-area-inset-bottom)+2rem)]">
 
                 {!result ? (
                     <InputForm

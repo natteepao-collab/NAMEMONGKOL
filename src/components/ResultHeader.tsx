@@ -15,16 +15,16 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
                         <User className="w-6 h-6 text-amber-400" />
                     </div>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400 text-center">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400 text-center break-words px-2 leading-tight">
                     {result.name} {result.surname}
                 </h2>
                 <div className="h-px w-32 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent mt-6"></div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <div className="glass-card p-4 rounded-2xl text-center relative overflow-hidden group hover:scale-[1.02] transition-transform">
                     <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${result.namePrediction.bgGradient}`}></div>
                     <span className="text-slate-400 text-sm font-medium">ผลรวมชื่อ</span>
-                    <div className={`text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${result.namePrediction.bgGradient} mt-2 mb-1`}>
+                    <div className={`text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${result.namePrediction.bgGradient} mt-2 mb-1`}>
                         {result.nameScore}
                     </div>
                     <div className={`text-xs font-medium ${result.namePrediction.color} mb-1`}>
@@ -39,7 +39,7 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
                 <div className="glass-card p-4 rounded-2xl text-center relative overflow-hidden group hover:scale-[1.02] transition-transform">
                     <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${result.surnamePrediction.bgGradient}`}></div>
                     <span className="text-slate-400 text-sm font-medium">ผลรวมนามสกุล</span>
-                    <div className={`text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${result.surnamePrediction.bgGradient} mt-2 mb-1`}>
+                    <div className={`text-4xl sm:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${result.surnamePrediction.bgGradient} mt-2 mb-1`}>
                         {result.surnameScore}
                     </div>
                     <div className={`text-xs font-medium ${result.surnamePrediction.color} mb-1`}>
@@ -56,7 +56,7 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
             <div className="glass-card rounded-2xl p-6 text-center relative overflow-hidden">
                 <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${result.prediction.bgGradient}`}></div>
                 <h3 className="text-lg text-slate-400 mb-1">ผลรวมชื่อ-สกุล</h3>
-                <div className={`text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${result.prediction.bgGradient} mb-4`}>
+                <div className={`text-5xl sm:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${result.prediction.bgGradient} mb-4`}>
                     {result.totalScore}
                 </div>
                 <div className="flex justify-center gap-1 mb-3">

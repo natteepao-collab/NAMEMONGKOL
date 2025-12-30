@@ -6,9 +6,10 @@ import Swal from 'sweetalert2';
 import {
     Sparkles, Calendar, Clock, User, Target,
     ChevronRight, ArrowLeft, Star, Crown,
-    Lock, CheckCircle2, AlertCircle, RefreshCw
+    Lock, CheckCircle2, AlertCircle, RefreshCw,
+    Coins, Briefcase, Activity, Heart, HelpingHand, Check
 } from 'lucide-react';
-import { Sidebar } from '@/components/Sidebar';
+
 import { supabase } from '@/utils/supabase';
 import { generatePremiumNames, PremiumResult, FocusTopic, FOCUS_TOPIC_LABELS, getAstrologicalDay } from '@/utils/premiumAnalysisUtils';
 import { DayKey } from '@/data/thaksa';
@@ -24,6 +25,7 @@ export default function PremiumAnalysisPage() {
 
     // Derived state for display input to allow typing
     const [dateInput, setDateInput] = useState('');
+    const [isUnknownTime, setIsUnknownTime] = useState(false);
 
     // Sync birthDate (YYYY-MM-DD from picker/logic) to dateInput (DD/MM/YYYY)
     useEffect(() => {
@@ -44,6 +46,14 @@ export default function PremiumAnalysisPage() {
 
     // Track shown names to avoid duplicates in re-rolls
     const [shownNames, setShownNames] = useState<string[]>([]);
+
+    const focusOptions: Array<{ key: FocusTopic; title: string; subtitle: string; icon: JSX.Element }> = [
+        { key: 'WEALTH', title: 'โชคลาภและการเงิน', subtitle: 'เพิ่มพลังรายได้และทรัพย์สิน', icon: <Coins size={18} /> },
+        { key: 'JOB', title: 'การงานและอำนาจ', subtitle: 'ดันตำแหน่ง บารมี และโอกาส', icon: <Briefcase size={18} /> },
+        { key: 'HEALTH', title: 'สุขภาพ', subtitle: 'เสริมพลังชีวิตและสมดุล', icon: <Activity size={18} /> },
+        { key: 'LOVE', title: 'ความรักและเสน่ห์', subtitle: 'ดึงดูดเสน่ห์และความอบอุ่น', icon: <Heart size={18} /> },
+        { key: 'PATRON', title: 'คนอุปถัมภ์', subtitle: 'มีผู้สนับสนุนและเมตตา', icon: <HelpingHand size={18} /> },
+    ];
 
     // Fetch Credits
     useEffect(() => {
@@ -214,15 +224,15 @@ export default function PremiumAnalysisPage() {
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-amber-500/30">
-            <Sidebar />
-            <main className="lg:ml-96 min-h-screen relative overflow-hidden">
+
+            <main className="min-h-screen relative overflow-hidden">
                 {/* Background Decor */}
                 <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] rounded-full bg-amber-500/5 blur-[120px]" />
                     <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-purple-500/5 blur-[100px]" />
                 </div>
 
-                <div className="relative z-10 max-w-5xl mx-auto p-4 md:p-8 space-y-8">
+                <div className="relative z-10 max-w-6xl mx-auto p-4 md:p-8 space-y-8">
 
                     {/* Header */}
                     <header className="text-center space-y-4 pt-8">
@@ -242,113 +252,191 @@ export default function PremiumAnalysisPage() {
 
                     {!hasAnalyzed ? (
                         /* Input Form */
-                        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl animate-fade-in-up max-w-3xl mx-auto">
+                        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl animate-fade-in-up max-w-6xl mx-auto">
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                {/* Surname */}
-                                <div className="space-y-2 md:col-span-2">
-                                    <label className="text-sm font-bold text-amber-200/80 uppercase tracking-wider flex items-center gap-2">
-                                        <User size={16} /> นามสกุล * (ใช้เพื่อคำนวณความเข้ากันได้)
-                                    </label>
-                                    <input
-                                        type="text"
-                                        value={surname}
-                                        onChange={(e) => setSurname(e.target.value)}
-                                        placeholder="กรอกนามสกุลของคุณ"
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-lg focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition-all placeholder:text-slate-600"
-                                    />
-                                </div>
-
-                                {/* Birth Date */}
-                                <div className="space-y-2">
-                                    <label className="text-sm font-bold text-amber-200/80 uppercase tracking-wider flex items-center gap-2">
-                                        <Calendar size={16} /> วันเกิด
-                                    </label>
-                                    <div className="relative group">
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                                {/* Left Column: Personal Inputs */}
+                                <div className="lg:col-span-5 space-y-6">
+                                    {/* Surname */}
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-bold text-amber-200/80 uppercase tracking-wider flex items-center gap-2">
+                                            <User size={16} /> นามสกุล * (ใช้เพื่อคำนวณความเข้ากันได้)
+                                        </label>
                                         <input
                                             type="text"
-                                            value={dateInput}
-                                            onChange={(e) => {
-                                                const val = e.target.value;
-                                                setDateInput(val);
-
-                                                // Sync to birthDate if valid
-                                                if (val.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
-                                                    const [d, m, y] = val.split('/');
-                                                    // Basic validity check
-                                                    if (parseInt(d) > 0 && parseInt(d) <= 31 && parseInt(m) > 0 && parseInt(m) <= 12) {
-                                                        setBirthDate(`${y}-${m}-${d}`);
-                                                    }
-                                                } else if (val === '') {
-                                                    setBirthDate('');
-                                                }
-                                            }}
-                                            placeholder="วัน/เดือน/ปี (dd/mm/yyyy)"
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-lg focus:outline-none focus:border-amber-500/50 transition-all text-slate-300 placeholder:text-slate-500"
+                                            value={surname}
+                                            onChange={(e) => setSurname(e.target.value)}
+                                            placeholder="กรอกนามสกุลของคุณ"
+                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-lg focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition-all placeholder:text-slate-600"
                                         />
+                                    </div>
 
-                                        <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-amber-400 transition-colors cursor-pointer w-8 h-8 flex items-center justify-center">
-                                            <Calendar size={20} className="pointer-events-none" />
-                                            <input
-                                                type="date"
-                                                value={birthDate}
-                                                onChange={(e) => {
-                                                    setBirthDate(e.target.value);
-                                                }}
-                                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                                            />
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        {/* Birth Date */}
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-bold text-amber-200/80 uppercase tracking-wider flex items-center gap-2">
+                                                <Calendar size={16} /> วันเกิด
+                                            </label>
+                                            <div className="relative group">
+                                                <input
+                                                    type="text"
+                                                    value={dateInput}
+                                                    onChange={(e) => {
+                                                        const val = e.target.value;
+                                                        setDateInput(val);
+
+                                                        if (val.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+                                                            const [d, m, y] = val.split('/');
+                                                            if (parseInt(d) > 0 && parseInt(d) <= 31 && parseInt(m) > 0 && parseInt(m) <= 12) {
+                                                                setBirthDate(`${y}-${m}-${d}`);
+                                                            }
+                                                        } else if (val === '') {
+                                                            setBirthDate('');
+                                                        }
+                                                    }}
+                                                    placeholder="dd/mm/yyyy"
+                                                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-amber-500/50 transition-all text-slate-300 placeholder:text-slate-500"
+                                                />
+                                                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-amber-400 transition-colors cursor-pointer w-8 h-8 flex items-center justify-center">
+                                                    <Calendar size={18} className="pointer-events-none" />
+                                                    <input
+                                                        type="date"
+                                                        value={birthDate}
+                                                        onChange={(e) => {
+                                                            setBirthDate(e.target.value);
+                                                        }}
+                                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Birth Time */}
+                                        {/* Birth Time */}
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-bold text-amber-200/80 uppercase tracking-wider flex items-center gap-2">
+                                                <Clock size={16} /> เวลาเกิด
+                                            </label>
+                                            <div className="relative">
+                                                <input
+                                                    type="time"
+                                                    value={birthTime}
+                                                    disabled={isUnknownTime}
+                                                    onChange={(e) => setBirthTime(e.target.value)}
+                                                    className={`w-full bg-black/40 border rounded-xl px-4 py-3 text-base focus:outline-none transition-all ${isUnknownTime
+                                                        ? 'opacity-40 cursor-not-allowed border-white/5 text-slate-500'
+                                                        : 'border-white/10 text-slate-300 focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50'
+                                                        }`}
+                                                />
+                                            </div>
+
+                                            {/* Unknown Time Toggle */}
+                                            <label className="flex items-center gap-3 cursor-pointer group select-none mt-2 pl-1">
+                                                <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${isUnknownTime ? 'bg-amber-500 border-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.3)]' : 'bg-black/20 border-slate-600 group-hover:border-amber-400/50'}`}>
+                                                    {isUnknownTime && <Check size={14} className="text-[#0f172a] stroke-[4]" />}
+                                                </div>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={isUnknownTime}
+                                                    onChange={(e) => {
+                                                        const checked = e.target.checked;
+                                                        setIsUnknownTime(checked);
+                                                        if (checked) {
+                                                            setBirthTime('12:00');
+                                                        } else {
+                                                            setBirthTime('');
+                                                        }
+                                                    }}
+                                                    className="hidden"
+                                                />
+                                                <div className="flex flex-col">
+                                                    <span className={`text-sm font-medium transition-colors ${isUnknownTime ? 'text-amber-300' : 'text-slate-400 group-hover:text-amber-200'}`}>
+                                                        ไม่ทราบเวลาเกิด
+                                                    </span>
+                                                    {isUnknownTime && (
+                                                        <span className="text-[10px] text-amber-500/60 font-medium">
+                                                            * ระบบจะใช้ค่ากลาง (12:00 น.) ในการคำนวณ
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    {/* Gender */}
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-bold text-amber-200/80 uppercase tracking-wider flex items-center gap-2">
+                                            เพศ
+                                        </label>
+                                        <div className="flex bg-black/40 rounded-xl p-1 border border-white/10">
+                                            <button
+                                                onClick={() => setGender('male')}
+                                                className={`flex-1 py-3 rounded-lg font-medium transition-all ${gender === 'male' ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}
+                                            >
+                                                ชาย
+                                            </button>
+                                            <button
+                                                onClick={() => setGender('female')}
+                                                className={`flex-1 py-3 rounded-lg font-medium transition-all ${gender === 'female' ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}
+                                            >
+                                                หญิง
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* Birth Time */}
-                                <div className="space-y-2">
-                                    <label className="text-sm font-bold text-amber-200/80 uppercase tracking-wider flex items-center gap-2">
-                                        <Clock size={16} /> เวลาเกิด (โดยประมาณ)
-                                    </label>
-                                    <input
-                                        type="time"
-                                        value={birthTime}
-                                        onChange={(e) => setBirthTime(e.target.value)}
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-lg focus:outline-none focus:border-amber-500/50 transition-all text-slate-300"
-                                    />
-                                </div>
+                                {/* Right Column: Focus Topic */}
+                                <div className="lg:col-span-7">
+                                    <div className="space-y-4">
+                                        <label className="text-sm font-bold text-amber-200/80 uppercase tracking-wider flex items-center gap-2">
+                                            <Target size={16} /> เรื่องที่เน้นเสริม (Focus)
+                                        </label>
 
-                                {/* Gender */}
-                                <div className="space-y-2">
-                                    <label className="text-sm font-bold text-amber-200/80 uppercase tracking-wider flex items-center gap-2">
-                                        เพศ
-                                    </label>
-                                    <div className="flex bg-black/40 rounded-xl p-1 border border-white/10">
-                                        <button
-                                            onClick={() => setGender('male')}
-                                            className={`flex-1 py-3 rounded-lg font-medium transition-all ${gender === 'male' ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}
-                                        >
-                                            ชาย
-                                        </button>
-                                        <button
-                                            onClick={() => setGender('female')}
-                                            className={`flex-1 py-3 rounded-lg font-medium transition-all ${gender === 'female' ? 'bg-slate-700 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}
-                                        >
-                                            หญิง
-                                        </button>
+                                        <div className="flex flex-col gap-3 mt-4">
+                                            {focusOptions.map((option) => {
+                                                const isActive = focus === option.key;
+                                                return (
+                                                    <button
+                                                        key={option.key}
+                                                        onClick={() => setFocus(option.key)}
+                                                        className={`group relative w-full p-4 rounded-xl border-2 text-left transition-all duration-300 overflow-hidden ${isActive
+                                                            ? 'border-amber-500 bg-gradient-to-r from-amber-500/20 via-black/40 to-black/60 shadow-[0_0_20px_rgba(245,158,11,0.2)]'
+                                                            : 'border-white/5 bg-white/5 hover:border-amber-500/30 hover:bg-white/10'
+                                                            }`}
+                                                    >
+                                                        <div className="flex items-center gap-4 relative z-10">
+                                                            {/* Icon Box */}
+                                                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors shrink-0 ${isActive ? 'bg-amber-500 text-slate-900 shadow-lg shadow-amber-500/50' : 'bg-white/10 text-slate-400 group-hover:text-amber-300'
+                                                                }`}>
+                                                                {React.cloneElement(option.icon, { size: 24 })}
+                                                            </div>
+
+                                                            {/* Text Content */}
+                                                            <div className="flex-1 min-w-0">
+                                                                <h3 className={`text-lg font-bold mb-0.5 leading-tight ${isActive ? 'text-white' : 'text-slate-200 group-hover:text-white'}`}>
+                                                                    {option.title}
+                                                                </h3>
+                                                                <p className={`text-sm font-light leading-snug ${isActive ? 'text-amber-100/80' : 'text-slate-500 group-hover:text-slate-400'}`}>
+                                                                    {option.subtitle}
+                                                                </p>
+                                                            </div>
+
+                                                            {/* Selection Indicator */}
+                                                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 shrink-0 ${isActive ? 'border-amber-500 bg-amber-500' : 'border-white/20 group-hover:border-amber-500/50'
+                                                                }`}>
+                                                                {isActive && <div className="w-2.5 h-2.5 rounded-full bg-white shadow-sm" />}
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Animated Glow BG */}
+                                                        {isActive && (
+                                                            <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 to-transparent blur-xl pointer-events-none" />
+                                                        )}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
-                                </div>
-
-                                {/* Focus Topic */}
-                                <div className="space-y-2">
-                                    <label className="text-sm font-bold text-amber-200/80 uppercase tracking-wider flex items-center gap-2">
-                                        <Target size={16} /> เรื่องที่เน้นเสริม (Focus)
-                                    </label>
-                                    <select
-                                        value={focus}
-                                        onChange={(e) => setFocus(e.target.value as FocusTopic)}
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-lg focus:outline-none focus:border-amber-500/50 transition-all text-slate-200 appearance-none"
-                                    >
-                                        {(Object.keys(FOCUS_TOPIC_LABELS) as FocusTopic[]).map((key) => (
-                                            <option key={key} value={key}>{FOCUS_TOPIC_LABELS[key]}</option>
-                                        ))}
-                                    </select>
                                 </div>
                             </div>
 
@@ -356,23 +444,27 @@ export default function PremiumAnalysisPage() {
                                 <button
                                     onClick={() => handleAnalyze(false)}
                                     disabled={isLoading}
-                                    className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-900 text-xl font-bold py-4 px-6 rounded-2xl shadow-xl shadow-amber-500/20 transform hover:-translate-y-1 transition-all disabled:opacity-50 disabled:translate-y-0 flex items-center justify-between group"
+                                    className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-amber-500 to-orange-600 p-1 shadow-2xl transition-all hover:scale-[1.02] hover:shadow-amber-500/25 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
                                 >
-                                    <div className="flex items-center gap-3">
-                                        <div className="bg-white/20 p-2 rounded-full text-white">
-                                            {isLoading ? (
-                                                <span className="animate-spin block">⏳</span>
-                                            ) : (
-                                                <Sparkles className="animate-pulse" />
-                                            )}
+                                    <div className="relative flex flex-col items-center justify-center rounded-xl bg-[#0f172a] px-6 py-6 transition-all group-hover:bg-[#0f172a]/90">
+                                        <div className="flex items-center gap-3 text-2xl font-bold text-white mb-1">
+                                            <div className="bg-amber-500/20 p-2 rounded-full text-amber-300">
+                                                {isLoading ? (
+                                                    <span className="animate-spin block">⏳</span>
+                                                ) : (
+                                                    <Sparkles className="animate-pulse w-6 h-6" />
+                                                )}
+                                            </div>
+                                            <span>วิเคราะห์ชื่อมงคล</span>
                                         </div>
-                                        <span>วิเคราะห์ชื่อมงคล</span>
-                                    </div>
-
-                                    <div className="bg-black/20 text-white text-sm px-4 py-1.5 rounded-full backdrop-blur-sm font-medium flex items-center gap-2">
-                                        ใช้ 10 Credits
+                                        <div className="text-amber-400/80 text-sm font-medium flex items-center gap-2">
+                                            ( ใช้ 10 Credits <Coins size={14} /> )
+                                        </div>
                                     </div>
                                 </button>
+                                <p className="text-center text-slate-500 text-xs mt-3">
+                                    * ระบบจะทำการตัด 10 เครดิตทันทีที่กดยืนยัน
+                                </p>
                             </div>
                         </div>
                     ) : (
@@ -391,6 +483,16 @@ export default function PremiumAnalysisPage() {
                                     <CheckCircle2 size={20} />
                                     วิเคราะห์เสร็จสิ้น (แสดง {results.length} รายชื่อ)
                                 </div>
+                            </div>
+
+                            {/* Recommendation Box */}
+                            <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 rounded-2xl p-6 text-center space-y-2">
+                                <p className="text-emerald-300 font-medium text-lg">
+                                    นี่คือผลลัพธ์ชื่อมงคลที่ผ่านการคำนวณร่วมกับนามสกุล <span className="text-white font-bold underline decoration-amber-500/50 underline-offset-4">"{surname}"</span> ของท่านเรียบร้อยแล้ว
+                                </p>
+                                <p className="text-slate-400 text-sm">
+                                    💡 <span className="text-amber-300 font-medium">คำแนะนำ:</span> เมื่อได้ชื่อที่ถูกใจแล้ว อย่าลืมนำไปตรวจสอบความไพเราะ และความเหมาะสมตามความชอบส่วนบุคคลอีกครั้งก่อนนำไปใช้งานนะคะ
+                                </p>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -266,6 +266,13 @@ export default function SearchPage() {
                     </div>
                 </div>
 
+                {/* Helper / Recommendation */}
+                <div className="mb-6 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 text-center">
+                    <p className="text-emerald-300 text-sm md:text-base font-medium">
+                        💡 คำแนะนำ: ได้ชื่อที่ต้องการแล้วอย่าลืมนำไป <a href="/" className="underline decoration-emerald-500/50 hover:text-emerald-200 transition-colors">วิเคราะห์ชื่อ - สกุล</a> ก่อนนำไปใช้ด้วยนะครับ
+                    </p>
+                </div>
+
                 {/* Results Table */}
                 <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-xl mb-8 shadow-2xl shadow-black/20">
                     <table className="w-full text-left">

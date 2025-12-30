@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Trash2, ClipboardList, CheckCircle2, Download, XCircle, Info, Hash, History, Save } from 'lucide-react';
 import { analyzeName } from '@/utils/nameAnalysis';
-import { Sidebar } from '@/components/Sidebar';
+
 import { supabase } from '@/utils/supabase';
 
 export default function NameAnalysisPage() {
@@ -80,79 +80,87 @@ export default function NameAnalysisPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#f1f5f9] font-sans text-slate-900">
-            <Sidebar />
-            <main className="lg:ml-96 transition-all duration-300 min-h-screen p-4 md:p-8">
-                <div className="max-w-7xl mx-auto">
+        <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-indigo-500/30">
+            <main className="transition-all duration-300 min-h-screen p-4 md:p-8 relative overflow-hidden">
+                {/* Background Decor */}
+                <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+                    <div className="absolute top-[10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-indigo-500/10 blur-[120px]" />
+                    <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-fuchsia-500/10 blur-[120px]" />
+                </div>
+
+                <div className="relative z-10 max-w-7xl mx-auto space-y-8 pt-8">
                     {/* Header Section */}
-                    <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-white p-6 mb-8 relative overflow-hidden mt-16 lg:mt-0">
-                        <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
-                            <Hash className="w-48 h-48 text-indigo-900" />
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div className="flex items-center gap-6">
+                            <div className="w-16 h-16 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                                <ClipboardList className="w-8 h-8" />
+                            </div>
+                            <div>
+                                <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-purple-200 to-indigo-200">
+                                    ระบบวิเคราะห์เลขศาสตร์
+                                </h1>
+                                <p className="text-indigo-300/80 font-medium text-sm flex items-center gap-2 mt-2">
+                                    <CheckCircle2 className="w-4 h-4" /> ปรับปรุงฐานข้อมูลตามตำราภาพ
+                                </p>
+                            </div>
                         </div>
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
-                            <div className="flex items-center gap-6">
-                                <div className="w-16 h-16 bg-gradient-to-tr from-indigo-600 to-indigo-400 rounded-[1.25rem] flex items-center justify-center text-white shadow-lg shadow-indigo-200">
-                                    <ClipboardList className="w-9 h-9" />
-                                </div>
-                                <div>
-                                    <h1 className="text-3xl font-black text-slate-800 tracking-tight">ระบบวิเคราะห์เลขศาสตร์</h1>
-                                    <p className="text-indigo-500 font-bold text-sm flex items-center gap-2 mt-1">
-                                        <CheckCircle2 className="w-4 h-4" /> ปรับปรุงฐานข้อมูลตามตำราภาพ
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="flex gap-3">
-                                <button
-                                    onClick={handleClear}
-                                    className="flex items-center gap-2 px-6 py-3 bg-slate-100 hover:bg-rose-50 hover:text-rose-600 rounded-2xl transition-all font-bold text-slate-600 border border-transparent hover:border-rose-100"
-                                >
-                                    <Trash2 className="w-4 h-4" /> ล้างรายชื่อ
-                                </button>
-                                {results.length > 0 && (
-                                    <>
-                                        <button
-                                            onClick={handleSaveHistory}
-                                            className="flex items-center gap-2 px-6 py-3 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-2xl transition-all font-bold border border-emerald-100"
-                                        >
-                                            <Save className="w-4 h-4" /> บันทึก
-                                        </button>
-                                        <button
-                                            onClick={exportCSV}
-                                            className="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl transition-all font-bold shadow-xl shadow-indigo-200/50 active:scale-95"
-                                        >
-                                            <Download className="w-4 h-4" /> ส่งออกข้อมูล
-                                        </button>
-                                    </>
-                                )}
-                            </div>
+                        <div className="flex flex-wrap gap-3">
+                            <button
+                                onClick={handleClear}
+                                className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-rose-400 rounded-xl transition-all font-medium border border-white/10 hover:border-rose-500/30"
+                            >
+                                <Trash2 className="w-4 h-4" /> <span className="hidden sm:inline">ล้างรายชื่อ</span>
+                            </button>
+                            {results.length > 0 && (
+                                <>
+                                    <button
+                                        onClick={handleSaveHistory}
+                                        className="flex items-center gap-2 px-6 py-3 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-xl transition-all font-bold border border-emerald-500/20 hover:border-emerald-500/40"
+                                    >
+                                        <Save className="w-4 h-4" /> บันทึก
+                                    </button>
+                                    <button
+                                        onClick={exportCSV}
+                                        className="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl transition-all font-bold shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/40 active:scale-95"
+                                    >
+                                        <Download className="w-4 h-4" /> ส่งออกข้อมูล
+                                    </button>
+                                </>
+                            )}
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                         {/* Input Panel */}
-                        <div className="lg:col-span-4 space-y-4">
-                            <div className="bg-white rounded-[2rem] shadow-lg shadow-slate-200/40 border border-white overflow-hidden sticky top-8">
-                                <div className="p-6 border-b border-slate-50 bg-slate-50/50 flex justify-between items-center">
-                                    <h3 className="font-black text-slate-600 uppercase tracking-widest text-xs">รายชื่อที่ต้องการวิเคราะห์</h3>
-                                    <span className={`text-[11px] px-3 py-1 rounded-full font-black ${results.length >= 1000 ? 'bg-rose-500 text-white' : 'bg-indigo-100 text-indigo-700'}`}>
+                        <div className="lg:col-span-4 space-y-4 sticky top-8">
+                            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+                                <div className="p-6 border-b border-white/5 bg-white/[0.02] flex justify-between items-center">
+                                    <h3 className="font-bold text-slate-300 uppercase tracking-wider text-xs flex items-center gap-2">
+                                        <Hash className="w-4 h-4 text-indigo-400" />
+                                        รายชื่อที่ต้องการวิเคราะห์
+                                    </h3>
+                                    <span className={`text-[10px] px-2 py-1 rounded-md font-bold border ${results.length >= 1000
+                                            ? 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+                                            : 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20'
+                                        }`}>
                                         {results.length.toLocaleString()} / 1,000
                                     </span>
                                 </div>
-                                <div className="p-6">
+                                <div className="p-4">
                                     <textarea
-                                        className="w-full h-[520px] p-6 text-2xl border-2 border-slate-100 rounded-3xl focus:ring-4 focus:ring-indigo-50 focus:border-indigo-400 outline-none transition-all resize-none bg-slate-50/20 leading-relaxed font-bold placeholder:font-normal placeholder:text-slate-300"
-                                        placeholder="ตัวอย่าง:&#10;ณวิธ&#10;กลิ่นหอม"
+                                        className="w-full h-[520px] p-6 text-lg border border-white/10 rounded-2xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 outline-none transition-all resize-none bg-black/20 text-slate-200 placeholder:text-slate-600 font-medium custom-scrollbar leading-loose"
+                                        placeholder="วางรายชื่อที่นี่...&#10;เช่น:&#10;ณวิธ&#10;กลิ่นหอม"
                                         value={inputText}
                                         onChange={(e) => setInputText(e.target.value)}
                                     />
                                 </div>
                                 <div className="px-6 pb-6">
-                                    <div className="bg-indigo-50/80 p-5 rounded-3xl border border-indigo-100 flex gap-4 items-start text-indigo-900">
-                                        <Info className="w-6 h-6 mt-0.5 flex-shrink-0 text-indigo-500" />
+                                    <div className="bg-indigo-500/5 p-4 rounded-2xl border border-indigo-500/10 flex gap-3 items-start">
+                                        <Info className="w-5 h-5 mt-0.5 flex-shrink-0 text-indigo-400" />
                                         <div className="space-y-1">
-                                            <p className="text-xs font-black uppercase tracking-wider">คำแนะนำการใช้งาน</p>
-                                            <p className="text-[11px] font-medium leading-relaxed opacity-80">
-                                                ระบบจะคำนวณตามลำดับอักขระจริง โดยรวมทั้งพยัญชนะ สระ และวรรณยุกต์ เพื่อให้ได้ผลรวมที่แม่นยำที่สุดตามตำราภาพ
+                                            <p className="text-xs font-bold text-indigo-300 uppercase">คำแนะนำ</p>
+                                            <p className="text-xs text-slate-400 leading-relaxed">
+                                                ระบบคำนวณตามอักขระจริง (พยัญชนะ สระ วรรณยุกต์) เพื่อความแม่นยำสูงสุดตามตำรา
                                             </p>
                                         </div>
                                     </div>
@@ -162,72 +170,72 @@ export default function NameAnalysisPage() {
 
                         {/* Results Display */}
                         <div className="lg:col-span-8">
-                            <div className="bg-white rounded-[2.5rem] shadow-lg shadow-slate-200/40 border border-white overflow-hidden min-h-[720px] flex flex-col">
-                                <div className="p-6 border-b border-slate-50 bg-slate-50/50 font-black text-slate-700 flex justify-between items-center">
-                                    <span className="flex items-center gap-2">ตารางวิเคราะห์ผลลัพธ์</span>
+                            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl min-h-[720px] flex flex-col">
+                                <div className="p-6 border-b border-white/5 bg-white/[0.02] font-bold text-slate-200 flex justify-between items-center">
+                                    <span className="flex items-center gap-2 text-lg">ตารางวิเคราะห์ผลลัพธ์</span>
                                 </div>
-                                <div className="flex-1 overflow-auto">
+                                <div className="flex-1 overflow-auto custom-scrollbar">
                                     {results.length > 0 ? (
-                                        <table className="w-full text-left border-collapse min-w-[780px]">
-                                            <thead className="bg-white sticky top-0 z-10 border-b border-slate-100">
-                                                <tr className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
-                                                    <th className="px-8 py-5 w-20 text-center">#</th>
-                                                    <th className="px-6 py-5">ชื่อ</th>
-                                                    <th className="px-6 py-5 text-center">ผลรวม</th>
-                                                    <th className="px-6 py-5">วันที่มงคล</th>
-                                                    <th className="px-6 py-5">วิเคราะห์คู่เลข</th>
+                                        <table className="w-full text-left border-collapse min-w-[700px]">
+                                            <thead className="bg-black/20 sticky top-0 z-10 backdrop-blur-md">
+                                                <tr className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-white/5">
+                                                    <th className="px-6 py-4 w-16 text-center">#</th>
+                                                    <th className="px-6 py-4">ชื่อ</th>
+                                                    <th className="px-6 py-4 text-center">ผลรวม</th>
+                                                    <th className="px-6 py-4">วันที่มงคล</th>
+                                                    <th className="px-6 py-4">คู่เลข</th>
                                                 </tr>
                                             </thead>
-                                            <tbody className="divide-y divide-slate-50">
+                                            <tbody className="divide-y divide-white/5">
                                                 {results.map((row) => (
-                                                    <tr key={row.id} className="hover:bg-indigo-50/20 transition-all group">
-                                                        <td className="px-8 py-7 text-slate-300 font-mono text-center text-sm group-hover:text-indigo-400">
+                                                    <tr key={row.id} className="hover:bg-white/[0.02] transition-colors group">
+                                                        <td className="px-6 py-6 text-slate-500 font-mono text-center text-sm group-hover:text-indigo-400 transition-colors">
                                                             {row.id.toString().padStart(3, '0')}
                                                         </td>
-                                                        <td className="px-6 py-7">
-                                                            <span className="text-2xl font-black text-slate-800 group-hover:text-indigo-700 transition-colors">{row.name}</span>
+                                                        <td className="px-6 py-6">
+                                                            <span className="text-xl font-bold text-slate-200 group-hover:text-white transition-colors">{row.name}</span>
                                                         </td>
-                                                        <td className="px-6 py-7 text-center">
-                                                            <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-indigo-600 to-indigo-500 text-white rounded-[1.25rem] font-black text-2xl shadow-lg shadow-indigo-100 group-hover:scale-110 transition-transform">
+                                                        <td className="px-6 py-6 text-center">
+                                                            <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-600 to-violet-600 text-white rounded-xl font-bold text-xl shadow-lg shadow-indigo-900/50 group-hover:scale-110 transition-transform border border-white/10">
                                                                 {row.sum}
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-7">
+                                                        <td className="px-6 py-6">
                                                             <div className="flex flex-wrap gap-1.5 max-w-[150px]">
                                                                 {row.goodDays.length > 0 ? (
                                                                     row.goodDays.map(day => (
-                                                                        <span key={day} className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-lg text-[10px] font-black uppercase tracking-tighter">
+                                                                        <span key={day} className="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-md text-[10px] font-bold uppercase">
                                                                             {day}
                                                                         </span>
                                                                     ))
                                                                 ) : (
-                                                                    <span className="text-rose-500 text-[11px] font-black flex items-center gap-1 italic bg-rose-50 px-3 py-1 rounded-lg">
-                                                                        <XCircle className="w-3.5 h-3.5" /> ไม่แนะนำ
+                                                                    <span className="text-rose-400 text-[11px] font-medium flex items-center gap-1 opacity-70">
+                                                                        <XCircle className="w-3 h-3" /> ไม่แนะนำ
                                                                     </span>
                                                                 )}
                                                             </div>
                                                         </td>
-                                                        <td className="px-6 py-7">
+                                                        <td className="px-6 py-6">
                                                             <div className="flex flex-wrap items-center gap-2">
                                                                 {row.pairs.length > 0 ? row.pairs.map((p, i) => (
                                                                     <React.Fragment key={i}>
-                                                                        <div className={`flex flex-col items-center px-3 py-2 rounded-2xl border-2 transition-all hover:-translate-y-1 cursor-default shadow-sm min-w-[48px] ${p.type === 'GREEN' ? 'bg-emerald-50 border-emerald-100' :
-                                                                            p.type === 'ORANGE' ? 'bg-orange-50 border-orange-100' :
-                                                                                'bg-rose-50 border-rose-100'
+                                                                        <div className={`flex flex-col items-center px-2 py-1.5 rounded-lg border transition-all min-w-[40px] ${p.type === 'GREEN' ? 'bg-emerald-500/10 border-emerald-500/20' :
+                                                                                p.type === 'ORANGE' ? 'bg-orange-500/10 border-orange-500/20' :
+                                                                                    'bg-rose-500/10 border-rose-500/20'
                                                                             }`}>
-                                                                            <span className={`text-base font-black leading-none mb-1 ${p.type === 'GREEN' ? 'text-emerald-700' :
-                                                                                p.type === 'ORANGE' ? 'text-orange-700' :
-                                                                                    'text-rose-700'
+                                                                            <span className={`text-sm font-bold leading-none mb-1 ${p.type === 'GREEN' ? 'text-emerald-400' :
+                                                                                    p.type === 'ORANGE' ? 'text-orange-400' :
+                                                                                        'text-rose-400'
                                                                                 }`}>
                                                                                 {p.pair}
                                                                             </span>
-                                                                            <span className="text-[10px]">
+                                                                            <span className="text-[10px] opacity-80">
                                                                                 {p.type === 'GREEN' ? '🟢' : p.type === 'ORANGE' ? '🟠' : '🔴'}
                                                                             </span>
                                                                         </div>
-                                                                        {i < row.pairs.length - 1 && <span className="text-slate-200 font-black text-sm">›</span>}
+                                                                        {i < row.pairs.length - 1 && <span className="text-slate-600 text-xs">›</span>}
                                                                     </React.Fragment>
-                                                                )) : <span className="text-slate-400 text-xs italic">สั้นเกินไป</span>}
+                                                                )) : <span className="text-slate-600 text-xs italic">สั้นเกินไป</span>}
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -235,13 +243,13 @@ export default function NameAnalysisPage() {
                                             </tbody>
                                         </table>
                                     ) : (
-                                        <div className="flex-1 flex flex-col items-center justify-center text-slate-300 gap-8 py-48">
-                                            <div className="w-24 h-24 bg-slate-50 rounded-[2.5rem] flex items-center justify-center shadow-inner">
-                                                <Search className="w-12 h-12 opacity-10" />
+                                        <div className="flex-1 flex flex-col items-center justify-center text-slate-500 gap-6 py-32">
+                                            <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center border border-white/5">
+                                                <Search className="w-8 h-8 opacity-30 text-white" />
                                             </div>
                                             <div className="text-center space-y-2">
-                                                <p className="text-2xl font-black text-slate-400">ระบุรายชื่อเพื่อเริ่มต้น</p>
-                                                <p className="text-sm font-bold text-slate-300 uppercase tracking-widest">คำนวณตามหลักเลขศาสตร์ภาพอ้างอิง</p>
+                                                <p className="text-xl font-bold text-slate-400">ระบุรายชื่อเพื่อเริ่มต้น</p>
+                                                <p className="text-xs font-medium text-slate-600 uppercase tracking-widest">รองรับการวิเคราะห์ทีละหลายรายชื่อ</p>
                                             </div>
                                         </div>
                                     )}
@@ -252,25 +260,25 @@ export default function NameAnalysisPage() {
 
                     {/* Legend / Key Summary */}
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="bg-white border border-white p-6 rounded-[2rem] flex items-center gap-6 shadow-lg shadow-slate-200/40">
-                            <div className="w-14 h-14 bg-emerald-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg shadow-emerald-100">🟢</div>
+                        <div className="bg-white/5 border border-white/5 p-5 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-colors">
+                            <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center text-xl border border-emerald-500/20">🟢</div>
                             <div>
-                                <p className="font-black text-slate-800 text-sm">คู่เลขมงคล (Green)</p>
-                                <p className="text-slate-500 text-[11px] font-medium mt-0.5">ส่งเสริมด้านโชคลาภ บารมี และความสุข</p>
+                                <p className="font-bold text-emerald-400 text-sm">คู่เลขมงคล (Good)</p>
+                                <p className="text-slate-500 text-xs mt-0.5">ส่งเสริมด้านโชคลาภ/บารมี</p>
                             </div>
                         </div>
-                        <div className="bg-white border border-white p-6 rounded-[2rem] flex items-center gap-6 shadow-lg shadow-slate-200/40">
-                            <div className="w-14 h-14 bg-orange-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg shadow-orange-100">🟠</div>
+                        <div className="bg-white/5 border border-white/5 p-5 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-colors">
+                            <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center text-xl border border-orange-500/20">🟠</div>
                             <div>
-                                <p className="font-black text-slate-800 text-sm">คู่เลขปานกลาง (Orange)</p>
-                                <p className="text-slate-500 text-[11px] font-medium mt-0.5">เลขเหนื่อยแต่สำเร็จ ต้องใช้ความอดทน</p>
+                                <p className="font-bold text-orange-400 text-sm">ปานกลาง (Average)</p>
+                                <p className="text-slate-500 text-xs mt-0.5">เหนื่อยแต่สำเร็จ/ต้องอดทน</p>
                             </div>
                         </div>
-                        <div className="bg-white border border-white p-6 rounded-[2rem] flex items-center gap-6 shadow-lg shadow-slate-200/40">
-                            <div className="w-14 h-14 bg-rose-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg shadow-rose-100">🔴</div>
+                        <div className="bg-white/5 border border-white/5 p-5 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-colors">
+                            <div className="w-12 h-12 bg-rose-500/20 rounded-xl flex items-center justify-center text-xl border border-rose-500/20">🔴</div>
                             <div>
-                                <p className="font-black text-slate-800 text-sm">คู่เลขเสีย (Red)</p>
-                                <p className="text-slate-500 text-[11px] font-medium mt-0.5">ควรหลีกเลี่ยง อาจมีอุปสรรคหรือปัญหาสุขภาพ</p>
+                                <p className="font-bold text-rose-400 text-sm">ควรระวัง (Caution)</p>
+                                <p className="text-slate-500 text-xs mt-0.5">อาจมีอุปสรรค/ปัญหาสุขภาพ</p>
                             </div>
                         </div>
                     </div>

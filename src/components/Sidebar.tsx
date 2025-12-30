@@ -76,30 +76,37 @@ export const Sidebar = () => {
             {/* Mobile Toggle Button */}
             <button
                 onClick={toggleSidebar}
-                className="lg:hidden fixed top-4 left-4 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 to-amber-600 text-white shadow-lg shadow-amber-500/30 border border-white/20 backdrop-blur-md transition-transform active:scale-95 hover:scale-105"
+                className={`lg:hidden fixed top-[calc(env(safe-area-inset-top)+5.5rem)] ${isOpen ? 'right-4 w-10 h-10 rounded-full p-0 flex items-center justify-center' : 'left-4 w-auto px-4 py-2 rounded-xl flex items-center gap-2'} z-[70] bg-white/10 text-white shadow-lg shadow-black/20 border border-white/20 backdrop-blur-md transition-all active:scale-95 hover:scale-105`}
             >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
+                {isOpen ? (
+                    <X size={20} />
+                ) : (
+                    <>
+                        <Menu size={20} strokeWidth={2.5} />
+                        <span className="font-serif font-bold text-base tracking-wider">MENU</span>
+                    </>
+                )}
             </button>
 
             {/* Sidebar Overlay (Mobile) */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm"
+                    className="fixed inset-x-0 bottom-0 top-[calc(env(safe-area-inset-top)+4rem)] bg-black/50 z-40 lg:hidden backdrop-blur-sm"
                     onClick={() => setIsOpen(false)}
                 />
             )}
 
             {/* Sidebar Container */}
             <aside
-                className={`fixed top-0 left-0 h-full w-96 bg-[#0f172a]/95 backdrop-blur-xl border-r border-white/10 z-40 transition-transform duration-300 ease-in-out lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed left-0 top-[calc(env(safe-area-inset-top)+4rem)] h-[calc(100dvh-(env(safe-area-inset-top)+4rem))] w-[86vw] max-w-sm sm:w-96 bg-[#0f172a]/95 backdrop-blur-xl border-r border-white/10 z-40 transition-transform duration-300 ease-in-out lg:top-0 lg:h-full lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}
             >
-                <div className="flex flex-col h-full p-6">
-                    <div className="flex items-center gap-3 mb-10 pl-2">
+                <div className="flex flex-col h-full p-5 sm:p-6 pb-[calc(env(safe-area-inset-bottom)+1.25rem)]">
+                    <div className="hidden lg:flex items-center gap-3 mb-6 lg:mb-10 pl-2">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
                             <Sparkles className="w-6 h-6 text-white" />
                         </div>
-                        <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 tracking-tight">
+                        <span className="hidden sm:inline text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 tracking-tight">
                             NAMEMONGKOL
                         </span>
                     </div>
@@ -115,7 +122,7 @@ export const Sidebar = () => {
                                         key={item.path}
                                         href={item.path}
                                         onClick={() => setIsOpen(false)}
-                                        className={`relative group flex items-center justify-between px-5 py-5 my-6 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-transparent overflow-hidden transition-all duration-300 hover:border-amber-500/60 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] hover:-translate-y-0.5 ${isActive ? 'ring-1 ring-amber-500/50' : ''}`}
+                                        className={`relative group flex items-center justify-between px-4 py-3 my-3 lg:px-5 lg:py-5 lg:my-6 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-transparent overflow-hidden transition-all duration-300 hover:border-amber-500/60 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] hover:-translate-y-0.5 ${isActive ? 'ring-1 ring-amber-500/50' : ''}`}
                                     >
                                         <div className="absolute left-0 top-0 h-full w-1.5 bg-amber-500 shadow-[0_0_15px_#f59e0b]" />
 
@@ -145,7 +152,7 @@ export const Sidebar = () => {
                                     key={item.path}
                                     href={item.path}
                                     onClick={() => setIsOpen(false)}
-                                    className={`flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-200 group relative overflow-hidden ${isActive
+                                    className={`flex items-center gap-3 lg:gap-4 px-4 py-3 lg:px-5 lg:py-4 rounded-xl lg:rounded-2xl transition-all duration-200 group relative overflow-hidden ${isActive
                                         ? 'bg-gradient-to-r from-white/10 to-white/5 text-white shadow-lg shadow-black/20 border border-white/10'
                                         : 'text-slate-400 hover:bg-white/5 hover:text-white hover:pl-6'
                                         }`}

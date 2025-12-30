@@ -1,24 +1,138 @@
+
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Swal from 'sweetalert2';
-import { Search, Sparkles, Calendar, Award, RotateCcw, Lock } from 'lucide-react';
+import { Search, Sparkles, Calendar, Award, RotateCcw, Lock, ChevronDown } from 'lucide-react';
 import { premiumNamesRaw } from '@/data/premiumNamesRaw';
-import { parsePremiumNames } from '@/utils/premiumDataParser';
-import { Sidebar } from '@/components/Sidebar';
+import { parsePremiumNames, PremiumNameData } from '@/utils/premiumDataParser';
+
 import { supabase } from '@/utils/supabase';
 import { useRouter } from 'next/navigation';
+import { thaksaConfig } from '@/data/thaksaConfig';
+import { DayKey } from '@/types';
+
+type LeadingCharType = 'Any' | 'Dech' | 'Si';
+
+const thaiDayToKey: Record<string, DayKey> = {
+    'อาทิตย์': 'sunday',
+    'จันทร์': 'monday',
+    'อังคาร': 'tuesday',
+    'พุธ(กลางวัน)': 'wednesday',
+    'พุธ(กลางคืน)': 'wednesday_night',
+    'พฤหัสบดี': 'thursday',
+    'ศุกร์': 'friday',
+    'เสาร์': 'saturday'
+};
+
+function ScoreDropdown({
+    value,
+    onChange,
+    scores,
+    disabled,
+}: {
+    value: string;
+    onChange: (value: string) => void;
+    scores: number[];
+    disabled: boolean;
+}) {
+    const [open, setOpen] = useState(false);
+    const rootRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        if (!open) return;
+
+        const handlePointerDown = (event: MouseEvent | TouchEvent) => {
+            const root = rootRef.current;
+            if (!root) return;
+            const target = event.target;
+            if (target instanceof Node && !root.contains(target)) {
+                setOpen(false);
+            }
+        };
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') setOpen(false);
+        };
+
+        document.addEventListener('mousedown', handlePointerDown);
+        document.addEventListener('touchstart', handlePointerDown);
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('mousedown', handlePointerDown);
+            document.removeEventListener('touchstart', handlePointerDown);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [open]);
+
+    useEffect(() => {
+        if (disabled) setOpen(false);
+    }, [disabled]);
+
+    const selectedLabel = value ? `ผลรวม ${value}` : 'ทุกผลรวม';
+
+    return (
+        <div ref={rootRef} className="relative">
+            <button
+                type="button"
+                disabled={disabled}
+                onClick={() => setOpen(v => !v)}
+                className={`block w-full px-4 py-4 bg-black/40 border border-white/10 rounded-xl text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:border-emerald-500/50 backdrop-blur-xl transition-all cursor-pointer font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed text-left flex items-center justify-between ${open ? 'rounded-b-none border-b-white/5' : ''
+                    }`}
+            >
+                <span>{selectedLabel}</span>
+                <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`} />
+            </button>
+
+            {open && (
+                <div className="absolute left-0 right-0 top-full mt-0 z-[200] max-h-80 overflow-y-auto bg-[#0c1224] border border-white/10 border-t-0 rounded-xl rounded-t-none shadow-[0_20px_60px_rgba(0,0,0,0.45)] custom-scrollbar">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            onChange('');
+                            setOpen(false);
+                        }}
+                        className={`w-full px-4 py-3 text-left transition-colors border-b border-white/5 ${value === ''
+                            ? 'bg-[#1d4ed8] text-white'
+                            : 'text-slate-200 hover:bg-white/5 hover:text-white'
+                            }`}
+                    >
+                        ทุกผลรวม
+                    </button>
+                    {scores.map(score => (
+                        <button
+                            key={score}
+                            type="button"
+                            onClick={() => {
+                                onChange(score.toString());
+                                setOpen(false);
+                            }}
+                            className={`w-full px-4 py-3 text-left transition-colors border-b border-white/5 last:border-0 ${value === score.toString()
+                                ? 'bg-[#1d4ed8] text-white'
+                                : 'text-slate-200 hover:bg-white/5 hover:text-white'
+                                }`}
+                        >
+                            ผลรวม {score}
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
 
 export default function PremiumSearchPage() {
     const router = useRouter();
     // Inputs
-    const [searchTerm, setSearchTerm] = useState('');
+    // Inputs
+    // const [searchTerm, setSearchTerm] = useState(''); // Removed
     const [selectedDay, setSelectedDay] = useState('All');
-    const [selectedScore, setSelectedScore] = useState('All');
+    const [targetScore, setTargetScore] = useState('');
+    const [leadingCharType, setLeadingCharType] = useState<LeadingCharType>('Any');
 
     // Search State
     const [hasSearched, setHasSearched] = useState(false);
-    const [searchResults, setSearchResults] = useState<any[]>([]);
+    const [searchResults, setSearchResults] = useState<PremiumNameData[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [userCredits, setUserCredits] = useState<number | null>(null);
 
@@ -45,9 +159,7 @@ export default function PremiumSearchPage() {
         fetchCredits();
     }, []);
 
-    const daysOfWeek = [
-        'อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ(กลางวัน)', 'พุธ(กลางคืน)', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'
-    ];
+    const daysOfWeek = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ(กลางวัน)', 'พุธ(กลางคืน)', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
 
     const handleSearch = async () => {
         // Check for insufficient credits first
@@ -103,14 +215,31 @@ export default function PremiumSearchPage() {
             await new Promise(resolve => setTimeout(resolve, 800)); // Fake delay for UX
 
             // Filter
+            // Filter
             const filtered = allNames.filter(item => {
-                const matchesSearch = searchTerm === '' ||
-                    item.name.includes(searchTerm) ||
-                    item.totalScore.toString().includes(searchTerm);
-                const matchesDay = selectedDay === 'All' || item.suitableDays.includes(selectedDay);
-                const matchesScore = selectedScore === 'All' || item.totalScore.toString() === selectedScore;
+                // 1. Filter by Score (if selected)
+                const matchesScore = !targetScore || item.totalScore.toString() === targetScore;
 
-                return matchesSearch && matchesDay && matchesScore;
+                // 2. Filter by Day (if selected)
+                const matchesDay = selectedDay === 'All' || item.suitableDays.includes(selectedDay);
+
+                // 3. Filter by Leading Character (if Day is selected and Filter is active)
+                let matchesLeadingChar = true;
+                if (selectedDay !== 'All' && leadingCharType !== 'Any') {
+                    const dayKey = thaiDayToKey[selectedDay];
+                    if (dayKey && thaksaConfig[dayKey]) {
+                        const firstChar = item.name.charAt(0);
+                        const config = thaksaConfig[dayKey];
+
+                        if (leadingCharType === 'Dech') {
+                            matchesLeadingChar = config.dech.includes(firstChar);
+                        } else if (leadingCharType === 'Si') {
+                            matchesLeadingChar = config.si.includes(firstChar);
+                        }
+                    }
+                }
+
+                return matchesScore && matchesDay && matchesLeadingChar;
             });
 
             // Shuffle and Limit to 30
@@ -120,13 +249,18 @@ export default function PremiumSearchPage() {
             setSearchResults(selected);
             setHasSearched(true);
 
-            // 3. Save History
+            // 3. Save History (Only if user exists, but we checked logic)
+            // Note: If you want to force login, you might handle earlier.
             const { data: { user } } = await supabase.auth.getUser();
             if (user) {
                 await supabase.from('analysis_history').insert({
                     user_id: user.id,
                     type: 'premium_search',
-                    input_data: { searchTerm, selectedDay, selectedScore },
+                    input_data: {
+                        selectedDay,
+                        selectedScore: targetScore || 'All',
+                        leadingChar: leadingCharType
+                    },
                     result_data: { count: selected.length, note: 'Random 20 from filter' }
                 });
             }
@@ -165,16 +299,17 @@ export default function PremiumSearchPage() {
         // Keep inputs for re-search convenience? Or clear? 
         // User said "When press search new...", implying keeping inputs but allowing search again is good.
         // But "Reset" usually clears everything.
-        setSearchTerm('');
+        // setSearchTerm(''); // Gone
+        setLeadingCharType('Any');
         setSelectedDay('All');
-        setSelectedScore('All');
+        setTargetScore('');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-amber-500/30">
-            <Sidebar />
-            <main className="lg:ml-96 transition-all duration-300 min-h-screen p-4 md:p-8 relative overflow-hidden">
+
+            <main className="transition-all duration-300 min-h-screen p-4 md:p-8 relative overflow-hidden">
                 {/* Background Gradients */}
                 <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[100px]" />
@@ -183,81 +318,133 @@ export default function PremiumSearchPage() {
 
                 <div className="relative z-10 max-w-6xl mx-auto space-y-8">
                     {/* Header */}
-                    <header className="text-center space-y-4 mb-8 pt-8 animate-fade-in-up">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium mb-4">
-                            <Sparkles size={16} />
+                    <header className="text-center space-y-4">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium animate-pulse">
+                            <Sparkles size={14} />
                             <span>Premium Database</span>
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-200 via-emerald-400 to-teal-200">
+                        <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-teal-200 to-emerald-300 drop-shadow-[0_0_15px_rgba(52,211,153,0.3)]">
                             ค้นหาชื่อมงคล Pro
                         </h1>
-                        <p className="text-slate-400 text-lg max-w-2xl mx-auto font-light">
-                            เข้าถึงฐานข้อมูลรายชื่อมงคลกว่า {allNames.length.toLocaleString()} รายชื่อ
-                            <br className="hidden md:block" />
-                            แสดงผล 20 รายชื่อต่อการค้นหาโดยการสุ่มจากผลลัพธ์ที่ตรงเงื่อนไข
-                        </p>
+                        <div className="max-w-2xl mx-auto space-y-2">
+                            <p className="text-slate-400">
+                                เข้าถึงฐานข้อมูลรายชื่อมงคลกว่า {allNames.length.toLocaleString()} รายชื่อ คัดสรรมาอย่างดี
+                            </p>
+                            <p className="text-emerald-300 font-medium text-lg">
+                                เลือกใช้อักษรทุกวรรค ยกเว้นวรรคกาลกิณี นำหน้าชื่อ
+                            </p>
+
+                            <div className="mt-4 mx-auto w-fit bg-[#0F1C2E] border border-emerald-500/30 rounded-xl px-6 py-3 shadow-lg shadow-emerald-900/20">
+                                <p className="text-emerald-400 font-medium text-sm md:text-base">
+                                    💡 คำแนะนำ: ได้ชื่อที่ต้องการแล้วอย่าลืมนำไป <a href="/" className="underline decoration-emerald-500/50 hover:text-emerald-300 transition-colors">วิเคราะห์ชื่อ - สกุล</a> ก่อนนำไปใช้ด้วยนะครับ
+                                </p>
+                            </div>
+                            <p className="text-slate-500 text-sm pt-4">
+                                แสดงผล 20 รายชื่อต่อการค้นหาโดยการสุ่มจากผลลัพธ์ที่ตรงเงื่อนไข
+                            </p>
+                        </div>
                     </header>
 
                     {/* Search Controls */}
-                    <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl animate-fade-in-up md:mx-auto max-w-4xl relative overflow-hidden group">
+                    <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl animate-fade-in-up md:mx-auto max-w-4xl relative overflow-visible group">
 
                         {/* inputs */}
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 relative z-10">
-                            {/* Search Name */}
-                            <div className="md:col-span-12">
-                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">คำค้นหา (ชื่อ / ผลรวม)</label>
-                                <div className="relative group/input">
-                                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within/input:text-emerald-400 transition-colors">
-                                        <Search size={20} />
-                                    </div>
-                                    <input
-                                        type="text"
-                                        placeholder="ระบุชื่อ หรือ ผลรวมที่ต้องการ..."
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-4 pl-12 pr-4 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                                    />
-                                </div>
-                            </div>
-
                             {/* Filters */}
                             <div className="md:col-span-6">
                                 <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">วันเกิดที่เหมาะสม</label>
                                 <div className="relative">
                                     <select
                                         value={selectedDay}
-                                        onChange={(e) => setSelectedDay(e.target.value)}
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-4 px-4 text-slate-200 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all font-medium text-lg appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                                        onChange={(e) => {
+                                            const newVal = e.target.value;
+                                            setSelectedDay(newVal);
+                                            // Reset leading char if switching to 'All'
+                                            if (newVal === 'All') setLeadingCharType('Any');
+                                        }}
+                                        className="block w-full px-4 py-4 bg-black/40 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:border-emerald-500/50 backdrop-blur-xl transition-all appearance-none cursor-pointer font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                        disabled={isLoading}
                                     >
                                         <option value="All">ทุกวันเกิด</option>
                                         {daysOfWeek.map(day => (
-                                            <option key={day} value={day}>{day}</option>
+                                            <option key={day} value={day} className="bg-[#0f172a]">
+                                                {day}
+                                            </option>
                                         ))}
                                     </select>
+                                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
+                                        <ChevronDown className="h-4 w-4" />
+                                    </div>
                                 </div>
                             </div>
 
                             <div className="md:col-span-6">
                                 <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">ผลรวมเลขศาสตร์</label>
-                                <div className="relative">
-                                    <select
-                                        value={selectedScore}
-                                        onChange={(e) => setSelectedScore(e.target.value)}
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-4 px-4 text-slate-200 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all font-medium text-lg appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        <option value="All">ทุกผลรวม</option>
-                                        {uniqueScores.map(score => (
-                                            <option key={score} value={score.toString()}>
-                                                ผลรวม {score}
-                                            </option>
-                                        ))}
-                                    </select>
+                                <ScoreDropdown value={targetScore} onChange={setTargetScore} scores={uniqueScores} disabled={isLoading} />
+                            </div>
+
+                            {/* Leading Character Filter (Replaces Search) */}
+                            <div className="md:col-span-12">
+                                <label className="block text-xs font-bold uppercase tracking-wider mb-4 text-slate-400 transition-colors">
+                                    อักษรนำ {selectedDay === 'All' && <span className="text-amber-500/80 ml-2 normal-case font-normal">(ผลลัพธ์จะแสดงเมื่อเลือกวันเกิด)</span>}
+                                </label>
+                                <div className="flex flex-wrap items-center gap-6">
+                                    <label className="flex items-center gap-3 cursor-pointer group">
+                                        <div className="relative flex items-center">
+                                            <input
+                                                type="radio"
+                                                name="leadingChar"
+                                                value="Dech"
+                                                checked={leadingCharType === 'Dech'}
+                                                onChange={() => setLeadingCharType('Dech')}
+                                                className="peer appearance-none w-6 h-6 border-2 border-slate-500 rounded-full bg-transparent checked:border-emerald-500 checked:bg-emerald-500/20 transition-all"
+                                            />
+                                            <div className="absolute inset-0 m-auto w-3 h-3 rounded-full bg-emerald-500 scale-0 peer-checked:scale-100 transition-transform"></div>
+                                        </div>
+                                        <span className={`text-lg font-medium transition-colors ${leadingCharType === 'Dech' ? 'text-white' : 'text-slate-400 group-hover:text-slate-300'}`}>
+                                            วรรคเดช (อำนาจบารมี / เลื่อนขั้นเลื่อนตำแหน่ง)
+                                        </span>
+                                    </label>
+
+                                    <label className="flex items-center gap-3 cursor-pointer group">
+                                        <div className="relative flex items-center">
+                                            <input
+                                                type="radio"
+                                                name="leadingChar"
+                                                value="Si"
+                                                checked={leadingCharType === 'Si'}
+                                                onChange={() => setLeadingCharType('Si')}
+                                                className="peer appearance-none w-6 h-6 border-2 border-slate-500 rounded-full bg-transparent checked:border-emerald-500 checked:bg-emerald-500/20 transition-all"
+                                            />
+                                            <div className="absolute inset-0 m-auto w-3 h-3 rounded-full bg-emerald-500 scale-0 peer-checked:scale-100 transition-transform"></div>
+                                        </div>
+                                        <span className={`text-lg font-medium transition-colors ${leadingCharType === 'Si' ? 'text-white' : 'text-slate-400 group-hover:text-slate-300'}`}>
+                                            วรรคศรี (โชคลาภ / เสน่ห์ความรัก)
+                                        </span>
+                                    </label>
+
+                                    <label className="flex items-center gap-3 cursor-pointer group">
+                                        <div className="relative flex items-center">
+                                            <input
+                                                type="radio"
+                                                name="leadingChar"
+                                                value="Any"
+                                                checked={leadingCharType === 'Any'}
+                                                onChange={() => setLeadingCharType('Any')}
+                                                className="peer appearance-none w-6 h-6 border-2 border-blue-500 rounded-full bg-transparent checked:border-blue-500 checked:bg-blue-500/20 transition-all"
+                                            />
+                                            <div className="absolute inset-0 m-auto w-3 h-3 rounded-full bg-blue-500 scale-0 peer-checked:scale-100 transition-transform"></div>
+                                        </div>
+                                        <span className={`text-lg font-medium transition-colors ${leadingCharType === 'Any' ? 'text-white' : 'text-slate-400 group-hover:text-slate-300'}`}>
+                                            ไม่กำหนด
+                                        </span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
 
                         {/* Actions */}
-                        <div className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row gap-4 justify-center relative z-10">
+                        <div className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row gap-4 justify-center relative z-0">
                             <button
                                 onClick={handleSearch}
                                 disabled={isLoading}
@@ -295,6 +482,20 @@ export default function PremiumSearchPage() {
                                     <Sparkles className="text-emerald-400" />
                                     ผลลัพธ์การค้นหา {searchResults.length > 0 ? `(แสดง 20 รายชื่อ)` : '(0)'}
                                 </h2>
+                            </div>
+
+                            {/* Recommendation Context */}
+                            <div className="mx-4 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 rounded-xl p-6 text-center">
+                                <p className="text-emerald-300 font-medium text-lg leading-relaxed">
+                                    นี่คือผลการค้นหาชื่อมงคลสำหรับ <span className="text-white font-bold underline decoration-amber-500/50 underline-offset-4">ผู้ที่เกิดวัน{selectedDay === 'All' ? 'ทุกวัน' : selectedDay}</span> เลือกใช้อักษรทุกวรรค ยกเว้นวรรคกาลกิณี นำหน้าชื่อ มีรายชื่อที่สุ่มมาแสดงทั้งหมด {searchResults.length} ชื่อค่ะ
+                                </p>
+                            </div>
+
+                            {/* Tip Match Image */}
+                            <div className="mx-4 bg-[#0F1C2E] border border-emerald-500/30 rounded-xl p-4 flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/20">
+                                <p className="text-emerald-400 font-medium text-sm md:text-base">
+                                    💡 คำแนะนำ: ได้ชื่อที่ต้องการแล้วอย่าลืมนำไป <a href="/" className="underline decoration-emerald-500/50 hover:text-emerald-300 transition-colors">วิเคราะห์ชื่อ - สกุล</a> ก่อนนำไปใช้ด้วยนะครับ
+                                </p>
                             </div>
 
                             {searchResults.length > 0 ? (
