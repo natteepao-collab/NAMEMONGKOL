@@ -47,7 +47,7 @@ export default function PremiumAnalysisPage() {
     // Track shown names to avoid duplicates in re-rolls
     const [shownNames, setShownNames] = useState<string[]>([]);
 
-    const focusOptions: Array<{ key: FocusTopic; title: string; subtitle: string; icon: JSX.Element }> = [
+    const focusOptions: Array<{ key: FocusTopic; title: string; subtitle: string; icon: React.ReactNode }> = [
         { key: 'WEALTH', title: 'โชคลาภและการเงิน', subtitle: 'เพิ่มพลังรายได้และทรัพย์สิน', icon: <Coins size={18} /> },
         { key: 'JOB', title: 'การงานและอำนาจ', subtitle: 'ดันตำแหน่ง บารมี และโอกาส', icon: <Briefcase size={18} /> },
         { key: 'HEALTH', title: 'สุขภาพ', subtitle: 'เสริมพลังชีวิตและสมดุล', icon: <Activity size={18} /> },
@@ -408,7 +408,7 @@ export default function PremiumAnalysisPage() {
                                                             {/* Icon Box */}
                                                             <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors shrink-0 ${isActive ? 'bg-amber-500 text-slate-900 shadow-lg shadow-amber-500/50' : 'bg-white/10 text-slate-400 group-hover:text-amber-300'
                                                                 }`}>
-                                                                {React.cloneElement(option.icon, { size: 24 })}
+                                                                {React.cloneElement(option.icon as React.ReactElement<{ size: number }>, { size: 24 })}
                                                             </div>
 
                                                             {/* Text Content */}
