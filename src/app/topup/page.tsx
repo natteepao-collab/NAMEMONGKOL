@@ -132,10 +132,24 @@ export default function TopUpPage() {
                 throw new Error(`ยอดเงินในสลิป (${slipAmount}) ไม่ครบตามจำนวน (${selectedTier.price})`);
             }
 
-            // 2. Add Credits
-            const { error } = await supabase.rpc('add_credits', { amount: selectedTier.credits });
+            // 2. Add Credits securely (prevent duplicates)
+            const slipRef = data.data?.transRef;
+            if (!slipRef) {
+                throw new Error('ไม่สามารถตรวจสอบรหัสรายการ (Transaction Ref) ได้');
+            }
+
+            const { data: rpcResult, error } = await supabase.rpc('add_credits_v2', {
+                credit_amount: selectedTier.credits,
+                payment_amount: selectedTier.price,
+                slip_ref: slipRef
+            });
 
             if (error) throw error;
+
+            // Check logic response from RPC
+            if (rpcResult && !rpcResult.success) {
+                throw new Error(rpcResult.message || 'สลิปนี้ถูกใช้งานไปแล้ว');
+            }
 
             alert(`เติมเครดิตสำเร็จ! คุณได้รับ ${selectedTier.credits} Credits`);
             setShowPaymentModal(false);
