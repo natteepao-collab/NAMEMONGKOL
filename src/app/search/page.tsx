@@ -4,7 +4,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/utils/supabase';
 import Swal from 'sweetalert2';
-import { Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, ChevronLeft, ChevronRight, X, Lock, Unlock } from 'lucide-react';
+import { Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, X, Lock, Unlock } from 'lucide-react';
 import { auspiciousNames } from '@/data/auspiciousNames';
 import { calculateScore } from '@/utils/numerologyUtils';
 import { getDayFromName, analyzeNameSuitability } from '@/utils/thaksaUtils';
@@ -98,12 +98,11 @@ export default function SearchPage() {
     const router = useRouter();
     const [selectedDay, setSelectedDay] = useState<DayKey | 'all'>('all');
     const [targetSum, setTargetSum] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
     const [isSumFocused, setIsSumFocused] = useState(false);
     const [hasTyped, setHasTyped] = useState(false);
 
     // Freemium State
-    const [isUnlocked, setIsUnlocked] = useState(false);
+    const [visibleCount, setVisibleCount] = useState(10);
     const [userCredits, setUserCredits] = useState<number | null>(null);
 
     useEffect(() => {
@@ -151,15 +150,13 @@ export default function SearchPage() {
 
     const handleDayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedDay(e.target.value as DayKey | 'all');
-        setCurrentPage(1);
-        setIsUnlocked(false); // Reset lock
+        setVisibleCount(10); // Reset to initial 10
     };
 
     const handleSumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTargetSum(e.target.value);
         setHasTyped(true);
-        setCurrentPage(1);
-        setIsUnlocked(false); // Reset lock
+        setVisibleCount(10); // Reset to initial 10
     };
 
     const handleUnlock = async () => {
@@ -220,10 +217,10 @@ export default function SearchPage() {
             const { error } = await supabase.rpc('deduct_credits', { amount: 5 });
             if (!error) {
                 setUserCredits(prev => (prev || 0) - 5);
-                setIsUnlocked(true);
+                setVisibleCount(prev => prev + 50); // Load next 50
                 Swal.fire({
-                    title: 'ปลดล็อกสำเร็จ!',
-                    text: 'คุณสามารถดูรายชื่อทั้งหมดได้แล้ว',
+                    title: 'โหลดรายชื่อสำเร็จ!',
+                    text: 'เพิ่มรายชื่ออีก 50 ชื่อเรียบร้อยแล้ว',
                     icon: 'success',
                     timer: 1500,
                     showConfirmButton: false,
@@ -236,19 +233,7 @@ export default function SearchPage() {
         }
     };
 
-    // Pagination Logic
-    const totalPages = Math.ceil(filteredNames.length / ITEMS_PER_PAGE);
-    const currentItems = useMemo(() => {
-        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-        return filteredNames.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-    }, [currentPage, filteredNames]);
 
-    const handlePageChange = (newPage: number) => {
-        if (newPage >= 1 && newPage <= totalPages) {
-            setCurrentPage(newPage);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    };
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-amber-500 selection:text-white relative overflow-hidden">
@@ -324,7 +309,6 @@ export default function SearchPage() {
                                             key={score}
                                             onClick={() => {
                                                 setTargetSum(score.toString());
-                                                setCurrentPage(1);
                                             }}
                                             className="px-4 py-3 hover:bg-white/5 cursor-pointer text-slate-300 hover:text-amber-400 transition-colors border-b border-white/5 last:border-0 flex items-center justify-between group/item"
                                         >
@@ -378,14 +362,14 @@ export default function SearchPage() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
-                            {currentItems.length > 0 ? (
+                            {filteredNames.length > 0 ? (
                                 <>
-                                    {currentItems.slice(0, isUnlocked ? undefined : 10).map((name, index) => (
+                                    {filteredNames.slice(0, visibleCount).map((name, index) => (
                                         <NameRow key={index} name={name} />
                                     ))}
 
-                                    {/* Locked State / Blur Effect */}
-                                    {!isUnlocked && filteredNames.length > 10 && (
+                                    {/* Locked State / Load More Button */}
+                                    {visibleCount < filteredNames.length && (
                                         <tr>
                                             <td colSpan={3} className="p-0 relative h-32 overflow-hidden">
                                                 {/* Blurred content (fake rows) */}
@@ -427,41 +411,13 @@ export default function SearchPage() {
                     </table>
                 </div>
 
-                {/* Pagination Controls */}
-                {isUnlocked && filteredNames.length > ITEMS_PER_PAGE && (
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
-                        <div>
-                            แสดงผล {((currentPage - 1) * ITEMS_PER_PAGE) + 1} - {Math.min(currentPage * ITEMS_PER_PAGE, filteredNames.length)} จาก {filteredNames.length} รายชื่อ
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <button
-                                onClick={() => handlePageChange(currentPage - 1)}
-                                disabled={currentPage === 1}
-                                className="p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                            >
-                                <ChevronLeft className="w-5 h-5" />
-                            </button>
-
-                            <span className="px-4 py-2 rounded-lg border border-white/10 bg-white/5">
-                                หน้า {currentPage} / {totalPages}
-                            </span>
-
-                            <button
-                                onClick={() => handlePageChange(currentPage + 1)}
-                                disabled={currentPage === totalPages}
-                                className="p-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                            >
-                                <ChevronRight className="w-5 h-5" />
-                            </button>
-                        </div>
-                    </div>
-                )}
-
-                {filteredNames.length > 0 && filteredNames.length <= ITEMS_PER_PAGE && (
+                {filteredNames.length > 0 && (
                     <div className="mt-4 text-center text-slate-500 text-sm">
-                        แสดงผล {filteredNames.length} รายชื่อ
+                        แสดงผล {Math.min(visibleCount, filteredNames.length)} จาก {filteredNames.length} รายชื่อ
                     </div>
                 )}
+
+
             </div>
         </div>
     );
