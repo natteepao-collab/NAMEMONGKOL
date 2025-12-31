@@ -63,9 +63,9 @@ export const Sidebar = () => {
 
     const menuItems = [
         { name: 'วิเคราะห์ชื่อ', icon: Home, path: '/' },
-        { name: 'ค้นหาตามวันเกิด', icon: Search, path: '/search' },
-        { name: 'ค้นหาชื่อมงคล Pro', icon: Sparkles, path: '/premium-search' },
-        { name: 'วิเคราะห์เจาะลึก', icon: Crown, path: '/premium-analysis' },
+        { name: 'ค้นหาชื่อมงคล', icon: Search, path: '/search' },
+        { name: 'คัดสรรชื่อมงคล ', icon: Sparkles, path: '/premium-search' },
+        { name: 'ออกแบบชื่อมงคล', icon: Crown, path: '/premium-analysis' },
         { name: 'ประวัติการใช้งาน', icon: HistoryIcon, path: '/history' },
         { name: 'วิเคราะห์กลุ่มชื่อ', icon: ClipboardList, path: '/name-analysis' },
         { name: 'เกี่ยวกับเรา', icon: Info, path: '/about' },
@@ -76,14 +76,14 @@ export const Sidebar = () => {
             {/* Mobile Toggle Button */}
             <button
                 onClick={toggleSidebar}
-                className={`lg:hidden fixed top-[calc(env(safe-area-inset-top)+5.5rem)] ${isOpen ? 'right-4 w-10 h-10 rounded-full p-0 flex items-center justify-center' : 'left-4 w-auto px-4 py-2 rounded-xl flex items-center gap-2'} z-[70] bg-white/10 text-white shadow-lg shadow-black/20 border border-white/20 backdrop-blur-md transition-all active:scale-95 hover:scale-105`}
+                className={`lg:hidden fixed top-[calc(env(safe-area-inset-top)+0.75rem)] ${isOpen ? 'right-4 w-10 h-10 rounded-full p-0 flex items-center justify-center' : 'left-4 w-10 h-10 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full sm:rounded-xl flex items-center justify-center sm:justify-start gap-0 sm:gap-2'} z-[70] bg-white/10 text-white shadow-lg shadow-black/20 border border-white/20 backdrop-blur-md transition-all active:scale-95 hover:scale-105`}
             >
                 {isOpen ? (
                     <X size={20} />
                 ) : (
                     <>
                         <Menu size={20} strokeWidth={2.5} />
-                        <span className="font-serif font-bold text-base tracking-wider">MENU</span>
+                        <span className="hidden sm:inline font-serif font-bold text-sm tracking-wider">MENU</span>
                     </>
                 )}
             </button>
@@ -167,7 +167,7 @@ export const Sidebar = () => {
                                     <span className="font-medium text-[16px] tracking-wide">
                                         {item.path === '/premium-search' ? (
                                             <span className="flex items-center gap-2">
-                                                ค้นหาชื่อมงคล
+                                                คัดสรรชื่อมงคล
                                                 <span className="bg-emerald-500 text-black text-[10px] font-black px-1.5 py-0.5 rounded shadow-lg shadow-emerald-500/20">
                                                     Pro
                                                 </span>

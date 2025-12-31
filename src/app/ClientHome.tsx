@@ -133,7 +133,7 @@ function HomeContent() {
                     <div className="hidden md:block w-px h-8 bg-white/10 mx-2"></div>
 
                     <div className="flex flex-col">
-                        <span className="text-xl font-bold tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 drop-shadow-sm">
+                        <span className="text-lg sm:text-xl font-bold tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 drop-shadow-sm">
                             NAMEMONGKOL
                         </span>
                         <span className="text-[10px] text-amber-500/80 font-medium tracking-widest uppercase hidden md:block">

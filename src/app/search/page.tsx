@@ -1,7 +1,10 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
-import { Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { supabase } from '@/utils/supabase';
+import Swal from 'sweetalert2';
+import { Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, ChevronLeft, ChevronRight, X, Lock, Unlock } from 'lucide-react';
 import { auspiciousNames } from '@/data/auspiciousNames';
 import { calculateScore } from '@/utils/numerologyUtils';
 import { getDayFromName, analyzeNameSuitability } from '@/utils/thaksaUtils';
@@ -89,15 +92,30 @@ function NameRow({ name }: { name: string }) {
     );
 }
 
-const ITEMS_PER_PAGE = 50;
+const ITEMS_PER_PAGE = 60;
 
 export default function SearchPage() {
-
+    const router = useRouter();
     const [selectedDay, setSelectedDay] = useState<DayKey | 'all'>('all');
     const [targetSum, setTargetSum] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [isSumFocused, setIsSumFocused] = useState(false);
     const [hasTyped, setHasTyped] = useState(false);
+
+    // Freemium State
+    const [isUnlocked, setIsUnlocked] = useState(false);
+    const [userCredits, setUserCredits] = useState<number | null>(null);
+
+    useEffect(() => {
+        const fetchCredits = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                const { data } = await supabase.from('user_profiles').select('credits').eq('id', user.id).single();
+                if (data) setUserCredits(data.credits);
+            }
+        };
+        fetchCredits();
+    }, []);
 
     // Calculate unique scores for datalist
     const uniqueScores = useMemo(() => {
@@ -134,12 +152,88 @@ export default function SearchPage() {
     const handleDayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedDay(e.target.value as DayKey | 'all');
         setCurrentPage(1);
+        setIsUnlocked(false); // Reset lock
     };
 
     const handleSumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTargetSum(e.target.value);
         setHasTyped(true);
         setCurrentPage(1);
+        setIsUnlocked(false); // Reset lock
+    };
+
+    const handleUnlock = async () => {
+        // 1. Check Login Status
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (!user) {
+            const result = await Swal.fire({
+                title: 'กรุณาเข้าสู่ระบบ',
+                text: 'เพื่อทำการปลดล็อกรายชื่อและบันทึกประวัติ',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'เข้าสู่ระบบ',
+                cancelButtonText: 'ยกเลิก',
+                background: '#1e293b',
+                color: '#fff',
+                confirmButtonColor: '#3b82f6', // Blue-500
+                cancelButtonColor: '#64748b'
+            });
+
+            if (result.isConfirmed) {
+                router.push('/login');
+            }
+            return;
+        }
+
+        if ((userCredits || 0) < 5) {
+            const result = await Swal.fire({
+                title: 'เครดิตไม่เพียงพอ',
+                text: 'การปลดล็อกต้องใช้ 5 เครดิต กดเพื่อเติมเงิน',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'เติมเครดิต',
+                cancelButtonText: 'ยกเลิก',
+                background: '#1e293b',
+                color: '#fff',
+                confirmButtonColor: '#10b981',
+                cancelButtonColor: '#64748b'
+            });
+            if (result.isConfirmed) router.push('/topup');
+            return;
+        }
+
+        const result = await Swal.fire({
+            title: 'ปลดล็อก 5 เครดิต',
+            text: 'เพื่อดูรายชื่อที่เหลือทั้งหมด',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'ยืนยัน',
+            cancelButtonText: 'ยกเลิก',
+            background: '#1e293b',
+            color: '#fff',
+            confirmButtonColor: '#059669',
+            cancelButtonColor: '#ef4444'
+        });
+
+        if (result.isConfirmed) {
+            const { error } = await supabase.rpc('deduct_credits', { amount: 5 });
+            if (!error) {
+                setUserCredits(prev => (prev || 0) - 5);
+                setIsUnlocked(true);
+                Swal.fire({
+                    title: 'ปลดล็อกสำเร็จ!',
+                    text: 'คุณสามารถดูรายชื่อทั้งหมดได้แล้ว',
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    background: '#1e293b',
+                    color: '#fff'
+                });
+            } else {
+                Swal.fire('Error', 'เกิดข้อผิดพลาดในการตัดเครดิต', 'error');
+            }
+        }
     };
 
     // Pagination Logic
@@ -285,9 +379,40 @@ export default function SearchPage() {
                         </thead>
                         <tbody className="divide-y divide-white/5">
                             {currentItems.length > 0 ? (
-                                currentItems.map((name, index) => (
-                                    <NameRow key={index} name={name} />
-                                ))
+                                <>
+                                    {currentItems.slice(0, isUnlocked ? undefined : 10).map((name, index) => (
+                                        <NameRow key={index} name={name} />
+                                    ))}
+
+                                    {/* Locked State / Blur Effect */}
+                                    {!isUnlocked && filteredNames.length > 10 && (
+                                        <tr>
+                                            <td colSpan={3} className="p-0 relative h-32 overflow-hidden">
+                                                {/* Blurred content (fake rows) */}
+                                                <div className="absolute inset-0 w-full h-full blur-md opacity-30 select-none pointer-events-none flex flex-col gap-4 p-4">
+                                                    <div className="h-10 bg-white/10 rounded-xl w-full"></div>
+                                                    <div className="h-10 bg-white/10 rounded-xl w-3/4"></div>
+                                                </div>
+
+                                                {/* Unlock Button Overlay */}
+                                                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-[#0f172a] via-[#0f172a]/80 to-transparent">
+                                                    <button
+                                                        onClick={handleUnlock}
+                                                        className="group relative flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold rounded-2xl shadow-lg shadow-amber-500/20 transition-all hover:scale-105 active:scale-95"
+                                                    >
+                                                        <div className="p-1.5 bg-black/20 rounded-lg">
+                                                            <Lock size={18} />
+                                                        </div>
+                                                        <span className="text-lg">โหลดเพิ่ม 50 รายชื่อ</span>
+                                                        <div className="bg-black/80 text-amber-500 text-xs px-2 py-1 rounded-md font-bold flex items-center gap-1">
+                                                            ใช้ 5 Credits
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )}
+                                </>
                             ) : (
                                 <tr>
                                     <td colSpan={3} className="px-8 py-16 text-center text-slate-500">
@@ -303,7 +428,7 @@ export default function SearchPage() {
                 </div>
 
                 {/* Pagination Controls */}
-                {filteredNames.length > ITEMS_PER_PAGE && (
+                {isUnlocked && filteredNames.length > ITEMS_PER_PAGE && (
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
                         <div>
                             แสดงผล {((currentPage - 1) * ITEMS_PER_PAGE) + 1} - {Math.min(currentPage * ITEMS_PER_PAGE, filteredNames.length)} จาก {filteredNames.length} รายชื่อ

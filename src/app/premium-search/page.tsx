@@ -309,7 +309,7 @@ export default function PremiumSearchPage() {
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-amber-500/30">
 
-            <main className="transition-all duration-300 min-h-screen p-4 md:p-8 relative overflow-hidden">
+            <main className="transition-all duration-300 min-h-screen p-4 pt-16 md:p-8 relative overflow-hidden">
                 {/* Background Gradients */}
                 <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[100px]" />
