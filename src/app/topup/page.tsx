@@ -285,27 +285,27 @@ export default function TopUpPage() {
                 {/* Payment Modal */}
                 {showPaymentModal && selectedTier && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fade-in">
-                        <div className="relative w-full max-w-sm">
-                            {/* Close Button Outside */}
-                            <button
-                                onClick={closePaymentModal}
-                                className="absolute -top-12 right-0 text-white/70 hover:text-white transition-colors p-2"
-                            >
-                                <X size={32} />
-                            </button>
+                        <div className="relative w-full max-w-md max-h-[90vh] flex flex-col bg-white rounded-[2rem] shadow-2xl overflow-hidden animate-fade-in-up">
 
-                            <div className="bg-white rounded-[2rem] overflow-hidden shadow-2xl animate-fade-in-up">
-                                {/* Blue Header - Thai QR Payment */}
-                                <div className="bg-[#113566] p-5 flex justify-center items-center relative overflow-hidden">
-                                    <img
-                                        src="/pp-white.svg"
-                                        alt="Thai QR Payment"
-                                        className="h-14 w-auto object-contain relative z-10"
-                                    />
-                                </div>
+                            {/* Blue Header - Thai QR Payment */}
+                            <div className="bg-[#113566] p-5 flex justify-center items-center relative shrink-0">
+                                <img
+                                    src="/pp-white.svg"
+                                    alt="Thai QR Payment"
+                                    className="h-12 md:h-14 w-auto object-contain relative z-10"
+                                />
+                                {/* Internal Close Button */}
+                                <button
+                                    onClick={closePaymentModal}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-full transition-all"
+                                >
+                                    <X size={20} />
+                                </button>
+                            </div>
 
-                                {/* QR Body */}
-                                <div className="p-8 pb-4 flex flex-col items-center">
+                            {/* Scrollable Body */}
+                            <div className="flex-1 overflow-y-auto custom-scrollbar">
+                                <div className="p-6 md:p-8 flex flex-col items-center">
                                     <div className="text-center mb-6">
                                         <p className="text-slate-500 text-sm mb-1">ยอดชำระเงิน (Amount)</p>
                                         <div className="text-4xl font-black text-[#113566] tracking-tight">
@@ -314,21 +314,22 @@ export default function TopUpPage() {
                                     </div>
 
                                     {/* QR Code */}
-                                    <div className="relative group mb-6">
+                                    <div className="relative group mb-8">
                                         <div className="absolute -inset-1 bg-gradient-to-tr from-[#113566] to-[#00aeef] rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-500"></div>
-                                        <div className="bg-white p-2 rounded-xl border border-slate-100 relative shadow-sm">
+                                        <div className="bg-white p-3 rounded-2xl border border-slate-100 relative shadow-sm">
                                             <div className="relative flex items-center justify-center">
                                                 <QRCodeSVG
                                                     value={qrPayload}
-                                                    size={220}
+                                                    size={240} // Slightly larger for better scanability
                                                     level="H"
                                                     includeMargin={false}
+                                                    className="w-full h-auto max-w-[240px]"
                                                 />
                                                 <div className="absolute bg-white p-1.5 rounded-lg shadow-sm flex items-center justify-center">
                                                     <img
                                                         src="/711px-PromptPay-logo.png"
                                                         alt="Logo"
-                                                        className="w-16 h-auto object-contain"
+                                                        className="w-14 h-auto object-contain"
                                                     />
                                                 </div>
                                             </div>
@@ -336,7 +337,7 @@ export default function TopUpPage() {
                                     </div>
 
                                     {/* Upload Area */}
-                                    <div className="w-full space-y-3">
+                                    <div className="w-full space-y-4">
                                         <input
                                             type="file"
                                             ref={fileInputRef}
@@ -348,72 +349,85 @@ export default function TopUpPage() {
                                         {!selectedFile ? (
                                             <button
                                                 onClick={triggerFileInput}
-                                                className="w-full py-3 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center gap-1 text-slate-500 hover:bg-slate-50 hover:border-[#113566]/50 hover:text-[#113566] transition-all"
+                                                className="w-full py-4 border-2 border-dashed border-slate-300 rounded-xl flex flex-col items-center justify-center gap-2 text-slate-500 hover:bg-slate-50 hover:border-[#113566]/50 hover:text-[#113566] transition-all group"
                                             >
-                                                <Upload size={20} />
-                                                <span className="text-sm font-medium">อัปโหลดสลิปโอนเงิน</span>
+                                                <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-[#113566]/10 transition-colors">
+                                                    <Upload size={20} />
+                                                </div>
+                                                <span className="text-sm font-medium">กดเพื่ออัปโหลดสลิปโอนเงิน</span>
                                             </button>
                                         ) : (
-                                            <div className="w-full flex items-center gap-3 p-3 bg-emerald-50 border border-emerald-100 rounded-xl relative overflow-hidden group">
-                                                {previewUrl && (
-                                                    // eslint-disable-next-line @next/next/no-img-element
-                                                    <img src={previewUrl} alt="Slip" className="w-10 h-10 object-cover rounded-lg border border-emerald-200" />
-                                                )}
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="text-sm font-bold text-emerald-900 truncate">แนบสลิปแล้ว</p>
-                                                    <p className="text-xs text-emerald-600 truncate">{selectedFile.name}</p>
+                                            <div className="w-full">
+                                                <div className="flex items-center gap-4 p-4 bg-emerald-50 border border-emerald-100 rounded-xl relative overflow-hidden group hover:border-emerald-200 transition-colors">
+                                                    {previewUrl && (
+                                                        // eslint-disable-next-line @next/next/no-img-element
+                                                        <img src={previewUrl} alt="Slip" className="w-16 h-16 object-cover rounded-lg border border-emerald-200 shadow-sm" />
+                                                    )}
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="text-sm font-bold text-emerald-900 truncate">แนบสลิปเรียบร้อย</p>
+                                                        <p className="text-xs text-emerald-600 truncate opacity-80">{selectedFile.name}</p>
+                                                        <button
+                                                            onClick={triggerFileInput}
+                                                            className="text-xs text-[#113566] underline mt-1 font-medium"
+                                                        >
+                                                            เปลี่ยนรูปภาพ
+                                                        </button>
+                                                    </div>
+                                                    <button
+                                                        onClick={(e) => { e.stopPropagation(); setSelectedFile(null); setPreviewUrl(null); }}
+                                                        className="p-2 hover:bg-white rounded-lg text-red-500 hover:text-red-600 transition-colors"
+                                                        title="ลบรูปภาพ"
+                                                    >
+                                                        <X size={20} />
+                                                    </button>
                                                 </div>
-                                                <button
-                                                    onClick={() => { setSelectedFile(null); setPreviewUrl(null); }}
-                                                    className="p-1.5 hover:bg-white rounded-lg text-emerald-600 transition-colors"
-                                                >
-                                                    <X size={16} />
-                                                </button>
                                             </div>
                                         )}
 
                                         {uploadError && (
-                                            <div className="flex items-start gap-2 text-red-500 text-xs bg-red-50 p-2.5 rounded-lg border border-red-100">
-                                                <AlertCircle size={14} className="mt-0.5 shrink-0" />
-                                                <span>{uploadError}</span>
+                                            <div className="flex items-start gap-3 text-red-600 text-sm bg-red-50 p-4 rounded-xl border border-red-100 animate-shake">
+                                                <AlertCircle size={18} className="mt-0.5 shrink-0" />
+                                                <span className="font-medium">{uploadError}</span>
                                             </div>
                                         )}
                                     </div>
 
-                                    <div className="mt-6 flex items-center gap-2 text-slate-400 text-xs bg-slate-50 px-3 py-1.5 rounded-full">
-                                        <span>Ref:</span>
+                                    <div className="mt-8 flex items-center gap-2 text-slate-400 text-xs bg-slate-50 px-4 py-2 rounded-full border border-slate-100">
+                                        <span>Ref ID:</span>
                                         <span className="font-mono font-bold text-slate-600 tracking-wider">{orderId}</span>
                                     </div>
                                 </div>
+                            </div>
 
-                                {/* Footer Action Area */}
-                                <div className="bg-slate-50 p-6 border-t border-slate-100">
-                                    <div className="flex items-center justify-center gap-2 mb-4 text-sm font-medium text-slate-500">
-                                        <span>ชำระภายใน</span>
-                                        <span className={`font-mono text-lg ${timeLeft < 60 ? 'text-red-500 animate-pulse' : 'text-[#113566]'}`}>
+                            {/* Footer Action Area (Fixed at bottom) */}
+                            <div className="bg-slate-50 p-6 border-t border-slate-100 shrink-0">
+                                <div className="flex items-center justify-between mb-4 text-sm font-medium px-1">
+                                    <span className="text-slate-500">กรุณาชำระเงินภายใน</span>
+                                    <div className="flex items-center gap-2">
+                                        <span className={`font-mono text-xl font-bold ${timeLeft < 60 ? 'text-red-500 animate-pulse' : 'text-[#113566]'}`}>
                                             {formatTime(timeLeft)}
                                         </span>
-                                        <span>นาที</span>
+                                        <span className="text-slate-400 text-xs">นาที</span>
                                     </div>
-
-                                    <button
-                                        onClick={handleConfirmPayment}
-                                        disabled={isLoading || timeLeft === 0 || !selectedFile}
-                                        className="w-full py-4 bg-gradient-to-r from-[#113566] to-[#005a9e] hover:from-[#0d2a52] hover:to-[#004e8a] text-white rounded-xl font-bold shadow-lg shadow-blue-900/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:grayscale"
-                                    >
-                                        {isLoading ? (
-                                            <>
-                                                <span className="animate-spin text-xl">⏳</span>
-                                                <span>กำลังตรวจสอบสลิป...</span>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <CheckCircle2 size={20} className="text-emerald-400" />
-                                                <span>ยืนยันการโอนเงิน</span>
-                                            </>
-                                        )}
-                                    </button>
                                 </div>
+
+                                <button
+                                    onClick={handleConfirmPayment}
+                                    disabled={isLoading || timeLeft === 0 || !selectedFile}
+                                    className="w-full py-4 bg-gradient-to-r from-[#113566] to-[#005a9e] hover:from-[#0d2a52] hover:to-[#004e8a] text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-900/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:grayscale disabled:cursor-not-allowed"
+                                >
+                                    {isLoading ? (
+                                        <>
+                                            <span className="animate-spin text-xl">⏳</span>
+                                            <span>กำลังตรวจสอบ...</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <CheckCircle2 size={24} className="text-emerald-400" />
+                                            <span>ยืนยันการแจ้งโอน</span>
+                                        </>
+                                    )}
+                                </button>
                             </div>
                         </div>
                     </div>
