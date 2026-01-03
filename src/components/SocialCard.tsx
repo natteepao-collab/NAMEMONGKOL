@@ -21,101 +21,124 @@ export const SocialCard = forwardRef<HTMLDivElement, SocialCardProps>(({ result,
     return (
         <div
             ref={ref}
-            className="relative overflow-hidden bg-[#0f172a] text-white flex flex-col items-center"
+            className="relative overflow-hidden bg-[#0f172a] text-white flex flex-col"
             style={{
                 width: dimensions.width,
                 height: dimensions.height,
-                // Ensure text rendering is consistent for capture
                 fontFeatureSettings: '"tnum" on,"lnum" on',
             }}
         >
             {/* Background Effects */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(245,158,11,0.15),transparent_70%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,_rgba(168,85,247,0.15),transparent_70%)]" />
-            <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10" />
 
-            {/* Content Container */}
-            <div className={`relative z-10 w-full h-full flex flex-col items-center ${isStory ? 'justify-between py-24 px-12' : 'justify-center gap-12 p-12'}`}>
+            <div className={`relative z-10 w-full h-full flex flex-col ${isStory ? 'p-12' : 'p-10'} justify-between`}>
 
-                {/* Header / Logo */}
-                <div className="flex flex-col items-center gap-4">
-                    <div className="w-24 h-24 rounded-3xl bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center shadow-2xl shadow-amber-500/30">
-                        <Sparkles className="w-12 h-12 text-white" />
-                    </div>
-                    <div className="flex flex-col items-center">
-                        <h1 className="text-4xl font-bold tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-white to-amber-200">
-                            NAMEMONGKOL
-                        </h1>
-                        <p className="text-xl text-amber-500/80 font-medium tracking-[0.2em] uppercase mt-2">
-                            Numerology Analysis
-                        </p>
+                {/* Header */}
+                <div className="flex flex-col items-center gap-4 pt-4">
+                    <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/30">
+                            <Sparkles className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="text-left">
+                            <h1 className="text-2xl font-bold tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-white to-amber-200">
+                                NAMEMONGKOL
+                            </h1>
+                            <p className="text-xs text-amber-500/80 font-medium tracking-[0.2em] uppercase">
+                                Numerology Analysis
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                {/* Main Result */}
-                <div className="flex flex-col items-center text-center w-full max-w-2xl">
-                    <div className="flex flex-col items-center gap-2 mb-8">
-                        <h2 className="text-6xl font-bold text-white mb-2 leading-tight">
+                {/* Main Content Grid */}
+                <div className="flex flex-col gap-6 items-center flex-1 justify-center">
+
+                    {/* Name & Grade Section */}
+                    <div className="flex flex-col items-center text-center gap-2">
+                        <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-2">
+                            <span className="text-amber-400 font-bold">Grade</span>
+                            <span className={`text-xl font-black ${result.grade === 'A+' ? 'text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-200' : 'text-white'}`}>
+                                {result.grade || '-'}
+                            </span>
+                        </div>
+                        <h2 className="text-5xl font-bold text-white leading-tight">
                             {result.name}
                         </h2>
                         {result.surname && (
-                            <h2 className="text-5xl font-medium text-slate-300">
+                            <h3 className="text-3xl text-slate-400 font-medium">
                                 {result.surname}
-                            </h2>
+                            </h3>
                         )}
                     </div>
 
-                    <div className="relative mb-12">
-                        <div className="absolute -inset-8 bg-gradient-to-r from-amber-500/20 to-purple-500/20 blur-3xl rounded-full" />
-                        <div className="relative flex flex-col items-center gap-2">
-                            <span className="text-2xl text-slate-400 font-medium uppercase tracking-widest">
-                                Total Score
-                            </span>
-                            <span className="text-[10rem] leading-none font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400 drop-shadow-2xl">
-                                {result.totalScore}
-                            </span>
+                    {/* Scores Breakdown */}
+                    <div className="grid grid-cols-3 gap-4 w-full max-w-lg mt-4">
+                        <div className="flex flex-col items-center p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <span className="text-xs text-slate-400 uppercase tracking-wider mb-1">ชื่อ</span>
+                            <span className="text-2xl font-bold text-white">{result.nameScore}</span>
+                        </div>
+                        <div className="flex flex-col items-center p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 backdrop-blur-sm relative overflow-hidden">
+                            <div className="absolute inset-0 bg-amber-500/10 blur-xl"></div>
+                            <span className="relative text-xs text-amber-200 uppercase tracking-wider mb-1">ผลรวม</span>
+                            <span className="relative text-4xl font-black text-amber-400">{result.totalScore}</span>
+                        </div>
+                        <div className="flex flex-col items-center p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                            <span className="text-xs text-slate-400 uppercase tracking-wider mb-1">นามสกุล</span>
+                            <span className="text-2xl font-bold text-white">{result.surnameScore || '-'}</span>
                         </div>
                     </div>
 
-                    <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 w-full shadow-2xl">
-                        <p className="text-3xl text-slate-200 font-medium leading-relaxed">
+                    {/* Prediction Box */}
+                    <div className="w-full max-w-2xl bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 text-center shadow-2xl relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-50"></div>
+
+                        <h4 className="text-lg font-bold text-amber-200 mb-2">คำทำนายผลรวม</h4>
+                        <p className="text-xl text-slate-100 font-medium leading-relaxed mb-4">
                             "{result.prediction?.desc}"
                         </p>
-                    </div>
-                </div>
 
-                {/* Footer/Rank */}
-                <div className="flex flex-col items-center gap-6">
-                    <div className="flex flex-col items-center gap-2">
-                        <span className="text-xl text-slate-500 uppercase tracking-widest font-medium">
-                            Prediction Level
-                        </span>
-                        <div className="px-10 py-3 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 shadow-lg shadow-amber-500/25">
-                            <span className="text-4xl font-bold text-white">
-                                {result.prediction?.level}
-                            </span>
+                        <div className="flex items-center justify-center gap-6 pt-4 border-t border-white/10">
+                            <div className="flex flex-col items-center">
+                                <span className="text-xs text-slate-500 uppercase">ระดับความมงคล</span>
+                                <span className="text-lg font-bold text-emerald-400">{result.prediction?.level}</span>
+                            </div>
+                            {result.ayatana && (
+                                <div className="flex flex-col items-center">
+                                    <span className="text-xs text-slate-500 uppercase">อายตนะ 6</span>
+                                    <span className="text-lg font-bold text-blue-400">{result.ayatana.title}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
 
-                    {!isStory && (
-                        <div className="text-slate-500 font-medium mt-4">
-                            namemongkol.com
+                    {/* Extra Details (Only for Story or if ample space) */}
+                    {(isStory && result.thaksa) && (
+                        <div className="flex gap-3 mt-2">
+                            {!result.thaksa.hasKali && (
+                                <div className="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-sm font-bold flex items-center gap-2">
+                                    <span>✓ ไม่มีกาลกิณี</span>
+                                </div>
+                            )}
+                            {result.ayatana && (
+                                <div className="px-4 py-2 rounded-xl bg-blue-500/20 border border-blue-500/30 text-blue-300 text-sm font-bold">
+                                    <span>★ {result.ayatana.desc}</span>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
 
-                {/* Story Footer */}
-                {isStory && (
-                    <div className="flex flex-col items-center gap-3 opacity-60">
-                        <div className="w-16 h-1 rounded-full bg-white/20" />
-                        <span className="text-xl text-slate-400 font-medium tracking-wide">
-                            namemongkol.com
-                        </span>
-                    </div>
-                )}
+                {/* Footer */}
+                <div className="text-center pt-8 opacity-60">
+                    <span className="text-sm text-slate-400 font-medium tracking-wide">
+                        www.namemongkol.com
+                    </span>
+                </div>
             </div>
         </div>
     );
 });
+
 
 SocialCard.displayName = 'SocialCard';

@@ -17,6 +17,7 @@ import { analyzePairs } from '@/utils/analyzePairs';
 import { analyzeThaksa } from '@/utils/analyzeThaksa';
 import { getPrediction } from '@/utils/getPrediction';
 import { calculateAyatana } from '@/utils/ayatana';
+import { calculateGrade } from '@/utils/gradeResult';
 import { AnalysisResult } from '@/types';
 
 function HomeContent() {
@@ -65,7 +66,8 @@ function HomeContent() {
             surnamePrediction,
             prediction: totalPrediction,
             thaksa: analyzeThaksa(cleanName, inputDay, cleanSurname),
-            ayatana: calculateAyatana(totalScore)
+            ayatana: calculateAyatana(totalScore),
+            grade: calculateGrade(totalScore, [...namePairs, ...surnamePairs])
         };
 
         setResult(newResult);

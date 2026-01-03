@@ -162,6 +162,27 @@ export default function PremiumSearchPage() {
     const daysOfWeek = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ(กลางวัน)', 'พุธ(กลางคืน)', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
 
     const handleSearch = async () => {
+        // Check Authentication
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            const result = await Swal.fire({
+                title: 'กรุณาเข้าสู่ระบบ',
+                text: 'ท่านจำเป็นต้องเข้าสู่ระบบก่อนใช้งานฟีเจอร์ค้นหาชื่อมงคลขั้นสูง',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'เข้าสู่ระบบ',
+                cancelButtonText: 'ยกเลิก',
+                confirmButtonColor: '#f59e0b',
+                background: '#1e293b',
+                color: '#fff'
+            });
+
+            if (result.isConfirmed) {
+                router.push('/login');
+            }
+            return;
+        }
+
         // Check for insufficient credits first
         if (userCredits !== null && userCredits < 10) {
             const result = await Swal.fire({

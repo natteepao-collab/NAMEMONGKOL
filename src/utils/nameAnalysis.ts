@@ -50,6 +50,7 @@ export interface NameAnalysisResult {
     sum: number;
     pairs: { pair: string; type: string }[];
     goodDays: string[];
+    grade: 'A+' | 'A' | 'B' | 'C';
 }
 
 export const analyzeName = (name: string): NameAnalysisResult | null => {
@@ -96,5 +97,31 @@ export const analyzeName = (name: string): NameAnalysisResult | null => {
         if (!isBad) goodDays.push(day);
     }
 
-    return { sum, pairs, goodDays };
+    // Grading Logic
+    // ผลรวมมงคล (อ้างอิงจาก Premium Analysis)
+    const AUSPICIOUS_SUMS = [
+        9, 14, 15, 19, 24, 36, 40, 41, 42, 44, 45, 46, 50, 51, 54, 55, 56, 59, 60, 63, 64, 65,
+        90, 91, 92, 95, 99, 100, 104, 105
+    ];
+
+    const isGoodSum = AUSPICIOUS_SUMS.includes(sum);
+    const hasRed = pairs.some(p => p.type === "RED");
+    const hasOrange = pairs.some(p => p.type === "ORANGE");
+
+    let grade: 'A+' | 'A' | 'B' | 'C' = 'C';
+
+    if (hasRed) {
+        grade = 'C';
+    } else if (!isGoodSum) {
+        grade = 'B';
+    } else {
+        // No Red, Good Sum
+        if (hasOrange) {
+            grade = 'A';
+        } else {
+            grade = 'A+';
+        }
+    }
+
+    return { sum, pairs, goodDays, grade };
 };

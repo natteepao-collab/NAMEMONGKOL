@@ -69,4 +69,5 @@ export interface AnalysisResult {
     prediction: PredictionResult;
     thaksa: ThaksaAnalysisResult | null;
     ayatana: AyatanaResult;
+    grade: 'A+' | 'A' | 'B' | 'C'; // Added grade
 }

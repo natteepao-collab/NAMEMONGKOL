@@ -55,6 +55,20 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
 
             <div className="glass-card rounded-2xl p-6 text-center relative overflow-hidden">
                 <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${result.prediction.bgGradient}`}></div>
+
+                {/* Grade Badge */}
+                <div className="absolute top-4 right-4">
+                    <div className={`
+                        w-12 h-12 rounded-xl flex items-center justify-center font-bold text-xl border shadow-lg backdrop-blur-md
+                        ${result.grade === 'A+' ? 'bg-emerald-500 text-white border-emerald-400 shadow-emerald-500/30' :
+                            result.grade === 'A' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' :
+                                result.grade === 'B' ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' :
+                                    'bg-rose-500/20 text-rose-400 border-rose-500/30'}
+                    `}>
+                        {result.grade}
+                    </div>
+                </div>
+
                 <h3 className="text-lg text-slate-400 mb-1">ผลรวมชื่อ-สกุล</h3>
                 <div className={`text-5xl sm:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${result.prediction.bgGradient} mb-4`}>
                     {result.totalScore}
@@ -64,9 +78,12 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
                         <Star key={i} className={`w-4 h-4 ${i < result.prediction.stars ? result.prediction.color.replace('text-', 'text-') + ' fill-current' : 'text-slate-700'}`} />
                     ))}
                 </div>
-                <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium bg-slate-800 ${result.prediction.color}`}>
-                    {result.prediction.level}
-                </span>
+                <div className="flex flex-col items-center gap-2">
+                    <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium bg-slate-800 ${result.prediction.color}`}>
+                        {result.prediction.level}
+                    </span>
+                    {/* Optional: Add text description for grade if needed, e.g. "เกรด A+" */}
+                </div>
             </div>
         </>
     );

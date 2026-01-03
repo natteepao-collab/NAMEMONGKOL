@@ -83,7 +83,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ result, day }) => {
                 window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`, '_blank');
                 break;
             case 'line':
-                window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
+                window.open(`https://line.me/R/msg/text/?${encodeURIComponent(text + '\n' + url)}`, '_blank');
                 break;
             case 'copy':
                 navigator.clipboard.writeText(url).then(() => {

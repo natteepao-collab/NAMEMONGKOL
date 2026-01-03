@@ -67,7 +67,7 @@ export const Sidebar = () => {
         { name: 'คัดสรรชื่อมงคล ', icon: Sparkles, path: '/premium-search' },
         { name: 'ออกแบบชื่อมงคล', icon: Crown, path: '/premium-analysis' },
         { name: 'ประวัติการใช้งาน', icon: HistoryIcon, path: '/history' },
-        { name: 'วิเคราะห์กลุ่มชื่อ', icon: ClipboardList, path: '/name-analysis' },
+        { name: 'ระบบคัดกรองชื่อ', icon: ClipboardList, path: '/name-analysis' },
         { name: 'เกี่ยวกับเรา', icon: Info, path: '/about' },
     ];
 
@@ -174,7 +174,7 @@ export const Sidebar = () => {
                                             </span>
                                         ) : item.path === '/name-analysis' ? (
                                             <span className="flex items-center gap-2">
-                                                วิเคราะห์กลุ่มชื่อ
+                                                ระบบคัดกรองชื่อ
                                                 <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[9px] font-bold px-1.5 py-0.5 rounded">
                                                     BULK
                                                 </span>

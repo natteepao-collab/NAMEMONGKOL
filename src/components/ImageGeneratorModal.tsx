@@ -21,14 +21,57 @@ export const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ isOpen
 
         setIsGenerating(true);
         try {
-            // Wait a moment for any renders or fonts
-            await new Promise(resolve => setTimeout(resolve, 500));
+            // Ensure fonts are loaded
+            await document.fonts.ready;
+            // Short delay for stability
+            await new Promise(resolve => setTimeout(resolve, 200));
 
             const canvas = await html2canvas(cardRef.current, {
-                scale: 2, // Higher resolution
+                scale: 3, // Premium quality
                 useCORS: true,
+                allowTaint: true,
                 backgroundColor: '#0f172a',
-                fontQuality: 'quality', // Note: specific to some modifications, but standard html2canvas ignores unknown props usually
+                onclone: (clonedDoc: Document) => {
+                    // Fix: bg-clip-text doesn't render in html2canvas -> fallback to solid color
+                    const gradientTexts = clonedDoc.querySelectorAll('.bg-clip-text');
+                    gradientTexts.forEach((el: any) => {
+                        const element = el as HTMLElement;
+                        element.style.backgroundImage = 'none';
+                        // @ts-ignore
+                        element.style.backgroundClip = 'border-box';
+                        // @ts-ignore
+                        element.style.webkitBackgroundClip = 'border-box';
+                        element.style.webkitTextFillColor = 'initial';
+
+                        // Specific colors based on context (heuristics)
+                        const text = element.textContent || '';
+
+                        // Title: NAMEMONGKOL (Amber/White)
+                        if (text.includes('NAMEMONGKOL')) {
+                            element.style.color = '#fde68a'; // Amber 200
+                        }
+                        // Score: Number (White)
+                        else if (/^\d+$/.test(text) || text === element.innerText) { // Strict number check or if it's the main text
+                            element.style.color = '#ffffff';
+                        }
+                        // Fallback
+                        else {
+                            element.style.color = '#fbbf24'; // Amber 400
+                        }
+                    });
+
+                    // Fix: backdrop-filter doesn't render -> fallback to solid semi-transparent bg
+                    const backdrops = clonedDoc.querySelectorAll('.backdrop-blur-xl, .backdrop-blur-md, .backdrop-blur-sm');
+                    backdrops.forEach((el: any) => {
+                        const element = el as HTMLElement;
+                        element.style.backdropFilter = 'none';
+                        // @ts-ignore
+                        element.style.webkitBackdropFilter = 'none';
+                        // Make background slightly more opaque to compensate for lack of blur
+                        element.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
+                        element.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                    });
+                }
             } as any);
 
             const image = canvas.toDataURL('image/png', 1.0);
@@ -38,6 +81,7 @@ export const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ isOpen
             link.click();
         } catch (error) {
             console.error('Failed to generate image:', error);
+            // Fallback for extremely old browsers if needed, but modern browsers support this
         } finally {
             setIsGenerating(false);
         }

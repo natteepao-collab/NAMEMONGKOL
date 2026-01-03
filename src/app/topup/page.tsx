@@ -196,68 +196,68 @@ export default function TopUpPage() {
                     <div className="absolute bottom-[-10%] left-[20%] w-[500px] h-[500px] rounded-full bg-blue-500/5 blur-[100px]" />
                 </div>
 
-                <div className="relative z-10 max-w-5xl mx-auto space-y-12 pt-8">
+                <div className="relative z-10 max-w-5xl mx-auto space-y-6 md:space-y-12 pt-4 md:pt-8">
                     {/* Header */}
-                    <div className="text-center space-y-4">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 text-emerald-300 text-sm font-medium">
-                            <Zap size={16} />
+                    <div className="text-center space-y-2 md:space-y-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 text-emerald-300 text-xs md:text-sm font-medium">
+                            <Zap size={14} className="md:w-4 md:h-4" />
                             <span>Top Up Credits</span>
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-slate-400">
+                        <h1 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-white via-slate-200 to-slate-400">
                             เติมเครดิตเพื่อใช้งาน
                         </h1>
-                        <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+                        <p className="text-slate-400 text-sm md:text-lg max-w-2xl mx-auto px-4">
                             เลือกแพ็กเกจเครดิตที่คุ้มค่าสำหรับคุณ เพื่อใช้งานระบบวิเคราะห์ชื่อขั้นสูงและบริการอื่นๆ
                         </p>
                     </div>
 
                     {/* Pricing Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 pb-20 md:pb-0">
                         {PRICING_TIERS.map((tier) => (
                             <div
                                 key={tier.id}
-                                className={`relative group p-8 rounded-[2rem] border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col ${tier.popular
-                                    ? 'bg-gradient-to-b from-slate-800/80 to-slate-900/90 border-amber-500/30 shadow-amber-500/10 scale-105 z-10'
+                                className={`relative group p-5 md:p-8 rounded-[1.5rem] md:rounded-[2rem] border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col ${tier.popular
+                                    ? 'bg-gradient-to-b from-slate-800/80 to-slate-900/90 border-amber-500/30 shadow-amber-500/10 scale-100 md:scale-105 z-10'
                                     : 'bg-slate-900/50 border-white/10 hover:border-white/20'
                                     }`}
                             >
                                 {tier.popular && (
-                                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full text-white text-xs font-bold shadow-lg shadow-amber-500/30 flex items-center gap-1">
-                                        <Package size={12} /> BEST SELLER
+                                    <div className="absolute -top-3 md:-top-4 left-1/2 -translate-x-1/2 px-3 py-0.5 md:px-4 md:py-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full text-white text-[10px] md:text-xs font-bold shadow-lg shadow-amber-500/30 flex items-center gap-1">
+                                        <Package size={10} className="md:w-3 md:h-3" /> BEST SELLER
                                     </div>
                                 )}
 
-                                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${tier.color} flex items-center justify-center text-white mb-6 shadow-lg`}>
-                                    <Bitcoin size={28} />
+                                <div className={`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br ${tier.color} flex items-center justify-center text-white mb-2 md:mb-6 shadow-lg`}>
+                                    <Bitcoin size={20} className="md:w-7 md:h-7" />
                                 </div>
 
                                 <div className="mb-2">
-                                    <h3 className="text-xl font-bold text-white">{tier.name}</h3>
-                                    <p className="text-slate-400 text-sm">{tier.description}</p>
+                                    <h3 className="text-lg md:text-xl font-bold text-white">{tier.name}</h3>
+                                    <p className="text-slate-400 text-xs md:text-sm">{tier.description}</p>
                                 </div>
 
-                                <div className="mt-4 mb-8">
-                                    <span className="text-4xl font-black text-white">{tier.price}</span>
-                                    <span className="text-slate-500 ml-2 text-lg">baht</span>
+                                <div className="mt-1 md:mt-4 mb-2 md:mb-8">
+                                    <span className="text-3xl md:text-4xl font-black text-white">{tier.price}</span>
+                                    <span className="text-slate-500 ml-2 text-sm md:text-lg">baht</span>
                                 </div>
 
-                                <div className="flex items-center gap-3 mb-8 text-emerald-400 font-medium bg-emerald-500/10 px-4 py-3 rounded-xl border border-emerald-500/20">
-                                    <Zap size={20} />
-                                    <span className="text-xl font-bold">{tier.credits}</span> Credits
+                                <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-8 text-emerald-400 font-medium bg-emerald-500/10 px-3 py-2 md:px-4 md:py-3 rounded-lg md:rounded-xl border border-emerald-500/20">
+                                    <Zap size={16} className="md:w-5 md:h-5" />
+                                    <span className="text-lg md:text-xl font-bold">{tier.credits}</span> Credits
                                 </div>
 
                                 <div className="mt-auto">
                                     <button
                                         onClick={() => handleSelectTier(tier)}
                                         disabled={isLoading}
-                                        className={`w-full py-4 rounded-xl font-bold transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 ${isLoading && selectedTier?.id === tier.id
+                                        className={`w-full py-3 md:py-4 rounded-xl font-bold transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 text-sm md:text-base ${isLoading && selectedTier?.id === tier.id
                                             ? 'bg-slate-700 text-slate-400 cursor-not-allowed'
                                             : tier.popular
                                                 ? 'bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white shadow-amber-500/25'
                                                 : 'bg-white text-slate-900 hover:bg-slate-200'
                                             }`}
                                     >
-                                        <CreditCard size={18} />
+                                        <CreditCard size={16} className="md:w-[18px] md:h-[18px]" />
                                         ซื้อแพ็กเกจ
                                     </button>
                                 </div>
@@ -288,7 +288,7 @@ export default function TopUpPage() {
                         <div className="relative w-full max-w-md max-h-[90vh] flex flex-col bg-white rounded-[2rem] shadow-2xl overflow-hidden animate-fade-in-up">
 
                             {/* Blue Header - Thai QR Payment */}
-                            <div className="bg-[#113566] p-5 flex justify-center items-center relative shrink-0">
+                            <div className="bg-[#113566] p-3 md:p-5 flex justify-center items-center relative shrink-0">
                                 <img
                                     src="/pp-white.svg"
                                     alt="Thai QR Payment"
@@ -305,25 +305,25 @@ export default function TopUpPage() {
 
                             {/* Scrollable Body */}
                             <div className="flex-1 overflow-y-auto custom-scrollbar">
-                                <div className="p-6 md:p-8 flex flex-col items-center">
-                                    <div className="text-center mb-6">
-                                        <p className="text-slate-500 text-sm mb-1">ยอดชำระเงิน (Amount)</p>
-                                        <div className="text-4xl font-black text-[#113566] tracking-tight">
-                                            {selectedTier.price.toFixed(2)} <span className="text-lg text-slate-400 font-bold">THB</span>
+                                <div className="p-4 md:p-8 flex flex-col items-center">
+                                    <div className="text-center mb-2 md:mb-4">
+                                        <p className="text-slate-500 text-xs md:text-sm mb-0.5">ยอดชำระเงิน (Amount)</p>
+                                        <div className="text-3xl md:text-4xl font-black text-[#113566] tracking-tight">
+                                            {selectedTier.price.toFixed(2)} <span className="text-base md:text-lg text-slate-400 font-bold">THB</span>
                                         </div>
                                     </div>
 
                                     {/* QR Code */}
-                                    <div className="relative group mb-8">
+                                    <div className="relative group mb-2 md:mb-4">
                                         <div className="absolute -inset-1 bg-gradient-to-tr from-[#113566] to-[#00aeef] rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-500"></div>
-                                        <div className="bg-white p-3 rounded-2xl border border-slate-100 relative shadow-sm">
+                                        <div className="bg-white p-1.5 md:p-3 rounded-2xl border border-slate-100 relative shadow-sm">
                                             <div className="relative flex items-center justify-center">
                                                 <QRCodeSVG
                                                     value={qrPayload}
-                                                    size={240} // Slightly larger for better scanability
+                                                    size={180}
                                                     level="H"
                                                     includeMargin={false}
-                                                    className="w-full h-auto max-w-[240px]"
+                                                    className="w-full h-auto max-w-[180px]"
                                                 />
                                                 <div className="absolute bg-white p-1.5 rounded-lg shadow-sm flex items-center justify-center">
                                                     <img
@@ -392,7 +392,7 @@ export default function TopUpPage() {
                                         )}
                                     </div>
 
-                                    <div className="mt-8 flex items-center gap-2 text-slate-400 text-xs bg-slate-50 px-4 py-2 rounded-full border border-slate-100">
+                                    <div className="mt-4 flex items-center gap-2 text-slate-400 text-xs bg-slate-50 px-4 py-2 rounded-full border border-slate-100">
                                         <span>Ref ID:</span>
                                         <span className="font-mono font-bold text-slate-600 tracking-wider">{orderId}</span>
                                     </div>
@@ -400,14 +400,14 @@ export default function TopUpPage() {
                             </div>
 
                             {/* Footer Action Area (Fixed at bottom) */}
-                            <div className="bg-slate-50 p-6 border-t border-slate-100 shrink-0">
-                                <div className="flex items-center justify-between mb-4 text-sm font-medium px-1">
-                                    <span className="text-slate-500">กรุณาชำระเงินภายใน</span>
+                            <div className="bg-slate-50 p-4 md:p-6 border-t border-slate-100 shrink-0">
+                                <div className="flex items-center justify-between mb-3 text-sm font-medium px-1">
+                                    <span className="text-slate-500 text-xs md:text-sm">กรุณาชำระเงินภายใน</span>
                                     <div className="flex items-center gap-2">
-                                        <span className={`font-mono text-xl font-bold ${timeLeft < 60 ? 'text-red-500 animate-pulse' : 'text-[#113566]'}`}>
+                                        <span className={`font-mono text-lg md:text-xl font-bold ${timeLeft < 60 ? 'text-red-500 animate-pulse' : 'text-[#113566]'}`}>
                                             {formatTime(timeLeft)}
                                         </span>
-                                        <span className="text-slate-400 text-xs">นาที</span>
+                                        <span className="text-slate-400 text-[10px] md:text-xs">นาที</span>
                                     </div>
                                 </div>
 
