@@ -29,49 +29,8 @@ export const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ isOpen
             const canvas = await html2canvas(cardRef.current, {
                 scale: 3, // Premium quality
                 useCORS: true,
-                allowTaint: true,
+                allowTaint: false,
                 backgroundColor: '#0f172a',
-                onclone: (clonedDoc: Document) => {
-                    // Fix: bg-clip-text doesn't render in html2canvas -> fallback to solid color
-                    const gradientTexts = clonedDoc.querySelectorAll('.bg-clip-text');
-                    gradientTexts.forEach((el: any) => {
-                        const element = el as HTMLElement;
-                        element.style.backgroundImage = 'none';
-                        // @ts-ignore
-                        element.style.backgroundClip = 'border-box';
-                        // @ts-ignore
-                        element.style.webkitBackgroundClip = 'border-box';
-                        element.style.webkitTextFillColor = 'initial';
-
-                        // Specific colors based on context (heuristics)
-                        const text = element.textContent || '';
-
-                        // Title: NAMEMONGKOL (Amber/White)
-                        if (text.includes('NAMEMONGKOL')) {
-                            element.style.color = '#fde68a'; // Amber 200
-                        }
-                        // Score: Number (White)
-                        else if (/^\d+$/.test(text) || text === element.innerText) { // Strict number check or if it's the main text
-                            element.style.color = '#ffffff';
-                        }
-                        // Fallback
-                        else {
-                            element.style.color = '#fbbf24'; // Amber 400
-                        }
-                    });
-
-                    // Fix: backdrop-filter doesn't render -> fallback to solid semi-transparent bg
-                    const backdrops = clonedDoc.querySelectorAll('.backdrop-blur-xl, .backdrop-blur-md, .backdrop-blur-sm');
-                    backdrops.forEach((el: any) => {
-                        const element = el as HTMLElement;
-                        element.style.backdropFilter = 'none';
-                        // @ts-ignore
-                        element.style.webkitBackdropFilter = 'none';
-                        // Make background slightly more opaque to compensate for lack of blur
-                        element.style.backgroundColor = 'rgba(255, 255, 255, 0.15)';
-                        element.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                    });
-                }
             } as any);
 
             const image = canvas.toDataURL('image/png', 1.0);
@@ -123,7 +82,7 @@ export const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ isOpen
                     {/* Preview Area */}
                     <div className="flex-1 overflow-y-auto p-6 bg-[#0f172a]/50 flex items-center justify-center min-h-[300px]">
                         <div className="relative">
-                            {/* Visual Preview (Scaled Down) */}
+                            {/* Visual Preview (Scaled Down) - Just for display */}
                             <div
                                 className="origin-top shadow-2xl rounded-lg overflow-hidden border border-white/10"
                                 style={{
@@ -132,6 +91,19 @@ export const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ isOpen
                                     height: format === 'story' ? 1920 : 1080,
                                     marginBottom: format === 'story' ? -1440 : -810, // Compensate space after scaling
                                     marginRight: format === 'story' ? -810 : -810, // Compensate width
+                                }}
+                            >
+                                <SocialCard result={result} format={format} />
+                            </div>
+
+                            {/* Hidden Capture Target (Full Scale) - For html2canvas */}
+                            {/* Positioned fixed off-screen to ensure it renders at full 1080px width without layout constraints */}
+                            <div
+                                style={{
+                                    position: 'fixed',
+                                    left: '-20000px',
+                                    top: 0,
+                                    zIndex: -9999
                                 }}
                             >
                                 <SocialCard ref={cardRef} result={result} format={format} />

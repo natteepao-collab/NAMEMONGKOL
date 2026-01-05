@@ -9,19 +9,19 @@ export type Grade = 'A+' | 'A' | 'B' | 'C';
 
 export const calculateGrade = (totalScore: number, pairs: PairAnalysis[]): Grade => {
     const isGoodSum = AUSPICIOUS_SUMS.includes(totalScore);
+
+    // If the total sum is Auspicious (Green), force Grade to be A+
+    if (isGoodSum) {
+        return 'A+';
+    }
+
     const hasRed = pairs.some(p => p.grade === 'bad');
     const hasOrange = pairs.some(p => p.grade === 'neutral');
 
     if (hasRed) {
         return 'C';
-    } else if (!isGoodSum) {
-        return 'B';
     } else {
-        // No Red, Good Sum
-        if (hasOrange) {
-            return 'A';
-        } else {
-            return 'A+';
-        }
+        // Not Good Sum, No Red -> B
+        return 'B';
     }
 };

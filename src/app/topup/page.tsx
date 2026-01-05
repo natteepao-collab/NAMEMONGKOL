@@ -7,6 +7,7 @@ import { Package, CreditCard, ShieldCheck, Zap, Bitcoin, CheckCircle2, X, Upload
 import { useRouter } from 'next/navigation';
 import { QRCodeSVG } from 'qrcode.react';
 import generatePayload from 'promptpay-qr';
+import Swal from 'sweetalert2';
 
 interface PricingTier {
     id: string;
@@ -151,13 +152,34 @@ export default function TopUpPage() {
                 throw new Error(rpcResult.message || 'สลิปนี้ถูกใช้งานไปแล้ว');
             }
 
-            alert(`เติมเครดิตสำเร็จ! คุณได้รับ ${selectedTier.credits} Credits`);
+            // Success Alert
+            await Swal.fire({
+                title: 'เติมเครดิตสำเร็จ!',
+                text: `คุณได้รับ ${selectedTier.credits} Credits เรียบร้อยแล้ว`,
+                icon: 'success',
+                confirmButtonText: 'ตกลง',
+                confirmButtonColor: '#10b981', // emerald-500
+                background: '#fff',
+                color: '#1e293b'
+            });
+
             setShowPaymentModal(false);
             window.location.reload(); // Refresh to update sidebar credits
 
         } catch (error: any) {
             console.error('Top-up error:', error);
-            setUploadError(error.message || 'เกิดข้อผิดพลาดในการตรวจสอบสลิป');
+            const errorMessage = error.message || 'เกิดข้อผิดพลาดในการตรวจสอบสลิป';
+
+            // Error Alert (Sweet Alert)
+            Swal.fire({
+                title: 'เกิดข้อผิดพลาด',
+                text: errorMessage,
+                icon: 'error',
+                confirmButtonText: 'ลองใหม่อีกครั้ง',
+                confirmButtonColor: '#ef4444', // red-500
+            });
+
+            setUploadError(errorMessage);
         } finally {
             setIsLoading(false);
         }

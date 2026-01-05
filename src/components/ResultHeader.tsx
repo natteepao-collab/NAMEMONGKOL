@@ -73,10 +73,14 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
                 <div className={`text-5xl sm:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${result.prediction.bgGradient} mb-4`}>
                     {result.totalScore}
                 </div>
-                <div className="flex justify-center gap-1 mb-3">
+                <div className="flex justify-center gap-1 mb-4">
                     {[...Array(5)].map((_, i) => (
                         <Star key={i} className={`w-4 h-4 ${i < result.prediction.stars ? result.prediction.color.replace('text-', 'text-') + ' fill-current' : 'text-slate-700'}`} />
                     ))}
+                </div>
+
+                <div className="text-slate-300 text-sm md:text-base font-medium leading-relaxed px-4 mb-3">
+                    "{result.prediction.desc}"
                 </div>
                 <div className="flex flex-col items-center gap-2">
                     <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium bg-slate-800 ${result.prediction.color}`}>

@@ -147,6 +147,34 @@ export const Sidebar = () => {
                                 );
                             }
 
+                            // Special behavior for Home link to force reset
+                            if (item.path === '/') {
+                                return (
+                                    <button
+                                        key={item.path}
+                                        onClick={() => {
+                                            setIsOpen(false);
+                                            window.location.href = '/';
+                                        }}
+                                        className={`w-full flex items-center gap-3 lg:gap-4 px-4 py-3 lg:px-5 lg:py-4 rounded-xl lg:rounded-2xl transition-all duration-200 group relative overflow-hidden ${isActive
+                                            ? 'bg-gradient-to-r from-white/10 to-white/5 text-white shadow-lg shadow-black/20 border border-white/10'
+                                            : 'text-slate-400 hover:bg-white/5 hover:text-white hover:pl-6'
+                                            }`}
+                                    >
+                                        {isActive && (
+                                            <div className="absolute left-0 top-0 w-1 h-full bg-amber-400 rounded-r-full shadow-[0_0_10px_rgba(251,191,36,0.5)]" />
+                                        )}
+                                        <item.icon
+                                            className={`w-[22px] h-[22px] transition-colors ${isActive ? 'text-amber-400' : 'text-slate-500 group-hover:text-slate-300'
+                                                }`}
+                                        />
+                                        <span className="font-medium text-[16px] tracking-wide">
+                                            {item.name}
+                                        </span>
+                                    </button>
+                                );
+                            }
+
                             return (
                                 <Link
                                     key={item.path}
