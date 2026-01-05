@@ -127,30 +127,15 @@ export default function TopUpPage() {
             // For now we assume if success=true, it's a valid real slip. 
             // We could check data.data.amount if strict validation is needed.
 
-            const slipAmount = data.data?.amount?.amount || 0;
-            // Loose check: slip amount should be at least payment amount
-            if (slipAmount < selectedTier.price) {
-                throw new Error(`ยอดเงินในสลิป (${slipAmount}) ไม่ครบตามจำนวน (${selectedTier.price})`);
-            }
+            // 2. Add Credits securely (Already handled by API)
+            // The API now calls add_credits_v2 internally to prevent duplicates and race conditions.
+            // We just need to use the returned data.
 
-            // 2. Add Credits securely (prevent duplicates)
-            const slipRef = data.data?.transRef;
-            if (!slipRef) {
-                throw new Error('ไม่สามารถตรวจสอบรหัสรายการ (Transaction Ref) ได้');
-            }
+            const resultData = data.data;
+            const creditsAdded = resultData.creditsAdded || selectedTier.credits;
 
-            const { data: rpcResult, error } = await supabase.rpc('add_credits_v2', {
-                credit_amount: selectedTier.credits,
-                payment_amount: selectedTier.price,
-                slip_ref: slipRef
-            });
+            // Success Alert is handled below
 
-            if (error) throw error;
-
-            // Check logic response from RPC
-            if (rpcResult && !rpcResult.success) {
-                throw new Error(rpcResult.message || 'สลิปนี้ถูกใช้งานไปแล้ว');
-            }
 
             // Success Alert
             await Swal.fire({
