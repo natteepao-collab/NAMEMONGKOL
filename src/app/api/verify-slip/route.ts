@@ -27,10 +27,12 @@ export async function POST(request: Request) {
 
         console.log(`Sending multipart/form-data request to EasySlip API with field 'file': ${filename}`);
 
+        const apiKey = process.env.EASYSLIP_API_KEY || '8b7f25cd-ca4a-4b67-8050-8c7290157b94';
+
         const response = await fetch('https://developer.easyslip.com/api/v1/verify', {
             method: 'POST',
             headers: {
-                'Authorization': 'Bearer 8b7f25cd-ca4a-4b67-8050-8c7290157b94',
+                'Authorization': `Bearer ${apiKey}`,
                 // Note: Do NOT set Content-Type header manually.
                 // fetch will set 'multipart/form-data; boundary=---' automatically
             },
