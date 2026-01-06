@@ -62,6 +62,47 @@ export async function POST(req: NextRequest) {
 }
 
 async function handleEvent(event: WebhookEvent) {
+    // Handle Text Message (for Email Linking)
+    if (event.type === 'message' && event.message.type === 'text') {
+        const text = event.message.text.trim();
+        const lineUserId = event.source.userId;
+        const replyToken = event.replyToken;
+
+        // Simple Email Regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (emailRegex.test(text) && lineUserId) {
+            try {
+                // Call RPC to link email
+                const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+                const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+                const supabase = createClient(supabaseUrl, supabaseKey);
+
+                const { data, error } = await supabase.rpc('link_line_id_by_email', {
+                    email_input: text,
+                    line_id_input: lineUserId
+                });
+
+                if (error || !data.success) {
+                    console.error('Link email error:', error || data);
+                    await client.replyMessage(replyToken, {
+                        type: 'text',
+                        text: '❌ ไม่พบอีเมลนี้ในระบบ หรือเกิดข้อผิดพลาด\nโปรดตรวจสอบว่าสะกดถูกต้อง และสมัครสมาชิกบนหน้าเว็บแล้ว'
+                    });
+                } else {
+                    await client.replyMessage(replyToken, {
+                        type: 'text',
+                        text: '✅ ผูกบัญชีสำเร็จ! \nคุณสามารถส่งรูปสลิปเพื่อเติมเครดิตได้ทันทีครับ'
+                    });
+                }
+            } catch (err) {
+                console.error('Error linking email:', err);
+                await client.replyMessage(replyToken, { type: 'text', text: '❌ เกิดข้อผิดพลาดในการเชื่อมต่อระบบ' });
+            }
+        }
+        return;
+    }
+
     if (event.type !== 'message' || event.message.type !== 'image') {
         return;
     }
