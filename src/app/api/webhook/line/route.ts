@@ -62,6 +62,12 @@ export async function POST(req: NextRequest) {
 }
 
 async function handleEvent(event: WebhookEvent) {
+    // Interface for RPC response
+    interface LinkEmailResult {
+        success: boolean;
+        message: string;
+    }
+
     // Handle Text Message (for Email Linking)
     if (event.type === 'message' && event.message.type === 'text') {
         const text = event.message.text.trim();
@@ -83,8 +89,11 @@ async function handleEvent(event: WebhookEvent) {
                     line_id_input: lineUserId
                 });
 
-                if (error || !data.success) {
-                    console.error('Link email error:', error || data);
+                // Cast data to expected type
+                const result = data as LinkEmailResult;
+
+                if (error || !result?.success) {
+                    console.error('Link email error:', error || result);
                     await client.replyMessage(replyToken, {
                         type: 'text',
                         text: '❌ ไม่พบอีเมลนี้ในระบบ หรือเกิดข้อผิดพลาด\nโปรดตรวจสอบว่าสะกดถูกต้อง และสมัครสมาชิกบนหน้าเว็บแล้ว'
@@ -117,6 +126,7 @@ async function handleEvent(event: WebhookEvent) {
         const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
         const supabase = createClient(supabaseUrl, supabaseKey);
 
+        // ... (lines 121-149 omitted for brevity, keeping existing logic) ...
         // 2. Get Image Content
         const messageId = event.message.id;
         const stream = await client.getMessageContent(messageId);
@@ -149,17 +159,25 @@ async function handleEvent(event: WebhookEvent) {
 
         // 4. Find User
         console.log(`Looking up user for LINE ID: ${lineUserId}`);
-        // Use RPC to bypass RLS policies
-        const { data: user, error: userError } = await supabase
+        // Use RPC to bypass RLS policies and cast result
+        // Define interface for user lookup result
+        interface UserLookupResult {
+            id: string;
+            credits: number;
+        }
+
+        const { data: userRaw, error: userError } = await supabase
             .rpc('get_user_by_line_id', { line_id_input: lineUserId })
             .maybeSingle();
+
+        const user = userRaw as UserLookupResult;
 
         console.log('User lookup result:', user ? 'Found' : 'Not Found', userError ? userError.message : 'No Error');
 
         if (userError || !user) {
             await client.replyMessage(replyToken, {
                 type: 'text',
-                text: `⚠️ ไม่พบข้อมูลบัญชีที่เชื่อมต่อกับ LINE นี้\n🆔 LINE ID ของคุณคือ: ${lineUserId}\n\nกรุณาแจ้ง Admin เพื่อทำการผูกบัญชี หรือลงทะเบียนผ่านเว็บ`
+                text: `⚠️ ไม่พบข้อมูลบัญชีที่เชื่อมต่อกับ LINE นี้\n🆔 LINE ID ของคุณคือ: ${lineUserId}\n\nกรุณาแจ้ง Admin เพื่อทำการผูกบัญชี หรือพิมพ์ อีเมล เพื่อเชื่อมต่ออัตโนมัติ`
             });
             return;
         }
