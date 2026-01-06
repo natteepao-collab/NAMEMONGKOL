@@ -1,189 +1,210 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-
-// Initialize Supabase Admin Client to bypass RLS for checking/updating records securely
-// We need SERVICE_ROLE_KEY for this if we were untrusted, but here we can use the backend logic.
-// HOWEVER, route handlers run on server.
-// If we use the standard client created with cookies, it acts as the user.
-// The `add_credits_v2` RPC is SECURITY DEFINER, so it runs with high privileges even if called by a user.
-// Use the standard setup we have or create a fresh one.
-// Let's use the standard setup but we need `createRouteHandlerClient` equivalent or just standard REST if we want.
-// Given the previous code didn't import supabase, we need to add it.
-// The user has `src/utils/supabase.ts` which exports `supabase` (client-side usually).
-// For API routes, it's better to use `createServerClient` or just standard `createClient` with URL/ANON_KEY and rely on the user's session from the request cookies?
-// Actually, `verify-slip` receives a request. We need to identify the user.
-// The `add_credits_v2` uses `auth.uid()`, so we MUST have an authenticated session context.
-// Next.js App Router API Routes don't automatically have `auth.uid()` context unless we assume the client passed cookies and we forward them, OR we use `createServerClient` from `@supabase/ssr`.
-
-// Let's check `src/utils/supabase.ts` first to see what it exports.
-// If it's just the singleton generic client, it might not have auth context on server.
-// But wait, the previous implementation of `verify-slip` didn't interact with DB.
-// Now we NEED to interact with DB.
-
-// To properly call `add_credits_v2` (which uses `auth.uid()`), we need a Supabase client configured with the user's cookies.
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { cookies } from 'next/headers';
+import { createHash } from 'crypto';
 
 export async function POST(request: Request) {
+    console.log('--- API verify-slip START ---');
+
     try {
         const formData = await request.formData();
-        const file = formData.get('image'); // Frontend sends 'image'
+        // รับค่าได้ทั้ง image และ file
+        const file = formData.get('image') || formData.get('file');
+        const creditAmount = Number(formData.get('credit_amount') || 0);
+        const paymentAmount = Number(formData.get('payment_amount') || 0);
+        const orderId = (formData.get('order_id') || '').toString() || undefined;
+        const tierId = (formData.get('tier_id') || '').toString() || undefined;
+        const transId = (formData.get('trans_id') || '').toString().trim();
+        const senderName = (formData.get('sender_name') || '').toString().trim() || null;
 
         if (!file || !(file instanceof Blob)) {
-            return NextResponse.json(
-                { success: false, message: 'No image provided or invalid file type' },
-                { status: 400 }
-            );
+            return NextResponse.json({ success: false, message: 'No file uploaded' }, { status: 400 });
         }
 
-        // 1. Setup Supabase Client for Auth Context
-        const cookieStore = await cookies();
-        const supabase = createServerClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-            {
-                cookies: {
-                    get(name: string) {
-                        return cookieStore.get(name)?.value;
-                    },
-                    set(name: string, value: string, options: CookieOptions) {
-                        cookieStore.set({ name, value, ...options });
-                    },
-                    remove(name: string, options: CookieOptions) {
-                        cookieStore.set({ name, value: '', ...options });
-                    },
-                },
-            }
-        );
-
-        // Check if user is authenticated
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
-        if (authError || !user) {
-            return NextResponse.json(
-                { success: false, message: 'Unauthorized: Please login first' },
-                { status: 401 }
-            );
+        const authHeader = request.headers.get('authorization') || '';
+        const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : undefined;
+        if (!token) {
+            return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
         }
 
-        // 2. Prepare for Slip2Go API
-        // Convert Blob to Buffer
-        const buffer = Buffer.from(await file.arrayBuffer());
+        if (!transId) {
+            return NextResponse.json({ success: false, message: 'missing trans_id' }, { status: 400 });
+        }
 
-        // Create new FormData for the upstream API
-        const slip2GoFormData = new FormData();
-        // Slip2Go requires field name 'file'
-        slip2GoFormData.append('file', new Blob([buffer], { type: file.type }), (file as any).name || 'slip.jpg');
+        // 1) เตรียมข้อมูลไฟล์ที่ใช้ซ้ำได้ทุก endpoint + hash สำหรับกันสลิปซ้ำโดยรูป
+        const arrayBuffer = await file.arrayBuffer();
+        const mimeType = (file as Blob).type || 'image/jpeg';
+        const base64 = Buffer.from(arrayBuffer).toString('base64');
+        const fileHash = createHash('sha256').update(Buffer.from(arrayBuffer)).digest('hex');
 
+        // 2) ตั้งค่า Key (ควรตั้งใน .env.production ด้วย)
         const secretKey = process.env.SLIP2GO_SECRET_KEY || 'BKkuXbNHiznJu80IHV2OgL5N9BDm1Bb7uz2yKLToM9E=';
 
-        console.log('Sending request to Slip2Go...');
+        // 3) เตรียม endpoint หลายแบบ (เรียงตามที่ผู้ให้บริการแนะนำ)
+        const explicitEndpoint = process.env.SLIP2GO_ENDPOINT?.trim();
+        const endpoints = [
+            explicitEndpoint,
+            'https://connect.slip2go.com/api/verify-slip/qr-image/info',
+            'https://connect.slip2go.com/api/verify-slip/qr-code/info',
+            'https://connect.slip2go.com/api/verify-slip/qr-base64/info',
+            'https://app.slip2go.com/api/verify-slip/qr-image/info',
+            'https://api.slip2go.com/verify-slip/qr-image/info',
+            'https://api.slip2go.com/api/verify-slip/qr-image/info',
+        ].filter(Boolean) as string[];
 
-        // 3. Call Slip2Go
-        const apiResponse = await fetch('https://api.slip2go.com/api/verify-slip/qr-image/info', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${secretKey}`,
-                // Content-Type is set automatically by fetch for FormData
-            },
-            body: slip2GoFormData,
+        // Supabase client as end-user (Bearer token from caller) เพื่อให้ auth.uid() ถูกต้อง
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+        if (!supabaseUrl || !supabaseAnonKey) {
+            throw new Error('Missing Supabase environment variables');
+        }
+        const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+            global: { headers: { Authorization: `Bearer ${token}` } }
         });
 
-        const apiData = await apiResponse.json();
+        // 0) เช็คซ้ำใน Supabase ก่อนยิง Slip2Go (ทั้ง trans_id และ file_hash)
+        const { data: existingSlip, error: slipCheckError } = await supabase
+            .from('slips')
+            .select('trans_id, file_hash')
+            .or(`trans_id.eq.${transId},file_hash.eq.${fileHash}`)
+            .maybeSingle();
 
-        // Check API response
-        // Slip2Go success structure needs to be handled. 
-        // Assuming standard HTTP errors or specific success fields.
-        if (!apiResponse.ok) {
-            console.error('Slip2Go Error:', apiData);
-            return NextResponse.json({
-                success: false,
-                message: apiData.message || 'Verification failed at provider',
-                details: apiData
-            }, { status: apiResponse.status });
+        if (slipCheckError) {
+            throw new Error(`Slip check failed: ${slipCheckError.message}`);
         }
 
-        // 4. Extract Data
-        // Based on user prompt: "ดึงค่า transRef และ amount"
-        // Let's assume the structure based on common Slip2Go patterns or similar APIs
-        // Commonly: data: { transRef: '...', amount: 100.00, ... } or just top level.
-        // User prompt says: "When response comes back, extract transRef and amount"
-        // Let's handle the extraction carefully. 
-        // If the user didn't give EXACT JSON structure, I'll log and assume `data` wrapper.
-        // Most verified providers wrap in `data`.
-
-        // NOTE: User prompt implies strict structure. 
-        // Let's assume `apiData.data.transRef` and `apiData.data.amount` based on previous EasySlip structure which was similar.
-        // If Slip2Go uses different casing, we should handle it. `transRef` is specified in prompt.
-
-        const resultData = apiData.data || apiData;
-        const transRef = resultData.transRef || resultData.trans_ref || resultData.ref;
-        const amount = typeof resultData.amount === 'object' ? resultData.amount.amount : resultData.amount; // Sometimes amount is { amount: 100, currency: 'THB' }
-
-        if (!transRef || !amount) {
-            console.error('Invalid Slip Data:', resultData);
+        if (existingSlip) {
             return NextResponse.json({
                 success: false,
-                message: 'Could not extract slip data (TransRef or Amount missing)',
-                details: resultData
+                message: 'สลิปนี้ถูกใช้งานไปแล้ว (trans_id/file_hash ซ้ำ)',
+                code: 'DUPLICATE_SLIP',
+                slipRef: transId,
             }, { status: 400 });
         }
 
-        // 5. Calculate Credits (Server-Side Logic)
-        // 100 -> 1 THB (Starter)
-        // 150 -> 139 THB (Pro)
-        // 500 -> 399 THB (Whale)
-        // Fallback: 1 THB = 1 Credit
-        let creditsToAdd = 0;
-        const amountVal = parseFloat(amount.toString());
+        let lastError: Error | null = null;
+        for (const endpoint of endpoints) {
+            try {
+                console.log('Sending request to Slip2Go endpoint:', endpoint);
 
-        if (Math.abs(amountVal - 1.00) < 0.1) {
-            creditsToAdd = 100;
-        } else if (Math.abs(amountVal - 139.00) < 0.1) {
-            creditsToAdd = 150;
-        } else if (Math.abs(amountVal - 399.00) < 0.1) {
-            creditsToAdd = 500;
-        } else {
-            creditsToAdd = Math.floor(amountVal); // Default 1:1
-        }
+                // FormData ต้องสร้างใหม่ทุกครั้งเพื่อหลีกเลี่ยงปัญหา stream ถูกใช้ซ้ำ
+                const fd = new FormData();
+                fd.append('file', new Blob([arrayBuffer], { type: mimeType }), 'slip.jpg');
 
-        // 6. DB Duplicate Check and Update (Atomic RPC)
-        const { data: rpcResult, error: rpcError } = await supabase.rpc('add_credits_v2', {
-            credit_amount: creditsToAdd,
-            payment_amount: amountVal,
-            slip_ref: transRef
-        });
+                // เผื่อ endpoint qr-base64 ต้องการ base64 string
+                const isBase64Endpoint = endpoint.includes('qr-base64');
+                const isQrCodeEndpoint = endpoint.includes('qr-code');
 
-        if (rpcError) {
-            console.error('RPC Error:', rpcError);
-            throw rpcError;
-        }
+                const headers: Record<string, string> = {
+                    Authorization: `Bearer ${secretKey}`,
+                    Accept: 'application/json',
+                };
 
-        // 7. Handle RPC Result
-        if (!rpcResult.success) {
-            // Duplicate or other logical failure
-            return NextResponse.json({
-                success: false,
-                message: rpcResult.message || 'สลิปนี้ถูกใช้งานไปแล้ว',
-                data: { transRef, amount }
-            }, { status: 400 });
-        }
+                const fetchOptions: RequestInit = {
+                    method: 'POST',
+                    headers,
+                    body: fd,
+                };
 
-        return NextResponse.json({
-            success: true,
-            message: 'เติมเครดิตสำเร็จ',
-            data: {
-                transRef,
-                amount: amountVal,
-                creditsAdded: creditsToAdd,
-                newBalance: rpcResult.new_balance
+                if (isBase64Endpoint) {
+                    // เปลี่ยนเป็น JSON payload สำหรับ base64 endpoint
+                    fetchOptions.body = JSON.stringify({ base64: `data:${mimeType};base64,${base64}` });
+                    fetchOptions.headers = {
+                        ...headers,
+                        'Content-Type': 'application/json',
+                    };
+                } else if (isQrCodeEndpoint) {
+                    // qr-code endpoint คาดว่าจะได้สตริง QR; ลองส่งเป็นไฟล์ base64 ให้ด้วย
+                    fetchOptions.body = JSON.stringify({ qr: `data:${mimeType};base64,${base64}` });
+                    fetchOptions.headers = {
+                        ...headers,
+                        'Content-Type': 'application/json',
+                    };
+                }
+
+                const apiResponse = await fetch(endpoint, fetchOptions);
+
+                const responseText = await apiResponse.text();
+                console.log('Slip2Go Response:', responseText);
+
+                let apiData: any;
+                try {
+                    apiData = JSON.parse(responseText);
+                } catch {
+                    throw new Error(`Non-JSON response from ${endpoint}: ${responseText}`);
+                }
+
+                if (!apiResponse.ok) {
+                    throw new Error(apiData.message || `Slip2Go rejected with status ${apiResponse.status}`);
+                }
+
+                // 4) หา slipRef จากผลลัพธ์ (ห้าม fallback สุ่ม เพื่อป้องกัน duplicate หลุดรอด)
+                const slipRef = (
+                    apiData?.refNo
+                    || apiData?.referenceNo
+                    || apiData?.result?.refNo
+                    || apiData?.result?.referenceNo
+                    || apiData?.data?.transRef
+                    || apiData?.data?.referenceId
+                    || apiData?.data?.qrCode
+                    || apiData?.qrCode
+                )?.toString()?.trim();
+
+                if (!slipRef) {
+                    throw new Error('ไม่พบรหัสอ้างอิงสลิปจากผู้ให้บริการ (slip_ref)');
+                }
+
+                let creditResult: any = null;
+                if (creditAmount > 0 && paymentAmount > 0) {
+                    const { data: addResult, error: creditError } = await supabase.rpc('add_credits_v2', {
+                        credit_amount: creditAmount,
+                        payment_amount: paymentAmount,
+                        slip_ref: slipRef,
+                    });
+
+                    if (creditError) {
+                        throw new Error(`Add credits failed: ${creditError.message}`);
+                    }
+                    if (addResult && addResult.success === false) {
+                        return NextResponse.json({
+                            success: false,
+                            message: addResult.message || 'สลิปนี้ถูกใช้งานไปแล้ว',
+                            code: 'DUPLICATE_SLIP',
+                            slipRef,
+                        }, { status: 400 });
+                    }
+                    creditResult = addResult;
+                }
+
+                // 5) บันทึก trans_id ลง Supabase slips table (กันซ้ำครั้งต่อไป)
+                const insertPayload = {
+                    trans_id: transId,
+                    amount: paymentAmount || apiData?.data?.amount || apiData?.amount || null,
+                    sender_name: senderName || apiData?.data?.sender?.account?.name || null,
+                    slip_ref: slipRef,
+                    file_hash: fileHash,
+                };
+
+                const { error: insertError } = await supabase.from('slips').insert(insertPayload);
+                if (insertError) {
+                    throw new Error(`Insert slip failed: ${insertError.message}`);
+                }
+
+                // สำเร็จ -> ตอบกลับ พร้อมผลการเพิ่มเครดิต (ถ้ามี)
+                return NextResponse.json({ success: true, data: { apiData, creditResult, slipRef, tierId } });
+            } catch (err: any) {
+                lastError = err;
+                console.error(`Slip2Go call failed for ${endpoint}:`, err);
             }
-        });
+        }
+
+        throw lastError || new Error('Slip2Go verification failed');
 
     } catch (error: any) {
-        console.error('Verification Error:', error);
-        return NextResponse.json(
-            { success: false, message: 'Internal server error', details: error.message },
-            { status: 500 }
-        );
+        console.error('SERVER ERROR:', error);
+        return NextResponse.json({
+            success: false,
+            message: error.message,
+            debug: error.stack,
+        }, { status: 500 });
     }
 }

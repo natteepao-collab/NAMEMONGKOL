@@ -1,5 +1,5 @@
-import React from 'react';
-import { Star, User } from 'lucide-react';
+import Link from 'next/link';
+import { Star, User, Sparkles } from 'lucide-react';
 import { AnalysisResult } from '@/types';
 
 interface ResultHeaderProps {
@@ -82,11 +82,23 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
                 <div className="text-slate-300 text-sm md:text-base font-medium leading-relaxed px-4 mb-3">
                     "{result.prediction.desc}"
                 </div>
-                <div className="flex flex-col items-center gap-2">
+                <div className="flex flex-col items-center gap-3 mt-4">
                     <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium bg-slate-800 ${result.prediction.color}`}>
                         {result.prediction.level}
                     </span>
-                    {/* Optional: Add text description for grade if needed, e.g. "เกรด A+" */}
+
+                    {/* Upsell for Orange/Red/Amber/Rose scores */}
+                    {(result.prediction.color.includes('orange') ||
+                        result.prediction.color.includes('red') ||
+                        result.prediction.color.includes('rose') ||
+                        result.prediction.color.includes('amber')) && (
+                            <Link href="/premium-analysis">
+                                <button className="flex items-center gap-2 px-6 py-2.5 mt-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white rounded-xl shadow-lg shadow-amber-900/20 transition-all hover:-translate-y-0.5 hover:shadow-amber-500/30 animate-pulse">
+                                    <Sparkles className="w-4 h-4" />
+                                    <span className="font-bold text-sm">ออกแบบชื่อมงคลใหม่</span>
+                                </button>
+                            </Link>
+                        )}
                 </div>
             </div>
         </>

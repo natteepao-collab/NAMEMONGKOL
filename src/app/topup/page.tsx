@@ -109,16 +109,36 @@ export default function TopUpPage() {
         try {
             const formData = new FormData();
             formData.append('image', selectedFile);
+            formData.append('credit_amount', String(selectedTier.credits));
+            formData.append('payment_amount', String(selectedTier.price));
+            formData.append('order_id', orderId);
+            formData.append('tier_id', selectedTier.id);
+            formData.append('trans_id', orderId); // ใช้ orderId เป็น trans_id สำหรับกันสลิปซ้ำ
 
-            // 1. Verify Slip with API
+            // 1. Get Access Token
+            const { data: { session } } = await supabase.auth.getSession();
+            const token = session?.access_token;
+
+            if (!token) {
+                throw new Error('กรุณาเข้าสู่ระบบก่อนทำรายการ');
+            }
+
+            // 2. Verify Slip with API
+            // Calling our own Next.js API route
             const response = await fetch('/api/verify-slip', {
                 method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
                 body: formData,
             });
 
             const data = await response.json();
 
             if (!response.ok || !data.success) {
+                if (data.code === 'DUPLICATE_SLIP') {
+                    throw new Error('สลิปนี้ถูกใช้งานไปแล้ว กรุณาอัปโหลดสลิปใหม่');
+                }
                 throw new Error(data.message || 'สลิปไม่ถูกต้อง หรือตรวจสอบไม่ผ่าน');
             }
 
@@ -140,7 +160,7 @@ export default function TopUpPage() {
             // Success Alert
             await Swal.fire({
                 title: 'เติมเครดิตสำเร็จ!',
-                text: `คุณได้รับ ${selectedTier.credits} Credits เรียบร้อยแล้ว`,
+                text: `คุณได้รับ ${selectedTier.credits} เครดิต เรียบร้อยแล้ว`,
                 icon: 'success',
                 confirmButtonText: 'ตกลง',
                 confirmButtonColor: '#10b981', // emerald-500
@@ -153,7 +173,22 @@ export default function TopUpPage() {
 
         } catch (error: any) {
             console.error('Top-up error:', error);
-            const errorMessage = error.message || 'เกิดข้อผิดพลาดในการตรวจสอบสลิป';
+            const raw = error?.message || '';
+            let errorMessage = 'เกิดข้อผิดพลาดในการตรวจสอบสลิป';
+
+            if (raw.includes('Failed to fetch')) {
+                errorMessage = 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ กรุณาลองใหม่';
+            } else if (raw.includes('Unauthorized')) {
+                errorMessage = 'กรุณาเข้าสู่ระบบก่อนทำรายการ';
+            } else if (raw.includes('Cannot POST')) {
+                errorMessage = 'ระบบตรวจสลิปไม่พร้อมใช้งานชั่วคราว กรุณาลองใหม่';
+            } else if (raw.includes('payload should not be empty')) {
+                errorMessage = 'ส่งข้อมูลสลิปไม่ครบ กรุณาอัปโหลดใหม่อีกครั้ง';
+            } else if (raw.includes('DUPLICATE_SLIP') || raw.includes('สลิปนี้ถูกใช้งานไปแล้ว')) {
+                errorMessage = 'สลิปนี้ถูกใช้งานไปแล้ว กรุณาอัปโหลดสลิปใหม่';
+            } else if (raw) {
+                errorMessage = raw;
+            }
 
             // Error Alert (Sweet Alert)
             Swal.fire({

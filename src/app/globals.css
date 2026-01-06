@@ -99,3 +99,22 @@ body {
 .thaksa-row:last-child {
   border-bottom: none;
 }
+
+/* Custom time picker: hide native icon and allow overlay icon */
+.time-picker-light {
+  padding-right: 2.75rem;
+}
+
+.time-picker-light::-webkit-calendar-picker-indicator,
+.time-picker-light::-webkit-clear-button,
+.time-picker-light::-webkit-inner-spin-button {
+  opacity: 0;
+  display: none;
+}
+
+.time-picker-light::-webkit-datetime-edit-ampm-field,
+.time-picker-light::-webkit-datetime-edit-hour-field,
+.time-picker-light::-webkit-datetime-edit-minute-field,
+.time-picker-light::-webkit-datetime-edit-text {
+  color: inherit;
+}

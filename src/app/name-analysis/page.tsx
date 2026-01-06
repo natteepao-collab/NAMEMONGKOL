@@ -1,23 +1,168 @@
 'use client';
 
-import React, { useState, useMemo, useRef } from 'react'; // Added useRef
-import { Search, Trash2, ClipboardList, CheckCircle2, Download, XCircle, Info, Hash, History, Save, ArrowDownWideNarrow, Printer } from 'lucide-react'; // Added icons
+import React, { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Search, Trash2, ClipboardList, CheckCircle2, Download, XCircle, Info, Hash, Save, ArrowDownWideNarrow, Printer, Coins, PlayCircle, LogIn } from 'lucide-react';
 import { analyzeName } from '@/utils/nameAnalysis';
 import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
-
+import Swal from 'sweetalert2';
 import { supabase } from '@/utils/supabase';
 
+// Define Result Interface to clear 'any' types if needed, but inferring is fine for now based on usage
+interface AnalysisResultItem {
+    id: number;
+    name: string;
+    grade: string;
+    sum: number;
+    goodDays: string[];
+    pairs: { pair: string; type: string }[];
+}
+
 export default function NameAnalysisPage() {
+    const router = useRouter();
     const [inputText, setInputText] = useState("");
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const [isSorted, setIsSorted] = useState(false); // New State
+    const [isSorted, setIsSorted] = useState(false);
+
+    // Core State
+    const [results, setResults] = useState<AnalysisResultItem[]>([]);
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
+    const [userCredits, setUserCredits] = useState<number | null>(null);
 
     // Ref for PDF Capture
     const printRef = useRef<HTMLDivElement>(null);
 
-    const results = useMemo(() => {
-        if (!inputText.trim()) return [];
+    // Fetch User Credits on Mount
+    useEffect(() => {
+        const fetchCredits = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                const { data } = await supabase
+                    .from('user_profiles')
+                    .select('credits')
+                    .eq('id', user.id)
+                    .single();
+                if (data) setUserCredits(data.credits);
+            }
+        };
+        fetchCredits();
+    }, []);
+
+    const countNames = (text: string) => {
+        return text.split('\n')
+            .map(n => n.trim())
+            .filter(n => n.length > 0)
+            .length;
+    };
+
+    const calculateCost = (count: number) => {
+        if (count <= 10) return 5; // Entry
+        if (count <= 100) return 30; // Standard
+        return 100; // Power User (101-1000)
+    };
+
+    const handleAnalyzeClick = async () => {
+        const count = countNames(inputText);
+
+        if (count === 0) {
+            Swal.fire({
+                title: 'กรุณากรอกรายชื่อ',
+                text: 'โปรดใส่รายชื่อที่ต้องการวิเคราะห์อย่างน้อย 1 ชื่อ',
+                icon: 'warning',
+                confirmButtonColor: '#f59e0b',
+                background: '#1e293b',
+                color: '#fff'
+            });
+            return;
+        }
+
+        if (count > 1000) {
+            Swal.fire({
+                title: 'เกินขีดจำกัด',
+                text: 'รองรับสูงสุด 1,000 รายชื่อต่อครั้ง',
+                icon: 'error',
+                confirmButtonColor: '#ef4444',
+                background: '#1e293b',
+                color: '#fff'
+            });
+            return;
+        }
+
+        // Check Login
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            const result = await Swal.fire({
+                title: 'กรุณาเข้าสู่ระบบ',
+                text: 'ท่านต้องเข้าสู่ระบบก่อนเริ่มการวิเคราะห์',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'เข้าสู่ระบบ',
+                cancelButtonText: 'ยกเลิก',
+                confirmButtonColor: '#f59e0b',
+                background: '#1e293b',
+                color: '#fff'
+            });
+            if (result.isConfirmed) {
+                router.push('/login');
+            }
+            return;
+        }
+
+        const cost = calculateCost(count);
+
+        // Confirmation & Payment
+        if (cost > 0) {
+            // Check Balance
+            if (userCredits !== null && userCredits < cost) {
+                const result = await Swal.fire({
+                    title: 'เครดิตไม่เพียงพอ',
+                    text: `การวิเคราะห์นี้ต้องใช้ ${cost} เครดิต (ท่านมี ${userCredits})`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'เติมเครดิต',
+                    cancelButtonText: 'ยกเลิก',
+                    confirmButtonColor: '#10b981',
+                    background: '#1e293b',
+                    color: '#fff'
+                });
+                if (result.isConfirmed) router.push('/topup');
+                return;
+            }
+
+            // Confirm Deduct
+            const confirm = await Swal.fire({
+                title: 'ยืนยันการวิเคราะห์',
+                text: `วิเคราะห์ ${count} รายชื่อ ใช้ ${cost} เครดิต`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: `ยืนยัน (ใช้ ${cost} เครดิต)`,
+                cancelButtonText: 'ยกเลิก',
+                confirmButtonColor: '#f59e0b',
+                background: '#1e293b',
+                color: '#fff'
+            });
+
+            if (!confirm.isConfirmed) return;
+
+            // Process Deduction
+            setIsAnalyzing(true);
+            const { error } = await supabase.rpc('deduct_credits', { amount: cost });
+            if (error) {
+                console.error(error);
+                Swal.fire('ข้อผิดพลาด', 'ไม่สามารถตัดเครดิตได้ กรุณาลองใหม่', 'error');
+                setIsAnalyzing(false);
+                return;
+            }
+            // Update local credits
+            setUserCredits(prev => (prev !== null ? prev - cost : null));
+        }
+
+        // Perform Analysis
+        setIsAnalyzing(true);
+
+        // Slight delay to show loading state (UX)
+        await new Promise(resolve => setTimeout(resolve, 800));
+
         const names = inputText.split('\n')
             .map(n => n.trim())
             .filter(n => n.length > 0)
@@ -32,61 +177,80 @@ export default function NameAnalysisPage() {
             };
         });
 
-        if (isSorted) {
-            const gradeWeight: Record<string, number> = { 'A+': 4, 'A': 3, 'B': 2, 'C': 1 };
-            mapped.sort((a, b) => {
-                const scoreA = gradeWeight[a.grade] || 0;
-                const scoreB = gradeWeight[b.grade] || 0;
-                if (scoreA !== scoreB) return scoreB - scoreA; // Best grade first
-                return b.sum - a.sum; // High sum second
+        setResults(mapped);
+        setIsAnalyzing(false);
+
+        // Auto Save History (Optional based on previous request, keeping logic manual or auto? Previous file had Manual Save button, let's keep manual to save DB space, OR auto? User didn't specify auto-save for Bulk, only Premium. I'll stick to manual save button existing in tool bar)
+        // Actually, user said "Auto Save" for Premium. For Bulk, let's leave the "Save" button as is for user control.
+        if (cost > 0) {
+            Swal.fire({
+                title: 'วิเคราะห์สำเร็จ!',
+                text: `ตัด ${cost} เครดิตเรียบร้อยแล้ว`,
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false,
+                background: '#1e293b',
+                color: '#fff',
+                toast: true,
+                position: 'top-end'
             });
         }
+    };
 
-        return mapped;
-    }, [inputText, isSorted]);
+    // Sort Logic
+    const sortedResults = [...results];
+    if (isSorted) {
+        const gradeWeight: Record<string, number> = { 'A+': 4, 'A': 3, 'B': 2, 'C': 1 };
+        sortedResults.sort((a, b) => {
+            const scoreA = gradeWeight[a.grade] || 0;
+            const scoreB = gradeWeight[b.grade] || 0;
+            if (scoreA !== scoreB) return scoreB - scoreA;
+            return b.sum - a.sum;
+        });
+    }
 
     const handleClear = () => {
-        if (window.confirm("ต้องการล้างข้อมูลรายชื่อทั้งหมดใช่หรือไม่?")) setInputText("");
+        if (window.confirm("ต้องการล้างข้อมูลรายชื่อทั้งหมดใช่หรือไม่?")) {
+            setInputText("");
+            setResults([]);
+        }
     };
 
     const handleSaveHistory = async () => {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
-            alert('กรุณาเข้าสู่ระบบเพื่อบันทึกประวัติ');
+            Swal.fire('แจ้งเตือน', 'กรุณาเข้าสู่ระบบเพื่อบันทึกประวัติ', 'warning');
             return;
         }
 
         if (results.length === 0) return;
-
-        const confirm = window.confirm(`ต้องการบันทึกประวัติการวิเคราะห์ ${results.length} รายชื่อใช่หรือไม่?`);
-        if (!confirm) return;
 
         try {
             const { error } = await supabase.from('analysis_history').insert({
                 user_id: user.id,
                 type: 'name_analysis',
                 input_data: {
-                    raw_text: inputText.substring(0, 1000), // Limit text length
+                    raw_text: inputText.substring(0, 1000),
                     count: results.length
                 },
                 result_data: results.map(r => ({
                     name: r.name,
                     sum: r.sum,
-                    pairs: r.pairs.map(p => p.pair).join(',') // Store minimal data
+                    pairs: r.pairs.map(p => p.pair).join(',')
                 }))
             });
 
             if (error) throw error;
-            alert('บันทึกประวัติเรียบร้อยแล้ว');
+            Swal.fire('บันทึกสำเร็จ', 'บันทึกประวัติเรียบร้อยแล้ว', 'success');
         } catch (err) {
             console.error('Error saving history:', err);
-            alert('เกิดข้อผิดพลาดในการบันทึก');
+            Swal.fire('ข้อผิดพลาด', 'เกิดข้อผิดพลาดในการบันทึก', 'error');
         }
     };
 
     const exportCSV = () => {
         const header = "ลำดับ,รายชื่อ,เกรด,ผลรวมชื่อ,วันที่ใช้ได้,วิเคราะห์คู่เลข\n";
-        const rows = results.map(r => {
+        const rows = sortedResults.map(r => {
             const pairDisplay = r.pairs.map(p => `${p.pair}${p.type === 'GREEN' ? '🟢' : p.type === 'ORANGE' ? '🟠' : '🔴'}`).join(" - ");
             return `${r.id},${r.name},${r.grade},${r.sum},"${r.goodDays.join(", ")}",${pairDisplay}`;
         }).join("\n");
@@ -99,12 +263,8 @@ export default function NameAnalysisPage() {
 
     const handleExportPDF = async () => {
         if (!printRef.current) return;
-
-        // Find the scrollable container inside printRef
         const scrollContainer = printRef.current.querySelector('.custom-scrollbar');
         const printHeader = printRef.current.querySelector('.print-header') as HTMLElement;
-
-        // Temporarily modify styles to capture full content
         const originalOverflow = scrollContainer ? (scrollContainer as HTMLElement).style.overflow : '';
         const originalHeight = scrollContainer ? (scrollContainer as HTMLElement).style.height : '';
         const originalHeaderDisplay = printHeader ? printHeader.style.display : '';
@@ -113,52 +273,36 @@ export default function NameAnalysisPage() {
             (scrollContainer as HTMLElement).style.overflow = 'visible';
             (scrollContainer as HTMLElement).style.height = 'auto';
         }
-
         if (printHeader) {
             printHeader.style.display = 'block';
             printHeader.classList.remove('hidden');
         }
 
         try {
-            // Wait for a moment to let the style changes render
             await new Promise(resolve => setTimeout(resolve, 100));
-
-            const dataUrl = await toPng(printRef.current, {
-                cacheBust: true,
-                backgroundColor: '#0f172a', // Background color match
-            });
-
-            const pdf = new jsPDF({
-                orientation: 'p',
-                unit: 'mm',
-                format: 'a4'
-            });
-
+            const dataUrl = await toPng(printRef.current, { cacheBust: true, backgroundColor: '#0f172a' });
+            const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
             const imgProps = pdf.getImageProperties(dataUrl);
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-            // Multi-page logic
-            const pageHeight = pdf.internal.pageSize.getHeight();
             let heightLeft = pdfHeight;
             let position = 0;
+            const pageHeight = pdf.internal.pageSize.getHeight();
 
             pdf.addImage(dataUrl, 'PNG', 0, position, pdfWidth, pdfHeight);
             heightLeft -= pageHeight;
-
             while (heightLeft >= 0) {
                 position = heightLeft - pdfHeight;
                 pdf.addPage();
                 pdf.addImage(dataUrl, 'PNG', 0, position, pdfWidth, pdfHeight);
                 heightLeft -= pageHeight;
             }
-
             pdf.save(`namemongkol-analysis-${new Date().getTime()}.pdf`);
         } catch (error) {
             console.error("PDF Generation Error:", error);
-            alert("เกิดข้อผิดพลาดในการสร้าง PDF");
+            Swal.fire('Error', 'เกิดข้อผิดพลาดในการสร้าง PDF', 'error');
         } finally {
-            // Restore styles
             if (scrollContainer) {
                 (scrollContainer as HTMLElement).style.overflow = originalOverflow;
                 (scrollContainer as HTMLElement).style.height = originalHeight;
@@ -169,6 +313,10 @@ export default function NameAnalysisPage() {
             }
         }
     };
+
+    // Calculate current cost for display
+    const currentCount = countNames(inputText);
+    const cost = calculateCost(currentCount);
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-indigo-500/30">
@@ -195,46 +343,16 @@ export default function NameAnalysisPage() {
                                 </p>
                             </div>
                         </div>
-                        <div className="flex flex-wrap gap-3">
-                            <button
-                                onClick={() => setIsSorted(!isSorted)}
-                                className={`flex items-center gap-2 px-6 py-3 rounded-xl transition-all font-medium border ${isSorted
-                                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
-                                    : 'bg-white/5 text-slate-300 hover:text-white border-white/10 hover:bg-white/10'
-                                    }`}
-                            >
-                                <ArrowDownWideNarrow className="w-4 h-4" />
-                                <span className="hidden sm:inline">{isSorted ? 'เรียงตามมงคล' : 'เรียงตามชื่อ'}</span>
-                            </button>
-                            <button
-                                onClick={handleClear}
-                                className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-rose-400 rounded-xl transition-all font-medium border border-white/10 hover:border-rose-500/30"
-                            >
-                                <Trash2 className="w-4 h-4" /> <span className="hidden sm:inline">ล้างรายชื่อ</span>
-                            </button>
-                            {results.length > 0 && (
-                                <>
-                                    <button
-                                        onClick={handleSaveHistory}
-                                        className="flex items-center gap-2 px-6 py-3 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-xl transition-all font-bold border border-emerald-500/20 hover:border-emerald-500/40"
-                                    >
-                                        <Save className="w-4 h-4" /> บันทึก
-                                    </button>
-                                    <button
-                                        onClick={exportCSV}
-                                        className="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl transition-all font-bold shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/40 active:scale-95"
-                                    >
-                                        <Download className="w-4 h-4" /> CSV
-                                    </button>
-                                    <button
-                                        onClick={handleExportPDF}
-                                        className="flex items-center gap-2 px-6 py-3 bg-rose-600 hover:bg-rose-500 text-white rounded-xl transition-all font-bold shadow-lg shadow-rose-600/20 hover:shadow-rose-600/40 active:scale-95"
-                                    >
-                                        <Printer className="w-4 h-4" /> PDF
-                                    </button>
-                                </>
-                            )}
-                        </div>
+                        {/* Credits Balance (Optional Display) */}
+                        {userCredits !== null && (
+                            <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-xl flex items-center gap-3">
+                                <span className="text-slate-400 text-sm">เครดิตคงเหลือ</span>
+                                <div className="flex items-center gap-1.5">
+                                    <span className="text-amber-400 font-bold text-xl">{userCredits}</span>
+                                    <Coins className="w-4 h-4 text-amber-500" />
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -246,30 +364,76 @@ export default function NameAnalysisPage() {
                                         <Hash className="w-4 h-4 text-indigo-400" />
                                         รายชื่อที่ต้องการวิเคราะห์
                                     </h3>
-                                    <span className={`text-[10px] px-2 py-1 rounded-md font-bold border ${results.length >= 1000
+                                    <span className={`text-[10px] px-2 py-1 rounded-md font-bold border ${currentCount >= 1000
                                         ? 'bg-rose-500/10 text-rose-400 border-rose-500/20'
                                         : 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20'
                                         }`}>
-                                        {results.length.toLocaleString()} / 1,000
+                                        {currentCount.toLocaleString()} / 1,000
                                     </span>
                                 </div>
                                 <div className="p-4">
                                     <textarea
-                                        className="w-full h-[520px] p-6 text-lg border border-white/10 rounded-2xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 outline-none transition-all resize-none bg-black/20 text-slate-200 placeholder:text-slate-600 font-medium custom-scrollbar leading-loose"
+                                        className="w-full h-[400px] p-6 text-lg border border-white/10 rounded-2xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 outline-none transition-all resize-none bg-black/20 text-slate-200 placeholder:text-slate-600 font-medium custom-scrollbar leading-loose"
                                         placeholder="วางรายชื่อที่นี่...&#10;เช่น:&#10;ณวิธ&#10;กลิ่นหอม"
                                         value={inputText}
                                         onChange={(e) => setInputText(e.target.value)}
                                     />
                                 </div>
-                                <div className="px-6 pb-6">
-                                    <div className="bg-indigo-500/5 p-4 rounded-2xl border border-indigo-500/10 flex gap-3 items-start">
-                                        <Info className="w-5 h-5 mt-0.5 flex-shrink-0 text-indigo-400" />
-                                        <div className="space-y-1">
-                                            <p className="text-xs font-bold text-indigo-300 uppercase">คำแนะนำ</p>
-                                            <p className="text-xs text-slate-400 leading-relaxed">
-                                                ระบบคำนวณตามอักขระจริง (พยัญชนะ สระ วรรณยุกต์) เพื่อความแม่นยำสูงสุดตามตำรา
-                                            </p>
+
+                                {/* Analysis Action */}
+                                <div className="px-6 pb-6 pt-2">
+                                    <div className="flex flex-col gap-3">
+                                        <div className="flex justify-between items-center text-sm px-1">
+                                            <span className="text-slate-400">รายการวิเคราะห์:</span>
+                                            <span className="font-bold text-white">{currentCount} รายชื่อ</span>
                                         </div>
+                                        <div className="flex justify-between items-center text-sm px-1">
+                                            <span className="text-slate-400">ค่าบริการ:</span>
+                                            <span className="font-bold text-amber-400">
+                                                {cost} เครดิต
+                                            </span>
+                                        </div>
+
+                                        <button
+                                            onClick={handleAnalyzeClick}
+                                            disabled={isAnalyzing || currentCount === 0 || currentCount > 1000}
+                                            className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white rounded-xl shadow-lg shadow-indigo-500/25 transition-all font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed group relative overflow-hidden"
+                                        >
+                                            {isAnalyzing ? (
+                                                <>
+                                                    <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
+                                                    กำลังวิเคราะห์...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <PlayCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                                                    เริ่มการวิเคราะห์
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Pricing Info */}
+                                <div className="px-6 pb-6 pt-0">
+                                    <div className="bg-indigo-500/5 p-4 rounded-2xl border border-indigo-500/10 space-y-2">
+                                        <p className="text-xs font-bold text-indigo-300 uppercase flex items-center gap-2">
+                                            <Info className="w-4 h-4" /> อัตราค่าบริการ (Credit)
+                                        </p>
+                                        <ul className="text-xs text-slate-400 space-y-1 ml-1">
+                                            <li className="flex justify-between">
+                                                <span>1 - 10 ชื่อ</span>
+                                                <span className="text-amber-400 font-bold">5 Credit</span>
+                                            </li>
+                                            <li className="flex justify-between">
+                                                <span>11 - 100 ชื่อ</span>
+                                                <span className="text-amber-400 font-bold">30 Credit</span>
+                                            </li>
+                                            <li className="flex justify-between">
+                                                <span>101 - 1,000 ชื่อ</span>
+                                                <span className="text-amber-400 font-bold">100 Credit</span>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -278,20 +442,36 @@ export default function NameAnalysisPage() {
                         {/* Results Display */}
                         <div className="lg:col-span-8">
                             <div ref={printRef} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl min-h-[720px] flex flex-col pt-0">
-                                {/* Print Header (Hidden normally, shown in print/canvas) */}
+                                {/* Actions Toolbar */}
+                                {(results.length > 0) && (
+                                    <div className="p-4 border-b border-white/5 flex gap-3 justify-end bg-white/[0.02]">
+                                        <button
+                                            onClick={() => setIsSorted(!isSorted)}
+                                            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all text-xs font-bold border ${isSorted
+                                                ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                                                : 'bg-white/5 text-slate-300 hover:text-white border-white/10 hover:bg-white/10'
+                                                }`}
+                                        >
+                                            <ArrowDownWideNarrow className="w-3 h-3" />
+                                            {isSorted ? 'เรียงตามมงคล' : 'เรียงตามชื่อ'}
+                                        </button>
+                                        <button onClick={handleSaveHistory} className="flex items-center gap-2 px-4 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 rounded-lg transition-all text-xs font-bold border border-emerald-500/20">
+                                            <Save className="w-3 h-3" /> บันทึก
+                                        </button>
+                                        <button onClick={exportCSV} className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-all text-xs font-bold shadow-lg shadow-indigo-600/20">
+                                            <Download className="w-3 h-3" /> CSV
+                                        </button>
+                                        <button onClick={handleExportPDF} className="flex items-center gap-2 px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-lg transition-all text-xs font-bold shadow-lg shadow-rose-600/20">
+                                            <Printer className="w-3 h-3" /> PDF
+                                        </button>
+                                        <button onClick={handleClear} className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-rose-400 rounded-lg transition-all text-xs font-bold border border-white/10">
+                                            <Trash2 className="w-3 h-3" /> ล้าง
+                                        </button>
+                                    </div>
+                                )}
+
+                                {/* Print Header */}
                                 <div className="bg-indigo-900/20 p-6 border-b border-indigo-500/30 mb-2 hidden print:block print-header">
-                                    {/* Note: inline style display:none might prevent html2canvas capturing it unless we force show it. 
-                                    html2canvas captures COMPUTED styles. Hidden elements are skipped. 
-                                    Better approach: Use a class that is normally hidden but we force show during capture 
-                                    OR rely on the fact that I force overflow visible on printRef? No. 
-                                    Let's just make it visible but use absolute positioning or just standard hidden class 
-                                    and rely on manual display block in handleExportPDF? 
-                                    Actually I didn't add logic to force show it in handleExportPDF.
-                                    Let's keep it simple: visible but maybe just part of the design? 
-                                    User asked for "Header with Logo".
-                                    I will make it visible ALWAYS at top of table? No, only for export.
-                                    Let's try: `mb-2 hidden` and in handleExportPDF I change its style to block.
-                                 */}
                                     <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center text-white">
                                             <ClipboardList className="w-6 h-6" />
@@ -308,7 +488,7 @@ export default function NameAnalysisPage() {
                                     {isSorted && <span className="text-xs text-amber-400 bg-amber-500/10 px-2 py-1 rounded border border-amber-500/20">เรียงตามความมงคล</span>}
                                 </div>
                                 <div className="flex-1 overflow-auto custom-scrollbar">
-                                    {results.length > 0 ? (
+                                    {sortedResults.length > 0 ? (
                                         <table className="w-full text-left border-collapse min-w-[700px]">
                                             <thead className="bg-black/20 sticky top-0 z-10 backdrop-blur-md">
                                                 <tr className="text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-white/5">
@@ -321,7 +501,7 @@ export default function NameAnalysisPage() {
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-white/5">
-                                                {results.map((row) => (
+                                                {sortedResults.map((row) => (
                                                     <tr key={row.id} className="hover:bg-white/[0.02] transition-colors group">
                                                         <td className="px-6 py-6 text-slate-500 font-mono text-center text-sm group-hover:text-indigo-400 transition-colors">
                                                             {row.id.toString().padStart(3, '0')}
@@ -394,8 +574,18 @@ export default function NameAnalysisPage() {
                                             </div>
                                             <div className="text-center space-y-2">
                                                 <p className="text-xl font-bold text-slate-400">ระบุรายชื่อเพื่อเริ่มต้น</p>
-                                                <p className="text-xs font-medium text-slate-600 uppercase tracking-widest">รองรับการวิเคราะห์ทีละหลายรายชื่อ</p>
+                                                <p className="text-xs font-medium text-slate-600 uppercase tracking-widest">
+                                                    {userCredits === null ? 'กรุณาเข้าสู่ระบบ' : 'กดปุ่มเพื่อเริ่มวิเคราะห์'}
+                                                </p>
                                             </div>
+                                            {userCredits === null && (
+                                                <button
+                                                    onClick={() => router.push('/login')}
+                                                    className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 text-white rounded-xl shadow-lg shadow-indigo-500/20 hover:bg-indigo-500 transition-all font-bold"
+                                                >
+                                                    <LogIn className="w-4 h-4" /> เข้าสู่ระบบ
+                                                </button>
+                                            )}
                                         </div>
                                     )}
                                 </div>
