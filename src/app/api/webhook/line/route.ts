@@ -106,13 +106,14 @@ async function handleEvent(event: WebhookEvent) {
             return; // EXIT HERE to save quota
         }
 
-        // 4. Find User (Check before API call to ensure valid user first?)
-        // optional, but good practice.
+        // 4. Find User
+        console.log(`Looking up user for LINE ID: ${lineUserId}`);
+        // Use RPC to bypass RLS policies
         const { data: user, error: userError } = await supabase
-            .from('users')
-            .select('id, credits')
-            .eq('line_user_id', lineUserId)
-            .single();
+            .rpc('get_user_by_line_id', { line_id_input: lineUserId })
+            .maybeSingle();
+
+        console.log('User lookup result:', user ? 'Found' : 'Not Found', userError ? userError.message : 'No Error');
 
         if (userError || !user) {
             await client.replyMessage(replyToken, {
@@ -190,7 +191,7 @@ async function handleEvent(event: WebhookEvent) {
 
         // 7.2 Update User Credit
         const { error: updateCreditError } = await supabase
-            .from('users')
+            .from('user_profiles')
             .update({ credits: (user.credits || 0) + credits })
             .eq('id', user.id);
 

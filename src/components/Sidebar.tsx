@@ -62,6 +62,7 @@ export const Sidebar = () => {
     };
 
     const menuItems = [
+        { name: 'ข้อมูลส่วนตัว', icon: UserIcon, path: '/profile' },
         { name: 'วิเคราะห์ชื่อ', icon: Home, path: '/' },
         { name: 'ค้นหาชื่อมงคล', icon: Search, path: '/search' },
         { name: 'คัดสรรชื่อมงคล ', icon: Sparkles, path: '/premium-search' },
