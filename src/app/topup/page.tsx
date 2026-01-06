@@ -3,9 +3,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { supabase } from '@/utils/supabase';
-import { Package, CreditCard, ShieldCheck, Zap, Bitcoin, CheckCircle2, X, Upload, FileText, AlertCircle } from 'lucide-react';
+import { Package, CreditCard, ShieldCheck, Zap, Bitcoin, CheckCircle2, X, Upload, FileText, AlertCircle, Download } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { QRCodeSVG } from 'qrcode.react';
+import { QRCodeCanvas } from 'qrcode.react';
 import generatePayload from 'promptpay-qr';
 import Swal from 'sweetalert2';
 
@@ -356,11 +356,12 @@ export default function TopUpPage() {
                                     </div>
 
                                     {/* QR Code */}
-                                    <div className="relative group mb-2 md:mb-4">
-                                        <div className="absolute -inset-1 bg-gradient-to-tr from-[#113566] to-[#00aeef] rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-500"></div>
+                                    <div className="relative group mb-2 md:mb-4 flex flex-col items-center gap-3">
+                                        <div className="absolute -inset-1 bg-gradient-to-tr from-[#113566] to-[#00aeef] rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-500 pointer-events-none"></div>
                                         <div className="bg-white p-1.5 md:p-3 rounded-2xl border border-slate-100 relative shadow-sm">
                                             <div className="relative flex items-center justify-center">
-                                                <QRCodeSVG
+                                                <QRCodeCanvas
+                                                    id="qr-code-canvas"
                                                     value={qrPayload}
                                                     size={180}
                                                     level="H"
@@ -376,6 +377,25 @@ export default function TopUpPage() {
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <button
+                                            onClick={() => {
+                                                const canvas = document.getElementById('qr-code-canvas') as HTMLCanvasElement;
+                                                if (canvas) {
+                                                    const pngUrl = canvas.toDataURL('image/png');
+                                                    const downloadLink = document.createElement('a');
+                                                    downloadLink.href = pngUrl;
+                                                    downloadLink.download = `namemongkol_qr_${selectedTier.price}thb.png`;
+                                                    document.body.appendChild(downloadLink);
+                                                    downloadLink.click();
+                                                    document.body.removeChild(downloadLink);
+                                                }
+                                            }}
+                                            className="text-xs flex items-center gap-1.5 text-[#113566] hover:text-[#005a9e] font-medium px-3 py-1.5 bg-[#113566]/5 hover:bg-[#113566]/10 rounded-full transition-colors"
+                                        >
+                                            <Download size={14} />
+                                            บันทึกรูป QR Code
+                                        </button>
                                     </div>
 
                                     {/* Upload Area */}
