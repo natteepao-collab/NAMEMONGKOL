@@ -180,7 +180,7 @@ async function handleEvent(event: WebhookEvent) {
             sender_name: slipData.data?.sender?.account?.name || 'LINE User',
             slip_ref: transRef,
             file_hash: fileHash,
-            // user_id: user.id 
+            user_id: user.id
         });
 
         if (insertSlipError) {
