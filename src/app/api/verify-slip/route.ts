@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { createHash } from 'crypto';
+import { Client } from '@line/bot-sdk';
 
 export async function POST(request: Request) {
     console.log('--- API verify-slip START ---');
@@ -187,6 +188,24 @@ export async function POST(request: Request) {
                 const { error: insertError } = await supabase.from('slips').insert(insertPayload);
                 if (insertError) {
                     throw new Error(`Insert slip failed: ${insertError.message}`);
+                }
+
+                // 6) Notify Admin via LINE
+                try {
+                    const lineConfig = {
+                        channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || '',
+                        channelSecret: process.env.CHANNEL_SECRET || '',
+                    };
+                    const lineClient = new Client(lineConfig);
+                    const ADMIN_LINE_ID = 'Ub8d2e90e5c8d8628bfa13b0f25326a48';
+
+                    await lineClient.pushMessage(ADMIN_LINE_ID, {
+                        type: 'text',
+                        text: `🔔 WEB TOPUP RECEIVED\n\n👤 Sender: ${insertPayload.sender_name || 'Unknown'}\n💰 Amount: ${paymentAmount}\n💎 Credits: ${creditAmount}\n🧾 Ref: ${slipRef}`
+                    });
+                    console.log('✅ Admin notification sent (API)');
+                } catch (notifyErr) {
+                    console.error('❌ Failed to notify admin (API):', notifyErr);
                 }
 
                 // สำเร็จ -> ตอบกลับ พร้อมผลการเพิ่มเครดิต (ถ้ามี)
