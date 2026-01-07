@@ -273,15 +273,19 @@ async function handleEvent(event: WebhookEvent) {
         });
 
         // 9. Notify Admin
+        console.log('--- STARTING ADMIN NOTIFICATION ---');
         const ADMIN_LINE_ID = 'Ub8d2e90e5c8d8628bfa13b0f25326a48';
         try {
+            console.log(`Sending to Admin: ${ADMIN_LINE_ID}`);
             await client.pushMessage(ADMIN_LINE_ID, {
                 type: 'text',
                 text: `🔔 NEW SLIP RECEIVED\n\n👤 Sender: ${slipData.data?.sender?.account?.name || 'Unknown'}\n🆔 Line ID: ${lineUserId}\n💰 Amount: ${amount}\n💎 Credits: ${credits}\n🧾 Ref: ${transRef}`
             });
+            console.log('✅ Admin notification sent successfully');
         } catch (adminErr) {
-            console.error('Failed to notify admin:', adminErr);
+            console.error('❌ Failed to notify admin:', adminErr);
         }
+        console.log('--- END ADMIN NOTIFICATION ---');
 
     } catch (e) {
         console.error('Error handling event', e);
