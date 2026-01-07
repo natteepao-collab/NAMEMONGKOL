@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Home, Search, Info, Menu, X, Sparkles, LogIn, LogOut, User as UserIcon, ClipboardList, Crown, Zap, History as HistoryIcon } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';
+import { LineOAButton } from './LineOAButton';
 
 export const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -282,6 +283,9 @@ export const Sidebar = () => {
                             </Link>
                         )}
                     </nav>
+
+
+                    <LineOAButton />
 
                     <div className="mt-auto pt-6 border-t border-white/5">
                         <p className="text-[10px] text-slate-600 text-center leading-relaxed font-medium">

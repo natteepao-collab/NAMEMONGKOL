@@ -21,6 +21,7 @@ export async function generateMetadata(
       openGraph: {
         title: 'NameMongkol - วิเคราะห์ชื่อมงคล',
         description: 'วิเคราะห์ชื่อ-นามสกุล ดูผลรวม พลังเงา และความหมายมงคล ฟรี',
+        images: ['/api/og'],
       }
     }
   }
