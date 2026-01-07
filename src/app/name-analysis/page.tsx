@@ -41,7 +41,7 @@ export default function NameAnalysisPage() {
                     .from('user_profiles')
                     .select('credits')
                     .eq('id', user.id)
-                    .single();
+                    .maybeSingle();
                 if (data) setUserCredits(data.credits);
             }
         };
@@ -155,6 +155,7 @@ export default function NameAnalysisPage() {
             }
             // Update local credits
             setUserCredits(prev => (prev !== null ? prev - cost : null));
+            window.dispatchEvent(new Event('force_credits_update'));
         }
 
         // Perform Analysis

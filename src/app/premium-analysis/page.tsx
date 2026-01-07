@@ -82,7 +82,7 @@ export default function PremiumAnalysisPage() {
                     .from('user_profiles')
                     .select('credits')
                     .eq('id', user.id)
-                    .single();
+                    .maybeSingle();
                 if (data) setUserCredits(data.credits);
             }
         };
@@ -123,10 +123,10 @@ export default function PremiumAnalysisPage() {
             return;
         }
 
-        if (userCredits !== null && userCredits < 10) {
+        if (userCredits !== null && userCredits < 50) {
             const result = await Swal.fire({
                 title: 'เครดิตไม่เพียงพอ',
-                text: 'การวิเคราะห์ต้องใช้ 10 เครดิต ต้องการเติมเครดิตเลยหรือไม่?',
+                text: 'การวิเคราะห์ต้องใช้ 50 เครดิต ต้องการเติมเครดิตเลยหรือไม่?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'เติมเครดิต',
@@ -146,10 +146,10 @@ export default function PremiumAnalysisPage() {
 
         const result = await Swal.fire({
             title: isNewBatch ? 'ยืนยันการขอรายชื่อใหม่' : 'ยืนยันการวิเคราะห์',
-            text: isNewBatch ? 'ระบบจะหัก 10 เครดิตเพื่อสุ่มชื่อชุดใหม่ที่ไม่ซ้ำเดิม' : 'ระบบจะหัก 10 เครดิตเพื่อเริ่มการวิเคราะห์',
+            text: isNewBatch ? 'ระบบจะหัก 50 เครดิตเพื่อสุ่มชื่อชุดใหม่ที่ไม่ซ้ำเดิม' : 'ระบบจะหัก 50 เครดิตเพื่อเริ่มการวิเคราะห์',
             icon: 'question',
             showCancelButton: true,
-            confirmButtonText: 'ยืนยัน (ใช้ 10 เครดิต)',
+            confirmButtonText: 'ยืนยัน (ใช้ 50 เครดิต)',
             cancelButtonText: 'ยกเลิก',
             confirmButtonColor: '#f59e0b',
             cancelButtonColor: '#ef4444',
@@ -163,10 +163,11 @@ export default function PremiumAnalysisPage() {
         setIsLoading(true);
 
         try {
-            const { error: deductError } = await supabase.rpc('deduct_credits', { amount: 10 });
+            const { error: deductError } = await supabase.rpc('deduct_credits', { amount: 50 });
             if (deductError) throw deductError;
 
-            setUserCredits(prev => (prev !== null ? prev - 10 : null));
+            setUserCredits(prev => (prev !== null ? prev - 50 : null));
+            window.dispatchEvent(new Event('force_credits_update'));
 
             const dateObj = new Date(birthDate);
             const astDay = getAstrologicalDay(dateObj, birthTime);
@@ -375,7 +376,7 @@ export default function PremiumAnalysisPage() {
                             </div>
                             <div className="ml-4 px-3 py-1 bg-amber-500/20 rounded-full border border-amber-500/20">
                                 <span className="text-xs font-bold text-amber-400 flex items-center gap-1">
-                                    -10 <Coins size={10} />
+                                    -50 <Coins size={10} />
                                 </span>
                             </div>
                         </button>
@@ -603,7 +604,7 @@ export default function PremiumAnalysisPage() {
                                 </div>
                             </div>
                             <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl border border-white/5">
-                                <span className="text-sm font-bold text-amber-500">ใช้ 10 เครดิต</span>
+                                <span className="text-sm font-bold text-amber-500">ใช้ 50 เครดิต</span>
                                 <Coins size={16} className="text-amber-500" />
                             </div>
                         </div>

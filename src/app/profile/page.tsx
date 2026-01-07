@@ -29,7 +29,7 @@ export default function ProfilePage() {
                 .from('user_profiles')
                 .select('line_user_id')
                 .eq('id', user.id)
-                .single();
+                .maybeSingle();
 
             if (profile?.line_user_id) {
                 setLineUserId(profile.line_user_id);

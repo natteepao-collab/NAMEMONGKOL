@@ -176,7 +176,7 @@ export default function RegisterPage() {
                         </h1>
                         <p className="text-slate-400 text-sm">
                             {otpSent
-                                ? `กรุณากรอกรหัส 6 หลักที่ส่งไปยัง ${formData.email}`
+                                ? `กรุณากรอกรหัสยืนยันที่ส่งไปยัง ${formData.email}`
                                 : 'เริ่มต้นใช้งาน NameMongkol ฟรีวันนี้'}
                         </p>
                     </div>
@@ -324,7 +324,7 @@ export default function RegisterPage() {
                                         onChange={handleOtpChange}
                                         className="block w-full pl-11 pr-4 py-3 bg-black/20 border border-white/10 rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent transition-all tracking-widest text-center text-lg"
                                         placeholder="000000"
-                                        maxLength={6}
+                                        maxLength={8}
                                         required
                                         disabled={isLoading}
                                     />

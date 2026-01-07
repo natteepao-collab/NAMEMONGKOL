@@ -109,7 +109,7 @@ export default function SearchPage() {
         const fetchCredits = async () => {
             const { data: { user } } = await supabase.auth.getUser();
             if (user) {
-                const { data } = await supabase.from('user_profiles').select('credits').eq('id', user.id).single();
+                const { data } = await supabase.from('user_profiles').select('credits').eq('id', user.id).maybeSingle();
                 if (data) setUserCredits(data.credits);
             }
         };
@@ -217,6 +217,7 @@ export default function SearchPage() {
             const { error } = await supabase.rpc('deduct_credits', { amount: 5 });
             if (!error) {
                 setUserCredits(prev => (prev || 0) - 5);
+                window.dispatchEvent(new Event('force_credits_update'));
                 setVisibleCount(prev => prev + 50); // Load next 50
                 Swal.fire({
                     title: 'โหลดรายชื่อสำเร็จ!',

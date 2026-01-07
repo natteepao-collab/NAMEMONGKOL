@@ -19,44 +19,39 @@ interface PricingTier {
     color: string;
 }
 
-const PRICING_TIERS: PricingTier[] = [
-    {
-        id: 'tier_starter',
-        credits: 100,
-        price: 1,
-        name: 'Starter Pack',
-        description: 'เหมาะสำหรับผู้เริ่มต้น',
-        color: 'from-blue-500 to-cyan-500'
-    },
-    {
-        id: 'tier_pro',
-        credits: 150,
-        price: 139,
-        name: 'Pro Value',
-        description: 'คุ้มค่าที่สุด! ประหยัด 7%',
-        popular: true,
-        color: 'from-amber-500 to-orange-500'
-    },
-    {
-        id: 'tier_whale',
-        credits: 500,
-        price: 399,
-        name: 'Fortune Seeker',
-        description: 'สำหรับสายมูตัวจริง ประหยัด 20%',
-        color: 'from-purple-500 to-pink-500'
+const fetchTiers = async () => {
+    try {
+        const res = await fetch('/api/pricing');
+        const data = await res.json();
+        if (data.success) {
+            return data.tiers;
+        }
+        return [];
+    } catch (error) {
+        console.error('Failed to fetch tiers', error);
+        return [];
     }
-];
+};
 
 const PROMPTPAY_NUMBER = '0891682824';
 
 export default function TopUpPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const [tiers, setTiers] = useState<PricingTier[]>([]);
     const [selectedTier, setSelectedTier] = useState<PricingTier | null>(null);
     const [showPaymentModal, setShowPaymentModal] = useState(false);
     const [qrPayload, setQrPayload] = useState<string>('');
     const [timeLeft, setTimeLeft] = useState(600); // 10 minutes in seconds
     const [orderId, setOrderId] = useState('');
+
+    useEffect(() => {
+        const loadTiers = async () => {
+            const data = await fetchTiers();
+            setTiers(data);
+        };
+        loadTiers();
+    }, []);
 
     // Slip Upload States
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -169,7 +164,8 @@ export default function TopUpPage() {
             });
 
             setShowPaymentModal(false);
-            window.location.reload(); // Refresh to update sidebar credits
+            // window.location.reload(); // Removed reload
+            window.dispatchEvent(new Event('force_credits_update')); // Seamless update
 
         } catch (error: any) {
             console.error('Top-up error:', error);
@@ -255,7 +251,9 @@ export default function TopUpPage() {
 
                     {/* Pricing Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 pb-20 md:pb-0">
-                        {PRICING_TIERS.map((tier) => (
+                        {tiers.length === 0 ? (
+                            <div className="col-span-3 text-center py-10 text-slate-400">Loading packages...</div>
+                        ) : tiers.map((tier) => (
                             <div
                                 key={tier.id}
                                 className={`relative group p-5 md:p-8 rounded-[1.5rem] md:rounded-[2rem] border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col ${tier.popular

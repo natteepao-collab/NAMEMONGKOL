@@ -21,13 +21,13 @@ export const Sidebar = () => {
             .from('user_profiles')
             .select('credits')
             .eq('id', userId)
-            .single();
+            .maybeSingle();
 
         if (data) {
             setCredits(data.credits);
         } else {
-            console.error('Error fetching credits:', error);
-            // Default to 0 or handled by trigger if fetching fails but user exists
+            // Profile might not exist yet, or error occurred. Default to 0.
+            if (error) console.error('Error fetching credits:', error);
             setCredits(0);
         }
     };
@@ -52,8 +52,23 @@ export const Sidebar = () => {
             }
         });
 
-        return () => subscription.unsubscribe();
+        return () => {
+            subscription.unsubscribe();
+        };
     }, []);
+
+    useEffect(() => {
+        // Listen for custom credit update events
+        const handleCreditUpdate = () => {
+            if (user) fetchCredits(user.id);
+        };
+
+        window.addEventListener('force_credits_update', handleCreditUpdate);
+
+        return () => {
+            window.removeEventListener('force_credits_update', handleCreditUpdate);
+        };
+    }, [user]);
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
@@ -62,7 +77,6 @@ export const Sidebar = () => {
     };
 
     const menuItems = [
-        { name: 'ข้อมูลส่วนตัว', icon: UserIcon, path: '/profile' },
         { name: 'วิเคราะห์ชื่อ', icon: Home, path: '/' },
         { name: 'ค้นหาชื่อมงคล', icon: Search, path: '/search' },
         { name: 'คัดสรรชื่อมงคล ', icon: Sparkles, path: '/premium-search' },
@@ -216,7 +230,6 @@ export const Sidebar = () => {
                             );
                         })}
 
-                        {/* Divider */}
                         <div className="my-6 border-t border-white/5" />
 
                         {user ? (

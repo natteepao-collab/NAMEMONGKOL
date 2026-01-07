@@ -27,14 +27,43 @@ export const InputForm: React.FC<InputFormProps> = ({
 }) => {
     return (
         <div className="w-full max-w-lg animate-fade-in-up">
-            <div className="text-center mb-7 sm:mb-8">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 leading-tight">
-                    วิเคราะห์พลัง<br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">แห่งนามมงคล</span>
-                </h1>
-                <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-                    ครบเครื่องเรื่องเลขศาสตร์ ทักษา อายตนะ และคู่ตัวเลข
-                </p>
+            {/* Compact Hero Banner */}
+            <div className="relative mb-6">
+                <div className="relative bg-gradient-to-r from-slate-900/60 to-slate-800/60 backdrop-blur-xl rounded-2xl p-5 border border-white/10 shadow-2xl overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-4 group">
+
+                    {/* Decorative Elements */}
+                    <div className="absolute left-0 top-0 w-1.5 h-full bg-gradient-to-b from-amber-400 to-amber-600" />
+                    <div className="absolute right-0 top-0 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none group-hover:bg-amber-500/20 transition-colors" />
+
+                    {/* Left Content */}
+                    <div className="text-center sm:text-left z-10 flex-1">
+                        <div className="flex items-center justify-center sm:justify-start gap-2 mb-1.5">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">AI-Powered Analysis</span>
+                        </div>
+                        <h1 className="text-xl sm:text-2xl font-bold text-white leading-tight">
+                            วิเคราะห์ชื่อ <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">มงคลพลิกชีวิต</span>
+                        </h1>
+                        <p className="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">
+                            เจาะลึกศาสตร์ตัวเลข ทักษา อายตนะ ครบจบทันที
+                        </p>
+                    </div>
+
+                    {/* Right Content / Visual */}
+                    <div className="flex gap-2 z-10 shrink-0">
+                        <div className="text-center px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 backdrop-blur-sm">
+                            <span className="block text-lg font-bold text-amber-400 leading-none">99%</span>
+                            <span className="text-[9px] text-slate-500 uppercase font-medium">แม่นยำ</span>
+                        </div>
+                        <div className="text-center px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 backdrop-blur-sm">
+                            <span className="block text-lg font-bold text-amber-400 leading-none">AI</span>
+                            <span className="text-[9px] text-slate-500 uppercase font-medium">รวดเร็ว</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className="glass-card p-5 sm:p-8 rounded-2xl shadow-2xl shadow-purple-900/20">

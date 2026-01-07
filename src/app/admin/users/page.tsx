@@ -1,0 +1,288 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { Search, Edit2, ChevronLeft, ChevronRight, Save, X, User } from 'lucide-react';
+import Swal from 'sweetalert2';
+import { supabase } from '@/utils/supabase';
+
+interface UserProfile {
+    id: string;
+    first_name?: string;
+    last_name?: string;
+    email?: string; // Might not exist in profile table depending on sync
+    credits: number;
+    role: string;
+    created_at?: string;
+}
+
+export default function AdminUsersPage() {
+    const [users, setUsers] = useState<UserProfile[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState('');
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
+    // Edit Modal State
+    const [editingUser, setEditingUser] = useState<UserProfile | null>(null);
+    const [editCredits, setEditCredits] = useState(0);
+    const [editRole, setEditRole] = useState('user');
+    const [saving, setSaving] = useState(false);
+
+    const fetchUsers = async () => {
+        setLoading(true);
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            const query = new URLSearchParams({
+                page: page.toString(),
+                limit: '20',
+                search
+            });
+            const res = await fetch(`/api/admin/users?${query}`, {
+                headers: {
+                    Authorization: `Bearer ${session?.access_token || ''}`
+                }
+            });
+            const data = await res.json();
+            if (data.success) {
+                setUsers(data.users);
+                setTotalPages(Math.ceil((data.total || 0) / 20));
+            }
+        } catch (error) {
+            console.error('Error fetching users:', error);
+            Swal.fire('Error', 'Failed to load users', 'error');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            fetchUsers();
+        }, 300); // Debounce search
+        return () => clearTimeout(timeout);
+    }, [page, search]);
+
+    const handleEdit = (user: UserProfile) => {
+        setEditingUser(user);
+        setEditCredits(user.credits || 0);
+        setEditRole(user.role || 'user');
+    };
+
+    const handleSave = async () => {
+        if (!editingUser) return;
+        setSaving(true);
+        try {
+            const { data: { session } } = await supabase.auth.getSession();
+            const res = await fetch('/api/admin/users', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${session?.access_token || ''}`
+                },
+                body: JSON.stringify({
+                    id: editingUser.id,
+                    credits: parseInt(editCredits.toString()),
+                    role: editRole
+                })
+            });
+            const data = await res.json();
+            if (data.success) {
+                setUsers(users.map(u => u.id === editingUser.id ? data.user : u));
+                setEditingUser(null);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Updated!',
+                    text: 'User data has been updated.',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    background: '#1e293b',
+                    color: '#fff'
+                });
+            } else {
+                throw new Error(data.error);
+            }
+        } catch (error: any) {
+            Swal.fire('Error', error.message, 'error');
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    return (
+        <div className="p-4 md:p-8">
+            <div className="max-w-6xl mx-auto space-y-6">
+                <header className="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div>
+                        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+                            <User className="text-emerald-500" />
+                            จัดการผู้ใช้งาน
+                        </h1>
+                        <p className="text-slate-400 text-sm">ดูแลบัญชีและเครดิตสมาชิก</p>
+                    </div>
+
+                    <div className="relative w-full md:w-64">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
+                        <input
+                            type="text"
+                            placeholder="ค้นหา (ID / ชื่อ)..."
+                            value={search}
+                            onChange={(e) => { setSearch(e.target.value); setPage(1); }}
+                            className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-10 pr-4 py-2 text-slate-200 focus:outline-none focus:border-emerald-500 transition-all"
+                        />
+                    </div>
+                </header>
+
+                {/* Table */}
+                <div className="bg-slate-900/50 border border-slate-700/50 rounded-2xl overflow-hidden shadow-xl backdrop-blur-sm">
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left text-sm text-slate-400">
+                            <thead className="bg-slate-800/50 text-slate-200 uppercase font-medium">
+                                <tr>
+                                    <th className="px-6 py-4">User Details</th>
+                                    <th className="px-6 py-4 text-center">Role</th>
+                                    <th className="px-6 py-4 text-center">Credits</th>
+                                    <th className="px-6 py-4 text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-800/50">
+                                {loading ? (
+                                    <tr>
+                                        <td colSpan={4} className="px-6 py-12 text-center text-slate-500">
+                                            <div className="flex justify-center mb-2">
+                                                <div className="animate-spin h-6 w-6 border-2 border-emerald-500 rounded-full border-t-transparent"></div>
+                                            </div>
+                                            Loading users...
+                                        </td>
+                                    </tr>
+                                ) : users.length === 0 ? (
+                                    <tr>
+                                        <td colSpan={4} className="px-6 py-12 text-center text-slate-500">
+                                            ไม่พบข้อมูลผู้ใช้งาน
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    users.map((user) => (
+                                        <tr key={user.id} className="hover:bg-slate-800/30 transition-colors">
+                                            <td className="px-6 py-4">
+                                                <div className="flex flex-col">
+                                                    <span className="text-white font-medium">
+                                                        {user.first_name} {user.last_name}
+                                                    </span>
+                                                    <span className="text-xs text-slate-500 font-mono truncate max-w-[150px]" title={user.id}>
+                                                        ID: {user.id}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4 text-center">
+                                                <span className={`px-2 py-1 rounded-full text-xs font-bold ${user.role === 'admin'
+                                                    ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20'
+                                                    : 'bg-slate-700/50 text-slate-400'
+                                                    }`}>
+                                                    {user.role || 'user'}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4 text-center">
+                                                <span className="text-emerald-400 font-bold">{user.credits?.toLocaleString() || 0}</span>
+                                            </td>
+                                            <td className="px-6 py-4 text-center">
+                                                <button
+                                                    onClick={() => handleEdit(user)}
+                                                    className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-all"
+                                                >
+                                                    <Edit2 size={16} />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Pagination */}
+                    <div className="flex justify-between items-center px-6 py-4 bg-slate-800/20 border-t border-slate-700/50 text-sm">
+                        <span className="text-slate-500">Page {page} of {totalPages}</span>
+                        <div className="flex gap-2">
+                            <button
+                                disabled={page <= 1}
+                                onClick={() => setPage(p => p - 1)}
+                                className="p-2 text-slate-400 hover:text-white disabled:opacity-30 disabled:hover:text-slate-400"
+                            >
+                                <ChevronLeft size={20} />
+                            </button>
+                            <button
+                                disabled={page >= totalPages}
+                                onClick={() => setPage(p => p + 1)}
+                                className="p-2 text-slate-400 hover:text-white disabled:opacity-30 disabled:hover:text-slate-400"
+                            >
+                                <ChevronRight size={20} />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Edit Modal */}
+            {editingUser && (
+                <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+                    <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md shadow-2xl p-6 relative">
+                        <button
+                            onClick={() => setEditingUser(null)}
+                            className="absolute top-4 right-4 text-slate-500 hover:text-white"
+                        >
+                            <X size={20} />
+                        </button>
+
+                        <h3 className="text-xl font-bold text-white mb-6">แก้ไขข้อมูลผู้ใช้</h3>
+
+                        <div className="space-y-4">
+                            <div className="bg-slate-800/50 p-4 rounded-xl text-center">
+                                <p className="text-slate-400 text-sm">User ID</p>
+                                <p className="text-slate-200 font-mono text-xs mt-1 break-all">{editingUser.id}</p>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-slate-300 mb-2">เครดิต (Credits)</label>
+                                <input
+                                    type="number"
+                                    value={editCredits}
+                                    onChange={(e) => setEditCredits(Number(e.target.value))}
+                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-slate-300 mb-2">บทบาท (Role)</label>
+                                <select
+                                    value={editRole}
+                                    onChange={(e) => setEditRole(e.target.value)}
+                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500"
+                                >
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+
+                            <button
+                                onClick={handleSave}
+                                disabled={saving}
+                                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-emerald-900/20 active:scale-[0.98] disabled:opacity-70 disabled:scale-100 flex items-center justify-center gap-2 mt-4"
+                            >
+                                {saving ? (
+                                    <>
+                                        <div className="animate-spin h-5 w-5 border-2 border-white/30 border-t-white rounded-full"></div>
+                                        Processing...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Save size={20} /> บันทึกข้อมูล
+                                    </>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}

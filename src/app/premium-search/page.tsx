@@ -152,7 +152,7 @@ export default function PremiumSearchPage() {
                     .from('user_profiles')
                     .select('credits')
                     .eq('id', user.id)
-                    .single();
+                    .maybeSingle();
                 if (data) setUserCredits(data.credits);
             }
         };
@@ -184,10 +184,10 @@ export default function PremiumSearchPage() {
         }
 
         // Check for insufficient credits first
-        if (userCredits !== null && userCredits < 10) {
+        if (userCredits !== null && userCredits < 15) {
             const result = await Swal.fire({
                 title: 'เครดิตไม่เพียงพอ',
-                text: 'การค้นหาต้องใช้ 10 เครดิต ต้องการเติมเครดิตเลยหรือไม่?',
+                text: 'การค้นหาต้องใช้ 15 เครดิต ต้องการเติมเครดิตเลยหรือไม่?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'เติมเครดิต',
@@ -208,10 +208,10 @@ export default function PremiumSearchPage() {
         // Confirm Search
         const result = await Swal.fire({
             title: 'ยืนยันการค้นหา',
-            text: 'ระบบจะหัก 10 เครดิตเพื่อค้นรหัสรายชื่อมงคลชุดใหม่',
+            text: 'ระบบจะหัก 15 เครดิตเพื่อค้นรหัสรายชื่อมงคลชุดใหม่',
             icon: 'question',
             showCancelButton: true,
-            confirmButtonText: 'ยืนยัน (ใช้ 10 เครดิต)',
+            confirmButtonText: 'ยืนยัน (ใช้ 15 เครดิต)',
             cancelButtonText: 'ยกเลิก',
             confirmButtonColor: '#059669', // Emerald 600
             cancelButtonColor: '#ef4444', // Red 500
@@ -226,11 +226,12 @@ export default function PremiumSearchPage() {
 
         try {
             // 1. Deduct Credits
-            const { error } = await supabase.rpc('deduct_credits', { amount: 10 });
+            const { error } = await supabase.rpc('deduct_credits', { amount: 15 });
             if (error) throw error;
 
             // Update local credits
-            setUserCredits(prev => (prev !== null ? prev - 10 : null));
+            setUserCredits(prev => (prev !== null ? prev - 15 : null));
+            window.dispatchEvent(new Event('force_credits_update'));
 
             // 2. Perform Search
             await new Promise(resolve => setTimeout(resolve, 800)); // Fake delay for UX
@@ -474,7 +475,7 @@ export default function PremiumSearchPage() {
                                 {isLoading ? <span className="animate-spin">⏳</span> : <Search size={20} />}
                                 <span className="text-lg">ค้นหารายชื่อ</span>
                                 <span className="ml-2 bg-black/20 px-3 py-1 rounded-lg text-sm font-semibold flex items-center gap-1">
-                                    <Lock size={12} /> -10 เครดิต
+                                    <Lock size={12} /> -15 เครดิต
                                 </span>
                             </button>
 
