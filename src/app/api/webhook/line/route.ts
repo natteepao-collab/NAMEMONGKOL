@@ -272,6 +272,17 @@ async function handleEvent(event: WebhookEvent) {
             text: `✅ ตรวจสอบสลิปเรียบร้อย\n💰 ยอดเงิน: ${amount} บาท\n💎 ได้รับ: ${credits} เครดิต ${bonusText}\n${packageName}\n\nขอบคุณที่ใช้บริการครับ 🙏`
         });
 
+        // 9. Notify Admin
+        const ADMIN_LINE_ID = 'Ub8d2e90e5c8d8628bfa13b0f25326a48';
+        try {
+            await client.pushMessage(ADMIN_LINE_ID, {
+                type: 'text',
+                text: `🔔 NEW SLIP RECEIVED\n\n👤 Sender: ${slipData.data?.sender?.account?.name || 'Unknown'}\n🆔 Line ID: ${lineUserId}\n💰 Amount: ${amount}\n💎 Credits: ${credits}\n🧾 Ref: ${transRef}`
+            });
+        } catch (adminErr) {
+            console.error('Failed to notify admin:', adminErr);
+        }
+
     } catch (e) {
         console.error('Error handling event', e);
         try {
