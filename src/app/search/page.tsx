@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/utils/supabase';
 import Swal from 'sweetalert2';
 import { Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, X, Lock, Unlock } from 'lucide-react';
-import { auspiciousNames } from '@/data/auspiciousNames';
+
 import { calculateScore } from '@/utils/numerologyUtils';
 import { getDayFromName, analyzeNameSuitability } from '@/utils/thaksaUtils';
 import { thaksaConfig, DayKey } from '@/data/thaksa';
@@ -105,6 +105,10 @@ export default function SearchPage() {
     const [visibleCount, setVisibleCount] = useState(10);
     const [userCredits, setUserCredits] = useState<number | null>(null);
 
+    const [names, setNames] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    // Fetch credits
     useEffect(() => {
         const fetchCredits = async () => {
             const { data: { user } } = await supabase.auth.getUser();
@@ -116,15 +120,36 @@ export default function SearchPage() {
         fetchCredits();
     }, []);
 
+    // Fetch names from DB
+    useEffect(() => {
+        const fetchNames = async () => {
+            setLoading(true);
+            const { data, error } = await supabase
+                .from('auspicious_names')
+                .select('name')
+                .order('name', { ascending: true });
+
+            if (data) {
+                setNames(data.map(d => d.name));
+            } else if (error) {
+                console.error('Error fetching names:', error);
+            }
+            setLoading(false);
+        };
+        fetchNames();
+    }, []);
+
     // Calculate unique scores for datalist
     const uniqueScores = useMemo(() => {
-        const scores = new Set(auspiciousNames.map(name => calculateScore(name)));
+        if (loading) return [];
+        const scores = new Set(names.map(name => calculateScore(name)));
         return Array.from(scores).sort((a, b) => a - b);
-    }, []);
+    }, [names, loading]);
 
     // Filter Logic
     const filteredNames = useMemo(() => {
-        return auspiciousNames.filter((name) => {
+        if (loading) return [];
+        return names.filter((name) => {
 
 
             // 2. Day Filter (Suitability)
@@ -142,7 +167,7 @@ export default function SearchPage() {
 
             return true;
         });
-    }, [selectedDay, targetSum]);
+    }, [selectedDay, targetSum, names, loading]);
 
     // Reset to page 1 when filters change is now handled in event handlers
 
