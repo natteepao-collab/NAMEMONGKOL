@@ -279,7 +279,7 @@ export default function PremiumSearchPage() {
             if (user) {
                 await supabase.from('analysis_history').insert({
                     user_id: user.id,
-                    type: 'premium_search',
+                    type: 'gacha',
                     input_data: {
                         selectedDay,
                         selectedScore: targetScore || 'All',
