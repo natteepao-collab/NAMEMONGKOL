@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, Search, Info, Menu, X, Sparkles, LogIn, LogOut, User as UserIcon, ClipboardList, Crown, Zap, History as HistoryIcon } from 'lucide-react';
+import { Home, Search, Info, Menu, X, Sparkles, LogIn, LogOut, User as UserIcon, ClipboardList, Crown, Zap, History as HistoryIcon, Settings } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';
 import { LineOAButton } from './LineOAButton';
@@ -12,24 +12,27 @@ export const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [user, setUser] = useState<User | null>(null);
     const [credits, setCredits] = useState<number | null>(null);
+    const [role, setRole] = useState<string | null>(null);
     const pathname = usePathname();
     const router = useRouter();
 
     const toggleSidebar = () => setIsOpen(!isOpen);
 
-    const fetchCredits = async (userId: string) => {
+    const fetchUserInfo = async (userId: string) => {
         const { data, error } = await supabase
             .from('user_profiles')
-            .select('credits')
+            .select('credits, role')
             .eq('id', userId)
             .maybeSingle();
 
         if (data) {
             setCredits(data.credits);
+            setRole(data.role);
         } else {
             // Profile might not exist yet, or error occurred. Default to 0.
-            if (error) console.error('Error fetching credits:', error);
+            if (error) console.error('Error fetching user info:', error);
             setCredits(0);
+            setRole(null);
         }
     };
 
@@ -38,7 +41,7 @@ export const Sidebar = () => {
             const { data: { user } } = await supabase.auth.getUser();
             setUser(user);
             if (user) {
-                fetchCredits(user.id);
+                fetchUserInfo(user.id);
             }
         };
 
@@ -47,9 +50,10 @@ export const Sidebar = () => {
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
             setUser(session?.user ?? null);
             if (session?.user) {
-                fetchCredits(session.user.id);
+                fetchUserInfo(session.user.id);
             } else {
                 setCredits(null);
+                setRole(null);
             }
         });
 
@@ -61,7 +65,7 @@ export const Sidebar = () => {
     useEffect(() => {
         // Listen for custom credit update events
         const handleCreditUpdate = () => {
-            if (user) fetchCredits(user.id);
+            if (user) fetchUserInfo(user.id);
         };
 
         window.addEventListener('force_credits_update', handleCreditUpdate);
@@ -86,6 +90,14 @@ export const Sidebar = () => {
         { name: 'ระบบคัดกรองชื่อ', icon: ClipboardList, path: '/name-analysis' },
         { name: 'เกี่ยวกับเรา', icon: Info, path: '/about' },
     ];
+
+    // Add Admin Menu Items
+    if (role === 'admin') {
+        menuItems.push(
+            { name: 'จัดการผู้ใช้งาน', icon: UserIcon, path: '/admin/users' },
+            { name: 'ตั้งค่าระบบ', icon: Settings, path: '/admin/settings' }
+        );
+    }
 
     return (
         <>

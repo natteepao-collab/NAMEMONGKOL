@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Sparkles, Sun, Heart, UserCheck, Star, Users, Target, LayoutDashboard, Search, Layers, ChevronLeft } from 'lucide-react';
+import { Sparkles, Sun, Heart, UserCheck, Star, Users, Target, LayoutDashboard, Search, Layers, ChevronLeft, Calendar, Infinity as InfinityIcon, Cpu, ShieldCheck, Zap, Lock, Quote } from 'lucide-react';
 
 const AboutSection = () => {
     return (
@@ -8,205 +8,343 @@ const AboutSection = () => {
             {/* Background Neon Accents */}
             <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-violet-600/20 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2 pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-slate-800/20 rounded-full blur-[100px] pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto relative z-10 space-y-24">
+            <div className="max-w-7xl mx-auto relative z-10 space-y-20 md:space-y-32">
 
-                {/* Back Button */}
-                <div className="flex justify-start">
-                    <Link href="/" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group">
-                        <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                        <span>กลับหน้าหลัก</span>
-                    </Link>
-                </div>
-
-                {/* Header & Intro */}
-                <div className="text-center space-y-6 animate-fade-in-up">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 backdrop-blur-sm text-sm text-emerald-400 mb-4">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        <span>The Science of Naming</span>
+                {/* 1. Header & Navigation */}
+                <div className="space-y-8">
+                    <div className="flex justify-start">
+                        <Link href="/" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group">
+                            <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+                            <span>กลับหน้าหลัก</span>
+                        </Link>
                     </div>
 
-                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
-                        เกี่ยวกับ NAMEMONGKOL <br className="hidden md:block" />
-                        <span className="text-slate-300">ผสานศาสตร์แห่งตัวเลขและทักษาปกรณ์</span> <br className="hidden md:block" />
-                        เพื่อ <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-violet-500 font-bold">&quot;ชื่อมงคล&quot;</span> ของคุณ
-                    </h1>
+                    <div className="text-center space-y-6 animate-fade-in-up">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 backdrop-blur-sm text-sm text-emerald-400 mb-4">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                            <span>The Science of Naming</span>
+                        </div>
 
-                    <div className="bg-slate-800/30 backdrop-blur-md rounded-2xl p-6 md:p-8 max-w-4xl mx-auto border border-white/5 mt-10 shadow-2xl">
-                        <p className="text-slate-300 leading-relaxed text-lg text-left indent-8">
-                            ยินดีต้อนรับสู่ <strong>NAMEMONGKOL</strong> แพลตฟอร์มวิเคราะห์ชื่อและนามสกุลอัจฉริยะ
-                            เราเชื่อว่า &quot;ชื่อ&quot; คือพรข้อแรกของชีวิตและเป็นจุดเริ่มต้นของความสำเร็จ
-                            เราจึงพัฒนาระบบที่รวบรวมหลักการทางโหราศาสตร์ไทยโบราณ ผสมผสานกับเทคโนโลยีการคำนวณที่แม่นยำ
-                            เพื่อช่วยให้คุณค้นหา <strong>ชื่อมงคล</strong> ที่สมพงศ์กับดวงชะตาที่สุด
-                        </p>
-                    </div>
-                </div>
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
+                            เกี่ยวกับ NAMEMONGKOL <br className="hidden md:block" />
+                            <span className="text-slate-300 text-2xl md:text-4xl lg:text-5xl font-medium block mt-4">ผสานภูมิปัญญาโบราณ เข้ากับเทคโนโลยีแห่งอนาคต</span>
+                        </h1>
 
-                {/* Mission */}
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                    <div className="order-2 md:order-1 relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-emerald-500 rounded-2xl opacity-20 blur-xl transform -rotate-3"></div>
-                        <div className="glass-card relative rounded-2xl p-8 md:p-10 border border-white/10 overflow-hidden group hover:border-white/20 transition-all duration-300">
-                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <Target size={120} />
-                            </div>
-                            <h2 className="text-2xl font-bold mb-4 text-white flex items-center gap-3">
-                                <Target className="text-emerald-400" /> ภารกิจของเรา (Our Mission)
-                            </h2>
-                            <p className="text-slate-300 text-lg leading-relaxed">
-                                เป้าหมายของ NAMEMONGKOL คือการทำให้ศาสตร์การ <strong>ตั้งชื่อลูก</strong> และการ <strong>เปลี่ยนชื่อ</strong>
-                                เป็นเรื่องที่เข้าถึงง่าย เข้าใจง่าย ไม่ซับซ้อน แต่ยังคงความละเอียดแม่นยำตามตำราอาจารย์
-                                เรามุ่งมั่นที่จะเป็นตัวช่วยอันดับหนึ่งสำหรับคุณพ่อคุณแม่มือใหม่ และผู้ที่ต้องการเสริมสิริมงคลให้ชีวิตผ่านพลังของตัวเลขและอักขระ
+                        <div className="max-w-3xl mx-auto mt-8">
+                            <p className="text-slate-400 text-lg md:text-xl leading-relaxed">
+                                แพลตฟอร์มวิเคราะห์ชื่อมงคลอัจฉริยะ ที่ช่วยให้คุณค้นพบ "ชื่อที่ใช่"
+                                ผ่านการคำนวณที่แม่นยำ ละเอียด และเป็นกลางที่สุด
                             </p>
                         </div>
                     </div>
-                    <div className="order-1 md:order-2 space-y-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                        <h3 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-                            Your Name, <br /> Your Destiny
+                </div>
+
+                {/* 2. Stats Bar (New Credibility Boost) */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-y border-white/5 bg-white/[0.02]">
+                    <div className="text-center space-y-2">
+                        <div className="flex justify-center text-emerald-400 mb-2">
+                            <Layers size={28} />
+                        </div>
+                        <h4 className="text-3xl font-bold text-white">4</h4>
+                        <p className="text-sm text-slate-400">ศาสตร์มงคลชั้นสูง</p>
+                    </div>
+                    <div className="text-center space-y-2">
+                        <div className="flex justify-center text-blue-400 mb-2">
+                            <Cpu size={28} />
+                        </div>
+                        <h4 className="text-3xl font-bold text-white">100%</h4>
+                        <p className="text-sm text-slate-400">ขับเคลื่อนด้วย AI</p>
+                    </div>
+                    <div className="text-center space-y-2">
+                        <div className="flex justify-center text-amber-400 mb-2">
+                            <Zap size={28} />
+                        </div>
+                        <h4 className="text-3xl font-bold text-white">24/7</h4>
+                        <p className="text-sm text-slate-400">ใช้งานได้ทันที</p>
+                    </div>
+                    <div className="text-center space-y-2">
+                        <div className="flex justify-center text-purple-400 mb-2">
+                            <Lock size={28} />
+                        </div>
+                        <h4 className="text-3xl font-bold text-white">Private</h4>
+                        <p className="text-sm text-slate-400">ข้อมูลส่วนตัวปลอดภัย</p>
+                    </div>
+                </div>
+
+                {/* 3. Mission Section */}
+                <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    <div className="order-2 md:order-1 relative">
+                        <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-emerald-500 rounded-3xl opacity-20 blur-2xl transform -rotate-3"></div>
+                        <div className="glass-card relative rounded-3xl p-10 border border-white/10 overflow-hidden">
+                            <Target className="text-emerald-500 mb-6" size={48} />
+                            <h2 className="text-3xl font-bold mb-6 text-white">
+                                ภารกิจของเรา (Our Mission)
+                            </h2>
+                            <div className="space-y-4 text-slate-300 text-lg leading-relaxed">
+                                <p>
+                                    NAMEMONGKOL เกิดขึ้นจากความตั้งใจที่จะทำให้ศาสตร์การ <strong>"ตั้งชื่อ"</strong> ที่ดูยุ่งยากและซับซ้อน
+                                    กลายเป็นเรื่องที่ <strong>"เข้าถึงง่าย"</strong> สำหรับทุกคน
+                                </p>
+                                <p>
+                                    เราเชื่อว่าทุกคนสมควรได้รับเริ่มต้นชีวิตที่ดี หรือจุดเปลี่ยนชีวิตที่ทรงพลัง
+                                    ผ่านชื่อที่เป็นสิริมงคล โดยไม่ต้องพึ่งพาความเชื่อที่ตรวจสอบไม่ได้
+                                    แต่พิสูจน์ได้ด้วยหลักการคำนวณที่ชัดเจน
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="order-1 md:order-2 space-y-8">
+                        <h3 className="text-4xl md:text-5xl font-bold leading-tight">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">ชื่อเปลี่ยน</span> <br />
+                            <span className="text-emerald-400">ชีวิตเปลี่ยน</span>
                         </h3>
-                        <p className="text-slate-400 text-lg">
-                            ชื่อเปลี่ยน ชีวิตเปลี่ยน เริ่มต้นก้าวแรกสู่ความสำเร็จด้วยชื่อที่ใช่
-                            ออกแบบมาเพื่อคุณโดยเฉพาะ
+                        <p className="text-slate-400 text-lg border-l-4 border-emerald-500 pl-6 py-2 italic bg-slate-800/30 rounded-r-xl">
+                            "ชื่อไม่ใช่แค่ป้ายชื่อ แต่คือบทสวดมนต์บทแรกที่เราได้ยินทุกวัน เมื่อชื่อดี พลังงานดี ชีวิตย่อมหมุนไปในทิศทางที่ดี"
                         </p>
                     </div>
                 </div>
 
-                {/* Features (Analysis Principles) */}
+                {/* 4. Philosophy Section (New Depth) */}
+                <div className="relative rounded-3xl overflow-hidden py-16 px-6 md:px-20 text-center border border-white/5 group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950"></div>
+                    <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none group-hover:scale-110 transition-transform duration-700">
+                        <Quote size={200} />
+                    </div>
+                    <div className="relative z-10 max-w-4xl mx-auto space-y-6">
+                        <h2 className="text-2xl md:text-3xl font-serif italic text-amber-200/90">
+                            "ปรัชญาของเราคือความสมดุล"
+                        </h2>
+                        <p className="text-slate-300 text-lg md:text-xl leading-relaxed font-light">
+                            เราไม่ได้มุ่งเน้นแค่เลขผลรวมที่สูงที่สุด แต่เรามุ่งหา <strong>"ความพอดี"</strong> ที่สุดสำหรับคุณ
+                            เหมือนการตัดชุดสูทที่พอดีตัว ไม่คับไป ไม่หลวมไป
+                            สอดคล้องกับวันเกิดและนามสกุลของคุณอย่างลงตัว นั่นคือความมงคลที่ยั่งยืน
+                        </p>
+                        <div className="pt-4">
+                            <div className="w-16 h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent mx-auto"></div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* 5. Analysis Principles (4 Cards) */}
                 <section>
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-bold mb-4">หลักการวิเคราะห์ของเรา</h2>
+                        <div className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-sm font-semibold mb-4 border border-blue-500/20">
+                            CORE TECHNOLOGY
+                        </div>
+                        <h2 className="text-3xl md:text-4xl font-bold mb-4">4 เสาหลักแห่งการวิเคราะห์</h2>
                         <p className="text-slate-400 max-w-2xl mx-auto">
-                            ระบบของเราไม่ได้เพียงแค่ดูผลรวมตัวเลข แต่เราวิเคราะห์ลึกซึ้งถึง 3 องค์ประกอบหลัก
+                            เราวิเคราะห์ลึกซึ้งถึง 4 ศาสตร์สำคัญ เพื่อให้ได้ชื่อที่เป็นมงคลและทรงพลังที่สุด
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-                        {/* Feature 1: Numerology */}
-                        <div className="glass-card p-6 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-emerald-500/30 group">
-                            <div className="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <Sparkles className="text-emerald-400" size={24} />
+                    <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+                        {/* Feature 1: Thaksa */}
+                        <div className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-blue-500/30 group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform rotate-12">
+                                <Calendar size={100} />
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2">เลขศาสตร์มงคล</h3>
+                            <div className="w-14 h-14 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-blue-900/20">
+                                <Calendar className="text-blue-400" size={28} />
+                            </div>
+                            <div className="flex items-center gap-3 mb-3 flex-wrap">
+                                <h3 className="text-xl font-bold text-white">1. ทักษาปกรณ์</h3>
+                                <span className="px-2.5 py-0.5 rounded-md bg-slate-700/50 border border-slate-600/50 text-xs font-medium text-slate-300">
+                                    รากฐาน
+                                </span>
+                            </div>
                             <p className="text-slate-400 text-sm leading-relaxed">
-                                (Numerology) วิเคราะห์พลังของตัวเลขในชื่อและนามสกุล ทั้งผลรวมชื่อ ผลรวมนามสกุล และผลรวมรวม
-                                เพื่อทำนายพื้นฐานดวงชะตา ความรัก การงาน และการเงิน
+                                วิเคราะห์จาก &quot;วันเกิด&quot; เพื่อหาอักษรที่เป็นเดช ศรี มนตรี และหลีกเลี่ยงกาลกิณี
+                                เปรียบเสมือนการวางเสาเข็มบ้านให้มั่นคง ปลอดภัยจากอุปสรรค
                             </p>
                         </div>
 
-                        {/* Feature 2: Thaksa */}
-                        <div className="glass-card p-6 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-violet-500/30 group">
-                            <div className="w-12 h-12 rounded-lg bg-violet-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <Sun className="text-violet-400" size={24} />
+                        {/* Feature 2: Numerology */}
+                        <div className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-violet-500/30 group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform -rotate-12">
+                                <Sparkles size={100} />
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2">หลักทักษาปกรณ์</h3>
+                            <div className="w-14 h-14 rounded-xl bg-violet-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-violet-900/20">
+                                <Sparkles className="text-violet-400" size={28} />
+                            </div>
+                            <div className="flex items-center gap-3 mb-3 flex-wrap">
+                                <h3 className="text-xl font-bold text-white">2. เลขศาสตร์</h3>
+                                <span className="px-2.5 py-0.5 rounded-md bg-slate-700/50 border border-slate-600/50 text-xs font-medium text-slate-300">
+                                    พลังงาน
+                                </span>
+                            </div>
                             <p className="text-slate-400 text-sm leading-relaxed">
-                                ตรวจสอบอักษรที่เป็นบริวาร อายุ เดช ศรี มูละ อุตสาหะ และมนตรี ตามวันเกิด
-                                เพื่อหลีกเลี่ยงอักษร <strong>กาลกิณี</strong> ที่อาจเป็นอุปสรรคต่อดวงชะตา
+                                คำนวณพลังงานตัวเลขจากผลรวมของชื่อ เพื่อดึงดูดโชคลาภ ความสำเร็จ
+                                และกำหนดเส้นทางชีวิตให้รุ่งโรจน์ตามดวงดาว
                             </p>
                         </div>
 
                         {/* Feature 3: Ayatana 6 */}
-                        <div className="glass-card p-6 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-rose-500/30 group">
-                            <div className="w-12 h-12 rounded-lg bg-rose-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <Heart className="text-rose-400" size={24} />
+                        <div className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-rose-500/30 group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform rotate-6">
+                                <Heart size={100} />
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2">อายตนะ 6</h3>
+                            <div className="w-14 h-14 rounded-xl bg-rose-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-rose-900/20">
+                                <Heart className="text-rose-400" size={28} />
+                            </div>
+                            <div className="flex items-center gap-3 mb-3 flex-wrap">
+                                <h3 className="text-xl font-bold text-white">3. อายตนะ 6</h3>
+                                <span className="px-2.5 py-0.5 rounded-md bg-slate-700/50 border border-slate-600/50 text-xs font-medium text-slate-300">
+                                    เสน่ห์
+                                </span>
+                            </div>
                             <p className="text-slate-400 text-sm leading-relaxed">
-                                ศาสตร์การตั้งชื่อที่เน้นเรื่องความรู้สึกของผู้คนที่มีต่อเจ้าของชื่อ
-                                เสริมเสน่ห์ เมตตามหานิยม และบารมี
+                                ศาสตร์แห่งความรู้สึกและการยอมรับ เสริมดวงด้านเมตตามหานิยม
+                                ให้เป็นที่รักของผู้คน เจ้านายเอ็นดู ลูกน้องเคารพ
+                            </p>
+                        </div>
+
+                        {/* Feature 4: Nirun Sastra (Eternity) */}
+                        <div className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-amber-500/30 group relative overflow-hidden">
+                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform -rotate-6">
+                                <InfinityIcon size={100} />
+                            </div>
+                            <div className="w-14 h-14 rounded-xl bg-amber-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-amber-900/20">
+                                <InfinityIcon className="text-amber-400" size={28} />
+                            </div>
+                            <div className="flex items-center gap-3 mb-3 flex-wrap">
+                                <h3 className="text-xl font-bold text-white">4. นิรันดร์ศาสตร์</h3>
+                                <span className="px-2.5 py-0.5 rounded-md bg-slate-700/50 border border-slate-600/50 text-xs font-medium text-slate-300">
+                                    ความสมดุล
+                                </span>
+                            </div>
+                            <p className="text-slate-400 text-sm leading-relaxed">
+                                ศาสตร์ชั้นสูงที่ช่วย &quot;ตรึง&quot; ความดีงามให้ยั่งยืน คำนวณความสมพงศ์ระหว่างชื่อและนามสกุล
+                                เพื่อความสำเร็จที่มั่นคง ไม่ฉาบฉวย
                             </p>
                         </div>
                     </div>
                 </section>
 
-                {/* Why Choose Us */}
+                {/* 6. Why Choose Us (Enhanced Credibility) */}
                 <section className="relative overflow-hidden rounded-3xl bg-slate-800/20 border border-white/5 p-8 md:p-12">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none" />
 
-                    <div className="relative z-10 text-center mb-12">
+                    <div className="relative z-10 text-center mb-16">
                         <h2 className="text-3xl font-bold mb-4">ทำไมต้องเลือกเรา?</h2>
                     </div>
 
                     <div className="relative z-10 grid md:grid-cols-3 gap-8 text-center">
-                        <div className="space-y-4">
-                            <div className="w-14 h-14 mx-auto rounded-full bg-blue-500/20 flex items-center justify-center">
-                                <LayoutDashboard className="text-blue-400" size={28} />
+                        {/* Point 1: Data & AI */}
+                        <div className="space-y-4 group">
+                            <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 flex items-center justify-center border border-blue-500/20 group-hover:scale-110 transition-transform duration-300 shadow-xl shadow-blue-500/5">
+                                <Cpu className="text-blue-400" size={36} />
                             </div>
-                            <h3 className="text-xl font-semibold">ใช้งานง่าย & ทันสมัย</h3>
-                            <p className="text-slate-400 text-sm">
-                                หน้าจอแสดงผลแบบ Dashboard ดูง่าย สรุปผลวิเคราะห์เป็นคะแนนและกราฟิกที่สวยงาม
+                            <h3 className="text-xl font-bold text-white mt-4">แม่นยำด้วย Data & AI</h3>
+                            <p className="text-slate-400 text-sm leading-relaxed px-2">
+                                เราไม่ได้ใช้แค่ตำราเล่มเดียว แต่ประมวลผลจากฐานข้อมูลชื่อนับแสน
+                                ผสาน AI เพื่อผลลัพธ์ที่ถูกต้องสูงสุด
                             </p>
                         </div>
-                        <div className="space-y-4">
-                            <div className="w-14 h-14 mx-auto rounded-full bg-purple-500/20 flex items-center justify-center">
-                                <Search className="text-purple-400" size={28} />
+
+                        {/* Point 2: All in One */}
+                        <div className="space-y-4 group">
+                            <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 flex items-center justify-center border border-amber-500/20 group-hover:scale-110 transition-transform duration-300 shadow-xl shadow-amber-500/5">
+                                <Layers className="text-amber-400" size={36} />
                             </div>
-                            <h3 className="text-xl font-semibold">เจาะลึกทุกมิติ</h3>
-                            <p className="text-slate-400 text-sm">
-                                ไม่ใช่แค่บอกว่าดีหรือไม่ดี แต่บอกรายละเอียดถึงความหมาย อักษรนำโชค และคู่เลขมงคล
+                            <h3 className="text-xl font-bold text-white mt-4">ครบจบในที่เดียว</h3>
+                            <p className="text-slate-400 text-sm leading-relaxed px-2">
+                                วิเคราะห์พร้อมกันทั้ง 4 ศาสตร์ ไม่ซับซ้อน เข้าใจง่าย
+                                ประหยัดเวลาของคุณ
                             </p>
                         </div>
-                        <div className="space-y-4">
-                            <div className="w-14 h-14 mx-auto rounded-full bg-emerald-500/20 flex items-center justify-center">
-                                <Layers className="text-emerald-400" size={28} />
+
+                        {/* Point 3: Neutral & Transparent */}
+                        <div className="space-y-4 group">
+                            <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-emerald-500/10 to-green-500/10 flex items-center justify-center border border-emerald-500/20 group-hover:scale-110 transition-transform duration-300 shadow-xl shadow-emerald-500/5">
+                                <ShieldCheck className="text-emerald-400" size={36} />
                             </div>
-                            <h3 className="text-xl font-semibold">ครอบคลุม</h3>
-                            <p className="text-slate-400 text-sm">
-                                รองรับการ <strong>วิเคราะห์ชื่อ</strong> ทั้งชื่อจริงและ <strong>นามสกุลมงคล</strong> อย่างครบถ้วน
+                            <h3 className="text-xl font-bold text-white mt-4">เป็นกลางและโปร่งใส</h3>
+                            <p className="text-slate-400 text-sm leading-relaxed px-2">
+                                ระบบวิเคราะห์ตามหลักการจริง ไม่มีอคติ หรือการตลาดแอบแฝง
+                                เราให้ข้อมูลตรงไปตรงมา
                             </p>
                         </div>
                     </div>
                 </section>
 
-                {/* Target Audience */}
-                <div className="bg-gradient-to-b from-slate-900 to-slate-800 rounded-3xl p-8 md:p-12 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
+                {/* 7. Target Audience */}
+                <div className="rounded-3xl p-8 md:p-12 relative overflow-hidden bg-slate-900/50 border border-white/5">
                     <div className="relative z-10 space-y-10">
-                        <h2 className="text-3xl font-bold text-center mb-8">NAMEMONGKOL เหมาะกับใคร?</h2>
+                        <div className="text-center">
+                            <h2 className="text-3xl font-bold mb-4">NAMEMONGKOL เหมาะกับใคร?</h2>
+                            <p className="text-slate-400">ตอบโจทย์ทุกความต้องการในทุกช่วงจังหวะชีวิต</p>
+                        </div>
 
                         <div className="grid md:grid-cols-3 gap-6">
                             {/* Card 1 */}
-                            <div className="glass-card p-6 rounded-xl flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
+                            <div className="glass-card p-8 rounded-2xl flex flex-col gap-4 hover:-translate-y-2 transition-transform duration-300 border-2 border-transparent hover:border-pink-500/20">
                                 <div className="flex items-center gap-3 mb-2">
-                                    <div className="p-2 bg-pink-500/20 rounded-lg">
+                                    <div className="p-3 bg-pink-500/10 rounded-xl">
                                         <Users className="text-pink-400" size={24} />
                                     </div>
                                     <h4 className="font-bold text-lg">คุณพ่อคุณแม่มือใหม่</h4>
                                 </div>
-                                <p className="text-slate-400 text-sm">
-                                    ที่กำลังมองหาไอเดีย <strong>ตั้งชื่อลูก</strong> ให้มีความหมายดี เป็นสิริมงคล และถูกต้องตามหลักทักษาประจำวันเกิด
+                                <p className="text-slate-400 text-sm leading-relaxed">
+                                    ที่กำลังมองหาไอเดีย <strong>ตั้งชื่อลูก</strong> ให้มีความหมายดี เป็นสิริมงคล เป็นของขวัญชิ้นแรกให้ลูกรัก
                                 </p>
                             </div>
 
                             {/* Card 2 */}
-                            <div className="glass-card p-6 rounded-xl flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
+                            <div className="glass-card p-8 rounded-2xl flex flex-col gap-4 hover:-translate-y-2 transition-transform duration-300 border-2 border-transparent hover:border-blue-500/20">
                                 <div className="flex items-center gap-3 mb-2">
-                                    <div className="p-2 bg-blue-500/20 rounded-lg">
+                                    <div className="p-3 bg-blue-500/10 rounded-xl">
                                         <UserCheck className="text-blue-400" size={24} />
                                     </div>
                                     <h4 className="font-bold text-lg">ผู้ที่ต้องการเปลี่ยนชื่อ</h4>
                                 </div>
-                                <p className="text-slate-400 text-sm">
-                                    เพื่อแก้เคล็ด เสริมดวงชะตา พลิกชีวิตจากร้ายกลายเป็นดี
+                                <p className="text-slate-400 text-sm leading-relaxed">
+                                    เพื่อแก้เคล็ด เสริมดวงชะตา พลิกชีวิตจากร้ายกลายเป็นดี หรือเริ่มต้นชีวิตใหม่ที่มั่นใจกว่าเดิม
                                 </p>
                             </div>
 
                             {/* Card 3 */}
-                            <div className="glass-card p-6 rounded-xl flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
+                            <div className="glass-card p-8 rounded-2xl flex flex-col gap-4 hover:-translate-y-2 transition-transform duration-300 border-2 border-transparent hover:border-amber-500/20">
                                 <div className="flex items-center gap-3 mb-2">
-                                    <div className="p-2 bg-amber-500/20 rounded-lg">
+                                    <div className="p-3 bg-amber-500/10 rounded-xl">
                                         <Star className="text-amber-400" size={24} />
                                     </div>
-                                    <h4 className="font-bold text-lg">สายมูเตลูและนักลงทุน</h4>
+                                    <h4 className="font-bold text-lg">สายมูเตลูและนักธุรกิจ</h4>
                                 </div>
-                                <p className="text-slate-400 text-sm">
-                                    ที่เชื่อในพลังของตัวเลขและการวิเคราะห์ดวงชะตาเพื่อความมั่นใจในการดำเนินชีวิต
+                                <p className="text-slate-400 text-sm leading-relaxed">
+                                    ที่เชื่อในพลังของตัวเลข ต้องการเสริมบารมี อำนาจ และโชคลาภในการทำธุรกิจ
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* 8. Final CTA Section */}
+                <section className="relative rounded-3xl overflow-hidden border border-amber-500/30">
+                    <div className="absolute inset-0 bg-slate-900"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 opacity-90"></div>
+
+                    {/* Glow Effects */}
+                    <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
+                    <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none" />
+
+                    <div className="relative z-10 p-12 md:p-20 text-center space-y-8">
+                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-tight">
+                            พร้อมเปลี่ยนชื่อ <span className="text-amber-400">เปลี่ยนชีวิต</span> หรือยัง?
+                        </h2>
+                        <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">
+                            อย่าปล่อยให้โชคชะตาเป็นเรื่องบังเอิญ เริ่มต้นค้นหาชื่อมงคลของคุณด้วยระบบอัจฉริยะของเราได้ทันที
+                        </p>
+
+                        <div className="pt-8">
+                            <Link href="/" className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-900 text-xl font-bold rounded-full transition-all hover:scale-105 shadow-2xl shadow-amber-900/40 ring-4 ring-amber-500/20">
+                                <Search size={26} />
+                                วิเคราะห์ชื่อของคุณฟรี
+                            </Link>
+                        </div>
+                    </div>
+                </section>
 
                 {/* SEO Hidden Content */}
                 <div className="sr-only">

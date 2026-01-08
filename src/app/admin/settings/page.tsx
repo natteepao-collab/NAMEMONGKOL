@@ -1,0 +1,203 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { Save, Settings, Tag } from 'lucide-react';
+import Swal from 'sweetalert2';
+import { supabase } from '@/utils/supabase';
+
+export default function AdminSettingsPage() {
+    const [gtmId, setGtmId] = useState('');
+    const [tiktokPixelId, setTiktokPixelId] = useState('');
+    const [facebookPixelId, setFacebookPixelId] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+
+    useEffect(() => {
+        fetchSettings();
+    }, []);
+
+    const fetchSettings = async () => {
+        setLoading(true);
+        try {
+            const { data, error } = await supabase
+                .from('app_settings')
+                .select('key, value')
+                .in('key', ['gtm_id', 'tiktok_pixel_id', 'facebook_pixel_id']);
+
+            if (data) {
+                const settingsMap = data.reduce((acc: any, curr) => {
+                    acc[curr.key] = curr.value;
+                    return acc;
+                }, {});
+                setGtmId(settingsMap['gtm_id'] || '');
+                setTiktokPixelId(settingsMap['tiktok_pixel_id'] || '');
+                setFacebookPixelId(settingsMap['facebook_pixel_id'] || '');
+            } else if (error) {
+                console.error('Error fetching settings:', error);
+            }
+        } catch (error) {
+            console.error('Unexpected error:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleSave = async () => {
+        setSaving(true);
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+
+            const updates = [
+                { key: 'gtm_id', value: gtmId, description: 'Google Tag Manager Container ID', updated_by: user?.id },
+                { key: 'tiktok_pixel_id', value: tiktokPixelId, description: 'TikTok Pixel ID', updated_by: user?.id },
+                { key: 'facebook_pixel_id', value: facebookPixelId, description: 'Facebook Pixel ID', updated_by: user?.id }
+            ];
+
+            const { error } = await supabase
+                .from('app_settings')
+                .upsert(updates);
+
+            if (error) throw error;
+
+            Swal.fire({
+                icon: 'success',
+                title: 'บันทึกสำเร็จ',
+                text: 'อัปเดตการตั้งค่าเรียบร้อยแล้ว',
+                timer: 1500,
+                showConfirmButton: false,
+                background: '#1e293b',
+                color: '#fff'
+            });
+        } catch (error: any) {
+            Swal.fire({
+                icon: 'error',
+                title: 'เกิดข้อผิดพลาด',
+                text: error.message,
+                background: '#1e293b',
+                color: '#fff'
+            });
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    return (
+        <div className="p-4 md:p-8">
+            <div className="max-w-4xl mx-auto space-y-8">
+                <header>
+                    <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+                        <Settings className="text-emerald-500" />
+                        ตั้งค่าระบบ (System Settings)
+                    </h1>
+                    <p className="text-slate-400 text-sm mt-1">จัดการค่าต่างๆ ของระบบเว็บไซต์</p>
+                </header>
+
+                {/* Settings Card */}
+                <div className="bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6 md:p-8 shadow-xl backdrop-blur-sm space-y-8">
+
+                    {/* Google Tag Manager */}
+                    <div className="flex flex-col md:flex-row gap-6 border-b border-slate-800 pb-8">
+                        <div className="md:w-1/3">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="p-2 rounded-lg bg-orange-500/10 text-orange-500">
+                                    <Tag size={20} />
+                                </div>
+                                <h3 className="text-lg font-bold text-white">Google Tag Manager</h3>
+                            </div>
+                            <p className="text-sm text-slate-400">จัดการ GTM Container ID สำหรับการติดตามและวัดผลเว็บไซต์</p>
+                        </div>
+                        <div className="md:w-2/3">
+                            <label className="block text-sm font-medium text-slate-300 mb-2">
+                                GTM ID
+                            </label>
+                            <input
+                                type="text"
+                                value={gtmId}
+                                onChange={(e) => setGtmId(e.target.value)}
+                                placeholder="GTM-XXXXXXX"
+                                disabled={loading}
+                                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-all font-mono placeholder:text-slate-600"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Facebook Pixel */}
+                    <div className="flex flex-col md:flex-row gap-6 border-b border-slate-800 pb-8">
+                        <div className="md:w-1/3">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="p-2 rounded-lg bg-[#1877F2]/10 text-[#1877F2]">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-bold text-white">Facebook Pixel</h3>
+                            </div>
+                            <p className="text-sm text-slate-400">ใส่ Facebook Pixel ID เพื่อติดตาม Conversion จาก Facebook Ads</p>
+                        </div>
+                        <div className="md:w-2/3">
+                            <label className="block text-sm font-medium text-slate-300 mb-2">
+                                Pixel ID
+                            </label>
+                            <input
+                                type="text"
+                                value={facebookPixelId}
+                                onChange={(e) => setFacebookPixelId(e.target.value)}
+                                placeholder="XXXXXXXXXXXXXXX"
+                                disabled={loading}
+                                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-all font-mono placeholder:text-slate-600"
+                            />
+                        </div>
+                    </div>
+
+                    {/* TikTok Pixel */}
+                    <div className="flex flex-col md:flex-row gap-6">
+                        <div className="md:w-1/3">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="p-2 rounded-lg bg-black/50 border border-white/10 text-white">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.65-1.62-1.12-1.07-1.35 1.05 16.32-6.57 15.68-7.98-.35-9.33-9.58-1.74-13.43 1.76-.89 3.8-.84 5.5.09v4.2c-.37-.18-.76-.32-1.17-.38-.8-.13-1.61-.01-2.33.34-1.25.61-1.99 1.95-1.84 3.33.15 1.35 1.13 2.51 2.44 2.87 1.71.49 3.55-.41 4.13-2.09.02-.45.03-.91.03-1.36V.02z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-bold text-white">TikTok Pixel</h3>
+                            </div>
+                            <p className="text-sm text-slate-400">ใส่ TikTok Pixel ID เพื่อติดตามผลลัพธ์จาก TikTok Ads</p>
+                        </div>
+                        <div className="md:w-2/3">
+                            <label className="block text-sm font-medium text-slate-300 mb-2">
+                                Pixel ID
+                            </label>
+                            <input
+                                type="text"
+                                value={tiktokPixelId}
+                                onChange={(e) => setTiktokPixelId(e.target.value)}
+                                placeholder="XXXXXXXXXXXXXXX"
+                                disabled={loading}
+                                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-all font-mono placeholder:text-slate-600"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-slate-800 flex justify-end">
+                        <button
+                            onClick={handleSave}
+                            disabled={saving || loading}
+                            className="flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-all shadow-lg shadow-emerald-900/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {saving ? (
+                                <>
+                                    <div className="animate-spin h-5 w-5 border-2 border-white/30 border-t-white rounded-full"></div>
+                                    <span>กำลังบันทึก...</span>
+                                </>
+                            ) : (
+                                <>
+                                    <Save size={20} />
+                                    <span>บันทึกข้อมูลทั้งหมด</span>
+                                </>
+                            )}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
