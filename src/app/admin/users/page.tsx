@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Search, Edit2, ChevronLeft, ChevronRight, Save, X, User } from 'lucide-react';
+import { Search, Edit2, ChevronLeft, ChevronRight, Save, X, User, Mail, Facebook, Globe } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { supabase } from '@/utils/supabase';
 
@@ -9,13 +9,44 @@ interface UserProfile {
     id: string;
     first_name?: string;
     last_name?: string;
-    email?: string; // Might not exist in profile table depending on sync
+    email?: string;
+    provider?: string;
     credits: number;
     role: string;
     created_at?: string;
 }
 
 export default function AdminUsersPage() {
+    // ... (state code unchanged)
+
+    const renderProviderBadge = (provider?: string) => {
+        const p = (provider || 'email').toLowerCase();
+        if (p.includes('google')) {
+            return (
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-white text-xs font-bold border border-white/20 w-fit">
+                    {/* Fake Google Icon using G text or Globe if preferred */}
+                    <span className="text-white">G</span>
+                    <span>Google</span>
+                </div>
+            );
+        }
+        if (p.includes('facebook')) {
+            return (
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1877F2]/20 text-[#1877F2] text-xs font-bold border border-[#1877F2]/30 w-fit">
+                    <Facebook size={14} />
+                    <span>Facebook</span>
+                </div>
+            );
+        }
+        return (
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20 w-fit">
+                <Mail size={14} />
+                <span>Email</span>
+            </div>
+        );
+    };
+
+    // ... (fetchUsers and effects unchanged)
     const [users, setUsers] = useState<UserProfile[]>([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
@@ -139,6 +170,8 @@ export default function AdminUsersPage() {
                             <thead className="bg-slate-800/50 text-slate-200 uppercase font-medium">
                                 <tr>
                                     <th className="px-6 py-4">User Details</th>
+                                    <th className="px-6 py-4">Provider</th>
+                                    <th className="px-6 py-4 text-center">Registered</th>
                                     <th className="px-6 py-4 text-center">Role</th>
                                     <th className="px-6 py-4 text-center">Credits</th>
                                     <th className="px-6 py-4 text-center">Actions</th>
@@ -147,7 +180,7 @@ export default function AdminUsersPage() {
                             <tbody className="divide-y divide-slate-800/50">
                                 {loading ? (
                                     <tr>
-                                        <td colSpan={4} className="px-6 py-12 text-center text-slate-500">
+                                        <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
                                             <div className="flex justify-center mb-2">
                                                 <div className="animate-spin h-6 w-6 border-2 border-emerald-500 rounded-full border-t-transparent"></div>
                                             </div>
@@ -156,7 +189,7 @@ export default function AdminUsersPage() {
                                     </tr>
                                 ) : users.length === 0 ? (
                                     <tr>
-                                        <td colSpan={4} className="px-6 py-12 text-center text-slate-500">
+                                        <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
                                             ไม่พบข้อมูลผู้ใช้งาน
                                         </td>
                                     </tr>
@@ -164,12 +197,43 @@ export default function AdminUsersPage() {
                                     users.map((user) => (
                                         <tr key={user.id} className="hover:bg-slate-800/30 transition-colors">
                                             <td className="px-6 py-4">
-                                                <div className="flex flex-col">
-                                                    <span className="text-white font-medium">
-                                                        {user.first_name} {user.last_name}
+                                                <div className="flex flex-col gap-0.5">
+                                                    <span className="text-white font-bold text-base">
+                                                        {user.first_name || user.last_name
+                                                            ? `${user.first_name || ''} ${user.last_name || ''}`.trim()
+                                                            : 'No Display Name'}
                                                     </span>
-                                                    <span className="text-xs text-slate-500 font-mono truncate max-w-[150px]" title={user.id}>
+                                                    {user.email && (
+                                                        <span className="text-sm text-emerald-400/80 font-medium">
+                                                            {user.email}
+                                                        </span>
+                                                    )}
+                                                    <span className="text-[10px] text-slate-600 font-mono mt-1" title={user.id}>
                                                         ID: {user.id}
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                {renderProviderBadge(user.provider)}
+                                            </td>
+                                            <td className="px-6 py-4 text-center">
+                                                <div className="flex flex-col">
+                                                    <span className="text-slate-300 font-medium">
+                                                        {user.created_at
+                                                            ? new Date(user.created_at).toLocaleDateString('th-TH', {
+                                                                year: 'numeric',
+                                                                month: 'short',
+                                                                day: 'numeric'
+                                                            })
+                                                            : '-'}
+                                                    </span>
+                                                    <span className="text-[10px] text-slate-600">
+                                                        {user.created_at
+                                                            ? new Date(user.created_at).toLocaleTimeString('th-TH', {
+                                                                hour: '2-digit',
+                                                                minute: '2-digit'
+                                                            })
+                                                            : ''}
                                                     </span>
                                                 </div>
                                             </td>
