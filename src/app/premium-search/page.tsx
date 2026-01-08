@@ -273,6 +273,8 @@ export default function PremiumSearchPage() {
 
             // 3. Save History (Only if user exists, but we checked logic)
             // Note: If you want to force login, you might handle earlier.
+            // 3. Save History (Only if user exists, but we checked logic)
+            // Note: If you want to force login, you might handle earlier.
             const { data: { user } } = await supabase.auth.getUser();
             if (user) {
                 await supabase.from('analysis_history').insert({
@@ -283,7 +285,12 @@ export default function PremiumSearchPage() {
                         selectedScore: targetScore || 'All',
                         leadingChar: leadingCharType
                     },
-                    result_data: { count: selected.length, note: 'Random 20 from filter' }
+                    result_data: selected.map(item => ({
+                        name: item.name,
+                        totalScore: item.totalScore,
+                        meaning: `เหมาะกับวัน: ${item.suitableDays.join(', ')}`,
+                        notes: item.scoreBreakdown
+                    }))
                 });
             }
 
