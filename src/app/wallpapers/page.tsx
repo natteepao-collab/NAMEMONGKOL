@@ -178,8 +178,8 @@ function WallpapersContent() {
                                 key={d.value}
                                 onClick={() => setSelectedDay(d.value)}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedDay === d.value
-                                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
-                                        : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
+                                    : 'text-slate-400 hover:text-white hover:bg-white/5'
                                     }`}
                             >
                                 {d.label}
@@ -239,7 +239,7 @@ function WallpapersContent() {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="relative w-full max-w-lg bg-slate-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl"
+                            className="relative w-full max-w-sm max-h-[90vh] overflow-y-auto bg-slate-900 border border-white/10 rounded-3xl shadow-2xl no-scrollbar"
                             onClick={e => e.stopPropagation()}
                         >
                             <div className="relative aspect-[9/16] w-full bg-black">
@@ -281,8 +281,8 @@ function WallpapersContent() {
                                 <button
                                     onClick={() => handleDownload(selectedWallpaper)}
                                     className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all ${selectedWallpaper.premium
-                                            ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black shadow-lg shadow-amber-500/20'
-                                            : 'bg-white text-black hover:bg-slate-200'
+                                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black shadow-lg shadow-amber-500/20'
+                                        : 'bg-white text-black hover:bg-slate-200'
                                         }`}
                                 >
                                     <Download size={20} />
