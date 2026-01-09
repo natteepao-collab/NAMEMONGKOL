@@ -1,18 +1,46 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Sparkles, ArrowRight, Download } from 'lucide-react';
 import Image from 'next/image';
+import { supabase } from '@/utils/supabase';
+import { Wallpaper } from '@/types';
 
-const WALLPAPERS = [
-    { id: 1, name: 'เสริมดวงวันอาทิตย์', image: '/Wallpaper/คนเกิดวันเอาทิตย์.png', day: 'sunday' },
-    { id: 2, name: 'เสริมดวงวันจันทร์', image: '/Wallpaper/คนเกิดวันจันทร์.png', day: 'monday' },
-    { id: 3, name: 'เสริมดวงวันอังคาร', image: '/Wallpaper/คนเกิดวันอังคาร.png', day: 'tuesday' },
-    { id: 4, name: 'เสริมดวงวันพุธ', image: '/Wallpaper/คนเกิดพุธ.png', day: 'wednesday' },
+// Fallback data
+const INITIAL_WALLPAPERS = [
+    { id: 1, name: 'เสริมดวงวันอาทิตย์', image: '/Wallpaper/คนเกิดวันเอาทิตย์.png', day: 'sunday', downloads: 2540 },
+    { id: 2, name: 'เสริมดวงวันจันทร์', image: '/Wallpaper/คนเกิดวันจันทร์.png', day: 'monday', downloads: 3120 },
+    { id: 3, name: 'เสริมดวงวันอังคาร', image: '/Wallpaper/คนเกิดวันอังคาร.png', day: 'tuesday', downloads: 1890 },
+    { id: 4, name: 'เสริมดวงวันพุธ', image: '/Wallpaper/คนเกิดพุธ.png', day: 'wednesday', downloads: 2100 },
 ];
 
 export const WallpaperShowcase = () => {
+    const [wallpapers, setWallpapers] = useState(INITIAL_WALLPAPERS);
+
+    useEffect(() => {
+        const fetchWallpapers = async () => {
+            const { data } = await supabase
+                .from('wallpapers')
+                .select('*')
+                .in('id', [1, 2, 3, 4]);
+
+            if (data && data.length > 0) {
+                // Map DB data to UI format if needed, primarily updating downloads
+                // We preserve the shorter names from INITIAL_WALLPAPERS for design if we want, 
+                // but let's try using the real DB names or just updating stats.
+                // For now, let's just update the downloads count to match reality.
+                const merged = INITIAL_WALLPAPERS.map(initWp => {
+                    const dbWp = data.find(d => d.id === initWp.id);
+                    return dbWp ? { ...initWp, downloads: dbWp.downloads } : initWp;
+                });
+                setWallpapers(merged);
+            }
+        };
+
+        fetchWallpapers();
+    }, []);
+
     return (
         <div className="w-full max-w-5xl mx-auto mt-16 mb-8 px-4">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
@@ -34,7 +62,7 @@ export const WallpaperShowcase = () => {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                {WALLPAPERS.map((wp) => (
+                {wallpapers.map((wp) => (
                     <Link href="/wallpapers" key={wp.id} className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-white/5 border border-white/10 hover:border-amber-500/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.15)] hover:-translate-y-1">
                         <Image
                             src={wp.image}
@@ -53,7 +81,7 @@ export const WallpaperShowcase = () => {
                             </h3>
                             <div className="mt-3 flex items-center gap-2 text-[10px] text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
                                 <span className="flex items-center gap-1 bg-white/10 px-2 py-1 rounded-full backdrop-blur-sm">
-                                    <Download size={10} /> ดาวน์โหลดฟรี
+                                    <Download size={10} /> {wp.downloads.toLocaleString()}
                                 </span>
                             </div>
                         </div>

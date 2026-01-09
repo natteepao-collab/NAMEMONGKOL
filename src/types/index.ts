@@ -72,3 +72,15 @@ export interface AnalysisResult {
     grade: 'A+' | 'A' | 'B' | 'C'; // Added grade
     isNirun: boolean;
 }
+
+export interface Wallpaper {
+    id: number;
+    name: string;
+    image: string;
+    day: string;
+    tags: string[];
+    premium: boolean;
+    downloads: number;
+    description?: string | null;
+}
+

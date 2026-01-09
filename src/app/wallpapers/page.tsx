@@ -1,22 +1,25 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Download, Share2, Sparkles, Filter, Lock, LogIn } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { supabase } from '@/utils/supabase';
 import Swal from 'sweetalert2';
+import { Wallpaper } from '@/types';
 
-const WALLPAPERS = [
-    { id: 1, name: 'มหาเทพประทานทรัพย์ (วันอาทิตย์)', image: '/Wallpaper/คนเกิดวันเอาทิตย์.png', day: 'sunday', tags: ['การเงิน', 'อำนาจ'], premium: false },
-    { id: 2, name: 'เสน่ห์เมตตามหานิยม (วันจันทร์)', image: '/Wallpaper/คนเกิดวันจันทร์.png', day: 'monday', tags: ['ความรัก', 'เมตตา'], premium: false },
-    { id: 3, name: 'นักรบกล้าหาญ (วันอังคาร)', image: '/Wallpaper/คนเกิดวันอังคาร.png', day: 'tuesday', tags: ['การงาน', 'แข่งขัน'], premium: false },
-    { id: 4, name: 'วาจาเรียกทรัพย์ (วันพุธ)', image: '/Wallpaper/คนเกิดพุธ.png', day: 'wednesday', tags: ['การเจรจา', 'ค้าขาย'], premium: false },
-    { id: 5, name: 'ปัญญาบารมี (วันพฤหัสบดี)', image: '/Wallpaper/คนเกิดพฤหัส.png', day: 'thursday', tags: ['การเรียน', 'ผู้ใหญ่เมตตา'], premium: false },
-    { id: 6, name: 'ทรัพย์สินพอกพูน (วันศุกร์)', image: '/Wallpaper/คนเกิดศุกร์.png', day: 'friday', tags: ['การเงิน', 'ความสุข'], premium: false },
-    { id: 7, name: 'อำนาจบารมี (วันเสาร์)', image: '/Wallpaper/คนเกิดวันเสาร์.png', day: 'saturday', tags: ['อำนาจ', 'แคล้วคลาด'], premium: false },
-    { id: 8, name: 'ท้าวเวสสุวรรณ ปลดหนี้', image: '/Wallpaper/thao-wessuwan-v2.png', day: 'all', tags: ['ปลดหนี้', 'กันชง'], premium: true },
+// Fallback constant for immediate load/SSR if needed, but we will rely on DB
+const INITIAL_WALLPAPERS: Wallpaper[] = [
+    { id: 1, name: 'มหาเทพประทานทรัพย์ (วันอาทิตย์)', image: '/Wallpaper/คนเกิดวันเอาทิตย์.png', day: 'sunday', tags: ['การเงิน', 'อำนาจ'], premium: false, downloads: 2540 },
+    { id: 2, name: 'เสน่ห์เมตตามหานิยม (วันจันทร์)', image: '/Wallpaper/คนเกิดวันจันทร์.png', day: 'monday', tags: ['ความรัก', 'เมตตา'], premium: false, downloads: 3120 },
+    { id: 3, name: 'นักรบกล้าหาญ (วันอังคาร)', image: '/Wallpaper/คนเกิดวันอังคาร.png', day: 'tuesday', tags: ['การงาน', 'แข่งขัน'], premium: false, downloads: 1890 },
+    { id: 4, name: 'วาจาเรียกทรัพย์ (วันพุธ)', image: '/Wallpaper/คนเกิดพุธ.png', day: 'wednesday', tags: ['การเจรจา', 'ค้าขาย'], premium: false, downloads: 2100 },
+    { id: 5, name: 'ปัญญาบารมี (วันพฤหัสบดี)', image: '/Wallpaper/คนเกิดพฤหัส.png', day: 'thursday', tags: ['การเรียน', 'ผู้ใหญ่เมตตา'], premium: false, downloads: 2750 },
+    { id: 6, name: 'ทรัพย์สินพอกพูน (วันศุกร์)', image: '/Wallpaper/คนเกิดศุกร์.png', day: 'friday', tags: ['การเงิน', 'ความสุข'], premium: false, downloads: 3420 },
+    { id: 7, name: 'อำนาจบารมี (วันเสาร์)', image: '/Wallpaper/คนเกิดวันเสาร์.png', day: 'saturday', tags: ['อำนาจ', 'แคล้วคลาด'], premium: false, downloads: 1980 },
+    { id: 8, name: 'ท้าวเวสสุวรรณ ปลดหนี้', image: '/Wallpaper/thao-wessuwan-v2.png', day: 'all', tags: ['ปลดหนี้', 'กันชง'], premium: true, downloads: 4500 },
+    { id: 9, name: '4289 ท้าวเวสสุวรรณ (สีชมพู)', image: '/Wallpaper/4289_ท้าวเวสสุวรรณ_สีชมพู.png', day: 'all', tags: ['การเงิน', 'โชคลาภ', '4289'], premium: false, downloads: 0, description: 'เหมาะอย่างยิ่งสำหรับ "คนทำมาค้าขาย, เจ้าของธุรกิจ, Sales, และคนที่ต้องการเสริมดวงโชคลาภและการเงิน" โดยเน้นที่ความราบรื่น (ปางเด็ก) และเงินทองไหลมาเทมา (4289 + ถุงเงิน) ครับ' },
 ];
 
 const DAYS = [
@@ -35,11 +38,48 @@ function WallpapersContent() {
     const searchParams = useSearchParams();
     const initialDay = searchParams.get('day') || 'all';
     const [selectedDay, setSelectedDay] = useState(initialDay);
-    const [selectedWallpaper, setSelectedWallpaper] = useState<typeof WALLPAPERS[0] | null>(null);
+    const [selectedWallpaper, setSelectedWallpaper] = useState<Wallpaper | null>(null);
     const [userCredits, setUserCredits] = useState<number | null>(null);
+    const [wallpapers, setWallpapers] = useState<Wallpaper[]>(INITIAL_WALLPAPERS);
+    const [loading, setLoading] = useState(true);
+
+    // Fetch Wallpapers from Supabase
+    useEffect(() => {
+        const fetchWallpapers = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('wallpapers')
+                    .select('*')
+                    .order('id', { ascending: true });
+
+                if (error) {
+                    console.error('Error fetching wallpapers:', error);
+                    // use fallback
+                } else if (data && data.length > 0) {
+                    setWallpapers(data);
+                }
+            } catch (err) {
+                console.error('Fetch error:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchWallpapers();
+    }, []);
+
+    // Deep link to wallpaper via ID
+    const wallpaperId = searchParams.get('id');
+    useEffect(() => {
+        if (wallpaperId && wallpapers.length > 0) {
+            const wp = wallpapers.find(w => w.id === Number(wallpaperId));
+            if (wp) setSelectedWallpaper(wp);
+        }
+    }, [wallpaperId, wallpapers]);
+
 
     // Fetch User Credits
-    React.useEffect(() => {
+    useEffect(() => {
         const fetchCredits = async () => {
             const { data: { session } } = await supabase.auth.getSession();
             if (session?.user) {
@@ -54,12 +94,12 @@ function WallpapersContent() {
         fetchCredits();
     }, []);
 
-    const filteredWallpapers = WALLPAPERS.filter(wp =>
+    const filteredWallpapers = wallpapers.filter(wp =>
         selectedDay === 'all' || wp.day === selectedDay || wp.day === 'all'
     );
 
-    const handleDownload = async (wallpaper: typeof WALLPAPERS[0]) => {
-        // 1. Check Auth
+    const handleDownload = async (wallpaper: Wallpaper) => {
+        // 1. Check Auth (Skip if not premium? No, require auth for tracking usually, but for now lets require auth for all as per previous logic)
         const { data: { session } } = await supabase.auth.getSession();
 
         if (!session) {
@@ -126,20 +166,6 @@ function WallpapersContent() {
 
                 // Update local state
                 setUserCredits(prev => (prev !== null ? prev - COST : null));
-
-                // Success Message (Toast)
-                Swal.fire({
-                    icon: 'success',
-                    title: 'ดาวน์โหลดสำเร็จ',
-                    text: `หัก ${COST} เครดิตเรียบร้อยแล้ว`,
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    background: '#1e293b',
-                    color: '#fff'
-                });
-
             } catch (error) {
                 console.error('Deduct error:', error);
                 Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถตัดเครดิตได้ กรุณาลองใหม่', 'error');
@@ -147,13 +173,44 @@ function WallpapersContent() {
             }
         }
 
-        // 3. Download Logic (Shared)
+        // 3. Increment Download Count (Realtime)
+        try {
+            const { error: rpcError } = await supabase.rpc('increment_wallpaper_downloads', { wallpaper_id: wallpaper.id });
+            if (!rpcError) {
+                // Optimistic UI Update
+                setWallpapers(prev => prev.map(w => w.id === wallpaper.id ? { ...w, downloads: w.downloads + 1 } : w));
+                if (selectedWallpaper?.id === wallpaper.id) {
+                    setSelectedWallpaper(prev => prev ? { ...prev, downloads: prev.downloads + 1 } : null);
+                }
+            } else {
+                console.error("Failed to increment downloads", rpcError);
+            }
+        } catch (e) {
+            console.error("Failed to increment downloads", e);
+        }
+
+        // 4. Download Logic
         const link = document.createElement('a');
         link.href = wallpaper.image;
-        link.download = `namemongkol-${wallpaper.name}.png`;
+        link.download = `namemongkol-${wallpaper.id}-${Date.now()}.png`; // Unique name
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+
+        // Success Message (for premium mostly, but useful for all)
+        if (wallpaper.premium) {
+            Swal.fire({
+                icon: 'success',
+                title: 'ดาวน์โหลดสำเร็จ',
+                text: `หัก 15 เครดิตเรียบร้อยแล้ว`,
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                background: '#1e293b',
+                color: '#fff'
+            });
+        }
     };
 
     return (
@@ -167,7 +224,7 @@ function WallpapersContent() {
                             วอลเปเปอร์มงคล
                         </h1>
                         <p className="text-slate-400">
-                            เสริมดวงชะตา บารมี โชคลาภ ด้วยพลังแห่งภาพมงคล
+                            เสริมดวงชะตา บารมี โชคลาภ ด้วยพลังแห่งภาพมงคล {loading && <span className="animate-pulse ml-2">(กำลังโหลดข้อมูล...)</span>}
                         </p>
                     </div>
 
@@ -216,6 +273,9 @@ function WallpapersContent() {
                                         <Lock size={8} /> PREMIUM
                                     </span>
                                 )}
+                                <span className="bg-black/50 backdrop-blur-md text-white/80 text-[10px] font-medium px-2 py-1 rounded-full flex items-center gap-1">
+                                    <Download size={8} /> {wp.downloads.toLocaleString()}
+                                </span>
                             </div>
 
                             {/* Content */}
@@ -290,6 +350,9 @@ function WallpapersContent() {
                                             <span className="text-xs text-slate-400 font-medium px-2 py-0.5 bg-white/5 rounded-full border border-white/5 uppercase">
                                                 {selectedWallpaper.day === 'all' ? 'All Days' : selectedWallpaper.day}
                                             </span>
+                                            <span className="text-xs text-slate-400 font-medium px-2 py-0.5 bg-white/5 rounded-full border border-white/5 flex items-center gap-1">
+                                                <Download size={10} /> {selectedWallpaper.downloads.toLocaleString()} ครั้ง
+                                            </span>
                                         </div>
                                         <h2 className="text-xl md:text-3xl font-bold text-white mb-2 leading-tight">
                                             {selectedWallpaper.name}
@@ -308,8 +371,8 @@ function WallpapersContent() {
                                             <Sparkles size={14} /> คุณสมบัติมงคล
                                         </h4>
                                         <p className="text-xs md:text-sm text-slate-400 leading-relaxed">
-                                            ภาพมงคลเสริมพลังด้าน {selectedWallpaper.tags.join(' และ ')}
-                                            ออกแบบตามหลักทักษาและเลขศาสตร์เพื่อดึงดูดพลังงานบวกสูงสุด
+                                            {selectedWallpaper.description ? selectedWallpaper.description : `ภาพมงคลเสริมพลังด้าน ${selectedWallpaper.tags.join(' และ ')}
+                                            ออกแบบตามหลักทักษาและเลขศาสตร์เพื่อดึงดูดพลังงานบวกสูงสุด`}
                                         </p>
                                     </div>
                                 </div>
