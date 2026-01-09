@@ -141,7 +141,8 @@ const AboutSection = () => {
 
                     <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
                         {/* Feature 1: Thaksa */}
-                        <div className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-blue-500/30 group relative overflow-hidden">
+                        {/* Feature 1: Thaksa */}
+                        <Link href="/?tab=thaksa#knowledge-section" className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-blue-500/30 group relative overflow-hidden block">
                             <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform rotate-12">
                                 <Calendar size={100} />
                             </div>
@@ -151,17 +152,18 @@ const AboutSection = () => {
                             <div className="flex items-center gap-3 mb-3 flex-wrap">
                                 <h3 className="text-xl font-bold text-white">1. ทักษาปกรณ์</h3>
                                 <span className="px-2.5 py-0.5 rounded-md bg-slate-700/50 border border-slate-600/50 text-xs font-medium text-slate-300">
-                                    รากฐาน
+                                    อ่านเพิ่มเติม
                                 </span>
                             </div>
                             <p className="text-slate-400 text-sm leading-relaxed">
                                 วิเคราะห์จาก &quot;วันเกิด&quot; เพื่อหาอักษรที่เป็นเดช ศรี มนตรี และหลีกเลี่ยงกาลกิณี
                                 เปรียบเสมือนการวางเสาเข็มบ้านให้มั่นคง ปลอดภัยจากอุปสรรค
                             </p>
-                        </div>
+                        </Link>
 
                         {/* Feature 2: Numerology */}
-                        <div className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-violet-500/30 group relative overflow-hidden">
+                        {/* Feature 2: Numerology */}
+                        <Link href="/?tab=numerology#knowledge-section" className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-violet-500/30 group relative overflow-hidden block">
                             <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform -rotate-12">
                                 <Sparkles size={100} />
                             </div>
@@ -171,17 +173,18 @@ const AboutSection = () => {
                             <div className="flex items-center gap-3 mb-3 flex-wrap">
                                 <h3 className="text-xl font-bold text-white">2. เลขศาสตร์</h3>
                                 <span className="px-2.5 py-0.5 rounded-md bg-slate-700/50 border border-slate-600/50 text-xs font-medium text-slate-300">
-                                    พลังงาน
+                                    อ่านเพิ่มเติม
                                 </span>
                             </div>
                             <p className="text-slate-400 text-sm leading-relaxed">
                                 คำนวณพลังงานตัวเลขจากผลรวมของชื่อ เพื่อดึงดูดโชคลาภ ความสำเร็จ
                                 และกำหนดเส้นทางชีวิตให้รุ่งโรจน์ตามดวงดาว
                             </p>
-                        </div>
+                        </Link>
 
                         {/* Feature 3: Ayatana 6 */}
-                        <div className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-rose-500/30 group relative overflow-hidden">
+                        {/* Feature 3: Ayatana 6 */}
+                        <Link href="/?tab=ayatana#knowledge-section" className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-rose-500/30 group relative overflow-hidden block">
                             <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform rotate-6">
                                 <Heart size={100} />
                             </div>
@@ -191,17 +194,18 @@ const AboutSection = () => {
                             <div className="flex items-center gap-3 mb-3 flex-wrap">
                                 <h3 className="text-xl font-bold text-white">3. อายตนะ 6</h3>
                                 <span className="px-2.5 py-0.5 rounded-md bg-slate-700/50 border border-slate-600/50 text-xs font-medium text-slate-300">
-                                    เสน่ห์
+                                    อ่านเพิ่มเติม
                                 </span>
                             </div>
                             <p className="text-slate-400 text-sm leading-relaxed">
                                 ศาสตร์แห่งความรู้สึกและการยอมรับ เสริมดวงด้านเมตตามหานิยม
                                 ให้เป็นที่รักของผู้คน เจ้านายเอ็นดู ลูกน้องเคารพ
                             </p>
-                        </div>
+                        </Link>
 
                         {/* Feature 4: Nirun Sastra (Eternity) */}
-                        <div className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-amber-500/30 group relative overflow-hidden">
+                        {/* Feature 4: Nirun Sastra (Eternity) */}
+                        <Link href="/?tab=nirun#knowledge-section" className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-amber-500/30 group relative overflow-hidden block">
                             <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform -rotate-6">
                                 <InfinityIcon size={100} />
                             </div>
@@ -211,14 +215,14 @@ const AboutSection = () => {
                             <div className="flex items-center gap-3 mb-3 flex-wrap">
                                 <h3 className="text-xl font-bold text-white">4. นิรันดร์ศาสตร์</h3>
                                 <span className="px-2.5 py-0.5 rounded-md bg-slate-700/50 border border-slate-600/50 text-xs font-medium text-slate-300">
-                                    ความสมดุล
+                                    อ่านเพิ่มเติม
                                 </span>
                             </div>
                             <p className="text-slate-400 text-sm leading-relaxed">
                                 ศาสตร์ชั้นสูงที่ช่วย &quot;ตรึง&quot; ความดีงามให้ยั่งยืน คำนวณความสมพงศ์ระหว่างชื่อและนามสกุล
                                 เพื่อความสำเร็จที่มั่นคง ไม่ฉาบฉวย
                             </p>
-                        </div>
+                        </Link>
                     </div>
                 </section>
 

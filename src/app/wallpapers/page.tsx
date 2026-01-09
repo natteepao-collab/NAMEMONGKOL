@@ -235,59 +235,107 @@ function WallpapersContent() {
 
                 {/* Modal */}
                 {selectedWallpaper && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onClick={() => setSelectedWallpaper(null)}>
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm" onClick={() => setSelectedWallpaper(null)}>
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
+                            initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="relative w-full max-w-sm max-h-[90vh] overflow-y-auto bg-slate-900 border border-white/10 rounded-3xl shadow-2xl no-scrollbar"
+                            className="relative w-full max-w-sm md:max-w-5xl h-[85vh] md:h-[80vh] bg-slate-900 border border-white/10 rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden"
                             onClick={e => e.stopPropagation()}
                         >
-                            <div className="relative aspect-[9/16] w-full bg-black">
-                                <Image
-                                    src={selectedWallpaper.image}
-                                    alt={selectedWallpaper.name}
-                                    fill
-                                    className="object-contain"
-                                />
+                            {/* Image Section */}
+                            <div className="relative w-full h-[55%] md:h-full md:w-1/2 bg-black flex items-center justify-center overflow-hidden group">
+                                {/* Blur Background */}
+                                <div className="absolute inset-0 opacity-30 blur-xl scale-110">
+                                    <Image
+                                        src={selectedWallpaper.image}
+                                        alt="bg-blur"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+
+                                {/* Main Image */}
+                                <div className="relative w-full h-full p-4 md:p-6 transition-transform duration-500 group-hover:scale-105">
+                                    <Image
+                                        src={selectedWallpaper.image}
+                                        alt={selectedWallpaper.name}
+                                        fill
+                                        className="object-contain drop-shadow-2xl"
+                                    />
+                                </div>
+
                                 <button
                                     onClick={() => setSelectedWallpaper(null)}
-                                    className="absolute top-4 right-4 p-2 bg-black/40 text-white rounded-full hover:bg-white/20 backdrop-blur-md transition-colors"
+                                    className="absolute top-4 right-4 z-20 p-2 bg-black/50 text-white rounded-full hover:bg-white/20 backdrop-blur-md transition-colors border border-white/10"
                                 >
                                     <span className="sr-only">Close</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                 </button>
                             </div>
 
-                            <div className="p-6 bg-slate-900/95 backdrop-blur-xl border-t border-white/10">
-                                <div className="flex items-start justify-between gap-4 mb-4">
+                            {/* Content Section */}
+                            <div className="flex-1 flex flex-col justify-between p-6 md:p-10 bg-slate-900/95 md:border-l border-white/5 overflow-y-auto">
+                                <div className="space-y-4">
                                     <div>
-                                        <h2 className="text-2xl font-bold text-white mb-1">{selectedWallpaper.name}</h2>
-                                        <div className="flex gap-2">
+                                        <div className="flex items-center gap-2 mb-3">
+                                            {selectedWallpaper.premium ? (
+                                                <span className="bg-amber-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 w-fit">
+                                                    <Lock size={10} /> PREMIUM
+                                                </span>
+                                            ) : (
+                                                <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 w-fit border border-emerald-500/20">
+                                                    <Sparkles size={10} /> FREE
+                                                </span>
+                                            )}
+                                            <span className="text-xs text-slate-400 font-medium px-2 py-0.5 bg-white/5 rounded-full border border-white/5 uppercase">
+                                                {selectedWallpaper.day === 'all' ? 'All Days' : selectedWallpaper.day}
+                                            </span>
+                                        </div>
+                                        <h2 className="text-xl md:text-3xl font-bold text-white mb-2 leading-tight">
+                                            {selectedWallpaper.name}
+                                        </h2>
+                                        <div className="flex flex-wrap gap-2 mt-3">
                                             {selectedWallpaper.tags.map(t => (
-                                                <span key={t} className="text-xs text-slate-400 bg-white/5 px-2 py-1 rounded-md border border-white/5">
+                                                <span key={t} className="text-xs md:text-sm text-slate-300 bg-white/5 px-2.5 py-1 rounded-lg border border-white/10">
                                                     #{t}
                                                 </span>
                                             ))}
                                         </div>
                                     </div>
-                                    {selectedWallpaper.premium && (
-                                        <div className="text-right">
-                                            <span className="block text-2xl font-bold text-amber-500">15</span>
-                                            <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Credits</span>
-                                        </div>
-                                    )}
+
+                                    <div className="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2">
+                                        <h4 className="text-sm font-bold text-amber-200 flex items-center gap-2">
+                                            <Sparkles size={14} /> คุณสมบัติมงคล
+                                        </h4>
+                                        <p className="text-xs md:text-sm text-slate-400 leading-relaxed">
+                                            ภาพมงคลเสริมพลังด้าน {selectedWallpaper.tags.join(' และ ')}
+                                            ออกแบบตามหลักทักษาและเลขศาสตร์เพื่อดึงดูดพลังงานบวกสูงสุด
+                                        </p>
+                                    </div>
                                 </div>
 
-                                <button
-                                    onClick={() => handleDownload(selectedWallpaper)}
-                                    className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all ${selectedWallpaper.premium
-                                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black shadow-lg shadow-amber-500/20'
-                                        : 'bg-white text-black hover:bg-slate-200'
-                                        }`}
-                                >
-                                    <Download size={20} />
-                                    {selectedWallpaper.premium ? 'แลกด้วย 15 เครดิต' : 'ดาวน์โหลดฟรี'}
-                                </button>
+                                <div className="mt-6 pt-6 border-t border-white/5 space-y-4">
+                                    {selectedWallpaper.premium && (
+                                        <div className="flex justify-between items-center text-sm md:text-base">
+                                            <span className="text-slate-400">ราคาดาวน์โหลด</span>
+                                            <div className="text-right">
+                                                <span className="font-bold text-amber-500 text-xl">15</span>
+                                                <span className="ml-1 text-xs text-slate-500">Credits</span>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    <button
+                                        onClick={() => handleDownload(selectedWallpaper)}
+                                        className={`w-full py-3.5 md:py-4 rounded-xl font-bold text-base md:text-lg flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${selectedWallpaper.premium
+                                            ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black shadow-lg shadow-amber-500/20 ring-4 ring-amber-500/10'
+                                            : 'bg-white text-black hover:bg-slate-100 shadow-lg shadow-white/10'
+                                            }`}
+                                    >
+                                        <Download size={20} />
+                                        {selectedWallpaper.premium ? 'แลกด้วย 15 เครดิต' : 'ดาวน์โหลดฟรี'}
+                                    </button>
+                                </div>
                             </div>
                         </motion.div>
                     </div>

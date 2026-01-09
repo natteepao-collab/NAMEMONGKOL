@@ -69,6 +69,16 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
                     </div>
                 </div>
 
+                {/* Nirun Badge */}
+                {result.isNirun && (
+                    <div className="absolute top-4 left-4 animate-bounce-slow">
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-200 to-yellow-400 shadow-lg shadow-amber-500/20 border border-white/40">
+                            <Sparkles className="w-3.5 h-3.5 text-amber-900" />
+                            <span className="text-xs font-extrabold text-amber-900 tracking-wide">นิรันดร์ศาสตร์</span>
+                        </div>
+                    </div>
+                )}
+
                 <h3 className="text-lg text-slate-400 mb-1">ผลรวมชื่อ-สกุล</h3>
                 <div className={`text-5xl sm:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${result.prediction.bgGradient} mb-4`}>
                     {result.totalScore}

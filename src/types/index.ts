@@ -70,4 +70,5 @@ export interface AnalysisResult {
     thaksa: ThaksaAnalysisResult | null;
     ayatana: AyatanaResult;
     grade: 'A+' | 'A' | 'B' | 'C'; // Added grade
+    isNirun: boolean;
 }

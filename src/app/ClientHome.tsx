@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ChevronRight, Sparkles, Loader2 } from 'lucide-react';
 import { saveAnalysisResult } from '@/services/analysisService';
+import { premiumNamesRaw } from '@/data/premiumNamesRaw';
 import { InputForm } from '@/components/InputForm';
 import { ResultHeader } from '@/components/ResultHeader';
 import { PairAnalysisCard } from '@/components/PairAnalysisCard';
@@ -22,6 +23,7 @@ import { calculateGrade } from '@/utils/gradeResult';
 import { AnalysisResult } from '@/types';
 import { WallpaperShowcase } from '@/components/WallpaperShowcase';
 import { WallpaperUpsell } from '@/components/WallpaperUpsell';
+import { KnowledgeSection } from '@/components/KnowledgeSection';
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -70,7 +72,8 @@ function HomeContent() {
             prediction: totalPrediction,
             thaksa: analyzeThaksa(cleanName, inputDay, cleanSurname),
             ayatana: calculateAyatana(totalScore),
-            grade: calculateGrade(totalScore, [...namePairs, ...surnamePairs])
+            grade: calculateGrade(totalScore, [...namePairs, ...surnamePairs]),
+            isNirun: premiumNamesRaw.split('\n').some(line => line.trim() === inputName.trim())
         };
 
         setResult(newResult);
@@ -209,7 +212,12 @@ function HomeContent() {
                 )}
             </main>
 
-            {!result && <WallpaperShowcase />}
+            {!result && (
+                <>
+                    <WallpaperShowcase />
+                    <KnowledgeSection />
+                </>
+            )}
 
             {/* Footer */}
             <footer className="w-full py-6 text-center text-slate-600 text-sm relative z-10">

@@ -135,9 +135,10 @@ export const Sidebar = () => {
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
                             <Sparkles className="w-6 h-6 text-white" />
                         </div>
-                        <span className="hidden sm:inline text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 tracking-tight">
-                            NAMEMONGKOL
-                        </span>
+                        <div className="text-2xl font-bold tracking-tight">
+                            <span className="text-white">Name</span>
+                            <span className="text-amber-400">Mongkol</span>
+                        </div>
                     </div>
 
                     <nav className="space-y-2 flex-1 overflow-y-auto pr-1 custom-scrollbar">
@@ -240,7 +241,7 @@ export const Sidebar = () => {
                                             item.name
                                         )}
                                         {item.path === '/wallpapers' && (
-                                            <span className="bg-amber-500 text-black text-[9px] font-bold px-1.5 py-0.5 rounded shadow-lg shadow-amber-500/20 ml-2 animate-pulse">
+                                            <span className="bg-pink-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-lg shadow-pink-500/20 ml-2 animate-pulse">
                                                 New
                                             </span>
                                         )}
@@ -307,6 +308,11 @@ export const Sidebar = () => {
                     <LineOAButton />
 
                     <div className="mt-auto pt-6 border-t border-white/5">
+                        <div className="flex items-center justify-center gap-3 text-[10px] text-slate-500 mb-2">
+                            <Link href="/privacy" className="hover:text-amber-400 transition-colors">Privacy Policy</Link>
+                            <span className="w-0.5 h-0.5 rounded-full bg-slate-600" />
+                            <Link href="/terms" className="hover:text-amber-400 transition-colors">Terms of Service</Link>
+                        </div>
                         <p className="text-[10px] text-slate-600 text-center leading-relaxed font-medium">
                             © 2024 NameMongkol.com<br />
                             ศาสตร์แห่งตัวเลขเพื่อชีวิตที่ดีกว่า
