@@ -1,0 +1,96 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Sparkles, ArrowRight, Wallet, Star } from 'lucide-react';
+import { AnalysisResult } from '@/types';
+
+interface WallpaperUpsellProps {
+    result: AnalysisResult | null;
+    day?: string;
+}
+
+const WALLPAPER_MAPPING: Record<string, string> = {
+    sunday: '/Wallpaper/คนเกิดวันเอาทิตย์.png',
+    monday: '/Wallpaper/คนเกิดวันจันทร์.png',
+    tuesday: '/Wallpaper/คนเกิดวันอังคาร.png',
+    wednesday: '/Wallpaper/คนเกิดพุธ.png',
+    thursday: '/Wallpaper/คนเกิดพฤหัส.png',
+    friday: '/Wallpaper/คนเกิดศุกร์.png',
+    saturday: '/Wallpaper/คนเกิดวันเสาร์.png',
+};
+
+// Default mapping if day isn't found or strictly English day names are used
+const DEFAULT_WALLPAPER = '/Wallpaper/thao-wessuwan-v2.png';
+
+export const WallpaperUpsell = ({ result, day = 'sunday' }: WallpaperUpsellProps) => {
+    if (!result) return null;
+
+    const wallpaperImage = WALLPAPER_MAPPING[day.toLowerCase()] || DEFAULT_WALLPAPER;
+    const isGoodScore = result.totalScore > 50; // Example logic
+
+    return (
+        <div className="w-full mt-8 animate-fade-in-up">
+            <div className="relative overflow-hidden rounded-3xl border border-amber-500/30 bg-[#1e293b]/70 backdrop-blur-xl p-1">
+                {/* Background Effects */}
+                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-bl from-amber-500/20 to-transparent rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-purple-500/10 rounded-full blur-3xl" />
+
+                <div className="relative flex flex-col md:flex-row gap-6 p-6">
+                    {/* Image Section */}
+                    <div className="w-full md:w-1/3 lg:w-1/4 shrink-0">
+                        <div className="relative aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10 group cursor-pointer">
+                            <Image
+                                src={wallpaperImage}
+                                alt="Lucky Wallpaper"
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl" />
+                            <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md text-amber-400 text-xs font-bold px-2 py-1 rounded-lg flex items-center gap-1">
+                                <Star size={10} fill="currentColor" /> Premium
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Content Section */}
+                    <div className="flex-1 flex flex-col justify-center">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 w-fit mb-4">
+                            <Sparkles size={14} className="text-amber-400" />
+                            <span className="text-xs font-bold text-amber-200 uppercase tracking-wider">แนะนำพิเศษสำหรับคุณ</span>
+                        </div>
+
+                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                            เสริมพลัง {isGoodScore ? 'ให้ปังยิ่งขึ้น' : 'แก้เคล็ดเสริมดวง'} ด้วยวอลเปเปอร์มงคล
+                        </h3>
+
+                        <p className="text-slate-300 leading-relaxed mb-6">
+                            จากผลการวิเคราะห์ ชื่อของคุณมีพลังเลขศาสตร์ <strong>{result.totalScore}</strong>
+                            {isGoodScore
+                                ? ' ซึ่งเป็นเลขที่ดีเยี่ยม! เพื่อส่งเสริมให้ชีวิตพุ่งทะยานสูงสุด '
+                                : ' เราขอแนะนำให้เสริมพลังด้านดีและลดทอนพลังเสีย '}
+                            ด้วยวอลเปเปอร์ที่ออกแบบมาเพื่อคนเกิด<strong>วัน{day === 'sunday' ? 'อาทิตย์' : day === 'monday' ? 'จันทร์' : day === 'tuesday' ? 'อังคาร' : day === 'wednesday' ? 'พุธ' : day === 'thursday' ? 'พฤหัสบดี' : day === 'friday' ? 'ศุกร์' : 'เสาร์'}</strong>โดยเฉพาะ
+                        </p>
+
+                        <div className="flex flex-wrap gap-4">
+                            <Link
+                                href="/wallpapers"
+                                className="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold py-3 px-6 rounded-xl shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all transform hover:-translate-y-0.5"
+                            >
+                                <Wallet size={18} />
+                                ดูวอลเปเปอร์ทั้งหมด
+                            </Link>
+                            <Link
+                                href={`/wallpapers?day=${day}`}
+                                className="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white font-medium py-3 px-6 rounded-xl border border-white/10 transition-all hover:border-white/30"
+                            >
+                                ดูเฉพาะวันเกิดเรา <ArrowRight size={18} />
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, Search, Info, Menu, X, Sparkles, LogIn, LogOut, User as UserIcon, ClipboardList, Crown, Zap, History as HistoryIcon, Settings } from 'lucide-react';
+import { Home, Search, Info, Menu, X, Sparkles, LogIn, LogOut, User as UserIcon, ClipboardList, Crown, Zap, History as HistoryIcon, Settings, Image as ImageIcon } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';
 import { LineOAButton } from './LineOAButton';
@@ -86,9 +86,10 @@ export const Sidebar = () => {
         { name: 'ค้นหาชื่อมงคล', icon: Search, path: '/search' },
         { name: 'คัดสรรชื่อมงคล ', icon: Sparkles, path: '/premium-search' },
         { name: 'ออกแบบชื่อมงคล', icon: Crown, path: '/premium-analysis' },
+        { name: 'วอลเปเปอร์มงคล', icon: ImageIcon, path: '/wallpapers' },
         { name: 'ประวัติการใช้งาน', icon: HistoryIcon, path: '/history' },
         { name: 'ระบบคัดกรองชื่อ', icon: ClipboardList, path: '/name-analysis' },
-        { name: 'เกี่ยวกับเรา', icon: Info, path: '/about' },
+        { name: 'เกี่ยวกับเรา', icon: Info, path: '/about', mobileOnly: true },
     ];
 
     // Add Admin Menu Items
@@ -211,7 +212,7 @@ export const Sidebar = () => {
                                     className={`flex items-center gap-3 lg:gap-4 px-4 py-3 lg:px-5 lg:py-4 rounded-xl lg:rounded-2xl transition-all duration-200 group relative overflow-hidden ${isActive
                                         ? 'bg-gradient-to-r from-white/10 to-white/5 text-white shadow-lg shadow-black/20 border border-white/10'
                                         : 'text-slate-400 hover:bg-white/5 hover:text-white hover:pl-6'
-                                        }`}
+                                        } ${item.mobileOnly ? 'lg:hidden' : ''}`}
                                 >
                                     {isActive && (
                                         <div className="absolute left-0 top-0 w-1 h-full bg-amber-400 rounded-r-full shadow-[0_0_10px_rgba(251,191,36,0.5)]" />
@@ -238,15 +239,21 @@ export const Sidebar = () => {
                                         ) : (
                                             item.name
                                         )}
+                                        {item.path === '/wallpapers' && (
+                                            <span className="bg-amber-500 text-black text-[9px] font-bold px-1.5 py-0.5 rounded shadow-lg shadow-amber-500/20 ml-2 animate-pulse">
+                                                New
+                                            </span>
+                                        )}
                                     </span>
                                 </Link>
                             );
                         })}
 
-                        <div className="my-6 border-t border-white/5" />
+                        <div className="my-6 border-t border-white/5 lg:hidden" />
 
                         {user ? (
-                            <>
+                            <div className="lg:hidden">
+
                                 <div className="px-5 py-4 mb-2 rounded-2xl bg-white/5 border border-white/5">
                                     <p className="text-[11px] text-slate-500 mb-2 uppercase tracking-wider font-semibold">เข้าใช้งานโดย</p>
                                     <div className="flex items-center gap-3 text-slate-200 font-medium truncate mb-4">
@@ -277,12 +284,12 @@ export const Sidebar = () => {
                                     <LogOut className="w-[22px] h-[22px] transition-colors" />
                                     <span className="font-medium text-[15px]">ออกจากระบบ</span>
                                 </button>
-                            </>
+                            </div>
                         ) : (
                             <Link
                                 href="/login"
                                 onClick={() => setIsOpen(false)}
-                                className={`flex items-center gap-4 px-5 py-3.5 rounded-2xl transition-all duration-200 group ${pathname === '/login'
+                                className={`lg:hidden flex items-center gap-4 px-5 py-3.5 rounded-2xl transition-all duration-200 group ${pathname === '/login'
                                     ? 'bg-gradient-to-r from-amber-500/20 to-amber-500/5 text-amber-200 border border-amber-500/20 shadow-lg shadow-amber-900/20'
                                     : 'text-slate-400 hover:bg-white/5 hover:text-white hover:pl-6'
                                     }`}

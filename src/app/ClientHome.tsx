@@ -18,7 +18,10 @@ import { analyzeThaksa } from '@/utils/analyzeThaksa';
 import { getPrediction } from '@/utils/getPrediction';
 import { calculateAyatana } from '@/utils/ayatana';
 import { calculateGrade } from '@/utils/gradeResult';
+
 import { AnalysisResult } from '@/types';
+import { WallpaperShowcase } from '@/components/WallpaperShowcase';
+import { WallpaperUpsell } from '@/components/WallpaperUpsell';
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -196,11 +199,17 @@ function HomeContent() {
                         </div>
 
                         <div className="mt-4">
+                            <WallpaperUpsell result={result} day={day} />
+                        </div>
+
+                        <div className="mt-4">
                             <ShareButton result={result} day={day} />
                         </div>
                     </div>
                 )}
             </main>
+
+            {!result && <WallpaperShowcase />}
 
             {/* Footer */}
             <footer className="w-full py-6 text-center text-slate-600 text-sm relative z-10">
