@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Download, Share2, Sparkles, Filter, Lock, LogIn } from 'lucide-react';
@@ -30,7 +30,7 @@ const DAYS = [
     { value: 'saturday', label: 'วันเสาร์' },
 ];
 
-export default function WallpapersPage() {
+function WallpapersContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const initialDay = searchParams.get('day') || 'all';
@@ -157,142 +157,150 @@ export default function WallpapersPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#0f172a] text-slate-100 pb-20">
-            {/* Header */}
-            <div className="bg-[#0f172a]/80 backdrop-blur-xl border-b border-white/5 sticky top-0 z-30">
-                <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-                    <h1 className="text-xl font-bold flex items-center gap-2">
-                        <Sparkles className="text-amber-400" />
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-200 to-amber-400">
-                            Wallpaper มงคล
-                        </span>
-                    </h1>
-                </div>
-            </div>
+        <div className="min-h-screen bg-[#0f172a] text-slate-200 p-4 md:p-8 pb-24">
+            <div className="max-w-7xl mx-auto space-y-8">
 
-            <main className="container mx-auto px-4 py-8">
-                {/* Hero / Intro */}
-                <div className="text-center mb-8">
-                    <h2 className="text-2xl md:text-4xl font-bold text-white mb-2 md:mb-4">
-                        เสริมดวงชะตาด้วย<br />
-                        <span className="text-amber-400">ภาพหน้าจอมงคลเฉพาะคุณ</span>
-                    </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
-                        คัดสรรภาพมงคลที่ออกแบบตามหลักทักษาและเลขศาสตร์ เพื่อเสริมสิริมงคลในด้านต่างๆ
-                    </p>
-                </div>
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <h1 className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-gradient-x mb-2">
+                            วอลเปเปอร์มงคล
+                        </h1>
+                        <p className="text-slate-400">
+                            เสริมดวงชะตา บารมี โชคลาภ ด้วยพลังแห่งภาพมงคล
+                        </p>
+                    </div>
 
-                {/* Filter */}
-                <div className="flex overflow-x-auto pb-4 md:pb-0 md:flex-wrap justify-start md:justify-center gap-2 mb-8 no-scrollbar px-1">
-                    {DAYS.map((day) => (
-                        <button
-                            key={day.value}
-                            onClick={() => setSelectedDay(day.value)}
-                            className={`whitespace-nowrap px-4 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all ${selectedDay === day.value
-                                ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20'
-                                : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white border border-white/5'
-                                }`}
-                        >
-                            {day.label}
-                        </button>
-                    ))}
+                    {/* Filter */}
+                    <div className="flex bg-slate-900/50 p-1.5 rounded-xl border border-white/10 overflow-x-auto max-w-full no-scrollbar">
+                        {DAYS.map((d) => (
+                            <button
+                                key={d.value}
+                                onClick={() => setSelectedDay(d.value)}
+                                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedDay === d.value
+                                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
+                                        : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                    }`}
+                            >
+                                {d.label}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
-                {/* Grid - Adjusted for Mobile (2 cols) and Compact Laptop (5-6 cols) */}
+                {/* Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
-                    {filteredWallpapers.map((wp, index) => (
+                    {filteredWallpapers.map((wp) => (
                         <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.05 }}
                             key={wp.id}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            whileHover={{ y: -5 }}
+                            className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-slate-900 border border-white/10 hover:border-amber-500/50 transition-all duration-300 shadow-xl cursor-pointer"
                             onClick={() => setSelectedWallpaper(wp)}
-                            className="group relative bg-[#1e293b]/50 rounded-xl md:rounded-2xl overflow-hidden border border-white/5 hover:border-amber-500/30 transition-all active:scale-95 cursor-pointer"
                         >
-                            <div className="aspect-[9/16] relative overflow-hidden">
-                                <Image
-                                    src={wp.image}
-                                    alt={wp.name}
-                                    fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                    sizes="(max-width: 768px) 50vw, 33vw"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
+                            <Image
+                                src={wp.image}
+                                alt={wp.name}
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
 
+                            {/* Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
+
+                            {/* Tags */}
+                            <div className="absolute top-2 right-2 flex flex-col items-end gap-1">
                                 {wp.premium && (
-                                    <div className="absolute top-2 right-2 bg-amber-500/90 backdrop-blur text-black text-[9px] font-bold px-1.5 py-0.5 rounded shadow-lg flex items-center gap-0.5">
-                                        <Lock size={8} /> Pro
-                                    </div>
+                                    <span className="bg-amber-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg flex items-center gap-1">
+                                        <Lock size={8} /> PREMIUM
+                                    </span>
                                 )}
                             </div>
 
-                            <div className="absolute bottom-0 left-0 w-full p-2.5 md:p-4">
-                                <h3 className="text-xs md:text-base font-bold text-white truncate drop-shadow-md">
-                                    {wp.name}
-                                </h3>
-                                <p className="text-[10px] md:text-xs text-amber-300 truncate">
-                                    {wp.tags.map(t => `#${t}`).join(' ')}
-                                </p>
+                            {/* Content */}
+                            <div className="absolute bottom-0 left-0 w-full p-3">
+                                <h3 className="text-white font-bold text-sm line-clamp-1 mb-1">{wp.name}</h3>
+                                <div className="flex flex-wrap gap-1">
+                                    {wp.tags.map(t => (
+                                        <span key={t} className="text-[9px] text-slate-300 bg-white/10 px-1.5 py-0.5 rounded-md">
+                                            #{t}
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
                         </motion.div>
                     ))}
                 </div>
-            </main>
 
-            {/* Fullscreen Preview Modal */}
-            {selectedWallpaper && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200">
-                    <div
-                        className="absolute inset-0"
-                        onClick={() => setSelectedWallpaper(null)}
-                    />
-
-                    <div className="relative w-full max-w-sm md:max-w-md bg-[#1e293b] rounded-2xl md:rounded-3xl border border-white/10 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-                        {/* Header */}
-                        <div className="flex items-center justify-between p-4 border-b border-white/5 bg-[#0f172a]/50">
-                            <h3 className="font-bold text-white truncate pr-4">{selectedWallpaper.name}</h3>
-                            <button
-                                onClick={() => setSelectedWallpaper(null)}
-                                className="p-2 rounded-full bg-white/5 text-slate-400 hover:text-white hover:bg-white/10"
-                            >
-                                <Lock className="hidden" /> {/* Dummy to keep layout if needed, or just X */}
-                                <span className="text-xl leading-none">&times;</span>
-                            </button>
-                        </div>
-
-                        {/* Image Container - Scrollable/Contain */}
-                        <div className="relative flex-1 bg-[#0f172a] overflow-hidden group">
-                            <div className="w-full h-full relative">
+                {/* Modal */}
+                {selectedWallpaper && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onClick={() => setSelectedWallpaper(null)}>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="relative w-full max-w-lg bg-slate-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl"
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <div className="relative aspect-[9/16] w-full bg-black">
                                 <Image
                                     src={selectedWallpaper.image}
                                     alt={selectedWallpaper.name}
                                     fill
                                     className="object-contain"
                                 />
-                            </div>
-                        </div>
-
-                        {/* Footer / Actions */}
-                        <div className="p-4 bg-[#0f172a]/50 border-t border-white/5 space-y-3">
-                            <div className="flex flex-wrap gap-2 justify-center">
-                                {selectedWallpaper.tags.map(tag => (
-                                    <span key={tag} className="text-[10px] bg-amber-500/10 text-amber-300 border border-amber-500/20 px-2 py-1 rounded-full">
-                                        #{tag}
-                                    </span>
-                                ))}
+                                <button
+                                    onClick={() => setSelectedWallpaper(null)}
+                                    className="absolute top-4 right-4 p-2 bg-black/40 text-white rounded-full hover:bg-white/20 backdrop-blur-md transition-colors"
+                                >
+                                    <span className="sr-only">Close</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
                             </div>
 
-                            <button
-                                onClick={() => handleDownload(selectedWallpaper)}
-                                className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black py-3 rounded-xl font-bold transition-all shadow-lg shadow-amber-500/20"
-                            >
-                                <Download size={18} />
-                                {selectedWallpaper.premium ? 'แลกแต้มดาวน์โหลด' : 'ดาวน์โหลดฟรี'}
-                            </button>
-                        </div>
+                            <div className="p-6 bg-slate-900/95 backdrop-blur-xl border-t border-white/10">
+                                <div className="flex items-start justify-between gap-4 mb-4">
+                                    <div>
+                                        <h2 className="text-2xl font-bold text-white mb-1">{selectedWallpaper.name}</h2>
+                                        <div className="flex gap-2">
+                                            {selectedWallpaper.tags.map(t => (
+                                                <span key={t} className="text-xs text-slate-400 bg-white/5 px-2 py-1 rounded-md border border-white/5">
+                                                    #{t}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    {selectedWallpaper.premium && (
+                                        <div className="text-right">
+                                            <span className="block text-2xl font-bold text-amber-500">15</span>
+                                            <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Credits</span>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <button
+                                    onClick={() => handleDownload(selectedWallpaper)}
+                                    className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all ${selectedWallpaper.premium
+                                            ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black shadow-lg shadow-amber-500/20'
+                                            : 'bg-white text-black hover:bg-slate-200'
+                                        }`}
+                                >
+                                    <Download size={20} />
+                                    {selectedWallpaper.premium ? 'แลกด้วย 15 เครดิต' : 'ดาวน์โหลดฟรี'}
+                                </button>
+                            </div>
+                        </motion.div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
+    );
+}
+
+export default function WallpapersPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-amber-500"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div></div>}>
+            <WallpapersContent />
+        </Suspense>
     );
 }
