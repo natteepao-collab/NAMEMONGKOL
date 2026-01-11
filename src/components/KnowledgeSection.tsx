@@ -47,7 +47,7 @@ export const KnowledgeSection: React.FC = () => {
                         <span>คลังความรู้ศาสตร์มงคล</span>
                     </div>
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                        เจาะลึก 4 ศาสตร์ <span className="text-amber-500">แห่งการตั้งชื่อ</span>
+                        เจาะลึก 4 ศาสตร์ <span className="text-amber-500">ชื่อมงคล</span>และการตั้งชื่อ
                     </h2>
                     <p className="text-slate-400 max-w-2xl mx-auto text-lg">
                         เรียนรู้หลักการคำนวณและที่มาของศาสตร์แต่ละแขนง เพื่อความเข้าใจที่ลึกซึ้งก่อนตัดสินใจเลือกชื่อที่ใช่สำหรับคุณ

@@ -19,14 +19,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NameMongkol - วิเคราะห์ชื่อมงคล",
-  description: "วิเคราะห์ชื่อ-นามสกุล ดูผลรวม พลังเงา และความหมายมงคล ฟรี",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://namemongkol-nine.vercel.app'),
+  title: "NameMongkol | วิเคราะห์ชื่อมงคล ทำนายชื่อ-นามสกุล แม่นยำที่สุด",
+  description: "NameMongkol (เนมมงคล) บริการวิเคราะห์ชื่อมงคล ดูผลรวมชื่อ-นามสกุล พลังเงา และความหมายตามหลักเลขศาสตร์และทักษาปกรณ์ ฟรี! เช็คชื่อของคุณวันนี้เพื่อความเป็นสิริมงคล",
+  keywords: ["NameMongkol", "ชื่อมงคล", "วิเคราะห์ชื่อ", "ตั้งชื่อมงคล", "ดูดวงชื่อ", "เลขศาสตร์"],
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://www.namemongkol.com'),
   openGraph: {
     type: 'website',
     locale: 'th_TH',
-    url: 'https://namemongkol-nine.vercel.app',
+    url: 'https://www.namemongkol.com',
     siteName: 'NameMongkol',
+    title: 'NameMongkol - วิเคราะห์ชื่อมงคล อันดับ 1',
+    description: 'เช็คชื่อมงคล วิเคราะห์ชื่อ-นามสกุล ฟรี! ด้วยศาสตร์คำนวณที่แม่นยำที่สุด',
     images: [
       {
         url: '/api/og?v=2',
@@ -42,8 +45,47 @@ export const metadata: Metadata = {
     description: 'วิเคราะห์ชื่อ-นามสกุล ดูผลรวม พลังเงา และความหมายมงคล ฟรี',
     images: ['/api/og?v=2'],
   },
-
+  alternates: {
+    canonical: 'https://www.namemongkol.com',
+  },
 };
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.namemongkol.com/#website',
+      'url': 'https://www.namemongkol.com',
+      'name': 'NameMongkol',
+      'description': 'บริการวิเคราะห์ชื่อมงคลและตั้งชื่อใหม่ตามหลักเลขศาสตร์',
+      'publisher': {
+        '@id': 'https://www.namemongkol.com/#organization'
+      },
+      'potentialAction': {
+        '@type': 'SearchAction',
+        'target': 'https://www.namemongkol.com/?name={search_term_string}',
+        'query-input': 'required name=search_term_string'
+      }
+    },
+    {
+      '@type': 'Organization',
+      '@id': 'https://www.namemongkol.com/#organization',
+      'name': 'NameMongkol',
+      'url': 'https://www.namemongkol.com',
+      'logo': {
+        '@type': 'ImageObject',
+        'url': 'https://www.namemongkol.com/icon.png',
+        'width': 512,
+        'height': 512
+      },
+      'sameAs': [
+        'https://www.facebook.com/namemongkol',
+        // Add other social profiles here
+      ]
+    }
+  ]
+}
 
 async function getSettings() {
   try {
@@ -84,7 +126,14 @@ export default async function RootLayout({
   const { gtmId, tiktokPixelId, facebookPixelId } = await getSettings();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="th" suppressHydrationWarning>
+      <head>
+        <Script
+          id="json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

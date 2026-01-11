@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, Search, Info, Menu, X, Sparkles, LogIn, LogOut, User as UserIcon, ClipboardList, Crown, Zap, History as HistoryIcon, Settings, Image as ImageIcon } from 'lucide-react';
+import { Home, Search, Info, Menu, X, Sparkles, LogIn, LogOut, User as UserIcon, ClipboardList, Crown, Zap, History as HistoryIcon, Settings, Image as ImageIcon, BookOpen } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';
 import { LineOAButton } from './LineOAButton';
@@ -83,6 +83,7 @@ export const Sidebar = () => {
 
     const menuItems = [
         { name: 'วิเคราะห์ชื่อ', icon: Home, path: '/' },
+        { name: 'บทความ', icon: BookOpen, path: '/articles' },
         { name: 'ค้นหาชื่อมงคล', icon: Search, path: '/search' },
         { name: 'คัดสรรชื่อมงคล ', icon: Sparkles, path: '/premium-search' },
         { name: 'ออกแบบชื่อมงคล', icon: Crown, path: '/premium-analysis' },
@@ -105,7 +106,7 @@ export const Sidebar = () => {
             {/* Mobile Toggle Button */}
             <button
                 onClick={toggleSidebar}
-                className={`lg:hidden fixed top-[calc(env(safe-area-inset-top)+0.75rem)] ${isOpen ? 'right-4 w-10 h-10 rounded-full p-0 flex items-center justify-center' : 'left-4 w-10 h-10 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full sm:rounded-xl flex items-center justify-center sm:justify-start gap-0 sm:gap-2'} z-[70] bg-white/10 text-white shadow-lg shadow-black/20 border border-white/20 backdrop-blur-md transition-all active:scale-95 hover:scale-105`}
+                className={`lg:hidden fixed top-[calc(env(safe-area-inset-top)+0.75rem)] ${isOpen ? 'right-4 w-10 h-10 rounded-full p-0 flex items-center justify-center' : 'left-4 w-10 h-10 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full sm:rounded-xl flex items-center justify-center sm:justify-start gap-0 sm:gap-2'} z-[70] bg-white/10 text-amber-400 shadow-lg shadow-black/20 border border-amber-400 backdrop-blur-md transition-all active:scale-95 hover:scale-105`}
             >
                 {isOpen ? (
                     <X size={20} />

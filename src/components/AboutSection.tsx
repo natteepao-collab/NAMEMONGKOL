@@ -4,7 +4,7 @@ import { Sparkles, Sun, Heart, UserCheck, Star, Users, Target, LayoutDashboard, 
 
 const AboutSection = () => {
     return (
-        <section className="relative w-full min-h-screen bg-slate-900 text-white overflow-hidden py-20 px-4 sm:px-6 lg:px-8 font-sans">
+        <section className="relative w-full min-h-screen bg-slate-900 text-white overflow-hidden pt-24 md:pt-36 pb-20 px-4 sm:px-6 lg:px-8 font-sans">
             {/* Background Neon Accents */}
             <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-violet-600/20 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2 pointer-events-none" />
@@ -223,6 +223,32 @@ const AboutSection = () => {
                                 เพื่อความสำเร็จที่มั่นคง ไม่ฉาบฉวย
                             </p>
                         </Link>
+                    </div>
+                </section>
+
+                {/* 5.5 How It Works (GEO Optimized - Procedures) */}
+                <section className="relative z-10 py-12 border-t border-white/5">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold mb-4">ขั้นตอนการใช้งาน</h2>
+                        <p className="text-slate-400">ง่ายๆ ใน 3 ขั้นตอน เพื่อค้นหาคำตอบของชีวิต</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="relative group p-6 rounded-2xl bg-slate-800/20 border border-white/5 hover:border-emerald-500/20 transition-all text-center">
+                            <div className="w-12 h-12 mx-auto bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-400 font-bold text-xl mb-4 group-hover:scale-110 transition-transform">1</div>
+                            <h3 className="text-lg font-bold text-white mb-2">กรอกข้อมูล</h3>
+                            <p className="text-slate-400 text-sm">ระบุชื่อ นามสกุล และวันเกิด ของคุณในแบบฟอร์ม</p>
+                        </div>
+                        <div className="relative group p-6 rounded-2xl bg-slate-800/20 border border-white/5 hover:border-emerald-500/20 transition-all text-center">
+                            <div className="w-12 h-12 mx-auto bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-400 font-bold text-xl mb-4 group-hover:scale-110 transition-transform">2</div>
+                            <h3 className="text-lg font-bold text-white mb-2">AI ประมวลผล</h3>
+                            <p className="text-slate-400 text-sm">ระบบคำนวณด้วย 4 ศาสตร์มงคล (เลขศาสตร์, ทักษา, อายตนะ, นิรันดร์)</p>
+                        </div>
+                        <div className="relative group p-6 rounded-2xl bg-slate-800/20 border border-white/5 hover:border-emerald-500/20 transition-all text-center">
+                            <div className="w-12 h-12 mx-auto bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-400 font-bold text-xl mb-4 group-hover:scale-110 transition-transform">3</div>
+                            <h3 className="text-lg font-bold text-white mb-2">รับคำทำนาย</h3>
+                            <p className="text-slate-400 text-sm">อ่านผลวิเคราะห์ พร้อมคำแนะนำและเกรดมงคลทันที</p>
+                        </div>
                     </div>
                 </section>
 

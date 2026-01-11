@@ -15,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const routes = [
         '',
         '/about',
+        '/articles', // Added articles landing page
         '/login',
         '/register',
         '/name-analysis',
@@ -51,5 +52,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         console.error('Sitemap generation error (wallpapers):', error);
     }
 
-    return [...staticUrls, ...wallpaperUrls];
+    // Fetch dynamic articles
+    let articleUrls: MetadataRoute.Sitemap = [];
+    try {
+        const { data: articles } = await supabase
+            .from('articles')
+            .select('slug, date') // Assuming 'date' is created_at or published date
+            .eq('is_published', true);
+
+        if (articles) {
+            articleUrls = articles.map((article) => ({
+                url: `${baseUrl}/articles/${article.slug}`,
+                lastModified: article.date ? new Date(article.date) : new Date(),
+                changeFrequency: 'weekly' as const,
+                priority: 0.8,
+            }))
+        }
+    } catch (error) {
+        console.error('Sitemap generation error (articles):', error);
+    }
+
+    return [...staticUrls, ...wallpaperUrls, ...articleUrls];
 }

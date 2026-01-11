@@ -51,13 +51,14 @@ export const InputForm: React.FC<InputFormProps> = ({
                         </div>
 
                         {/* Title */}
+                        {/* Title */}
                         <h1 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-2 tracking-tight">
-                            วิเคราะห์ชื่อ <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 drop-shadow-[0_2px_10px_rgba(251,191,36,0.2)]">มงคลพลิกชีวิต</span>
+                            วิเคราะห์<span className="text-emerald-400">ชื่อมงคล</span> <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 drop-shadow-[0_2px_10px_rgba(251,191,36,0.2)]">พลิกชีวิต</span>
                         </h1>
 
                         {/* Description */}
                         <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-                            เจาะลึก <strong>4 ศาสตร์มงคล</strong>: เลขศาสตร์, ทักษาปกรณ์, อายตนะ 6 และนิรันดร์ศาสตร์ ครบจบในที่เดียว
+                            เจาะลึก <strong>4 ศาสตร์มงคล</strong>: โดย <span className="text-slate-200 font-medium">NameMongkol</span> ครบจบในที่เดียว แม่นยำที่สุด
                         </p>
                     </div>
 

@@ -269,7 +269,7 @@ export default function SearchPage() {
                 <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-amber-600/10 rounded-full blur-[120px]"></div>
             </div>
 
-            <div className="relative z-10 p-6 md:p-12 max-w-7xl mx-auto">
+            <div className="relative z-10 p-6 md:p-12 pt-24 md:pt-32 max-w-7xl mx-auto">
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-sm mb-4">
                         <Sparkles className="w-4 h-4" />

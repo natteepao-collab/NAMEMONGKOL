@@ -321,7 +321,7 @@ export default function NameAnalysisPage() {
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-indigo-500/30">
-            <main className="transition-all duration-300 min-h-screen p-4 md:p-8 relative overflow-hidden">
+            <main className="transition-all duration-300 min-h-screen p-4 pt-24 md:p-8 md:pt-32 relative overflow-hidden">
                 {/* Background Decor */}
                 <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute top-[10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-indigo-500/10 blur-[120px]" />

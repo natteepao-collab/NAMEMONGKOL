@@ -635,7 +635,7 @@ export default function PremiumAnalysisPage() {
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
                     {/* Header Section */}
-                    <header className="text-center space-y-6 pt-16 pb-8">
+                    <header className="text-center space-y-6 pt-24 md:pt-32 pb-8">
                         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/5 border border-amber-500/20 text-amber-400/90 text-xs font-bold tracking-wider uppercase shadow-lg shadow-amber-900/10 backdrop-blur-sm mb-4">
                             <Crown size={14} />
                             <span>Professional Naming Analysis</span>

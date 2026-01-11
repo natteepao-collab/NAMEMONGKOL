@@ -26,18 +26,23 @@ export const BottomNav = () => {
                         <Link
                             key={item.path}
                             href={item.path}
-                            className={`flex flex-col items-center justify-center gap-1 min-w-[64px] py-1 transition-all duration-300 ${isActive
-                                ? 'text-amber-400'
+                            className={`flex flex-col items-center justify-center gap-1 min-w-[64px] py-1 transition-all duration-300 group ${isActive
+                                ? 'text-amber-300'
                                 : 'text-slate-500 hover:text-slate-300'
                                 }`}
                         >
-                            <div className={`p-1.5 rounded-xl transition-all duration-300 ${isActive
-                                ? 'bg-amber-500/10 shadow-[0_0_15px_rgba(245,158,11,0.2)] transform -translate-y-1'
-                                : 'bg-transparent'
+                            <div className={`p-2 rounded-2xl transition-all duration-300 relative ${isActive
+                                ? 'bg-gradient-to-tr from-amber-500/20 to-amber-500/5 border border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.2)] -translate-y-2 scale-110'
+                                : 'bg-transparent border border-transparent'
                                 }`}>
-                                <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+                                {isActive && (
+                                    <div className="absolute inset-0 bg-amber-400/20 blur-md rounded-full" />
+                                )}
+                                <Icon size={22} strokeWidth={isActive ? 2.5 : 2} className="relative z-10" />
                             </div>
-                            <span className={`text-[10px] font-medium transition-all duration-300 ${isActive ? 'font-bold opacity-100' : 'opacity-70'
+                            <span className={`text-[10px] transition-all duration-300 ${isActive
+                                ? 'font-bold text-amber-200 tracking-wide opacity-100 translate-y-0'
+                                : 'font-medium opacity-70 group-hover:opacity-100'
                                 }`}>
                                 {item.name}
                             </span>

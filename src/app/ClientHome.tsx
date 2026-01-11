@@ -24,6 +24,8 @@ import { AnalysisResult } from '@/types';
 import { WallpaperShowcase } from '@/components/WallpaperShowcase';
 import { WallpaperUpsell } from '@/components/WallpaperUpsell';
 import { KnowledgeSection } from '@/components/KnowledgeSection';
+import { ArticleSection } from '@/components/ArticleSection';
+import { FAQSection } from '@/components/FAQSection';
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -151,6 +153,10 @@ function HomeContent() {
                 </Link>
 
                 <div className="hidden sm:flex items-center gap-6">
+                    <Link href="/articles" className="text-sm font-medium text-slate-400 hover:text-amber-400 transition-colors relative group">
+                        บทความ
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all group-hover:w-full"></span>
+                    </Link>
                     <Link href="/premium-search" className="text-sm font-medium text-slate-400 hover:text-amber-400 transition-colors relative group">
                         ชื่อมงคลคัดพิเศษ
                         <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all group-hover:w-full"></span>
@@ -162,7 +168,7 @@ function HomeContent() {
                 </div>
             </nav>
 
-            <main className="relative z-10 container mx-auto px-4 py-6 sm:py-8 flex flex-col items-center justify-center min-h-[80vh] pb-[calc(env(safe-area-inset-bottom)+2rem)]">
+            <main className="relative z-10 container mx-auto px-4 pt-24 sm:pt-32 pb-8 flex flex-col items-center justify-start min-h-[80vh] pb-[calc(env(safe-area-inset-bottom)+2rem)]">
 
                 {!result ? (
                     <InputForm
@@ -216,12 +222,14 @@ function HomeContent() {
                 <>
                     <WallpaperShowcase />
                     <KnowledgeSection />
+                    <FAQSection />
+                    <ArticleSection />
                 </>
             )}
 
             {/* Footer */}
-            <footer className="w-full py-6 text-center text-slate-600 text-sm relative z-10">
-                © 2024 NameMongkol.com - ศาสตร์แห่งตัวเลขเพื่อชีวิตที่ดีกว่า
+            <footer className="w-full py-6 text-center text-slate-600 text-sm relative z-10 px-4">
+                <p>© 2024 NameMongkol.com - บริการวิเคราะห์ชื่อมงคล ดูดวงชื่อ-นามสกุล และตั้งชื่อลูกตามหลักเลขศาสตร์ แม่นยำ ฟรี 24 ชม.</p>
             </footer>
         </div>
     );

@@ -227,7 +227,7 @@ export default function TopUpPage() {
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-amber-500/30">
-            <main className="min-h-screen relative overflow-hidden p-4 md:p-8">
+            <main className="min-h-screen relative overflow-hidden p-4 pt-24 md:p-8 md:pt-32">
                 {/* Background Decor */}
                 <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-emerald-500/5 blur-[120px]" />
