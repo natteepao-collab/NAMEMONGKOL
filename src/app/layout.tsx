@@ -23,6 +23,16 @@ export const metadata: Metadata = {
   description: "NameMongkol (เนมมงคล) บริการวิเคราะห์ชื่อมงคล ดูผลรวมชื่อ-นามสกุล พลังเงา และความหมายตามหลักเลขศาสตร์และทักษาปกรณ์ ฟรี! เช็คชื่อของคุณวันนี้เพื่อความเป็นสิริมงคล",
   keywords: ["NameMongkol", "ชื่อมงคล", "วิเคราะห์ชื่อ", "ตั้งชื่อมงคล", "ดูดวงชื่อ", "เลขศาสตร์"],
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://www.namemongkol.com'),
+  icons: {
+    icon: [
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/icon-192.png' },
+    ],
+  },
   openGraph: {
     type: 'website',
     locale: 'th_TH',
