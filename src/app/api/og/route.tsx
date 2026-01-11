@@ -98,16 +98,19 @@ export async function GET(request: Request) {
                                     <div style={{ display: 'flex', position: 'relative' }}>
                                         <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#34d399', marginRight: 8 }} />
                                     </div>
-                                    <span style={{ fontSize: 20, fontWeight: 'bold', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '2px' }}>AI-Powered Analysis</span>
+                                    <span style={{ fontSize: 20, fontWeight: 'bold', color: '#34d399', textTransform: 'uppercase', letterSpacing: '2px' }}>AI-Powered Analysis</span>
                                 </div>
 
-                                <div style={{ fontSize: 64, fontWeight: 'bold', color: 'white', lineHeight: 1.2, display: 'flex', flexDirection: 'column' }}>
-                                    <span>วิเคราะห์ชื่อ</span>
-                                    <span style={{ background: 'linear-gradient(to right, #fcd34d, #f59e0b)', backgroundClip: 'text', color: 'transparent' }}>มงคลพลิกชีวิต</span>
+                                <div style={{ fontSize: 72, fontWeight: 'bold', color: 'white', lineHeight: 1.1, display: 'flex', flexDirection: 'column' }}>
+                                    <div style={{ display: 'flex' }}>
+                                        <span>วิเคราะห์</span>
+                                        <span style={{ color: '#34d399', marginLeft: '10px' }}>ชื่อมงคล</span>
+                                    </div>
+                                    <span style={{ background: 'linear-gradient(to right, #fcd34d, #f59e0b)', backgroundClip: 'text', color: 'transparent' }}>พลิกชีวิต</span>
                                 </div>
 
                                 <div style={{ fontSize: 28, color: '#94a3b8', marginTop: 20 }}>
-                                    เจาะลึกศาสตร์ตัวเลข ทักษา อายตนะ ครบจบทันที
+                                    เจาะลึก 4 ศาสตร์มงคล ครบจบในที่เดียว แม่นยำที่สุด
                                 </div>
                             </div>
                         )}
