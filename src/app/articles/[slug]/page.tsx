@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
 import { Metadata } from 'next';
 import { ArticleShareButtons } from '@/components/ArticleShareButtons';
+import { articles as localArticles } from '@/data/articles';
 
 type Props = {
     params: Promise<{ slug: string }>;
@@ -22,7 +23,10 @@ async function getArticle(slug: string) {
         .eq('slug', slug)
         .single();
 
-    if (error) return null;
+    if (error || !data) {
+        // Fallback to local articles
+        return localArticles.find(a => a.slug === slug) || null;
+    }
     return data;
 }
 

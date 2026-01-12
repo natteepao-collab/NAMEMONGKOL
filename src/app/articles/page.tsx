@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { supabase } from '@/utils/supabase';
 import { Calendar, User, ArrowLeft, Search, BookOpen } from 'lucide-react';
+import { articles as localArticles } from '@/data/articles';
 
 // Revalidate every hour
 export const revalidate = 3600;
@@ -16,10 +17,21 @@ async function getArticles() {
 
     if (error) {
         console.error('Error fetching articles', error);
-        return [];
+        // Fallback to local articles if DB fails
+        return localArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     }
 
-    return articles || [];
+    const dbArticles = articles || [];
+
+    // Filter out local articles that are already present in DB (by slug)
+    const existingSlugs = new Set(dbArticles.map((a: any) => a.slug));
+    const uniqueLocalArticles = localArticles.filter(a => !existingSlugs.has(a.slug));
+
+    // Combine
+    const allArticles = [...dbArticles, ...uniqueLocalArticles];
+
+    // Sort by date descending
+    return allArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 import { Metadata } from 'next';
