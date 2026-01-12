@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabase';
 import { Wallpaper } from '@/types';
 import { Loader2, Plus, Edit, Trash2, Save, X, Search, Image as ImageIcon, Upload } from 'lucide-react';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 import Image from 'next/image';
 
 export default function AdminWallpapersPage() {
@@ -36,6 +36,7 @@ export default function AdminWallpapersPage() {
             setWallpapers(data || []);
         } catch (error) {
             console.error('Error fetching wallpapers:', error);
+            const Swal = (await import('sweetalert2')).default;
             Swal.fire('Error', 'Failed to fetch wallpapers', 'error');
         } finally {
             setLoading(false);
@@ -76,6 +77,7 @@ export default function AdminWallpapersPage() {
     };
 
     const handleDelete = async (id: number) => {
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -139,6 +141,7 @@ export default function AdminWallpapersPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setUploading(true);
+        const Swal = (await import('sweetalert2')).default;
 
         try {
             let finalImageUrl = currentWallpaper.image;
@@ -260,6 +263,7 @@ export default function AdminWallpapersPage() {
                                                 src={wp.image}
                                                 alt={wp.name}
                                                 fill
+                                                sizes="48px"
                                                 className="object-cover"
                                             />
                                         </div>
@@ -356,6 +360,7 @@ export default function AdminWallpapersPage() {
                                                     src={previewUrl}
                                                     alt="Preview"
                                                     fill
+                                                    sizes="80px"
                                                     className="object-cover"
                                                 />
                                             ) : (

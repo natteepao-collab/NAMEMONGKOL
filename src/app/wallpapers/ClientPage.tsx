@@ -6,7 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Download, Share2, Sparkles, Filter, Lock, LogIn } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { supabase } from '@/utils/supabase';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 import { Wallpaper } from '@/types';
 
 // Fallback constant for immediate load/SSR if needed, but we will rely on DB
@@ -99,6 +99,9 @@ function WallpapersContent() {
     );
 
     const handleDownload = async (wallpaper: Wallpaper) => {
+        // Dynamic import SweetAlert2
+        const Swal = (await import('sweetalert2')).default;
+
         // 1. Check Auth (Skip if not premium? No, require auth for tracking usually, but for now lets require auth for all as per previous logic)
         const { data: { session } } = await supabase.auth.getSession();
 
@@ -260,6 +263,7 @@ function WallpapersContent() {
                                 src={wp.image}
                                 alt={wp.name}
                                 fill
+                                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 20vw, 16vw"
                                 className="object-cover transition-transform duration-700 group-hover:scale-110"
                             />
 
@@ -310,6 +314,7 @@ function WallpapersContent() {
                                         src={selectedWallpaper.image}
                                         alt="bg-blur"
                                         fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
                                         className="object-cover"
                                     />
                                 </div>
@@ -320,6 +325,7 @@ function WallpapersContent() {
                                         src={selectedWallpaper.image}
                                         alt={selectedWallpaper.name}
                                         fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
                                         className="object-contain drop-shadow-2xl"
                                     />
                                 </div>

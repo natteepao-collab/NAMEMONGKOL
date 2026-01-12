@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     description: 'เช็คชื่อมงคล วิเคราะห์ชื่อ-นามสกุล ฟรี! ด้วยศาสตร์คำนวณที่แม่นยำที่สุด',
     images: [
       {
-        url: '/api/og?v=2',
+        url: '/api/og?v=4',
         width: 1200,
         height: 630,
         alt: 'NameMongkol - วิเคราะห์ชื่อมงคล',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'NameMongkol - วิเคราะห์ชื่อมงคล',
     description: 'วิเคราะห์ชื่อ-นามสกุล ดูผลรวม พลังเงา และความหมายมงคล ฟรี',
-    images: ['/api/og?v=2'],
+    images: ['/api/og?v=4'],
   },
   alternates: {
     canonical: 'https://www.namemongkol.com',

@@ -145,7 +145,7 @@ export default async function ArticlePage({ params }: Props) {
                             fill
                             className="object-cover"
                             priority
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1200px"
+                            sizes="(max-width: 768px) 100vw, 768px"
                         />
                     </div>
 

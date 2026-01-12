@@ -4,9 +4,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, Trash2, ClipboardList, CheckCircle2, Download, XCircle, Info, Hash, Save, ArrowDownWideNarrow, Printer, Coins, PlayCircle, LogIn } from 'lucide-react';
 import { analyzeName } from '@/utils/nameAnalysis';
-import { toPng } from 'html-to-image';
-import jsPDF from 'jspdf';
-import Swal from 'sweetalert2';
+// import { toPng } from 'html-to-image';
+// import jsPDF from 'jspdf';
+// import Swal from 'sweetalert2';
 import { supabase } from '@/utils/supabase';
 
 // Define Result Interface to clear 'any' types if needed, but inferring is fine for now based on usage
@@ -62,6 +62,7 @@ export default function NameAnalysisPage() {
     };
 
     const handleAnalyzeClick = async () => {
+        const Swal = (await import('sweetalert2')).default;
         const count = countNames(inputText);
 
         if (count === 0) {
@@ -218,6 +219,7 @@ export default function NameAnalysisPage() {
     };
 
     const handleSaveHistory = async () => {
+        const Swal = (await import('sweetalert2')).default;
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
             Swal.fire('แจ้งเตือน', 'กรุณาเข้าสู่ระบบเพื่อบันทึกประวัติ', 'warning');
@@ -263,6 +265,10 @@ export default function NameAnalysisPage() {
     };
 
     const handleExportPDF = async () => {
+        const { toPng } = await import('html-to-image');
+        const jsPDF = (await import('jspdf')).default;
+        const Swal = (await import('sweetalert2')).default;
+
         if (!printRef.current) return;
         const scrollContainer = printRef.current.querySelector('.custom-scrollbar');
         const printHeader = printRef.current.querySelector('.print-header') as HTMLElement;

@@ -9,7 +9,7 @@ export const BottomNav = () => {
     const pathname = usePathname();
 
     const navItems = [
-        { name: 'หน้าแรก', icon: Home, path: '/' },
+        { name: 'วิเคราะห์', icon: Home, path: '/' },
         { name: 'ค้นหา', icon: Search, path: '/search' },
         { name: 'ชื่อมงคล', icon: Sparkles, path: '/premium-search' },
         { name: 'ประวัติ', icon: History, path: '/history' },

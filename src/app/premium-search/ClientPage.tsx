@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 import { Search, Sparkles, Calendar, Award, RotateCcw, Lock, ChevronDown } from 'lucide-react';
 import { premiumNamesRaw } from '@/data/premiumNamesRaw';
 import { parsePremiumNames, PremiumNameData } from '@/utils/premiumDataParser';
@@ -162,6 +162,7 @@ export default function PremiumSearchPage() {
     const daysOfWeek = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ(กลางวัน)', 'พุธ(กลางคืน)', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
 
     const handleSearch = async () => {
+        const Swal = (await import('sweetalert2')).default;
         // Check Authentication
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {

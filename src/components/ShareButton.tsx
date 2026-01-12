@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import { Share2, Facebook, MessageCircle, Link as LinkIcon, Check, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
+import dynamic from 'next/dynamic';
 import { AnalysisResult } from '@/types';
-import { ImageGeneratorModal } from './ImageGeneratorModal';
+const ImageGeneratorModal = dynamic(() => import('./ImageGeneratorModal').then(mod => mod.ImageGeneratorModal), {
+    ssr: false
+});
 
 interface ShareButtonProps {
     result?: AnalysisResult | null;
@@ -148,7 +151,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ result, day }) => {
                 </motion.button>
             </div>
 
-            {result && (
+            {result && showImageModal && (
                 <ImageGeneratorModal
                     isOpen={showImageModal}
                     onClose={() => setShowImageModal(false)}

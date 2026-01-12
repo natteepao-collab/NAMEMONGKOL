@@ -7,7 +7,7 @@ import { Package, CreditCard, ShieldCheck, Zap, Bitcoin, CheckCircle2, X, Upload
 import { useRouter } from 'next/navigation';
 import { QRCodeCanvas } from 'qrcode.react';
 import generatePayload from 'promptpay-qr';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 interface PricingTier {
     id: string;
@@ -97,6 +97,8 @@ export default function TopUpPage() {
 
     const handleConfirmPayment = async () => {
         if (!selectedTier || !selectedFile) return;
+
+        const Swal = (await import('sweetalert2')).default;
 
         setIsLoading(true);
         setUploadError(null);

@@ -51,81 +51,111 @@ export async function GET(request: Request) {
                         <div style={{ position: 'absolute', right: '-40px', top: '-40px', width: '200px', height: '200px', borderRadius: '50%', background: 'rgba(245, 158, 11, 0.15)', filter: 'blur(40px)' }} />
 
                         {hasData ? (
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', flex: 1 }}>
-                                <div style={{
-                                    fontSize: 18,
-                                    color: '#94a3b8',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '2px',
-                                    marginBottom: 10,
-                                    fontWeight: 'bold',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '10px'
-                                }}>
-                                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', marginRight: 8 }} />
-                                    Analysis Result
-                                </div>
-                                <div style={{
-                                    fontSize: 72,
-                                    fontWeight: 'bold',
-                                    lineHeight: 1.1,
-                                    marginBottom: 20,
-                                    color: 'white',
-                                    display: 'flex',
-                                    flexDirection: 'column'
-                                }}>
-                                    <span style={{ background: 'linear-gradient(to right, #fde68a, #fca5a5)', backgroundClip: 'text', color: 'transparent' }}>{name}</span>
-                                    <span>{surname}</span>
-                                </div>
-                                {totalScore && (
-                                    <div style={{ fontSize: 36, color: '#cbd5e1', display: 'flex', alignItems: 'center', gap: '15px' }}>
-                                        <span style={{ fontSize: 24, textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.8 }}>Total Score</span>
-                                        <div style={{ padding: '8px 24px', background: 'rgba(251, 191, 36, 0.2)', color: '#fbbf24', borderRadius: '12px', border: '1px solid rgba(251, 191, 36, 0.3)', fontWeight: 'bold' }}>
-                                            {totalScore}
+                            <>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', flex: 1 }}>
+                                    <div style={{
+                                        fontSize: 18,
+                                        color: '#94a3b8',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '2px',
+                                        marginBottom: 10,
+                                        fontWeight: 'bold',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '10px'
+                                    }}>
+                                        <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', marginRight: 8 }} />
+                                        Analysis Result
+                                    </div>
+                                    <div style={{
+                                        fontSize: 72,
+                                        fontWeight: 'bold',
+                                        lineHeight: 1.1,
+                                        marginBottom: 20,
+                                        color: 'white',
+                                        display: 'flex',
+                                        flexDirection: 'column'
+                                    }}>
+                                        <span style={{ background: 'linear-gradient(to right, #fde68a, #fca5a5)', backgroundClip: 'text', color: 'transparent' }}>{name}</span>
+                                        <span>{surname}</span>
+                                    </div>
+                                    {totalScore && (
+                                        <div style={{ fontSize: 36, color: '#cbd5e1', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                            <span style={{ fontSize: 24, textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.8 }}>Total Score</span>
+                                            <div style={{ padding: '8px 24px', background: 'rgba(251, 191, 36, 0.2)', color: '#fbbf24', borderRadius: '12px', border: '1px solid rgba(251, 191, 36, 0.3)', fontWeight: 'bold' }}>
+                                                {totalScore}
+                                            </div>
                                         </div>
+                                    )}
+                                </div>
+
+                                {/* Right Side Stats (Analysis Only) */}
+                                <div style={{ display: 'flex', gap: '20px' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px 30px', background: 'rgba(255,255,255,0.05)', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                                        <span style={{ fontSize: 48, fontWeight: 'bold', color: '#fbbf24', lineHeight: 1 }}>99%</span>
+                                        <span style={{ fontSize: 16, color: '#64748b', textTransform: 'uppercase', marginTop: 5, fontWeight: 'bold' }}>Accuracy</span>
                                     </div>
-                                )}
-                            </div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px 30px', background: 'rgba(255,255,255,0.05)', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                                        <span style={{ fontSize: 48, fontWeight: 'bold', color: '#fbbf24', lineHeight: 1 }}>AI</span>
+                                        <span style={{ fontSize: 16, color: '#64748b', textTransform: 'uppercase', marginTop: 5, fontWeight: 'bold' }}>Speed</span>
+                                    </div>
+                                </div>
+                            </>
                         ) : (
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', flex: 1 }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+                                {/* Label Pill */}
                                 <div style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: '12px',
-                                    marginBottom: 20
+                                    padding: '8px 20px',
+                                    borderRadius: '50px',
+                                    backgroundColor: 'rgba(15, 23, 42, 0.6)',
+                                    border: '1px solid rgba(52, 211, 153, 0.2)',
+                                    marginBottom: 30
                                 }}>
-                                    <div style={{ display: 'flex', position: 'relative' }}>
-                                        <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#34d399', marginRight: 8 }} />
-                                    </div>
-                                    <span style={{ fontSize: 20, fontWeight: 'bold', color: '#34d399', textTransform: 'uppercase', letterSpacing: '2px' }}>AI-Powered Analysis</span>
+                                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#10b981', marginRight: 10 }}></div>
+                                    <span style={{ color: '#10b981', fontSize: 14, fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase' }}>AI-POWERED ANALYSIS</span>
                                 </div>
 
-                                <div style={{ fontSize: 72, fontWeight: 'bold', color: 'white', lineHeight: 1.1, display: 'flex', flexDirection: 'column' }}>
-                                    <div style={{ display: 'flex' }}>
-                                        <span>วิเคราะห์</span>
-                                        <span style={{ color: '#34d399', marginLeft: '10px' }}>ชื่อมงคล</span>
-                                    </div>
-                                    <span style={{ background: 'linear-gradient(to right, #fcd34d, #f59e0b)', backgroundClip: 'text', color: 'transparent' }}>พลิกชีวิต</span>
+                                {/* Main Title */}
+                                <div style={{ display: 'flex', alignItems: 'center', fontSize: 60, fontWeight: 900, marginBottom: 15, lineHeight: 1 }}>
+                                    <span style={{ color: 'white', marginRight: 0 }}>วิเคราะห์</span>
+                                    <span style={{ color: '#34d399', marginRight: 15 }}>ชื่อมงคล</span>
+                                    <span style={{ color: '#fbbf24' }}>พลิกชีวิต</span>
                                 </div>
 
-                                <div style={{ fontSize: 28, color: '#94a3b8', marginTop: 20 }}>
-                                    เจาะลึก 4 ศาสตร์มงคล ครบจบในที่เดียว แม่นยำที่สุด
+                                {/* Subtitle */}
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', fontSize: 22, color: '#94a3b8', marginBottom: 40, lineHeight: 1.4, fontWeight: 500 }}>
+                                    <div style={{ display: 'flex' }}>เจาะลึก 4 ศาสตร์มงคล: โดย <span style={{ color: '#e2e8f0', marginLeft: '6px', fontWeight: 'bold' }}>NameMongkol</span></div>
+                                    <span>ครบจบในที่เดียว แม่นยำที่สุด</span>
+                                </div>
+
+                                {/* Bottom Cards */}
+                                <div style={{ display: 'flex', gap: 30 }}>
+                                    {/* Card 1 */}
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 140, padding: '20px 10px', backgroundColor: 'rgba(15, 23, 42, 0.4)', borderRadius: 24, border: '1px solid rgba(255,255,255,0.1)' }}>
+                                        {/* Target Icon */}
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <circle cx="12" cy="12" r="6" />
+                                            <circle cx="12" cy="12" r="2" />
+                                        </svg>
+                                        <span style={{ color: 'white', fontSize: 28, fontWeight: 'bold', marginTop: 10, lineHeight: 1 }}>99%</span>
+                                        <span style={{ color: '#64748b', fontSize: 12, marginTop: 2 }}>แม่นยำ</span>
+                                    </div>
+
+                                    {/* Card 2 */}
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 140, padding: '20px 10px', backgroundColor: 'rgba(15, 23, 42, 0.4)', borderRadius: 24, border: '1px solid rgba(255,255,255,0.1)' }}>
+                                        {/* Lightning Icon */}
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                                        </svg>
+                                        <span style={{ color: 'white', fontSize: 28, fontWeight: 'bold', marginTop: 10, lineHeight: 1 }}>AI</span>
+                                        <span style={{ color: '#64748b', fontSize: 12, marginTop: 2 }}>รวดเร็ว</span>
+                                    </div>
                                 </div>
                             </div>
                         )}
-
-                        {/* Right Side Stats (Show on both or just default? Layout suggests default fits best, but consistent look is good. Let's show branding on result) */}
-                        <div style={{ display: 'flex', gap: '20px' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px 30px', background: 'rgba(255,255,255,0.05)', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
-                                <span style={{ fontSize: 48, fontWeight: 'bold', color: '#fbbf24', lineHeight: 1 }}>99%</span>
-                                <span style={{ fontSize: 16, color: '#64748b', textTransform: 'uppercase', marginTop: 5, fontWeight: 'bold' }}>Accuracy</span>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px 30px', background: 'rgba(255,255,255,0.05)', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.1)' }}>
-                                <span style={{ fontSize: 48, fontWeight: 'bold', color: '#fbbf24', lineHeight: 1 }}>AI</span>
-                                <span style={{ fontSize: 16, color: '#64748b', textTransform: 'uppercase', marginTop: 5, fontWeight: 'bold' }}>Speed</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             ),
