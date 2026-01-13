@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import ClientPage from './ClientPage';
+import { createClient } from '@/utils/supabaseServer';
 
 export const metadata: Metadata = {
     title: 'เติมเครดิต (Top Up) - แพ็กเกจสุดคุ้ม | NameMongkol',
@@ -13,6 +14,16 @@ export const metadata: Metadata = {
     },
 };
 
-export default function TopUpPage() {
-    return <ClientPage />;
+export default async function TopUpPage() {
+    const supabase = await createClient();
+    const { data } = await supabase
+        .from('app_settings')
+        .select('value')
+        .eq('key', 'payment_gateway')
+        .single();
+
+    // Default to 'stripe' if not set
+    const gateway = data?.value || 'stripe';
+
+    return <ClientPage gateway={gateway} />;
 }

@@ -9,6 +9,7 @@ export default function AdminSettingsPage() {
     const [gtmId, setGtmId] = useState('');
     const [tiktokPixelId, setTiktokPixelId] = useState('');
     const [facebookPixelId, setFacebookPixelId] = useState('');
+    const [paymentGateway, setPaymentGateway] = useState<'stripe' | 'slip2go'>('stripe');
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
 
@@ -22,7 +23,7 @@ export default function AdminSettingsPage() {
             const { data, error } = await supabase
                 .from('app_settings')
                 .select('key, value')
-                .in('key', ['gtm_id', 'tiktok_pixel_id', 'facebook_pixel_id']);
+                .in('key', ['gtm_id', 'tiktok_pixel_id', 'facebook_pixel_id', 'payment_gateway']);
 
             if (data) {
                 const settingsMap = data.reduce((acc: any, curr) => {
@@ -32,6 +33,7 @@ export default function AdminSettingsPage() {
                 setGtmId(settingsMap['gtm_id'] || '');
                 setTiktokPixelId(settingsMap['tiktok_pixel_id'] || '');
                 setFacebookPixelId(settingsMap['facebook_pixel_id'] || '');
+                setPaymentGateway(settingsMap['payment_gateway'] || 'stripe');
             } else if (error) {
                 console.error('Error fetching settings:', error);
             }
@@ -50,7 +52,8 @@ export default function AdminSettingsPage() {
             const updates = [
                 { key: 'gtm_id', value: gtmId, description: 'Google Tag Manager Container ID', updated_by: user?.id },
                 { key: 'tiktok_pixel_id', value: tiktokPixelId, description: 'TikTok Pixel ID', updated_by: user?.id },
-                { key: 'facebook_pixel_id', value: facebookPixelId, description: 'Facebook Pixel ID', updated_by: user?.id }
+                { key: 'facebook_pixel_id', value: facebookPixelId, description: 'Facebook Pixel ID', updated_by: user?.id },
+                { key: 'payment_gateway', value: paymentGateway, description: 'Active Payment Gateway (stripe/slip2go)', updated_by: user?.id }
             ];
 
             const { error } = await supabase
@@ -94,6 +97,57 @@ export default function AdminSettingsPage() {
 
                 {/* Settings Card */}
                 <div className="bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6 md:p-8 shadow-xl backdrop-blur-sm space-y-8">
+
+                    {/* Payment Gateway Setting */}
+                    <div className="flex flex-col md:flex-row gap-6 border-b border-slate-800 pb-8">
+                        <div className="md:w-1/3">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-500">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                                        <rect x="2" y="5" width="20" height="14" rx="2" />
+                                        <line x1="2" x2="22" y1="10" y2="10" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-bold text-white">Payment Gateway</h3>
+                            </div>
+                            <p className="text-sm text-slate-400">เลือกระบบชำระเงินหลักที่ต้องการใช้งานในหน้าเติมเครดิต</p>
+                        </div>
+                        <div className="md:w-2/3">
+                            <label className="block text-sm font-medium text-slate-300 mb-3">
+                                Active Gateway
+                            </label>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <button
+                                    onClick={() => setPaymentGateway('stripe')}
+                                    className={`relative p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${paymentGateway === 'stripe'
+                                            ? 'bg-emerald-500/10 border-emerald-500 text-emerald-400 shadow-lg shadow-emerald-500/10'
+                                            : 'bg-slate-950 border-slate-700 text-slate-400 hover:border-slate-600'
+                                        }`}
+                                >
+                                    <div className="font-bold flex items-center gap-2">
+                                        <div className={`w-3 h-3 rounded-full ${paymentGateway === 'stripe' ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-slate-600'}`} />
+                                        Stripe (PromptPay)
+                                    </div>
+                                    <span className="text-xs opacity-70">ระบบอัตโนมัติ 100%</span>
+                                </button>
+
+                                <button
+                                    onClick={() => setPaymentGateway('slip2go')}
+                                    className={`relative p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${paymentGateway === 'slip2go'
+                                            ? 'bg-amber-500/10 border-amber-500 text-amber-400 shadow-lg shadow-amber-500/10'
+                                            : 'bg-slate-950 border-slate-700 text-slate-400 hover:border-slate-600'
+                                        }`}
+                                >
+                                    <div className="font-bold flex items-center gap-2">
+                                        <div className={`w-3 h-3 rounded-full ${paymentGateway === 'slip2go' ? 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]' : 'bg-slate-600'}`} />
+                                        Slip2Go (Manual)
+                                    </div>
+                                    <span className="text-xs opacity-70">แนบสลิป (กึ่งอัตโนมัติ)</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
                     {/* Google Tag Manager */}
                     <div className="flex flex-col md:flex-row gap-6 border-b border-slate-800 pb-8">

@@ -1,8 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import { supabase } from '@/utils/supabase';
+import Swal from 'sweetalert2';
 
-export default function SlipUploader() {
+interface SlipUploaderProps {
+    amount?: number;
+    credits?: number;
+    tierId?: string;
+}
+
+export default function SlipUploader({ amount, credits, tierId }: SlipUploaderProps) {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -23,12 +31,35 @@ export default function SlipUploader() {
         setIsLoading(true);
         setResult(null);
 
-        const formData = new FormData();
-        formData.append('image', selectedFile);
-
         try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'กรุณาเข้าสู่ระบบ',
+                    text: 'กรุณาเข้าสู่ระบบก่อนทำรายการ',
+                    confirmButtonText: 'ตกลง'
+                });
+                setIsLoading(false);
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', selectedFile);
+
+            // Generate a unique transaction ID for this upload attempt
+            const transId = `MANUAL-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+            formData.append('trans_id', transId);
+
+            if (amount) formData.append('payment_amount', amount.toString());
+            if (credits) formData.append('credit_amount', credits.toString());
+            if (tierId) formData.append('tier_id', tierId);
+
             const response = await fetch('/api/verify-slip', {
                 method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${session.access_token}`
+                },
                 body: formData,
             });
 
@@ -36,7 +67,24 @@ export default function SlipUploader() {
 
             if (response.ok && data.success) {
                 setResult({ success: true, message: data.message });
+                Swal.fire({
+                    icon: 'success',
+                    title: 'เติมเครดิตสำเร็จ!',
+                    text: data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#10b981'
+                });
+                // If success, maybe force refresh credits?
+                window.dispatchEvent(new Event('force_credits_update'));
             } else {
+                const isDuplicate = data.code === 'DUPLICATE_SLIP';
+                Swal.fire({
+                    icon: 'error',
+                    title: isDuplicate ? 'สลิปซ้ำ!' : 'ตรวจสอบไม่ผ่าน',
+                    text: data.message || 'เกิดข้อผิดพลาดในการตรวจสอบ',
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: '#ef4444'
+                });
                 setResult({
                     success: false,
                     message: data.message || 'เกิดข้อผิดพลาดในการตรวจสอบ'
@@ -44,34 +92,46 @@ export default function SlipUploader() {
             }
         } catch (error) {
             console.error('Upload error:', error);
-            setResult({ success: false, message: 'เชื่อต่อเซิร์ฟเวอร์ไม่ได้' });
+            Swal.fire({
+                icon: 'error',
+                title: 'เกิดข้อผิดพลาด',
+                text: 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้',
+                confirmButtonText: 'ตกลง'
+            });
+            setResult({ success: false, message: 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้' });
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <div className="p-6 bg-white/20 backdrop-blur-md rounded-2xl border border-white/30 shadow-xl max-w-md mx-auto text-center">
-            <h3 className="text-xl font-bold text-white mb-4">แจ้งชำระเงิน</h3>
-
-            <div className="mb-6">
+        <div className="w-full">
+            {/* Upload Box */}
+            <div className="mb-4">
                 <label
                     htmlFor="slip-upload"
-                    className="cursor-pointer block w-full h-48 border-2 border-dashed border-white/50 rounded-xl flex items-center justify-center hover:bg-white/10 transition-all relative overflow-hidden"
+                    className="cursor-pointer group flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-slate-300 rounded-lg hover:bg-slate-50 transition-all relative overflow-hidden bg-white"
                 >
                     {previewUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                            src={previewUrl}
-                            alt="Slip Preview"
-                            className="w-full h-full object-contain"
-                        />
+                        <div className="w-full h-full p-2 relative">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src={previewUrl}
+                                alt="Slip Preview"
+                                className="w-full h-full object-contain"
+                            />
+                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span className="text-white text-xs bg-black/50 px-2 py-1 rounded">เปลี่ยนรูป</span>
+                            </div>
+                        </div>
                     ) : (
-                        <div className="text-white/70">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                            <span>คลิกเพื่ออัปโหลดสลิป</span>
+                        <div className="flex flex-col items-center justify-center pt-5 pb-6 text-slate-400">
+                            <div className="w-10 h-10 mb-2 rounded-full bg-slate-100 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                                </svg>
+                            </div>
+                            <p className="text-sm font-medium text-slate-500">กดเพื่ออัปโหลดสลิปโอนเงิน</p>
                         </div>
                     )}
                     <input
@@ -84,13 +144,27 @@ export default function SlipUploader() {
                 </label>
             </div>
 
+            {/* Ref ID (Mock) */}
+            <div className="text-center mb-6">
+                <div className="inline-block bg-slate-100 px-4 py-1.5 rounded-full">
+                    <p className="text-slate-500 text-xs font-mono">Ref ID: {tierId?.split('-')[0] || '6881880026'}</p>
+                </div>
+            </div>
+
+            {/* Footer Info (Timer Mock) */}
+            <div className="flex justify-between items-center text-xs text-slate-500 mb-4 px-2">
+                <span>กรุณาชำระเงินภายใน</span>
+                <span className="font-bold text-slate-700">10:00 นาที</span>
+            </div>
+
+            {/* Confirm Button */}
             <button
                 onClick={handleUpload}
                 disabled={!selectedFile || isLoading}
-                className={`w-full py-3 rounded-xl font-bold text-white transition-all transform hover:scale-105 active:scale-95 shadow-lg
-          ${!selectedFile || isLoading
-                        ? 'bg-gray-400 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-emerald-400 to-cyan-500 hover:shadow-emerald-500/30'}`}
+                className={`w-full py-4 rounded-xl font-bold text-lg transition-all shadow-lg
+                    ${!selectedFile || isLoading
+                        ? 'bg-slate-400 text-white cursor-not-allowed'
+                        : 'bg-[#58595b] hover:bg-[#4a4b4d] text-white shadow-slate-400/30'}`} // Matching the grey button in reference or could be theme color
             >
                 {isLoading ? (
                     <span className="flex items-center justify-center gap-2">
@@ -100,22 +174,18 @@ export default function SlipUploader() {
                         </svg>
                         กำลังตรวจสอบ...
                     </span>
-                ) : 'ยืนยันการโอนเงิน'}
+                ) : (
+                    <div className="flex items-center justify-center gap-2">
+                        <div className="w-5 h-5 rounded-full border-2 border-white flex items-center justify-center">
+                            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" /></svg>
+                        </div>
+                        ยืนยันการแจ้งโอน
+                    </div>
+                )}
             </button>
 
-            {result && (
-                <div className={`mt-4 p-3 rounded-lg flex items-center gap-2 text-sm justify-center font-medium animate-fade-in-up
-          ${result.success ? 'bg-emerald-500/20 text-emerald-100 border border-emerald-500/30' : 'bg-red-500/20 text-red-100 border border-red-500/30'}`}
-                >
-                    {result.success ? (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                    ) : (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                        </svg>
-                    )}
+            {result && result.message && !result.success && (
+                <div className="mt-3 text-center text-sm text-red-500 bg-red-50 p-2 rounded-lg border border-red-100">
                     {result.message}
                 </div>
             )}

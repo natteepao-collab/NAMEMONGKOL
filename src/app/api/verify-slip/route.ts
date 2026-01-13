@@ -6,6 +6,13 @@ import { Client } from '@line/bot-sdk';
 export async function POST(request: Request) {
     console.log('--- API verify-slip START ---');
 
+    // DEBUG: Log headers to debug Auth issue
+    const headerObj: Record<string, string> = {};
+    request.headers.forEach((value, key) => {
+        headerObj[key] = value;
+    });
+    console.log('Incoming Headers:', JSON.stringify(headerObj, null, 2));
+
     try {
         const formData = await request.formData();
         // รับค่าได้ทั้ง image และ file
@@ -22,9 +29,14 @@ export async function POST(request: Request) {
         }
 
         const authHeader = request.headers.get('authorization') || '';
+        console.log('Auth Header Raw:', authHeader);
+
         const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : undefined;
+        console.log('Extracted Token:', token ? token.substring(0, 10) + '...' : 'UNDEFINED');
+
         if (!token) {
-            return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+            console.error('No token found in request');
+            return NextResponse.json({ success: false, message: 'Unauthorized (No Token)' }, { status: 401 });
         }
 
         if (!transId) {
@@ -52,18 +64,24 @@ export async function POST(request: Request) {
             'https://api.slip2go.com/api/verify-slip/qr-image/info',
         ].filter(Boolean) as string[];
 
-        // Supabase client as end-user (Bearer token from caller) เพื่อให้ auth.uid() ถูกต้อง
+        // Supabase client as end-user (for add_credits RPC)
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
         const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-        if (!supabaseUrl || !supabaseAnonKey) {
+        const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY; // server-side only
+
+        if (!supabaseUrl || !supabaseAnonKey || !supabaseServiceKey) {
             throw new Error('Missing Supabase environment variables');
         }
+
         const supabase = createClient(supabaseUrl, supabaseAnonKey, {
             global: { headers: { Authorization: `Bearer ${token}` } }
         });
 
-        // 0) เช็คซ้ำใน Supabase ก่อนยิง Slip2Go (ทั้ง trans_id และ file_hash)
-        const { data: existingSlip, error: slipCheckError } = await supabase
+        // Supabase Admin for global duplicate check (Bypass RLS)
+        const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+
+        // 0) เช็คซ้ำใน Supabase ก่อนยิง Slip2Go (Global Check via Admin)
+        const { data: existingSlip, error: slipCheckError } = await supabaseAdmin
             .from('slips')
             .select('trans_id, file_hash')
             .or(`trans_id.eq.${transId},file_hash.eq.${fileHash}`)
@@ -156,16 +174,49 @@ export async function POST(request: Request) {
 
                 let creditResult: any = null;
                 if (creditAmount > 0 && paymentAmount > 0) {
-                    const { data: addResult, error: creditError } = await supabase.rpc('add_credits_v2', {
+                    const { data: addResult, error: creditError } = await supabase.rpc('add_credits_v3', {
                         credit_amount: creditAmount,
                         payment_amount: paymentAmount,
                         slip_ref: slipRef,
                     });
 
                     if (creditError) {
+                        // Check for unique constraint violation (Duplicate slip_ref in payment_history)
+                        if (creditError.message.includes('duplicate key') || creditError.message.includes('unique constraint') || creditError.code === '23505') {
+
+                            // Insert into slips to block this file hash in the future
+                            const duplicatePayload = {
+                                trans_id: transId,
+                                amount: paymentAmount || apiData?.data?.amount || apiData?.amount || null,
+                                sender_name: senderName || apiData?.data?.sender?.account?.name || null,
+                                slip_ref: slipRef,
+                                file_hash: fileHash,
+                                user_id: (await supabase.auth.getUser()).data.user?.id
+                            };
+                            await supabaseAdmin.from('slips').insert(duplicatePayload);
+
+                            return NextResponse.json({
+                                success: false,
+                                message: 'สลิปนี้ถูกใช้งานไปแล้ว (Duplicate)',
+                                code: 'DUPLICATE_SLIP',
+                                slipRef,
+                            }, { status: 400 });
+                        }
+
                         throw new Error(`Add credits failed: ${creditError.message}`);
                     }
                     if (addResult && addResult.success === false) {
+                        // Insert into slips to block this file hash in the future (preventing re-verification)
+                        const duplicatePayload = {
+                            trans_id: transId,
+                            amount: paymentAmount || apiData?.data?.amount || apiData?.amount || null,
+                            sender_name: senderName || apiData?.data?.sender?.account?.name || null,
+                            slip_ref: slipRef,
+                            file_hash: fileHash,
+                            user_id: (await supabase.auth.getUser()).data.user?.id // Ensure user_id is set
+                        };
+                        await supabaseAdmin.from('slips').insert(duplicatePayload);
+
                         return NextResponse.json({
                             success: false,
                             message: addResult.message || 'สลิปนี้ถูกใช้งานไปแล้ว',
@@ -183,11 +234,13 @@ export async function POST(request: Request) {
                     sender_name: senderName || apiData?.data?.sender?.account?.name || null,
                     slip_ref: slipRef,
                     file_hash: fileHash,
+                    user_id: (await supabase.auth.getUser()).data.user?.id
                 };
 
-                const { error: insertError } = await supabase.from('slips').insert(insertPayload);
+                const { error: insertError } = await supabaseAdmin.from('slips').insert(insertPayload);
                 if (insertError) {
-                    throw new Error(`Insert slip failed: ${insertError.message}`);
+                    // Log but don't fail, as credit is already added
+                    console.error(`Insert slip failed: ${insertError.message}`);
                 }
 
                 // 6) Notify Admin via LINE
