@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { supabase } from '@/utils/supabase';
 import { Calendar, User, ArrowLeft, Search, BookOpen } from 'lucide-react';
 import { articles as localArticles } from '@/data/articles';
+import { shimmer, toBase64 } from '@/utils/imageUtils';
 
 // Revalidate every hour
 export const revalidate = 3600;
@@ -56,7 +57,7 @@ export default async function ArticlesPage() {
                 <div className="absolute top-[10%] right-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px]"></div>
             </div>
 
-            <div className="container mx-auto px-4 py-8 relative z-10 pt-24 md:pt-32">
+            <div className="w-full max-w-[1400px] px-4 py-8 relative z-10 pt-24 md:pt-32">
                 {/* Header */}
                 <div className="max-w-4xl mx-auto mb-12">
                     <Link href="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors">
@@ -86,7 +87,7 @@ export default async function ArticlesPage() {
 
                 {/* Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                    {articles.map((article) => (
+                    {articles.map((article, index) => (
                         <Link
                             key={article.id}
                             href={`/articles/${article.slug}`}
@@ -100,6 +101,9 @@ export default async function ArticlesPage() {
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        priority={index < 6}
+                                        placeholder="blur"
+                                        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
                                     />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center text-slate-600">

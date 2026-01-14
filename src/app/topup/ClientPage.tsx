@@ -146,14 +146,14 @@ export default function TopUpPage({ gateway }: TopUpPageProps) {
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-amber-500/30">
-            <main className="min-h-screen relative overflow-hidden p-4 pt-24 md:p-8 md:pt-32">
+            <main className="w-full max-w-[1400px] min-h-screen relative overflow-hidden px-4 pt-24 md:pt-32 pb-8">
                 {/* Background Decor */}
                 <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-emerald-500/5 blur-[120px]" />
                     <div className="absolute bottom-[-10%] left-[20%] w-[500px] h-[500px] rounded-full bg-blue-500/5 blur-[100px]" />
                 </div>
 
-                <div className="relative z-10 max-w-5xl mx-auto space-y-6 md:space-y-12 pt-4 md:pt-8">
+                <div className="relative z-10 max-w-5xl space-y-6 md:space-y-12 pt-4 md:pt-8">
                     {/* Header */}
                     <div className="text-center space-y-2 md:space-y-4">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 text-emerald-300 text-xs md:text-sm font-medium">

@@ -93,6 +93,9 @@ export const TopNav = () => {
 
     // Only show on desktop (hidden on mobile/tablet)
     // Adjust breakpoint to match Sidebar (lg)
+    // Hide on Auth pages to prevent overlap
+    if (pathname === '/login' || pathname === '/register') return null;
+
     return (
         <div className="hidden lg:flex absolute top-4 right-6 z-50 items-center gap-6">
             <Link

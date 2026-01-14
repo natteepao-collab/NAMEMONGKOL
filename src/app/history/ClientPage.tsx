@@ -69,14 +69,14 @@ export default function HistoryPage() {
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-amber-500/30">
-            <main className="min-h-screen transition-all duration-300 relative overflow-hidden p-4 pt-24 md:p-8 md:pt-32">
+            <main className="w-full max-w-[1400px] min-h-screen transition-all duration-300 relative overflow-hidden px-4 pt-24 md:pt-32 pb-8">
                 {/* Background Decor */}
                 <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-indigo-500/5 blur-[100px]" />
                     <div className="absolute bottom-[-10%] right-[10%] w-[600px] h-[600px] rounded-full bg-slate-500/5 blur-[100px]" />
                 </div>
 
-                <div className="relative z-10 max-w-5xl mx-auto space-y-8 pt-8">
+                <div className="relative z-10 max-w-5xl space-y-8 pt-8">
                     {/* Header */}
                     <div className="flex items-center gap-4 mb-8">
                         <div className="p-3 bg-slate-800 rounded-2xl border border-slate-700 shadow-lg">

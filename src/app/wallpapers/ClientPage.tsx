@@ -217,7 +217,7 @@ function WallpapersContent() {
     };
 
     return (
-        <div className="min-h-screen bg-[#0f172a] text-slate-200 p-4 pt-24 md:p-8 md:pt-32 pb-24">
+        <div className="w-full max-w-[1400px] px-4 pt-24 md:pt-32 pb-24 min-h-screen bg-[#0f172a] text-slate-200">
             <div className="max-w-7xl mx-auto space-y-8">
 
                 {/* Header */}

@@ -4,13 +4,13 @@ import { Sparkles, Sun, Heart, UserCheck, Star, Users, Target, LayoutDashboard, 
 
 const AboutSection = () => {
     return (
-        <section className="relative w-full min-h-screen bg-slate-900 text-white overflow-hidden pt-24 md:pt-36 pb-20 px-4 sm:px-6 lg:px-8 font-sans">
+        <section className="relative w-full max-w-[1400px] px-4 min-h-screen bg-slate-900 text-white overflow-hidden pt-24 md:pt-36 pb-20 font-sans">
             {/* Background Neon Accents */}
             <div className="absolute top-0 left-0 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-violet-600/20 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2 pointer-events-none" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-slate-800/20 rounded-full blur-[100px] pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto relative z-10 space-y-20 md:space-y-32">
+            <div className="max-w-7xl relative z-10 space-y-20 md:space-y-32">
 
                 {/* 1. Header & Navigation */}
                 <div className="space-y-8">

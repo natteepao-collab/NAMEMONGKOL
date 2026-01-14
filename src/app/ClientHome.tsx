@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect, Suspense, useCallback, useRef } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
 import { ChevronRight, Sparkles, Loader2 } from 'lucide-react';
 import { saveAnalysisResult } from '@/services/analysisService';
-import { premiumNamesRaw } from '@/data/premiumNamesRaw';
+import { checkNirunName } from '@/app/actions/checkNirunName';
 import { InputForm } from '@/components/InputForm';
 import { ResultHeader } from '@/components/ResultHeader';
 import { PairAnalysisCard } from '@/components/PairAnalysisCard';
@@ -19,13 +20,16 @@ import { analyzeThaksa } from '@/utils/analyzeThaksa';
 import { getPrediction } from '@/utils/getPrediction';
 import { calculateAyatana } from '@/utils/ayatana';
 import { calculateGrade } from '@/utils/gradeResult';
-
 import { AnalysisResult } from '@/types';
-import { WallpaperShowcase } from '@/components/WallpaperShowcase';
-import { WallpaperUpsell } from '@/components/WallpaperUpsell';
-import { KnowledgeSection } from '@/components/KnowledgeSection';
-import { ArticleSection } from '@/components/ArticleSection';
-import { FAQSection } from '@/components/FAQSection';
+
+// Dynamic Imports for heavy components below the fold or conditional
+const WallpaperShowcase = dynamic(() => import('@/components/WallpaperShowcase').then(mod => mod.WallpaperShowcase), {
+    loading: () => <div className="h-96 w-full animate-pulse bg-slate-800/50 rounded-2xl" />
+});
+const WallpaperUpsell = dynamic(() => import('@/components/WallpaperUpsell').then(mod => mod.WallpaperUpsell));
+const KnowledgeSection = dynamic(() => import('@/components/KnowledgeSection').then(mod => mod.KnowledgeSection));
+const ArticleSection = dynamic(() => import('@/components/ArticleSection').then(mod => mod.ArticleSection));
+const FAQSection = dynamic(() => import('@/components/FAQSection').then(mod => mod.FAQSection));
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -45,8 +49,6 @@ function HomeContent() {
 
         setLoading(true);
 
-        await new Promise(resolve => setTimeout(resolve, 800));
-
         const nameScore = calculateScore(inputName);
         const surnameScore = calculateScore(inputSurname);
         const totalScore = nameScore + surnameScore;
@@ -56,7 +58,15 @@ function HomeContent() {
         const cleanName = inputName.replace(/\s/g, '');
         const cleanSurname = inputSurname.replace(/\s/g, '');
 
-        // Get predictions for all scores
+        // Parallel execution for server check and local calculations
+        const [isNirun] = await Promise.all([
+            checkNirunName(inputName),
+            // Artificial delay to minimalize flicker if needed, 
+            // but since we await server action, it might be roughly enough.
+            new Promise(resolve => setTimeout(resolve, 800))
+        ]);
+
+        // Get predictions
         const namePrediction = getPrediction(nameScore);
         const surnamePrediction = getPrediction(surnameScore);
         const totalPrediction = getPrediction(totalScore);
@@ -75,7 +85,7 @@ function HomeContent() {
             thaksa: analyzeThaksa(cleanName, inputDay, cleanSurname),
             ayatana: calculateAyatana(totalScore),
             grade: calculateGrade(totalScore, [...namePairs, ...surnamePairs]),
-            isNirun: premiumNamesRaw.split('\n').some(line => line.trim() === inputName.trim())
+            isNirun: isNirun
         };
 
         setResult(newResult);
@@ -152,7 +162,7 @@ function HomeContent() {
                     </div>
                 </Link>
 
-                <div className="hidden sm:flex items-center gap-6">
+                <div className="hidden sm:flex items-center gap-6 absolute right-4 top-1/2 -translate-y-1/2">
                     <Link href="/articles" className="text-sm font-medium text-slate-400 hover:text-amber-400 transition-colors relative group">
                         บทความ
                         <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all group-hover:w-full"></span>
@@ -168,7 +178,7 @@ function HomeContent() {
                 </div>
             </nav>
 
-            <main className="relative z-10 container mx-auto px-4 pt-24 sm:pt-32 pb-8 flex flex-col items-center justify-start min-h-[80vh] pb-[calc(env(safe-area-inset-bottom)+2rem)]">
+            <main className="relative z-10 w-full max-w-[1400px] px-4 sm:px-6 lg:px-12 xl:px-16 pt-24 md:pt-32 pb-8 flex flex-col items-center min-h-[80vh] pb-[calc(env(safe-area-inset-bottom)+2rem)]">
 
                 {!result ? (
                     <InputForm

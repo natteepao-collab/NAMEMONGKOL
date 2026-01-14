@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabase';
-import { Loader2, Plus, Edit, Trash2, Save, X, Search, Image as ImageIcon, Upload, Eye } from 'lucide-react';
+import { Loader2, Plus, Edit, Trash2, Save, X, Search, Image as ImageIcon, Upload, Eye, RefreshCw } from 'lucide-react';
 import Swal from 'sweetalert2';
 import Image from 'next/image';
 import Link from 'next/link';
+import { articles as localArticles } from '@/data/articles';
 
 // Define Article Type locally or import from types if verified
 interface Article {
@@ -244,6 +245,76 @@ export default function AdminArticlesPage() {
         }
     };
 
+    const handleSync = async () => {
+        const result = await Swal.fire({
+            title: 'Sync Local Articles?',
+            text: "This will import hardcoded articles from 'src/data/articles.ts' into the database. Existing articles with the same slug will be skipped.",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Sync!',
+            cancelButtonText: 'Cancel'
+        });
+
+        if (result.isConfirmed) {
+            setLoading(true);
+            let addedCount = 0;
+            let skippedCount = 0;
+
+            try {
+                // Fetch existing slugs to avoid duplicates (safeguard)
+                const { data: existingArticles, error: fetchError } = await supabase
+                    .from('articles')
+                    .select('slug');
+
+                if (fetchError) throw fetchError;
+
+                const existingSlugs = new Set(existingArticles?.map(a => a.slug) || []);
+
+                for (const article of localArticles) {
+                    if (existingSlugs.has(article.slug)) {
+                        skippedCount++;
+                        continue;
+                    }
+
+                    // Map local article to DB schema
+                    const payload = {
+                        title: article.title,
+                        slug: article.slug,
+                        excerpt: article.excerpt || '',
+                        content: article.content || '',
+                        cover_image: article.coverImage || '', // Note: camelCase in local to snake_case in DB
+                        date: article.date,
+                        author: article.author,
+                        category: article.category,
+                        keywords: article.keywords,
+                        meta_title: article.metaTitle || article.title,
+                        meta_description: article.metaDescription || article.excerpt,
+                        is_published: true
+                    };
+
+                    const { error: insertError } = await supabase
+                        .from('articles')
+                        .insert([payload]);
+
+                    if (insertError) {
+                        console.error(`Failed to import ${article.slug}:`, insertError);
+                    } else {
+                        addedCount++;
+                    }
+                }
+
+                await fetchArticles(); // Refresh list
+                Swal.fire('Sync Complete', `Imported: ${addedCount}, Skipped: ${skippedCount}`, 'success');
+
+            } catch (error: any) {
+                console.error('Sync Error:', error);
+                Swal.fire('Sync Failed', error.message || 'Unknown error occurred', 'error');
+            } finally {
+                setLoading(false);
+            }
+        }
+    };
+
     return (
         <div className="p-4 md:p-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -251,13 +322,22 @@ export default function AdminArticlesPage() {
                     <h1 className="text-3xl font-bold text-white mb-2">จัดการบทความ</h1>
                     <p className="text-slate-400">Manage articles, SEO, and content</p>
                 </div>
-                <button
-                    onClick={handleAdd}
-                    className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg shadow-emerald-500/20"
-                >
-                    <Plus size={20} />
-                    เพิ่มบทความใหม่
-                </button>
+                <div className="flex gap-2">
+                    <button
+                        onClick={handleSync}
+                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg shadow-blue-500/20"
+                    >
+                        <RefreshCw size={20} />
+                        Sync Articles
+                    </button>
+                    <button
+                        onClick={handleAdd}
+                        className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg shadow-emerald-500/20"
+                    >
+                        <Plus size={20} />
+                        เพิ่มบทความใหม่
+                    </button>
+                </div>
             </div>
 
             {/* Search */}

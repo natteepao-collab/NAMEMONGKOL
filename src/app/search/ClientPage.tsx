@@ -9,6 +9,7 @@ import { Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, X, Lock
 import { calculateScore } from '@/utils/numerologyUtils';
 import { getDayFromName, analyzeNameSuitability } from '@/utils/thaksaUtils';
 import { thaksaConfig, DayKey } from '@/data/thaksa';
+import { getPrediction } from '@/utils/getPrediction';
 
 function NameRow({ name }: { name: string }) {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -269,7 +270,7 @@ export default function SearchPage() {
                 <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-amber-600/10 rounded-full blur-[120px]"></div>
             </div>
 
-            <div className="relative z-10 p-6 md:p-12 pt-24 md:pt-32 max-w-7xl mx-auto">
+            <div className="relative z-10 w-full max-w-[1400px] px-4 pt-24 md:pt-32">
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-sm mb-4">
                         <Sparkles className="w-4 h-4" />
@@ -327,21 +328,34 @@ export default function SearchPage() {
                                 placeholder="ระบุผลรวม... (หรือเลือก)"
                             />
 
-                            <div className={`absolute top-full left-0 w-full mt-2 max-h-60 overflow-y-auto bg-[#1e293b] border border-white/10 rounded-xl shadow-xl z-50 transition-all duration-200 custom-scrollbar ${isSumFocused ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-2 invisible'}`}>
+                            <div className={`absolute top-full left-0 w-full mt-2 max-h-80 overflow-y-auto bg-[#1e293b] border border-white/10 rounded-xl shadow-xl z-50 transition-all duration-200 custom-scrollbar ${isSumFocused ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-2 invisible'}`}>
                                 {uniqueScores
                                     .filter(score => (isSumFocused && !hasTyped) || !targetSum || score.toString().includes(targetSum))
-                                    .map(score => (
-                                        <div
-                                            key={score}
-                                            onClick={() => {
-                                                setTargetSum(score.toString());
-                                            }}
-                                            className="px-4 py-3 hover:bg-white/5 cursor-pointer text-slate-300 hover:text-amber-400 transition-colors border-b border-white/5 last:border-0 flex items-center justify-between group/item"
-                                        >
-                                            <span className="font-medium">ผลรวม {score}</span>
-                                            {targetSum === score.toString() && <CheckCircle size={16} className="text-emerald-400" />}
-                                        </div>
-                                    ))}
+                                    .map(score => {
+                                        const { desc, color, level } = getPrediction(score);
+                                        return (
+                                            <div
+                                                key={score}
+                                                onClick={() => {
+                                                    setTargetSum(score.toString());
+                                                }}
+                                                className="px-4 py-3 hover:bg-white/5 cursor-pointer text-slate-300 transition-colors border-b border-white/5 last:border-0 flex items-center justify-between group/item"
+                                            >
+                                                <div className="flex flex-col flex-1 min-w-0 mr-4">
+                                                    <div className="flex items-center gap-2 mb-0.5">
+                                                        <span className="font-medium text-slate-200 group-hover/item:text-amber-400 transition-colors">ผลรวม {score}</span>
+                                                        <span className={`text-[10px] px-1.5 py-0.5 rounded-md bg-white/5 border border-white/5 ${color}`}>
+                                                            {level}
+                                                        </span>
+                                                    </div>
+                                                    <span className="text-xs text-slate-500 truncate group-hover/item:text-slate-400 transition-colors">
+                                                        {desc}
+                                                    </span>
+                                                </div>
+                                                {targetSum === score.toString() && <CheckCircle size={16} className="text-emerald-400 flex-shrink-0" />}
+                                            </div>
+                                        );
+                                    })}
                                 {uniqueScores.filter(score => !targetSum || score.toString().includes(targetSum)).length === 0 && (
                                     <div className="px-4 py-3 text-slate-500 text-center italic text-sm">
                                         ไม่พบผลรวมที่ค้นหา

@@ -8,6 +8,7 @@ import { premiumNamesRaw } from '@/data/premiumNamesRaw';
 import { parsePremiumNames, PremiumNameData } from '@/utils/premiumDataParser';
 
 import { supabase } from '@/utils/supabase';
+import { getPrediction } from '@/utils/getPrediction';
 import { useRouter } from 'next/navigation';
 import { thaksaConfig } from '@/data/thaksaConfig';
 import { DayKey } from '@/types';
@@ -84,6 +85,8 @@ function ScoreDropdown({
                 <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`} />
             </button>
 
+
+
             {open && (
                 <div className="absolute left-0 right-0 top-full mt-0 z-[200] max-h-80 overflow-y-auto bg-[#0c1224] border border-white/10 border-t-0 rounded-xl rounded-t-none shadow-[0_20px_60px_rgba(0,0,0,0.45)] custom-scrollbar">
                     <button
@@ -99,22 +102,38 @@ function ScoreDropdown({
                     >
                         ทุกผลรวม
                     </button>
-                    {scores.map(score => (
-                        <button
-                            key={score}
-                            type="button"
-                            onClick={() => {
-                                onChange(score.toString());
-                                setOpen(false);
-                            }}
-                            className={`w-full px-4 py-3 text-left transition-colors border-b border-white/5 last:border-0 ${value === score.toString()
-                                ? 'bg-[#1d4ed8] text-white'
-                                : 'text-slate-200 hover:bg-white/5 hover:text-white'
-                                }`}
-                        >
-                            ผลรวม {score}
-                        </button>
-                    ))}
+                    {scores.map(score => {
+                        const { desc, color, level } = getPrediction(score);
+                        return (
+                            <button
+                                key={score}
+                                type="button"
+                                onClick={() => {
+                                    onChange(score.toString());
+                                    setOpen(false);
+                                }}
+                                className={`w-full px-4 py-3 text-left transition-colors border-b border-white/5 last:border-0 flex items-center justify-between group/item ${value === score.toString()
+                                    ? 'bg-[#1d4ed8]/20 text-white'
+                                    : 'text-slate-200 hover:bg-white/5 hover:text-white'
+                                    }`}
+                            >
+                                <div className="flex flex-col flex-1 min-w-0 mr-4">
+                                    <div className="flex items-center gap-2 mb-0.5">
+                                        <span className={`font-medium transition-colors ${value === score.toString() ? 'text-white' : 'text-slate-200 group-hover/item:text-amber-400'}`}>
+                                            ผลรวม {score}
+                                        </span>
+                                        <span className={`text-[10px] px-1.5 py-0.5 rounded-md bg-white/5 border border-white/5 ${color}`}>
+                                            {level}
+                                        </span>
+                                    </div>
+                                    <span className={`text-xs truncate transition-colors ${value === score.toString() ? 'text-slate-300' : 'text-slate-500 group-hover/item:text-slate-400'}`}>
+                                        {desc}
+                                    </span>
+                                </div>
+                                {value === score.toString() && <div className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />}
+                            </button>
+                        );
+                    })}
                 </div>
             )}
         </div>
@@ -339,14 +358,14 @@ export default function PremiumSearchPage() {
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-amber-500/30">
 
-            <main className="transition-all duration-300 min-h-screen p-4 pt-24 md:p-8 md:pt-32 relative overflow-hidden">
+            <main className="w-full max-w-[1400px] transition-all duration-300 min-h-screen px-4 pt-24 md:pt-32 pb-8 relative">
                 {/* Background Gradients */}
                 <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[100px]" />
                     <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[100px]" />
                 </div>
 
-                <div className="relative z-10 max-w-6xl mx-auto space-y-8">
+                <div className="relative z-10 max-w-6xl space-y-8">
                     {/* Header */}
                     <header className="text-center space-y-4">
                         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium animate-pulse">

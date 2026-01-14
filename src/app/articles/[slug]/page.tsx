@@ -8,6 +8,7 @@ import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
 import { Metadata } from 'next';
 import { ArticleShareButtons } from '@/components/ArticleShareButtons';
 import { articles as localArticles } from '@/data/articles';
+import { shimmer, toBase64 } from '@/utils/imageUtils';
 
 type Props = {
     params: Promise<{ slug: string }>;
@@ -40,6 +41,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         };
     }
 
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.namemongkol.com';
+    const rawImageUrl = article.cover_image || article.coverImage;
+    const imageUrl = rawImageUrl
+        ? (rawImageUrl.startsWith('http') ? rawImageUrl : `${baseUrl}${rawImageUrl}`)
+        : `${baseUrl}/api/og?title=${encodeURIComponent(article.title)}`;
+
     return {
         title: article.meta_title || article.title,
         description: article.meta_description || article.excerpt,
@@ -47,8 +54,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         openGraph: {
             title: article.meta_title || article.title,
             description: article.meta_description || article.excerpt,
-            images: [article.cover_image || article.coverImage],
+            url: `${baseUrl}/articles/${slug}`,
+            images: [
+                {
+                    url: imageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: article.title,
+                }
+            ],
             type: 'article',
+            siteName: 'NameMongkol',
         },
     };
 }
@@ -102,8 +118,8 @@ export default async function ArticlePage({ params }: Props) {
                 }}
             />
 
-            <main className="container mx-auto px-4 py-8 relative z-10 pt-24 md:pt-32">
-                <div className="max-w-3xl mx-auto">
+            <main className="w-full max-w-[1400px] px-4 py-8 relative z-10 pt-24 md:pt-32">
+                <div className="max-w-3xl">
                     {/* Back Link */}
                     <Link href="/articles" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors group">
                         <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
@@ -146,6 +162,8 @@ export default async function ArticlePage({ params }: Props) {
                             className="object-cover"
                             priority
                             sizes="(max-width: 768px) 100vw, 768px"
+                            placeholder="blur"
+                            blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
                         />
                     </div>
 

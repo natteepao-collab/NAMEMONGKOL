@@ -327,14 +327,14 @@ export default function NameAnalysisPage() {
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-indigo-500/30">
-            <main className="transition-all duration-300 min-h-screen p-4 pt-24 md:p-8 md:pt-32 relative overflow-hidden">
+            <main className="w-full max-w-[1400px] transition-all duration-300 min-h-screen px-4 pt-24 md:pt-32 pb-8 relative overflow-hidden">
                 {/* Background Decor */}
                 <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute top-[10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-indigo-500/10 blur-[120px]" />
                     <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-fuchsia-500/10 blur-[120px]" />
                 </div>
 
-                <div className="relative z-10 max-w-7xl mx-auto space-y-8 pt-8">
+                <div className="relative z-10 max-w-7xl space-y-8 pt-8">
                     {/* Header Section */}
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                         <div className="flex items-center gap-6">

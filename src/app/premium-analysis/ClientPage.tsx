@@ -624,7 +624,7 @@ export default function PremiumAnalysisPage() {
     return (
         <div className="min-h-screen bg-[#050b14] text-slate-200 font-sans selection:bg-amber-500/30">
 
-            <main className="min-h-screen relative overflow-hidden pb-20">
+            <main className="w-full max-w-[1400px] min-h-screen relative overflow-hidden pb-20 px-4">
                 {/* Background Decor - Fixed Position */}
                 <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute top-[-20%] left-[20%] w-[1000px] h-[1000px] rounded-full bg-blue-900/10 blur-[130px] opacity-70 animate-pulse" style={{ animationDuration: '8s' }} />
@@ -632,7 +632,7 @@ export default function PremiumAnalysisPage() {
                     <div className="absolute top-[30%] left-[-10%] w-[600px] h-[600px] rounded-full bg-purple-900/10 blur-[120px]" />
                 </div>
 
-                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div className="relative z-10 max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
 
                     {/* Header Section */}
                     <header className="text-center space-y-6 pt-24 md:pt-32 pb-8">
