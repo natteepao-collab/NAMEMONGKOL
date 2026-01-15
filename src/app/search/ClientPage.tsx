@@ -15,7 +15,8 @@ function NameRow({ name }: { name: string }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const day = getDayFromName(name);
     const score = calculateScore(name);
-    const suitability = useMemo(() => isExpanded ? analyzeNameSuitability(name) : null, [name, isExpanded]);
+    // Always calculate to know if it's usable on multiple days
+    const suitability = useMemo(() => analyzeNameSuitability(name), [name]);
 
     return (
         <>
@@ -34,7 +35,15 @@ function NameRow({ name }: { name: string }) {
                     </div>
                 </td>
                 <td className="px-8 py-5 text-slate-400 group-hover:text-slate-300 transition-colors">
-                    {day}
+                    {day !== '-' && day !== 'ไม่ระบุ' ? (
+                        day
+                    ) : suitability.suitable.length === 8 ? (
+                        <span className="text-emerald-400 font-medium">ใช้ได้ทุกวัน</span>
+                    ) : suitability.suitable.length > 0 ? (
+                        <span className="text-slate-400">ใช้ได้หลายวัน</span>
+                    ) : (
+                        '-'
+                    )}
                 </td>
                 <td className="px-8 py-5 text-center">
                     <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/10 to-purple-500/10 text-amber-300 font-bold border border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.05)] group-hover:border-amber-500/40 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] group-hover:text-amber-200 group-hover:scale-110 transition-all duration-300">
