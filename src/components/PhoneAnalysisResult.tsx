@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { PhoneAnalysisResult as IPhoneAnalysisResult } from '@/utils/analyzePhone';
-import { Activity, Brain, Heart, Share2, Skull, Crown, TrendingUp, Clover, Eye, Facebook, Link as LinkIcon, Check, Copy, X } from 'lucide-react';
+import { Activity, Brain, Heart, Share2, Skull, Crown, TrendingUp, Clover, Eye, Facebook, Link as LinkIcon, Check, Copy, X, ExternalLink, Search } from 'lucide-react';
 
 // Custom Line Icon since Lucide doesn't include it
 const LineIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
@@ -23,8 +23,6 @@ interface PhoneAnalysisResultProps {
 }
 
 export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result }) => {
-    // State for Share Menu
-    const [isShareOpen, setIsShareOpen] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
 
     // Split pairs into Good/Neutral vs Bad
@@ -45,7 +43,6 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                 setTimeout(() => setIsCopied(false), 2000);
             });
         }
-        setIsShareOpen(false);
     };
 
     const StatBar = ({ label, score, icon: Icon }: { label: string, score: { pos: number, neg: number }, icon: any }) => {
@@ -173,6 +170,61 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
         );
     };
 
+    const HeroShareBanner = () => {
+        return (
+            <div className="relative w-full overflow-hidden rounded-2xl bg-[#0f172a] border border-slate-700/50 shadow-2xl group select-none">
+                {/* Background Glows */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px]" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[80px]" />
+
+                <div className="relative z-10 flex flex-col md:flex-row items-center p-6 sm:p-8 gap-6 md:gap-8">
+                    {/* Left: Branding & Grade */}
+                    <div className="flex-1 text-center md:text-left space-y-2">
+                        <div className="inline-flex items-center gap-2 mb-2">
+                            <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20">
+                                <span className="text-lg">🔮</span>
+                            </div>
+                            <span className="text-slate-400 text-xs font-bold tracking-widest uppercase">NameMongkol Analysis</span>
+                        </div>
+                        <h3 className="text-3xl sm:text-4xl font-black text-white tracking-tight drop-shadow-sm font-mono">
+                            {result.phoneNumber}
+                        </h3>
+                        <div className="h-1 w-20 bg-gradient-to-r from-amber-500 to-amber-300 rounded-full mx-auto md:mx-0" />
+                        <p className="text-slate-400 text-sm font-medium leading-relaxed max-w-md pt-2">
+                            {result.prediction}
+                        </p>
+                    </div>
+
+                    {/* Right: Big Grade Circle */}
+                    <div className="shrink-0 relative">
+                        <div className={`absolute inset-0 blur-2xl opacity-40 rounded-full ${result.grade.startsWith('A') ? 'bg-emerald-500' : result.grade.startsWith('B') ? 'bg-blue-500' : 'bg-amber-500'}`} />
+                        <div className={`
+                            w-28 h-28 rounded-full flex flex-col items-center justify-center border-4 border-[#0f172a] shadow-2xl relative z-10
+                            ${result.grade.startsWith('A')
+                                ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white'
+                                : result.grade.startsWith('B')
+                                    ? 'bg-gradient-to-br from-blue-400 to-blue-600 text-white'
+                                    : 'bg-gradient-to-br from-amber-400 to-amber-600 text-white'}
+                        `}>
+                            <span className="text-5xl font-black tracking-tighter drop-shadow-md leading-none mt-1">{result.grade}</span>
+                            <span className="text-[10px] font-bold uppercase tracking-wide opacity-90 mt-1">Grade</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Bottom Strip */}
+                <div className="flex items-center justify-between px-6 py-3 bg-slate-900/50 border-t border-slate-800 backdrop-blur-sm">
+                    <span className="text-[10px] text-slate-500 font-mono">NAMEMONGKOL.COM</span>
+                    <div className="flex gap-1.5">
+                        {[...Array(5)].map((_, i) => (
+                            <div key={i} className={`w-1 h-1 rounded-full ${i < 4 ? 'bg-emerald-500' : 'bg-slate-700'}`} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="w-full max-w-4xl animate-fade-in space-y-4 pb-8">
 
@@ -182,7 +234,6 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                 <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-[60px] pointer-events-none" />
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
                     {/* Left Column: Number & Analysis Boxes */}
                     <div className="lg:col-span-5 space-y-4">
                         <div className="text-center lg:text-left">
@@ -215,22 +266,6 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                                 </div>
                             )}
                         </div>
-
-                        {/* Grade Badge - Mobile Only */}
-                        <div className="lg:hidden flex items-center gap-3 bg-slate-900/50 p-2.5 rounded-xl border border-slate-700/50">
-                            <div className={`
-                                w-14 h-14 shrink-0 rounded-xl flex items-center justify-center text-3xl font-black text-white shadow-lg border-2 border-white/10
-                                ${result.grade.startsWith('A') ? 'bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-emerald-900/20' :
-                                    result.grade.startsWith('B') ? 'bg-gradient-to-br from-blue-500 to-blue-700 shadow-blue-900/20' :
-                                        'bg-gradient-to-br from-amber-500 to-amber-700 shadow-amber-900/20'}
-                            `}>
-                                {result.grade}
-                            </div>
-                            <div className="flex-1">
-                                <p className="text-slate-400 text-[9px] uppercase tracking-wider font-semibold mb-0">เกรดเบอร์มงคล</p>
-                                <p className="text-white font-medium text-xs leading-snug">{result.prediction}</p>
-                            </div>
-                        </div>
                     </div>
 
                     {/* Right Column: Stats Center-Out */}
@@ -238,7 +273,7 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                         {/* Divider for Desktop */}
                         <div className="absolute left-0 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-slate-700 to-transparent hidden lg:block" />
 
-                        {/* Grade Badge - Desktop (Enhanced) */}
+                        {/* Enhanced Desktop Grade Badge */}
                         <div className="hidden lg:flex items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-slate-700/50 mb-2 self-center w-full max-w-md relative group overflow-hidden">
                             <div className={`absolute inset-0 opacity-10 blur-xl transition-opacity group-hover:opacity-20
                                 ${result.grade.startsWith('A') ? 'bg-emerald-500' :
@@ -274,7 +309,6 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                                     </div>
                                 </div>
                             </div>
-
                             <div className="space-y-2 px-1">
                                 <StatBar label="การเงิน/การงาน" score={result.stats.finance} icon={TrendingUp} />
                                 <StatBar label="โชคลาภ" score={result.stats.luck} icon={Clover} />
@@ -355,63 +389,69 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                 </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex justify-center gap-3 pt-4 relative z-50">
-                <div className="relative">
-                    <button
-                        onClick={() => setIsShareOpen(!isShareOpen)}
-                        className={`
-                            flex items-center gap-2 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-medium text-sm transition-all border border-slate-600
-                            ${isShareOpen ? 'ring-2 ring-amber-500/50 border-amber-500/50' : ''}
-                        `}
-                    >
-                        {isShareOpen ? <X size={16} /> : <Share2 size={16} />}
-                        {isShareOpen ? 'ปิด' : 'แชร์ผลวิเคราะห์'}
-                    </button>
-
-                    {/* Dropdown Menu */}
-                    {isShareOpen && (
-                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-48 bg-[#1e293b] border border-slate-600 rounded-xl shadow-2xl p-2 flex flex-col gap-1 z-[100]">
-                            <button
-                                onClick={() => handleShare('facebook')}
-                                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#1877F2]/20 text-slate-200 hover:text-[#1877F2] transition-colors w-full text-left"
-                            >
-                                <div className="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center shrink-0">
-                                    <Facebook size={16} className="text-white" fill="white" />
-                                </div>
-                                <span className="text-xs font-bold">Facebook</span>
-                            </button>
-
-                            <button
-                                onClick={() => handleShare('line')}
-                                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#06C755]/20 text-slate-200 hover:text-[#06C755] transition-colors w-full text-left"
-                            >
-                                <div className="w-8 h-8 rounded-full bg-[#06C755] flex items-center justify-center shrink-0">
-                                    <LineIcon size={16} className="text-white" />
-                                </div>
-                                <span className="text-xs font-bold">Line</span>
-                            </button>
-
-                            <div className="h-px bg-slate-700/50 my-1 mx-2" />
-
-                            <button
-                                onClick={() => handleShare('copy')}
-                                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-700/50 text-slate-200 hover:text-white transition-colors w-full text-left"
-                            >
-                                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all ${isCopied ? 'bg-emerald-500' : 'bg-slate-600'}`}>
-                                    {isCopied ? <Check size={16} className="text-white" /> : <LinkIcon size={16} className="text-white" />}
-                                </div>
-                                <span className="text-xs font-bold">{isCopied ? 'คัดลอกแล้ว!' : 'คัดลอกลิงก์'}</span>
-                            </button>
-                        </div>
-                    )}
+            {/* Share Section with Hero Banner */}
+            <div className="pt-8 space-y-4">
+                <div className="flex items-center gap-2 px-2 mb-2">
+                    <Share2 className="w-5 h-5 text-amber-400" />
+                    <h3 className="text-lg font-bold text-white">แชร์ผลวิเคราะห์ของคุณ</h3>
                 </div>
 
+                <HeroShareBanner />
+
+                <div className="bg-[#1e293b] rounded-xl p-4 border border-slate-700/50 flex flex-col md:flex-row gap-4 items-center">
+                    {/* URL Input */}
+                    <div className="flex-1 w-full bg-[#0f172a] rounded-lg border border-slate-700 flex items-center pl-4 pr-1 py-1 relative group">
+                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+                            <LinkIcon size={14} className="text-slate-500" />
+                        </div>
+                        <input
+                            type="text"
+                            readOnly
+                            value={typeof window !== 'undefined' ? window.location.href : ''}
+                            className="bg-transparent text-slate-400 text-sm w-full pl-6 pr-2 py-2.5 outline-none font-mono"
+                        />
+                        <button
+                            onClick={() => handleShare('copy')}
+                            className={`
+                                flex items-center gap-2 px-4 py-2 rounded-md font-bold text-xs transition-all
+                                ${isCopied
+                                    ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20'
+                                    : 'bg-slate-700 text-white hover:bg-slate-600'}
+                            `}
+                        >
+                            {isCopied ? <Check size={14} /> : <Copy size={14} />}
+                            {isCopied ? 'คัดลอกแล้ว' : 'คัดลอก'}
+                        </button>
+                    </div>
+
+                    {/* Social Buttons */}
+                    <div className="flex gap-2 shrink-0 w-full md:w-auto">
+                        <button
+                            onClick={() => handleShare('facebook')}
+                            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-3 bg-[#1877F2] hover:bg-[#166fe5] text-white rounded-lg font-bold text-sm transition-all shadow-lg shadow-[#1877F2]/20"
+                        >
+                            <Facebook size={18} />
+                            <span className="md:hidden">Facebook</span>
+                        </button>
+                        <button
+                            onClick={() => handleShare('line')}
+                            className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-3 bg-[#06C755] hover:bg-[#05b34c] text-white rounded-lg font-bold text-sm transition-all shadow-lg shadow-[#06C755]/20"
+                        >
+                            <LineIcon size={18} />
+                            <span className="md:hidden">Line</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Back Button */}
+            <div className="flex justify-center pt-4">
                 <button
                     onClick={() => window.location.href = '/phone-analysis'}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white rounded-lg font-bold text-sm transition-all shadow-lg shadow-amber-500/20"
+                    className="flex items-center gap-2 px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium text-sm transition-all border border-slate-700 hover:border-slate-500"
                 >
-                    ค้นหาเบอร์มงคล
+                    <Search size={16} />
+                    ค้นหาเบอร์อื่น
                 </button>
             </div>
 

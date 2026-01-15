@@ -98,8 +98,8 @@ export const analyzePhone = async (phoneNumber: string): Promise<PhoneAnalysisRe
 
         // Simple scoring logic
         if (definition.grade === 'good') totalScore += 20;
-        else if (definition.grade === 'neutral') totalScore += 10;
-        else totalScore -= 10;
+        else if (definition.grade === 'neutral') totalScore -= 10;
+        else totalScore -= 20;
 
         // Update stats based on tags
         const tags = definition.tags || [];
