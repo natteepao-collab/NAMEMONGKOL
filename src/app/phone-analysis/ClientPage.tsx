@@ -7,6 +7,18 @@ import { analyzePhone, PhoneAnalysisResult as IPhoneAnalysisResult } from '@/uti
 import { PhoneAnalysisResult } from '@/components/PhoneAnalysisResult';
 
 export default function ClientPage() {
+    return (
+        <React.Suspense fallback={
+            <div className="min-h-screen bg-[#0f172a] flex items-center justify-center">
+                <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+            </div>
+        }>
+            <ClientPageContent />
+        </React.Suspense>
+    );
+}
+
+function ClientPageContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const [phoneNumber, setPhoneNumber] = useState('');
