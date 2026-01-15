@@ -10,7 +10,39 @@ export const size = {
 
 export const contentType = 'image/png';
 
+// Font fetching helper
+async function loadGoogleFont(font: string, text: string) {
+    const url = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(text)}`;
+    const css = await (await fetch(url)).text();
+    const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/);
+
+    if (resource) {
+        const response = await fetch(resource[1]);
+        if (response.status == 200) {
+            return await response.arrayBuffer();
+        }
+    }
+
+    throw new Error('failed to load font data');
+}
+
 export default async function Image() {
+    // Determine the text we need in the image for subsetting (optional optimization, but here we might just fetch the font)
+    // Actually, for Google Fonts, it's often better to fetch the font file directly if we know the URL,
+    // or use a standard subset. Since we need general Thai support, we'll try to fetch a standard font file.
+    // However, simplest reliable way in edge for specific Thai text is often hardcoding a font URL or using a service.
+    // Let's try fetching Noto Sans Thai directly from a known CDN or Google Fonts specifically.
+
+    // Using a reliable method for Next.js OG:
+    const notoSansThaiSemiBold = await fetch(
+        new URL('https://github.com/google/fonts/raw/main/ofl/notosansthai/NotoSansThai-SemiBold.ttf', import.meta.url)
+    ).then((res) => res.arrayBuffer());
+
+    const notoSansThaiRegular = await fetch(
+        new URL('https://github.com/google/fonts/raw/main/ofl/notosansthai/NotoSansThai-Regular.ttf', import.meta.url)
+    ).then((res) => res.arrayBuffer());
+
+
     return new ImageResponse(
         (
             <div
@@ -22,6 +54,7 @@ export default async function Image() {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    fontFamily: '"Noto Sans Thai"',
                 }}
             >
                 {/* Background Gradient */}
@@ -57,20 +90,20 @@ export default async function Image() {
                         boxShadow: '0 0 60px -10px rgba(59, 130, 246, 0.4)', // Blue glow
                         marginBottom: '20px'
                     }}>
-                        {/* Simple Phone Icon SVG */}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
-                            <line x1="12" y1="18" x2="12.01" y2="18" />
+                        {/* Mobile Icon */}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="None" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+                            <path d="M12 18h.01" />
                         </svg>
                     </div>
 
                     {/* Title */}
-                    <div style={{ display: 'flex', fontSize: '80px', fontWeight: 900, lineHeight: 1.1, color: 'white' }}>
+                    <div style={{ display: 'flex', fontSize: '80px', fontWeight: 600, lineHeight: 1.1, color: 'white' }}>
                         วิเคราะห์<span style={{ color: '#fbbf24', marginLeft: '10px' }}>เบอร์มงคล</span>
                     </div>
 
                     {/* Subtitle */}
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', fontSize: '26px', color: '#94a3b8', marginTop: '10px', textAlign: 'center', lineHeight: 1.5 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', fontSize: '26px', color: '#94a3b8', marginTop: '10px', textAlign: 'center', lineHeight: 1.5, fontWeight: 400 }}>
                         <span>เจาะลึกความหมายเบอร์โทรศัพท์ของคุณ ด้วยหลักเลขศาสตร์ทศนิยม</span>
                         <span>รู้ลึกถึงนิสัย การเงิน ความรัก และโชคลาภ แม่นยำที่สุด</span>
                     </div>
@@ -89,7 +122,7 @@ export default async function Image() {
                         padding: '10px 15px 10px 40px',
                         boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.3)',
                     }}>
-                        <span style={{ fontSize: '32px', color: 'rgba(255, 255, 255, 0.3)', fontFamily: 'sans-serif' }}>
+                        <span style={{ fontSize: '32px', color: 'rgba(255, 255, 255, 0.3)', fontFamily: '"Noto Sans Thai"' }}>
                             ใส่เบอร์ทั้ง 10 หลัก (เช่น 0812345678)
                         </span>
 
@@ -106,10 +139,9 @@ export default async function Image() {
                             fontWeight: 600,
                             gap: '12px',
                         }}>
-                            {/* Search Icon */}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.3-4.3" />
                             </svg>
                             ทำนายเบอร์
                         </div>
@@ -120,6 +152,21 @@ export default async function Image() {
         ),
         {
             ...size,
+            fonts: [
+                {
+                    name: 'Noto Sans Thai',
+                    data: notoSansThaiSemiBold,
+                    style: 'normal',
+                    weight: 600,
+                },
+                {
+                    name: 'Noto Sans Thai',
+                    data: notoSansThaiRegular,
+                    style: 'normal',
+                    weight: 400,
+                },
+            ],
         }
     );
 }
+

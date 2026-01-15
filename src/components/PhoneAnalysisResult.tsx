@@ -204,6 +204,14 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                                         <Skull size={14} />
                                         <span className="font-semibold">เบอร์ส่งผลเสีย แนะนำให้เปลี่ยน</span>
                                     </div>
+
+                                    {/* Conversion CTA for Bad Numbers */}
+                                    <a
+                                        href="/search"
+                                        className="block w-full mt-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white text-center py-3 rounded-xl font-bold text-sm shadow-lg shadow-amber-900/20 transition-all hover:scale-[1.02] active:scale-95 animate-bounce-gentle"
+                                    >
+                                        เปลี่ยนเบอร์ร้ายให้กลายเป็นดี คลิก!
+                                    </a>
                                 </div>
                             )}
                         </div>
@@ -211,14 +219,14 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                         {/* Grade Badge - Mobile Only */}
                         <div className="lg:hidden flex items-center gap-3 bg-slate-900/50 p-2.5 rounded-xl border border-slate-700/50">
                             <div className={`
-                                w-10 h-10 shrink-0 rounded-lg flex items-center justify-center text-xl font-black text-white shadow-lg
-                                ${result.grade.startsWith('A') ? 'bg-gradient-to-br from-emerald-500 to-emerald-700' :
-                                    result.grade.startsWith('B') ? 'bg-gradient-to-br from-blue-500 to-blue-700' :
-                                        'bg-gradient-to-br from-amber-500 to-amber-700'}
+                                w-14 h-14 shrink-0 rounded-xl flex items-center justify-center text-3xl font-black text-white shadow-lg border-2 border-white/10
+                                ${result.grade.startsWith('A') ? 'bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-emerald-900/20' :
+                                    result.grade.startsWith('B') ? 'bg-gradient-to-br from-blue-500 to-blue-700 shadow-blue-900/20' :
+                                        'bg-gradient-to-br from-amber-500 to-amber-700 shadow-amber-900/20'}
                             `}>
                                 {result.grade}
                             </div>
-                            <div>
+                            <div className="flex-1">
                                 <p className="text-slate-400 text-[9px] uppercase tracking-wider font-semibold mb-0">เกรดเบอร์มงคล</p>
                                 <p className="text-white font-medium text-xs leading-snug">{result.prediction}</p>
                             </div>
@@ -230,30 +238,44 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                         {/* Divider for Desktop */}
                         <div className="absolute left-0 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-slate-700 to-transparent hidden lg:block" />
 
-                        {/* Grade Badge - Desktop */}
-                        <div className="hidden lg:flex items-center gap-3 bg-slate-900/50 p-2.5 rounded-xl border border-slate-700/50 mb-1 self-center w-full max-w-sm">
+                        {/* Grade Badge - Desktop (Enhanced) */}
+                        <div className="hidden lg:flex items-center gap-4 bg-slate-900/50 p-4 rounded-2xl border border-slate-700/50 mb-2 self-center w-full max-w-md relative group overflow-hidden">
+                            <div className={`absolute inset-0 opacity-10 blur-xl transition-opacity group-hover:opacity-20
+                                ${result.grade.startsWith('A') ? 'bg-emerald-500' :
+                                    result.grade.startsWith('B') ? 'bg-blue-500' : 'bg-amber-500'}
+                             `} />
+
                             <div className={`
-                                w-10 h-10 shrink-0 rounded-lg flex items-center justify-center text-xl font-black text-white shadow-lg
-                                ${result.grade.startsWith('A') ? 'bg-gradient-to-br from-emerald-500 to-emerald-700' :
-                                    result.grade.startsWith('B') ? 'bg-gradient-to-br from-blue-500 to-blue-700' :
-                                        'bg-gradient-to-br from-amber-500 to-amber-700'}
+                                w-20 h-20 shrink-0 rounded-2xl flex flex-col items-center justify-center text-white shadow-2xl border-[3px] border-white/10 relative z-10
+                                ${result.grade.startsWith('A') ? 'bg-gradient-to-br from-emerald-500 to-emerald-800' :
+                                    result.grade.startsWith('B') ? 'bg-gradient-to-br from-blue-500 to-blue-800' :
+                                        'bg-gradient-to-br from-amber-500 to-amber-800'}
                             `}>
-                                {result.grade}
+                                <span className="text-4xl font-black leading-none mt-1 drop-shadow-md">{result.grade}</span>
+                                <span className="text-[9px] font-bold uppercase opacity-80 mt-0.5">Grade</span>
                             </div>
-                            <div>
-                                <p className="text-slate-400 text-[9px] uppercase tracking-wider font-semibold mb-0">เกรดเบอร์มงคล</p>
-                                <p className="text-white font-medium text-xs leading-snug">{result.prediction}</p>
+                            <div className="relative z-10">
+                                <p className="text-slate-400 text-[10px] uppercase tracking-widest font-bold mb-1">ผลทำนายเกรดเบอร์มงคล</p>
+                                <p className="text-white font-semibold text-sm leading-relaxed">{result.prediction}</p>
                             </div>
                         </div>
 
                         <div className="md:col-span-1">
-                            <h3 className="text-base font-bold text-slate-300 mb-3 text-center">กราฟสรุปคะแนนแต่ละด้าน</h3>
+                            <div className="flex items-center justify-between mb-3 px-2">
+                                <h3 className="text-base font-bold text-slate-300">กราฟสรุปคะแนน</h3>
+                                <div className="flex items-center gap-3 text-[9px] text-slate-500 font-medium">
+                                    <div className="flex items-center gap-1.5">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-rose-500"></div>
+                                        <span>จุดอ่อน</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                                        <span>จุดแข็ง</span>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div className="space-y-2 px-1">
-                                <div className="text-center text-[9px] text-slate-500 mb-1 relative top-1">
-                                    <span className="mr-20">จุดอ่อน</span>
-                                    <span>จุดแข็ง</span>
-                                </div>
                                 <StatBar label="การเงิน/การงาน" score={result.stats.finance} icon={TrendingUp} />
                                 <StatBar label="โชคลาภ" score={result.stats.luck} icon={Clover} />
                                 <StatBar label="เสน่ห์/ความรัก" score={result.stats.love} icon={Heart} />

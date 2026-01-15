@@ -129,7 +129,10 @@ export default function TopUpPage({ gateway }: TopUpPageProps) {
 
         setIsLoading(true);
         try {
-            await createPromptPayCheckoutSession(tier.price, tier.credits, tier.name);
+            const result = await createPromptPayCheckoutSession(tier.price, tier.credits, tier.name);
+            if (result && result.url) {
+                window.location.href = result.url;
+            }
         } catch (error: any) {
             console.error('Checkout error:', error);
             // const Swal = (await import('sweetalert2')).default;

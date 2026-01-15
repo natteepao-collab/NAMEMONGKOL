@@ -56,8 +56,10 @@ export async function createPromptPayCheckoutSession(
     });
 
     if (session.url) {
-        redirect(session.url);
+        return { url: session.url };
     }
+
+    throw new Error('Failed to create checkout session');
 }
 
 export async function verifyPromptPayTransaction(sessionId: string) {

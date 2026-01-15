@@ -60,11 +60,14 @@ export default function ClientPage() {
                             <Smartphone className="w-8 h-8 text-indigo-400" />
                         </div>
                         <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-                            วิเคราะห์<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">เบอร์มงคล</span>
+                            วิเคราะห์เบอร์มงคล <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">แม่นยำที่สุด!</span>
                         </h1>
+                        <p className="text-2xl md:text-3xl font-semibold text-slate-200 mb-4">
+                            เช็คเกรดเบอร์โทรศัพท์ พร้อมกราฟเจาะลึกรอบด้าน
+                        </p>
                         <p className="text-slate-400 max-w-lg mx-auto text-sm md:text-base leading-relaxed">
-                            เจาะลึกความหมายเบอร์โทรศัพท์ของคุณ ด้วยหลักเลขอวดทศนิยม
-                            รู้ลึกถึงนิสัย การเงิน ความรัก และโชคลาภ แม่นยำที่สุด
+                            เช็คเบอร์มงคลฟรี ด้วยระบบ AI อัจฉริยะ วิเคราะห์ลึกถึงคู่เลข ผลรวม และกราฟชีวิต
+                            รู้ทันทีว่าเบอร์ดีหรือร้าย พร้อมวิธีแก้เคล็ดที่ Namemongkol
                         </p>
                     </div>
                 )}
@@ -100,6 +103,24 @@ export default function ClientPage() {
                                 </button>
                             </div>
                         </div>
+
+                        {/* Social Proof & Trust Indicators */}
+                        <div className="flex items-center justify-center gap-6 mt-6 text-slate-400 text-xs sm:text-sm font-medium opacity-80">
+                            <div className="flex items-center gap-2">
+                                <div className="flex -space-x-2">
+                                    <div className="w-6 h-6 rounded-full bg-slate-700 border-2 border-[#0f172a] flex items-center justify-center text-[8px] text-white">A</div>
+                                    <div className="w-6 h-6 rounded-full bg-slate-600 border-2 border-[#0f172a] flex items-center justify-center text-[8px] text-white">B</div>
+                                    <div className="w-6 h-6 rounded-full bg-slate-500 border-2 border-[#0f172a] flex items-center justify-center text-[8px] text-white">+</div>
+                                </div>
+                                <span>วิเคราะห์แล้วกว่า 150,000+ เบอร์</span>
+                            </div>
+                            <div className="w-1 h-1 rounded-full bg-slate-600" />
+                            <div className="flex items-center gap-1.5">
+                                <span className="text-emerald-400">★ 4.9/5</span>
+                                <span>จากผู้ใช้จริง</span>
+                            </div>
+                        </div>
+
                         {error && (
                             <p className="text-red-400 text-center mt-4 bg-red-500/10 py-2 rounded-lg border border-red-500/20 text-sm font-medium animate-shake">
                                 {error}
