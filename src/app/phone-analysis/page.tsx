@@ -3,19 +3,30 @@ import { Metadata } from 'next';
 import ClientPage from './ClientPage';
 
 export const metadata: Metadata = {
-    title: 'วิเคราะห์เบอร์มงคล AI อัจฉริยะ | NameMongkol',
-    description: 'ใหม่! ตรวจเช็คเกรดเบอร์โทรศัพท์ของคุณด้วยระบบ AI วิเคราะห์เจาะลึก 4 ศาสตร์ แม่นยำที่สุด รู้ทันทีว่าเบอร์นี้ดีหรือร้าย พร้อมคำแนะนำ',
-    keywords: [
-        'วิเคราะห์เบอร์มงคล',
-        'ทำนายเบอร์โทรศัพท์',
-        'เช็คเบอร์มงคล',
-        'ดูดวงเบอร์มือถือ',
-        'เบอร์แก้ชง',
-        'เบอร์ปลดหนี้',
-        'เลขศาสตร์เบอร์โทร',
-        'เกรดเบอร์มงคล',
-        'วิเคราะห์เบอร์ AI'
-    ],
+    title: 'วิเคราะห์เบอร์มงคล แม่นยำที่สุด! | Namemongkol',
+    description: 'เช็คเกรดเบอร์โทรศัพท์ พร้อมกราฟเจาะลึกรอบด้าน ฟรีด้วยระบบ AI อัจฉริยะ วิเคราะห์ลึกถึงคู่เลข ผลรวม และกราฟชีวิต',
+    openGraph: {
+        title: 'วิเคราะห์เบอร์มงคล แม่นยำที่สุด! | Namemongkol',
+        description: 'เช็คเกรดเบอร์โทรศัพท์ พร้อมกราฟเจาะลึกรอบด้าน ฟรีด้วยระบบ AI อัจฉริยะ',
+        url: 'https://www.namemongkol.com/phone-analysis',
+        siteName: 'Namemongkol',
+        images: [
+            {
+                url: '/images/og-image.png',
+                width: 1200,
+                height: 630,
+                alt: 'วิเคราะห์เบอร์มงคล Namemongkol',
+            },
+        ],
+        locale: 'th_TH',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'วิเคราะห์เบอร์มงคล แม่นยำที่สุด!',
+        description: 'เช็คเกรดเบอร์โทรศัพท์ พร้อมกราฟเจาะลึกรอบด้าน',
+        images: ['/images/og-image.png'],
+    },
 };
 
 export default function PhoneAnalysisPage() {
