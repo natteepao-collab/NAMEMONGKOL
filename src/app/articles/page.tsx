@@ -43,6 +43,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'บทความชื่อมงคล - ความรู้ศาสตร์การตั้งชื่อ | NameMongkol',
         description: 'รวบรวมบทความเกี่ยวกับชื่อมงคล หลักการตั้งชื่อ เคล็ดลับเสริมดวง และความหมายของตัวเลขตามหลักเลขศาสตร์',
+        images: ['/api/og?variant=default&title=บทความชื่อมงคล%20โดย%20NameMongkol&subtitle=รวมความรู้ศาสตร์การตั้งชื่อ%20และเคล็ดลับเสริมดวง&tag=Articles'],
     }
 };
 

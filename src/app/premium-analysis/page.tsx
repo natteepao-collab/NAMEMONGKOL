@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'วิเคราะห์ชื่อมงคลขั้นสูง (Premium) - แม่นยำที่สุด',
         description: 'วิเคราะห์เจาะลึกด้วยวันดือนปีและเวลาเกิด หาชื่อที่ใช่ที่สุดสำหรับคุณ',
+        images: ['/api/og?variant=default&title=วิเคราะห์ชื่อมงคล%20Premium&subtitle=เจาะลึกตามวันเดือนปี%20และเวลาเกิด%20แม่นยำที่สุด&tag=Premium%20Analysis'],
     },
 };
 

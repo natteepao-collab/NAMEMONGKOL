@@ -43,9 +43,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.namemongkol.com';
     const rawImageUrl = article.cover_image || article.coverImage;
+    const ogFallback = `${baseUrl}/api/og?variant=article&title=${encodeURIComponent(article.title)}&category=${encodeURIComponent(article.category || '')}&meta=${encodeURIComponent(article.meta_description || article.excerpt || '')}`;
     const imageUrl = rawImageUrl
         ? (rawImageUrl.startsWith('http') ? rawImageUrl : `${baseUrl}${rawImageUrl}`)
-        : `${baseUrl}/api/og?title=${encodeURIComponent(article.title)}`;
+        : ogFallback;
 
     return {
         title: article.meta_title || article.title,

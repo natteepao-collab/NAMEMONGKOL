@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'ค้นหาชื่อมงคล - รวมรายชื่อความหมายดี',
         description: 'ค้นหาและตรวจสอบความหมายชื่อมงคล ฟรี!',
+        images: ['/api/og?variant=default&title=ค้นหาชื่อมงคล&subtitle=กรองตามวันเกิด%20ผลรวมเลขศาสตร์%20และความหมายดีๆ&tag=Name%20Search'],
     },
 };
 

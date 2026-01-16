@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'ประวัติการใช้งาน - NameMongkol',
         description: 'ประวัติการวิเคราะห์ชื่อและรายการของคุณ',
+        images: ['/api/og?variant=default&title=ประวัติการใช้งาน&subtitle=ย้อนดูผลวิเคราะห์และรายการทั้งหมดของคุณ&tag=History'],
     },
 };
 

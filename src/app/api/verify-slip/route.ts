@@ -6,12 +6,7 @@ import { Client } from '@line/bot-sdk';
 export async function POST(request: Request) {
     console.log('--- API verify-slip START ---');
 
-    // DEBUG: Log headers to debug Auth issue
-    const headerObj: Record<string, string> = {};
-    request.headers.forEach((value, key) => {
-        headerObj[key] = value;
-    });
-    console.log('Incoming Headers:', JSON.stringify(headerObj, null, 2));
+    const enableDebugLog = process.env.DEBUG_SLIP_LOG === 'true' && process.env.NODE_ENV !== 'production';
 
     try {
         const formData = await request.formData();
@@ -24,15 +19,35 @@ export async function POST(request: Request) {
         const transId = (formData.get('trans_id') || '').toString().trim();
         const senderName = (formData.get('sender_name') || '').toString().trim() || null;
 
+        if (enableDebugLog) {
+            const headerObj: Record<string, string> = {};
+            request.headers.forEach((value, key) => {
+                headerObj[key] = value;
+            });
+            console.log('Incoming Headers (debug):', JSON.stringify(headerObj, null, 2));
+        }
+
         if (!file || !(file instanceof Blob)) {
             return NextResponse.json({ success: false, message: 'No file uploaded' }, { status: 400 });
         }
 
-        const authHeader = request.headers.get('authorization') || '';
-        console.log('Auth Header Raw:', authHeader);
+        // Basic file validation to mitigate junk uploads
+        const allowedMime = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
+        const fileMime = (file as Blob).type || '';
+        const fileSize = (file as Blob).size || 0;
+        if (fileMime && !allowedMime.includes(fileMime)) {
+            return NextResponse.json({ success: false, message: 'Unsupported file type' }, { status: 400 });
+        }
+        if (fileSize > 8 * 1024 * 1024) {
+            return NextResponse.json({ success: false, message: 'File too large (max 8MB)' }, { status: 400 });
+        }
 
+        const authHeader = request.headers.get('authorization') || '';
         const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : undefined;
-        console.log('Extracted Token:', token ? token.substring(0, 10) + '...' : 'UNDEFINED');
+        if (enableDebugLog) {
+            console.log('Auth Header Present:', Boolean(authHeader));
+            console.log('Extracted Token Prefix:', token ? token.substring(0, 6) + '...' : 'UNDEFINED');
+        }
 
         if (!token) {
             console.error('No token found in request');
@@ -50,7 +65,10 @@ export async function POST(request: Request) {
         const fileHash = createHash('sha256').update(Buffer.from(arrayBuffer)).digest('hex');
 
         // 2) ตั้งค่า Key (ควรตั้งใน .env.production ด้วย)
-        const secretKey = process.env.SLIP2GO_SECRET_KEY || 'BKkuXbNHiznJu80IHV2OgL5N9BDm1Bb7uz2yKLToM9E=';
+        const secretKey = process.env.SLIP2GO_SECRET_KEY;
+        if (!secretKey) {
+            throw new Error('Missing SLIP2GO_SECRET_KEY');
+        }
 
         // 3) เตรียม endpoint หลายแบบ (เรียงตามที่ผู้ให้บริการแนะนำ)
         const explicitEndpoint = process.env.SLIP2GO_ENDPOINT?.trim();
@@ -77,6 +95,13 @@ export async function POST(request: Request) {
             global: { headers: { Authorization: `Bearer ${token}` } }
         });
 
+        const { data: userData, error: userError } = await supabase.auth.getUser();
+        if (userError || !userData?.user?.id) {
+            console.error('Failed to resolve user from token', userError);
+            return NextResponse.json({ success: false, message: 'Unauthorized (Invalid Token)' }, { status: 401 });
+        }
+        const userId = userData.user.id;
+
         // Supabase Admin for global duplicate check (Bypass RLS)
         const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
@@ -101,6 +126,7 @@ export async function POST(request: Request) {
         }
 
         let lastError: Error | null = null;
+        const REQUEST_TIMEOUT_MS = 12000;
         for (const endpoint of endpoints) {
             try {
                 console.log('Sending request to Slip2Go endpoint:', endpoint);
@@ -140,129 +166,159 @@ export async function POST(request: Request) {
                     };
                 }
 
-                const apiResponse = await fetch(endpoint, fetchOptions);
-
-                const responseText = await apiResponse.text();
-                console.log('Slip2Go Response:', responseText);
-
-                let apiData: any;
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
                 try {
-                    apiData = JSON.parse(responseText);
-                } catch {
-                    throw new Error(`Non-JSON response from ${endpoint}: ${responseText}`);
-                }
+                    (fetchOptions as any).signal = controller.signal;
+                    const apiResponse = await fetch(endpoint, fetchOptions);
 
-                if (!apiResponse.ok) {
-                    throw new Error(apiData.message || `Slip2Go rejected with status ${apiResponse.status}`);
-                }
+                    const responseText = await apiResponse.text();
+                    if (enableDebugLog) {
+                        console.log('Slip2Go Response:', responseText);
+                    }
 
-                // 4) หา slipRef จากผลลัพธ์ (ห้าม fallback สุ่ม เพื่อป้องกัน duplicate หลุดรอด)
-                const slipRef = (
-                    apiData?.refNo
-                    || apiData?.referenceNo
-                    || apiData?.result?.refNo
-                    || apiData?.result?.referenceNo
-                    || apiData?.data?.transRef
-                    || apiData?.data?.referenceId
-                    || apiData?.data?.qrCode
-                    || apiData?.qrCode
-                )?.toString()?.trim();
+                    let apiData: any;
+                    try {
+                        apiData = JSON.parse(responseText);
+                    } catch {
+                        throw new Error(`Non-JSON response from ${endpoint}: ${responseText}`);
+                    }
 
-                if (!slipRef) {
-                    throw new Error('ไม่พบรหัสอ้างอิงสลิปจากผู้ให้บริการ (slip_ref)');
-                }
+                    if (!apiResponse.ok) {
+                        throw new Error(apiData.message || `Slip2Go rejected with status ${apiResponse.status}`);
+                    }
 
-                let creditResult: any = null;
-                if (creditAmount > 0 && paymentAmount > 0) {
-                    const { data: addResult, error: creditError } = await supabase.rpc('add_credits_v3', {
-                        credit_amount: creditAmount,
-                        payment_amount: paymentAmount,
-                        slip_ref: slipRef,
-                    });
+                    // 4) หา slipRef จากผลลัพธ์ (ห้าม fallback สุ่ม เพื่อป้องกัน duplicate หลุดรอด)
+                    const slipRef = (
+                        apiData?.refNo
+                        || apiData?.referenceNo
+                        || apiData?.result?.refNo
+                        || apiData?.result?.referenceNo
+                        || apiData?.data?.transRef
+                        || apiData?.data?.referenceId
+                        || apiData?.data?.qrCode
+                        || apiData?.qrCode
+                    )?.toString()?.trim();
 
-                    if (creditError) {
-                        // Check for unique constraint violation (Duplicate slip_ref in payment_history)
-                        if (creditError.message.includes('duplicate key') || creditError.message.includes('unique constraint') || creditError.code === '23505') {
+                    if (!slipRef) {
+                        throw new Error('ไม่พบรหัสอ้างอิงสลิปจากผู้ให้บริการ (slip_ref)');
+                    }
 
-                            // Insert into slips to block this file hash in the future
+                    const slipAmountRaw = apiData?.data?.amount ?? apiData?.amount ?? apiData?.result?.amount;
+                    const slipAmount = typeof slipAmountRaw === 'string' || typeof slipAmountRaw === 'number'
+                        ? Number(slipAmountRaw)
+                        : null;
+
+                    if (slipAmount !== null && !Number.isNaN(slipAmount) && paymentAmount > 0) {
+                        const delta = Math.abs(slipAmount - paymentAmount);
+                        if (delta > 0.5) {
+                            return NextResponse.json({
+                                success: false,
+                                message: 'ยอดเงินในสลิปไม่ตรงกับคำขอ',
+                                code: 'AMOUNT_MISMATCH',
+                                slipRef,
+                            }, { status: 400 });
+                        }
+                    }
+
+                    let creditResult: any = null;
+                    if (creditAmount > 0 && paymentAmount > 0) {
+                        const { data: addResult, error: creditError } = await supabase.rpc('add_credits_v3', {
+                            credit_amount: creditAmount,
+                            payment_amount: paymentAmount,
+                            slip_ref: slipRef,
+                        });
+
+                        if (creditError) {
+                            // Check for unique constraint violation (Duplicate slip_ref in payment_history)
+                            if (creditError.message.includes('duplicate key') || creditError.message.includes('unique constraint') || creditError.code === '23505') {
+
+                                // Insert into slips to block this file hash in the future
+                                const duplicatePayload = {
+                                    trans_id: transId,
+                                    amount: paymentAmount || apiData?.data?.amount || apiData?.amount || null,
+                                    sender_name: senderName || apiData?.data?.sender?.account?.name || null,
+                                    slip_ref: slipRef,
+                                    file_hash: fileHash,
+                                    user_id: userId
+                                };
+                                await supabaseAdmin.from('slips').insert(duplicatePayload);
+
+                                return NextResponse.json({
+                                    success: false,
+                                    message: 'สลิปนี้ถูกใช้งานไปแล้ว (Duplicate)',
+                                    code: 'DUPLICATE_SLIP',
+                                    slipRef,
+                                }, { status: 400 });
+                            }
+
+                            throw new Error(`Add credits failed: ${creditError.message}`);
+                        }
+                        if (addResult && addResult.success === false) {
+                            // Insert into slips to block this file hash in the future (preventing re-verification)
                             const duplicatePayload = {
                                 trans_id: transId,
                                 amount: paymentAmount || apiData?.data?.amount || apiData?.amount || null,
                                 sender_name: senderName || apiData?.data?.sender?.account?.name || null,
                                 slip_ref: slipRef,
                                 file_hash: fileHash,
-                                user_id: (await supabase.auth.getUser()).data.user?.id
+                                user_id: userId // Ensure user_id is set
                             };
                             await supabaseAdmin.from('slips').insert(duplicatePayload);
 
                             return NextResponse.json({
                                 success: false,
-                                message: 'สลิปนี้ถูกใช้งานไปแล้ว (Duplicate)',
+                                message: addResult.message || 'สลิปนี้ถูกใช้งานไปแล้ว',
                                 code: 'DUPLICATE_SLIP',
                                 slipRef,
                             }, { status: 400 });
                         }
-
-                        throw new Error(`Add credits failed: ${creditError.message}`);
+                        creditResult = addResult;
                     }
-                    if (addResult && addResult.success === false) {
-                        // Insert into slips to block this file hash in the future (preventing re-verification)
-                        const duplicatePayload = {
-                            trans_id: transId,
-                            amount: paymentAmount || apiData?.data?.amount || apiData?.amount || null,
-                            sender_name: senderName || apiData?.data?.sender?.account?.name || null,
-                            slip_ref: slipRef,
-                            file_hash: fileHash,
-                            user_id: (await supabase.auth.getUser()).data.user?.id // Ensure user_id is set
-                        };
-                        await supabaseAdmin.from('slips').insert(duplicatePayload);
 
-                        return NextResponse.json({
-                            success: false,
-                            message: addResult.message || 'สลิปนี้ถูกใช้งานไปแล้ว',
-                            code: 'DUPLICATE_SLIP',
-                            slipRef,
-                        }, { status: 400 });
-                    }
-                    creditResult = addResult;
-                }
-
-                // 5) บันทึก trans_id ลง Supabase slips table (กันซ้ำครั้งต่อไป)
-                const insertPayload = {
-                    trans_id: transId,
-                    amount: paymentAmount || apiData?.data?.amount || apiData?.amount || null,
-                    sender_name: senderName || apiData?.data?.sender?.account?.name || null,
-                    slip_ref: slipRef,
-                    file_hash: fileHash,
-                    user_id: (await supabase.auth.getUser()).data.user?.id
-                };
-
-                const { error: insertError } = await supabaseAdmin.from('slips').insert(insertPayload);
-                if (insertError) {
-                    // Log but don't fail, as credit is already added
-                    console.error(`Insert slip failed: ${insertError.message}`);
-                }
-
-                // 6) Notify Admin via LINE
-                try {
-                    const lineConfig = {
-                        channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || '',
-                        channelSecret: process.env.CHANNEL_SECRET || '',
+                    // 5) บันทึก trans_id ลง Supabase slips table (กันซ้ำครั้งต่อไป)
+                    const insertPayload = {
+                        trans_id: transId,
+                        amount: paymentAmount || apiData?.data?.amount || apiData?.amount || null,
+                        sender_name: senderName || apiData?.data?.sender?.account?.name || null,
+                        slip_ref: slipRef,
+                        file_hash: fileHash,
+                        user_id: userId
                     };
-                    const lineClient = new Client(lineConfig);
-                    const ADMIN_LINE_ID = 'Ub8d2e90e5c8d8628bfa13b0f25326a48';
 
-                    await lineClient.pushMessage(ADMIN_LINE_ID, {
-                        type: 'text',
-                        text: `🔔 WEB TOPUP RECEIVED\n\n👤 Sender: ${insertPayload.sender_name || 'Unknown'}\n💰 Amount: ${paymentAmount}\n💎 Credits: ${creditAmount}\n🧾 Ref: ${slipRef}`
-                    });
-                    console.log('✅ Admin notification sent (API)');
-                } catch (notifyErr) {
-                    console.error('❌ Failed to notify admin (API):', notifyErr);
+                    const { error: insertError } = await supabaseAdmin.from('slips').insert(insertPayload);
+                    if (insertError) {
+                        // Log but don't fail, as credit is already added
+                        console.error(`Insert slip failed: ${insertError.message}`);
+                    }
+
+                    // 6) Notify Admin via LINE
+                    try {
+                        const lineConfig = {
+                            channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || '',
+                            channelSecret: process.env.CHANNEL_SECRET || '',
+                        };
+                        const lineClient = new Client(lineConfig);
+                        const adminLineId = process.env.ADMIN_LINE_ID;
+
+                        if (!lineConfig.channelAccessToken || !lineConfig.channelSecret || !adminLineId) {
+                            throw new Error('Missing LINE channel configuration');
+                        }
+
+                        await lineClient.pushMessage(adminLineId, {
+                            type: 'text',
+                            text: `🔔 WEB TOPUP RECEIVED\n\n👤 Sender: ${insertPayload.sender_name || 'Unknown'}\n💰 Amount: ${paymentAmount}\n💎 Credits: ${creditAmount}\n🧾 Ref: ${slipRef}`
+                        });
+                        console.log('✅ Admin notification sent (API)');
+                    } catch (notifyErr) {
+                        console.error('❌ Failed to notify admin (API):', notifyErr);
+                    }
+
+                    // สำเร็จ -> ตอบกลับ พร้อมผลการเพิ่มเครดิต (ถ้ามี)
+                    return NextResponse.json({ success: true, data: { apiData, creditResult, slipRef, tierId } });
+                } finally {
+                    clearTimeout(timeoutId);
                 }
-
-                // สำเร็จ -> ตอบกลับ พร้อมผลการเพิ่มเครดิต (ถ้ามี)
-                return NextResponse.json({ success: true, data: { apiData, creditResult, slipRef, tierId } });
             } catch (err: any) {
                 lastError = err;
                 console.error(`Slip2Go call failed for ${endpoint}:`, err);
@@ -273,10 +329,13 @@ export async function POST(request: Request) {
 
     } catch (error: any) {
         console.error('SERVER ERROR:', error);
-        return NextResponse.json({
+        const resp: any = {
             success: false,
-            message: error.message,
-            debug: error.stack,
-        }, { status: 500 });
+            message: 'Server error',
+        };
+        if (enableDebugLog) {
+            resp.debug = error?.message;
+        }
+        return NextResponse.json(resp, { status: 500 });
     }
 }

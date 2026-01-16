@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'วอลเปเปอร์มงคล - เสริมดวง เรียกทรัพย์',
         description: 'แจกฟรี! วอลเปเปอร์สายมู เสริมดวงรอบด้าน การเงิน ความรัก การงาน',
+        images: ['/api/og?variant=default&title=วอลเปเปอร์มงคล&subtitle=แจกฟรี%20ดีไซน์เสริมดวง%20การเงิน%20การงาน%20ความรัก&tag=Wallpapers'],
     },
 };
 

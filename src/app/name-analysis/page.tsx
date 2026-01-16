@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'วิเคราะห์ชื่อมงคล (Bulk Analysis) - ตรวจสอบรายชื่อจำนวนมาก',
         description: 'เช็คชื่อมงคลทีละหลายชื่อพร้อมกัน รู้ผลทันที พร้อมจัดลำดับเกรดความมงคล',
+        images: ['/api/og?variant=default&title=Bulk%20Name%20Analysis&subtitle=วิเคราะห์ชื่อหลายรายการพร้อมกัน%20จัดเกรดอัตโนมัติ&tag=Bulk%20Analysis'],
     },
 };
 

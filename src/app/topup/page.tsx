@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'เติมเครดิต - NameMongkol',
         description: 'เติมเครดิตง่ายๆ ผ่าน QR Code พร้อมเพย์ ใช้งานได้ทันที',
+        images: ['/api/og?variant=default&title=เติมเครดิต%20Top%20Up&subtitle=สแกน%20QR%20พร้อมเพย์%20รับเครดิตทันที&tag=Top-up'],
     },
 };
 
