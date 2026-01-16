@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   title: "NameMongkol | วิเคราะห์ชื่อมงคล ทำนายชื่อ-นามสกุล แม่นยำที่สุด",
   description: "NameMongkol (เนมมงคล) บริการวิเคราะห์ชื่อมงคล ดูผลรวมชื่อ-นามสกุล พลังเงา และความหมายตามหลักเลขศาสตร์และทักษาปกรณ์ ฟรี! เช็คชื่อของคุณวันนี้เพื่อความเป็นสิริมงคล",
   keywords: ["NameMongkol", "ชื่อมงคล", "วิเคราะห์ชื่อ", "ตั้งชื่อมงคล", "ดูดวงชื่อ", "เลขศาสตร์", "ตั้งชื่อลูก", "เปลี่ยนชื่อ", "ความหมายเลขศาสตร์", "ทักษาปกรณ์", "ตั้งชื่อมงคลวันเกิด"],
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://www.namemongkol.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com'),
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },

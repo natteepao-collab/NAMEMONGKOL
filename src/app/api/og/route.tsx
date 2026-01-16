@@ -71,6 +71,28 @@ export async function GET(req: Request) {
         </div>
       </div>
     );
+  } else if (variant === 'phone') {
+    content = (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <div style={{ ...pillStyle, background: 'rgba(251,191,36,0.18)', color: '#fde68a', borderColor: 'rgba(251,191,36,0.45)', fontSize: 20 }}>
+            วิเคราะห์เบอร์มงคล
+          </div>
+          <div style={{ ...pillStyle, background: 'rgba(16,185,129,0.16)', color: '#a7f3d0', borderColor: 'rgba(16,185,129,0.35)', fontSize: 20 }}>
+            AI Grading
+          </div>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ fontSize: 62, fontWeight: 800, color: '#f8fafc', lineHeight: 1.1 }}>วิเคราะห์เบอร์มงคล แม่นยำที่สุด!</div>
+          <div style={{ fontSize: 30, color: '#cbd5e1', maxWidth: 950 }}>เช็คเกรดเบอร์โทรศัพท์พร้อมกราฟวิเคราะห์เชิงลึก คู่เลข ผลรวม และคำแนะนำเสริม</div>
+        </div>
+        <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap', marginTop: 6 }}>
+          <div style={{ ...pillStyle, background: 'rgba(56,189,248,0.18)', color: '#bae6fd', borderColor: 'rgba(56,189,248,0.35)', fontSize: 20 }}>พร้อมเพย์ AI</div>
+          <div style={{ ...pillStyle, background: 'rgba(147,197,253,0.12)', color: '#bfdbfe', borderColor: 'rgba(147,197,253,0.3)', fontSize: 20 }}>กราฟเจาะลึก 360°</div>
+          <div style={{ ...pillStyle, background: 'rgba(248,113,113,0.16)', color: '#fecaca', borderColor: 'rgba(248,113,113,0.35)', fontSize: 20 }}>รองรับทุกเครือข่าย</div>
+        </div>
+      </div>
+    );
   } else if (variant === 'article') {
     content = (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
@@ -94,12 +116,26 @@ export async function GET(req: Request) {
     );
   } else {
     content = (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <div style={{ ...pillStyle, background: 'rgba(99,102,241,0.14)', color: '#c7d2fe', borderColor: 'rgba(99,102,241,0.35)', width: 'fit-content' }}>
-          บริการวิเคราะห์ชื่อมงคล
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 18, width: '100%' }}>
+        <div style={{ ...pillStyle, background: 'rgba(16,185,129,0.12)', color: '#bbf7d0', borderColor: 'rgba(16,185,129,0.35)', width: 'fit-content', fontSize: 18 }}>
+          AI-POWERED ANALYSIS
         </div>
-        <div style={{ fontSize: 60, fontWeight: 800, color: '#f8fafc', lineHeight: 1.1 }}>{title}</div>
-        <div style={{ fontSize: 30, color: '#cbd5e1', maxWidth: 950 }}>{subtitle}</div>
+        <div style={{ fontSize: 62, fontWeight: 800, color: '#f8fafc', lineHeight: 1.15, display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <span>วิเคราะห์ชื่อมงคล <span style={{ color: '#34d399' }}>พลิกชีวิต</span></span>
+        </div>
+        <div style={{ fontSize: 24, color: '#cbd5e1', maxWidth: 880, lineHeight: 1.4 }}>
+          เจาะลึก 4 ศาสตร์มงคล: โดย <span style={{ color: '#e2e8f0', fontWeight: 700 }}>NameMongkol</span> ครบจบในที่เดียว แม่นยำที่สุด
+        </div>
+        <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', marginTop: 6 }}>
+          <div style={{ width: 150, padding: '16px 14px', background: 'rgba(14,165,233,0.12)', border: '1px solid rgba(125,211,252,0.3)', borderRadius: 16, color: '#e0f2fe', textAlign: 'center', boxShadow: '0 10px 30px rgba(59,130,246,0.18)' }}>
+            <div style={{ fontSize: 28, fontWeight: 800, color: '#22c55e', lineHeight: 1 }}>99%</div>
+            <div style={{ fontSize: 14, color: '#cbd5e1', marginTop: 6 }}>แม่นยำ</div>
+          </div>
+          <div style={{ width: 150, padding: '16px 14px', background: 'rgba(234,179,8,0.12)', border: '1px solid rgba(253,224,71,0.28)', borderRadius: 16, color: '#fef9c3', textAlign: 'center', boxShadow: '0 10px 30px rgba(251,191,36,0.18)' }}>
+            <div style={{ fontSize: 28, fontWeight: 800, color: '#fbbf24', lineHeight: 1 }}>AI</div>
+            <div style={{ fontSize: 14, color: '#fef9c3', marginTop: 6 }}>รวดเร็ว</div>
+          </div>
+        </div>
       </div>
     );
   }
