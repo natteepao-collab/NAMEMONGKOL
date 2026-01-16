@@ -1,11 +1,13 @@
 import { calculateScore, analyzePairs } from './numerologyUtils';
 import { thaksaConfig, DayKey } from '../data/thaksa';
+import { predictGender, Gender } from './genderPrediction';
 
 export interface PremiumNameData {
     name: string;
     totalScore: number;
     suitableDays: string[];
     scoreBreakdown: string[];
+    gender: Gender;
 }
 
 const SHORT_DAY_NAMES: Record<DayKey, string> = {
@@ -61,11 +63,15 @@ export const parsePremiumNames = (rawData: string): PremiumNameData[] => {
         // Format: "16🟢"
         const scoreBreakdown = pairData.map(p => `${p.pair}🟢`);
 
+        // 4. Predict Gender
+        const gender = predictGender(name);
+
         results.push({
             name,
             totalScore,
             suitableDays,
-            scoreBreakdown
+            scoreBreakdown,
+            gender
         });
     }
 

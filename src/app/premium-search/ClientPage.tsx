@@ -146,6 +146,7 @@ export default function PremiumSearchPage() {
     // Inputs
     // const [searchTerm, setSearchTerm] = useState(''); // Removed
     const [selectedDay, setSelectedDay] = useState('All');
+    const [selectedGender, setSelectedGender] = useState('all');
     const [targetScore, setTargetScore] = useState('');
     const [leadingCharType, setLeadingCharType] = useState<LeadingCharType>('Any');
 
@@ -262,7 +263,15 @@ export default function PremiumSearchPage() {
                 // 1. Filter by Score (if selected)
                 const matchesScore = !targetScore || item.totalScore.toString() === targetScore;
 
-                // 2. Filter by Day (if selected)
+                // 2. Filter by Gender (if selected)
+                let matchesGender = true;
+                if (selectedGender !== 'all') {
+                    if (selectedGender === 'male' && item.gender !== 'male' && item.gender !== 'neutral') matchesGender = false;
+                    if (selectedGender === 'female' && item.gender !== 'female' && item.gender !== 'neutral') matchesGender = false;
+                    if (selectedGender === 'neutral' && item.gender !== 'neutral') matchesGender = false;
+                }
+
+                // 3. Filter by Day (if selected)
                 const matchesDay = selectedDay === 'All' || item.suitableDays.includes(selectedDay);
 
                 // 3. Filter by Leading Character (if Day is selected and Filter is active)
@@ -281,7 +290,7 @@ export default function PremiumSearchPage() {
                     }
                 }
 
-                return matchesScore && matchesDay && matchesLeadingChar;
+                return matchesScore && matchesGender && matchesDay && matchesLeadingChar;
             });
 
             // Shuffle and Limit to 30
@@ -351,6 +360,7 @@ export default function PremiumSearchPage() {
         // setSearchTerm(''); // Gone
         setLeadingCharType('Any');
         setSelectedDay('All');
+        setSelectedGender('all');
         setTargetScore('');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -400,7 +410,7 @@ export default function PremiumSearchPage() {
                         {/* inputs */}
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 relative z-10">
                             {/* Filters */}
-                            <div className="md:col-span-6">
+                            <div className="md:col-span-4">
                                 <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">วันเกิดที่เหมาะสม</label>
                                 <div className="relative">
                                     <select
@@ -427,9 +437,29 @@ export default function PremiumSearchPage() {
                                 </div>
                             </div>
 
-                            <div className="md:col-span-6">
+                            <div className="md:col-span-4">
                                 <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">ผลรวมเลขศาสตร์</label>
                                 <ScoreDropdown value={targetScore} onChange={setTargetScore} scores={uniqueScores} disabled={isLoading} />
+                            </div>
+
+                            <div className="md:col-span-4">
+                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">เพศ</label>
+                                <div className="relative">
+                                    <select
+                                        value={selectedGender}
+                                        onChange={(e) => setSelectedGender(e.target.value)}
+                                        className="block w-full px-4 py-4 bg-black/40 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:border-emerald-500/50 backdrop-blur-xl transition-all appearance-none cursor-pointer font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                        disabled={isLoading}
+                                    >
+                                        <option value="all" className="bg-[#0f172a]">ทั้งหมด</option>
+                                        <option value="male" className="bg-[#0f172a]">ชาย</option>
+                                        <option value="female" className="bg-[#0f172a]">หญิง</option>
+                                        <option value="neutral" className="bg-[#0f172a]">ไม่ระบุ</option>
+                                    </select>
+                                    <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
+                                        <ChevronDown className="h-4 w-4" />
+                                    </div>
+                                </div>
                             </div>
 
                             {/* Leading Character Filter (Replaces Search) */}

@@ -40,7 +40,19 @@ function NameRow({ name }: { name: string }) {
                     ) : suitability.suitable.length === 8 ? (
                         <span className="text-emerald-400 font-medium">ใช้ได้ทุกวัน</span>
                     ) : suitability.suitable.length > 0 ? (
-                        <span className="text-slate-400">ใช้ได้หลายวัน</span>
+                        <span className="text-slate-400 text-sm">
+                            {suitability.suitable.map(d => {
+                                if (d.includes('อาทิตย์')) return 'อา.';
+                                if (d.includes('จันทร์')) return 'จ.';
+                                if (d.includes('อังคาร')) return 'อ.';
+                                if (d.includes('พุธ (กลางวัน)')) return 'พ.(วัน)';
+                                if (d.includes('พุธ (กลางคืน')) return 'พ.(คืน)';
+                                if (d.includes('พฤหัส')) return 'พฤ.';
+                                if (d.includes('ศุกร์')) return 'ศ.';
+                                if (d.includes('เสาร์')) return 'ส.';
+                                return d;
+                            }).join(', ')}
+                        </span>
                     ) : (
                         '-'
                     )}
@@ -107,6 +119,7 @@ const ITEMS_PER_PAGE = 60;
 export default function SearchPage() {
     const router = useRouter();
     const [selectedDay, setSelectedDay] = useState<DayKey | 'all'>('all');
+    const [selectedGender, setSelectedGender] = useState<'all' | 'male' | 'female' | 'neutral'>('all'); // NEW
     const [targetSum, setTargetSum] = useState('');
     const [isSumFocused, setIsSumFocused] = useState(false);
     const [hasTyped, setHasTyped] = useState(false);
@@ -115,7 +128,7 @@ export default function SearchPage() {
     const [visibleCount, setVisibleCount] = useState(10);
     const [userCredits, setUserCredits] = useState<number | null>(null);
 
-    const [names, setNames] = useState<string[]>([]);
+    const [names, setNames] = useState<{ name: string; gender: string }[]>([]); // Update type
     const [loading, setLoading] = useState(true);
 
     // Fetch credits
@@ -136,11 +149,11 @@ export default function SearchPage() {
             setLoading(true);
             const { data, error } = await supabase
                 .from('auspicious_names')
-                .select('name')
+                .select('name, gender') // Select gender
                 .order('name', { ascending: true });
 
             if (data) {
-                setNames(data.map(d => d.name));
+                setNames(data.map(d => ({ name: d.name, gender: d.gender || 'neutral' })));
             } else if (error) {
                 console.error('Error fetching names:', error);
             }
@@ -152,15 +165,22 @@ export default function SearchPage() {
     // Calculate unique scores for datalist
     const uniqueScores = useMemo(() => {
         if (loading) return [];
-        const scores = new Set(names.map(name => calculateScore(name)));
+        const scores = new Set(names.map(item => calculateScore(item.name)));
         return Array.from(scores).sort((a, b) => a - b);
     }, [names, loading]);
 
     // Filter Logic
     const filteredNames = useMemo(() => {
         if (loading) return [];
-        return names.filter((name) => {
+        return names.filter((item) => {
+            const { name, gender } = item;
 
+            // 1. Gender Filter
+            if (selectedGender !== 'all') {
+                if (selectedGender === 'male' && gender !== 'male' && gender !== 'neutral') return false;
+                if (selectedGender === 'female' && gender !== 'female' && gender !== 'neutral') return false;
+                if (selectedGender === 'neutral' && gender !== 'neutral') return false;
+            }
 
             // 2. Day Filter (Suitability)
             if (selectedDay !== 'all') {
@@ -176,8 +196,8 @@ export default function SearchPage() {
             }
 
             return true;
-        });
-    }, [selectedDay, targetSum, names, loading]);
+        }).map(item => item.name); // Return just names for display
+    }, [selectedDay, selectedGender, targetSum, names, loading]);
 
     // Reset to page 1 when filters change is now handled in event handlers
 
@@ -298,7 +318,7 @@ export default function SearchPage() {
 
 
                     {/* Filters */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {/* Day Filter */}
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -315,6 +335,29 @@ export default function SearchPage() {
                                         {thaksaConfig[key as DayKey].name}
                                     </option>
                                 ))}
+                            </select>
+                            <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                <ChevronDown className="h-4 w-4 text-slate-400" />
+                            </div>
+                        </div>
+
+                        {/* Gender Filter */}
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <span className="text-slate-400 text-sm">เพศ</span>
+                            </div>
+                            <select
+                                value={selectedGender}
+                                onChange={(e) => {
+                                    setSelectedGender(e.target.value as any);
+                                    setVisibleCount(10);
+                                }}
+                                className="block w-full pl-12 pr-4 py-3 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all appearance-none cursor-pointer"
+                            >
+                                <option value="all" className="bg-[#1e293b]">ทั้งหมด</option>
+                                <option value="male" className="bg-[#1e293b]">ชาย</option>
+                                <option value="female" className="bg-[#1e293b]">หญิง</option>
+                                <option value="neutral" className="bg-[#1e293b]">ไม่ระบุ</option>
                             </select>
                             <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                                 <ChevronDown className="h-4 w-4 text-slate-400" />
