@@ -8,8 +8,14 @@ export async function GET(request: Request) {
         const name = searchParams.get('name');
         const surname = searchParams.get('surname');
         const totalScore = searchParams.get('score');
+        const title = searchParams.get('title');
 
         const hasData = name && surname;
+
+        // Fonts
+        const notoSansThaiSemiBold = await fetch(
+            new URL('https://github.com/google/fonts/raw/main/ofl/notosansthai/NotoSansThai-SemiBold.ttf', import.meta.url)
+        ).then((res) => res.arrayBuffer());
 
         return new ImageResponse(
             (
@@ -25,16 +31,17 @@ export async function GET(request: Request) {
                         backgroundImage: 'radial-gradient(circle at 25px 25px, #333 2%, transparent 0%), radial-gradient(circle at 75px 75px, #333 2%, transparent 0%)',
                         backgroundSize: '100px 100px',
                         color: 'white',
+                        fontFamily: '"Noto Sans Thai"',
                     }}
                 >
                     <div
                         style={{
                             display: 'flex',
-                            flexDirection: 'row',
+                            flexDirection: 'column', // Changed to column for flexibility
                             alignItems: 'center',
-                            justifyContent: 'space-between',
+                            justifyContent: 'center', // Centered content
                             width: '90%',
-                            height: '60%',
+                            height: '80%', // Taller card
                             backgroundColor: 'rgba(30, 41, 59, 0.6)', // slate-800/60
                             borderRadius: '32px',
                             border: '2px solid rgba(255, 255, 255, 0.1)',
@@ -50,8 +57,44 @@ export async function GET(request: Request) {
                         {/* Blur Orb */}
                         <div style={{ position: 'absolute', right: '-40px', top: '-40px', width: '200px', height: '200px', borderRadius: '50%', background: 'rgba(245, 158, 11, 0.15)', filter: 'blur(40px)' }} />
 
-                        {hasData ? (
-                            <>
+                        {title ? (
+                            // --- Article Mode ---
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', width: '100%' }}>
+                                <div style={{
+                                    fontSize: 18,
+                                    color: '#fbbf24',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '2px',
+                                    marginBottom: 20,
+                                    fontWeight: 'bold',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '10px'
+                                }}>
+                                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#fbbf24' }} />
+                                    NAMEMONGKOL ARTICLE
+                                </div>
+
+                                <div style={{
+                                    fontSize: 60,
+                                    fontWeight: 'bold',
+                                    lineHeight: 1.2,
+                                    marginBottom: 30,
+                                    color: 'white',
+                                    textShadow: '0 4px 10px rgba(0,0,0,0.5)',
+                                    maxWidth: '90%',
+                                }}>
+                                    {title}
+                                </div>
+
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '20px' }}>
+                                    <div style={{ fontSize: 24, color: '#94a3b8' }}>อ่านเพิ่มเติมที่</div>
+                                    <div style={{ fontSize: 24, color: '#34d399', fontWeight: 'bold' }}>namemongkol.com</div>
+                                </div>
+                            </div>
+                        ) : hasData ? (
+                            // --- Name Analysis Mode ---
+                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', flex: 1 }}>
                                     <div style={{
                                         fontSize: 18,
@@ -100,8 +143,9 @@ export async function GET(request: Request) {
                                         <span style={{ fontSize: 16, color: '#64748b', textTransform: 'uppercase', marginTop: 5, fontWeight: 'bold' }}>Speed</span>
                                     </div>
                                 </div>
-                            </>
+                            </div>
                         ) : (
+                            // --- Default Home Mode ---
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
                                 {/* Label Pill */}
                                 <div style={{
@@ -162,6 +206,14 @@ export async function GET(request: Request) {
             {
                 width: 1200,
                 height: 630,
+                fonts: [
+                    {
+                        name: 'Noto Sans Thai',
+                        data: notoSansThaiSemiBold,
+                        style: 'normal',
+                        weight: 600,
+                    }
+                ],
             },
         );
     } catch (e: any) { // eslint-disable-line @typescript-eslint/no-explicit-any

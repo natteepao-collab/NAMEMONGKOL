@@ -147,7 +147,7 @@ export const articles: Article[] = [
                 <p class="text-xs text-pink-300/60 mt-4 relative z-10">ปลดล็อคพลังเสน่ห์ด้วยดีไซน์เฉพาะคุณ</p>
             </div>
         `,
-        coverImage: '/images/articles/love-obstacle-numbers.png',
+        coverImage: '',
         date: '2026-01-14',
         author: 'อ.ณัฐ นามมงคล',
         category: 'ความรักและเสน่ห์',
