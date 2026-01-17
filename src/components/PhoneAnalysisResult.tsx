@@ -20,9 +20,10 @@ const LineIcon = ({ size = 24, className = "" }: { size?: number, className?: st
 
 interface PhoneAnalysisResultProps {
     result: IPhoneAnalysisResult;
+    onReset?: () => void;
 }
 
-export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result }) => {
+export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result, onReset }) => {
     const [isCopied, setIsCopied] = useState(false);
 
     // Split pairs into Good/Neutral vs Bad
@@ -457,7 +458,10 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
             {/* Back Button */}
             <div className="flex justify-center pt-4">
                 <button
-                    onClick={() => window.location.href = '/phone-analysis'}
+                    onClick={() => {
+                        if (onReset) onReset();
+                        else window.location.href = '/phone-analysis';
+                    }}
                     className="flex items-center gap-2 px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-medium text-sm transition-all border border-slate-700 hover:border-slate-500"
                 >
                     <Search size={16} />

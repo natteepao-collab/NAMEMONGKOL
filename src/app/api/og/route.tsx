@@ -73,23 +73,63 @@ export async function GET(req: Request) {
     );
   } else if (variant === 'phone') {
     content = (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-          <div style={{ ...pillStyle, background: 'rgba(251,191,36,0.18)', color: '#fde68a', borderColor: 'rgba(251,191,36,0.45)', fontSize: 20 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', width: '100%', gap: 0 }}>
+        {/* Title */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 12 }}>
+          <span style={{ fontSize: 72, fontWeight: 800, color: '#f8fafc', lineHeight: 1 }}>
             วิเคราะห์เบอร์มงคล
-          </div>
-          <div style={{ ...pillStyle, background: 'rgba(16,185,129,0.16)', color: '#a7f3d0', borderColor: 'rgba(16,185,129,0.35)', fontSize: 20 }}>
-            AI Grading
-          </div>
+          </span>
+          <span style={{ fontSize: 72, fontWeight: 800, color: '#fbbf24', lineHeight: 1 }}>
+            แม่นยำที่สุด!
+          </span>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div style={{ fontSize: 62, fontWeight: 800, color: '#f8fafc', lineHeight: 1.1 }}>วิเคราะห์เบอร์มงคล แม่นยำที่สุด!</div>
-          <div style={{ fontSize: 30, color: '#cbd5e1', maxWidth: 950 }}>เช็คเกรดเบอร์โทรศัพท์พร้อมกราฟวิเคราะห์เชิงลึก คู่เลข ผลรวม และคำแนะนำเสริม</div>
+
+        {/* Subtitle */}
+        <div style={{ fontSize: 46, fontWeight: 700, color: '#f1f5f9', marginBottom: 24 }}>
+          เช็คเกรดเบอร์โทรศัพท์ พร้อมกราฟเจาะลึกรอบด้าน
         </div>
-        <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap', marginTop: 6 }}>
-          <div style={{ ...pillStyle, background: 'rgba(56,189,248,0.18)', color: '#bae6fd', borderColor: 'rgba(56,189,248,0.35)', fontSize: 20 }}>พร้อมเพย์ AI</div>
-          <div style={{ ...pillStyle, background: 'rgba(147,197,253,0.12)', color: '#bfdbfe', borderColor: 'rgba(147,197,253,0.3)', fontSize: 20 }}>กราฟเจาะลึก 360°</div>
-          <div style={{ ...pillStyle, background: 'rgba(248,113,113,0.16)', color: '#fecaca', borderColor: 'rgba(248,113,113,0.35)', fontSize: 20 }}>รองรับทุกเครือข่าย</div>
+
+        {/* Description */}
+        <div style={{ fontSize: 26, color: '#94a3b8', maxWidth: 880, lineHeight: 1.6, display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 48 }}>
+          <span>เช็คเบอร์มงคลฟรี ด้วยระบบ AI อัจฉริยะ วิเคราะห์ลึกถึงคู่เลข ผลรวม และกราฟ</span>
+          <span>ชีวิต รู้ทันทีว่าเบอร์ดีหรือร้าย พร้อมวิธีแก้เคล็ดที่ <span style={{ color: '#cbd5e1' }}>Namemongkol</span></span>
+        </div>
+
+        {/* Mock Search Bar */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: 860,
+          height: 100,
+          background: 'rgba(30, 41, 59, 0.4)',
+          border: '1px solid rgba(71, 85, 105, 0.4)',
+          borderRadius: 24,
+          padding: '8px 8px 8px 32px',
+        }}>
+          <span style={{ fontSize: 28, color: '#64748b', letterSpacing: '0.02em' }}>
+            ใส่เบอร์ทั้ง 10 หลัก (เช่น 0812345678)
+          </span>
+
+          {/* Button */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: '#334155',
+            padding: '0 32px',
+            height: '100%',
+            borderRadius: 18,
+            gap: 12,
+            border: '1px solid rgba(255,255,255,0.05)'
+          }}>
+            {/* Search Icon */}
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span style={{ fontSize: 26, fontWeight: 600, color: 'white' }}>ทำนายเบอร์</span>
+          </div>
         </div>
       </div>
     );
@@ -116,24 +156,70 @@ export async function GET(req: Request) {
     );
   } else {
     content = (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 18, width: '100%' }}>
-        <div style={{ ...pillStyle, background: 'rgba(16,185,129,0.12)', color: '#bbf7d0', borderColor: 'rgba(16,185,129,0.35)', width: 'fit-content', fontSize: 18 }}>
-          AI-POWERED ANALYSIS
-        </div>
-        <div style={{ fontSize: 62, fontWeight: 800, color: '#f8fafc', lineHeight: 1.15, display: 'flex', flexDirection: 'column', gap: 6 }}>
-          <span>วิเคราะห์ชื่อมงคล <span style={{ color: '#34d399' }}>พลิกชีวิต</span></span>
-        </div>
-        <div style={{ fontSize: 24, color: '#cbd5e1', maxWidth: 880, lineHeight: 1.4 }}>
-          เจาะลึก 4 ศาสตร์มงคล: โดย <span style={{ color: '#e2e8f0', fontWeight: 700 }}>NameMongkol</span> ครบจบในที่เดียว แม่นยำที่สุด
-        </div>
-        <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', marginTop: 6 }}>
-          <div style={{ width: 150, padding: '16px 14px', background: 'rgba(14,165,233,0.12)', border: '1px solid rgba(125,211,252,0.3)', borderRadius: 16, color: '#e0f2fe', textAlign: 'center', boxShadow: '0 10px 30px rgba(59,130,246,0.18)' }}>
-            <div style={{ fontSize: 28, fontWeight: 800, color: '#22c55e', lineHeight: 1 }}>99%</div>
-            <div style={{ fontSize: 14, color: '#cbd5e1', marginTop: 6 }}>แม่นยำ</div>
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', paddingRight: 20 }}>
+        {/* Left Side */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 24, flex: 1 }}>
+          <div style={{ ...pillStyle, background: 'rgba(16,185,129,0.08)', color: '#34d399', borderColor: 'rgba(16,185,129,0.2)', width: 'fit-content', fontSize: 16, fontWeight: 700, padding: '8px 16px', letterSpacing: '0.05em' }}>
+            <span style={{ marginRight: 8 }}>●</span> AI-POWERED ANALYSIS
           </div>
-          <div style={{ width: 150, padding: '16px 14px', background: 'rgba(234,179,8,0.12)', border: '1px solid rgba(253,224,71,0.28)', borderRadius: 16, color: '#fef9c3', textAlign: 'center', boxShadow: '0 10px 30px rgba(251,191,36,0.18)' }}>
-            <div style={{ fontSize: 28, fontWeight: 800, color: '#fbbf24', lineHeight: 1 }}>AI</div>
-            <div style={{ fontSize: 14, color: '#fef9c3', marginTop: 6 }}>รวดเร็ว</div>
+          <div style={{ fontSize: 72, fontWeight: 800, color: '#f8fafc', lineHeight: 1.1, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex' }}>
+              วิเคราะห์
+              <span style={{ color: '#34d399' }}>ชื่อมงคล</span>
+            </div>
+            <div style={{ color: '#fbbf24' }}>พลิกชีวิต</div>
+          </div>
+          <div style={{ fontSize: 26, color: '#94a3b8', lineHeight: 1.5, maxWidth: 640 }}>
+            เจาะลึก 4 ศาสตร์มงคล: โดย <span style={{ color: '#f8fafc', fontWeight: 600 }}>NameMongkol</span> ครบจบในที่เดียว แม่นยำที่สุด
+          </div>
+        </div>
+
+        {/* Right Side Cards */}
+        <div style={{ display: 'flex', gap: 24, marginTop: 20 }}>
+          {/* Card 1: 99% */}
+          <div style={{
+            width: 190, height: 190,
+            background: 'linear-gradient(180deg, rgba(30,41,59,0.4) 0%, rgba(15,23,42,0.6) 100%)',
+            border: '1px solid rgba(51,65,85,0.4)',
+            borderRadius: 28,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.15)'
+          }}>
+            <div style={{ marginBottom: 16 }}>
+              {/* Target Icon */}
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="6" />
+                <circle cx="12" cy="12" r="2" />
+              </svg>
+            </div>
+            <div style={{ fontSize: 42, fontWeight: 800, color: '#f8fafc', lineHeight: 1 }}>99%</div>
+            <div style={{ fontSize: 18, color: '#94a3b8', marginTop: 4 }}>แม่นยำ</div>
+          </div>
+
+          {/* Card 2: AI */}
+          <div style={{
+            width: 190, height: 190,
+            background: 'linear-gradient(180deg, rgba(30,41,59,0.4) 0%, rgba(15,23,42,0.6) 100%)',
+            border: '1px solid rgba(51,65,85,0.4)',
+            borderRadius: 28,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.15)'
+          }}>
+            <div style={{ marginBottom: 16 }}>
+              {/* Lightning Icon */}
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+            </div>
+            <div style={{ fontSize: 42, fontWeight: 800, color: '#f8fafc', lineHeight: 1 }}>AI</div>
+            <div style={{ fontSize: 18, color: '#94a3b8', marginTop: 4 }}>รวดเร็ว</div>
           </div>
         </div>
       </div>

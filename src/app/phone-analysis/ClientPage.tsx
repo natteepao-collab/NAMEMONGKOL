@@ -188,13 +188,16 @@ function ClientPageContent() {
                     </div>
                 ) : (
                     <div className="w-full flex flex-col items-center gap-8 relative z-10">
-                        <PhoneAnalysisResult result={result} />
+                        <PhoneAnalysisResult
+                            result={result}
+                            onReset={() => {
+                                window.location.href = '/phone-analysis';
+                            }}
+                        />
 
                         <button
                             onClick={() => {
-                                setResult(null);
-                                setPhoneNumber('');
-                                router.replace('/phone-analysis');
+                                window.location.href = '/phone-analysis';
                             }}
                             className="text-slate-400 hover:text-white transition-colors underline underline-offset-4"
                         >
