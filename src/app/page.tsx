@@ -14,6 +14,7 @@ export async function generateMetadata(
   const searchParams = await props.searchParams;
   const name = searchParams.name as string | undefined;
   const surname = searchParams.surname as string | undefined;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 
   if (!name) {
     return {
@@ -22,7 +23,7 @@ export async function generateMetadata(
       openGraph: {
         title: 'NameMongkol - วิเคราะห์ชื่อมงคล อันดับ 1',
         description: 'บริการวิเคราะห์ชื่อมงคลฟรี โดย NameMongkol เช็คพลังเงา ผลรวมเลขศาสตร์ และความหมายของชื่อคุณ',
-        images: ['/api/og?variant=default&title=NameMongkol%20-%20วิเคราะห์ชื่อมงคล&subtitle=เช็คพลังเงา%20ผลรวมเลขศาสตร์%20และความหมายชื่อของคุณ'],
+        images: [`${siteUrl}/api/og?variant=default&title=NameMongkol%20-%20วิเคราะห์ชื่อมงคล&subtitle=เช็คพลังเงา%20ผลรวมเลขศาสตร์%20และความหมายชื่อของคุณ`],
       }
     }
   }
@@ -41,7 +42,7 @@ export async function generateMetadata(
     openGraph: {
       title: title,
       description: description,
-      images: [`/api/og?variant=analysis&name=${encodeURIComponent(cleanName)}&surname=${encodeURIComponent(cleanSurname)}&score=${totalScore}&subtitle=${encodeURIComponent(description)}`],
+      images: [`${siteUrl}/api/og?variant=analysis&name=${encodeURIComponent(cleanName)}&surname=${encodeURIComponent(cleanSurname)}&score=${totalScore}&subtitle=${encodeURIComponent(description)}`],
       url: `/?name=${encodeURIComponent(cleanName)}&surname=${encodeURIComponent(cleanSurname)}&day=${searchParams.day || 'sunday'}`,
       type: 'website',
     }

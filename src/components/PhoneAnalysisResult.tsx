@@ -170,60 +170,46 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
         );
     };
 
-    const HeroShareBanner = () => {
+    const SimpleGradeCard = () => {
+        const getGradeColor = (g: string) => {
+            if (g === 'A') return 'text-emerald-500';
+            if (g === 'B') return 'text-emerald-500';
+            if (g === 'C') return 'text-slate-400';
+            if (g === 'D') return 'text-slate-500';
+            return 'text-rose-500';
+        };
+
         return (
-            <div className="relative w-full overflow-hidden rounded-2xl bg-[#0f172a] border border-slate-700/50 shadow-2xl group select-none">
-                {/* Background Glows */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-[80px]" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-[80px]" />
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 text-center">
+                <h1 className="text-5xl sm:text-6xl font-bold text-rose-600 tracking-tight font-mono mb-6">
+                    {result.phoneNumber}
+                </h1>
 
-                <div className="relative z-10 flex flex-col md:flex-row items-center p-6 sm:p-8 gap-6 md:gap-8">
-                    {/* Left: Branding & Grade */}
-                    <div className="flex-1 text-center md:text-left space-y-2">
-                        <div className="inline-flex items-center gap-2 mb-2">
-                            <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20">
-                                <span className="text-lg">🔮</span>
-                            </div>
-                            <span className="text-slate-400 text-xs font-bold tracking-widest uppercase">NameMongkol Analysis</span>
+                <div className="flex flex-col items-center justify-center gap-2 mb-8">
+                    <div className="relative">
+                        {/* Sim Card Icon Style */}
+                        <div className="w-16 h-16 bg-rose-600 rounded-full flex items-center justify-center p-3 shadow-lg relative z-10">
+                            <div className="w-full h-full bg-white/20 rounded-md border-2 border-dashed border-white/50 backdrop-blur-sm" />
                         </div>
-                        <h3 className="text-3xl sm:text-4xl font-black text-white tracking-tight drop-shadow-sm font-mono">
-                            {result.phoneNumber}
-                        </h3>
-                        <div className="h-1 w-20 bg-gradient-to-r from-amber-500 to-amber-300 rounded-full mx-auto md:mx-0" />
-                        <p className="text-slate-400 text-sm font-medium leading-relaxed max-w-md pt-2">
-                            {result.prediction}
-                        </p>
+                        {/* Starburst behind */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-rose-200 rounded-full animate-pulse z-0" />
                     </div>
 
-                    {/* Right: Big Grade Circle */}
-                    <div className="shrink-0 relative">
-                        <div className={`absolute inset-0 blur-2xl opacity-40 rounded-full ${result.grade.startsWith('A') ? 'bg-emerald-500' : result.grade.startsWith('B') ? 'bg-blue-500' : 'bg-amber-500'}`} />
-                        <div className={`
-                            w-28 h-28 rounded-full flex flex-col items-center justify-center border-4 border-[#0f172a] shadow-2xl relative z-10
-                            ${result.grade.startsWith('A')
-                                ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white'
-                                : result.grade.startsWith('B')
-                                    ? 'bg-gradient-to-br from-blue-400 to-blue-600 text-white'
-                                    : 'bg-gradient-to-br from-amber-400 to-amber-600 text-white'}
-                        `}>
-                            <span className="text-5xl font-black tracking-tighter drop-shadow-md leading-none mt-1">{result.grade}</span>
-                            <span className="text-[10px] font-bold uppercase tracking-wide opacity-90 mt-1">Grade</span>
-                        </div>
-                    </div>
+                    <h2 className={`text-3xl font-bold ${getGradeColor(result.grade)} mt-2`}>
+                        เบอร์เกรด {result.grade}
+                    </h2>
                 </div>
 
-                {/* Bottom Strip */}
-                <div className="flex items-center justify-between px-6 py-3 bg-slate-900/50 border-t border-slate-800 backdrop-blur-sm">
-                    <span className="text-[10px] text-slate-500 font-mono">NAMEMONGKOL.COM</span>
-                    <div className="flex gap-1.5">
-                        {[...Array(5)].map((_, i) => (
-                            <div key={i} className={`w-1 h-1 rounded-full ${i < 4 ? 'bg-emerald-500' : 'bg-slate-700'}`} />
-                        ))}
-                    </div>
+                <div className="space-y-1 text-sm font-medium text-slate-600 max-w-xs mx-auto">
+                    <div className={`${result.grade === 'A' ? 'text-emerald-600 font-bold scale-105' : ''}`}>เบอร์เกรด A = เบอร์ดีมากๆ</div>
+                    <div className={`${result.grade === 'B' ? 'text-emerald-600 font-bold scale-105' : ''}`}>เบอร์เกรด B = เบอร์ดี</div>
+                    <div className={`${result.grade === 'C' ? 'text-slate-600 font-bold scale-105' : ''}`}>เบอร์เกรด C = เบอร์ทั่วไป</div>
+                    <div className={`${result.grade === 'D' ? 'text-slate-600 font-bold scale-105' : ''}`}>เบอร์เกรด D = เบอร์ค่อนข้างเหนื่อย</div>
+                    <div className={`${result.grade === 'F' ? 'text-rose-600 font-bold scale-105' : 'text-rose-500'}`}>เบอร์เกรด F = เบอร์เหนื่อยเปล่า</div>
                 </div>
             </div>
-        )
-    }
+        );
+    };
 
     return (
         <div className="w-full max-w-4xl animate-fade-in space-y-4 pb-8">
@@ -372,9 +358,33 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                                         }`}>
                                         {pair.title}
                                     </h4>
-                                    <p className="text-slate-300 text-xs leading-5 font-normal mb-3 line-clamp-3">
-                                        {pair.description}
-                                    </p>
+                                    <div className="text-slate-300 text-xs leading-5 font-normal mb-3 whitespace-pre-line">
+                                        {pair.description.split(/(⚠️ ระวัง:|✅ จุดเด่น:)/g).map((part, partIdx, arr) => {
+                                            if (part === '⚠️ ระวัง:' || part === '✅ จุดเด่น:') return null;
+
+                                            const prevPart = arr[partIdx - 1];
+                                            if (prevPart === '⚠️ ระวัง:') {
+                                                return (
+                                                    <div key={partIdx} className="mt-2 p-2 rounded-lg bg-rose-950/30 border border-rose-500/20 text-rose-200 text-[11px] shadow-sm">
+                                                        <span className="font-bold text-rose-400 block mb-1">⚠️ ระวัง:</span>
+                                                        {part.trim()}
+                                                    </div>
+                                                );
+                                            }
+                                            if (prevPart === '✅ จุดเด่น:') {
+                                                return (
+                                                    <div key={partIdx} className="mt-2 p-2 rounded-lg bg-emerald-950/30 border border-emerald-500/20 text-emerald-200 text-[11px] shadow-sm">
+                                                        <span className="font-bold text-emerald-400 block mb-1">✅ จุดเด่น:</span>
+                                                        {part.trim()}
+                                                    </div>
+                                                );
+                                            }
+                                            if (part.trim().length > 0) {
+                                                return <span key={partIdx}>{part}</span>;
+                                            }
+                                            return null;
+                                        })}
+                                    </div>
                                     <div className="flex flex-wrap gap-1.5 mt-auto">
                                         {pair.tags?.slice(0, 3).map((tag, t) => (
                                             <span key={t} className="text-[10px] px-2 py-0.5 rounded bg-black/20 border border-white/5 text-slate-500 transition-colors group-hover:border-white/10 group-hover:text-slate-400">
@@ -396,7 +406,7 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                     <h3 className="text-lg font-bold text-white">แชร์ผลวิเคราะห์ของคุณ</h3>
                 </div>
 
-                <HeroShareBanner />
+                <SimpleGradeCard />
 
                 <div className="bg-[#1e293b] rounded-xl p-4 border border-slate-700/50 flex flex-col md:flex-row gap-4 items-center">
                     {/* URL Input */}

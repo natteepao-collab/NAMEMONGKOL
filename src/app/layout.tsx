@@ -20,11 +20,13 @@ const geistMono = Geist_Mono({
   display: 'swap',
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
+
 export const metadata: Metadata = {
   title: "NameMongkol | วิเคราะห์ชื่อมงคล ทำนายชื่อ-นามสกุล แม่นยำที่สุด",
   description: "NameMongkol (เนมมงคล) บริการวิเคราะห์ชื่อมงคล ดูผลรวมชื่อ-นามสกุล พลังเงา และความหมายตามหลักเลขศาสตร์และทักษาปกรณ์ ฟรี! เช็คชื่อของคุณวันนี้เพื่อความเป็นสิริมงคล",
   keywords: ["NameMongkol", "ชื่อมงคล", "วิเคราะห์ชื่อ", "ตั้งชื่อมงคล", "ดูดวงชื่อ", "เลขศาสตร์", "ตั้งชื่อลูก", "เปลี่ยนชื่อ", "ความหมายเลขศาสตร์", "ทักษาปกรณ์", "ตั้งชื่อมงคลวันเกิด"],
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com'),
+  metadataBase: new URL(siteUrl),
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
     description: 'เช็คชื่อมงคล วิเคราะห์ชื่อ-นามสกุล ฟรี! ด้วยศาสตร์คำนวณที่แม่นยำที่สุด',
     images: [
       {
-        url: '/api/og?variant=default',
+        url: `${siteUrl}/api/og?variant=default`,
         width: 1200,
         height: 630,
         alt: 'NameMongkol - วิเคราะห์ชื่อมงคล',
@@ -56,10 +58,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'NameMongkol - วิเคราะห์ชื่อมงคล',
     description: 'วิเคราะห์ชื่อ-นามสกุล ดูผลรวม พลังเงา และความหมายมงคล ฟรี',
-    images: ['/api/og?variant=default'],
+    images: [`${siteUrl}/api/og?variant=default`],
   },
   alternates: {
-    canonical: 'https://www.namemongkol.com',
+    canonical: siteUrl,
   },
 };
 
