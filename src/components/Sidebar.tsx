@@ -207,10 +207,10 @@ export const Sidebar = () => {
                                                             href={subItem.path}
                                                             onClick={(e) => {
                                                                 setIsOpen(false);
-                                                                // Force reload if clicking "Analyze Phone" while already on the page to reset state
+                                                                // Force reload to clean URL if clicking "Analyze Phone" while already on the page
                                                                 if (subItem.path === '/phone-analysis' && pathname === '/phone-analysis') {
                                                                     e.preventDefault();
-                                                                    window.location.reload();
+                                                                    window.location.href = '/phone-analysis';
                                                                 }
                                                             }}
                                                             className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 border-l-2 ml-4 ${isSubActive

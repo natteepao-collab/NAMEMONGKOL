@@ -17,7 +17,12 @@ function toTitleCase(text: string) {
     .join(' ');
 }
 
+const fontBold = fetch(
+  new URL('https://github.com/google/fonts/raw/main/ofl/notosansthai/NotoSansThai-Bold.ttf', import.meta.url)
+).then((res) => res.arrayBuffer());
+
 export async function GET(req: Request) {
+  const fontData = await fontBold;
   const { searchParams } = new URL(req.url);
   const variant = searchParams.get('variant') || 'default';
 
@@ -239,7 +244,8 @@ export async function GET(req: Request) {
           backgroundImage: baseBackground,
           overflow: 'hidden',
           color: '#f8fafc',
-          fontFamily: 'Inter, "Noto Sans Thai", system-ui, -apple-system, sans-serif',
+          // fontFamily: 'Inter, "Noto Sans Thai", system-ui, -apple-system, sans-serif',
+          fontFamily: '"Noto Sans Thai"',
           letterSpacing: '-0.01em',
         }}
       >
@@ -252,7 +258,7 @@ export async function GET(req: Request) {
             background: 'radial-gradient(circle at 30% 30%, rgba(99,102,241,0.35), transparent 55%)',
             top: -80,
             right: -60,
-            filter: 'blur(2px)',
+            // filter: 'blur(2px)',
           }}
         />
         <div
@@ -264,7 +270,7 @@ export async function GET(req: Request) {
             background: 'radial-gradient(circle at 60% 40%, rgba(16,185,129,0.35), transparent 60%)',
             bottom: -140,
             left: -40,
-            filter: 'blur(2px)',
+            // filter: 'blur(2px)',
           }}
         />
         <div
@@ -328,6 +334,16 @@ export async function GET(req: Request) {
         </div>
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      fonts: [
+        {
+          name: 'Noto Sans Thai',
+          data: fontData,
+          style: 'normal',
+          weight: 700,
+        },
+      ],
+    }
   );
 }
