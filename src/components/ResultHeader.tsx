@@ -35,6 +35,24 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
                             <Star key={i} className={`w-3 h-3 ${i < result.namePrediction.stars ? result.namePrediction.color + ' fill-current' : 'text-slate-700'}`} />
                         ))}
                     </div>
+                    <div className="mt-3 pt-3 border-t border-white/5 space-y-3">
+                        <p className="text-xs text-slate-400 leading-relaxed">"{result.namePrediction.desc}"</p>
+
+                        {(result.namePrediction.color.includes('rose') ||
+                            result.namePrediction.color.includes('red') ||
+                            result.namePrediction.color.includes('orange') ||
+                            result.namePrediction.color.includes('amber')) && (
+                                <Link href="/premium-search" className="block mt-1">
+                                    <button className="w-full py-2 px-3 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 hover:from-emerald-500/20 hover:to-teal-500/20 border border-emerald-500/20 hover:border-emerald-500/40 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn hover:scale-[1.03] hover:shadow-lg hover:shadow-emerald-500/10 active:scale-95">
+                                        <div className="relative">
+                                            <Sparkles className="w-3.5 h-3.5 text-emerald-400 group-hover/btn:text-emerald-300 animate-pulse" />
+                                            <div className="absolute inset-0 bg-emerald-400/20 blur-sm rounded-full animate-ping opacity-0 group-hover/btn:opacity-100"></div>
+                                        </div>
+                                        <span className="text-[10px] font-bold text-emerald-300 group-hover/btn:text-emerald-200 tracking-wide">เปลี่ยนชื่อมงคล</span>
+                                    </button>
+                                </Link>
+                            )}
+                    </div>
                 </div>
                 <div className="glass-card p-4 rounded-2xl text-center relative overflow-hidden group hover:scale-[1.02] transition-transform">
                     <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${result.surnamePrediction.bgGradient}`}></div>
@@ -49,6 +67,9 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
                         {[...Array(5)].map((_, i) => (
                             <Star key={i} className={`w-3 h-3 ${i < result.surnamePrediction.stars ? result.surnamePrediction.color + ' fill-current' : 'text-slate-700'}`} />
                         ))}
+                    </div>
+                    <div className="mt-3 pt-3 border-t border-white/5">
+                        <p className="text-xs text-slate-400 leading-relaxed">"{result.surnamePrediction.desc}"</p>
                     </div>
                 </div>
             </div>

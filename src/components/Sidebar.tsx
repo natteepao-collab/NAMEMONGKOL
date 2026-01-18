@@ -172,13 +172,8 @@ export const Sidebar = () => {
 
                                 return (
                                     <div key={item.name} className="space-y-1">
-                                        <Link
-                                            href={item.path}
-                                            onClick={(e) => {
-                                                if (item.path === '#') e.preventDefault();
-                                                toggleSubMenu(item.name);
-                                            }}
-                                            className={`flex items-center justify-between w-full px-4 py-3 lg:px-5 lg:py-4 rounded-xl lg:rounded-2xl transition-all duration-200 group relative overflow-hidden ${isParentActive
+                                        <div
+                                            className={`flex items-center justify-between w-full rounded-xl lg:rounded-2xl transition-all duration-200 group relative overflow-hidden ${isParentActive
                                                 ? 'bg-gradient-to-r from-white/10 to-white/5 text-white shadow-lg shadow-black/20 border border-white/10'
                                                 : 'text-slate-400 hover:bg-white/5 hover:text-white'
                                                 }`}
@@ -186,12 +181,27 @@ export const Sidebar = () => {
                                             {isParentActive && (
                                                 <div className="absolute left-0 top-0 w-1 h-full bg-amber-400 rounded-r-full shadow-[0_0_10px_rgba(251,191,36,0.5)]" />
                                             )}
-                                            <div className="flex items-center gap-3 lg:gap-4 transition-transform group-hover:translate-x-1">
+
+                                            <Link
+                                                href={item.path}
+                                                onClick={() => setIsOpen(false)}
+                                                className="flex-1 flex items-center gap-3 lg:gap-4 px-4 py-3 lg:px-5 lg:py-4"
+                                            >
                                                 <item.icon className="w-[22px] h-[22px]" />
                                                 <span className="font-medium text-[16px] tracking-wide">{item.name}</span>
-                                            </div>
-                                            <ChevronDown size={16} className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
-                                        </Link>
+                                            </Link>
+
+                                            <button
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    toggleSubMenu(item.name);
+                                                }}
+                                                className="p-3 lg:p-4 hover:bg-white/10 transition-colors"
+                                            >
+                                                <ChevronDown size={16} className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+                                            </button>
+                                        </div>
 
                                         {/* Submenu */}
                                         <div
@@ -346,7 +356,7 @@ export const Sidebar = () => {
                                                 <Sparkles size={14} />
                                                 <span>{credits} Credits</span>
                                             </div>
-                                            <Link href="/topup" className="text-[11px] text-emerald-950 hover:text-emerald-900 font-bold bg-emerald-400 hover:bg-emerald-300 px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 shadow-lg shadow-emerald-500/20 hover:-translate-y-0.5">
+                                            <Link href="/topup" onClick={() => setIsOpen(false)} className="text-[11px] text-emerald-950 hover:text-emerald-900 font-bold bg-emerald-400 hover:bg-emerald-300 px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 shadow-lg shadow-emerald-500/20 hover:-translate-y-0.5">
                                                 <Zap size={12} fill="currentColor" /> เติมเงิน
                                             </Link>
                                         </div>

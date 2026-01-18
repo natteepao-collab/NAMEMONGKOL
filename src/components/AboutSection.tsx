@@ -224,6 +224,37 @@ const AboutSection = () => {
                             </p>
                         </Link>
                     </div>
+
+                    {/* Feature 5: Phone Analysis (New) */}
+                    <div className="mt-8">
+                        <Link href="/phone-analysis" className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-emerald-500/30 group relative overflow-hidden block">
+                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform rotate-0">
+                                <Cpu size={120} />
+                            </div>
+                            <div className="flex flex-col md:flex-row items-center gap-8">
+                                <div className="shrink-0 w-20 h-20 rounded-2xl bg-emerald-500/10 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-emerald-900/20">
+                                    <Cpu className="text-emerald-400" size={40} />
+                                </div>
+                                <div className="text-center md:text-left space-y-2">
+                                    <div className="flex items-center justify-center md:justify-start gap-3">
+                                        <h3 className="text-2xl font-bold text-white">5. วิเคราะห์เบอร์โทรศัพท์ (Phone Analysis)</h3>
+                                        <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-xs font-bold text-emerald-400 animate-pulse">
+                                            NEW
+                                        </span>
+                                    </div>
+                                    <p className="text-slate-400 max-w-2xl leading-relaxed">
+                                        ขยายขอบเขตความมงคลสู่การสื่อสาร ระบบวิเคราะห์เบอร์โทรศัพท์เจาะลึกทุกคู่เลข
+                                        ทำนายผลรวม และเกรดความมงคล เพื่อช่วยส่งเสริมโชคลาภและการติดต่อสื่อสารให้ราบรื่น
+                                    </p>
+                                </div>
+                                <div className="ml-auto">
+                                    <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-emerald-500 transition-all font-medium">
+                                        วิเคราะห์เบอร์ฟรี <ChevronLeft className="rotate-180" size={18} />
+                                    </span>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
                 </section>
 
                 {/* 5.5 How It Works (GEO Optimized - Procedures) */}
@@ -388,8 +419,8 @@ const AboutSection = () => {
                     </p>
                 </div>
 
-            </div>
-        </section>
+            </div >
+        </section >
     );
 };
 

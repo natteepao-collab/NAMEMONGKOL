@@ -4,9 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { BottomNav } from './BottomNav';
 import { TopNav } from './TopNav';
-import { WelcomeCreditModal } from './WelcomeCreditModal';
 import { supabase } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';
+import dynamic from 'next/dynamic';
+
+const WelcomeCreditModal = dynamic(() => import('./WelcomeCreditModal').then(mod => mod.WelcomeCreditModal), {
+    ssr: false
+});
+
 
 export const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);

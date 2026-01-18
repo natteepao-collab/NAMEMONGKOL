@@ -21,6 +21,7 @@ import { getPrediction } from '@/utils/getPrediction';
 import { calculateAyatana } from '@/utils/ayatana';
 import { calculateGrade } from '@/utils/gradeResult';
 import { AnalysisResult } from '@/types';
+import { WelcomeOffer } from '@/components/WelcomeOffer';
 
 // Dynamic Imports for heavy components below the fold or conditional
 const WallpaperShowcase = dynamic(() => import('@/components/WallpaperShowcase').then(mod => mod.WallpaperShowcase), {
@@ -253,6 +254,7 @@ export default function ClientHome() {
             </div>
         }>
             <HomeContent />
+            <WelcomeOffer />
         </Suspense>
     );
 }

@@ -67,33 +67,10 @@ function ClientPageContent() {
             return;
         }
 
-        // Update URL
+        // Update URL - useEffect will handle the analysis
         const params = new URLSearchParams(searchParams.toString());
         params.set('number', clean);
         router.replace(`?${params.toString()}`);
-
-        // The useEffect will pick this up, but to be snappier we can called it directly?
-        // Actually, if we rely on router.replace, the useEffect will trigger.
-        // However, Next.js optimization might not trigger a full remount.
-        // Let's call it manually to be safe and responsive, but we need to match logic.
-        // Actually, let's just use the router update as the source of truth if possible, 
-        // BUT for instant feedback on button click, direct call is better.
-        // Let's do direct call and update URL silently.
-
-        setLoading(true);
-        // Simulate API delay for UX
-        await new Promise(resolve => setTimeout(resolve, 800));
-
-        const analysis = await analyzePhone(clean);
-        if (analysis) {
-            setResult(analysis);
-            // Update URL without analysis trigger loop (useEffect has guard)
-            router.replace(`?number=${clean}`);
-        } else {
-            setError('เกิดข้อผิดพลาดในการวิเคราะห์ กรุณาลองใหม่อีกครั้ง');
-        }
-
-        setLoading(false);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {

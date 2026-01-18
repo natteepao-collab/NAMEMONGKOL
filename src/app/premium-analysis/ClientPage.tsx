@@ -535,48 +535,50 @@ export default function PremiumAnalysisPage() {
                         <h3 className="text-lg font-bold uppercase tracking-wider">เลือกสิ่งที่คุณต้องการเน้น (Focus)</h3>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1">
                         {focusOptions.map((option) => {
                             const isActive = focus === option.key;
                             return (
                                 <button
                                     key={option.key}
                                     onClick={() => setFocus(option.key)}
-                                    className={`group relative p-4 rounded-2xl border transition-all duration-300 flex flex-col justify-between overflow-hidden min-h-[110px]
+                                    className={`group relative px-4 py-3 rounded-xl border transition-all duration-300 flex items-center gap-4 overflow-hidden
                                         ${isActive
                                             ? 'border-amber-500 bg-gradient-to-br from-amber-500/20 via-amber-900/40 to-black shadow-[0_0_20px_rgba(245,158,11,0.2)]'
                                             : 'border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/10'
                                         }`}
                                 >
                                     {/* Active border glow */}
-                                    {isActive && <div className="absolute inset-0 border border-amber-400/50 rounded-2xl pointer-events-none animate-pulse"></div>}
+                                    {isActive && <div className="absolute inset-0 border border-amber-400/50 rounded-xl pointer-events-none animate-pulse"></div>}
 
-                                    <div className="flex justify-between items-start z-10 relative">
-                                        <div className={`p-2.5 rounded-xl transition-all duration-300 ${isActive
-                                            ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-black shadow-lg shadow-amber-500/30'
-                                            : 'bg-slate-800 text-slate-400 group-hover:text-amber-200 group-hover:bg-slate-700'
-                                            }`}>
-                                            {React.cloneElement(option.icon as React.ReactElement<{ size: number }>, { size: 22 })}
-                                        </div>
-                                        {isActive && (
-                                            <div className="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center shadow-lg transform scale-100 transition-transform">
-                                                <Check size={14} className="text-black stroke-[3px]" />
-                                            </div>
-                                        )}
+                                    {/* Icon Box */}
+                                    <div className={`p-2 rounded-lg transition-all duration-300 shrink-0 ${isActive
+                                        ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-black shadow-lg shadow-amber-500/30'
+                                        : 'bg-slate-800 text-slate-400 group-hover:text-amber-200 group-hover:bg-slate-700'
+                                        }`}>
+                                        {React.cloneElement(option.icon as React.ReactElement<{ size: number }>, { size: 20 })}
                                     </div>
 
-                                    <div className="mt-3 z-10 relative">
-                                        <h4 className={`text-base font-bold mb-1 transition-colors ${isActive ? 'text-white' : 'text-slate-300 group-hover:text-white'}`}>
-                                            {option.title}
-                                        </h4>
-                                        <p className={`text-xs leading-relaxed ${isActive ? 'text-amber-100/80' : 'text-slate-500 group-hover:text-slate-400'}`}>
+                                    {/* Text Content */}
+                                    <div className="flex-1 text-left z-10">
+                                        <div className="flex items-center gap-2">
+                                            <h4 className={`text-sm font-bold transition-colors ${isActive ? 'text-white' : 'text-slate-300 group-hover:text-white'}`}>
+                                                {option.title}
+                                            </h4>
+                                            {isActive && (
+                                                <div className="w-4 h-4 rounded-full bg-amber-500 flex items-center justify-center shadow-lg transform scale-100 transition-transform">
+                                                    <Check size={10} className="text-black stroke-[3px]" />
+                                                </div>
+                                            )}
+                                        </div>
+                                        <p className={`text-[11px] leading-tight mt-0.5 ${isActive ? 'text-amber-100/80' : 'text-slate-500 group-hover:text-slate-400'}`}>
                                             {option.subtitle}
                                         </p>
                                     </div>
 
                                     {/* Lustrous effect for active state */}
                                     {isActive && (
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+                                        <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full blur-xl -mr-6 -mt-6 pointer-events-none"></div>
                                     )}
                                 </button>
                             );

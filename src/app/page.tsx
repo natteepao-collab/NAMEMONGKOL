@@ -113,6 +113,39 @@ export default function Page() {
             }
           }
         ]
+      },
+      {
+        '@type': 'HowTo',
+        'name': 'วิธีวิเคราะห์ชื่อมงคลกับ NameMongkol',
+        'description': 'ขั้นตอนง่ายๆ ในการตรวจสอบชื่อ-นามสกุลของคุณว่าถูกโฉลกและเป็นสิริมงคลหรือไม่ด้วยระบบ AI อัจฉริยะ',
+        'totalTime': 'PT1M',
+        'image': {
+          '@type': 'ImageObject',
+          'url': 'https://www.namemongkol.com/icon.png',
+          'height': '512',
+          'width': '512'
+        },
+        'step': [
+          {
+            '@type': 'HowToStep',
+            'url': 'https://www.namemongkol.com/#analyze',
+            'name': 'กรอกชื่อ-นามสกุล',
+            'text': 'ระบุชื่อจริงและนามสกุลของคุณในช่องค้นหา โดยไม่ต้องใส่คำนำหน้าชื่อ',
+            'image': 'https://www.namemongkol.com/how-to-step-1.jpg'
+          },
+          {
+            '@type': 'HowToStep',
+            'name': 'เลือกวันเกิด',
+            'text': 'ระบุวันเกิดของคุณเพื่อคำนวณตามหลักทักษาปกรณ์ (ห้ามใช้วันที่ในบัตรประชาชนหากไม่ตรงกับวันเกิดจริง)',
+            'image': 'https://www.namemongkol.com/how-to-step-2.jpg'
+          },
+          {
+            '@type': 'HowToStep',
+            'name': 'รับผลการวิเคราะห์',
+            'text': 'ระบบจะแสดงผลรวม เกรดความมงคล และคำนาย พร้อมคำแนะนำในการปรับปรุงชื่อ',
+            'image': 'https://www.namemongkol.com/how-to-step-3.jpg'
+          }
+        ]
       }
     ]
   };
