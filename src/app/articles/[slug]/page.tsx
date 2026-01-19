@@ -18,6 +18,13 @@ import { supabase } from '@/utils/supabase';
 
 // Helper to fetch article (cached if possible, but for simplicity direct call here)
 async function getArticle(slug: string) {
+    const localMatch = localArticles.find(a => a.slug === slug);
+    const forceLocalSlugs = ['naming-tips-2026-year-of-horse', 'forbidden-letters-kalakini', 'most-accurate-phone-number-analysis-2026', 'what-is-shadow-power'];
+
+    if (localMatch && forceLocalSlugs.includes(slug)) {
+        return localMatch;
+    }
+
     const { data, error } = await supabase
         .from('articles')
         .select('*')
@@ -26,7 +33,7 @@ async function getArticle(slug: string) {
 
     if (error || !data) {
         // Fallback to local articles
-        return localArticles.find(a => a.slug === slug) || null;
+        return localMatch || null;
     }
     return data;
 }
