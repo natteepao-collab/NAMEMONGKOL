@@ -22,6 +22,14 @@ export const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
             setUser(user);
         };
         getUser();
+
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+            setUser(session?.user ?? null);
+        });
+
+        return () => {
+            subscription.unsubscribe();
+        };
     }, []);
 
     return (

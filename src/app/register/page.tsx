@@ -57,8 +57,19 @@ export default function RegisterPage() {
             if (error) throw error;
 
             console.log('Registration successful:', data);
-            setOtpSent(true);
-            setSuccessMessage('ส่งรหัส OTP ไปยังอีเมลของคุณแล้ว กรุณาตรวจสอบและกรอกรหัสยืนยัน');
+
+            // Check if session is established immediately (Email Confirm disabled)
+            if (data.session) {
+                setSuccessMessage('สมัครสมาชิกสำเร็จ! กำลังเข้าสู่ระบบ...');
+                router.refresh();
+                setTimeout(() => {
+                    router.push('/');
+                }, 1500);
+            } else {
+                // Email Confirm enabled -> Show OTP Input
+                setOtpSent(true);
+                setSuccessMessage('ส่งรหัส OTP ไปยังอีเมลของคุณแล้ว กรุณาตรวจสอบและกรอกรหัสยืนยัน');
+            }
 
         } catch (error: unknown) {
             console.error('Registration error:', error);
