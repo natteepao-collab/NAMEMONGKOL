@@ -16,7 +16,7 @@ export const LineOAButton = () => {
                 </div>
                 <div className="flex flex-col">
                     <span className="text-white font-bold text-sm tracking-wide">LINE Official</span>
-                    <span className="text-slate-400 text-[10px] group-hover:text-[#06C755] transition-colors">สอบถาม / แจ้งปัญหา</span>
+                    <span className="text-slate-400 text-xs group-hover:text-[#06C755] transition-colors">สอบถาม / วิเคราะห์แบบส่วนตัว</span>
                 </div>
             </div>
 

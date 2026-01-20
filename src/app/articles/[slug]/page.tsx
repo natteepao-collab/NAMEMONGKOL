@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
 import { Metadata } from 'next';
 import { ArticleShareButtons } from '@/components/ArticleShareButtons';
+import { ArticleCTA } from '@/components/ArticleCTA';
 import { articles as localArticles } from '@/data/articles';
 import { shimmer, toBase64 } from '@/utils/imageUtils';
 
@@ -196,8 +197,14 @@ export default async function ArticlePage({ params }: Props) {
                         </div>
                     )}
 
+                    {/* CTA Section */}
+                    <div className="mt-8 pt-8 border-t border-white/10">
+                        <h3 className="text-xl font-bold text-white mb-4">บริการอื่นๆ ของเรา</h3>
+                        <ArticleCTA />
+                    </div>
+
                     {/* Share */}
-                    <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between">
+                    <div className="mt-6 pt-6 border-t border-white/10 flex items-center justify-between">
                         <span className="text-slate-400 font-medium">แชร์บทความนี้</span>
                         <ArticleShareButtons title={article.title} slug={article.slug} />
                     </div>

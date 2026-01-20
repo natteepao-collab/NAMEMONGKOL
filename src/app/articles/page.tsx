@@ -9,21 +9,37 @@ import { shimmer, toBase64 } from '@/utils/imageUtils';
 // Revalidate every hour
 export const revalidate = 3600;
 
+// Helper to parse Thai date string "DD Month YYYY" to timestamp
+const parseThaiDate = (dateStr: string) => {
+    const months = [
+        'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+        'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+    ];
+    // Check if already ISO or standard format, or doesn't contain Thai characters
+    if (!dateStr || !dateStr.match(/[ก-๙]/)) return new Date(dateStr).getTime();
+
+    const parts = dateStr.split(' ');
+    // Handle "20 มกราคม 2569"
+    if (parts.length === 3) {
+        const day = parseInt(parts[0]);
+        const monthIndex = months.indexOf(parts[1]);
+        const year = parseInt(parts[2]) - 543; // Convert Thai year to AD
+        if (monthIndex !== -1) {
+            return new Date(year, monthIndex, day).getTime();
+        }
+    }
+    return 0; // Fallback
+};
+
 async function getArticles() {
     const { data: articles, error } = await supabase
         .from('articles')
         .select('*')
-        .eq('is_published', true)
-        .order('date', { ascending: false });
-
-    if (error) {
-        console.error('Error fetching articles', error);
-        // Fallback to local articles if DB fails
-        return localArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    }
+        .eq('is_published', true); // Removed .order from DB to do consistent custom sort in JS for mixed data types
 
     const dbArticles = articles || [];
 
+    // Fallback to local articles if DB fails or just mix them
     // Filter out local articles that are already present in DB (by slug)
     const existingSlugs = new Set(dbArticles.map((a: any) => a.slug));
     const uniqueLocalArticles = localArticles.filter(a => !existingSlugs.has(a.slug));
@@ -32,7 +48,7 @@ async function getArticles() {
     const allArticles = [...dbArticles, ...uniqueLocalArticles];
 
     // Sort by date descending
-    return allArticles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return allArticles.sort((a, b) => parseThaiDate(b.date) - parseThaiDate(a.date));
 }
 
 import { Metadata } from 'next';
@@ -121,7 +137,7 @@ export default async function ArticlesPage() {
                                 <div className="flex items-center gap-4 text-xs text-slate-500 mb-4">
                                     <div className="flex items-center gap-1.5">
                                         <Calendar size={14} />
-                                        <span>{new Date(article.date).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                                        <span>{new Date(parseThaiDate(article.date)).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                                     </div>
                                     <div className="flex items-center gap-1.5">
                                         <User size={14} />

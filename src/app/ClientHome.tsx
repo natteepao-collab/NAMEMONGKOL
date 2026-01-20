@@ -246,13 +246,11 @@ function HomeContent() {
     );
 }
 
+import { HomeFallback } from '@/components/HomeFallback';
+
 export default function ClientHome() {
     return (
-        <Suspense fallback={
-            <div className="min-h-screen bg-[#0f172a] flex items-center justify-center">
-                <Loader2 className="w-10 h-10 text-amber-500 animate-spin" />
-            </div>
-        }>
+        <Suspense fallback={<HomeFallback />}>
             <HomeContent />
             <WelcomeOffer />
         </Suspense>
