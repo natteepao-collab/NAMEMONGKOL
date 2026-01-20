@@ -113,7 +113,7 @@ export default async function ArticlesPage() {
                             <div className="h-56 w-full bg-slate-800 relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
                                 {article.cover_image || article.coverImage ? (
                                     <Image
-                                        src={article.cover_image || article.coverImage}
+                                        src={article.cover_image || article.coverImage || '/images/placeholder.jpg'}
                                         alt={article.title}
                                         fill
                                         className="object-cover"

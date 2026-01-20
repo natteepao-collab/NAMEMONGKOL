@@ -111,6 +111,7 @@ export const Sidebar = () => {
 
     if (role === 'admin') {
         menuItems.push(
+            { name: 'จัดการบทความ', icon: BookOpen, path: '/admin/articles' },
             { name: 'จัดการผู้ใช้งาน', icon: UserIcon, path: '/admin/users' },
             { name: 'ตั้งค่าระบบ', icon: Settings, path: '/admin/settings' }
         );

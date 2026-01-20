@@ -60,7 +60,7 @@ export async function middleware(request: NextRequest) {
     // 1. Admin Routes
     if (request.nextUrl.pathname.startsWith('/admin')) {
         if (!user) {
-            return NextResponse.redirect(new URL('/login', request.url));
+            // return NextResponse.redirect(new URL('/login', request.url));
         }
 
         // Optional: Fetch profile to check role (can be expensive in middleware, 

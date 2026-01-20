@@ -35,6 +35,8 @@ export async function POST(req: Request) {
         const body = await req.json();
         const { names } = body;
 
+        console.log('Admin Names POST:', { count: names?.length });
+
         if (!Array.isArray(names)) {
             return NextResponse.json({ success: false, error: 'Invalid data format' }, { status: 400 });
         }

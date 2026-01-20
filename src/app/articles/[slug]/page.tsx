@@ -165,7 +165,7 @@ export default async function ArticlePage({ params }: Props) {
                            In a real scenario, make sure these images exist in public/ folder.
                         */}
                         <Image
-                            src={article.cover_image || article.coverImage}
+                            src={article.cover_image || article.coverImage || '/images/placeholder.jpg'}
                             alt={article.title}
                             fill
                             className="object-cover"

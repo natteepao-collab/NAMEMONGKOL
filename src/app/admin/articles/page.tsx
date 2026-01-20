@@ -380,6 +380,7 @@ export default function AdminArticlesPage() {
                                                     alt={article.title}
                                                     fill
                                                     className="object-cover"
+                                                    sizes="64px"
                                                 />
                                             ) : (
                                                 <div className="w-full h-full flex items-center justify-center text-slate-500">

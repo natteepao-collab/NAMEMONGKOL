@@ -96,7 +96,7 @@ export const ArticleSection: React.FC = () => {
                             <div className="h-48 w-full bg-slate-800 relative overflow-hidden">
                                 {article.cover_image || article.coverImage ? (
                                     <Image
-                                        src={article.cover_image || article.coverImage || ''}
+                                        src={article.cover_image || article.coverImage || '/images/placeholder.jpg'}
                                         alt={article.title}
                                         fill
                                         className="object-cover group-hover:scale-105 transition-transform duration-500"
