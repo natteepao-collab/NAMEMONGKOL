@@ -12,6 +12,7 @@ import { ResultHeader } from '@/components/ResultHeader';
 import { PairAnalysisCard } from '@/components/PairAnalysisCard';
 import { ThaksaTable } from '@/components/ThaksaTable';
 import { AyatanaCard } from '@/components/AyatanaCard';
+import { ShadowPowerCard } from '@/components/ShadowPowerCard';
 import { PredictionCard } from '@/components/PredictionCard';
 import { ShareButton } from '@/components/ShareButton';
 import { calculateScore } from '@/utils/calculateScore';
@@ -207,7 +208,7 @@ function HomeContent() {
                             {/* Main Score & Ayatana (Left Column - 4 cols) */}
                             <div className="md:col-span-4 space-y-6">
                                 <ResultHeader result={result} />
-                                <AyatanaCard ayatana={result.ayatana} />
+                                <ShadowPowerCard name={result.name} surname={result.surname} />
                                 <PredictionCard prediction={result.prediction} />
                             </div>
 

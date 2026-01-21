@@ -299,7 +299,7 @@ export async function POST(request: Request) {
                             channelSecret: process.env.CHANNEL_SECRET || '',
                         };
                         const lineClient = new Client(lineConfig);
-                        const adminLineId = process.env.ADMIN_LINE_ID;
+                        const adminLineId = process.env.ADMIN_LINE_ID || 'Ub8d2e90e5c8d8628bfa13b0f25326a48';
 
                         if (!lineConfig.channelAccessToken || !lineConfig.channelSecret || !adminLineId) {
                             throw new Error('Missing LINE channel configuration');
@@ -315,7 +315,7 @@ export async function POST(request: Request) {
                     }
 
                     // สำเร็จ -> ตอบกลับ พร้อมผลการเพิ่มเครดิต (ถ้ามี)
-                    return NextResponse.json({ success: true, data: { apiData, creditResult, slipRef, tierId } });
+                    return NextResponse.json({ success: true, data: { apiData, creditResult, slipRef, tierId, creditAmount } });
                 } finally {
                     clearTimeout(timeoutId);
                 }

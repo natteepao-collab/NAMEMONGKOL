@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: 'https://img5.pic.in.th/file/secure-sv1/favicon-96x96148883f91296175b.png', sizes: '96x96', type: 'image/png' },
       { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],
@@ -96,9 +96,9 @@ const jsonLd = {
       'url': 'https://www.namemongkol.com',
       'logo': {
         '@type': 'ImageObject',
-        'url': 'https://www.namemongkol.com/icon.png',
-        'width': 512,
-        'height': 512
+        'url': 'https://img5.pic.in.th/file/secure-sv1/favicon-96x96148883f91296175b.png',
+        'width': 96,
+        'height': 96
       },
       'contactPoint': {
         '@type': 'ContactPoint',

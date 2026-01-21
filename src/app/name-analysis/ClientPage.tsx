@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, Trash2, ClipboardList, CheckCircle2, Download, XCircle, Info, Hash, Save, ArrowDownWideNarrow, Printer, Coins, PlayCircle, LogIn } from 'lucide-react';
 import { analyzeName } from '@/utils/nameAnalysis';
+import { NameAnalysisDetailCard } from '@/components/NameAnalysisDetailCard';
 // import { toPng } from 'html-to-image';
 // import jsPDF from 'jspdf';
 // import Swal from 'sweetalert2';
@@ -26,6 +27,7 @@ export default function NameAnalysisPage() {
 
     // Core State
     const [results, setResults] = useState<AnalysisResultItem[]>([]);
+    const [selectedResult, setSelectedResult] = useState<AnalysisResultItem | null>(null);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [userCredits, setUserCredits] = useState<number | null>(null);
 
@@ -509,7 +511,11 @@ export default function NameAnalysisPage() {
                                             </thead>
                                             <tbody className="divide-y divide-white/5">
                                                 {sortedResults.map((row) => (
-                                                    <tr key={row.id} className="hover:bg-white/[0.02] transition-colors group">
+                                                    <tr
+                                                        key={row.id}
+                                                        className="hover:bg-white/[0.05] transition-colors group cursor-pointer"
+                                                        onClick={() => setSelectedResult(row)}
+                                                    >
                                                         <td className="px-6 py-6 text-slate-500 font-mono text-center text-sm group-hover:text-indigo-400 transition-colors">
                                                             {row.id.toString().padStart(3, '0')}
                                                         </td>
@@ -626,6 +632,27 @@ export default function NameAnalysisPage() {
                     </div>
                 </div>
             </main>
+            {/* Detail Modal */}
+            {selectedResult && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
+                    <div className="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden my-auto">
+                        <div className="absolute top-4 right-4 z-10">
+                            <button
+                                onClick={() => setSelectedResult(null)}
+                                className="bg-black/10 hover:bg-black/20 text-slate-600 rounded-full p-2 transition-colors"
+                            >
+                                <XCircle className="w-8 h-8" />
+                            </button>
+                        </div>
+                        <div className="p-8 max-h-[90vh] overflow-y-auto custom-scrollbar">
+                            <NameAnalysisDetailCard
+                                firstName={selectedResult.name.split(' ')[0]}
+                                lastName={selectedResult.name.split(' ').slice(1).join(' ') || ''}
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

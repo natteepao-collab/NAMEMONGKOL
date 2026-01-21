@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { supabase } from '@/utils/supabase';
 import Swal from 'sweetalert2';
+import { CreditReceivedModal } from './CreditReceivedModal';
 
 interface SlipUploaderProps {
     amount?: number;
@@ -15,6 +16,8 @@ export default function SlipUploader({ amount, credits, tierId }: SlipUploaderPr
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [receivedCredits, setReceivedCredits] = useState(0);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -67,14 +70,11 @@ export default function SlipUploader({ amount, credits, tierId }: SlipUploaderPr
 
             if (response.ok && data.success) {
                 setResult({ success: true, message: data.message });
-                Swal.fire({
-                    icon: 'success',
-                    title: 'เติมเครดิตสำเร็จ!',
-                    text: data.message,
-                    confirmButtonText: 'ตกลง',
-                    confirmButtonColor: '#10b981'
-                });
-                // If success, maybe force refresh credits?
+                // Show Success Modal
+                setReceivedCredits(data.data?.creditAmount || credits || 0);
+                setShowSuccessModal(true);
+
+                // If success, force refresh credits
                 window.dispatchEvent(new Event('force_credits_update'));
             } else {
                 const isDuplicate = data.code === 'DUPLICATE_SLIP';
@@ -189,6 +189,20 @@ export default function SlipUploader({ amount, credits, tierId }: SlipUploaderPr
                     {result.message}
                 </div>
             )}
+
+            <CreditReceivedModal
+                isOpen={showSuccessModal}
+                onClose={() => {
+                    setShowSuccessModal(false);
+                    // Optional: clear file/preview
+                    setSelectedFile(null);
+                    setPreviewUrl(null);
+                    if (window.location.pathname.includes('/topup')) {
+                        // maybe redirect or refresh?
+                    }
+                }}
+                creditAmount={receivedCredits}
+            />
         </div>
     );
 }
