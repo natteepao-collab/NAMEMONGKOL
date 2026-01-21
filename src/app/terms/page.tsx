@@ -57,14 +57,14 @@ export default function TermsPage() {
                                     1. ลักษณะของบริการ
                                 </h2>
                                 <p className="text-slate-300">
-                                    เราให้บริการวิเคราะห์เบอร์โทรศัพท์, แนะนำชื่อมงคล และวอลเปเปอร์เสริมดวง โดยอ้างอิงจากตำราทักษาปกรณ์และเลขศาสตร์ไทยโบราณผสมผสานกับเทคโนโลยี AI
+                                    ให้บริการวิเคราะห์ข้อมูลทางภาษาศาสตร์ (Onomastics) และสถิติเชิงตัวเลข เพื่อใช้เป็นแนวทางในการตั้งชื่อและสร้างสรรค์ผลงานดิจิทัล (Digital Assets) โดยใช้เทคโนโลยีประมวลผลข้อมูลระดับสูง
                                 </p>
                                 <div className="mt-4 p-4 md:p-5 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-sm md:text-base text-amber-100 flex gap-4 items-start">
                                     <AlertCircle className="shrink-0 mt-0.5 text-amber-400" size={20} />
                                     <div>
                                         <strong className="block text-amber-400 mb-1">คำสงวนสิทธิ์ (Disclaimer)</strong>
                                         <p className="opacity-90">
-                                            ผลลัพธ์เป็น <ins className="decoration-amber-500/50 decoration-2">ความเชื่อส่วนบุคคล</ins> เว็บไซต์ทำหน้าที่เป็นที่ปรึกษาตามหลักวิชาเท่านั้น ความสำเร็จในชีวิตย่อมเกิดจาก "สติ" และ "ความเพียร" ของท่านเป็นที่ตั้ง
+                                            ผลลัพธ์จากการวิเคราะห์เป็นข้อมูลทางสถิติและหลักการทางภาษาศาสตร์เพื่อนำไปประยุกต์ใช้เท่านั้น การตัดสินใจนำไปใช้งานขึ้นอยู่กับดุลยพินิจของผู้ใช้บริการ
                                         </p>
                                     </div>
                                 </div>
@@ -89,7 +89,9 @@ export default function TermsPage() {
                                     </div>
                                     <div className="bg-black/20 p-4 rounded-xl border border-white/5">
                                         <h3 className="font-semibold text-white mb-2">🚫 นโยบายการคืนเงิน</h3>
-                                        <p className="text-sm text-slate-400">เครดิตซื้อแล้ว <span className="text-red-300">ไม่สามารถขอคืนได้</span> รวมถึงเครดิตฟรีจากโปรโมชั่นไม่สามารถแลกเป็นเงินสดได้</p>
+                                        <p className="text-sm text-slate-400">
+                                            เนื่องจากบริการของเราเป็นสินค้าดิจิทัลที่ผลิตขึ้นเฉพาะบุคคล (Personalized Digital Goods) และมีการส่งมอบข้อมูลทันทีหลังการชำระเงิน บริษัทจึงขอสงวนสิทธิ์ในการ <span className="text-red-300">ไม่คืนเงินในทุกกรณี</span> เว้นแต่จะเกิดความผิดพลาดจากระบบที่ไม่สามารถส่งมอบข้อมูลได้ตามที่ระบุไว้
+                                        </p>
                                     </div>
                                 </div>
                                 <p className="text-xs text-slate-500 pl-1">* เครดิตไม่มีวันหมดอายุ ตราบใดที่ระบบยังให้บริการ</p>
@@ -124,9 +126,48 @@ export default function TermsPage() {
                             </div>
                         </div>
                     </section>
+
+                    {/* Section 4 - Customer Support */}
+                    <section className="bg-[#1e293b]/50 p-6 md:p-8 rounded-3xl border border-white/5 hover:border-amber-500/20 transition-all duration-300 group">
+                        <div className="flex items-start gap-4 md:gap-6">
+                            <div className="shrink-0 p-3 rounded-2xl bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+                                <ShieldCheck size={24} />
+                            </div>
+                            <div className="space-y-4">
+                                <h2 className="text-xl md:text-2xl font-bold text-white group-hover:text-emerald-200 transition-colors">
+                                    4. การสนับสนุนลูกค้า
+                                </h2>
+                                <p className="text-slate-300">
+                                    หากท่านประสบปัญหาในการใช้งาน หรือต้องการสอบถามข้อมูลเพิ่มเติมเกี่ยวกับบริการ สามารถติดต่อทีมงานได้ผ่านช่องทางดังนี้:
+                                </p>
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    <div className="bg-black/20 p-4 rounded-xl border border-white/5 flex items-center gap-4">
+                                        <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center text-green-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs text-slate-500 font-semibold uppercase">Official Customer Support</p>
+                                            <p className="text-amber-400 font-bold">LINE: @namemongkol</p>
+                                        </div>
+                                    </div>
+                                    <div className="bg-black/20 p-4 rounded-xl border border-white/5 flex items-center gap-4">
+                                        <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs text-slate-500 font-semibold uppercase">Email Support</p>
+                                            <p className="text-white font-medium">support@namemongkol.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p className="text-sm text-slate-400 mt-2">
+                                    ทีมงานพร้อมให้บริการทุกวัน เวลา 09:00 - 22:00 น.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
                 </div>
 
-                {/* Footer */}
                 <div className="mt-16 text-center border-t border-white/5 pt-8">
                     <p className="text-slate-500 text-sm">
                         © 2024 NameMongkol.com - สงวนลิขสิทธิ์ตามกฎหมาย
