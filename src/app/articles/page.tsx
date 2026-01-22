@@ -55,13 +55,27 @@ async function getArticles() {
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'บทความชื่อมงคล - ความรู้ศาสตร์การตั้งชื่อ | NameMongkol',
-    description: 'รวบรวมบทความเกี่ยวกับชื่อมงคล หลักการตั้งชื่อ เคล็ดลับเสริมดวง และความหมายของตัวเลขตามหลักเลขศาสตร์',
+    title: 'บทความชื่อมงคล - ความรู้ตั้งชื่อ เลขศาสตร์ ทักษาปกรณ์ 2568 | NameMongkol',
+    description: 'รวบรวมบทความเกี่ยวกับชื่อมงคล หลักการตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง เคล็ดลับเลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 ความหมายตัวเลข ผลรวมมงคล และอักษรกาลกิณี โดยผู้เชี่ยวชาญ',
+    keywords: 'บทความชื่อมงคล, หลักการตั้งชื่อ, เลขศาสตร์, ทักษาปกรณ์, อายตนะ 6, ผลรวมมงคล, อักษรกาลกิณี, เปลี่ยนชื่อเสริมดวง, ตั้งชื่อลูก, ความหมายชื่อ, ชื่อมงคล 2568',
+    alternates: {
+        canonical: 'https://www.namemongkol.com/articles',
+    },
     openGraph: {
-        title: 'บทความชื่อมงคล - ความรู้ศาสตร์การตั้งชื่อ | NameMongkol',
+        title: 'บทความชื่อมงคล - ความรู้ตั้งชื่อ เลขศาสตร์ ทักษาปกรณ์ | NameMongkol',
         description: 'รวบรวมบทความเกี่ยวกับชื่อมงคล หลักการตั้งชื่อ เคล็ดลับเสริมดวง และความหมายของตัวเลขตามหลักเลขศาสตร์',
+        url: 'https://www.namemongkol.com/articles',
+        siteName: 'NameMongkol',
+        locale: 'th_TH',
+        type: 'website',
         images: ['/api/og?variant=default&title=บทความชื่อมงคล%20โดย%20NameMongkol&subtitle=รวมความรู้ศาสตร์การตั้งชื่อ%20และเคล็ดลับเสริมดวง&tag=Articles'],
-    }
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'บทความชื่อมงคล - ความรู้ตั้งชื่อ เลขศาสตร์ | NameMongkol',
+        description: 'รวบรวมบทความเกี่ยวกับชื่อมงคล หลักการตั้งชื่อ เคล็ดลับเสริมดวง',
+        images: ['/api/og?variant=default&title=บทความชื่อมงคล'],
+    },
 };
 
 export default async function ArticlesPage() {

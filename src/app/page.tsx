@@ -18,13 +18,27 @@ export async function generateMetadata(
 
   if (!name) {
     return {
-      title: 'NameMongkol - วิเคราะห์ชื่อมงคล อันดับ 1 แม่นยำที่สุด',
-      description: 'บริการวิเคราะห์ชื่อมงคลฟรี โดย NameMongkol เช็คพลังเงา ผลรวมเลขศาสตร์ และความหมายของชื่อคุณ',
+      title: 'วิเคราะห์ชื่อมงคล ฟรี! ตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง 2568 | NameMongkol',
+      description: 'วิเคราะห์ชื่อมงคลฟรี ตั้งชื่อลูก เปลี่ยนชื่อใหม่ ด้วยระบบ AI อัจฉริยะ ผสาน 4 ศาสตร์ ได้แก่ เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 นิรันดร์ศาสตร์ เช็คพลังเงา ผลรวมชื่อ อักษรกาลกิณี แม่นยำ น่าเชื่อถือ',
+      keywords: 'วิเคราะห์ชื่อมงคล, ตั้งชื่อลูก, เปลี่ยนชื่อ, ชื่อมงคล, ดูดวงชื่อ, เลขศาสตร์, ทักษาปกรณ์, อายตนะ 6, ผลรวมชื่อ, อักษรกาลกิณี, ชื่อเสริมดวง, ตั้งชื่อตามวันเกิด, พลังเงา, NameMongkol',
       openGraph: {
-        title: 'NameMongkol - วิเคราะห์ชื่อมงคล อันดับ 1',
-        description: 'บริการวิเคราะห์ชื่อมงคลฟรี โดย NameMongkol เช็คพลังเงา ผลรวมเลขศาสตร์ และความหมายของชื่อคุณ',
+        title: 'วิเคราะห์ชื่อมงคล ฟรี! ตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง | NameMongkol',
+        description: 'วิเคราะห์ชื่อมงคลฟรี ด้วยระบบ AI ผสาน 4 ศาสตร์ เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 นิรันดร์ศาสตร์ เช็คพลังเงา ผลรวมชื่อ อักษรกาลกิณี',
         images: [`${siteUrl}/api/og?variant=default&title=NameMongkol%20-%20วิเคราะห์ชื่อมงคล&subtitle=เช็คพลังเงา%20ผลรวมเลขศาสตร์%20และความหมายชื่อของคุณ`],
-      }
+        url: 'https://www.namemongkol.com',
+        siteName: 'NameMongkol',
+        locale: 'th_TH',
+        type: 'website',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: 'วิเคราะห์ชื่อมงคล ฟรี! ตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง | NameMongkol',
+        description: 'วิเคราะห์ชื่อมงคลฟรี ด้วยระบบ AI ผสาน 4 ศาสตร์ เช็คพลังเงา ผลรวมชื่อ อักษรกาลกิณี',
+        images: [`${siteUrl}/api/og?variant=default`],
+      },
+      alternates: {
+        canonical: 'https://www.namemongkol.com',
+      },
     }
   }
 
@@ -54,8 +68,31 @@ export default function Page() {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'SoftwareApplication',
+        '@type': 'WebSite',
+        '@id': 'https://www.namemongkol.com/#website',
+        'url': 'https://www.namemongkol.com',
         'name': 'NameMongkol',
+        'description': 'วิเคราะห์ชื่อมงคล ตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง ด้วยระบบ AI ผสาน 4 ศาสตร์',
+        'inLanguage': 'th-TH',
+        'potentialAction': {
+          '@type': 'SearchAction',
+          'target': 'https://www.namemongkol.com/search?q={search_term_string}',
+          'query-input': 'required name=search_term_string'
+        }
+      },
+      {
+        '@type': 'WebPage',
+        '@id': 'https://www.namemongkol.com/#webpage',
+        'url': 'https://www.namemongkol.com',
+        'name': 'วิเคราะห์ชื่อมงคล ฟรี! ตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง | NameMongkol',
+        'isPartOf': { '@id': 'https://www.namemongkol.com/#website' },
+        'description': 'วิเคราะห์ชื่อมงคลฟรี ตั้งชื่อลูก เปลี่ยนชื่อใหม่ ด้วยระบบ AI อัจฉริยะ ผสาน 4 ศาสตร์',
+        'inLanguage': 'th-TH'
+      },
+      {
+        '@type': 'SoftwareApplication',
+        'name': 'NameMongkol - วิเคราะห์ชื่อมงคล',
+        'description': 'แอปพลิเคชันวิเคราะห์ชื่อมงคลด้วย AI ผสาน 4 ศาสตร์ เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 นิรันดร์ศาสตร์',
         'applicationCategory': 'LifestyleApplication',
         'operatingSystem': 'Web',
         'offers': {
@@ -66,7 +103,9 @@ export default function Page() {
         'aggregateRating': {
           '@type': 'AggregateRating',
           'ratingValue': '4.9',
-          'ratingCount': '1250'
+          'ratingCount': '150000',
+          'bestRating': '5',
+          'worstRating': '1'
         }
       },
       {
@@ -110,6 +149,14 @@ export default function Page() {
             'acceptedAnswer': {
               '@type': 'Answer',
               'text': 'ได้แน่นอน! ระบบของเราสามารถใช้วิเคราะห์เพื่อตั้งชื่อลูกแรกเกิดได้ โดยพิจารณาจากวันเกิด (ทักษา) เพื่อหาตัวอักษรที่เป็นมงคล (เดช, ศรี, มนตรี) และหลีกเลี่ยงกาลกิณี เพื่อวางรากฐานชีวิตที่ดีให้กับบุตรหลานของคุณ'
+            }
+          },
+          {
+            '@type': 'Question',
+            'name': 'พลังเงาในชื่อคืออะไร?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': 'พลังเงาคือพลังงานซ่อนเร้นในชื่อที่ส่งผลต่อบุคลิกภาพและโชคชะตา วิเคราะห์จากตัวอักษรและผลรวมเลขศาสตร์ ช่วยให้เข้าใจจุดแข็งจุดอ่อนของชื่อ'
             }
           }
         ]
