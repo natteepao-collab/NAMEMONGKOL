@@ -23,6 +23,7 @@ import { calculateAyatana } from '@/utils/ayatana';
 import { calculateGrade } from '@/utils/gradeResult';
 import { AnalysisResult } from '@/types';
 import { WelcomeOffer } from '@/components/WelcomeOffer';
+import { HomeSeoContent } from '@/components/HomeSeoContent';
 
 // Dynamic Imports for heavy components below the fold or conditional
 const WallpaperShowcase = dynamic(() => import('@/components/WallpaperShowcase').then(mod => mod.WallpaperShowcase), {
@@ -233,6 +234,7 @@ function HomeContent() {
             {!result && (
                 <>
                     <WallpaperShowcase />
+                    <HomeSeoContent />
                     <KnowledgeSection />
                     <FAQSection />
                     <ArticleSection />

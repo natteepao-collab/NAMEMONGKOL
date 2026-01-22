@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Share2, Facebook, MessageCircle, Link as LinkIcon, Check, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import confetti from 'canvas-confetti';
+// import confetti from 'canvas-confetti'; // dynamic imported
 import dynamic from 'next/dynamic';
 import { AnalysisResult } from '@/types';
 const ImageGeneratorModal = dynamic(() => import('./ImageGeneratorModal').then(mod => mod.ImageGeneratorModal), {
@@ -27,7 +27,9 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ result, day }) => {
         }
     };
 
-    const triggerConfetti = () => {
+    const triggerConfetti = async () => {
+        const confetti = (await import('canvas-confetti')).default;
+
         const count = 200;
         const defaults = {
             origin: { y: 0.7 }

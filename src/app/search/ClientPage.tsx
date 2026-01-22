@@ -303,14 +303,29 @@ export default function SearchPage() {
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-sm mb-4">
                         <Sparkles className="w-4 h-4" />
-                        <span>รวมรายชื่อมงคล</span>
+                        <span>รวมรายชื่อมงคล 2568</span>
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-4">
-                        ค้นหาชื่อมงคล
+                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-4 h-[1.3em] leading-tight">
+                        ค้นหาชื่อมงคลฟรี: ตั้งชื่อลูก เปลี่ยนชื่อใหม่ เสริมดวงชะตา
                     </h1>
-                    <p className="text-slate-400 max-w-2xl mx-auto">
-                        รวบรวมรายชื่อที่เป็นมงคล เปี่ยมด้วยความหมายที่ดี เพื่อความเป็นสิริมงคลแก่ชีวิต
+                    <p className="text-slate-400 max-w-2xl mx-auto mb-6">
+                        รวมสุดยอดชื่อมงคลกว่า 5,000 รายชื่อ คัดเน้นๆ เฉพาะเกรด A+ ความหมายดี เป็นสิริมงคล
+                        เหมาะสำหรับ <strong className="text-amber-400 font-normal">ตั้งชื่อลูก</strong> <strong className="text-amber-400 font-normal">เปลี่ยนชื่อใหม่</strong> หรือ <strong className="text-amber-400 font-normal">ตั้งชื่อเล่น</strong> ครอบคลุมทุกวันเกิด กรองง่ายตามหลักทักษาปกรณ์
                     </p>
+
+                    {/* Pro Tip / Guidance Block */}
+                    <div className="max-w-2xl mx-auto bg-amber-900/20 border border-amber-500/20 rounded-xl p-4 text-left flex gap-4 items-start relative overflow-hidden group">
+                        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                        <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400 shrink-0 relative z-10">
+                            <Sparkles className="w-5 h-5" />
+                        </div>
+                        <div className="relative z-10">
+                            <h3 className="text-amber-200 font-semibold mb-1 text-sm">💡 ข้อแนะนำก่อนนำไปใช้:</h3>
+                            <p className="text-slate-400 text-sm leading-relaxed">
+                                รายชื่อเหล่านี้ผ่านการคัดกรองความหมายและทักษาที่ดีในเบื้องต้นแล้ว แต่เพื่อให้ได้ผลลัพธ์ที่ดีที่สุด <strong className="text-slate-200">มนุษย์ต้องมีนามสกุล</strong> เราแนะนำให้ท่านเลือกชื่อที่ชอบ 5-10 ชื่อ แล้วนำไป <a href="/" className="text-amber-400 hover:underline decoration-amber-400/30 underline-offset-4">"วิเคราะห์ชื่อร่วมกับนามสกุล"</a> อีกครั้ง เพื่อตรวจสอบผลรวมเลขศาสตร์ให้ได้เกรด A+ ที่สมพงศ์กับดวงชะตาของท่านที่สุด
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Search & Filter Section */}
@@ -508,6 +523,44 @@ export default function SearchPage() {
                         แสดงผล {Math.min(visibleCount, filteredNames.length)} จาก {filteredNames.length} รายชื่อ
                     </div>
                 )}
+
+                {/* FAQ Section */}
+                <div className="mt-16 mb-12 max-w-3xl mx-auto">
+                    <h2 className="text-2xl font-bold text-center text-amber-400 mb-8">
+                        คำถามที่พบบ่อย (FAQ)
+                    </h2>
+                    <div className="space-y-4">
+                        <details className="group bg-white/[0.03] border border-white/10 rounded-xl p-4 cursor-pointer open:bg-white/[0.05] transition-colors">
+                            <summary className="font-semibold text-slate-200 list-none flex justify-between items-center">
+                                ค้นหาชื่อมงคลที่ NameMongkol เสียเงินไหม?
+                                <span className="transition-transform group-open:rotate-180">▼</span>
+                            </summary>
+                            <p className="mt-3 text-slate-400 text-sm pl-4 border-l-2 border-amber-500">
+                                <span className="text-emerald-400 font-bold">ฟรี! ไม่มีค่าใช้จ่าย</span> คุณสามารถค้นหาและตรวจสอบความหมายของชื่อมงคลกว่า 5,000 ชื่อได้ฟรีทันที โดยไม่มีข้อผูกมัดใดๆ
+                            </p>
+                        </details>
+
+                        <details className="group bg-white/[0.03] border border-white/10 rounded-xl p-4 cursor-pointer open:bg-white/[0.05] transition-colors">
+                            <summary className="font-semibold text-slate-200 list-none flex justify-between items-center">
+                                มีรายชื่อมงคลให้เลือกกี่ชื่อ?
+                                <span className="transition-transform group-open:rotate-180">▼</span>
+                            </summary>
+                            <p className="mt-3 text-slate-400 text-sm pl-4 border-l-2 border-amber-500">
+                                เรามีฐานข้อมูลชื่อมงคลที่คัดสรรมาแล้วกว่า <span className="text-amber-400 font-bold">5,000+ รายชื่อ</span> ครอบคลุมทุกวันเกิด ทั้งชายและหญิง พร้อมความหมายที่เป็นสิริมงคล
+                            </p>
+                        </details>
+
+                        <details className="group bg-white/[0.03] border border-white/10 rounded-xl p-4 cursor-pointer open:bg-white/[0.05] transition-colors">
+                            <summary className="font-semibold text-slate-200 list-none flex justify-between items-center">
+                                เลือกชื่อจากที่นี่แล้วต้องทำอย่างไรต่อ?
+                                <span className="transition-transform group-open:rotate-180">▼</span>
+                            </summary>
+                            <p className="mt-3 text-slate-400 text-sm pl-4 border-l-2 border-amber-500">
+                                เมื่อได้ชื่อที่ถูกใจแล้ว แนะนำให้นำไป <a href="/" className="text-amber-400 hover:underline">วิเคราะห์ชื่อ-นามสกุล</a> อีกครั้งเพื่อดูผลรวมร่วมกับนามสกุลของคุณ ว่าได้เกรด A+ หรือไม่
+                            </p>
+                        </details>
+                    </div>
+                </div>
 
 
             </div>

@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  compress: true,
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
@@ -9,10 +11,17 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'ykujxndttruqzhmufdzr.supabase.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'img5.pic.in.th',
+      }
     ],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
+  },
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion', 'canvas-confetti', 'date-fns'],
   },
 };
 
