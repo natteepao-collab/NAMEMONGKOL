@@ -6,8 +6,16 @@ import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
 import { Metadata } from 'next';
-import { ArticleShareButtons } from '@/components/ArticleShareButtons';
-import { ArticleCTA } from '@/components/ArticleCTA';
+import { ArticleImage } from '@/components/ArticleImage';
+import dynamic from 'next/dynamic';
+
+const ArticleShareButtons = dynamic(() => import('@/components/ArticleShareButtons').then(mod => mod.ArticleShareButtons), {
+    loading: () => <div className="h-10 w-24 bg-slate-800/50 rounded-full animate-pulse" />
+});
+
+const ArticleCTA = dynamic(() => import('@/components/ArticleCTA').then(mod => mod.ArticleCTA), {
+    loading: () => <div className="h-64 bg-slate-800/50 rounded-2xl animate-pulse" />
+});
 import { articles as localArticles } from '@/data/articles';
 import { shimmer, toBase64 } from '@/utils/imageUtils';
 
@@ -164,15 +172,11 @@ export default async function ArticlePage({ params }: Props) {
                            but for now assume standard next/image usage.
                            In a real scenario, make sure these images exist in public/ folder.
                         */}
-                        <Image
-                            src={article.cover_image || article.coverImage || '/images/placeholder.jpg'}
+                        <ArticleImage
+                            src={article.cover_image || article.coverImage}
                             alt={article.title}
-                            fill
-                            className="object-cover"
                             priority
-                            sizes="(max-width: 768px) 100vw, 768px"
-                            placeholder="blur"
-                            blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+                            className="group-hover:scale-100" // Disable zoom effect if not needed, or keep standard
                         />
                     </div>
 

@@ -5,6 +5,8 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Smartphone, Search, Loader2 } from 'lucide-react';
 import { analyzePhone, PhoneAnalysisResult as IPhoneAnalysisResult } from '@/utils/analyzePhone';
 import { PhoneAnalysisResult } from '@/components/PhoneAnalysisResult';
+import { PhoneSeoContent } from '@/components/PhoneSeoContent';
+import { PhoneFAQSection } from '@/components/PhoneFAQSection';
 
 export default function ClientPage() {
     return (
@@ -109,7 +111,7 @@ function ClientPageContent() {
                 )}
 
                 {/* Input Section */}
-                {!result ? (
+                {!result && (
                     <div className="w-full max-w-xl relative z-10 animate-fade-in-up delay-100">
                         <div className="bg-white/5 border border-white/10 rounded-3xl p-2 sm:p-3 shadow-2xl backdrop-blur-xl">
                             <div className="flex flex-col sm:flex-row gap-2">
@@ -163,7 +165,17 @@ function ClientPageContent() {
                             </p>
                         )}
                     </div>
-                ) : (
+                )}
+
+                {/* SEO Content - Show only when no result */}
+                {!result && (
+                    <>
+                        <PhoneSeoContent />
+                        <PhoneFAQSection />
+                    </>
+                )}
+
+                {result && (
                     <div className="w-full flex flex-col items-center gap-8 relative z-10">
                         <PhoneAnalysisResult
                             result={result}

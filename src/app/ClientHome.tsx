@@ -4,14 +4,13 @@ import React, { useState, useEffect, Suspense, useCallback, useRef } from 'react
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
-import { ChevronRight, Sparkles, Loader2 } from 'lucide-react';
+import { ChevronRight, Sparkles } from 'lucide-react';
 import { saveAnalysisResult } from '@/services/analysisService';
 import { checkNirunName } from '@/app/actions/checkNirunName';
 import { InputForm } from '@/components/InputForm';
 import { ResultHeader } from '@/components/ResultHeader';
 import { PairAnalysisCard } from '@/components/PairAnalysisCard';
 import { ThaksaTable } from '@/components/ThaksaTable';
-import { AyatanaCard } from '@/components/AyatanaCard';
 import { ShadowPowerCard } from '@/components/ShadowPowerCard';
 import { PredictionCard } from '@/components/PredictionCard';
 import { ShareButton } from '@/components/ShareButton';
@@ -22,8 +21,8 @@ import { getPrediction } from '@/utils/getPrediction';
 import { calculateAyatana } from '@/utils/ayatana';
 import { calculateGrade } from '@/utils/gradeResult';
 import { AnalysisResult } from '@/types';
-import { WelcomeOffer } from '@/components/WelcomeOffer';
-import { HomeSeoContent } from '@/components/HomeSeoContent';
+import { HeroBanner } from '@/components/HeroBanner';
+import { HomeFallback } from '@/components/HomeFallback';
 
 // Dynamic Imports for heavy components below the fold or conditional
 const WallpaperShowcase = dynamic(() => import('@/components/WallpaperShowcase').then(mod => mod.WallpaperShowcase), {
@@ -33,6 +32,8 @@ const WallpaperUpsell = dynamic(() => import('@/components/WallpaperUpsell').the
 const KnowledgeSection = dynamic(() => import('@/components/KnowledgeSection').then(mod => mod.KnowledgeSection));
 const ArticleSection = dynamic(() => import('@/components/ArticleSection').then(mod => mod.ArticleSection));
 const FAQSection = dynamic(() => import('@/components/FAQSection').then(mod => mod.FAQSection));
+const HomeSeoContent = dynamic(() => import('@/components/HomeSeoContent').then(mod => mod.HomeSeoContent));
+const WelcomeOffer = dynamic(() => import('@/components/WelcomeOffer').then(mod => mod.WelcomeOffer), { ssr: false });
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -64,8 +65,7 @@ function HomeContent() {
         // Parallel execution for server check and local calculations
         const [isNirun] = await Promise.all([
             checkNirunName(inputName),
-            // Artificial delay to minimalize flicker if needed, 
-            // but since we await server action, it might be roughly enough.
+            // Artificial delay to minimalize flicker if needed
             new Promise(resolve => setTimeout(resolve, 800))
         ]);
 
@@ -116,7 +116,6 @@ function HomeContent() {
         didInitFromParams.current = true;
 
         if (initialName) {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             performAnalysis(initialName, initialSurname, initialDay);
         }
     }, [performAnalysis, initialName, initialSurname, initialDay]);
@@ -184,16 +183,22 @@ function HomeContent() {
             <main className="relative z-10 w-full max-w-[1400px] px-4 sm:px-6 lg:px-12 xl:px-16 pt-24 md:pt-32 pb-8 flex flex-col items-center min-h-[80vh] pb-[calc(env(safe-area-inset-bottom)+2rem)]">
 
                 {!result ? (
-                    <InputForm
-                        name={name}
-                        surname={surname}
-                        day={day}
-                        onNameChange={setName}
-                        onSurnameChange={setSurname}
-                        onDayChange={setDay}
-                        onAnalyze={handleAnalyzeClick}
-                        loading={loading}
-                    />
+                    <div className="w-full max-w-lg flex flex-col items-center">
+                        {/* HeroBanner decoupled for LCP - No fade-in delay */}
+                        <div className="w-full animate-fade-in">
+                            <HeroBanner />
+                        </div>
+                        <InputForm
+                            name={name}
+                            surname={surname}
+                            day={day}
+                            onNameChange={setName}
+                            onSurnameChange={setSurname}
+                            onDayChange={setDay}
+                            onAnalyze={handleAnalyzeClick}
+                            loading={loading}
+                        />
+                    </div>
                 ) : (
                     <div className="w-full max-w-5xl animate-fade-in flex flex-col gap-6">
                         <div className="flex justify-start">
@@ -248,8 +253,6 @@ function HomeContent() {
         </div>
     );
 }
-
-import { HomeFallback } from '@/components/HomeFallback';
 
 export default function ClientHome() {
     return (

@@ -5,6 +5,7 @@ import { supabase } from '@/utils/supabase';
 import { Calendar, User, ArrowLeft, Search, BookOpen } from 'lucide-react';
 import { articles as localArticles } from '@/data/articles';
 import { shimmer, toBase64 } from '@/utils/imageUtils';
+import { ArticleImage } from '@/components/ArticleImage';
 
 // Revalidate every hour
 export const revalidate = 3600;
@@ -74,7 +75,7 @@ export default async function ArticlesPage() {
                 <div className="absolute top-[10%] right-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px]"></div>
             </div>
 
-            <div className="w-full max-w-[1400px] px-4 py-8 relative z-10 pt-24 md:pt-32">
+            <main className="w-full max-w-[1400px] px-4 py-8 relative z-10 pt-24 md:pt-32">
                 {/* Header */}
                 <div className="max-w-4xl mx-auto mb-12">
                     <Link href="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors">
@@ -85,19 +86,19 @@ export default async function ArticlesPage() {
                     <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
                         บทความและสาระน่ารู้
                     </h1>
-                    <p className="text-slate-400 text-lg">
+                    <p className="text-slate-300 text-lg">
                         รวมบทความศาสตร์มงคล เคล็ดลับการตั้งชื่อ และเกร็ดความรู้เพื่อชีวิตที่ดีกว่า
                     </p>
 
                     {/* Search Bar (Placeholder - Functional search logic can be added later if needed) */}
                     <div className="mt-8 relative max-w-lg">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-500">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
                             <Search size={20} />
                         </div>
                         <input
                             type="text"
                             placeholder="ค้นหาบทความ..."
-                            className="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-slate-200 placeholder:text-slate-600 focus:ring-2 focus:ring-purple-500/50 focus:border-transparent outline-none transition-all"
+                            className="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-slate-200 placeholder:text-slate-500 focus:ring-2 focus:ring-purple-500/50 focus:border-transparent outline-none transition-all"
                         />
                     </div>
                 </div>
@@ -111,22 +112,12 @@ export default async function ArticlesPage() {
                             className="group flex flex-col bg-slate-900/40 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10"
                         >
                             <div className="h-56 w-full bg-slate-800 relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
-                                {article.cover_image || article.coverImage ? (
-                                    <Image
-                                        src={article.cover_image || article.coverImage || '/images/placeholder.jpg'}
-                                        alt={article.title}
-                                        fill
-                                        className="object-cover"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        priority={index < 6}
-                                        placeholder="blur"
-                                        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
-                                    />
-                                ) : (
-                                    <div className="w-full h-full flex items-center justify-center text-slate-600">
-                                        <BookOpen size={48} />
-                                    </div>
-                                )}
+                                <ArticleImage
+                                    src={article.cover_image || article.coverImage}
+                                    alt={article.title}
+                                    priority={index < 6}
+                                    className="group-hover:scale-100"
+                                />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent opacity-60" />
                                 <div className="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs text-white font-medium border border-white/10 z-10">
                                     {article.category}
@@ -134,7 +125,7 @@ export default async function ArticlesPage() {
                             </div>
 
                             <div className="p-6 flex flex-col flex-grow relative bg-[#0f172a] group-hover:bg-[#131c33] transition-colors">
-                                <div className="flex items-center gap-4 text-xs text-slate-500 mb-4">
+                                <div className="flex items-center gap-4 text-xs text-slate-400 mb-4">
                                     <div className="flex items-center gap-1.5">
                                         <Calendar size={14} />
                                         <span>{new Date(parseThaiDate(article.date)).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
@@ -145,11 +136,11 @@ export default async function ArticlesPage() {
                                     </div>
                                 </div>
 
-                                <h3 className="text-xl font-bold text-slate-100 mb-3 leading-tight group-hover:text-purple-400 transition-colors line-clamp-2">
+                                <h2 className="text-xl font-bold text-slate-100 mb-3 leading-tight group-hover:text-purple-400 transition-colors line-clamp-2">
                                     {article.title}
-                                </h3>
+                                </h2>
 
-                                <p className="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-3 text-justify">
+                                <p className="text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3 text-justify">
                                     {article.excerpt}
                                 </p>
 
@@ -166,7 +157,7 @@ export default async function ArticlesPage() {
                         <p>ยังไม่มีบทความในขณะนี้</p>
                     </div>
                 )}
-            </div>
-        </div>
+            </main>
+        </div >
     );
 }

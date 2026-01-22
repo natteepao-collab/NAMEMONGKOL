@@ -25,17 +25,12 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com
 export const metadata: Metadata = {
   title: "NameMongkol | วิเคราะห์ชื่อมงคล ทำนายชื่อ-นามสกุล แม่นยำที่สุด",
   description: "NameMongkol (เนมมงคล) บริการวิเคราะห์ชื่อมงคล ดูผลรวมชื่อ-นามสกุล พลังเงา และความหมายตามหลักเลขศาสตร์และทักษาปกรณ์ ฟรี! เช็คชื่อของคุณวันนี้เพื่อความเป็นสิริมงคล",
-  keywords: [
-    "NameMongkol", "ชื่อมงคล", "วิเคราะห์ชื่อ", "ตั้งชื่อมงคล", "ดูดวงชื่อ", "เลขศาสตร์",
-    "ตั้งชื่อลูก", "เปลี่ยนชื่อ", "ความหมายเลขศาสตร์", "ทักษาปกรณ์", "ตั้งชื่อมงคลวันเกิด",
-    "ตั้งชื่อลูกปี 2569", "วิเคราะห์เบอร์โทรศัพท์", "เบอร์มงคล", "เช็คเบอร์มงคล", "วิธีตั้งชื่อมงคล",
-    "เปลี่ยนชื่อที่ไหนดี", "อาจารย์ตั้งชื่อ", "9999", "4289", "6395", "เลขเศรษฐี"
-  ],
+  keywords: ["NameMongkol", "ชื่อมงคล", "วิเคราะห์ชื่อ", "ตั้งชื่อมงคล", "ดูดวงชื่อ", "เลขศาสตร์", "ตั้งชื่อลูก", "เปลี่ยนชื่อ", "ความหมายเลขศาสตร์", "ทักษาปกรณ์", "ตั้งชื่อมงคลวันเกิด"],
   metadataBase: new URL(siteUrl),
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
-      { url: 'https://img5.pic.in.th/file/secure-sv1/favicon-96x96148883f91296175b.png', sizes: '96x96', type: 'image/png' },
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
       { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],
@@ -46,7 +41,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'th_TH',
-    alternateLocale: ['en_US'],
     url: 'https://www.namemongkol.com',
     siteName: 'NameMongkol',
     title: 'NameMongkol - วิเคราะห์ชื่อมงคล อันดับ 1',
@@ -96,20 +90,13 @@ const jsonLd = {
       'url': 'https://www.namemongkol.com',
       'logo': {
         '@type': 'ImageObject',
-        'url': 'https://img5.pic.in.th/file/secure-sv1/favicon-96x96148883f91296175b.png',
-        'width': 96,
-        'height': 96
-      },
-      'contactPoint': {
-        '@type': 'ContactPoint',
-        'contactType': 'customer support',
-        'url': 'https://lin.ee/8N4ab3b',
-        'availableLanguage': ['Thai', 'English']
+        'url': 'https://www.namemongkol.com/icon.png',
+        'width': 512,
+        'height': 512
       },
       'sameAs': [
         'https://www.facebook.com/namemongkol',
-        'https://twitter.com/namemongkol',
-        'https://www.instagram.com/namemongkol'
+        // Add other social profiles here
       ]
     }
   ]
@@ -170,7 +157,7 @@ export default async function RootLayout({
 
         {/* Facebook Pixel */}
         {facebookPixelId && (
-          <Script id="facebook-pixel" strategy="lazyOnload">
+          <Script id="facebook-pixel" strategy="afterInteractive">
             {`
                 !function(f,b,e,v,n,t,s)
                 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -188,7 +175,7 @@ export default async function RootLayout({
 
         {/* TikTok Pixel */}
         {tiktokPixelId && (
-          <Script id="tiktok-pixel" strategy="lazyOnload">
+          <Script id="tiktok-pixel" strategy="afterInteractive">
             {`
                 !function (w, d, t) {
                 w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq.methods[i=0];i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);return ttq},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};

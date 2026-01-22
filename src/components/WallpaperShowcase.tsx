@@ -57,7 +57,7 @@ export const WallpaperShowcase = () => {
                     href="/wallpapers"
                     className="flex items-center gap-2 text-amber-400 font-medium hover:text-amber-300 transition-colors group shrink-0"
                 >
-                    ดูทั้งหมด <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    ดูวอลเปเปอร์ทั้งหมด <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
             </div>
 
