@@ -161,8 +161,8 @@ export default function AdminReviewsPage() {
                             key={status}
                             onClick={() => { setStatusFilter(status); setPage(1); }}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${statusFilter === status
-                                    ? 'bg-amber-500/20 text-amber-400 font-bold border border-amber-500/30'
-                                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                ? 'bg-amber-500/20 text-amber-400 font-bold border border-amber-500/30'
+                                : 'text-slate-400 hover:text-white hover:bg-white/5'
                                 } capitalize`}
                         >
                             {status === 'all' ? 'All' : status}
@@ -213,7 +213,11 @@ export default function AdminReviewsPage() {
                                                     ))}
                                                 </div>
                                                 <div className="text-[10px] text-slate-500 mt-1">
-                                                    {new Date(review.date || review.created_at).toLocaleDateString()}
+                                                    {new Date(review.date || review.created_at || new Date().toISOString()).toLocaleDateString('th-TH', {
+                                                        year: 'numeric',
+                                                        month: 'long',
+                                                        day: 'numeric'
+                                                    })}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 max-w-xs">
@@ -221,8 +225,8 @@ export default function AdminReviewsPage() {
                                             </td>
                                             <td className="px-6 py-4 text-center">
                                                 <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase ${review.status === 'approved' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
-                                                        review.status === 'rejected' ? 'bg-red-500/10 text-red-400 border border-red-500/20' :
-                                                            'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                                                    review.status === 'rejected' ? 'bg-red-500/10 text-red-400 border border-red-500/20' :
+                                                        'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                                                     }`}>
                                                     {review.status || 'pending'}
                                                 </span>
