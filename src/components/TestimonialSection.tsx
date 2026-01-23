@@ -1,16 +1,68 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Star, MessageCircle, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { reviews } from '@/data/reviews';
+import { Review } from '@/types';
 import { ReviewFormModal } from '@/components/ReviewFormModal';
+import { supabase } from '@/utils/supabase';
+import { useRouter } from 'next/navigation';
 
 export const TestimonialSection = () => {
     // Select top 3-4 reviews for the homepage
-    const featuredReviews = reviews.slice(0, 4);
+    const [featuredReviews, setFeaturedReviews] = useState<Review[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        const getReviews = async () => {
+            const { data } = await supabase
+                .from('reviews')
+                .select('*')
+                .eq('status', 'approved')
+                .order('rating', { ascending: false }) // Show highest rated or created_at
+                .limit(4);
+
+            if (data) {
+                const formatted: Review[] = data.map(r => ({
+                    ...r,
+                    date: r.created_at
+                }));
+                setFeaturedReviews(formatted);
+            }
+        };
+        getReviews();
+    }, []);
+
+    const handleWriteStory = async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (!session) {
+            // Dynamic import SweetAlert2
+            const Swal = (await import('sweetalert2')).default;
+
+            Swal.fire({
+                title: 'กรุณาเข้าสู่ระบบ',
+                text: 'ท่านต้องเข้าสู่ระบบก่อนจึงจะสามารถเขียนรีวิวได้',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#f59e0b',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'เข้าสู่ระบบ',
+                cancelButtonText: 'ยกเลิก',
+                background: '#1e293b',
+                color: '#fff'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    router.push('/login');
+                }
+            });
+            return;
+        }
+
+        setIsModalOpen(true);
+    };
 
     return (
         <section className="w-full py-16 relative overflow-hidden">
@@ -83,7 +135,7 @@ export const TestimonialSection = () => {
                         อ่านเรื่องราวทั้งหมด
                     </Link>
                     <button
-                        onClick={() => setIsModalOpen(true)}
+                        onClick={handleWriteStory}
                         className="px-8 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium transition-all border border-white/10 hover:border-white/20 flex items-center gap-2"
                     >
                         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />

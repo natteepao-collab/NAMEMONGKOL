@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { X, Star, Send, Sparkles, MessageCircle, Gift } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { supabase } from '@/utils/supabase'; // Import supabase
 
 interface ReviewFormModalProps {
     isOpen: boolean;
@@ -21,13 +22,19 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
     const [step, setStep] = useState<'form' | 'success'>('form');
     const [rating, setRating] = useState(5);
     const [hoverRating, setHoverRating] = useState(0);
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<{
+        nickname: string;
+        role: string;
+        categories: string[];
+        content: string;
+    }>({
         nickname: '',
         role: '',
-        category: '',
+        categories: [],
         content: ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [earnedCredits, setEarnedCredits] = useState(0);
 
     if (!isOpen) return null;
 
@@ -35,19 +42,79 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // Validation: Content Length
+        if (formData.content.length < 50) {
+            const Swal = (await import('sweetalert2')).default;
+            Swal.fire({
+                icon: 'warning',
+                title: 'เนื้อหาสั้นเกินไป',
+                text: 'กรุณาเขียนรีวิวอย่างน้อย 50 ตัวอักษร เพื่อแบ่งปันประสบการณ์ที่เป็นประโยชน์',
+                background: '#1e293b',
+                color: '#fff',
+                confirmButtonColor: '#f59e0b'
+            });
+            setIsSubmitting(false);
+            return;
+        }
 
-        setIsSubmitting(false);
-        setStep('success');
+        try {
 
-        // Trigger confetti
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#fbbf24', '#f59e0b', '#d97706']
-        });
+            // Prepare tags based on categories
+            const tags = formData.categories;
+
+            const { data, error } = await supabase.rpc('submit_review', {
+                p_nickname: formData.nickname,
+                p_role: formData.role,
+                p_content: formData.content,
+                p_category: formData.categories[0], // Use first category as primary
+                p_rating: rating,
+                p_tags: tags
+            });
+
+            if (error) {
+                console.error('RPC Error:', error);
+                throw error;
+            }
+
+            if (data && data.success) {
+                // setEarnedCredits(data.bonus_credits || 0); // Removed: Credits awarded on approval
+                setStep('success');
+
+                // if (data.bonus_credits > 0) {
+                //    window.dispatchEvent(new Event('force_credits_update'));
+                // }
+
+                confetti({
+                    particleCount: 150,
+                    spread: 80,
+                    origin: { y: 0.6 },
+                    colors: ['#fbbf24', '#f59e0b', '#d97706', '#10b981']
+                });
+            } else {
+                console.error('Submission failed logic:', data);
+                const Swal = (await import('sweetalert2')).default;
+                Swal.fire({
+                    icon: 'error',
+                    title: 'บันทึกไม่สำเร็จ',
+                    text: data?.error || 'เกิดข้อผิดพลาดในการบันทึกข้อมูล กรุณาลองใหม่อีกครั้ง',
+                    background: '#1e293b',
+                    color: '#fff'
+                });
+            }
+
+        } catch (err: any) {
+            console.error('Error submitting review (Full):', err);
+            const Swal = (await import('sweetalert2')).default;
+            Swal.fire({
+                icon: 'error',
+                title: 'เกิดข้อผิดพลาด',
+                text: err?.message || 'ไม่สามารถเชื่อต่อกับระบบได้',
+                background: '#1e293b',
+                color: '#fff'
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleClose = () => {
@@ -55,7 +122,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
         // Reset state after transition
         setTimeout(() => {
             setStep('form');
-            setFormData({ nickname: '', role: '', category: '', content: '' });
+            setFormData({ nickname: '', role: '', categories: [], content: '' });
             setRating(5);
         }, 300);
     };
@@ -117,21 +184,33 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                             </div>
 
                             <div>
-                                <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">เรื่องที่ต้องการรีวิว</label>
+                                <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">เรื่องที่ต้องการรีวิว (เลือกได้สูงสุด 3 ข้อ)</label>
                                 <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                                    {CATEGORIES.map(cat => (
-                                        <button
-                                            key={cat.id}
-                                            type="button"
-                                            onClick={() => setFormData({ ...formData, category: cat.id })}
-                                            className={`px-2 py-2 rounded-lg text-[10px] sm:text-xs font-medium border transition-all ${formData.category === cat.id
-                                                    ? 'bg-amber-500 text-slate-900 border-amber-500'
+                                    {CATEGORIES.map(cat => {
+                                        const isSelected = formData.categories.includes(cat.id);
+                                        return (
+                                            <button
+                                                key={cat.id}
+                                                type="button"
+                                                onClick={() => {
+                                                    setFormData(prev => {
+                                                        const current = prev.categories;
+                                                        if (current.includes(cat.id)) {
+                                                            return { ...prev, categories: current.filter(c => c !== cat.id) };
+                                                        }
+                                                        if (current.length >= 3) return prev;
+                                                        return { ...prev, categories: [...current, cat.id] };
+                                                    });
+                                                }}
+                                                className={`px-2 py-2 rounded-lg text-[10px] sm:text-xs font-medium border transition-all ${isSelected
+                                                    ? 'bg-amber-500 text-slate-900 border-amber-500 shadow-lg shadow-amber-500/20'
                                                     : 'bg-slate-900/50 text-slate-400 border-slate-700 hover:border-slate-500'
-                                                }`}
-                                        >
-                                            {cat.label}
-                                        </button>
-                                    ))}
+                                                    }`}
+                                            >
+                                                {cat.label}
+                                            </button>
+                                        );
+                                    })}
                                 </div>
                             </div>
 
@@ -140,11 +219,26 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                                 <textarea
                                     required
                                     rows={4}
+                                    minLength={50}
+                                    maxLength={1500}
                                     value={formData.content}
                                     onChange={e => setFormData({ ...formData, content: e.target.value })}
-                                    className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-slate-200 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 outline-none transition-all placeholder:text-slate-600 text-sm resize-none"
-                                    placeholder="เล่าความเปลี่ยนแปลงหลังจากเปลี่ยนชื่อ หรือเบอร์มงคล..."
+                                    className={`w-full bg-slate-900/50 border rounded-xl px-4 py-3 text-slate-200 focus:ring-2 focus:ring-amber-500/50 outline-none transition-all placeholder:text-slate-600 text-sm resize-none ${formData.content.length > 0 && formData.content.length < 50
+                                        ? 'border-red-500 focus:border-red-500'
+                                        : 'border-slate-700 focus:border-amber-500'
+                                        }`}
+                                    placeholder="เล่าความเปลี่ยนแปลงหลังจากเปลี่ยนชื่อ หรือเบอร์มงคล... (อย่างน้อย 50 ตัวอักษร)"
                                 />
+                                <div className="flex justify-between items-center mt-1.5 px-1">
+                                    <span className={`text-[10px] ${formData.content.length > 0 && formData.content.length < 50 ? 'text-red-400' : 'text-slate-500'
+                                        }`}>
+                                        {formData.content.length < 50 ? `อีก ${50 - formData.content.length} ตัวอักษร` : 'ครบจำนวนแล้ว'}
+                                    </span>
+                                    <span className={`text-[10px] ${formData.content.length >= 1500 ? 'text-red-400' : 'text-slate-500'
+                                        }`}>
+                                        {formData.content.length} / 1,500
+                                    </span>
+                                </div>
                             </div>
 
                             <div>
@@ -162,8 +256,8 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                                             <Star
                                                 size={24}
                                                 className={`${star <= (hoverRating || rating)
-                                                        ? 'fill-amber-400 text-amber-400'
-                                                        : 'fill-slate-800 text-slate-700'
+                                                    ? 'fill-amber-400 text-amber-400'
+                                                    : 'fill-slate-800 text-slate-700'
                                                     } transition-colors`}
                                             />
                                         </button>
@@ -173,7 +267,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
 
                             <button
                                 type="submit"
-                                disabled={isSubmitting || !formData.category}
+                                disabled={isSubmitting || formData.categories.length === 0}
                                 className="w-full mt-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-amber-500/25 transform transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {isSubmitting ? (
@@ -207,7 +301,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                         <div className="bg-slate-900/50 border border-emerald-500/30 rounded-xl p-4 mb-6 flex items-center gap-3">
                             <Sparkles className="text-emerald-400" size={20} />
                             <div className="text-left">
-                                <p className="text-xs text-slate-400">รางวัลรออนุมัติ</p>
+                                <p className="text-xs text-slate-400">เมื่อได้รับการอนุมัติ</p>
                                 <p className="text-emerald-400 font-bold">+50 Credits</p>
                             </div>
                         </div>

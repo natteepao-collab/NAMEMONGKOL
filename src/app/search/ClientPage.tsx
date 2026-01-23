@@ -24,7 +24,7 @@ function NameRow({ name }: { name: string }) {
                 className={`group cursor-pointer border-b border-white/5 last:border-0 transition-all duration-300 ${isExpanded ? 'bg-white/[0.04]' : 'hover:bg-white/[0.04]'}`}
                 onClick={() => setIsExpanded(!isExpanded)}
             >
-                <td className="px-8 py-5">
+                <td className="px-4 md:px-8 py-5">
                     <div className="flex items-center gap-3 transition-transform duration-300 group-hover:translate-x-1">
                         <div className={`p-1 rounded-full bg-white/5 transition-colors ${isExpanded ? 'text-amber-400 bg-amber-400/10' : 'text-slate-500 group-hover:text-amber-400 group-hover:bg-amber-400/10'}`}>
                             {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -34,7 +34,7 @@ function NameRow({ name }: { name: string }) {
                         </span>
                     </div>
                 </td>
-                <td className="px-8 py-5 text-slate-400 group-hover:text-slate-300 transition-colors">
+                <td className="px-4 md:px-8 py-5 text-slate-400 group-hover:text-slate-300 transition-colors">
                     {day !== '-' && day !== 'ไม่ระบุ' ? (
                         day
                     ) : suitability.suitable.length === 8 ? (
@@ -57,7 +57,7 @@ function NameRow({ name }: { name: string }) {
                         '-'
                     )}
                 </td>
-                <td className="px-8 py-5 text-center">
+                <td className="px-4 md:px-8 py-5 text-center">
                     <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/10 to-purple-500/10 text-amber-300 font-bold border border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.05)] group-hover:border-amber-500/40 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] group-hover:text-amber-200 group-hover:scale-110 transition-all duration-300">
                         {score}
                     </span>
@@ -305,7 +305,7 @@ export default function SearchPage() {
                         <Sparkles className="w-4 h-4" />
                         <span>รวมรายชื่อมงคล 2568</span>
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-4 h-[1.3em] leading-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-4 leading-tight pb-1">
                         ค้นหาชื่อมงคลฟรี: ตั้งชื่อลูก เปลี่ยนชื่อใหม่ เสริมดวงชะตา
                     </h1>
                     <p className="text-slate-400 max-w-2xl mx-auto mb-6">
@@ -463,9 +463,9 @@ export default function SearchPage() {
                     <table className="w-full text-left">
                         <thead>
                             <tr className="bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-amber-500/10 border-b border-white/10 text-amber-200">
-                                <th className="px-8 py-5 font-semibold text-lg tracking-wide">ชื่อมงคล</th>
-                                <th className="px-8 py-5 font-semibold text-lg tracking-wide">วัน</th>
-                                <th className="px-8 py-5 font-semibold text-lg tracking-wide text-center">ผลรวมเลขศาสตร์</th>
+                                <th className="px-4 md:px-8 py-5 font-semibold text-lg tracking-wide">ชื่อมงคล</th>
+                                <th className="px-4 md:px-8 py-5 font-semibold text-lg tracking-wide">วัน</th>
+                                <th className="px-4 md:px-8 py-5 font-semibold text-lg tracking-wide text-center">ผลรวมเลขศาสตร์</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">

@@ -84,3 +84,18 @@ export interface Wallpaper {
     description?: string | null;
 }
 
+
+export interface Review {
+    id: string;
+    nickname: string;
+    avatar?: string;
+    content: string;
+    tags: string[];
+    role?: string;
+    date: string; // ISO string from created_at
+    created_at?: string; // Database field
+    rating: number;
+    image?: string;
+    category?: string;
+    status?: 'pending' | 'approved' | 'rejected';
+}

@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, MessageCircle, Filter, Quote, Plus } from 'lucide-react';
-import { reviews } from '@/data/reviews';
+// import { reviews } from '@/data/reviews'; // Deprecated mock data
+import { Review } from '@/types';
 import { ReviewFormModal } from '@/components/ReviewFormModal';
+import { supabase } from '@/utils/supabase';
+import { useRouter } from 'next/navigation';
 
 const CATEGORIES = [
     { id: 'all', label: 'ทั้งหมด' },
@@ -18,11 +21,66 @@ const CATEGORIES = [
 export default function ClientPage() {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const router = useRouter();
+
+    const handleWriteStory = async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (!session) {
+            // Dynamic import SweetAlert2
+            const Swal = (await import('sweetalert2')).default;
+
+            Swal.fire({
+                title: 'กรุณาเข้าสู่ระบบ',
+                text: 'ท่านต้องเข้าสู่ระบบก่อนจึงจะสามารถเขียนรีวิวได้',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#f59e0b',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'เข้าสู่ระบบ',
+                cancelButtonText: 'ยกเลิก',
+                background: '#1e293b',
+                color: '#fff'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    router.push('/login');
+                }
+            });
+            return;
+        }
+
+        setIsModalOpen(true);
+    };
+
+    const [dbReviews, setDbReviews] = useState<Review[]>([]);
+
+    useEffect(() => {
+        const fetchReviews = async () => {
+            const { data, error } = await supabase
+                .from('reviews')
+                .select('*')
+                .eq('status', 'approved')
+                .order('created_at', { ascending: false });
+
+            if (data) {
+                // Map Supabase data to Review interface if needed, or use directly
+                const formatted = data.map(r => ({
+                    ...r,
+                    date: r.created_at, // Map created_at to date
+                    tags: r.tags || [r.category] // Ensure tags exist
+                }));
+                setDbReviews(formatted);
+            }
+        };
+
+        fetchReviews();
+    }, []);
 
     const filteredReviews = useMemo(() => {
-        if (selectedCategory === 'all') return reviews;
-        return reviews.filter(review => review.tags.includes(selectedCategory));
-    }, [selectedCategory]);
+        let target = dbReviews;
+        if (selectedCategory === 'all') return target;
+        return target.filter(review => review.tags && review.tags.includes(selectedCategory));
+    }, [selectedCategory, dbReviews]);
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans pb-20">
@@ -66,7 +124,7 @@ export default function ClientPage() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         transition={{ delay: 0.3 }}
-                        onClick={() => setIsModalOpen(true)}
+                        onClick={handleWriteStory}
                         className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 transition-all group"
                     >
                         <Plus size={24} className="group-hover:rotate-90 transition-transform" />
