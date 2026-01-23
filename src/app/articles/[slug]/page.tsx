@@ -68,6 +68,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: article.meta_title || article.title,
         description: article.meta_description || article.excerpt,
         keywords: article.keywords,
+        alternates: {
+            canonical: `${baseUrl}/articles/${slug}`,
+        },
         openGraph: {
             title: article.meta_title || article.title,
             description: article.meta_description || article.excerpt,
@@ -82,6 +85,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             ],
             type: 'article',
             siteName: 'NameMongkol',
+            locale: 'th_TH',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: article.meta_title || article.title,
+            description: article.meta_description || article.excerpt,
+            images: [imageUrl],
         },
     };
 }

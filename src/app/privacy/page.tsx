@@ -1,6 +1,36 @@
 import React from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import { Shield, Lock, Eye, FileText, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { Metadata } from 'next';
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
+
+export const metadata: Metadata = {
+    title: 'นโยบายความเป็นส่วนตัว | NameMongkol - การคุ้มครองข้อมูลส่วนบุคคล',
+    description: 'นโยบายความเป็นส่วนตัวและการคุ้มครองข้อมูลส่วนบุคคลของ NameMongkol อธิบายวิธีการเก็บรวบรวม ใช้ และปกป้องข้อมูลของผู้ใช้งานตามกฎหมาย PDPA',
+    keywords: ['นโยบายความเป็นส่วนตัว', 'PDPA', 'การคุ้มครองข้อมูล', 'NameMongkol', 'ข้อมูลส่วนบุคคล'],
+    alternates: {
+        canonical: `${siteUrl}/privacy`,
+    },
+    openGraph: {
+        title: 'นโยบายความเป็นส่วนตัว | NameMongkol',
+        description: 'นโยบายการคุ้มครองข้อมูลส่วนบุคคลตามมาตรฐาน PDPA',
+        url: `${siteUrl}/privacy`,
+        siteName: 'NameMongkol',
+        locale: 'th_TH',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary',
+        title: 'นโยบายความเป็นส่วนตัว | NameMongkol',
+        description: 'นโยบายการคุ้มครองข้อมูลส่วนบุคคลตามมาตรฐาน PDPA',
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
+};
 
 export default function PrivacyPage() {
     return (

@@ -17,6 +17,499 @@ export interface Article {
 
 export const articles: Article[] = [
     {
+        id: '13',
+        slug: 'top-20-popular-thai-names-numerology-analysis',
+        title: 'ผ่าดวง 20 ชื่อยอดฮิตตลอดกาลของไทย! ชื่อโหลหรือชื่อเฮง? วิเคราะห์ด้วยหลักเลขศาสตร์',
+        excerpt: 'เผยสถิติ 20 ชื่อจริงคนไทยที่ใช้ซ้ำกันมากที่สุด พร้อมวิเคราะห์เลขศาสตร์ว่าชื่อเหล่านี้ "ดี" จริงหรือแค่นิยม? และถ้าชอบความหมายแบบ "สมชาย" แต่อยากได้ชื่อที่เลขดีกว่า ควรตั้งว่าอะไร?',
+        coverImage: '/images/articles/top-20-thai-names.jpg',
+        date: '2026-01-24',
+        author: 'ทีมวิเคราะห์ชื่อ NameMongkol',
+        category: 'วิเคราะห์ชื่อ',
+        keywords: ['วิเคราะห์ชื่อจริง', 'เลขศาสตร์ชื่อ', 'ชื่อมงคลตัวอย่าง', 'ความหมายชื่อสมชาย', 'ชื่อยอดนิยมไทย', '20 ชื่อฮิต', 'ตั้งชื่อมงคล', 'ชื่อซ้ำ'],
+        metaTitle: 'ผ่าดวง 20 ชื่อยอดฮิตของไทย! สมชาย สมจิต ประเสริฐ ชื่อเฮงหรือชื่อโหล? | NameMongkol',
+        metaDescription: 'วิเคราะห์ 20 ชื่อจริงคนไทยที่ใช้มากที่สุด ด้วยหลักเลขศาสตร์และอายตนะ 6 สมชาย สมจิต ประเสริฐ ชื่อดีจริงไหม? พร้อมแนะนำชื่อทางเลือกที่ทันสมัยและเลขดีกว่า',
+        content: `
+            <p class="lead text-xl text-slate-300 mb-6">เคยสงสัยไหมว่าทำไมชื่อ <strong>"สมชาย"</strong> ถึงมีคนใช้เกือบ 5 แสนคนทั่วประเทศ? หรือชื่อ <strong>"สมจิต"</strong> ที่ครองอันดับสองก็มีคนใช้กว่า 2.8 แสนคน? วันนี้ <strong>NameMongkol</strong> จะพาคุณไปไขปริศนาว่า... ชื่อเหล่านี้ถูกเลือกเพราะ "ความหมายดี" หรือ "เลขศาสตร์ดี" กันแน่? แล้วถ้าคนใช้เยอะขนาดนี้ มันยังจะ "เป็นมงคล" อยู่ไหม?</p>
+
+            <h2 class="text-2xl font-bold text-amber-400 mt-10 mb-6">📊 สถิติ 20 ชื่อจริงคนไทยที่ใช้มากที่สุด</h2>
+            <p class="mb-6">ก่อนอื่น มาดูข้อมูลสถิติกันก่อนเลยครับ นี่คือ 20 อันดับชื่อจริงที่คนไทยใช้ซ้ำกันมากที่สุด:</p>
+
+            <div class="overflow-x-auto mb-8">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gradient-to-r from-amber-600 to-orange-600 text-white">
+                            <th class="p-3 text-center font-bold rounded-tl-lg">อันดับ</th>
+                            <th class="p-3 font-bold">ชื่อจริง</th>
+                            <th class="p-3 text-right font-bold rounded-tr-lg">จำนวนผู้ใช้ (โดยประมาณ)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-300">
+                        <tr class="bg-amber-500/10 border-b border-amber-500/20">
+                            <td class="p-3 text-center font-bold text-amber-400">🥇 1</td>
+                            <td class="p-3 font-semibold text-white">สมชาย</td>
+                            <td class="p-3 text-right">479,924 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center font-bold text-slate-400">🥈 2</td>
+                            <td class="p-3 font-semibold text-white">สมจิต</td>
+                            <td class="p-3 text-right">281,050 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center font-bold text-amber-700">🥉 3</td>
+                            <td class="p-3 font-semibold text-white">ประเสริฐ</td>
+                            <td class="p-3 text-right">268,094 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">4</td>
+                            <td class="p-3">สมบูรณ์</td>
+                            <td class="p-3 text-right">248,205 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">5</td>
+                            <td class="p-3">สมศักดิ์</td>
+                            <td class="p-3 text-right">243,223 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">6</td>
+                            <td class="p-3">ณรงค์</td>
+                            <td class="p-3 text-right">238,698 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">7</td>
+                            <td class="p-3">ประสิทธิ์</td>
+                            <td class="p-3 text-right">233,428 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">8</td>
+                            <td class="p-3">สมพร</td>
+                            <td class="p-3 text-right">211,034 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">9</td>
+                            <td class="p-3">วิทยา</td>
+                            <td class="p-3 text-right">201,604 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">10</td>
+                            <td class="p-3">สมบัติ</td>
+                            <td class="p-3 text-right">190,161 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">11</td>
+                            <td class="p-3">อุดม</td>
+                            <td class="p-3 text-right">187,027 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">12</td>
+                            <td class="p-3">เจริญ</td>
+                            <td class="p-3 text-right">179,209 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">13</td>
+                            <td class="p-3">สำราญ</td>
+                            <td class="p-3 text-right">177,548 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">14</td>
+                            <td class="p-3">วิชัย</td>
+                            <td class="p-3 text-right">177,047 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">15</td>
+                            <td class="p-3">สวัสดิ์</td>
+                            <td class="p-3 text-right">176,084 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">16</td>
+                            <td class="p-3">ปราณี</td>
+                            <td class="p-3 text-right">171,060 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">17</td>
+                            <td class="p-3">สมพงษ์</td>
+                            <td class="p-3 text-right">168,439 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">18</td>
+                            <td class="p-3">กาญจนา</td>
+                            <td class="p-3 text-right">165,525 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50">
+                            <td class="p-3 text-center">19</td>
+                            <td class="p-3">ปรีชา</td>
+                            <td class="p-3 text-right">164,284 คน</td>
+                        </tr>
+                        <tr class="bg-slate-800/30 border-b border-slate-700/50 rounded-b-lg">
+                            <td class="p-3 text-center rounded-bl-lg">20</td>
+                            <td class="p-3">สุรพล</td>
+                            <td class="p-3 text-right rounded-br-lg">162,538 คน</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/20 p-6 rounded-xl mb-8">
+                <h3 class="text-lg font-bold text-blue-300 mb-2">💡 ข้อสังเกตที่น่าสนใจ</h3>
+                <ul class="text-slate-300 text-sm space-y-2">
+                    <li>• ชื่อที่ขึ้นต้นด้วย <strong>"สม-"</strong> ครองอันดับมากถึง 9 ชื่อใน 20 อันดับ (สมชาย, สมจิต, สมบูรณ์, สมศักดิ์, สมพร, สมบัติ, สำราญ, สมพงษ์, สวัสดิ์)</li>
+                    <li>• ชื่อที่ขึ้นต้นด้วย <strong>"ประ-"</strong> มี 2 ชื่อ คือ ประเสริฐ และ ประสิทธิ์</li>
+                    <li>• ชื่อผู้หญิงมีเพียง 3 ชื่อ คือ สมจิต, ปราณี, และ กาญจนา</li>
+                </ul>
+            </div>
+
+            <h2 class="text-2xl font-bold text-amber-400 mt-10 mb-6">🔮 ถอดรหัสเลขศาสตร์: ทำไมชื่อเหล่านี้ถึงครองแชมป์?</h2>
+            <p class="mb-6">มาวิเคราะห์กันว่าชื่อท็อป 3 มีพลังเลขศาสตร์ดีจริงหรือเปล่า โดยใช้หลักการคำนวณเลขศาสตร์ตามค่าพยัญชนะและสระไทย:</p>
+
+            <div class="space-y-6 mb-8">
+                <!-- สมชาย -->
+                <div class="bg-gradient-to-r from-amber-900/40 to-yellow-900/40 border border-amber-500/30 p-6 rounded-xl">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="text-4xl">🥇</span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">สมชาย</h3>
+                            <p class="text-amber-300 text-sm">ผู้ใช้: 479,924 คน</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-900/50 p-4 rounded-lg mb-4">
+                        <p class="text-slate-400 text-sm mb-2">การคำนวณเลขศาสตร์:</p>
+                        <div class="flex items-center gap-2 flex-wrap text-lg">
+                            <span class="bg-slate-700 px-3 py-1 rounded">ส = 7</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">ม = 5</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">ช = 2</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">า = 1</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">ย = 8</span>
+                            <span class="text-slate-500">=</span>
+                            <span class="bg-amber-600 text-white px-4 py-1 rounded font-bold">23</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-emerald-500/10 p-4 rounded-lg border border-emerald-500/20">
+                            <h4 class="font-bold text-emerald-300 mb-2">✅ ข้อดี (เลข 23)</h4>
+                            <ul class="text-sm text-slate-300 space-y-1">
+                                <li>• เลข 23 สื่อถึงความเมตตา เสน่ห์ มีคนรักใคร่</li>
+                                <li>• มีพลังด้านความสัมพันธ์และการสื่อสาร</li>
+                                <li>• ดึงดูดโชคลาภและความช่วยเหลือจากผู้อื่น</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-500/10 p-4 rounded-lg border border-red-500/20">
+                            <h4 class="font-bold text-red-300 mb-2">⚠️ ข้อควรระวัง</h4>
+                            <ul class="text-sm text-slate-300 space-y-1">
+                                <li>• คนเกิดวันอาทิตย์ต้องระวัง (ส เป็นกาลกิณี)</li>
+                                <li>• อาจต้องพึ่งพาผู้อื่นมากเกินไป</li>
+                                <li>• ขาดความเป็นเอกลักษณ์เมื่อคนใช้เยอะ</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- สมจิต -->
+                <div class="bg-gradient-to-r from-slate-800/60 to-slate-900/60 border border-slate-500/30 p-6 rounded-xl">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="text-4xl">🥈</span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">สมจิต</h3>
+                            <p class="text-slate-400 text-sm">ผู้ใช้: 281,050 คน</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-900/50 p-4 rounded-lg mb-4">
+                        <p class="text-slate-400 text-sm mb-2">การคำนวณเลขศาสตร์:</p>
+                        <div class="flex items-center gap-2 flex-wrap text-lg">
+                            <span class="bg-slate-700 px-3 py-1 rounded">ส = 7</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">ม = 5</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">จ = 6</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">ิ = 4</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">ต = 3</span>
+                            <span class="text-slate-500">=</span>
+                            <span class="bg-purple-600 text-white px-4 py-1 rounded font-bold">25</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-emerald-500/10 p-4 rounded-lg border border-emerald-500/20">
+                            <h4 class="font-bold text-emerald-300 mb-2">✅ ข้อดี (เลข 25)</h4>
+                            <ul class="text-sm text-slate-300 space-y-1">
+                                <li>• เลข 25 สื่อถึงสติปัญญาและความฉลาด</li>
+                                <li>• มีพลังด้านการเรียนรู้และการวิเคราะห์</li>
+                                <li>• เหมาะกับงานที่ใช้ความคิดสร้างสรรค์</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-500/10 p-4 rounded-lg border border-red-500/20">
+                            <h4 class="font-bold text-red-300 mb-2">⚠️ ข้อควรระวัง</h4>
+                            <ul class="text-sm text-slate-300 space-y-1">
+                                <li>• คนเกิดวันอาทิตย์ต้องระวัง (ส เป็นกาลกิณี)</li>
+                                <li>• อาจคิดมากหรือวิตกกังวลง่าย</li>
+                                <li>• ชื่อให้ความรู้สึก "รุ่นคลาสสิก" มาก</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ประเสริฐ -->
+                <div class="bg-gradient-to-r from-amber-900/30 to-orange-900/30 border border-amber-700/30 p-6 rounded-xl">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="text-4xl">🥉</span>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white">ประเสริฐ</h3>
+                            <p class="text-amber-700 text-sm">ผู้ใช้: 268,094 คน</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-900/50 p-4 rounded-lg mb-4">
+                        <p class="text-slate-400 text-sm mb-2">การคำนวณเลขศาสตร์:</p>
+                        <div class="flex items-center gap-2 flex-wrap text-lg">
+                            <span class="bg-slate-700 px-3 py-1 rounded">ป = 2</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">ร = 4</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">ะ = 4</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">เ = 2</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">ส = 7</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">ร = 4</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">ิ = 4</span>
+                            <span class="text-slate-500">+</span>
+                            <span class="bg-slate-700 px-3 py-1 rounded">ฐ = 9</span>
+                            <span class="text-slate-500">=</span>
+                            <span class="bg-orange-600 text-white px-4 py-1 rounded font-bold">36</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-emerald-500/10 p-4 rounded-lg border border-emerald-500/20">
+                            <h4 class="font-bold text-emerald-300 mb-2">✅ ข้อดี (เลข 36)</h4>
+                            <ul class="text-sm text-slate-300 space-y-1">
+                                <li>• เลข 36 สื่อถึงเสน่ห์และความเมตตา</li>
+                                <li>• มีบารมี เป็นที่นับหน้าถือตา</li>
+                                <li>• ดีต่อการเงินและความสัมพันธ์</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-500/10 p-4 rounded-lg border border-red-500/20">
+                            <h4 class="font-bold text-red-300 mb-2">⚠️ ข้อควรระวัง</h4>
+                            <ul class="text-sm text-slate-300 space-y-1">
+                                <li>• คนเกิดวันอาทิตย์ต้องระวัง (ส เป็นกาลกิณี)</li>
+                                <li>• ชื่อยาว 8 พยางค์ อาจถูกเรียกสั้นลง</li>
+                                <li>• ความหมายดีแต่สไตล์อาจไม่ทันสมัย</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-red-400 mt-10 mb-6">⚡ "ชื่อดี" แต่คนใช้เยอะ = ปัญหาซ่อนเร้น?</h2>
+            <p class="mb-4">นี่คือประเด็นสำคัญที่หลายคนมองข้าม! แม้ว่าชื่อเหล่านี้จะมีความหมายดีและเลขศาสตร์โอเค แต่การที่มีคนใช้ชื่อเดียวกันเกือบ 5 แสนคน ก็มีข้อเสียที่ต้องพิจารณา:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-red-500/10 border border-red-500/30 p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-red-300 mb-3">🔴 ปัญหาเมื่อชื่อซ้ำกันมาก</h3>
+                    <ul class="text-slate-300 text-sm space-y-3">
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-400">•</span>
+                            <span><strong>พลังงานกระจาย:</strong> เชื่อกันว่าเมื่อคนใช้ชื่อเดียวกันมาก พลังมงคลจะถูก "แบ่ง" ออกไป</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-400">•</span>
+                            <span><strong>ขาดเอกลักษณ์:</strong> ยากที่จะโดดเด่นในสังคม เพราะชื่อไม่มีความแตกต่าง</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-400">•</span>
+                            <span><strong>ภาพลักษณ์ "รุ่นเก่า":</strong> อาจสร้างความรู้สึกว่าล้าสมัยในยุคปัจจุบัน</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-400">•</span>
+                            <span><strong>ปัญหาในทางปฏิบัติ:</strong> สับสนในเอกสาร บัตรประชาชน หรือการติดต่อราชการ</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-emerald-500/10 border border-emerald-500/30 p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-emerald-300 mb-3">🟢 ข้อดีที่ยังคงอยู่</h3>
+                    <ul class="text-slate-300 text-sm space-y-3">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">•</span>
+                            <span><strong>ความหมายคลาสสิก:</strong> ชื่อเหล่านี้มีรากฐานจากความหมายดีที่แท้จริง</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">•</span>
+                            <span><strong>เป็นที่จดจำง่าย:</strong> ออกเสียงง่าย เขียนง่าย ไม่ต้องสะกดให้ยุ่งยาก</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">•</span>
+                            <span><strong>พิสูจน์แล้วจากรุ่นสู่รุ่น:</strong> เป็นชื่อที่ผ่านการใช้งานมานาน</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400">•</span>
+                            <span><strong>ผลรวมเลขไม่แย่:</strong> ส่วนใหญ่มีผลรวมในเกณฑ์ดี-ปานกลาง</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-emerald-400 mt-10 mb-6">💎 ทางเลือกใหม่: ชื่อความหมายคล้าย แต่เลขดีกว่าและไม่ซ้ำใคร!</h2>
+            <p class="mb-6">หากคุณชอบความหมายของชื่อยอดฮิต แต่อยากได้ชื่อที่ <strong>ทันสมัยกว่า</strong> และ <strong>เลขศาสตร์ดีกว่า</strong> นี่คือตัวอย่างทางเลือกที่เราแนะนำ:</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gradient-to-br from-blue-900/30 to-cyan-900/30 border border-blue-500/20 p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-blue-300 mb-4">ถ้าชอบความหมาย "สมชาย" (ลูกผู้ชายสมบูรณ์)</h3>
+                    <div class="space-y-3">
+                        <div class="bg-slate-900/50 p-3 rounded-lg border-l-2 border-emerald-500">
+                            <strong class="text-white">วรชัย (วอ-ระ-ไช)</strong>
+                            <p class="text-xs text-slate-400 mt-1">ชัยชนะอันประเสริฐ | ผลรวม: 24 (มหาเสน่ห์)</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-3 rounded-lg border-l-2 border-emerald-500">
+                            <strong class="text-white">กิตติพงศ์ (กิด-ติ-พง)</strong>
+                            <p class="text-xs text-slate-400 mt-1">วงศ์ตระกูลที่มีชื่อเสียง | ผลรวม: 45 (มหาเศรษฐี)</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-3 rounded-lg border-l-2 border-emerald-500">
+                            <strong class="text-white">ภูวดล (พู-วะ-ดน)</strong>
+                            <p class="text-xs text-slate-400 mt-1">อำนาจแห่งแผ่นดิน | ผลรวม: 19 (ผู้นำ)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-pink-900/30 to-rose-900/30 border border-pink-500/20 p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-pink-300 mb-4">ถ้าชอบความหมาย "สมจิต" (จิตใจงดงาม)</h3>
+                    <div class="space-y-3">
+                        <div class="bg-slate-900/50 p-3 rounded-lg border-l-2 border-purple-500">
+                            <strong class="text-white">จิตรลดา (จิด-ละ-ดา)</strong>
+                            <p class="text-xs text-slate-400 mt-1">เถาวัลย์ที่งดงาม | ผลรวม: 24 (มหาเสน่ห์)</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-3 rounded-lg border-l-2 border-purple-500">
+                            <strong class="text-white">ณัฐธิดา (นัด-ทิ-ดา)</strong>
+                            <p class="text-xs text-slate-400 mt-1">ธิดาของนักปราชญ์ | ผลรวม: 32 (เสน่ห์แรง)</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-3 rounded-lg border-l-2 border-purple-500">
+                            <strong class="text-white">พิมพ์มาดา (พิม-มา-ดา)</strong>
+                            <p class="text-xs text-slate-400 mt-1">รูปแบบอันประเสริฐ | ผลรวม: 36 (เมตตาธิคุณ)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-amber-900/30 to-yellow-900/30 border border-amber-500/20 p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-amber-300 mb-4">ถ้าชอบความหมาย "ประเสริฐ" (ดีเลิศ)</h3>
+                    <div class="space-y-3">
+                        <div class="bg-slate-900/50 p-3 rounded-lg border-l-2 border-amber-500">
+                            <strong class="text-white">วริศ (วะ-ริด)</strong>
+                            <p class="text-xs text-slate-400 mt-1">ผู้เป็นเลิศ | ผลรวม: 24 (มหาเสน่ห์)</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-3 rounded-lg border-l-2 border-amber-500">
+                            <strong class="text-white">อภิวิชญ์ (อะ-พิ-วิด)</strong>
+                            <p class="text-xs text-slate-400 mt-1">ผู้มีปัญญายิ่งใหญ่ | ผลรวม: 45 (มหาเศรษฐี)</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-3 rounded-lg border-l-2 border-amber-500">
+                            <strong class="text-white">ปวริศ (ปะ-วะ-ริด)</strong>
+                            <p class="text-xs text-slate-400 mt-1">ผู้เป็นเลิศและยิ่งใหญ่ | ผลรวม: 32 (เสน่ห์แรง)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-emerald-900/30 to-teal-900/30 border border-emerald-500/20 p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-emerald-300 mb-4">ถ้าชอบความหมาย "เจริญ" (ความก้าวหน้า)</h3>
+                    <div class="space-y-3">
+                        <div class="bg-slate-900/50 p-3 rounded-lg border-l-2 border-teal-500">
+                            <strong class="text-white">ธนวัฒน์ (ทะ-นะ-วัด)</strong>
+                            <p class="text-xs text-slate-400 mt-1">ความเจริญแห่งทรัพย์ | ผลรวม: 36 (เมตตาธิคุณ)</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-3 rounded-lg border-l-2 border-teal-500">
+                            <strong class="text-white">พิพัฒน์ (พิ-พัด)</strong>
+                            <p class="text-xs text-slate-400 mt-1">ความเจริญก้าวหน้า | ผลรวม: 42 (มหาทรัพย์)</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-3 rounded-lg border-l-2 border-teal-500">
+                            <strong class="text-white">วิวรรธน์ (วิ-วัด)</strong>
+                            <p class="text-xs text-slate-400 mt-1">ความเจริญรุ่งเรือง | ผลรวม: 45 (มหาเศรษฐี)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-white/10 my-10" />
+
+            <h2 class="text-2xl font-bold text-white mt-10 mb-6">🎯 บทสรุป: ชื่อโหลหรือชื่อเฮง?</h2>
+            <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border border-purple-500/20 p-6 rounded-xl mb-8">
+                <p class="text-slate-300 mb-4">ชื่อยอดฮิต 20 อันดับของไทย ล้วนมี <strong class="text-white">ความหมายดี</strong> และ <strong class="text-white">เลขศาสตร์ไม่แย่</strong> ซึ่งอธิบายได้ว่าทำไมถึงได้รับความนิยมมานานหลายทศวรรษ</p>
+                <p class="text-slate-300 mb-4">อย่างไรก็ตาม ในยุคปัจจุบันที่ความเป็น <strong class="text-amber-400">เอกลักษณ์</strong> และ <strong class="text-amber-400">ความโดดเด่น</strong> มีความสำคัญมากขึ้น การเลือกชื่อที่มีความหมายคล้ายกันแต่ไม่ซ้ำใคร อาจเป็นทางเลือกที่ดีกว่า</p>
+                <p class="text-slate-300 font-semibold">💡 <strong class="text-white">หลักการสำคัญ:</strong> เลือกชื่อที่ "ความหมายดี + ผลรวมเลขดี + ไม่มีกาลกิณีตามวันเกิด + มีเอกลักษณ์"</p>
+            </div>
+
+            <div class="bg-slate-800/80 p-8 rounded-2xl border border-white/10 text-center relative overflow-hidden shadow-2xl">
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#0f172a]/80"></div>
+                <div class="relative z-10">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600 mb-4">
+                        อยากรู้ว่าชื่อของคุณเลขดีแค่ไหน?
+                    </h3>
+                    <p class="text-slate-300 mb-6 max-w-xl mx-auto">
+                        ลองใช้ระบบวิเคราะห์ชื่อของ NameMongkol ฟรี! เราจะบอกผลรวมเลขศาสตร์ ความหมาย และตรวจสอบกาลกิณีตามวันเกิดให้ครบถ้วน
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="/" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold py-4 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-amber-900/40 text-lg group">
+                            <span>วิเคราะห์ชื่อฟรี</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                        <a href="/search" class="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 px-8 rounded-full transition-all hover:scale-105">
+                            <span>ค้นหาชื่อมงคล 5,000+ ชื่อ</span>
+                        </a>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-4">ไม่มีค่าใช้จ่ายแอบแฝง • ใช้งานได้ทันที</p>
+                </div>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-white/10">
+                <h3 class="text-xl font-bold text-white mb-4">คำถามที่พบบ่อย (FAQ)</h3>
+                <div class="space-y-4">
+                    <details class="group bg-slate-800/30 rounded-lg p-4 cursor-pointer open:bg-slate-800/50 transition-colors">
+                        <summary class="font-semibold text-slate-200 list-none flex justify-between items-center">
+                            ชื่อ "สมชาย" ยังใช้ได้ดีอยู่ไหม?
+                            <span class="transition-transform group-open:rotate-180">▼</span>
+                        </summary>
+                        <p class="mt-3 text-slate-400 text-sm pl-4 border-l-2 border-amber-500">
+                            ชื่อสมชายมีความหมายดีและผลรวมเลข 23 ซึ่งอยู่ในเกณฑ์ดี อย่างไรก็ตาม หากคุณเกิดวันอาทิตย์ ตัว "ส" จะเป็นกาลกิณี อาจพิจารณาเปลี่ยนเป็นชื่อที่มีความหมายคล้ายกันแต่ไม่มี ส ษ ศ ห ฬ ฮ
+                        </p>
+                    </details>
+                    <details class="group bg-slate-800/30 rounded-lg p-4 cursor-pointer open:bg-slate-800/50 transition-colors">
+                        <summary class="font-semibold text-slate-200 list-none flex justify-between items-center">
+                            ทำไมชื่อขึ้นต้นด้วย "สม" ถึงได้รับความนิยมมาก?
+                            <span class="transition-transform group-open:rotate-180">▼</span>
+                        </summary>
+                        <p class="mt-3 text-slate-400 text-sm pl-4 border-l-2 border-amber-500">
+                            คำว่า "สม" ในภาษาไทยสื่อถึงความสมบูรณ์ ความพอดี และความสมหวัง ในอดีตพ่อแม่จึงนิยมตั้งชื่อลูกให้สื่อถึงความปรารถนาดี เช่น สมชาย (ลูกชายสมบูรณ์), สมหวัง (สมปรารถนา), สมพร (ได้รับพร)
+                        </p>
+                    </details>
+                    <details class="group bg-slate-800/30 rounded-lg p-4 cursor-pointer open:bg-slate-800/50 transition-colors">
+                        <summary class="font-semibold text-slate-200 list-none flex justify-between items-center">
+                            ผลรวมเลขศาสตร์เท่าไหร่ถึงจะดี?
+                            <span class="transition-transform group-open:rotate-180">▼</span>
+                        </summary>
+                        <p class="mt-3 text-slate-400 text-sm pl-4 border-l-2 border-amber-500">
+                            ผลรวมที่นิยมมากที่สุดคือ 14, 15, 19, 23, 24, 32, 36, 41, 42, 45, 46, 51, 54, 55, 59, 63, 65 โดยแต่ละเลขจะมีพลังงานด้านต่างๆ เช่น 24 = เสน่ห์, 45 = เศรษฐี, 19 = ผู้นำ
+                        </p>
+                    </details>
+                    <details class="group bg-slate-800/30 rounded-lg p-4 cursor-pointer open:bg-slate-800/50 transition-colors">
+                        <summary class="font-semibold text-slate-200 list-none flex justify-between items-center">
+                            ถ้าอยากเปลี่ยนชื่อควรทำอย่างไร?
+                            <span class="transition-transform group-open:rotate-180">▼</span>
+                        </summary>
+                        <p class="mt-3 text-slate-400 text-sm pl-4 border-l-2 border-amber-500">
+                            1) วิเคราะห์ชื่อปัจจุบันก่อนว่ามีปัญหาตรงไหน 2) ค้นหาชื่อใหม่ที่ตรงกับวันเกิดและไม่มีกาลกิณี 3) ตรวจสอบผลรวมเลขศาสตร์ 4) ยื่นเรื่องเปลี่ยนชื่อที่อำเภอ สามารถใช้ระบบค้นหาชื่อมงคลของเราได้ฟรี!
+                        </p>
+                    </details>
+                </div>
+            </div>
+        `
+    },
+    {
         id: '12',
         slug: 'free-999-auspicious-names-2568',
         title: 'แจกฟรี! 999 ชื่อมงคลประจำปี 2568 ความหมายดี พลิกชีวิต รับปีมะเส็งและมะเมีย',

@@ -1,11 +1,14 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import { Metadata } from 'next';
 import { calculateScore } from '@/utils/calculateScore';
 import { getPrediction } from '@/utils/getPrediction';
 import { HeroBanner } from '@/components/HeroBanner'; // Reuse for consistency if appropriate, or simplified version
 import { Sparkles, ArrowRight, Star } from 'lucide-react';
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 
 type Props = {
     params: Promise<{ name: string }>;
@@ -28,10 +31,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: `ความหมายชื่อ ${decodedName} ดีไหม? เช็คความหมายและเลขศาสตร์ - NameMongkol`,
         description: `วิเคราะห์ชื่อ "${decodedName}" ตามหลักเลขศาสตร์ ได้ผลรวม ${score} หมายถึง ${prediction.desc.substring(0, 100)}... เช็คชื่อมงคล ฟรี`,
+        keywords: [`ความหมายชื่อ ${decodedName}`, 'วิเคราะห์ชื่อ', 'เลขศาสตร์', 'ชื่อมงคล', `ชื่อ ${decodedName}`, 'ผลรวมชื่อ', 'ตั้งชื่อลูก'],
+        alternates: {
+            canonical: `${siteUrl}/meaning/${encodeURIComponent(decodedName)}`,
+        },
         openGraph: {
-            title: `ความหมายชื่อ ${decodedName} - ดีหรือไม่?`,
-            description: `ผลรวมเลขศาสตร์ ${score}: ${prediction.desc.substring(0, 80)}...`,
-        }
+            title: `ความหมายชื่อ "${decodedName}" ผลรวม ${score} - ดีหรือไม่?`,
+            description: `วิเคราะห์ชื่อ ${decodedName} ตามหลักเลขศาสตร์ ได้ผลรวม ${score} ระดับ: ${prediction.level} | ${prediction.desc.substring(0, 80)}...`,
+            url: `${siteUrl}/meaning/${encodeURIComponent(decodedName)}`,
+            siteName: 'NameMongkol',
+            locale: 'th_TH',
+            type: 'article',
+            images: [`${siteUrl}/api/og?variant=analysis&name=${encodeURIComponent(decodedName)}&score=${score}&subtitle=${encodeURIComponent(`ผลรวมเลขศาสตร์: ${score} | ${prediction.level}`)}`],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `ความหมายชื่อ "${decodedName}" ผลรวม ${score}`,
+            description: `วิเคราะห์ชื่อ ${decodedName} ตามหลักเลขศาสตร์ ได้ผลรวม ${score} ระดับ: ${prediction.level}`,
+            images: [`${siteUrl}/api/og?variant=analysis&name=${encodeURIComponent(decodedName)}&score=${score}`],
+        },
     };
 }
 
@@ -41,8 +59,62 @@ export default async function MeaningPage({ params }: Props) {
     const score = calculateScore(decodedName);
     const prediction = getPrediction(score);
 
+    // JSON-LD Schema for SEO/AEO/GEO
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'WebPage',
+                '@id': `${siteUrl}/meaning/${encodeURIComponent(decodedName)}#webpage`,
+                'url': `${siteUrl}/meaning/${encodeURIComponent(decodedName)}`,
+                'name': `ความหมายชื่อ ${decodedName} - วิเคราะห์เลขศาสตร์`,
+                'description': `วิเคราะห์ชื่อ ${decodedName} ได้ผลรวมเลขศาสตร์ ${score} ระดับ: ${prediction.level}`,
+                'isPartOf': { '@id': `${siteUrl}/#website` },
+                'inLanguage': 'th-TH',
+            },
+            {
+                '@type': 'BreadcrumbList',
+                'itemListElement': [
+                    {
+                        '@type': 'ListItem',
+                        'position': 1,
+                        'name': 'หน้าแรก',
+                        'item': siteUrl,
+                    },
+                    {
+                        '@type': 'ListItem',
+                        'position': 2,
+                        'name': 'ความหมายชื่อ',
+                        'item': `${siteUrl}/meaning`,
+                    },
+                    {
+                        '@type': 'ListItem',
+                        'position': 3,
+                        'name': decodedName,
+                        'item': `${siteUrl}/meaning/${encodeURIComponent(decodedName)}`,
+                    },
+                ],
+            },
+            {
+                '@type': 'DefinedTerm',
+                'name': decodedName,
+                'description': prediction.desc,
+                'inDefinedTermSet': {
+                    '@type': 'DefinedTermSet',
+                    'name': 'พจนานุกรมชื่อมงคล NameMongkol',
+                },
+            },
+        ],
+    };
+
     return (
-        <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-amber-500 selection:text-white relative overflow-hidden">
+        <>
+            <Script
+                id="meaning-json-ld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-amber-500 selection:text-white relative overflow-hidden">
             {/* Background Decor (Simplified from Layout) */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px]"></div>
@@ -116,6 +188,7 @@ export default async function MeaningPage({ params }: Props) {
                 </div>
 
             </main>
-        </div>
+            </div>
+        </>
     );
 }

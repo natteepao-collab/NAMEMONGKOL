@@ -1,6 +1,36 @@
 import React from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import { Book, Scale, AlertCircle, Copyright, ArrowLeft, ShieldCheck, Zap } from 'lucide-react';
+import { Metadata } from 'next';
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
+
+export const metadata: Metadata = {
+    title: 'ข้อตกลงและเงื่อนไขการใช้งาน | NameMongkol',
+    description: 'ข้อตกลงและเงื่อนไขการใช้งานเว็บไซต์ NameMongkol รวมถึงการใช้บริการวิเคราะห์ชื่อมงคล เบอร์มงคล และบริการอื่นๆ ตามกฎหมายไทย',
+    keywords: ['ข้อตกลง', 'เงื่อนไขการใช้งาน', 'Terms of Service', 'NameMongkol', 'กฎหมาย'],
+    alternates: {
+        canonical: `${siteUrl}/terms`,
+    },
+    openGraph: {
+        title: 'ข้อตกลงและเงื่อนไขการใช้งาน | NameMongkol',
+        description: 'ข้อตกลงและเงื่อนไขการใช้งานเว็บไซต์ NameMongkol',
+        url: `${siteUrl}/terms`,
+        siteName: 'NameMongkol',
+        locale: 'th_TH',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary',
+        title: 'ข้อตกลงและเงื่อนไขการใช้งาน | NameMongkol',
+        description: 'ข้อตกลงและเงื่อนไขการใช้งานเว็บไซต์ NameMongkol',
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
+};
 
 export default function TermsPage() {
     return (

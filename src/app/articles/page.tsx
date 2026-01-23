@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Script from 'next/script';
 import { supabase } from '@/utils/supabase';
 import { Calendar, User, ArrowLeft, Search, BookOpen } from 'lucide-react';
 import { articles as localArticles } from '@/data/articles';
@@ -80,9 +81,47 @@ export const metadata: Metadata = {
 
 export default async function ArticlesPage() {
     const articles = await getArticles();
+    
+    // JSON-LD Schema for Article List
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        'name': 'บทความชื่อมงคล',
+        'description': 'รวบรวมบทความเกี่ยวกับชื่อมงคล หลักการตั้งชื่อ เคล็ดลับเสริมดวง',
+        'url': 'https://www.namemongkol.com/articles',
+        'isPartOf': {
+            '@type': 'WebSite',
+            'name': 'NameMongkol',
+            'url': 'https://www.namemongkol.com',
+        },
+        'mainEntity': {
+            '@type': 'ItemList',
+            'itemListElement': articles.slice(0, 10).map((article, index) => ({
+                '@type': 'ListItem',
+                'position': index + 1,
+                'item': {
+                    '@type': 'Article',
+                    'headline': article.title,
+                    'description': article.excerpt,
+                    'url': `https://www.namemongkol.com/articles/${article.slug}`,
+                    'datePublished': article.date,
+                    'author': {
+                        '@type': 'Person',
+                        'name': article.author,
+                    },
+                },
+            })),
+        },
+    };
 
     return (
-        <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-purple-500 selection:text-white relative overflow-hidden pb-20">
+        <>
+            <Script
+                id="articles-list-json-ld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-purple-500 selection:text-white relative overflow-hidden pb-20">
             {/* Background Decor */}
             <div className="absolute top-0 left-0 w-full h-[500px] overflow-hidden pointer-events-none">
                 <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px]"></div>
@@ -172,6 +211,7 @@ export default async function ArticlesPage() {
                     </div>
                 )}
             </main>
-        </div >
+            </div>
+        </>
     );
 }
