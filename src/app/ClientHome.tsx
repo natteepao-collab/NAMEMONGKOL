@@ -33,6 +33,7 @@ const KnowledgeSection = dynamic(() => import('@/components/KnowledgeSection').t
 const ArticleSection = dynamic(() => import('@/components/ArticleSection').then(mod => mod.ArticleSection));
 const FAQSection = dynamic(() => import('@/components/FAQSection').then(mod => mod.FAQSection));
 const HomeSeoContent = dynamic(() => import('@/components/HomeSeoContent').then(mod => mod.HomeSeoContent));
+const TestimonialSection = dynamic(() => import('@/components/TestimonialSection').then(mod => mod.TestimonialSection));
 const WelcomeOffer = dynamic(() => import('@/components/WelcomeOffer').then(mod => mod.WelcomeOffer), { ssr: false });
 
 function HomeContent() {
@@ -241,6 +242,7 @@ function HomeContent() {
                     <WallpaperShowcase />
                     <HomeSeoContent />
                     <KnowledgeSection />
+                    <TestimonialSection />
                     <FAQSection />
                     <ArticleSection />
                 </>

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, Search, Info, Menu, X, Sparkles, LogIn, LogOut, User as UserIcon, ClipboardList, Crown, Zap, History as HistoryIcon, Settings, Image as ImageIcon, BookOpen, Smartphone, ChevronDown } from 'lucide-react';
+import { Home, Search, Info, Menu, X, Sparkles, LogIn, LogOut, User as UserIcon, ClipboardList, Crown, Zap, History as HistoryIcon, Settings, Image as ImageIcon, BookOpen, Smartphone, ChevronDown, MessageCircle } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';
 import { LineOAButton } from './LineOAButton';
@@ -99,6 +99,7 @@ export const Sidebar = () => {
                 { name: 'วิเคราะห์เบอร์โทร', icon: Smartphone, path: '/phone-analysis' }
             ]
         },
+        { name: 'รีวิวจากทางบ้าน', icon: MessageCircle, path: '/reviews' },
         { name: 'บทความ', icon: BookOpen, path: '/articles' },
         { name: 'ค้นหาชื่อมงคล', icon: Search, path: '/search' },
         { name: 'คัดสรรชื่อมงคล ', icon: Sparkles, path: '/premium-search' },
