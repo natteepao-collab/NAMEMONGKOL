@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useRef } from 'react';
 import { X, Download, Smartphone, Square, Loader2, Image as ImageIcon } from 'lucide-react';
 import html2canvas from 'html2canvas';

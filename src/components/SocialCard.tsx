@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { Sparkles } from 'lucide-react';
 import { AnalysisResult } from '@/types';
-import { calculateScore } from '@/utils/calculateScore';
+
 
 interface SocialCardProps {
     result: AnalysisResult;
@@ -171,7 +171,7 @@ export const SocialCard = forwardRef<HTMLDivElement, SocialCardProps>(({ result,
 
                         <h4 className="text-lg font-bold mb-2" style={{ color: '#fde68a' }}>คำทำนายผลรวม</h4>
                         <p className="text-xl font-medium leading-relaxed mb-4" style={{ color: '#f1f5f9' }}>
-                            "{result.prediction?.desc}"
+                            &quot;{result.prediction?.desc}&quot;
                         </p>
 
                         <div

@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useEffect } from 'react';
 import { CreditCard, Edit2, Plus, Trash2, X, Save, DollarSign, Sparkles } from 'lucide-react';
@@ -33,7 +34,7 @@ export default function AdminPricingPage() {
     });
 
     const fetchTiers = async () => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setLoading(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();
@@ -78,7 +79,7 @@ export default function AdminPricingPage() {
     };
 
     const handleDelete = async (id: string) => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -112,7 +113,7 @@ export default function AdminPricingPage() {
     };
 
     const handleSave = async () => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setSaving(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();
@@ -120,7 +121,7 @@ export default function AdminPricingPage() {
             const method = editingTier ? 'PUT' : 'POST';
 
             // Ensure ID is set for new tiers if not provided manually (simple auto-gen fallback)
-            let payload = { ...formData };
+            const payload = { ...formData };
             if (!editingTier && !payload.id) {
                 payload.id = `tier_${new Date().getTime()}`;
             }

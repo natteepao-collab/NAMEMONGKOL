@@ -34,7 +34,7 @@ const AboutSection = () => {
 
                         <div className="max-w-3xl mx-auto mt-8">
                             <p className="text-slate-400 text-lg md:text-xl leading-relaxed">
-                                แพลตฟอร์มวิเคราะห์ชื่อมงคลอัจฉริยะ ที่ช่วยให้คุณค้นพบ "ชื่อที่ใช่"
+                                แพลตฟอร์มวิเคราะห์ชื่อมงคลอัจฉริยะ ที่ช่วยให้คุณค้นพบ &quot;ชื่อที่ใช่&quot;
                                 ผ่านการคำนวณที่แม่นยำ ละเอียด และเป็นกลางที่สุด
                             </p>
                         </div>
@@ -84,8 +84,8 @@ const AboutSection = () => {
                             </h2>
                             <div className="space-y-4 text-slate-300 text-lg leading-relaxed">
                                 <p>
-                                    NAMEMONGKOL เกิดขึ้นจากความตั้งใจที่จะทำให้ศาสตร์การ <strong>"ตั้งชื่อ"</strong> ที่ดูยุ่งยากและซับซ้อน
-                                    กลายเป็นเรื่องที่ <strong>"เข้าถึงง่าย"</strong> สำหรับทุกคน
+                                    NAMEMONGKOL เกิดขึ้นจากความตั้งใจที่จะทำให้ศาสตร์การ <strong>&quot;ตั้งชื่อ&quot;</strong> ที่ดูยุ่งยากและซับซ้อน
+                                    กลายเป็นเรื่องที่ <strong>&quot;เข้าถึงง่าย&quot;</strong> สำหรับทุกคน
                                 </p>
                                 <p>
                                     เราเชื่อว่าทุกคนสมควรได้รับเริ่มต้นชีวิตที่ดี หรือจุดเปลี่ยนชีวิตที่ทรงพลัง
@@ -101,7 +101,7 @@ const AboutSection = () => {
                             <span className="text-emerald-400">ชีวิตเปลี่ยน</span>
                         </h3>
                         <p className="text-slate-400 text-lg border-l-4 border-emerald-500 pl-6 py-2 italic bg-slate-800/30 rounded-r-xl">
-                            "ชื่อไม่ใช่แค่ป้ายชื่อ แต่คือบทสวดมนต์บทแรกที่เราได้ยินทุกวัน เมื่อชื่อดี พลังงานดี ชีวิตย่อมหมุนไปในทิศทางที่ดี"
+                            &quot;ชื่อไม่ใช่แค่ป้ายชื่อ แต่คือบทสวดมนต์บทแรกที่เราได้ยินทุกวัน เมื่อชื่อดี พลังงานดี ชีวิตย่อมหมุนไปในทิศทางที่ดี&quot;
                         </p>
                     </div>
                 </div>
@@ -114,10 +114,10 @@ const AboutSection = () => {
                     </div>
                     <div className="relative z-10 max-w-4xl mx-auto space-y-6">
                         <h2 className="text-2xl md:text-3xl font-serif italic text-amber-200/90">
-                            "ปรัชญาของเราคือความสมดุล"
+                            &quot;ปรัชญาของเราคือความสมดุล&quot;
                         </h2>
                         <p className="text-slate-300 text-lg md:text-xl leading-relaxed font-light">
-                            เราไม่ได้มุ่งเน้นแค่เลขผลรวมที่สูงที่สุด แต่เรามุ่งหา <strong>"ความพอดี"</strong> ที่สุดสำหรับคุณ
+                            เราไม่ได้มุ่งเน้นแค่เลขผลรวมที่สูงที่สุด แต่เรามุ่งหา <strong>&quot;ความพอดี&quot;</strong> ที่สุดสำหรับคุณ
                             เหมือนการตัดชุดสูทที่พอดีตัว ไม่คับไป ไม่หลวมไป
                             สอดคล้องกับวันเกิดและนามสกุลของคุณอย่างลงตัว นั่นคือความมงคลที่ยั่งยืน
                         </p>

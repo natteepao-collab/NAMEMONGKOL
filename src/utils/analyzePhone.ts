@@ -42,7 +42,7 @@ export const analyzePhone = async (phoneNumber: string): Promise<PhoneAnalysisRe
 
             if (!error && data && data.length > 0) {
                 const dbDefs: Record<string, PairDefinition> = {};
-                data.forEach((row: any) => {
+                data.forEach((row: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
                     dbDefs[row.pair] = {
                         grade: row.grade,
                         title: row.title,
@@ -70,7 +70,7 @@ export const analyzePhone = async (phoneNumber: string): Promise<PhoneAnalysisRe
     const pairs: PairAnalysis[] = [];
 
     // Stats accumulators (0-100 scale for both Positive and Negative)
-    let stats = {
+    const stats = {
         finance: { pos: 0, neg: 0 },
         luck: { pos: 0, neg: 0 },
         love: { pos: 0, neg: 0 },

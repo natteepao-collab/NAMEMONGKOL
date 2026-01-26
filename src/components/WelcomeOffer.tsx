@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/utils/supabase';
-import { X, Gift, Sparkles, ChevronRight } from 'lucide-react';
+import { X, Gift, Sparkles } from 'lucide-react';
 
 export const WelcomeOffer = () => {
     const [isVisible, setIsVisible] = useState(false);

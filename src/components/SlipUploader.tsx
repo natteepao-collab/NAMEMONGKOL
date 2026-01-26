@@ -30,8 +30,8 @@ export default function SlipUploader({ amount, credits, tierId }: SlipUploaderPr
     const handleUpload = async () => {
         if (!selectedFile) return;
 
-        // Dynamic import SweetAlert2
-        const Swal = (await import('sweetalert2')).default;
+        // Dynamic import SweetAlert2 (explicit path to ensure chunk exists)
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
         setIsLoading(true);
         setResult(null);

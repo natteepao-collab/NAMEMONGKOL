@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
-import { Stripe } from 'stripe';
+import Stripe from 'stripe';
 import { createClient } from '@/utils/supabaseServer';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { redirect } from 'next/navigation';
 
 if (!process.env.STRIPE_SECRET_KEY) {
@@ -78,9 +80,9 @@ export async function verifyPromptPayTransaction(sessionId: string) {
     }
 
     // Initialize Admin Client
-    const { createClient: createSupabaseClient } = require('@supabase/supabase-js');
+    // Initialize Admin Client
     const supabaseAdmin = createSupabaseClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.SUPABASE_SERVICE_ROLE_KEY
     );
 
@@ -150,6 +152,7 @@ export async function verifyPromptPayTransaction(sessionId: string) {
 
         return { success: true, credits };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         console.error('Verification Error:', error);
         return { success: false, message: error.message };

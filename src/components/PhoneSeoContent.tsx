@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Phone, Zap, TrendingUp, Heart, Shield, Star, Sparkles, Target, Award, Banknote, Users, AlertTriangle } from 'lucide-react';
+import { Zap, Heart, Shield, Star, Sparkles, Target, Award, Banknote, Users, AlertTriangle } from 'lucide-react';
 
 export const PhoneSeoContent = () => {
     return (
@@ -15,8 +15,8 @@ export const PhoneSeoContent = () => {
                     ปลดล็อกพลังซ่อนเร้นใน<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">เบอร์โทรศัพท์</span>ของคุณ
                 </h2>
                 <p className="text-slate-300 max-w-3xl mx-auto text-lg leading-relaxed">
-                    คุณทราบหรือไม่? ตัวเลขที่คุณใช้โทรทุกวัน กำลังส่งพลังงานสั่นสะเทือนมาถึงคุณตลอดเวลา 
-                    เบอร์โทรศัพท์ไม่ใช่แค่ตัวเลขสุ่ม แต่คือ <strong>"คลื่นพลังงาน"</strong> ที่มีผลต่อ 
+                    คุณทราบหรือไม่? ตัวเลขที่คุณใช้โทรทุกวัน กำลังส่งพลังงานสั่นสะเทือนมาถึงคุณตลอดเวลา
+                    เบอร์โทรศัพท์ไม่ใช่แค่ตัวเลขสุ่ม แต่คือ <strong>&quot;คลื่นพลังงาน&quot;</strong> ที่มีผลต่อ
                     <strong className="text-amber-400"> ความสำเร็จ การเงิน ความรัก และสุขภาพ</strong> ของคุณโดยตรง!
                 </p>
             </div>
@@ -29,12 +29,12 @@ export const PhoneSeoContent = () => {
                         ทำไมต้องเช็คเบอร์มงคล?
                     </h3>
                     <p className="text-slate-300 leading-relaxed mb-4">
-                        ตามหลัก <strong>เลขศาสตร์</strong> และ <strong>โหราศาสตร์ไทย</strong> ตัวเลขแต่ละตัวมีความถี่พลังงานเฉพาะตัว 
+                        ตามหลัก <strong>เลขศาสตร์</strong> และ <strong>โหราศาสตร์ไทย</strong> ตัวเลขแต่ละตัวมีความถี่พลังงานเฉพาะตัว
                         เบอร์โทรศัพท์ที่คุณใช้ทุกวัน จะส่งคลื่นพลังงานมากระทบชีวิตคุณตลอดเวลา ไม่ว่าจะรู้ตัวหรือไม่ก็ตาม
                     </p>
                     <p className="text-slate-300 leading-relaxed">
-                        <strong>เบอร์มงคล</strong> จะช่วยดึงดูดโอกาสดีๆ ความเจริญก้าวหน้า และความราบรื่นเข้ามา 
-                        ในขณะที่ <strong className="text-rose-400">เบอร์อัปมงคล</strong> อาจเป็นอุปสรรคขัดขวางที่มองไม่เห็น 
+                        <strong>เบอร์มงคล</strong> จะช่วยดึงดูดโอกาสดีๆ ความเจริญก้าวหน้า และความราบรื่นเข้ามา
+                        ในขณะที่ <strong className="text-rose-400">เบอร์อัปมงคล</strong> อาจเป็นอุปสรรคขัดขวางที่มองไม่เห็น
                         ทำให้ต้องเหนื่อยมากกว่าปกติ หรือพลาดโอกาสดีๆ ไปอย่างน่าเสียดาย
                     </p>
                 </div>
@@ -45,7 +45,7 @@ export const PhoneSeoContent = () => {
                         วิเคราะห์เบอร์ลึกถึงแก่นแท้
                     </h3>
                     <p className="text-slate-300 leading-relaxed mb-4">
-                        ระบบของ <strong>NameMongkol</strong> ไม่ได้แค่ดูผลรวม แต่วิเคราะห์ลึกถึง <strong>คู่เลข 7 ตัวหลัง</strong> 
+                        ระบบของ <strong>NameMongkol</strong> ไม่ได้แค่ดูผลรวม แต่วิเคราะห์ลึกถึง <strong>คู่เลข 7 ตัวหลัง</strong>
                         (XX-XYZ-ABCD) ซึ่งเป็นหัวใจสำคัญของเบอร์โทรศัพท์ไทย
                     </p>
                     <ul className="space-y-2 text-slate-300">
@@ -313,7 +313,7 @@ export const PhoneSeoContent = () => {
                     <div>
                         <h3 className="text-xl font-bold text-rose-400 mb-2">⚠️ อย่าปล่อยให้เลขร้ายทำลายโอกาสของคุณ!</h3>
                         <p className="text-slate-300 leading-relaxed mb-4">
-                            หลายคนใช้เบอร์โทรศัพท์ที่มีพลังงานลบมานานหลายปีโดยไม่รู้ตัว ทำให้เหนื่อยเปล่า พลาดโอกาส 
+                            หลายคนใช้เบอร์โทรศัพท์ที่มีพลังงานลบมานานหลายปีโดยไม่รู้ตัว ทำให้เหนื่อยเปล่า พลาดโอกาส
                             หรือมีอุปสรรคติดขัดตลอด การเปลี่ยนเบอร์เป็นเบอร์มงคลอาจเป็นจุดเปลี่ยนชีวิตที่คุณรอคอย!
                         </p>
                         <p className="text-amber-400 font-semibold">

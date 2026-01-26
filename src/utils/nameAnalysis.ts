@@ -57,12 +57,12 @@ export const analyzeName = (name: string): NameAnalysisResult | null => {
     if (!name) return null;
 
     // จัดระเบียบอักขระพิเศษ
-    let normalized = name.replace(/ฤๅ/g, 'A').replace(/ฦๅ/g, 'B');
+    const normalized = name.replace(/ฤๅ/g, 'A').replace(/ฦๅ/g, 'B');
     const specialMap: Record<string, { val: number }> = { 'A': { val: 1 }, 'B': { val: 9 } };
 
-    let sequence: number[] = [];
+    const sequence: number[] = [];
 
-    for (let char of normalized) {
+    for (const char of normalized) {
         let score = 0;
         if (specialMap[char]) {
             score = specialMap[char].val;

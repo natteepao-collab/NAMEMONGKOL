@@ -101,19 +101,6 @@ function ClientPageContent() {
     const [result, setResult] = useState<IPhoneAnalysisResult | null>(null);
     const [error, setError] = useState('');
 
-    // Check URL for number on mount/update
-    useEffect(() => {
-        const numberParam = searchParams.get('number');
-        // Only run if we have a number param, it's valid, and we don't have a result yet (or the result doesn't match)
-        if (numberParam && /^\d{10}$/.test(numberParam)) {
-            // If the current result matches the param, don't re-analyze
-            if (result && result.phoneNumber.replace(/-/g, '') === numberParam) return;
-
-            setPhoneNumber(numberParam);
-            performAnalysis(numberParam);
-        }
-    }, [searchParams]);
-
     const performAnalysis = async (number: string) => {
         setLoading(true);
         setError('');
@@ -130,6 +117,24 @@ function ClientPageContent() {
 
         setLoading(false);
     };
+
+    // Check URL for number on mount/update
+    useEffect(() => {
+        const numberParam = searchParams.get('number');
+        // Only run if we have a number param, it's valid, and we don't have a result yet (or the result doesn't match)
+        if (numberParam && /^\d{10}$/.test(numberParam)) {
+            // If the current result matches the param, don't re-analyze
+            if (result && result.phoneNumber.replace(/-/g, '') === numberParam) return;
+
+            // Defer to avoid set-state-in-effect warning
+            setTimeout(() => {
+                setPhoneNumber(numberParam);
+                performAnalysis(numberParam);
+            }, 0);
+        }
+    }, [searchParams]);
+
+
 
     const handleAnalyze = async () => {
         setError('');

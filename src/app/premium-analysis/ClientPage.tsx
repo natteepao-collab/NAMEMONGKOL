@@ -89,7 +89,7 @@ export default function PremiumAnalysisPage() {
     }, []);
 
     const handleAnalyze = async (isNewBatch = false) => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
         if (!surname || !birthDate || (!birthTime && !isUnknownTime)) {
             Swal.fire({
@@ -278,7 +278,7 @@ export default function PremiumAnalysisPage() {
                     ผลลัพธ์การวิเคราะห์
                 </h3>
                 <p className="text-slate-200">
-                    ชื่อมงคลสำหรับนามสกุล <span className="text-white font-bold underline decoration-amber-500/50 underline-offset-4 px-1">"{surname}"</span>
+                    ชื่อมงคลสำหรับนามสกุล <span className="text-white font-bold underline decoration-amber-500/50 underline-offset-4 px-1">&quot;{surname}&quot;</span>
                 </p>
                 <p className="text-slate-400 text-sm max-w-2xl mx-auto">
                     รายชื่อเหล่านี้ถูกคัดสรรจากศาสตร์ทักษาปกรณ์และเลขศาสตร์ชั้นสูง โดยคำนวณจากวันเดือนปีเกิดและเวลาเกิดของท่านโดยเฉพาะ

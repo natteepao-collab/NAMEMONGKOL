@@ -36,7 +36,7 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
                         ))}
                     </div>
                     <div className="mt-3 pt-3 border-t border-white/5 space-y-3">
-                        <p className="text-xs text-slate-400 leading-relaxed">"{result.namePrediction.desc}"</p>
+                        <p className="text-xs text-slate-400 leading-relaxed">&quot;{result.namePrediction.desc}&quot;</p>
 
                         {(result.namePrediction.color.includes('rose') ||
                             result.namePrediction.color.includes('red') ||
@@ -69,7 +69,7 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
                         ))}
                     </div>
                     <div className="mt-3 pt-3 border-t border-white/5">
-                        <p className="text-xs text-slate-400 leading-relaxed">"{result.surnamePrediction.desc}"</p>
+                        <p className="text-xs text-slate-400 leading-relaxed">&quot;{result.surnamePrediction.desc}&quot;</p>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@ export const ResultHeader: React.FC<ResultHeaderProps> = ({ result }) => {
                 </div>
 
                 <div className="text-slate-300 text-sm md:text-base font-medium leading-relaxed px-4 mb-3">
-                    "{result.prediction.desc}"
+                    &quot;{result.prediction.desc}&quot;
                 </div>
                 <div className="flex flex-col items-center gap-3 mt-4">
                     <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium bg-slate-800 ${result.prediction.color}`}>

@@ -41,7 +41,7 @@ export const TestimonialSection = () => {
         if (!session) {
             // Dynamic import SweetAlert2
             // Dynamic import SweetAlert2 - Rebuild trigger
-            const Swal = (await import('sweetalert2')).default;
+            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
             Swal.fire({
                 title: 'กรุณาเข้าสู่ระบบ',
@@ -114,7 +114,7 @@ export const TestimonialSection = () => {
                             </div>
 
                             <p className="text-slate-300 text-sm leading-relaxed mb-4 min-h-[60px]">
-                                "{review.content}"
+                                &quot;{review.content}&quot;
                             </p>
 
                             <div className="flex flex-wrap gap-2">

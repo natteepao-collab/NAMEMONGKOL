@@ -27,7 +27,7 @@ export const HeroBanner = () => {
 
                     {/* Description */}
                     <p className="text-slate-300 text-sm leading-relaxed max-w-lg mb-2">
-                        <span className="text-amber-400 font-semibold">"เปลี่ยนชื่อ เปลี่ยนชีวิต"</span> ตรวจสอบดวงชะตาที่ซ่อนอยู่ในชื่อของคุณด้วย <strong>4 ศาสตร์ศักดิ์สิทธิ์</strong>: เลขศาสตร์, ทักษาปกรณ์, อายตนะ 6 และนิรันดร์ศาสตร์ แม่นยำที่สุดด้วยระบบ AI
+                        <span className="text-amber-400 font-semibold">&quot;เปลี่ยนชื่อ เปลี่ยนชีวิต&quot;</span> ตรวจสอบดวงชะตาที่ซ่อนอยู่ในชื่อของคุณด้วย <strong>4 ศาสตร์ศักดิ์สิทธิ์</strong>: เลขศาสตร์, ทักษาปกรณ์, อายตนะ 6 และนิรันดร์ศาสตร์ แม่นยำที่สุดด้วยระบบ AI
                     </p>
                 </div>
 

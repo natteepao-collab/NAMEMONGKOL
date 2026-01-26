@@ -43,7 +43,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
         content: initialData?.content || ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [earnedCredits, setEarnedCredits] = useState(0);
+
 
     // Sync state with initialData when it changes or modal opens
     useEffect(() => {
@@ -77,7 +77,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
 
         // Validation: Content Length
         if (formData.content.length < 50) {
-            const Swal = (await import('sweetalert2')).default;
+            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
             Swal.fire({
                 icon: 'warning',
                 title: 'เนื้อหาสั้นเกินไป',
@@ -116,7 +116,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                 if (error) throw error;
 
                 // Show simple success for edit (no credits or confetti usually)
-                const Swal = (await import('sweetalert2')).default;
+                const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
                 Swal.fire({
                     icon: 'success',
                     title: 'บันทึกการแก้ไขสำเร็จ',
@@ -163,7 +163,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                     });
                 } else {
                     console.error('Submission failed logic:', data);
-                    const Swal = (await import('sweetalert2')).default;
+                    const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
                     Swal.fire({
                         icon: 'error',
                         title: 'บันทึกไม่สำเร็จ',
@@ -174,13 +174,13 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                 }
             }
 
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('Error submitting review (Full):', err);
-            const Swal = (await import('sweetalert2')).default;
+            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
             Swal.fire({
                 icon: 'error',
                 title: 'เกิดข้อผิดพลาด',
-                text: err?.message || 'ไม่สามารถเชื่อต่อกับระบบได้',
+                text: (err instanceof Error ? err.message : 'ไม่สามารถเชื่อต่อกับระบบได้'),
                 background: '#1e293b',
                 color: '#fff'
             });

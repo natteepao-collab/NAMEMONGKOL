@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useEffect } from 'react';
 import { Search, Check, X, Trash2, MessageCircle, AlertCircle, Filter, Star } from 'lucide-react';
@@ -15,7 +16,7 @@ export default function AdminReviewsPage() {
     const [stats, setStats] = useState({ total: 0, pending: 0, approved: 0, rejected: 0 });
 
     const fetchReviews = async () => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setLoading(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();
@@ -55,7 +56,7 @@ export default function AdminReviewsPage() {
     }, [page, search, statusFilter]);
 
     const handleUpdateStatus = async (id: string, newStatus: string) => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         try {
             const { data: { session } } = await supabase.auth.getSession();
 
@@ -85,13 +86,14 @@ export default function AdminReviewsPage() {
             } else {
                 throw new Error(data.error);
             }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             Swal.fire('Error', error.message, 'error');
         }
     };
 
     const handleDelete = async (id: string) => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -126,6 +128,7 @@ export default function AdminReviewsPage() {
                 } else {
                     throw new Error(data.error);
                 }
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 Swal.fire('Error', error.message, 'error');
             }
@@ -223,7 +226,7 @@ export default function AdminReviewsPage() {
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 max-w-xs">
-                                                <p className="line-clamp-2 text-slate-300">"{review.content}"</p>
+                                                <p className="line-clamp-2 text-slate-300">&quot;{review.content}&quot;</p>
                                             </td>
                                             <td className="px-6 py-4 text-center">
                                                 <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase ${review.status === 'approved' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :

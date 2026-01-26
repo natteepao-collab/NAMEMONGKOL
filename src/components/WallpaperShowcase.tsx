@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Sparkles, ArrowRight, Download } from 'lucide-react';
 import Image from 'next/image';
 import { supabase } from '@/utils/supabase';
-import { Wallpaper } from '@/types';
+
 
 // Fallback data
 const INITIAL_WALLPAPERS = [

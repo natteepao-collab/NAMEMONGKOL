@@ -26,11 +26,12 @@ async function testPush() {
             text: '🔔 TEST NOTIFICATION: If you see this, the bot works!'
         });
         console.log('✅ Push message sent successfully!');
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('❌ Failed to send push message:');
-        if (error.originalError && error.originalError.response) {
-            console.error('Status:', error.originalError.response.status);
-            console.error('Data:', JSON.stringify(error.originalError.response.data, null, 2));
+        const err = error as { originalError?: { response?: { status: number, data: unknown } } };
+        if (err.originalError && err.originalError.response) {
+            console.error('Status:', err.originalError.response.status);
+            console.error('Data:', JSON.stringify(err.originalError.response.data, null, 2));
         } else {
             console.error(error);
         }

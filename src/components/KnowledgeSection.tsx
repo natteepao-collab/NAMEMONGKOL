@@ -111,7 +111,7 @@ export const KnowledgeSection: React.FC = () => {
                                 <div className="space-y-4">
                                     <h3 className="text-2xl font-bold text-white">เลขศาสตร์ (Numerology) คืออะไร?</h3>
                                     <p className="text-slate-300 leading-relaxed text-lg">
-                                        เลขศาสตร์เป็นศาสตร์ที่ว่าด้วยพลังของตัวเลขที่มีอิทธิพลต่อดวงชะตา ในการตั้งชื่อ เราจะนำตัวอักษร สระ และวรรณยุกต์ มาแปลงค่าเป็นตัวเลขตามตำราโบราณ แล้วนำมาบวกรวมกันเพื่อให้ได้ <strong>"ผลรวม"</strong> ที่มีความหมายดี ส่งเสริมความเจริญรุ่งเรือง
+                                        เลขศาสตร์เป็นศาสตร์ที่ว่าด้วยพลังของตัวเลขที่มีอิทธิพลต่อดวงชะตา ในการตั้งชื่อ เราจะนำตัวอักษร สระ และวรรณยุกต์ มาแปลงค่าเป็นตัวเลขตามตำราโบราณ แล้วนำมาบวกรวมกันเพื่อให้ได้ <strong>&quot;ผลรวม&quot;</strong> ที่มีความหมายดี ส่งเสริมความเจริญรุ่งเรือง
                                     </p>
                                 </div>
                             </div>
@@ -156,9 +156,9 @@ export const KnowledgeSection: React.FC = () => {
                             <div className="bg-gradient-to-r from-amber-900/20 to-transparent p-6 rounded-2xl border-l-4 border-amber-500">
                                 <h4 className="font-bold text-amber-400 mb-2">ตัวอย่างการคำนวณ</h4>
                                 <p className="text-slate-300">
-                                    ชื่อ <strong>"กมล"</strong> <br />
+                                    ชื่อ <strong>&quot;กมล&quot;</strong> <br />
                                     ก (1) + ม (5) + ล (6) = 1 + 5 + 6 = <strong>12</strong> (เป็นเลขคู่ศัตรู แนะนำให้เปลี่ยน)<br />
-                                    ชื่อ <strong>"รวย"</strong> <br />
+                                    ชื่อ <strong>&quot;รวย&quot;</strong> <br />
                                     ร (4) + ว (6) + ย (8) = 4 + 6 + 8 = <strong>18</strong> (เลขแห่งความเปลี่ยนแปลง)
                                 </p>
                             </div>
@@ -175,7 +175,7 @@ export const KnowledgeSection: React.FC = () => {
                                 <div className="space-y-4">
                                     <h3 className="text-2xl font-bold text-white">ตารางทักษาปกรณ์ (Thaksa)</h3>
                                     <p className="text-slate-300 leading-relaxed text-lg">
-                                        เลือก <strong>"วันเกิด"</strong> ของคุณด้านล่าง เพื่อดูตารางทักษาประจำวันเกิด <br />
+                                        เลือก <strong>&quot;วันเกิด&quot;</strong> ของคุณด้านล่าง เพื่อดูตารางทักษาประจำวันเกิด <br />
                                         ระบบจะคำนวณหาอักษรที่เป็นมงคล (บริวาร-มนตรี) และอักษรต้องห้าม (กาลกิณี)
                                     </p>
                                 </div>
@@ -245,7 +245,7 @@ export const KnowledgeSection: React.FC = () => {
                                 <div className="space-y-4">
                                     <h3 className="text-2xl font-bold text-white">อายตนะ 6 (Ayatana 6) คืออะไร?</h3>
                                     <p className="text-slate-300 leading-relaxed text-lg">
-                                        ศาสตร์ที่วัด <strong>"ภาพลักษณ์และการยอมรับทางสังคม"</strong> สะท้อนถึงบุคลิกภายนอกที่ผู้อื่นมองเห็น ค่าอายตนะคำนวณจากผลรวมของชื่อ (Name Score) แล้วนำมาเทียบกับตารางบุคคล 9 ประเภท เพื่อดูว่าผู้คนจะรู้สึกอย่างไรต่อเจ้าของชื่อนี้
+                                        ศาสตร์ที่วัด <strong>&quot;ภาพลักษณ์และการยอมรับทางสังคม&quot;</strong> สะท้อนถึงบุคลิกภายนอกที่ผู้อื่นมองเห็น ค่าอายตนะคำนวณจากผลรวมของชื่อ (Name Score) แล้วนำมาเทียบกับตารางบุคคล 9 ประเภท เพื่อดูว่าผู้คนจะรู้สึกอย่างไรต่อเจ้าของชื่อนี้
                                     </p>
                                 </div>
                             </div>
@@ -254,7 +254,7 @@ export const KnowledgeSection: React.FC = () => {
                                 <h4 className="font-bold text-rose-400 mb-2">ตัวอย่างการคำนวณ</h4>
                                 <div className="text-slate-300 space-y-2">
                                     <p>
-                                        สมมติชื่อ <strong>"สมชาย"</strong> มีค่าเลขศาสตร์ผลรวม = <strong>24</strong> (พลังแห่งมหามงคล)
+                                        สมมติชื่อ <strong>&quot;สมชาย&quot;</strong> มีค่าเลขศาสตร์ผลรวม = <strong>24</strong> (พลังแห่งมหามงคล)
                                     </p>
                                     <div className="flex items-center gap-2 text-sm md:text-base">
                                         <span className="px-2 py-1 bg-white/10 rounded">2</span>
@@ -300,7 +300,7 @@ export const KnowledgeSection: React.FC = () => {
                                 <div className="space-y-4">
                                     <h3 className="text-2xl font-bold text-white">นิรันดร์ศาสตร์ (Nirun Sastra) คืออะไร?</h3>
                                     <p className="text-slate-300 leading-relaxed text-lg">
-                                        นี่คือ <strong>"หัวใจสำคัญ"</strong> ที่ขาดไม่ได้ นิรันดร์ศาสตร์คือการคำนวณหาความสมดุลระหว่างชื่อต้นและนามสกุล ไม่ใช่แค่ชื่อดี หรือนามสกุลดี แต่ทั้งสองต้อง <strong>"เกื้อหนุนกัน"</strong> เพื่อสร้างความมงคลที่ยั่งยืน
+                                        นี่คือ <strong>&quot;หัวใจสำคัญ&quot;</strong> ที่ขาดไม่ได้ นิรันดร์ศาสตร์คือการคำนวณหาความสมดุลระหว่างชื่อต้นและนามสกุล ไม่ใช่แค่ชื่อดี หรือนามสกุลดี แต่ทั้งสองต้อง <strong>&quot;เกื้อหนุนกัน&quot;</strong> เพื่อสร้างความมงคลที่ยั่งยืน
                                     </p>
                                 </div>
                             </div>
@@ -325,7 +325,7 @@ export const KnowledgeSection: React.FC = () => {
                                         </ul>
                                     </div>
                                     <div className="p-4 bg-blue-900/10 rounded-xl border border-blue-500/10 italic text-slate-400 text-sm">
-                                        "ต่อให้ชื่อดี 100% แต่ถ้านามสกุลเป็นศัตรูกัน ชีวิตจะขึ้นๆ ลงๆ ไม่สุดสักทาง นิรันดร์ศาสตร์จึงเข้ามาแก้จุดบอดนี้"
+                                        &quot;ต่อให้ชื่อดี 100% แต่ถ้านามสกุลเป็นศัตรูกัน ชีวิตจะขึ้นๆ ลงๆ ไม่สุดสักทาง นิรันดร์ศาสตร์จึงเข้ามาแก้จุดบอดนี้&quot;
                                     </div>
                                 </div>
 

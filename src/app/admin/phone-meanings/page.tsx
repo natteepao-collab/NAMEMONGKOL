@@ -56,7 +56,7 @@ export default function AdminPhoneMeaningsPage() {
 
         const activeCategories = STAT_CATEGORIES.map(cat => {
             // Check 1: Tags
-            let isActive = tags.some(t => cat.keywords.some(k => t.includes(k)));
+            const isActive = tags.some(t => cat.keywords.some(k => t.includes(k)));
 
             return {
                 ...cat,
@@ -127,7 +127,7 @@ export default function AdminPhoneMeaningsPage() {
     };
 
     const handleApplyStandardGrades = async () => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const result = await Swal.fire({
             title: 'Apply Standard Grades?',
             text: "This will update the GRADE (Good/Bad/Neutral) of all pairs in the database to match the Standard Table (Red/Green/Orange). Titles and descriptions will NOT be changed.",
@@ -152,6 +152,7 @@ export default function AdminPhoneMeaningsPage() {
                 }
                 await fetchMeanings();
                 Swal.fire('Success', `Updated grades for ${updatedCount} pairs.`, 'success');
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 console.error('Update Error:', error);
                 Swal.fire('Error', 'Failed to apply standard grades', 'error');
@@ -164,7 +165,7 @@ export default function AdminPhoneMeaningsPage() {
 
 
     const handleSync = async () => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const result = await Swal.fire({
             title: 'Sync Local Data?',
             text: "This will populate the 'phone_pair_meanings' table from your local 'src/data/pairDefinitions.ts'. Existing pairs in DB will be updated.",
@@ -195,6 +196,7 @@ export default function AdminPhoneMeaningsPage() {
                 }
                 await fetchMeanings();
                 Swal.fire('Sync Complete', `Synced: ${syncedCount}, Errors: ${errorCount}`, errorCount > 0 ? 'warning' : 'success');
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 Swal.fire('Sync Failed', error.message || 'Unknown error', 'error');
             } finally {
@@ -205,7 +207,7 @@ export default function AdminPhoneMeaningsPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setSaving(true);
         try {
             if (!currentMeaning.pair || !currentMeaning.title) {
@@ -225,6 +227,7 @@ export default function AdminPhoneMeaningsPage() {
             await fetchMeanings();
             setIsModalOpen(false);
             Swal.fire('Success', 'Meaning saved successfully', 'success');
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.error('Error saving:', error);
             Swal.fire('Error', 'Failed to save meaning', 'error');
@@ -345,29 +348,16 @@ export default function AdminPhoneMeaningsPage() {
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-5">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-400 mb-1">Grade</label>
-                                        <select
-                                            value={currentMeaning.grade}
-                                            onChange={e => setCurrentMeaning({ ...currentMeaning, grade: e.target.value as any })}
-                                            className="w-full bg-slate-800 border border-slate-700 text-white rounded-lg px-3 py-2 focus:border-emerald-500"
-                                        >
-                                            <option value="good">Good (มงคล)</option>
-                                            <option value="neutral">Neutral (กลางๆ)</option>
-                                            <option value="bad">Bad (เสีย)</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-slate-400 mb-1">Title</label>
-                                        <input
-                                            type="text"
-                                            value={currentMeaning.title || ''}
-                                            onChange={e => setCurrentMeaning({ ...currentMeaning, title: e.target.value })}
-                                            className="w-full bg-slate-800 border border-slate-700 text-white rounded-lg px-3 py-2 focus:border-emerald-500"
-                                        />
-                                    </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-slate-400 mb-1">Title</label>
+                                    <input
+                                        type="text"
+                                        value={currentMeaning.title || ''}
+                                        onChange={e => setCurrentMeaning({ ...currentMeaning, title: e.target.value })}
+                                        className="w-full bg-slate-800 border border-slate-700 text-white rounded-lg px-3 py-2 focus:border-emerald-500"
+                                    />
                                 </div>
+
                                 <div>
                                     <label className="block text-sm font-medium text-slate-400 mb-1">Description</label>
                                     <textarea
@@ -377,6 +367,7 @@ export default function AdminPhoneMeaningsPage() {
                                         className="w-full bg-slate-800 border border-slate-700 text-white rounded-lg px-3 py-2 focus:border-emerald-500"
                                     />
                                 </div>
+
                                 <div>
                                     <label className="block text-sm font-medium text-slate-400 mb-1">Tags (Manual)</label>
                                     <input
@@ -395,80 +386,90 @@ export default function AdminPhoneMeaningsPage() {
                                         ))}
                                     </div>
                                 </div>
+
+                                <div className="flex justify-end gap-3 pt-2">
+                                    <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700">
+                                        ยกเลิก
+                                    </button>
+                                    <button type="submit" className="px-5 py-2 rounded-lg bg-emerald-600 text-white hover:bg-emerald-500">
+                                        บันทึก
+                                    </button>
+                                </div>
                             </form>
                         </div>
 
-                        {/* RIGHT: LIVE PREVIEW & SMART TAGS */}
-                        <div className="w-full md:w-[400px] bg-slate-800/50 p-6 flex flex-col overflow-y-auto">
-                            <div className="flex justify-between items-center mb-4">
-                                <h3 className="text-lg font-bold text-white flex items-center gap-2"><Zap size={20} className="text-amber-400" /> Analysis Preview</h3>
-                                <button onClick={() => setIsModalOpen(false)} className="hidden md:block text-slate-400 hover:text-white"><X size={24} /></button>
-                            </div>
+                        {/* RIGHT: LIVE PREVIEW & SMART TAGS */ }
+    <div className="w-full md:w-[400px] bg-slate-800/50 p-6 flex flex-col overflow-y-auto">
+        <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-bold text-white flex items-center gap-2"><Zap size={20} className="text-amber-400" /> Analysis Preview</h3>
+            <button onClick={() => setIsModalOpen(false)} className="hidden md:block text-slate-400 hover:text-white"><X size={24} /></button>
+        </div>
 
-                            {/* Score Impact */}
-                            <div className={`p-4 rounded-xl mb-6 border ${score > 0 ? 'bg-emerald-500/10 border-emerald-500/50' : score < 0 ? 'bg-red-500/10 border-red-500/50' : 'bg-slate-700/50 border-slate-600'}`}>
-                                <div className="text-sm text-slate-400 mb-1">Score Impact</div>
-                                <div className={`text-3xl font-bold ${score > 0 ? 'text-emerald-400' : score < 0 ? 'text-red-400' : 'text-slate-200'}`}>
-                                    {score > 0 ? '+' : ''}{score} Points
-                                </div>
-                                <div className="text-xs text-slate-500 mt-1">Based on Grade & Friend Pair Logic</div>
-                            </div>
+        {/* Score Impact */}
+        <div className={`p-4 rounded-xl mb-6 border ${score > 0 ? 'bg-emerald-500/10 border-emerald-500/50' : score < 0 ? 'bg-red-500/10 border-red-500/50' : 'bg-slate-700/50 border-slate-600'}`}>
+            <div className="text-sm text-slate-400 mb-1">Score Impact</div>
+            <div className={`text-3xl font-bold ${score > 0 ? 'text-emerald-400' : score < 0 ? 'text-red-400' : 'text-slate-200'}`}>
+                {score > 0 ? '+' : ''}{score} Points
+            </div>
+            <div className="text-xs text-slate-500 mt-1">Based on Grade & Friend Pair Logic</div>
+        </div>
 
-                            <div className="space-y-3 mb-6">
-                                <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider">Graph Triggers</h4>
-                                {activeStats && activeStats.map(cat => (
-                                    <div key={cat.id} className={`flex items-center justify-between p-3 rounded-lg border transition-all ${cat.isActive ? `bg-slate-800 border-${cat.color.split('-')[1]}-500/50 shadow-lg shadow-${cat.color.split('-')[1]}-500/10` : 'bg-slate-900/50 border-slate-700 opacity-50'}`}>
-                                        <div className="flex items-center gap-3">
-                                            <cat.icon size={18} className={cat.color} />
-                                            <div>
-                                                <span className={`text-sm font-medium block ${cat.isActive ? 'text-white' : 'text-slate-400'}`}>{cat.label}</span>
-                                                {cat.isActive && cat.triggerSource === 'Bad Pair Rule' && (
-                                                    <span className="text-[10px] text-red-400 block">Rule: Bad Pair</span>
-                                                )}
-                                                {cat.isActive && cat.triggerSource === 'Tags' && (
-                                                    <span className="text-[10px] text-emerald-400 block">Trigger: Tags</span>
-                                                )}
-                                            </div>
-                                        </div>
-                                        {cat.isActive && <CheckCircle size={16} className="text-emerald-500" />}
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="flex-1">
-                                <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-2">Quick Add Tags</h4>
-                                <div className="grid grid-cols-1 gap-3">
-                                    {STAT_CATEGORIES.map(cat => (
-                                        <div key={cat.id} className="space-y-1">
-                                            <div className={`text-[10px] font-bold ${cat.color} opacity-70`}>{cat.label}</div>
-                                            <div className="flex flex-wrap gap-1">
-                                                {cat.keywords.slice(0, 4).map(kw => ( // Increased slice to 4
-                                                    <button
-                                                        key={kw}
-                                                        type="button"
-                                                        onClick={() => handleQuickAddTag(kw)}
-                                                        className="text-xs px-2 py-1 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded border border-slate-600 transition-colors"
-                                                    >
-                                                        {kw}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="pt-6 mt-auto border-t border-slate-700 flex gap-3">
-                                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-2 rounded-lg text-slate-300 hover:bg-slate-700 transition-colors">Cancel</button>
-                                <button type="button" onClick={handleSubmit} disabled={saving} className="flex-[2] bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-bold shadow-lg shadow-emerald-500/20 disabled:opacity-50 flex items-center justify-center gap-2">
-                                    {saving ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
-                                    Save Changes
-                                </button>
-                            </div>
+        <div className="space-y-3 mb-6">
+            <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider">Graph Triggers</h4>
+            {activeStats && activeStats.map(cat => (
+                <div key={cat.id} className={`flex items-center justify-between p-3 rounded-lg border transition-all ${cat.isActive ? `bg-slate-800 border-${cat.color.split('-')[1]}-500/50 shadow-lg shadow-${cat.color.split('-')[1]}-500/10` : 'bg-slate-900/50 border-slate-700 opacity-50'}`}>
+                    <div className="flex items-center gap-3">
+                        <cat.icon size={18} className={cat.color} />
+                        <div>
+                            <span className={`text-sm font-medium block ${cat.isActive ? 'text-white' : 'text-slate-400'}`}>{cat.label}</span>
+                            {cat.isActive && cat.triggerSource === 'Bad Pair Rule' && (
+                                <span className="text-[10px] text-red-400 block">Rule: Bad Pair</span>
+                            )}
+                            {cat.isActive && cat.triggerSource === 'Tags' && (
+                                <span className="text-[10px] text-emerald-400 block">Trigger: Tags</span>
+                            )}
                         </div>
                     </div>
+                    {cat.isActive && <CheckCircle size={16} className="text-emerald-500" />}
                 </div>
-            )}
+            ))}
         </div>
+
+        <div className="flex-1">
+            <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-2">Quick Add Tags</h4>
+            <div className="grid grid-cols-1 gap-3">
+                {STAT_CATEGORIES.map(cat => (
+                    <div key={cat.id} className="space-y-1">
+                        <div className={`text-[10px] font-bold ${cat.color} opacity-70`}>{cat.label}</div>
+                        <div className="flex flex-wrap gap-1">
+                            {cat.keywords.slice(0, 4).map(kw => ( // Increased slice to 4
+                                <button
+                                    key={kw}
+                                    type="button"
+                                    onClick={() => handleQuickAddTag(kw)}
+                                    className="text-xs px-2 py-1 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded border border-slate-600 transition-colors"
+                                >
+                                    {kw}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <div className="pt-6 mt-auto border-t border-slate-700 flex gap-3">
+            <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-2 rounded-lg text-slate-300 hover:bg-slate-700 transition-colors">Cancel</button>
+            <button type="button" onClick={handleSubmit} disabled={saving} className="flex-[2] bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-bold shadow-lg shadow-emerald-500/20 disabled:opacity-50 flex items-center justify-center gap-2">
+                {saving ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
+                Save Changes
+            </button>
+        </div>
+    </div>
+                    </div >
+                </div >
+            )
+}
+        </div >
     );
 }

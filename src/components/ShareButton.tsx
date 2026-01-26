@@ -123,7 +123,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ result, day }) => {
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: 20, scale: 0.8 }}
                                     transition={{ delay: index * 0.1, type: "spring", stiffness: 300, damping: 20 }}
-                                    onClick={() => handleShare(item.id as any)}
+                                    onClick={() => handleShare(item.id as 'facebook' | 'line' | 'copy' | 'image')}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-white shadow-lg backdrop-blur-md ${item.color} hover:brightness-110 transition-all active:scale-95 whitespace-nowrap`}
                                 >
                                     <item.icon className="w-4 h-4" />

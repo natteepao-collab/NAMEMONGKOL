@@ -13,7 +13,7 @@ export default function AdminNamesPage() {
 
     // Fetch initial data
     const fetchNames = async () => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setIsLoading(true);
         try {
             const res = await fetch('/api/admin/names');
@@ -40,7 +40,7 @@ export default function AdminNamesPage() {
     }, []);
 
     const handleSave = async () => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setIsSaving(true);
         try {
             // Parse raw input: split by comma or newline, trim, remove empty
@@ -71,6 +71,7 @@ export default function AdminNamesPage() {
                 throw new Error(data.error);
             }
 
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             Swal.fire({
                 title: 'เกิดข้อผิดพลาด',
@@ -85,7 +86,7 @@ export default function AdminNamesPage() {
     };
 
     const copyToClipboard = async () => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         navigator.clipboard.writeText(rawInput);
         const Toast = Swal.mixin({
             toast: true,

@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useEffect } from 'react';
 import { Package, Bitcoin, Zap, ShieldCheck, CheckCircle2, Upload } from 'lucide-react';
@@ -51,7 +52,7 @@ export default function TopUpPage({ gateway }: TopUpPageProps) {
             const verifyPayment = async () => {
                 const status = searchParams.get('payment_status');
                 const sessionId = searchParams.get('session_id');
-                const Swal = (await import('sweetalert2')).default;
+                const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
                 if (status === 'success' && sessionId) {
                     // Remove params immediately to prevent double-firing (though idempotency handles it)
@@ -134,7 +135,7 @@ export default function TopUpPage({ gateway }: TopUpPageProps) {
             }
         } catch (error: any) {
             console.error('Checkout error:', error);
-            const Swal = (await import('sweetalert2')).default;
+            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
             Swal.fire({
                 title: 'เกิดข้อผิดพลาด',
                 text: error.message || 'ไม่สามารถสร้างรายการชำระเงินได้',

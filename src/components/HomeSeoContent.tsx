@@ -13,10 +13,10 @@ export const HomeSeoContent = () => {
                         ทำไมต้องวิเคราะห์ชื่อมงคล?
                     </h2>
                     <p className="text-slate-300 leading-relaxed mb-4">
-                        <strong>"ชื่อ"</strong> ไม่ใช่แค่คำเรียกขาน แต่คือ <strong>"พลังงาน"</strong> ที่สั่นสะเทือนอยู่ตลอกเวลาตามหลักเลขศาสตร์ ดวงดาวบนฟากฟ้าอาจกำหนดชะตาเกิด (Karma) แต่ชื่อคือกุญแจที่เราเลือกเองได้เพื่อไขประตูสู่โอกาสใหม่ๆ
+                        <strong>&quot;ชื่อ&quot;</strong> ไม่ใช่แค่คำเรียกขาน แต่คือ <strong>&quot;พลังงาน&quot;</strong> ที่สั่นสะเทือนอยู่ตลอกเวลาตามหลักเลขศาสตร์ ดวงดาวบนฟากฟ้าอาจกำหนดชะตาเกิด (Karma) แต่ชื่อคือกุญแจที่เราเลือกเองได้เพื่อไขประตูสู่โอกาสใหม่ๆ
                     </p>
                     <p className="text-slate-300 leading-relaxed">
-                        การวิเคราะห์ชื่อฟรีที่ <strong>NameMongkol</strong> ช่วยให้คุณ "รู้ทันดวงชะตา" จุดอ่อน-จุดแข็ง และโอกาสซ่อนเร้น เพื่อให้คุณพร้อมรับมือและดึงดูดความสำเร็จเข้ามาในชีวิต
+                        การวิเคราะห์ชื่อฟรีที่ <strong>NameMongkol</strong> ช่วยให้คุณ &quot;รู้ทันดวงชะตา&quot; จุดอ่อน-จุดแข็ง และโอกาสซ่อนเร้น เพื่อให้คุณพร้อมรับมือและดึงดูดความสำเร็จเข้ามาในชีวิต
                     </p>
                 </div>
 
@@ -26,10 +26,10 @@ export const HomeSeoContent = () => {
                         เปลี่ยนชื่อ = เปลี่ยนชีวิตจริงไหม?
                     </h2>
                     <p className="text-slate-300 leading-relaxed mb-4">
-                        โบราณว่า <i>"ชื่อดีเป็นศรีแก่ตัว"</i> การเปลี่ยนชื่อที่ถูกต้องตามหลักทักษาและเลขศาสตร์ เปรียบเสมือนการปรับจูนคลื่นความถี่ของชีวิตใหม่ ช่วยเสริมความมั่นใจ ดึงดูดมิตรดีๆ และโอกาสทางการงาน
+                        โบราณว่า <i>&quot;ชื่อดีเป็นศรีแก่ตัว&quot;</i> การเปลี่ยนชื่อที่ถูกต้องตามหลักทักษาและเลขศาสตร์ เปรียบเสมือนการปรับจูนคลื่นความถี่ของชีวิตใหม่ ช่วยเสริมความมั่นใจ ดึงดูดมิตรดีๆ และโอกาสทางการงาน
                     </p>
                     <p className="text-slate-300 leading-relaxed">
-                        แม้ชื่อไม่ใช่ทุกอย่าง แต่ชื่อที่ดีจะเป็น <strong>"แรงลมใต้ปีก"</strong> ที่ช่วยพยุงให้คุณบินได้สูงขึ้นและไกลกว่าเดิม เหนื่อยน้อยลง แต่สำเร็จมากขึ้น
+                        แม้ชื่อไม่ใช่ทุกอย่าง แต่ชื่อที่ดีจะเป็น <strong>&quot;แรงลมใต้ปีก&quot;</strong> ที่ช่วยพยุงให้คุณบินได้สูงขึ้นและไกลกว่าเดิม เหนื่อยน้อยลง แต่สำเร็จมากขึ้น
                     </p>
                 </div>
             </div>
@@ -57,7 +57,7 @@ export const HomeSeoContent = () => {
                         <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-4 group-hover:scale-110 transition-transform">2</div>
                         <h3 className="font-bold text-lg text-white mb-2">ทักษาปกรณ์</h3>
                         <p className="text-sm text-slate-400">
-                            ภูมิพยากรณ์ประจำวันเกิด หาอักษรที่เป็น "เดช" "ศรี" "มนตรี" และหลีกเลี่ยง "กาลกิณี" อย่างเด็ดขาด
+                            ภูมิพยากรณ์ประจำวันเกิด หาอักษรที่เป็น &quot;เดช&quot; &quot;ศรี&quot; &quot;มนตรี&quot; และหลีกเลี่ยง &quot;กาลกิณี&quot; อย่างเด็ดขาด
                         </p>
                     </div>
                     <div className="p-5 rounded-xl bg-slate-800/50 border border-white/5 hover:border-rose-500/30 transition-colors group">
@@ -71,7 +71,7 @@ export const HomeSeoContent = () => {
                         <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500 mb-4 group-hover:scale-110 transition-transform">4</div>
                         <h3 className="font-bold text-lg text-white mb-2">นิรันดร์ศาสตร์</h3>
                         <p className="text-sm text-slate-400">
-                            หัวใจสำคัญ! ตรวจสอบความสมพงศ์ระหว่าง "ชื่อต้น" และ "นามสกุล" ให้อยู่ร่วมกันแล้วส่งเสริมกัน ไม่ขัดแย้ง
+                            หัวใจสำคัญ! ตรวจสอบความสมพงศ์ระหว่าง &quot;ชื่อต้น&quot; และ &quot;นามสกุล&quot; ให้อยู่ร่วมกันแล้วส่งเสริมกัน ไม่ขัดแย้ง
                         </p>
                     </div>
                 </div>

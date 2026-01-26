@@ -100,7 +100,7 @@ function WallpapersContent() {
 
     const handleDownload = async (wallpaper: Wallpaper) => {
         // Dynamic import SweetAlert2
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
         // 1. Check Auth (Skip if not premium? No, require auth for tracking usually, but for now lets require auth for all as per previous logic)
         const { data: { session } } = await supabase.auth.getSession();

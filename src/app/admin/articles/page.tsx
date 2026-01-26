@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabase';
@@ -42,7 +43,7 @@ export default function AdminArticlesPage() {
     }, []);
 
     const fetchArticles = async () => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setLoading(true);
         try {
             const { data, error } = await supabase
@@ -97,7 +98,7 @@ export default function AdminArticlesPage() {
     };
 
     const handleDelete = async (id: string) => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
             text: "This will permanently delete the article.",
@@ -175,7 +176,7 @@ export default function AdminArticlesPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setUploading(true);
 
         try {
@@ -248,7 +249,7 @@ export default function AdminArticlesPage() {
     };
 
     const handleSync = async () => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const result = await Swal.fire({
             title: 'Sync Local Articles?',
             text: "This will import hardcoded articles from 'src/data/articles.ts' into the database. Existing articles with the same slug will be skipped.",
@@ -309,6 +310,7 @@ export default function AdminArticlesPage() {
                 await fetchArticles(); // Refresh list
                 Swal.fire('Sync Complete', `Imported: ${addedCount}, Skipped: ${skippedCount}`, 'success');
 
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 console.error('Sync Error:', error);
                 Swal.fire('Sync Failed', error.message || 'Unknown error occurred', 'error');

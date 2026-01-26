@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { PhoneAnalysisResult as IPhoneAnalysisResult } from '@/utils/analyzePhone';
-import { Activity, Brain, Heart, Share2, Skull, Crown, TrendingUp, Clover, Eye, Facebook, Link as LinkIcon, Check, Copy, X, ExternalLink, Search } from 'lucide-react';
+import { Activity, Brain, Heart, Share2, Skull, Crown, TrendingUp, Clover, Eye, Facebook, Link as LinkIcon, Check, Copy, Search } from 'lucide-react';
 
 // Custom Line Icon since Lucide doesn't include it
 const LineIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
@@ -17,6 +17,175 @@ const LineIcon = ({ size = 24, className = "" }: { size?: number, className?: st
         <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.992 2.572-3.879 2.572-6.002z" />
     </svg>
 );
+
+// Moved StatBar Component here
+const StatBar = ({ label, score, icon: Icon }: { label: string, score: { pos: number; neg: number }, icon: React.ElementType }) => {
+    // Dual-Sided Logic:
+    // Left Side (Red) -> Based on score.neg (0-100)
+    // Right Side (Green) -> Based on score.pos (0-100)
+
+    // Calculate segments (0 to 5)
+    // Each segment represents 20 points
+    const negFilled = Math.min(5, Math.ceil(score.neg / 20));
+    const posFilled = Math.min(5, Math.ceil(score.pos / 20));
+
+    // Extremity Flags
+    const isCritical = score.neg >= 80; // Very high negative score -> Show Skull
+    const isExcellent = score.pos >= 80; // Very high positive score -> Show Crown
+
+    return (
+        <div className="flex flex-col items-center w-full group">
+            <span className="text-amber-500 font-bold text-[10px] mb-1 uppercase tracking-wide">{label}</span>
+
+            <div className="flex items-center gap-2 w-full max-w-sm">
+
+                {/* Left Side (Red) - Fills Right to Left from Center */}
+                <div className="flex-1 flex items-center justify-end gap-1">
+                    {/* Skull Icon */}
+                    <div className={`w-5 flex justify-center transition-all duration-300 ${isCritical ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-rose-500 blur-sm opacity-50 animate-pulse"></div>
+                            <Skull className="text-rose-500 w-4 h-4 relative z-10" />
+                        </div>
+                    </div>
+
+                    {/* Segments (Right to Left logic) */}
+                    <div className="flex flex-row-reverse gap-0.5 flex-1">
+                        {[...Array(5)].map((_, i) => (
+                            <div
+                                key={`l-${i}`}
+                                className={`
+                                    h-2.5 flex-1 rounded-[1px] skew-x-[-12deg] border border-white/5 transition-all duration-500
+                                    ${i < negFilled
+                                        ? 'bg-gradient-to-r from-rose-600 to-rose-500 shadow-[0_0_4px_rgba(225,29,72,0.6)]'
+                                        : 'bg-slate-700/30'}
+                                `}
+                            />
+                        ))}
+                    </div>
+                </div>
+
+                {/* Center Icon */}
+                <div className="relative z-10 shrink-0">
+                    <div className="absolute inset-0 bg-amber-500 blur-md opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-b from-amber-300 via-amber-500 to-amber-600 flex items-center justify-center shadow-lg border-[3px] border-[#1e293b] relative">
+                        <Icon className="text-white w-5 h-5 drop-shadow-sm" />
+                    </div>
+                </div>
+
+                {/* Right Side (Green) - Fills Left to Right from Center */}
+                <div className="flex-1 flex items-center gap-1">
+                    {/* Segments */}
+                    <div className="flex gap-0.5 flex-1">
+                        {[...Array(5)].map((_, i) => (
+                            <div
+                                key={`r-${i}`}
+                                className={`
+                                    h-2.5 flex-1 rounded-[1px] skew-x-[-12deg] border border-white/5 transition-all duration-500
+                                    ${i < posFilled
+                                        ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 shadow-[0_0_4px_rgba(16,185,129,0.6)]'
+                                        : 'bg-slate-700/30'}
+                                `}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Crown Icon */}
+                    <div className={`w-5 flex justify-center transition-all duration-300 ${isExcellent ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-amber-400 blur-sm opacity-50 animate-pulse"></div>
+                            <Crown className="text-amber-400 w-4 h-4 relative z-10 drop-shadow-[0_0_1px_rgba(0,0,0,0.5)]" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    );
+};
+
+// Moved PairBox Component here
+const PairBox = ({ type, pairs }: { type: 'good' | 'bad', pairs: IPhoneAnalysisResult['pairs'] }) => {
+    const isGood = type === 'good';
+    const title = isGood ? 'เลขดี' : 'เลขเสีย';
+
+    // Tailwind classes handling for dynamic colors
+    const containerBorder = isGood ? 'border-emerald-500/30' : 'border-rose-500/30';
+    const titleBg = isGood ? 'bg-emerald-600' : 'bg-rose-600';
+    // const pairBg unused
+
+    return (
+        <div className={`relative border rounded-lg rounded-tl-none pt-5 p-3 ${containerBorder} bg-[#1e293b]/50`}>
+            {/* Folder Tab */}
+            <div className={`absolute -top-[1px] -left-[1px] px-4 py-1 rounded-t-md rounded-br-md text-white text-[10px] font-bold uppercase tracking-wider shadow-md ${titleBg}`}>
+                {title}
+            </div>
+
+            {pairs.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                    {pairs.map((p, idx) => {
+                        // Determine color based on individual pair level
+                        const chipColor = p.level === 1
+                            ? 'bg-emerald-500 shadow-emerald-500/20'
+                            : p.level === 2
+                                ? 'bg-rose-500 shadow-rose-500/20'
+                                : 'bg-amber-500 shadow-amber-500/20';
+
+                        return (
+                            <div key={idx} className={`w-9 h-9 rounded-md flex items-center justify-center text-sm font-bold text-white shadow-md ${chipColor}`}>
+                                {p.pair}
+                            </div>
+                        );
+                    })}
+                </div>
+            ) : (
+                <div className="text-slate-500 text-xs italic py-1">ไม่มี{title}ในเบอร์นี้</div>
+            )}
+        </div>
+    );
+};
+
+// Moved SimpleGradeCard Component here
+const SimpleGradeCard = ({ grade, phoneNumber }: { grade: string; phoneNumber: string }) => {
+    const getGradeColor = (g: string) => {
+        if (g === 'A') return 'text-emerald-500';
+        if (g === 'B') return 'text-emerald-500';
+        if (g === 'C') return 'text-slate-400';
+        if (g === 'D') return 'text-slate-500';
+        return 'text-rose-500';
+    };
+
+    return (
+        <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 text-center">
+            <h1 className="text-5xl sm:text-6xl font-bold text-rose-600 tracking-tight font-mono mb-6">
+                {phoneNumber}
+            </h1>
+
+            <div className="flex flex-col items-center justify-center gap-2 mb-8">
+                <div className="relative">
+                    {/* Sim Card Icon Style */}
+                    <div className="w-16 h-16 bg-rose-600 rounded-full flex items-center justify-center p-3 shadow-lg relative z-10">
+                        <div className="w-full h-full bg-white/20 rounded-md border-2 border-dashed border-white/50 backdrop-blur-sm" />
+                    </div>
+                    {/* Starburst behind */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-rose-200 rounded-full animate-pulse z-0" />
+                </div>
+
+                <h2 className={`text-3xl font-bold ${getGradeColor(grade)} mt-2`}>
+                    เบอร์เกรด {grade}
+                </h2>
+            </div>
+
+            <div className="space-y-1 text-sm font-medium text-slate-600 max-w-xs mx-auto">
+                <div className={`${grade === 'A' ? 'text-emerald-600 font-bold scale-105' : ''}`}>เบอร์เกรด A = เบอร์ดีมากๆ</div>
+                <div className={`${grade === 'B' ? 'text-emerald-600 font-bold scale-105' : ''}`}>เบอร์เกรด B = เบอร์ดี</div>
+                <div className={`${grade === 'C' ? 'text-slate-600 font-bold scale-105' : ''}`}>เบอร์เกรด C = เบอร์ทั่วไป</div>
+                <div className={`${grade === 'D' ? 'text-slate-600 font-bold scale-105' : ''}`}>เบอร์เกรด D = เบอร์ค่อนข้างเหนื่อย</div>
+                <div className={`${grade === 'F' ? 'text-rose-600 font-bold scale-105' : 'text-rose-500'}`}>เบอร์เกรด F = เบอร์เหนื่อยเปล่า</div>
+            </div>
+        </div>
+    );
+};
 
 interface PhoneAnalysisResultProps {
     result: IPhoneAnalysisResult;
@@ -44,172 +213,6 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                 setTimeout(() => setIsCopied(false), 2000);
             });
         }
-    };
-
-    const StatBar = ({ label, score, icon: Icon }: { label: string, score: { pos: number, neg: number }, icon: any }) => {
-        // Dual-Sided Logic:
-        // Left Side (Red) -> Based on score.neg (0-100)
-        // Right Side (Green) -> Based on score.pos (0-100)
-
-        // Calculate segments (0 to 5)
-        // Each segment represents 20 points
-        const negFilled = Math.min(5, Math.ceil(score.neg / 20));
-        const posFilled = Math.min(5, Math.ceil(score.pos / 20));
-
-        // Extremity Flags
-        const isCritical = score.neg >= 80; // Very high negative score -> Show Skull
-        const isExcellent = score.pos >= 80; // Very high positive score -> Show Crown
-
-        return (
-            <div className="flex flex-col items-center w-full group">
-                <span className="text-amber-500 font-bold text-[10px] mb-1 uppercase tracking-wide">{label}</span>
-
-                <div className="flex items-center gap-2 w-full max-w-sm">
-
-                    {/* Left Side (Red) - Fills Right to Left from Center */}
-                    <div className="flex-1 flex items-center justify-end gap-1">
-                        {/* Skull Icon */}
-                        <div className={`w-5 flex justify-center transition-all duration-300 ${isCritical ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
-                            <div className="relative">
-                                <div className="absolute inset-0 bg-rose-500 blur-sm opacity-50 animate-pulse"></div>
-                                <Skull className="text-rose-500 w-4 h-4 relative z-10" />
-                            </div>
-                        </div>
-
-                        {/* Segments (Right to Left logic) */}
-                        <div className="flex flex-row-reverse gap-0.5 flex-1">
-                            {[...Array(5)].map((_, i) => (
-                                <div
-                                    key={`l-${i}`}
-                                    className={`
-                                        h-2.5 flex-1 rounded-[1px] skew-x-[-12deg] border border-white/5 transition-all duration-500
-                                        ${i < negFilled
-                                            ? 'bg-gradient-to-r from-rose-600 to-rose-500 shadow-[0_0_4px_rgba(225,29,72,0.6)]'
-                                            : 'bg-slate-700/30'}
-                                    `}
-                                />
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Center Icon */}
-                    <div className="relative z-10 shrink-0">
-                        <div className="absolute inset-0 bg-amber-500 blur-md opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-b from-amber-300 via-amber-500 to-amber-600 flex items-center justify-center shadow-lg border-[3px] border-[#1e293b] relative">
-                            <Icon className="text-white w-5 h-5 drop-shadow-sm" />
-                        </div>
-                    </div>
-
-                    {/* Right Side (Green) - Fills Left to Right from Center */}
-                    <div className="flex-1 flex items-center gap-1">
-                        {/* Segments */}
-                        <div className="flex gap-0.5 flex-1">
-                            {[...Array(5)].map((_, i) => (
-                                <div
-                                    key={`r-${i}`}
-                                    className={`
-                                        h-2.5 flex-1 rounded-[1px] skew-x-[-12deg] border border-white/5 transition-all duration-500
-                                        ${i < posFilled
-                                            ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 shadow-[0_0_4px_rgba(16,185,129,0.6)]'
-                                            : 'bg-slate-700/30'}
-                                    `}
-                                />
-                            ))}
-                        </div>
-
-                        {/* Crown Icon */}
-                        <div className={`w-5 flex justify-center transition-all duration-300 ${isExcellent ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
-                            <div className="relative">
-                                <div className="absolute inset-0 bg-amber-400 blur-sm opacity-50 animate-pulse"></div>
-                                <Crown className="text-amber-400 w-4 h-4 relative z-10 drop-shadow-[0_0_1px_rgba(0,0,0,0.5)]" />
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        );
-    };
-
-    const PairBox = ({ type, pairs }: { type: 'good' | 'bad', pairs: typeof result.pairs }) => {
-        const isGood = type === 'good';
-        const title = isGood ? 'เลขดี' : 'เลขเสีย';
-
-        // Tailwind classes handling for dynamic colors
-        const containerBorder = isGood ? 'border-emerald-500/30' : 'border-rose-500/30';
-        const titleBg = isGood ? 'bg-emerald-600' : 'bg-rose-600';
-        const pairBg = isGood ? 'bg-emerald-500' : 'bg-rose-500';
-
-        return (
-            <div className={`relative border rounded-lg rounded-tl-none pt-5 p-3 ${containerBorder} bg-[#1e293b]/50`}>
-                {/* Folder Tab */}
-                <div className={`absolute -top-[1px] -left-[1px] px-4 py-1 rounded-t-md rounded-br-md text-white text-[10px] font-bold uppercase tracking-wider shadow-md ${titleBg}`}>
-                    {title}
-                </div>
-
-                {pairs.length > 0 ? (
-                    <div className="flex flex-wrap gap-2">
-                        {pairs.map((p, idx) => {
-                            // Determine color based on individual pair level
-                            const chipColor = p.level === 1
-                                ? 'bg-emerald-500 shadow-emerald-500/20'
-                                : p.level === 2
-                                    ? 'bg-rose-500 shadow-rose-500/20'
-                                    : 'bg-amber-500 shadow-amber-500/20';
-
-                            return (
-                                <div key={idx} className={`w-9 h-9 rounded-md flex items-center justify-center text-sm font-bold text-white shadow-md ${chipColor}`}>
-                                    {p.pair}
-                                </div>
-                            );
-                        })}
-                    </div>
-                ) : (
-                    <div className="text-slate-500 text-xs italic py-1">ไม่มี{title}ในเบอร์นี้</div>
-                )}
-            </div>
-        );
-    };
-
-    const SimpleGradeCard = () => {
-        const getGradeColor = (g: string) => {
-            if (g === 'A') return 'text-emerald-500';
-            if (g === 'B') return 'text-emerald-500';
-            if (g === 'C') return 'text-slate-400';
-            if (g === 'D') return 'text-slate-500';
-            return 'text-rose-500';
-        };
-
-        return (
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 text-center">
-                <h1 className="text-5xl sm:text-6xl font-bold text-rose-600 tracking-tight font-mono mb-6">
-                    {result.phoneNumber}
-                </h1>
-
-                <div className="flex flex-col items-center justify-center gap-2 mb-8">
-                    <div className="relative">
-                        {/* Sim Card Icon Style */}
-                        <div className="w-16 h-16 bg-rose-600 rounded-full flex items-center justify-center p-3 shadow-lg relative z-10">
-                            <div className="w-full h-full bg-white/20 rounded-md border-2 border-dashed border-white/50 backdrop-blur-sm" />
-                        </div>
-                        {/* Starburst behind */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-rose-200 rounded-full animate-pulse z-0" />
-                    </div>
-
-                    <h2 className={`text-3xl font-bold ${getGradeColor(result.grade)} mt-2`}>
-                        เบอร์เกรด {result.grade}
-                    </h2>
-                </div>
-
-                <div className="space-y-1 text-sm font-medium text-slate-600 max-w-xs mx-auto">
-                    <div className={`${result.grade === 'A' ? 'text-emerald-600 font-bold scale-105' : ''}`}>เบอร์เกรด A = เบอร์ดีมากๆ</div>
-                    <div className={`${result.grade === 'B' ? 'text-emerald-600 font-bold scale-105' : ''}`}>เบอร์เกรด B = เบอร์ดี</div>
-                    <div className={`${result.grade === 'C' ? 'text-slate-600 font-bold scale-105' : ''}`}>เบอร์เกรด C = เบอร์ทั่วไป</div>
-                    <div className={`${result.grade === 'D' ? 'text-slate-600 font-bold scale-105' : ''}`}>เบอร์เกรด D = เบอร์ค่อนข้างเหนื่อย</div>
-                    <div className={`${result.grade === 'F' ? 'text-rose-600 font-bold scale-105' : 'text-rose-500'}`}>เบอร์เกรด F = เบอร์เหนื่อยเปล่า</div>
-                </div>
-            </div>
-        );
     };
 
     return (
@@ -407,7 +410,7 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                     <h3 className="text-lg font-bold text-white">แชร์ผลวิเคราะห์ของคุณ</h3>
                 </div>
 
-                <SimpleGradeCard />
+                <SimpleGradeCard grade={result.grade} phoneNumber={result.phoneNumber} />
 
                 <div className="bg-[#1e293b] rounded-xl p-4 border border-slate-700/50 flex flex-col md:flex-row gap-4 items-center">
                     {/* URL Input */}

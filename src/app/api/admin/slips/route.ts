@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
@@ -51,7 +52,7 @@ export async function GET(request: Request) {
         const from = (page - 1) * limit;
         const to = from + limit - 1;
 
-        let query = supabase
+        const query = supabase
             .from('slips')
             .select('*', { count: 'exact' })
             .range(from, to)

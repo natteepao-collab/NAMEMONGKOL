@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, Suspense, useCallback, useRef } from 'react';
-import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
-import { ChevronRight, Sparkles } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { saveAnalysisResult } from '@/services/analysisService';
 import { checkNirunName } from '@/app/actions/checkNirunName';
 import { InputForm } from '@/components/InputForm';
@@ -117,7 +116,10 @@ function HomeContent() {
         didInitFromParams.current = true;
 
         if (initialName) {
-            performAnalysis(initialName, initialSurname, initialDay);
+            // Defer execution to avoid synchronous state update warning
+            setTimeout(() => {
+                performAnalysis(initialName, initialSurname, initialDay);
+            }, 0);
         }
     }, [performAnalysis, initialName, initialSurname, initialDay]);
 

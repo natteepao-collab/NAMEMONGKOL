@@ -36,7 +36,7 @@ export const FOCUS_MAPPING: Record<FocusTopic, Array<keyof typeof thaksaConfig.s
 // Helper: Get Day Key from Date + Time
 export const getAstrologicalDay = (date: Date, timeStr: string): DayKey => {
     // timeStr format "HH:mm"
-    const [hours, minutes] = timeStr.split(':').map(Number);
+    const [hours] = timeStr.split(':').map(Number);
 
     // Create a date object for the birth time to handle day shift logic easily? 
     // Actually, we just need the day of week and the hour.
@@ -128,15 +128,14 @@ export const analyzePremiumName = (
     const firstChar = name[0];
     const preferredCategories = FOCUS_MAPPING[focus];
     let isPreferredLead = false;
-    let leadingCategoryName = '';
+
 
     // Check if first char is in any preferred category
     for (const cat of preferredCategories) {
-        // @ts-ignore
+
         if (dayConfig[cat] && dayConfig[cat].includes(firstChar)) {
             isPreferredLead = true;
-            // Map category key to Thai name if possible (e.g. 'si' -> 'ศรี')
-            leadingCategoryName = cat;
+            // Map category key to Thai name if needed
             break;
         }
     }
@@ -262,7 +261,7 @@ export const generatePremiumNames = (
         let isPreferredLead = false;
 
         for (const cat of preferredCategories) {
-            // @ts-ignore
+
             if (dayConfig[cat] && dayConfig[cat].includes(firstChar)) {
                 isPreferredLead = true;
                 break;

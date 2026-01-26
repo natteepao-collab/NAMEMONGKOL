@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -51,7 +52,7 @@ export default function ClientPage() {
 
         if (!session) {
             // Dynamic import SweetAlert2
-            const Swal = (await import('sweetalert2')).default;
+            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
             Swal.fire({
                 title: 'กรุณาเข้าสู่ระบบ',
@@ -82,7 +83,7 @@ export default function ClientPage() {
     };
 
     const handleDelete = async (reviewId: string) => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
         Swal.fire({
             title: 'ยืนยันการลบ?',
@@ -155,7 +156,7 @@ export default function ClientPage() {
     }, []);
 
     const filteredReviews = useMemo(() => {
-        let target = dbReviews;
+        const target = dbReviews;
         if (selectedCategory === 'all') return target;
         return target.filter(review => review.tags && review.tags.includes(selectedCategory));
     }, [selectedCategory, dbReviews]);
@@ -310,7 +311,7 @@ export default function ClientPage() {
                                 </div>
 
                                 <p className="text-slate-300 leading-relaxed mb-6 relative z-10">
-                                    "{review.content}"
+                                    &quot;{review.content}&quot;
                                 </p>
 
                                 {review.image && (

@@ -9,6 +9,7 @@ import { parsePremiumNames, PremiumNameData } from '@/utils/premiumDataParser';
 
 import { supabase } from '@/utils/supabase';
 import { getPrediction } from '@/utils/getPrediction';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { thaksaConfig } from '@/data/thaksaConfig';
 import { DayKey } from '@/types';
@@ -67,7 +68,9 @@ function ScoreDropdown({
     }, [open]);
 
     useEffect(() => {
-        if (disabled) setOpen(false);
+        if (disabled) {
+            setTimeout(() => setOpen(false), 0);
+        }
     }, [disabled]);
 
     const selectedLabel = value ? `ผลรวม ${value}` : 'ทุกผลรวม';
@@ -182,7 +185,7 @@ export default function PremiumSearchPage() {
     const daysOfWeek = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ(กลางวัน)', 'พุธ(กลางคืน)', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
 
     const handleSearch = async () => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         // Check Authentication
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
@@ -395,7 +398,7 @@ export default function PremiumSearchPage() {
 
                             <div className="mt-4 mx-auto w-fit bg-[#0F1C2E] border border-emerald-500/30 rounded-xl px-6 py-3 shadow-lg shadow-emerald-900/20">
                                 <p className="text-emerald-400 font-medium text-sm md:text-base">
-                                    💡 คำแนะนำ: ได้ชื่อที่ต้องการแล้วอย่าลืมนำไป <a href="/" className="underline decoration-emerald-500/50 hover:text-emerald-300 transition-colors">วิเคราะห์ชื่อ - สกุล</a> ก่อนนำไปใช้ด้วยนะครับ
+                                    💡 คำแนะนำ: ได้ชื่อที่ต้องการแล้วอย่าลืมนำไป <Link href="/" className="underline decoration-emerald-500/50 hover:text-emerald-300 transition-colors">วิเคราะห์ชื่อ - สกุล</Link> ก่อนนำไปใช้ด้วยนะครับ
                                 </p>
                             </div>
                             <p className="text-slate-500 text-sm pt-4">
@@ -573,7 +576,7 @@ export default function PremiumSearchPage() {
                             {/* Tip Match Image */}
                             <div className="mx-4 bg-[#0F1C2E] border border-emerald-500/30 rounded-xl p-4 flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/20">
                                 <p className="text-emerald-400 font-medium text-sm md:text-base">
-                                    💡 คำแนะนำ: ได้ชื่อที่ต้องการแล้วอย่าลืมนำไป <a href="/" className="underline decoration-emerald-500/50 hover:text-emerald-300 transition-colors">วิเคราะห์ชื่อ - สกุล</a> ก่อนนำไปใช้ด้วยนะครับ
+                                    💡 คำแนะนำ: ได้ชื่อที่ต้องการแล้วอย่าลืมนำไป <Link href="/" className="underline decoration-emerald-500/50 hover:text-emerald-300 transition-colors">วิเคราะห์ชื่อ - สกุล</Link> ก่อนนำไปใช้ด้วยนะครับ
                                 </p>
                             </div>
 

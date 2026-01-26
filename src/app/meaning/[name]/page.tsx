@@ -130,7 +130,7 @@ export default async function MeaningPage({ params }: Props) {
                             <span className="text-xs font-bold text-amber-100 uppercase tracking-widest">พจนานุกรมชื่อมงคล</span>
                         </div>
                         <h1 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-4">
-                            ความหมายชื่อ <span className="text-amber-400">"{decodedName}"</span>
+                            ความหมายชื่อ <span className="text-amber-400">&quot;{decodedName}&quot;</span>
                         </h1>
                         <p className="text-slate-400 max-w-xl mx-auto">
                             วิเคราะห์พลังของชื่อตามหลักเลขศาสตร์และดวงดาว

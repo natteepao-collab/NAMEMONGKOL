@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Moon, Sun } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { SUM_PREDICTIONS, getSumPrediction } from '@/data/sumPredictions';
 import { calculateShadowPower, calculateAyatana6 } from '@/utils/shadowPower';
 

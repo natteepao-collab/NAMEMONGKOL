@@ -8,6 +8,11 @@ import { articles as localArticles } from '@/data/articles';
 import { shimmer, toBase64 } from '@/utils/imageUtils';
 import { ArticleImage } from '@/components/ArticleImage';
 
+type ArticleRow = {
+    slug: string;
+    date: string;
+} & Record<string, unknown>;
+
 // Revalidate every hour
 export const revalidate = 3600;
 
@@ -39,11 +44,11 @@ async function getArticles() {
         .select('*')
         .eq('is_published', true); // Removed .order from DB to do consistent custom sort in JS for mixed data types
 
-    const dbArticles = articles || [];
+    const dbArticles: ArticleRow[] = (articles as ArticleRow[]) || [];
 
     // Fallback to local articles if DB fails or just mix them
     // Filter out local articles that are already present in DB (by slug)
-    const existingSlugs = new Set(dbArticles.map((a: any) => a.slug));
+    const existingSlugs = new Set(dbArticles.map(a => a.slug));
     const uniqueLocalArticles = localArticles.filter(a => !existingSlugs.has(a.slug));
 
     // Combine

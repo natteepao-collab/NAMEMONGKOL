@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useEffect } from 'react';
 import { Save, Settings, Tag } from 'lucide-react';
@@ -44,7 +45,7 @@ export default function AdminSettingsPage() {
     };
 
     const handleSave = async () => {
-        const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setSaving(true);
         try {
             const { data: { user } } = await supabase.auth.getUser();

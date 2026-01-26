@@ -178,15 +178,13 @@ C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKO
   132:8   warning  React Hook useEffect has a missing dependency: 'result'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react-hooks/exhaustive-deps
 
 C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKOL\src\app\premium-analysis\ClientPage.tsx
-    6:38   warning  'Target' is defined but never used                               @typescript-eslint/no-unused-vars
-    7:30   warning  'Star' is defined but never used                                 @typescript-eslint/no-unused-vars
-   10:5    warning  'Search' is defined but never used                               @typescript-eslint/no-unused-vars
-   10:26   warning  'Gem' is defined but never used                                  @typescript-eslint/no-unused-vars
-  281:140  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
-  281:150  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+   6:38  warning  'Target' is defined but never used  @typescript-eslint/no-unused-vars
+   7:30  warning  'Star' is defined but never used    @typescript-eslint/no-unused-vars
+  10:5   warning  'Search' is defined but never used  @typescript-eslint/no-unused-vars
+  10:26  warning  'Gem' is defined but never used     @typescript-eslint/no-unused-vars
 
 C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKOL\src\app\premium-search\ClientPage.tsx
-   70:23  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+  71:23  error  Error: Calling setState synchronously within an effect can trigger cascading renders
 
 Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
 * Update external systems with the latest state from React.
@@ -194,16 +192,14 @@ Effects are intended to synchronize state between React and external systems suc
 
 Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
 
-C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKOL\src\app\premium-search\ClientPage.tsx:70:23
-  68 |
-  69 |     useEffect(() => {
-> 70 |         if (disabled) setOpen(false);
+C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKOL\src\app\premium-search\ClientPage.tsx:71:23
+  69 |
+  70 |     useEffect(() => {
+> 71 |         if (disabled) setOpen(false);
      |                       ^^^^^^^ Avoid calling setState() directly within an effect
-  71 |     }, [disabled]);
-  72 |
-  73 |     const selectedLabel = value ? `ผลรวม ${value}` : 'ทุกผลรวม';  react-hooks/set-state-in-effect
-  398:82  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @next/next/no-html-link-for-pages
-  576:82  error  Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @next/next/no-html-link-for-pages
+  72 |     }, [disabled]);
+  73 |
+  74 |     const selectedLabel = value ? `ผลรวม ${value}` : 'ทุกผลรวม';  react-hooks/set-state-in-effect
 
 C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKOL\src\app\privacy\page.tsx
   3:8  warning  'Script' is defined but never used  @typescript-eslint/no-unused-vars
@@ -217,16 +213,11 @@ C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKO
   136:23  warning  'error' is assigned a value but never used                                                                                                                                                                                                                                               @typescript-eslint/no-unused-vars
   158:13  error    'target' is never reassigned. Use 'const' instead                                                                                                                                                                                                                                        prefer-const
   277:45  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
-  313:37  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
-  313:54  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
 
 C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKOL\src\app\search\ClientPage.tsx
-    6:83   warning  'Unlock' is defined but never used                                                                                                                     @typescript-eslint/no-unused-vars
-  116:7    warning  'ITEMS_PER_PAGE' is assigned a value but never used                                                                                                    @typescript-eslint/no-unused-vars
-  326:246  error    Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
-  368:73   error    Unexpected any. Specify a different type                                                                                                               @typescript-eslint/no-explicit-any
-  458:70   error    Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
-  560:71   error    Do not use an `<a>` element to navigate to `/`. Use `<Link />` from `next/link` instead. See: https://nextjs.org/docs/messages/no-html-link-for-pages  @next/next/no-html-link-for-pages
+    7:83  warning  'Unlock' is defined but never used                   @typescript-eslint/no-unused-vars
+  117:7   warning  'ITEMS_PER_PAGE' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  369:73  error    Unexpected any. Specify a different type             @typescript-eslint/no-explicit-any
 
 C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKOL\src\app\terms\page.tsx
   3:8  warning  'Script' is defined but never used  @typescript-eslint/no-unused-vars
@@ -252,10 +243,6 @@ C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKO
 
 C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKOL\src\components\CookieConsent.tsx
   5:18  warning  'X' is defined but never used  @typescript-eslint/no-unused-vars
-
-C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKOL\src\components\HeroBanner.tsx
-  30:72  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
-  30:97  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
 
 C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKOL\src\components\HomeFallback.tsx
   3:10  warning  'RefreshCw' is defined but never used  @typescript-eslint/no-unused-vars
@@ -286,9 +273,6 @@ C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKO
   39:11  warning  'getScoreColor' is assigned a value but never used   @typescript-eslint/no-unused-vars
   50:11  warning  'getHeaderColor' is assigned a value but never used  @typescript-eslint/no-unused-vars
 
-C:\Users\ณวิธบุญยะรัตน์\Desktop\Next.js\6.NAMEMONGKOL\src\components\PhoneAnalysisResult.tsx
-  470:22  error  'Search' is not defined  react/jsx-no-undef
-
-✖ 145 problems (73 errors, 72 warnings)
+✖ 133 problems (61 errors, 72 warnings)
   4 errors and 0 warnings potentially fixable with the `--fix` option.
 
