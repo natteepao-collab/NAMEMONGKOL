@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, MessageCircle, Filter, Quote, Plus } from 'lucide-react';
+import { Star, MessageCircle, Filter, Quote, Plus, Trash2, Edit } from 'lucide-react';
 // import { reviews } from '@/data/reviews'; // Deprecated mock data
 import { Review } from '@/types';
 import { ReviewFormModal } from '@/components/ReviewFormModal';
@@ -21,7 +21,30 @@ const CATEGORIES = [
 export default function ClientPage() {
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingReview, setEditingReview] = useState<Review | null>(null);
+    const [currentUser, setCurrentUser] = useState<any>(null);
+    const [isAdmin, setIsAdmin] = useState(false);
     const router = useRouter();
+
+    useEffect(() => {
+        const checkUser = async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            setCurrentUser(session?.user || null);
+
+            if (session?.user) {
+                const { data } = await supabase
+                    .from('user_profiles')
+                    .select('role')
+                    .eq('id', session.user.id)
+                    .single();
+
+                if (data && data.role === 'admin') {
+                    setIsAdmin(true);
+                }
+            }
+        };
+        checkUser();
+    }, []);
 
     const handleWriteStory = async () => {
         const { data: { session } } = await supabase.auth.getSession();
@@ -49,30 +72,85 @@ export default function ClientPage() {
             return;
         }
 
+        setEditingReview(null); // Reset editing state for new story
         setIsModalOpen(true);
+    };
+
+    const handleEdit = (review: Review) => {
+        setEditingReview(review);
+        setIsModalOpen(true);
+    };
+
+    const handleDelete = async (reviewId: string) => {
+        const Swal = (await import('sweetalert2')).default;
+
+        Swal.fire({
+            title: 'ยืนยันการลบ?',
+            text: "คุณต้องการลบรีวิวนี้ใช่หรือไม่? การกระทำนี้ไม่สามารถย้อนกลับได้",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'ลบรีวิว',
+            cancelButtonText: 'ยกเลิก',
+            background: '#1e293b',
+            color: '#fff'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const { error } = await supabase
+                        .from('reviews')
+                        .delete()
+                        .eq('id', reviewId);
+
+                    if (error) throw error;
+
+                    // Update UI by fetching from DB to ensure sync
+                    await fetchReviews();
+
+                    Swal.fire({
+                        title: 'ลบสำเร็จ!',
+                        text: 'รีวิวของคุณถูกลบเรียบร้อยแล้ว',
+                        icon: 'success',
+                        background: '#1e293b',
+                        color: '#fff',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                } catch (error: any) {
+                    Swal.fire({
+                        title: 'เกิดข้อผิดพลาด',
+                        text: error.message || 'ไม่สามารถลบรีวิวได้',
+                        icon: 'error',
+                        background: '#1e293b',
+                        color: '#fff'
+                    });
+                }
+            }
+        });
     };
 
     const [dbReviews, setDbReviews] = useState<Review[]>([]);
 
+    const fetchReviews = async () => {
+        const { data, error } = await supabase
+            .from('reviews')
+            .select('*')
+            .eq('status', 'approved')
+            .order('created_at', { ascending: false });
+
+        if (data) {
+            // Map Supabase data to Review interface if needed, or use directly
+            const formatted = data.map(r => ({
+                ...r,
+                date: r.created_at, // Map created_at to date
+                tags: r.tags || [r.category] // Ensure tags exist
+            }));
+            setDbReviews(formatted);
+        }
+    };
+
     useEffect(() => {
-        const fetchReviews = async () => {
-            const { data, error } = await supabase
-                .from('reviews')
-                .select('*')
-                .eq('status', 'approved')
-                .order('created_at', { ascending: false });
-
-            if (data) {
-                // Map Supabase data to Review interface if needed, or use directly
-                const formatted = data.map(r => ({
-                    ...r,
-                    date: r.created_at, // Map created_at to date
-                    tags: r.tags || [r.category] // Ensure tags exist
-                }));
-                setDbReviews(formatted);
-            }
-        };
-
         fetchReviews();
     }, []);
 
@@ -83,9 +161,9 @@ export default function ClientPage() {
     }, [selectedCategory, dbReviews]);
 
     return (
-        <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans pb-20">
+        <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans pb-28">
             {/* Header Section */}
-            <div className="relative pt-24 pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+            <div className="relative pt-6 pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-amber-500/10 to-transparent pointer-events-none" />
                 <div className="relative z-10 max-w-7xl mx-auto text-center">
                     <motion.div
@@ -168,8 +246,30 @@ export default function ClientPage() {
                                 transition={{ duration: 0.3 }}
                                 className="break-inside-avoid bg-white/5 backdrop-blur-sm border border-white/5 rounded-2xl p-6 hover:bg-white/10 transition-colors group relative overflow-hidden"
                             >
-                                {/* Decorative Quote */}
-                                <Quote className="absolute top-4 right-4 text-white/5 w-12 h-12 rotate-12 group-hover:text-amber-500/10 transition-colors" />
+                                {/* Owner Actions - Adjusted z-index and position */}
+                                {currentUser && (currentUser.id === review.user_id || isAdmin) && (
+                                    <div className="absolute top-4 right-4 z-30 flex gap-2">
+                                        <button
+                                            onClick={(e) => { e.stopPropagation(); handleEdit(review); }}
+                                            className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-colors"
+                                            title="แก้ไข"
+                                        >
+                                            <Edit size={16} />
+                                        </button>
+                                        <button
+                                            onClick={(e) => { e.stopPropagation(); handleDelete(review.id); }}
+                                            className="p-1.5 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
+                                            title="ลบ"
+                                        >
+                                            <Trash2 size={16} />
+                                        </button>
+                                    </div>
+                                )}
+
+                                {/* Decorative Quote - Hide if owner or admin to prevent overlap or move left */}
+                                {(!currentUser || (currentUser.id !== review.user_id && !isAdmin)) && (
+                                    <Quote className="absolute top-4 right-4 text-white/5 w-12 h-12 rotate-12 group-hover:text-amber-500/10 transition-colors pointer-events-none" />
+                                )}
 
                                 <div className="flex items-center gap-3 mb-4 relative z-10">
                                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
@@ -181,7 +281,21 @@ export default function ClientPage() {
                                     </div>
                                     <div>
                                         <div className="text-white font-bold">{review.nickname}</div>
-                                        <div className="text-amber-500/80 text-xs font-medium uppercase tracking-wide">{review.role}</div>
+                                        <div className="text-amber-500/80 text-xs font-medium uppercase tracking-wide flex items-center gap-2">
+                                            {review.role}
+                                            {review.date && (
+                                                <>
+                                                    <span className="w-1 h-1 rounded-full bg-slate-600"></span>
+                                                    <span className="text-slate-500">
+                                                        {new Date(review.date).toLocaleDateString('th-TH', {
+                                                            day: 'numeric',
+                                                            month: 'short',
+                                                            year: '2-digit'
+                                                        })}
+                                                    </span>
+                                                </>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -228,7 +342,12 @@ export default function ClientPage() {
                 )}
             </div>
 
-            <ReviewFormModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <ReviewFormModal
+                isOpen={isModalOpen}
+                onClose={() => { setIsModalOpen(false); setEditingReview(null); }}
+                initialData={editingReview}
+                onSuccess={fetchReviews}
+            />
         </div>
     );
 }

@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Save, Settings, Tag } from 'lucide-react';
-import Swal from 'sweetalert2';
 import { supabase } from '@/utils/supabase';
 
 export default function AdminSettingsPage() {
@@ -45,6 +44,7 @@ export default function AdminSettingsPage() {
     };
 
     const handleSave = async () => {
+        const Swal = (await import('sweetalert2')).default;
         setSaving(true);
         try {
             const { data: { user } } = await supabase.auth.getUser();
@@ -121,8 +121,8 @@ export default function AdminSettingsPage() {
                                 <button
                                     onClick={() => setPaymentGateway('stripe')}
                                     className={`relative p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${paymentGateway === 'stripe'
-                                            ? 'bg-emerald-500/10 border-emerald-500 text-emerald-400 shadow-lg shadow-emerald-500/10'
-                                            : 'bg-slate-950 border-slate-700 text-slate-400 hover:border-slate-600'
+                                        ? 'bg-emerald-500/10 border-emerald-500 text-emerald-400 shadow-lg shadow-emerald-500/10'
+                                        : 'bg-slate-950 border-slate-700 text-slate-400 hover:border-slate-600'
                                         }`}
                                 >
                                     <div className="font-bold flex items-center gap-2">
@@ -135,8 +135,8 @@ export default function AdminSettingsPage() {
                                 <button
                                     onClick={() => setPaymentGateway('slip2go')}
                                     className={`relative p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${paymentGateway === 'slip2go'
-                                            ? 'bg-amber-500/10 border-amber-500 text-amber-400 shadow-lg shadow-amber-500/10'
-                                            : 'bg-slate-950 border-slate-700 text-slate-400 hover:border-slate-600'
+                                        ? 'bg-amber-500/10 border-amber-500 text-amber-400 shadow-lg shadow-amber-500/10'
+                                        : 'bg-slate-950 border-slate-700 text-slate-400 hover:border-slate-600'
                                         }`}
                                 >
                                     <div className="font-bold flex items-center gap-2">

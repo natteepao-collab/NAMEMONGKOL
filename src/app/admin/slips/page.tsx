@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Receipt, Search, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
-import Swal from 'sweetalert2';
 import Link from 'next/link';
 import { supabase } from '@/utils/supabase';
 
@@ -22,6 +21,7 @@ export default function AdminSlipsPage() {
     const [totalPages, setTotalPages] = useState(1);
 
     const fetchSlips = async () => {
+        const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();

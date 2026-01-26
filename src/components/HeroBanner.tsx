@@ -18,14 +18,7 @@ export const HeroBanner = () => {
 
                 {/* Left Content */}
                 <div className="text-center sm:text-left z-10 flex-1 pl-2 relative">
-                    {/* Badge */}
-                    <div className="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/50 backdrop-blur-sm shadow-sm group-hover:border-emerald-500/30 transition-colors">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                        </span>
-                        <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">AI-Powered Analysis</span>
-                    </div>
+
 
                     {/* Title */}
                     <h1 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-3 tracking-tight">

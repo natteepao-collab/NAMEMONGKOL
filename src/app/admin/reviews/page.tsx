@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Search, Check, X, Trash2, MessageCircle, AlertCircle, Filter, Star } from 'lucide-react';
-import Swal from 'sweetalert2';
 import { supabase } from '@/utils/supabase';
 import { Review } from '@/types';
 
@@ -16,6 +15,7 @@ export default function AdminReviewsPage() {
     const [stats, setStats] = useState({ total: 0, pending: 0, approved: 0, rejected: 0 });
 
     const fetchReviews = async () => {
+        const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();
@@ -55,6 +55,7 @@ export default function AdminReviewsPage() {
     }, [page, search, statusFilter]);
 
     const handleUpdateStatus = async (id: string, newStatus: string) => {
+        const Swal = (await import('sweetalert2')).default;
         try {
             const { data: { session } } = await supabase.auth.getSession();
 
@@ -90,6 +91,7 @@ export default function AdminReviewsPage() {
     };
 
     const handleDelete = async (id: string) => {
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",

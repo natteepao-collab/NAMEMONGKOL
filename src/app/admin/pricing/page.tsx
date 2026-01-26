@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { CreditCard, Edit2, Plus, Trash2, X, Save, DollarSign, Sparkles } from 'lucide-react';
-import Swal from 'sweetalert2';
 import { supabase } from '@/utils/supabase';
 
 interface PricingTier {
@@ -34,6 +33,7 @@ export default function AdminPricingPage() {
     });
 
     const fetchTiers = async () => {
+        const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();
@@ -78,6 +78,7 @@ export default function AdminPricingPage() {
     };
 
     const handleDelete = async (id: string) => {
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -111,6 +112,7 @@ export default function AdminPricingPage() {
     };
 
     const handleSave = async () => {
+        const Swal = (await import('sweetalert2')).default;
         setSaving(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();

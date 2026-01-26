@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Search, Edit2, ChevronLeft, ChevronRight, Save, X, User, Mail, Facebook, Globe } from 'lucide-react';
-import Swal from 'sweetalert2';
 import { supabase } from '@/utils/supabase';
 
 interface UserProfile {
@@ -60,6 +59,7 @@ export default function AdminUsersPage() {
     const [saving, setSaving] = useState(false);
 
     const fetchUsers = async () => {
+        const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();
@@ -101,6 +101,7 @@ export default function AdminUsersPage() {
 
     const handleSave = async () => {
         if (!editingUser) return;
+        const Swal = (await import('sweetalert2')).default;
         setSaving(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();

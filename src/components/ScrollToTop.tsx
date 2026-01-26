@@ -30,7 +30,7 @@ export const ScrollToTop = () => {
     return (
         <button
             onClick={scrollToTop}
-            className={`fixed bottom-24 right-6 lg:bottom-10 lg:right-10 z-[100] bg-white/10 hover:bg-white/20 text-white p-3 rounded-full shadow-lg shadow-black/20 border border-white/20 backdrop-blur-md transition-all duration-300 transform ${isVisible ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-10 opacity-0 scale-90 pointer-events-none'
+            className={`fixed bottom-24 right-6 lg:bottom-10 lg:right-10 z-[50] bg-white/10 hover:bg-white/20 text-white p-3 rounded-full shadow-lg shadow-black/20 border border-white/20 backdrop-blur-md transition-all duration-300 transform ${isVisible ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-10 opacity-0 scale-90 pointer-events-none'
                 }`}
             aria-label="Back to Top"
         >

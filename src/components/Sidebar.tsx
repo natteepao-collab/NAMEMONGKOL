@@ -8,8 +8,12 @@ import { supabase } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';
 import { LineOAButton } from './LineOAButton';
 
-export const Sidebar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+interface SidebarProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     const [user, setUser] = useState<User | null>(null);
     const [credits, setCredits] = useState<number | null>(null);
     const [role, setRole] = useState<string | null>(null);
@@ -18,8 +22,6 @@ export const Sidebar = () => {
 
     // State for collapsible menus
     const [expandedMenu, setExpandedMenu] = useState<string | null>('บริการวิเคราะห์');
-
-    const toggleSidebar = () => setIsOpen(!isOpen);
 
     const fetchUserInfo = async (userId: string) => {
         const { data, error } = await supabase
@@ -79,7 +81,7 @@ export const Sidebar = () => {
     const handleLogout = async () => {
         await supabase.auth.signOut();
         router.refresh();
-        setIsOpen(false);
+        onClose();
     };
 
     type MenuItem = {
@@ -124,22 +126,11 @@ export const Sidebar = () => {
 
     return (
         <>
-            {/* Mobile Menu Button */}
-            {/* Mobile Menu Button - UPDATED STYLE */}
-            <button
-                onClick={toggleSidebar}
-                className="lg:hidden fixed top-4 left-4 z-[60] bg-[#0f172a] text-amber-500 p-2.5 sm:px-4 sm:py-2 rounded-xl shadow-lg border border-amber-500/50 hover:bg-slate-800 transition-all active:scale-95 flex items-center gap-2"
-                aria-label="Toggle Menu"
-            >
-                {isOpen ? <X size={20} /> : <Menu size={20} />}
-                <span className="font-serif font-bold tracking-wider text-sm hidden sm:inline">MENU</span>
-            </button>
-
             {/* Overlay */}
             {isOpen && (
                 <div
                     className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-opacity"
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => onClose()}
                 />
             )}
 
@@ -148,9 +139,9 @@ export const Sidebar = () => {
                 className={`fixed inset-y-0 left-0 z-50 w-80 lg:w-[360px] bg-[#0f172a]/95 backdrop-blur-xl border-r border-white/5 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}
             >
-                <div className="flex flex-col h-full p-5 sm:p-6 pb-[calc(env(safe-area-inset-bottom)+1.25rem)]">
+                <div className="flex flex-col h-full px-5 pb-6 pt-20 lg:p-6 pb-[calc(env(safe-area-inset-bottom)+1.25rem)]">
                     {/* Header */}
-                    <div className="flex items-center gap-3 px-2 mb-8 mt-4">
+                    <div className="hidden lg:flex items-center gap-3 px-2 mb-8 mt-4">
                         <div className="relative shrink-0">
                             <div className="absolute -inset-1 bg-amber-500/20 rounded-2xl blur-md opacity-50"></div>
                             <div className="w-12 h-12 rounded-[14px] bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 ring-1 ring-white/10">
@@ -186,7 +177,7 @@ export const Sidebar = () => {
 
                                             <Link
                                                 href={item.path}
-                                                onClick={() => setIsOpen(false)}
+                                                onClick={() => onClose()}
                                                 className="flex-1 flex items-center gap-3 lg:gap-4 px-4 py-3 lg:px-5 lg:py-4"
                                             >
                                                 <item.icon className="w-[22px] h-[22px]" />
@@ -218,7 +209,7 @@ export const Sidebar = () => {
                                                             key={subItem.path}
                                                             href={subItem.path}
                                                             onClick={(e) => {
-                                                                setIsOpen(false);
+                                                                onClose();
                                                                 // Force reload to clean URL if clicking "Analyze Phone" while already on the page
                                                                 if (subItem.path === '/phone-analysis' && pathname === '/phone-analysis') {
                                                                     e.preventDefault();
@@ -249,7 +240,7 @@ export const Sidebar = () => {
                                     <Link
                                         key={item.path}
                                         href={item.path}
-                                        onClick={() => setIsOpen(false)}
+                                        onClick={() => onClose()}
                                         className="group relative flex items-center justify-between px-3 py-3 mx-0 lg:mx-2 my-2 rounded-2xl bg-[#1e293b] border border-slate-700/50 overflow-hidden hover:bg-[#252f44] transition-all duration-300 shadow-lg shadow-black/20"
                                     >
                                         {/* Left Accent Bar & Glow */}
@@ -283,7 +274,7 @@ export const Sidebar = () => {
                                 <Link
                                     key={item.path}
                                     href={item.path}
-                                    onClick={() => setIsOpen(false)}
+                                    onClick={() => onClose()}
                                     className={`flex items-center gap-3 lg:gap-4 px-4 py-3 lg:px-5 lg:py-4 rounded-xl lg:rounded-2xl transition-all duration-200 group relative overflow-hidden ${isActive
                                         ? 'bg-gradient-to-r from-white/10 to-white/5 text-white shadow-lg shadow-black/20 border border-white/10'
                                         : 'text-slate-400 hover:bg-white/5 hover:text-white hover:pl-6'
@@ -358,7 +349,7 @@ export const Sidebar = () => {
                                                 <Sparkles size={14} />
                                                 <span>{credits} Credits</span>
                                             </div>
-                                            <Link href="/topup" onClick={() => setIsOpen(false)} className="text-[11px] text-emerald-950 hover:text-emerald-900 font-bold bg-emerald-400 hover:bg-emerald-300 px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 shadow-lg shadow-emerald-500/20 hover:-translate-y-0.5">
+                                            <Link href="/topup" onClick={() => onClose()} className="text-[11px] text-emerald-950 hover:text-emerald-900 font-bold bg-emerald-400 hover:bg-emerald-300 px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 shadow-lg shadow-emerald-500/20 hover:-translate-y-0.5">
                                                 <Zap size={12} fill="currentColor" /> เติมเงิน
                                             </Link>
                                         </div>
@@ -376,7 +367,7 @@ export const Sidebar = () => {
                             <div className="lg:hidden space-y-3 px-2">
                                 <Link
                                     href="/login"
-                                    onClick={() => setIsOpen(false)}
+                                    onClick={() => onClose()}
                                     className="w-full flex items-center justify-center gap-3 px-5 py-3.5 rounded-2xl bg-white/5 hover:bg-white/10 text-white font-medium transition-all group border border-white/5"
                                 >
                                     <LogIn size={20} className="text-slate-400 group-hover:text-white transition-colors" />

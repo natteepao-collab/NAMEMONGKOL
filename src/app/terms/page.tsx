@@ -39,7 +39,7 @@ export default function TermsPage() {
             <div className="absolute top-0 right-0 w-full h-96 bg-gradient-to-b from-amber-900/20 to-transparent pointer-events-none" />
             <div className="absolute top-40 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none -translate-x-1/2" />
 
-            <div className="relative w-full max-w-[1400px] px-4 pt-24 md:pt-32 pb-12 md:pb-20">
+            <div className="relative w-full max-w-[1400px] px-4 pt-6 md:pt-32 pb-28 md:pb-20">
                 {/* Navigation */}
                 <Link
                     href="/"

@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { supabase } from '@/utils/supabase';
-import Swal from 'sweetalert2';
 import { CreditReceivedModal } from './CreditReceivedModal';
 
 interface SlipUploaderProps {
@@ -30,6 +29,9 @@ export default function SlipUploader({ amount, credits, tierId }: SlipUploaderPr
 
     const handleUpload = async () => {
         if (!selectedFile) return;
+
+        // Dynamic import SweetAlert2
+        const Swal = (await import('sweetalert2')).default;
 
         setIsLoading(true);
         setResult(null);

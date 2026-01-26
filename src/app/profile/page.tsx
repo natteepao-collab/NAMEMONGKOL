@@ -75,7 +75,7 @@ export default function ProfilePage() {
     }
 
     return (
-        <div className="min-h-screen bg-[#0f172a] pb-20">
+        <div className="min-h-screen bg-[#0f172a] pb-28">
             {/* Header */}
             <header className="sticky top-0 z-10 backdrop-blur-xl bg-[#0f172a]/80 border-b border-white/5">
                 <div className="max-w-2xl px-4 h-16 flex items-center gap-4">
@@ -86,7 +86,7 @@ export default function ProfilePage() {
                 </div>
             </header>
 
-            <main className="w-full max-w-[1400px] px-4 py-8 pt-24 md:pt-32">
+            <main className="w-full max-w-[1400px] px-4 py-8 pt-6 md:pt-32">
                 <div className="max-w-2xl">
                     {/* User Info Card */}
                     <div className="bg-white/5 border border-white/10 rounded-3xl p-6 mb-8 relative overflow-hidden">

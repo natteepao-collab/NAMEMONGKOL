@@ -3,7 +3,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/utils/supabase';
-import Swal from 'sweetalert2';
 import { Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, X, Lock, Unlock } from 'lucide-react';
 
 import { calculateScore } from '@/utils/numerologyUtils';
@@ -218,6 +217,8 @@ export default function SearchPage() {
         // 1. Check Login Status
         const { data: { user } } = await supabase.auth.getUser();
 
+        const Swal = (await import('sweetalert2')).default;
+
         if (!user) {
             const result = await Swal.fire({
                 title: 'กรุณาเข้าสู่ระบบ',
@@ -299,7 +300,7 @@ export default function SearchPage() {
                 <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-amber-600/10 rounded-full blur-[120px]"></div>
             </div>
 
-            <div className="relative z-10 w-full max-w-[1400px] px-4 pt-24 md:pt-32">
+            <div className="relative z-10 w-full max-w-[1400px] px-4 pt-32 md:pt-32 pb-28">
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-sm mb-4">
                         <Sparkles className="w-4 h-4" />

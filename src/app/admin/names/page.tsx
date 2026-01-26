@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 // import { Sidebar } from '@/components/Sidebar';
 import { Save, RefreshCw, FileText, CheckCircle, AlertTriangle, Copy } from 'lucide-react';
-import Swal from 'sweetalert2';
+
 
 export default function AdminNamesPage() {
     const [names, setNames] = useState<string[]>([]);
@@ -13,6 +13,7 @@ export default function AdminNamesPage() {
 
     // Fetch initial data
     const fetchNames = async () => {
+        const Swal = (await import('sweetalert2')).default;
         setIsLoading(true);
         try {
             const res = await fetch('/api/admin/names');
@@ -39,6 +40,7 @@ export default function AdminNamesPage() {
     }, []);
 
     const handleSave = async () => {
+        const Swal = (await import('sweetalert2')).default;
         setIsSaving(true);
         try {
             // Parse raw input: split by comma or newline, trim, remove empty
@@ -82,7 +84,8 @@ export default function AdminNamesPage() {
         }
     };
 
-    const copyToClipboard = () => {
+    const copyToClipboard = async () => {
+        const Swal = (await import('sweetalert2')).default;
         navigator.clipboard.writeText(rawInput);
         const Toast = Swal.mixin({
             toast: true,

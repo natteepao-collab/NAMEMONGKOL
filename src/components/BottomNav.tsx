@@ -3,21 +3,21 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Search, Sparkles, History } from 'lucide-react';
+import { Home, Search, Sparkles, History, Crown } from 'lucide-react';
 
 export const BottomNav = () => {
     const pathname = usePathname();
 
     const navItems = [
-        { name: 'วิเคราะห์', icon: Home, path: '/' },
         { name: 'ค้นหา', icon: Search, path: '/search' },
-        { name: 'ชื่อมงคล', icon: Sparkles, path: '/premium-search' },
+        { name: 'ชื่อมงคล Pro', icon: Crown, path: '/premium-search' },
+        { name: 'ชื่อ Premium', icon: Sparkles, path: '/premium-analysis' },
         { name: 'ประวัติ', icon: History, path: '/history' },
     ];
 
     return (
         <div className="fixed bottom-0 left-0 w-full z-[60] lg:hidden bg-[#0f172a]/95 backdrop-blur-xl border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
-            <div className="flex items-center justify-around px-2 py-2">
+            <div className="flex items-center justify-around py-2 pl-20 pr-4">
                 {navItems.map((item) => {
                     const isActive = pathname === item.path;
                     const Icon = item.icon;

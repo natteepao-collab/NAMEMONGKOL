@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabase';
 import { Loader2, Plus, Edit, Trash2, Save, X, Search, Image as ImageIcon, Upload, Eye, RefreshCw } from 'lucide-react';
-import Swal from 'sweetalert2';
 import Image from 'next/image';
 import Link from 'next/link';
 import { articles as localArticles } from '@/data/articles';
@@ -43,6 +42,7 @@ export default function AdminArticlesPage() {
     }, []);
 
     const fetchArticles = async () => {
+        const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
             const { data, error } = await supabase
@@ -97,6 +97,7 @@ export default function AdminArticlesPage() {
     };
 
     const handleDelete = async (id: string) => {
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
             text: "This will permanently delete the article.",
@@ -174,6 +175,7 @@ export default function AdminArticlesPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const Swal = (await import('sweetalert2')).default;
         setUploading(true);
 
         try {
@@ -246,6 +248,7 @@ export default function AdminArticlesPage() {
     };
 
     const handleSync = async () => {
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Sync Local Articles?',
             text: "This will import hardcoded articles from 'src/data/articles.ts' into the database. Existing articles with the same slug will be skipped.",

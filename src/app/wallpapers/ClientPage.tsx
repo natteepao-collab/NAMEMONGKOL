@@ -6,7 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { Download, Share2, Sparkles, Filter, Lock, LogIn } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { supabase } from '@/utils/supabase';
-// import Swal from 'sweetalert2';
+
 import { Wallpaper } from '@/types';
 
 // Fallback constant for immediate load/SSR if needed, but we will rely on DB
@@ -217,7 +217,7 @@ function WallpapersContent() {
     };
 
     return (
-        <div className="w-full max-w-[1400px] px-4 pt-24 md:pt-32 pb-24 min-h-screen bg-[#0f172a] text-slate-200">
+        <div className="w-full max-w-[1400px] px-4 pt-24 md:pt-32 pb-28 min-h-screen bg-[#0f172a] text-slate-200">
             <div className="max-w-7xl mx-auto space-y-8">
 
                 {/* Header */}

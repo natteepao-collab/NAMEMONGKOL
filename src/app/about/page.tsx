@@ -138,7 +138,7 @@ export default function AboutPage() {
     };
 
     return (
-        <main className="bg-slate-950 min-h-screen">
+        <main className="bg-slate-950 min-h-screen pb-28">
             <Script
                 id="organization-json-ld"
                 type="application/ld+json"

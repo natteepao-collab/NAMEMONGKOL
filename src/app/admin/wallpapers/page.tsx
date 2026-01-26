@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabase';
 import { Wallpaper } from '@/types';
 import { Loader2, Plus, Edit, Trash2, Save, X, Search, Image as ImageIcon, Upload } from 'lucide-react';
-// import Swal from 'sweetalert2';
 import Image from 'next/image';
 
 export default function AdminWallpapersPage() {

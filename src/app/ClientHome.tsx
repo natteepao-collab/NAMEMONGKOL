@@ -143,50 +143,17 @@ function HomeContent() {
                 <div className="absolute top-[40%] left-[10%] w-[3px] h-[3px] bg-amber-200 rounded-full animate-pulse delay-75"></div>
             </div>
 
-            {/* Header */}
-            <nav className="lg:hidden sticky top-0 z-50 w-full px-4 lg:px-6 flex justify-center items-center backdrop-blur-md border-b border-white/5 bg-[#0f172a]/80 h-[calc(env(safe-area-inset-top)+4rem)] pt-[env(safe-area-inset-top)]">
-                <Link href="/" className="flex items-center gap-3 group absolute left-1/2 -translate-x-1/2">
-                    <div className="relative">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 to-amber-300 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
-                        <div className="relative w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform duration-300">
-                            <Sparkles className="w-6 h-6 text-white" />
-                        </div>
-                    </div>
 
-                    <div className="hidden md:block w-px h-8 bg-white/10 mx-2"></div>
 
-                    <div className="flex flex-col">
-                        <span className="text-lg sm:text-xl font-bold tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 drop-shadow-sm">
-                            NAMEMONGKOL
-                        </span>
-                        <span className="text-[10px] text-amber-500/80 font-medium tracking-widest uppercase hidden md:block">
-                            Numerology Analysis
-                        </span>
-                    </div>
-                </Link>
-
-                <div className="hidden sm:flex items-center gap-6 absolute right-4 top-1/2 -translate-y-1/2">
-                    <Link href="/articles" className="text-sm font-medium text-slate-400 hover:text-amber-400 transition-colors relative group">
-                        บทความ
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all group-hover:w-full"></span>
-                    </Link>
-                    <Link href="/premium-search" className="text-sm font-medium text-slate-400 hover:text-amber-400 transition-colors relative group">
-                        ชื่อมงคลคัดพิเศษ
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all group-hover:w-full"></span>
-                    </Link>
-                    <Link href="/about" className="text-sm font-medium text-slate-400 hover:text-amber-400 transition-colors relative group">
-                        เกี่ยวกับเรา
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-amber-400 transition-all group-hover:w-full"></span>
-                    </Link>
-                </div>
-            </nav>
-
-            <main className="relative z-10 w-full max-w-[1400px] px-4 sm:px-6 lg:px-12 xl:px-16 pt-24 md:pt-32 pb-8 flex flex-col items-center min-h-[80vh] pb-[calc(env(safe-area-inset-bottom)+2rem)]">
+            <main className="relative z-10 w-full max-w-[1400px] px-4 sm:px-6 lg:px-12 xl:px-16 pt-24 md:pt-32 pb-28 flex flex-col items-center min-h-[80vh]">
 
                 {!result ? (
                     <div className="w-full max-w-lg flex flex-col items-center">
                         {/* HeroBanner decoupled for LCP - No fade-in delay */}
                         <div className="w-full animate-fade-in">
+                            <h2 className="text-center text-amber-200/60 font-medium tracking-widest uppercase text-xs mb-4">
+                                Professional Naming Analysis
+                            </h2>
                             <HeroBanner />
                         </div>
                         <InputForm

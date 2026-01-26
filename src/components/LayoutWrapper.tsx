@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { Sidebar } from './Sidebar';
+import { MobileSecondaryNav } from './MobileSecondaryNav';
+import { MobileHeader } from './MobileHeader';
 import { BottomNav } from './BottomNav';
 import { TopNav } from './TopNav';
 import { supabase } from '@/utils/supabase';
@@ -15,6 +17,7 @@ const WelcomeCreditModal = dynamic(() => import('./WelcomeCreditModal').then(mod
 
 export const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         const getUser = async () => {
@@ -34,13 +37,15 @@ export const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <div className="flex min-h-screen overflow-x-hidden">
-            <Sidebar />
-            <div className="flex-1 min-w-0 lg:pl-[360px] transition-all duration-300 pb-20 lg:pb-0 relative bg-[#0f172a]">
+            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+            <div className="flex-1 min-w-0 lg:pl-[360px] transition-all duration-300 relative bg-[#0f172a]">
+                <MobileHeader onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} user={user} />
                 <TopNav />
+                <MobileSecondaryNav />
                 {children}
             </div>
-            <BottomNav />
             <WelcomeCreditModal user={user} />
+            <BottomNav />
         </div>
     );
 };

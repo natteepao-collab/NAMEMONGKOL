@@ -40,6 +40,7 @@ export const TestimonialSection = () => {
 
         if (!session) {
             // Dynamic import SweetAlert2
+            // Dynamic import SweetAlert2 - Rebuild trigger
             const Swal = (await import('sweetalert2')).default;
 
             Swal.fire({

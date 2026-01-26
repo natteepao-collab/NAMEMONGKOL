@@ -105,7 +105,7 @@ export default async function ArticlePage({ params }: Props) {
     }
 
     return (
-        <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-purple-500 selection:text-white relative overflow-hidden pb-20">
+        <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-purple-500 selection:text-white relative overflow-hidden pb-28">
             {/* Background Decor */}
             <div className="absolute top-0 left-0 w-full h-[600px] overflow-hidden pointer-events-none">
                 <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[120px]"></div>
@@ -145,7 +145,7 @@ export default async function ArticlePage({ params }: Props) {
                 }}
             />
 
-            <main className="w-full max-w-[1400px] px-4 py-8 relative z-10 pt-24 md:pt-32">
+            <main className="w-full max-w-[1400px] px-4 py-8 relative z-10 pt-6 md:pt-32">
                 <div className="max-w-3xl">
                     {/* Back Link */}
                     <Link href="/articles" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors group">

@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabase';
 import { Loader2, Edit, Save, X, Search, RefreshCw, AlertCircle, Grid, List, CheckCircle, Tag, Zap, Heart, Sparkles, Brain, Stethoscope, Briefcase } from 'lucide-react';
-import Swal from 'sweetalert2';
 import { pairDefinitions as localPairs } from '@/data/pairDefinitions';
 import { standardPhoneGrades, getGradeColorClass } from '@/data/standardPhoneGrades';
 
@@ -128,6 +127,7 @@ export default function AdminPhoneMeaningsPage() {
     };
 
     const handleApplyStandardGrades = async () => {
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Apply Standard Grades?',
             text: "This will update the GRADE (Good/Bad/Neutral) of all pairs in the database to match the Standard Table (Red/Green/Orange). Titles and descriptions will NOT be changed.",
@@ -164,6 +164,7 @@ export default function AdminPhoneMeaningsPage() {
 
 
     const handleSync = async () => {
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Sync Local Data?',
             text: "This will populate the 'phone_pair_meanings' table from your local 'src/data/pairDefinitions.ts'. Existing pairs in DB will be updated.",
@@ -204,6 +205,7 @@ export default function AdminPhoneMeaningsPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const Swal = (await import('sweetalert2')).default;
         setSaving(true);
         try {
             if (!currentMeaning.pair || !currentMeaning.title) {

@@ -5,7 +5,7 @@ import { Package, Bitcoin, Zap, ShieldCheck, CheckCircle2, Upload } from 'lucide
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createPromptPayCheckoutSession, verifyPromptPayTransaction } from '@/app/actions/stripe';
 import ManualPaymentModal from '@/components/ManualPaymentModal';
-import Swal from 'sweetalert2';
+
 
 interface PricingTier {
     id: string;
@@ -51,13 +51,12 @@ export default function TopUpPage({ gateway }: TopUpPageProps) {
             const verifyPayment = async () => {
                 const status = searchParams.get('payment_status');
                 const sessionId = searchParams.get('session_id');
+                const Swal = (await import('sweetalert2')).default;
 
                 if (status === 'success' && sessionId) {
                     // Remove params immediately to prevent double-firing (though idempotency handles it)
                     // router.replace('/topup'); 
                     // Better to wait for verification so we can show result.
-
-                    // const Swal = (await import('sweetalert2')).default;
 
                     Swal.fire({
                         title: 'กำลังตรวจสอบการชำระเงิน...',
@@ -135,7 +134,7 @@ export default function TopUpPage({ gateway }: TopUpPageProps) {
             }
         } catch (error: any) {
             console.error('Checkout error:', error);
-            // const Swal = (await import('sweetalert2')).default;
+            const Swal = (await import('sweetalert2')).default;
             Swal.fire({
                 title: 'เกิดข้อผิดพลาด',
                 text: error.message || 'ไม่สามารถสร้างรายการชำระเงินได้',
@@ -149,7 +148,7 @@ export default function TopUpPage({ gateway }: TopUpPageProps) {
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-amber-500/30">
-            <main className="w-full max-w-[1400px] min-h-screen relative overflow-hidden px-4 pt-24 md:pt-32 pb-8">
+            <main className="w-full max-w-[1400px] min-h-screen relative overflow-hidden px-4 pt-6 md:pt-32 pb-28">
                 {/* Background Decor */}
                 <div className="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-emerald-500/5 blur-[120px]" />

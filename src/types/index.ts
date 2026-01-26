@@ -98,4 +98,5 @@ export interface Review {
     image?: string;
     category?: string;
     status?: 'pending' | 'approved' | 'rejected';
+    user_id?: string; // Owner ID
 }

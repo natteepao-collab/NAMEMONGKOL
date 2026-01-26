@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Star, Send, Sparkles, MessageCircle, Gift } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { supabase } from '@/utils/supabase'; // Import supabase
@@ -8,6 +8,15 @@ import { supabase } from '@/utils/supabase'; // Import supabase
 interface ReviewFormModalProps {
     isOpen: boolean;
     onClose: () => void;
+    initialData?: {
+        id: string;
+        nickname: string;
+        role?: string;
+        content: string;
+        rating: number;
+        tags: string[];
+    } | null;
+    onSuccess?: () => void;
 }
 
 const CATEGORIES = [
@@ -18,9 +27,9 @@ const CATEGORIES = [
     { id: 'โชคลาภ', label: 'โชคลาภ 🍀' }
 ];
 
-export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose }) => {
+export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose, initialData, onSuccess }) => {
     const [step, setStep] = useState<'form' | 'success'>('form');
-    const [rating, setRating] = useState(5);
+    const [rating, setRating] = useState(initialData?.rating || 5);
     const [hoverRating, setHoverRating] = useState(0);
     const [formData, setFormData] = useState<{
         nickname: string;
@@ -28,13 +37,37 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
         categories: string[];
         content: string;
     }>({
-        nickname: '',
-        role: '',
-        categories: [],
-        content: ''
+        nickname: initialData?.nickname || '',
+        role: initialData?.role || '',
+        categories: initialData?.tags || [],
+        content: initialData?.content || ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [earnedCredits, setEarnedCredits] = useState(0);
+
+    // Sync state with initialData when it changes or modal opens
+    useEffect(() => {
+        if (isOpen) {
+            if (initialData) {
+                setFormData({
+                    nickname: initialData.nickname,
+                    role: initialData.role || '',
+                    categories: initialData.tags || [],
+                    content: initialData.content
+                });
+                setRating(initialData.rating);
+            } else {
+                // Reset for new entry
+                setFormData({
+                    nickname: '',
+                    role: '',
+                    categories: [],
+                    content: ''
+                });
+                setRating(5);
+            }
+        }
+    }, [isOpen, initialData]);
 
     if (!isOpen) return null;
 
@@ -62,44 +95,83 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
             // Prepare tags based on categories
             const tags = formData.categories;
 
-            const { data, error } = await supabase.rpc('submit_review', {
-                p_nickname: formData.nickname,
-                p_role: formData.role,
-                p_content: formData.content,
-                p_category: formData.categories[0], // Use first category as primary
-                p_rating: rating,
-                p_tags: tags
-            });
+            if (initialData?.id) {
+                // Update Mode
+                const { error } = await supabase
+                    .from('reviews')
+                    .update({
+                        nickname: formData.nickname,
+                        role: formData.role,
+                        content: formData.content,
+                        category: formData.categories[0],
+                        rating: rating,
+                        tags: tags,
+                        // status: 'pending' // Optionally reset status to pending on edit if you want re-approval
+                        // For now let's assume if they edit it, it might need re-approval, or just let it be.
+                        // Let's safe side: usually edits require re-approval. But for user simplicity, let's keep approved if it was approved, 
+                        // UNLESS we want strict control. Let's just update fields.
+                    })
+                    .eq('id', initialData.id);
 
-            if (error) {
-                console.error('RPC Error:', error);
-                throw error;
-            }
+                if (error) throw error;
 
-            if (data && data.success) {
-                // setEarnedCredits(data.bonus_credits || 0); // Removed: Credits awarded on approval
-                setStep('success');
-
-                // if (data.bonus_credits > 0) {
-                //    window.dispatchEvent(new Event('force_credits_update'));
-                // }
-
-                confetti({
-                    particleCount: 150,
-                    spread: 80,
-                    origin: { y: 0.6 },
-                    colors: ['#fbbf24', '#f59e0b', '#d97706', '#10b981']
-                });
-            } else {
-                console.error('Submission failed logic:', data);
+                // Show simple success for edit (no credits or confetti usually)
                 const Swal = (await import('sweetalert2')).default;
                 Swal.fire({
-                    icon: 'error',
-                    title: 'บันทึกไม่สำเร็จ',
-                    text: data?.error || 'เกิดข้อผิดพลาดในการบันทึกข้อมูล กรุณาลองใหม่อีกครั้ง',
+                    icon: 'success',
+                    title: 'บันทึกการแก้ไขสำเร็จ',
                     background: '#1e293b',
-                    color: '#fff'
+                    color: '#fff',
+                    timer: 1500,
+                    showConfirmButton: false
                 });
+                // Close directly
+                onClose();
+                if (onSuccess) onSuccess();
+                return;
+
+            } else {
+                // Insert Mode (Existing Logic)
+                const { data, error } = await supabase.rpc('submit_review', {
+                    p_nickname: formData.nickname,
+                    p_role: formData.role,
+                    p_content: formData.content,
+                    p_category: formData.categories[0], // Use first category as primary
+                    p_rating: rating,
+                    p_tags: tags
+                });
+
+                if (error) {
+                    console.error('RPC Error:', error);
+                    throw error;
+                }
+
+                if (data && data.success) {
+                    // setEarnedCredits(data.bonus_credits || 0); // Removed: Credits awarded on approval
+                    setStep('success');
+                    if (onSuccess) onSuccess();
+
+                    // if (data.bonus_credits > 0) {
+                    //    window.dispatchEvent(new Event('force_credits_update'));
+                    // }
+
+                    confetti({
+                        particleCount: 150,
+                        spread: 80,
+                        origin: { y: 0.6 },
+                        colors: ['#fbbf24', '#f59e0b', '#d97706', '#10b981']
+                    });
+                } else {
+                    console.error('Submission failed logic:', data);
+                    const Swal = (await import('sweetalert2')).default;
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'บันทึกไม่สำเร็จ',
+                        text: data?.error || 'เกิดข้อผิดพลาดในการบันทึกข้อมูล กรุณาลองใหม่อีกครั้ง',
+                        background: '#1e293b',
+                        color: '#fff'
+                    });
+                }
             }
 
         } catch (err: any) {
@@ -153,8 +225,8 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                                 <MessageCircle className="text-amber-500" size={24} />
                             </div>
                             <div>
-                                <h2 className="text-xl sm:text-2xl font-bold text-white">เล่าประสบการณ์ของคุณ</h2>
-                                <p className="text-slate-400 text-sm">รับฟรี 50 Credits เมื่อรีวิวได้รับการอนุมัติ</p>
+                                <h2 className="text-xl sm:text-2xl font-bold text-white">{initialData ? 'แก้ไขรีวิว' : 'เล่าประสบการณ์ของคุณ'}</h2>
+                                <p className="text-slate-400 text-sm">{initialData ? 'แก้ไขข้อมูลรีวิวของคุณ' : 'รับฟรี 50 Credits เมื่อรีวิวได้รับการอนุมัติ'}</p>
                             </div>
                         </div>
 
