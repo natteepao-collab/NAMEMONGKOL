@@ -44,7 +44,7 @@ export default function AdminArticlesPage() {
 
     const fetchArticles = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
             const { data, error } = await supabase
@@ -100,7 +100,7 @@ export default function AdminArticlesPage() {
 
     const handleDelete = async (id: string) => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
             text: "This will permanently delete the article.",
@@ -179,7 +179,7 @@ export default function AdminArticlesPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         setUploading(true);
 
         try {
@@ -253,7 +253,7 @@ export default function AdminArticlesPage() {
 
     const handleSync = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Sync Local Articles?',
             text: "This will import hardcoded articles from 'src/data/articles.ts' into the database. Existing articles with the same slug will be skipped.",
