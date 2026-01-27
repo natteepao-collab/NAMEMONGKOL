@@ -52,6 +52,7 @@ export default function ClientPage() {
 
         if (!session) {
             // Dynamic import SweetAlert2
+            // @ts-ignore
             const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
             Swal.fire({
@@ -65,7 +66,7 @@ export default function ClientPage() {
                 cancelButtonText: 'ยกเลิก',
                 background: '#1e293b',
                 color: '#fff'
-            }).then((result) => {
+            }).then((result: any) => {
                 if (result.isConfirmed) {
                     router.push('/login');
                 }
@@ -83,6 +84,7 @@ export default function ClientPage() {
     };
 
     const handleDelete = async (reviewId: string) => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
         Swal.fire({
@@ -96,7 +98,7 @@ export default function ClientPage() {
             cancelButtonText: 'ยกเลิก',
             background: '#1e293b',
             color: '#fff'
-        }).then(async (result) => {
+        }).then(async (result: any) => {
             if (result.isConfirmed) {
                 try {
                     const { error } = await supabase

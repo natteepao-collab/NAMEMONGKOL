@@ -45,6 +45,7 @@ export default function AdminSettingsPage() {
     };
 
     const handleSave = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setSaving(true);
         try {

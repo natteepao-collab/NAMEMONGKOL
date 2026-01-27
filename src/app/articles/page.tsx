@@ -9,8 +9,16 @@ import { shimmer, toBase64 } from '@/utils/imageUtils';
 import { ArticleImage } from '@/components/ArticleImage';
 
 type ArticleRow = {
+    id?: string;
     slug: string;
+    title: string;
+    excerpt: string;
+    content?: string;
+    cover_image?: string;
+    coverImage?: string;
     date: string;
+    author: string;
+    category: string;
 } & Record<string, unknown>;
 
 // Revalidate every hour
@@ -165,13 +173,13 @@ export default async function ArticlesPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                         {articles.map((article, index) => (
                             <Link
-                                key={article.id}
+                                key={article.slug}
                                 href={`/articles/${article.slug}`}
                                 className="group flex flex-col bg-slate-900/40 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10"
                             >
                                 <div className="h-56 w-full bg-slate-800 relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
                                     <ArticleImage
-                                        src={article.cover_image || article.coverImage}
+                                        src={(article as any).cover_image || (article as any).coverImage}
                                         alt={article.title}
                                         priority={index < 6}
                                         className="group-hover:scale-100"

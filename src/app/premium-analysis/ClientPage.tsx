@@ -89,6 +89,7 @@ export default function PremiumAnalysisPage() {
     }, []);
 
     const handleAnalyze = async (isNewBatch = false) => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
         if (!surname || !birthDate || (!birthTime && !isUnknownTime)) {

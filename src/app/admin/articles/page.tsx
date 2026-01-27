@@ -43,6 +43,7 @@ export default function AdminArticlesPage() {
     }, []);
 
     const fetchArticles = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setLoading(true);
         try {
@@ -98,6 +99,7 @@ export default function AdminArticlesPage() {
     };
 
     const handleDelete = async (id: string) => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
@@ -176,6 +178,7 @@ export default function AdminArticlesPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setUploading(true);
 
@@ -249,6 +252,7 @@ export default function AdminArticlesPage() {
     };
 
     const handleSync = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const result = await Swal.fire({
             title: 'Sync Local Articles?',

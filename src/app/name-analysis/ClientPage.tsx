@@ -63,6 +63,7 @@ export default function NameAnalysisPage() {
     };
 
     const handleAnalyzeClick = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const count = countNames(inputText);
 
@@ -220,6 +221,7 @@ export default function NameAnalysisPage() {
     };
 
     const handleSaveHistory = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
@@ -268,6 +270,7 @@ export default function NameAnalysisPage() {
     const handleExportPDF = async () => {
         const { toPng } = await import('html-to-image');
         const jsPDF = (await import('jspdf')).default;
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
         if (!printRef.current) return;

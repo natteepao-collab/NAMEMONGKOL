@@ -41,6 +41,7 @@ export const TestimonialSection = () => {
         if (!session) {
             // Dynamic import SweetAlert2
             // Dynamic import SweetAlert2 - Rebuild trigger
+            // @ts-ignore
             const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
             Swal.fire({
@@ -54,7 +55,7 @@ export const TestimonialSection = () => {
                 cancelButtonText: 'ยกเลิก',
                 background: '#1e293b',
                 color: '#fff'
-            }).then((result) => {
+            }).then((result: any) => {
                 if (result.isConfirmed) {
                     router.push('/login');
                 }

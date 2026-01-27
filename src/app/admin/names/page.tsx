@@ -13,6 +13,7 @@ export default function AdminNamesPage() {
 
     // Fetch initial data
     const fetchNames = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setIsLoading(true);
         try {
@@ -40,6 +41,7 @@ export default function AdminNamesPage() {
     }, []);
 
     const handleSave = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setIsSaving(true);
         try {
@@ -86,6 +88,7 @@ export default function AdminNamesPage() {
     };
 
     const copyToClipboard = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         navigator.clipboard.writeText(rawInput);
         const Toast = Swal.mixin({

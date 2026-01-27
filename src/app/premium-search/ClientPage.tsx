@@ -185,6 +185,7 @@ export default function PremiumSearchPage() {
     const daysOfWeek = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ(กลางวัน)', 'พุธ(กลางคืน)', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
 
     const handleSearch = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         // Check Authentication
         const { data: { user } } = await supabase.auth.getUser();

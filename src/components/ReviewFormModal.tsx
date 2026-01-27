@@ -77,6 +77,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
 
         // Validation: Content Length
         if (formData.content.length < 50) {
+            // @ts-ignore
             const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
             Swal.fire({
                 icon: 'warning',
@@ -116,6 +117,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                 if (error) throw error;
 
                 // Show simple success for edit (no credits or confetti usually)
+                // @ts-ignore
                 const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
                 Swal.fire({
                     icon: 'success',
@@ -163,6 +165,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                     });
                 } else {
                     console.error('Submission failed logic:', data);
+                    // @ts-ignore
                     const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
                     Swal.fire({
                         icon: 'error',
@@ -176,6 +179,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
 
         } catch (err: unknown) {
             console.error('Error submitting review (Full):', err);
+            // @ts-ignore
             const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
             Swal.fire({
                 icon: 'error',

@@ -60,6 +60,7 @@ export default function AdminUsersPage() {
     const [saving, setSaving] = useState(false);
 
     const fetchUsers = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setLoading(true);
         try {
@@ -102,6 +103,7 @@ export default function AdminUsersPage() {
 
     const handleSave = async () => {
         if (!editingUser) return;
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setSaving(true);
         try {

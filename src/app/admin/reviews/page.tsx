@@ -16,6 +16,7 @@ export default function AdminReviewsPage() {
     const [stats, setStats] = useState({ total: 0, pending: 0, approved: 0, rejected: 0 });
 
     const fetchReviews = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setLoading(true);
         try {
@@ -56,6 +57,7 @@ export default function AdminReviewsPage() {
     }, [page, search, statusFilter]);
 
     const handleUpdateStatus = async (id: string, newStatus: string) => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         try {
             const { data: { session } } = await supabase.auth.getSession();
@@ -93,6 +95,7 @@ export default function AdminReviewsPage() {
     };
 
     const handleDelete = async (id: string) => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',

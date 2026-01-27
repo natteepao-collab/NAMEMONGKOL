@@ -100,6 +100,7 @@ function WallpapersContent() {
 
     const handleDownload = async (wallpaper: Wallpaper) => {
         // Dynamic import SweetAlert2
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
         // 1. Check Auth (Skip if not premium? No, require auth for tracking usually, but for now lets require auth for all as per previous logic)
@@ -117,7 +118,7 @@ function WallpapersContent() {
                 cancelButtonText: 'ยกเลิก',
                 background: '#1e293b',
                 color: '#fff'
-            }).then((result) => {
+            }).then((result: any) => {
                 if (result.isConfirmed) {
                     router.push('/login');
                 }
@@ -141,7 +142,7 @@ function WallpapersContent() {
                     confirmButtonColor: '#10b981',
                     background: '#1e293b',
                     color: '#fff'
-                }).then((res) => {
+                }).then((res: any) => {
                     if (res.isConfirmed) router.push('/topup');
                 });
                 return;

@@ -36,6 +36,7 @@ export default function AdminWallpapersPage() {
             setWallpapers(data || []);
         } catch (error) {
             console.error('Error fetching wallpapers:', error);
+            // @ts-ignore
             const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
             Swal.fire('Error', 'Failed to fetch wallpapers', 'error');
         } finally {
@@ -77,6 +78,7 @@ export default function AdminWallpapersPage() {
     };
 
     const handleDelete = async (id: number) => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
@@ -141,6 +143,7 @@ export default function AdminWallpapersPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setUploading(true);
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
         try {

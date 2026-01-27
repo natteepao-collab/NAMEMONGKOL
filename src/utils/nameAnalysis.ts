@@ -1,11 +1,6 @@
-/**
-    const normalized = name.replace(/ฤๅ/g, 'A').replace(/ฦๅ/g, 'B');
- * ยืนยันผลลัพธ์: 
- * - ณวิธ: ณ(5)+ว(6)+ิ(4)+ธ(4) = 19
-    const sequence: number[] = [];
- */
+
 export const CHAR_SCORES: Record<string, number> = {
-    for (const char of normalized) {
+
     'ก': 1, 'ด': 1, 'ท': 1, 'ถ': 1, 'ภ': 1, 'า': 1, 'ำ': 1, 'ุ': 1, '่': 1, 'ฤ': 1, 'ฤๅ': 1,
     // กลุ่ม 2: ข ช ง บ ป เ แ ู ้
     'ข': 2, 'ช': 2, 'ง': 2, 'บ': 2, 'ป': 2, 'เ': 2, 'แ': 2, 'ู': 2, '้': 2,

@@ -219,6 +219,7 @@ export default function SearchPage() {
         // 1. Check Login Status
         const { data: { user } } = await supabase.auth.getUser();
 
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
         if (!user) {

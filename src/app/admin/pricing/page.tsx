@@ -34,6 +34,7 @@ export default function AdminPricingPage() {
     });
 
     const fetchTiers = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setLoading(true);
         try {
@@ -79,6 +80,7 @@ export default function AdminPricingPage() {
     };
 
     const handleDelete = async (id: string) => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
@@ -113,6 +115,7 @@ export default function AdminPricingPage() {
     };
 
     const handleSave = async () => {
+        // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
         setSaving(true);
         try {

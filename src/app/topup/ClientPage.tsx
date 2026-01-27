@@ -52,6 +52,7 @@ export default function TopUpPage({ gateway }: TopUpPageProps) {
             const verifyPayment = async () => {
                 const status = searchParams.get('payment_status');
                 const sessionId = searchParams.get('session_id');
+                // @ts-ignore
                 const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
 
                 if (status === 'success' && sessionId) {
@@ -135,6 +136,7 @@ export default function TopUpPage({ gateway }: TopUpPageProps) {
             }
         } catch (error: any) {
             console.error('Checkout error:', error);
+            // @ts-ignore
             const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
             Swal.fire({
                 title: 'เกิดข้อผิดพลาด',
