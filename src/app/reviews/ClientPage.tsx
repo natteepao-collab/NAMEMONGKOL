@@ -2,8 +2,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useMemo, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, MessageCircle, Filter, Quote, Plus, Trash2, Edit } from 'lucide-react';
+import { Star, MessageCircle, Filter, Quote, Plus, Trash2, Edit, Search, Sparkles } from 'lucide-react';
 // import { reviews } from '@/data/reviews'; // Deprecated mock data
 import { Review } from '@/types';
 import { ReviewFormModal } from '@/components/ReviewFormModal';
@@ -51,9 +52,7 @@ export default function ClientPage() {
         const { data: { session } } = await supabase.auth.getSession();
 
         if (!session) {
-            // Dynamic import SweetAlert2
-            // @ts-ignore
-            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+            const Swal = (await import('sweetalert2')).default;
 
             Swal.fire({
                 title: 'กรุณาเข้าสู่ระบบ',
@@ -85,7 +84,7 @@ export default function ClientPage() {
 
     const handleDelete = async (reviewId: string) => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
 
         Swal.fire({
             title: 'ยืนยันการลบ?',
@@ -198,24 +197,48 @@ export default function ClientPage() {
                         ผลลัพธ์ที่พิสูจน์ได้ด้วยตัวคุณเอง
                     </motion.p>
 
-                    {/* CTA Button */}
-                    <motion.button
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        transition={{ delay: 0.3 }}
-                        onClick={handleWriteStory}
-                        className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 transition-all group"
-                    >
-                        <Plus size={24} className="group-hover:rotate-90 transition-transform" />
-                        เขียนเรื่องราวของคุณ (รับเครดิตฟรี)
-                    </motion.button>
+                    {/* CTA Buttons */}
+                    <div className="flex flex-wrap items-center justify-center gap-4">
+                        <motion.button
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ delay: 0.3 }}
+                            onClick={handleWriteStory}
+                            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold text-lg shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 transition-all group"
+                        >
+                            <Plus size={24} className="group-hover:rotate-90 transition-transform" />
+                            เขียนเรื่องราวของคุณ (รับเครดิตฟรี)
+                        </motion.button>
+
+                        <motion.button
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ delay: 0.4 }}
+                            onClick={() => router.push('/')}
+                            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/5 border border-amber-500/30 text-amber-500 font-bold text-lg hover:bg-amber-500/10 transition-all"
+                        >
+                            <Search size={24} />
+                            วิเคราะห์ชื่อฟรี
+                        </motion.button>
+                    </div>
                 </div>
             </div>
 
             {/* Content Section */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <div className="max-w-4xl mx-auto text-center mb-12 mt-4">
+                    <h2 className="text-2xl md:text-3xl font-bold text-amber-500 mb-6">
+                        เสียงตอบรับจากผู้ใช้งานจริง เปลี่ยนชื่อมงคลและเบอร์มงคลกับ NameMongkol
+                    </h2>
+                    <p className="text-slate-300 leading-relaxed text-lg">
+                        ที่ NameMongkol เราเชื่อว่าชื่อและตัวเลขมีพลังในการเปลี่ยนแปลงชีวิต หน้านี้ได้รวบรวม <Link href="/name-analysis" className="text-amber-400 hover:text-amber-300 underline decoration-amber-500/30 hover:decoration-amber-400 transition-colors"><strong>รีวิวเปลี่ยนชื่อมงคล</strong></Link> และ <Link href="/phone-analysis" className="text-amber-400 hover:text-amber-300 underline decoration-amber-500/30 hover:decoration-amber-400 transition-colors"><strong>ประสบการณ์เปลี่ยนเบอร์มงคล</strong></Link> จากผู้ใช้งานจริงของเรา ไม่ว่าคุณจะกำลังมองหา <Link href="/search" className="text-amber-400 hover:text-amber-300 underline decoration-amber-500/30 hover:decoration-amber-400 transition-colors"><strong>ชื่อมงคล</strong></Link> เพื่อเสริมดวงการเงิน แก้เคล็ดเรื่องสุขภาพ หรือเสริมเสน่ห์ความรัก เรื่องราวเหล่านี้คือบทพิสูจน์ว่าศาสตร์แห่งการตั้งชื่อและเลขศาสตร์ประยุกต์สามารถช่วยพลิกฟื้นชะตาชีวิตและสร้างความมั่นใจให้คุณได้อย่างไร
+                    </p>
+                </div>
 
                 {/* Filter Bar */}
                 <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
@@ -343,6 +366,53 @@ export default function ClientPage() {
                         <p>ยังไม่มีรีวิวในหมวดหมู่นี้</p>
                     </div>
                 )}
+
+                {/* FAQ Section - SEO Optimized */}
+                <div className="mt-20 border-t border-white/10 pt-16 pb-8">
+                    <h2 className="text-3xl font-bold text-center text-white mb-12">
+                        คำถามที่พบบ่อย (FAQ)
+                    </h2>
+                    <div className="max-w-3xl mx-auto space-y-8">
+                        <div className="bg-white/5 rounded-2xl p-6 md:p-8 backdrop-blur-sm border border-white/5">
+                            <h3 className="text-xl font-bold text-amber-400 mb-3">
+                                Q: เปลี่ยนชื่อมงคลแล้วนานแค่ไหนถึงจะเห็นผล?
+                            </h3>
+                            <p className="text-slate-300 leading-relaxed">
+                                A: จาก <Link href="/name-analysis" className="text-amber-400 hover:text-amber-300 underline decoration-amber-500/30 hover:decoration-amber-400 transition-colors"><strong>รีวิวเปลี่ยนชื่อมงคล</strong></Link> ของผู้ใช้งานส่วนใหญ่ การเปลี่ยนแปลงมักเริ่มเห็นผลชัดเจนภายใน 3-6 เดือน โดยเริ่มจากความรู้สึกมั่นใจและความสบายใจ ซึ่งส่งผลดีต่อการตัดสินใจในชีวิตประจำวัน ทั้งนี้ขึ้นอยู่กับพื้นดวงเดิมและการปฏิบัติตัวของแต่ละบุคคล
+                            </p>
+                        </div>
+
+                        <div className="bg-white/5 rounded-2xl p-6 md:p-8 backdrop-blur-sm border border-white/5">
+                            <h3 className="text-xl font-bold text-amber-400 mb-3">
+                                Q: วิเคราะห์เบอร์โทรศัพท์กับ NameMongkol แม่นยำแค่ไหน?
+                            </h3>
+                            <p className="text-slate-300 leading-relaxed">
+                                A: ระบบ <Link href="/phone-analysis" className="text-amber-400 hover:text-amber-300 underline decoration-amber-500/30 hover:decoration-amber-400 transition-colors"><strong>วิเคราะห์เบอร์โทรแม่นๆ</strong></Link> ของเราใช้หลักเลขศาสตร์สากลและโหราศาสตร์ไทยประยุกต์ ผสานกับฐานข้อมูลสถิติจากผู้ใช้จริง ทำให้ผลลัพธ์มีความละเอียดและตรงกับสถานการณ์ชีวิตของผู้ใช้ ดังที่เห็นได้จากรีวิวเบอร์มงคลในหน้านี้
+                            </p>
+                        </div>
+
+                        <div className="text-center mt-8 text-slate-500 text-sm">
+                            <p>กำลังมองหาที่ <Link href="/search" className="text-amber-400 hover:text-amber-300 hover:underline"><strong>ตั้งชื่อมงคลที่ไหนดี</strong></Link> หรือต้องการ <Link href="/name-analysis" className="text-amber-400 hover:text-amber-300 hover:underline"><strong>แก้กรรมด้วยชื่อ</strong></Link>? ปรึกษา NameMongkol ได้ทันที</p>
+                        </div>
+
+                        {/* Bottom CTA */}
+                        <div className="bg-gradient-to-r from-amber-500/10 to-transparent border border-amber-500/20 rounded-2xl p-8 text-center mt-12">
+                            <h3 className="text-2xl font-bold text-white mb-4">
+                                อยากมีชีวิตดีๆ แบบนี้บ้างไหม?
+                            </h3>
+                            <p className="text-slate-300 mb-8 max-w-lg mx-auto">
+                                เริ่มต้นเปลี่ยนแปลงชะตาชีวิตของคุณวันด้วยชื่อมงคลและเบอร์โทรศัพท์ที่ส่งเสริมดวงชะตา
+                            </p>
+                            <Link
+                                href="/search"
+                                className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-amber-500 text-slate-900 font-bold hover:bg-amber-400 transition-colors shadow-lg shadow-amber-500/20"
+                            >
+                                <Sparkles size={20} />
+                                เช็กชื่อมงคลของคุณเลย
+                            </Link>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <ReviewFormModal

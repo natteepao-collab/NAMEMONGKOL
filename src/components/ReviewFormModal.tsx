@@ -78,7 +78,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
         // Validation: Content Length
         if (formData.content.length < 50) {
             // @ts-ignore
-            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+            const Swal = (await import('sweetalert2')).default;
             Swal.fire({
                 icon: 'warning',
                 title: 'เนื้อหาสั้นเกินไป',
@@ -118,7 +118,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
 
                 // Show simple success for edit (no credits or confetti usually)
                 // @ts-ignore
-                const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+                const Swal = (await import('sweetalert2')).default;
                 Swal.fire({
                     icon: 'success',
                     title: 'บันทึกการแก้ไขสำเร็จ',
@@ -166,7 +166,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                 } else {
                     console.error('Submission failed logic:', data);
                     // @ts-ignore
-                    const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+                    const Swal = (await import('sweetalert2')).default;
                     Swal.fire({
                         icon: 'error',
                         title: 'บันทึกไม่สำเร็จ',
@@ -180,7 +180,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
         } catch (err: unknown) {
             console.error('Error submitting review (Full):', err);
             // @ts-ignore
-            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+            const Swal = (await import('sweetalert2')).default;
             Swal.fire({
                 icon: 'error',
                 title: 'เกิดข้อผิดพลาด',
