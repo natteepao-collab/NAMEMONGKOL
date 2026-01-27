@@ -32,9 +32,58 @@ export const metadata: Metadata = {
     },
 };
 
+// JSON-LD for Terms of Service Page
+const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'ข้อตกลงและเงื่อนไขการใช้งาน NameMongkol',
+    description: 'ข้อตกลงและเงื่อนไขการใช้งานเว็บไซต์ NameMongkol',
+    url: `${siteUrl}/terms`,
+    inLanguage: 'th-TH',
+    isPartOf: {
+        '@type': 'WebSite',
+        name: 'NameMongkol',
+        url: siteUrl,
+    },
+    about: {
+        '@type': 'Thing',
+        name: 'ข้อตกลงการใช้บริการ',
+        description: 'Terms of Service สำหรับเว็บไซต์วิเคราะห์ชื่อมงคล',
+    },
+    breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'หน้าหลัก',
+                item: siteUrl,
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'ข้อตกลงและเงื่อนไข',
+                item: `${siteUrl}/terms`,
+            },
+        ],
+    },
+    dateModified: '2026-01-09',
+    publisher: {
+        '@type': 'Organization',
+        name: 'NameMongkol',
+        url: siteUrl,
+    },
+};
+
 export default function TermsPage() {
     return (
-        <div className="min-h-screen bg-[#0f172a] text-slate-200 relative overflow-hidden">
+        <>
+            <Script
+                id="terms-json-ld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <div className="min-h-screen bg-[#0f172a] text-slate-200 relative overflow-hidden">
             {/* Background Decoration */}
             <div className="absolute top-0 right-0 w-full h-96 bg-gradient-to-b from-amber-900/20 to-transparent pointer-events-none" />
             <div className="absolute top-40 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none -translate-x-1/2" />
@@ -205,5 +254,6 @@ export default function TermsPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }

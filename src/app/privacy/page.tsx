@@ -32,9 +32,58 @@ export const metadata: Metadata = {
     },
 };
 
+// JSON-LD for Privacy Policy Page
+const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'นโยบายความเป็นส่วนตัว NameMongkol',
+    description: 'นโยบายความเป็นส่วนตัวและการคุ้มครองข้อมูลส่วนบุคคลของ NameMongkol ตามกฎหมาย PDPA',
+    url: `${siteUrl}/privacy`,
+    inLanguage: 'th-TH',
+    isPartOf: {
+        '@type': 'WebSite',
+        name: 'NameMongkol',
+        url: siteUrl,
+    },
+    about: {
+        '@type': 'Thing',
+        name: 'นโยบายความเป็นส่วนตัว',
+        description: 'การคุ้มครองข้อมูลส่วนบุคคลตามมาตรฐาน PDPA',
+    },
+    breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'หน้าหลัก',
+                item: siteUrl,
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'นโยบายความเป็นส่วนตัว',
+                item: `${siteUrl}/privacy`,
+            },
+        ],
+    },
+    dateModified: '2026-01-09',
+    publisher: {
+        '@type': 'Organization',
+        name: 'NameMongkol',
+        url: siteUrl,
+    },
+};
+
 export default function PrivacyPage() {
     return (
-        <div className="min-h-screen bg-[#0f172a] text-slate-200 relative overflow-hidden">
+        <>
+            <Script
+                id="privacy-json-ld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <div className="min-h-screen bg-[#0f172a] text-slate-200 relative overflow-hidden">
             {/* Background Decoration */}
             <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-amber-900/20 to-transparent pointer-events-none" />
             <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/2" />
@@ -177,5 +226,6 @@ export default function PrivacyPage() {
                 </div>
             </div>
         </div>
+        </>
     );
 }

@@ -17,6 +17,953 @@ export interface Article {
 
 export const articles: Article[] = [
     {
+        id: '22',
+        slug: 'thai-chinese-naming-bazi-five-elements',
+        title: 'ตั้งชื่อมงคลสไตล์จีน 2569: หลักปาจื้อ (Bazi) และธาตุทั้ง 5 สำหรับคนไทยเชื้อสายจีน',
+        excerpt: 'เจาะลึกศาสตร์การตั้งชื่อแบบจีนที่ใช้หลักสมดุลธาตุทั้ง 5 (ดิน น้ำ ไม้ ไฟ ทอง) การนับขีดอักษรมงคล และเคล็ดลับตั้งชื่อตามปีนักษัตร ปีมะเมีย 2569',
+        coverImage: '/images/articles/thai-chinese-naming-bazi.png',
+        date: '2026-01-27',
+        author: 'ทีมงาน NameMongkol',
+        category: 'ตั้งชื่อลูก',
+        keywords: ['ตั้งชื่อจีน', 'ปาจื้อ Bazi', 'ธาตุทั้ง 5', 'คนไทยเชื้อสายจีน', 'ปีมะเมีย', 'ตั้งชื่อตามนักษัตร', 'ฮวงจุ้ยชื่อ', 'แซ่จีน'],
+        metaTitle: 'ตั้งชื่อมงคลสไตล์จีน 2569: หลักปาจื้อ ธาตุทั้ง 5 สำหรับคนไทยเชื้อสายจีน',
+        metaDescription: 'เจาะลึกศาสตร์การตั้งชื่อแบบจีน หลักปาจื้อ (Bazi) สมดุลธาตุทั้ง 5 การนับขีดอักษรมงคล เคล็ดลับตั้งชื่อตามปีนักษัตรปีม้า 2569 สำหรับคนไทยเชื้อสายจีน',
+        content: `
+            <p class="lead text-xl text-slate-300 mb-6">สำหรับ <strong>คนไทยเชื้อสายจีน</strong> การตั้งชื่อไม่ใช่แค่เรื่องความไพเราะหรือความหมายสวยงาม แต่เป็น <em>"พิธีกรรมศักดิ์สิทธิ์"</em> ที่สืบทอดกันมาหลายพันปี ในขณะที่คนไทยนิยมใช้หลัก <strong>ทักษา</strong> (บริวาร, อายุ, เดช, ศรี) หรือ <strong>เลขศาสตร์</strong> (ผลรวมตัวเลข) ศาสตร์การตั้งชื่อแบบจีนจะเน้นเรื่อง <strong class="text-amber-400">สมดุลธาตุ (五行 - Wǔ Xíng)</strong> เป็นหลักครับ</p>
+
+            <div class="my-8 p-6 bg-gradient-to-r from-red-900/30 to-amber-900/30 rounded-xl border border-red-500/30 shadow-lg">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-4xl">🏮</span>
+                    <h3 class="text-2xl font-bold text-red-400">ทำไมคนจีนถึงให้ความสำคัญกับชื่อมาก?</h3>
+                </div>
+                <p class="text-slate-300 leading-relaxed">
+                    ในวัฒนธรรมจีน เชื่อกันว่าชื่อคือ <strong>"พลังงานที่มีชีวิต"</strong> ที่จะติดตัวเราไปตลอดชีวิต ชื่อที่ดีไม่เพียงช่วยเสริมโชคลาภ แต่ยังช่วย <em>ปรับสมดุลธาตุ</em> ในร่างกายและชะตาชีวิต ช่วยให้สุขภาพดี เงินทองไหลมาเทมา และชีวิตครอบครัวราบรื่น
+                </p>
+            </div>
+
+            <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-amber-500 mt-10 mb-6">🔮 ปาจื้อ (八字 Bazi) คืออะไร? ศาสตร์หลักในการตั้งชื่อแบบจีน</h2>
+            
+            <p class="mb-6 text-slate-300 leading-relaxed">
+                <strong>ปาจื้อ หรือ "โป๊ยยี่สี่เถียว"</strong> คือระบบโหราศาสตร์จีนโบราณที่มีอายุกว่า 3,000 ปี หมายถึง <em>"8 ตัวอักษร"</em> ที่ได้จากการผูกดวงชะตาตามวัน เดือน ปี และเวลาที่เกิด
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700 text-center hover:border-amber-500/50 transition-all">
+                    <div class="text-3xl mb-2">📅</div>
+                    <div class="text-amber-400 font-bold">ปีเกิด</div>
+                    <div class="text-xs text-slate-400 mt-1">年 (Nián)</div>
+                </div>
+                <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700 text-center hover:border-amber-500/50 transition-all">
+                    <div class="text-3xl mb-2">🌙</div>
+                    <div class="text-amber-400 font-bold">เดือนเกิด</div>
+                    <div class="text-xs text-slate-400 mt-1">月 (Yuè)</div>
+                </div>
+                <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700 text-center hover:border-amber-500/50 transition-all">
+                    <div class="text-3xl mb-2">☀️</div>
+                    <div class="text-amber-400 font-bold">วันเกิด</div>
+                    <div class="text-xs text-slate-400 mt-1">日 (Rì)</div>
+                </div>
+                <div class="bg-slate-800/60 p-4 rounded-xl border border-slate-700 text-center hover:border-amber-500/50 transition-all">
+                    <div class="text-3xl mb-2">⏰</div>
+                    <div class="text-amber-400 font-bold">เวลาเกิด</div>
+                    <div class="text-xs text-slate-400 mt-1">時 (Shí)</div>
+                </div>
+            </div>
+
+            <p class="mb-6 text-slate-300 leading-relaxed">
+                เมื่อวิเคราะห์ปาจื้อแล้ว ซินแสจะรู้ว่าเด็กคนนั้น <strong>"ขาดธาตุอะไร"</strong> หรือ <strong>"มีธาตุอะไรมากเกินไป"</strong> จากนั้นจึงตั้งชื่อเพื่อ "เติมเต็ม" หรือ "ถ่วงดุล" ให้ชีวิตสมบูรณ์
+            </p>
+
+            <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500 mt-12 mb-6">🌍 ธาตุทั้ง 5 (五行 Wǔ Xíng) และความสัมพันธ์</h2>
+
+            <div class="overflow-x-auto mb-8">
+                <table class="w-full text-sm text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-800">
+                            <th class="p-3 border border-slate-700 text-amber-400 font-bold">ธาตุ</th>
+                            <th class="p-3 border border-slate-700 text-amber-400 font-bold">ภาษาจีน</th>
+                            <th class="p-3 border border-slate-700 text-amber-400 font-bold">สี</th>
+                            <th class="p-3 border border-slate-700 text-amber-400 font-bold">ฤดู</th>
+                            <th class="p-3 border border-slate-700 text-amber-400 font-bold">ตัวอย่างอักษรมงคล</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-slate-900/50 hover:bg-green-900/20 transition-colors">
+                            <td class="p-3 border border-slate-700 font-bold text-green-400">🌳 ไม้ (Wood)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">木 (Mù)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">เขียว, น้ำเงิน</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">ฤดูใบไม้ผลิ</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">林, 森, 松, 柏, 桐</td>
+                        </tr>
+                        <tr class="bg-slate-900/50 hover:bg-red-900/20 transition-colors">
+                            <td class="p-3 border border-slate-700 font-bold text-red-400">🔥 ไฟ (Fire)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">火 (Huǒ)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">แดง, ส้ม, ชมพู</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">ฤดูร้อน</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">炎, 煌, 熙, 燁, 輝</td>
+                        </tr>
+                        <tr class="bg-slate-900/50 hover:bg-yellow-900/20 transition-colors">
+                            <td class="p-3 border border-slate-700 font-bold text-yellow-400">🏔️ ดิน (Earth)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">土 (Tǔ)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">น้ำตาล, เหลือง</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">ช่วงเปลี่ยนฤดู</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">坤, 城, 培, 境, 堅</td>
+                        </tr>
+                        <tr class="bg-slate-900/50 hover:bg-slate-700/20 transition-colors">
+                            <td class="p-3 border border-slate-700 font-bold text-slate-300">⚔️ ทอง (Metal)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">金 (Jīn)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">ขาว, เงิน, ทอง</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">ฤดูใบไม้ร่วง</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">鑫, 銘, 鋒, 鈺, 錦</td>
+                        </tr>
+                        <tr class="bg-slate-900/50 hover:bg-blue-900/20 transition-colors">
+                            <td class="p-3 border border-slate-700 font-bold text-blue-400">💧 น้ำ (Water)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">水 (Shuǐ)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">ดำ, น้ำเงินเข้ม</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">ฤดูหนาว</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">海, 淵, 泓, 澤, 浩</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="my-8 p-6 bg-slate-800/50 rounded-xl border-l-4 border-emerald-500 shadow-lg">
+                <h3 class="text-xl font-bold text-emerald-400 mb-4">🔄 วงจรส่งเสริม vs วงจรขัดแย้ง</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-green-300 mb-2">✨ วงจรส่งเสริม (相生)</h4>
+                        <ul class="text-slate-300 space-y-1 text-sm">
+                            <li>ไม้ → ไฟ (ไม้เป็นเชื้อไฟ)</li>
+                            <li>ไฟ → ดิน (ไฟเผาเกิดเถ้า)</li>
+                            <li>ดิน → ทอง (แร่อยู่ในดิน)</li>
+                            <li>ทอง → น้ำ (โลหะเย็นเกิดน้ำค้าง)</li>
+                            <li>น้ำ → ไม้ (น้ำหล่อเลี้ยงต้นไม้)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-red-300 mb-2">⚡ วงจรขัดแย้ง (相克)</h4>
+                        <ul class="text-slate-300 space-y-1 text-sm">
+                            <li>ไม้ → ดิน (รากไม้แทรกดิน)</li>
+                            <li>ดิน → น้ำ (ดินกั้นน้ำ)</li>
+                            <li>น้ำ → ไฟ (น้ำดับไฟ)</li>
+                            <li>ไฟ → ทอง (ไฟหลอมโลหะ)</li>
+                            <li>ทอง → ไม้ (ขวานฟันต้นไม้)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-red-900/30 to-orange-900/30 p-6 rounded-xl border border-red-500/30 mb-8">
+                <h4 class="text-xl font-bold text-red-400 mb-4">💡 ตัวอย่างการตั้งชื่อตามธาตุ</h4>
+                <div class="bg-slate-900/50 p-4 rounded-lg mb-4">
+                    <p class="text-slate-300 leading-relaxed">
+                        <strong class="text-amber-400">สถานการณ์:</strong> เด็กเกิดมาดวงมี <span class="text-red-400 font-bold">ธาตุไฟร้อนแรงเกินไป</span> และ <span class="text-blue-400 font-bold">ขาดธาตุน้ำ</span>
+                    </p>
+                </div>
+                <div class="bg-slate-900/50 p-4 rounded-lg mb-4">
+                    <p class="text-slate-300 leading-relaxed">
+                        <strong class="text-green-400">วิธีแก้:</strong> ตั้งชื่อที่มีความหมายเกี่ยวกับ "น้ำ" หรือมีรากศัพท์ (Radical) ที่แปลว่าน้ำ เช่น 氵 (สามหยดน้ำ) เพื่อเข้าไป <em>"ดับร้อน"</em> ให้ชีวิตสมดุล ไม่เจ็บป่วยง่าย
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div class="bg-blue-900/30 p-3 rounded-lg text-center border border-blue-500/30">
+                        <div class="text-2xl font-serif text-blue-300">海 (Hǎi)</div>
+                        <div class="text-xs text-slate-400 mt-1">ทะเล</div>
+                    </div>
+                    <div class="bg-blue-900/30 p-3 rounded-lg text-center border border-blue-500/30">
+                        <div class="text-2xl font-serif text-blue-300">淵 (Yuān)</div>
+                        <div class="text-xs text-slate-400 mt-1">ห้วงน้ำลึก</div>
+                    </div>
+                    <div class="bg-blue-900/30 p-3 rounded-lg text-center border border-blue-500/30">
+                        <div class="text-2xl font-serif text-blue-300">泓 (Hóng)</div>
+                        <div class="text-xs text-slate-400 mt-1">น้ำใส</div>
+                    </div>
+                    <div class="bg-blue-900/30 p-3 rounded-lg text-center border border-blue-500/30">
+                        <div class="text-2xl font-serif text-blue-300">澤 (Zé)</div>
+                        <div class="text-xs text-slate-400 mt-1">บึง ความอุดม</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-500 mt-12 mb-6">✏️ หลักการนับขีดอักษร (筆畫 Bǐ Huà)</h2>
+
+            <p class="mb-6 text-slate-300 leading-relaxed">
+                อีกหลักสำคัญในการตั้งชื่อแบบจีนคือ <strong>การนับจำนวนขีดของตัวอักษร</strong> คล้ายกับเลขศาสตร์ไทย แต่เขานับ "จำนวนขีดของตัวอักษรจีน" ว่ารวมกันแล้วตกเลขมงคลหรือไม่
+            </p>
+
+            <div class="overflow-x-auto mb-8">
+                <table class="w-full text-sm text-left border-collapse">
+                    <thead>
+                        <tr class="bg-amber-900/30">
+                            <th class="p-3 border border-slate-700 text-amber-400 font-bold">เลขมงคล</th>
+                            <th class="p-3 border border-slate-700 text-amber-400 font-bold">ความหมาย</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-slate-900/50 hover:bg-amber-900/20 transition-colors">
+                            <td class="p-3 border border-slate-700 font-bold text-amber-400">1, 3, 5, 7, 8</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">เลขมงคลพื้นฐาน นำโชคลาภ</td>
+                        </tr>
+                        <tr class="bg-slate-900/50 hover:bg-amber-900/20 transition-colors">
+                            <td class="p-3 border border-slate-700 font-bold text-amber-400">8 (八)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">เสียงคล้าย 發 (Fā) = ร่ำรวย 💰</td>
+                        </tr>
+                        <tr class="bg-slate-900/50 hover:bg-amber-900/20 transition-colors">
+                            <td class="p-3 border border-slate-700 font-bold text-amber-400">9 (九)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">เสียงคล้าย 久 (Jiǔ) = ยั่งยืน ♾️</td>
+                        </tr>
+                        <tr class="bg-slate-900/50 hover:bg-amber-900/20 transition-colors">
+                            <td class="p-3 border border-slate-700 font-bold text-amber-400">18, 23, 32</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">เลขมงคลชั้นสูง เสริมอำนาจบารมี</td>
+                        </tr>
+                        <tr class="bg-slate-900/50 hover:bg-red-900/20 transition-colors">
+                            <td class="p-3 border border-slate-700 font-bold text-red-400">4 (四)</td>
+                            <td class="p-3 border border-slate-700 text-slate-300">⚠️ เลี่ยง เพราะเสียงคล้าย 死 (Sǐ) = ตาย</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500 mt-12 mb-6">🐴 ปี 2569 (2026) ปีมะเมีย: เคล็ดลับตั้งชื่อตามนักษัตร</h2>
+
+            <div class="my-8 p-6 bg-gradient-to-r from-orange-900/30 to-red-900/30 rounded-xl border border-orange-500/30 shadow-lg">
+                <div class="flex items-start gap-4">
+                    <div class="text-6xl">🐎</div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-orange-400 mb-2">ปีมะเมีย (ม้า) - ธาตุไฟ 🔥</h3>
+                        <p class="text-slate-300 leading-relaxed mb-4">
+                            ปี 2569 ที่กำลังจะมาถึงเป็น <strong>ปีมะเมีย (ม้า)</strong> ซึ่งเป็นปีนักษัตรที่มี <span class="text-red-400 font-bold">ธาตุไฟ</span> เป็นธาตุประจำตัว ม้าสื่อถึงพลังงาน ความกระตือรือร้น และความสำเร็จอย่างรวดเร็ว
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-green-900/20 p-6 rounded-xl border border-green-500/30">
+                    <h4 class="flex items-center gap-2 font-bold text-green-400 mb-4">
+                        <span class="text-xl">✅</span> ธาตุที่ส่งเสริมคนเกิดปีม้า
+                    </h4>
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-400 font-bold">🌳 ไม้:</span>
+                            <span>เติมเชื้อไฟให้โชติช่วง เหมือนฟืนเลี้ยงเปลวไฟ ช่วยเสริมพลังและความสำเร็จ</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-yellow-400 font-bold">🏔️ ดิน:</span>
+                            <span>ให้ไฟเผาแล้วเกิดประโยชน์ เปรียบเสมือนการสร้างรากฐานที่มั่นคง</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-red-900/20 p-6 rounded-xl border border-red-500/30">
+                    <h4 class="flex items-center gap-2 font-bold text-red-400 mb-4">
+                        <span class="text-xl">⚠️</span> ธาตุที่ควรระวัง
+                    </h4>
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-400 font-bold">💧 น้ำ:</span>
+                            <span>น้ำดับไฟ อาจทำให้พลังม้าอ่อนแอลง ขาดความกระตือรือร้น</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-slate-400 font-bold">⚔️ ทอง:</span>
+                            <span>ธาตุที่ถูกไฟหลอม อาจทำให้เกิดความขัดแย้ง</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-amber-900/20 to-orange-900/20 border border-amber-500/30 p-6 rounded-xl mb-8">
+                <h4 class="flex items-center gap-2 text-xl font-bold text-amber-400 mb-4">
+                    <span>💡</span> ตัวอย่างชื่อมงคลสำหรับเด็กเกิดปีม้า 2569
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="text-amber-400 font-bold mb-1">ชื่อธาตุไม้ (เสริมพลัง)</div>
+                        <ul class="text-slate-300 text-sm space-y-1">
+                            <li>พฤกษ์ - ต้นไม้</li>
+                            <li>ภูริ - ต้นโพธิ์</li>
+                            <li>วนัส - ป่าไม้</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="text-yellow-400 font-bold mb-1">ชื่อธาตุดิน (สร้างรากฐาน)</div>
+                        <ul class="text-slate-300 text-sm space-y-1">
+                            <li>ธรณี - แผ่นดิน</li>
+                            <li>ภูมิ - ดินแดน</li>
+                            <li>ธราดล - พื้นดิน</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <div class="text-red-400 font-bold mb-1">ชื่อธาตุไฟ (เสริมตัวตน)</div>
+                        <ul class="text-slate-300 text-sm space-y-1">
+                            <li>รวิ - พระอาทิตย์</li>
+                            <li>ทิวากร - แสงอรุณ</li>
+                            <li>ภาณุ - ดวงอาทิตย์</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mt-12 mb-6">💰 ความนิยมในยุคปัจจุบัน</h2>
+
+            <div class="space-y-4 mb-8">
+                <div class="flex items-start gap-4 p-4 bg-slate-900/50 rounded-lg border border-slate-700 hover:border-purple-500/50 transition-colors">
+                    <div class="w-12 h-12 rounded-full bg-purple-900/60 flex items-center justify-center text-purple-300 text-2xl shrink-0">💎</div>
+                    <div>
+                        <h4 class="font-bold text-purple-300 text-lg">ยอมจ่ายแพงเพื่อชื่อดี</h4>
+                        <p class="text-sm text-slate-400">พ่อแม่ชาวจีน (ทั้งในจีน, ไต้หวัน, ฮ่องกง, สิงคโปร์) ยอมจ่ายเงิน <strong class="text-amber-400">หลักหมื่นถึงหลักแสนบาท</strong> ให้ซินแสชื่อดังตั้งชื่อให้ลูก ถือเป็นการลงทุนสำหรับอนาคต</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 bg-slate-900/50 rounded-lg border border-slate-700 hover:border-pink-500/50 transition-colors">
+                    <div class="w-12 h-12 rounded-full bg-pink-900/60 flex items-center justify-center text-pink-300 text-2xl shrink-0">🌍</div>
+                    <div>
+                        <h4 class="font-bold text-pink-300 text-lg">ชื่อภาษาอังกฤษก็มีผล</h4>
+                        <p class="text-sm text-slate-400">เทรนด์ใหม่ที่กำลังมาแรง! มีการดูว่า <strong>English Name</strong> ไหนที่เสียงเรียกแล้วเสริมดวง ซินแสบางท่านวิเคราะห์ทั้งชื่อจีน ชื่อไทย และชื่ออังกฤษพร้อมกัน</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 bg-slate-900/50 rounded-lg border border-slate-700 hover:border-amber-500/50 transition-colors">
+                    <div class="w-12 h-12 rounded-full bg-amber-900/60 flex items-center justify-center text-amber-300 text-2xl shrink-0">📱</div>
+                    <div>
+                        <h4 class="font-bold text-amber-300 text-lg">ชื่อเล่นก็สำคัญไม่แพ้กัน</h4>
+                        <p class="text-sm text-slate-400">ชื่อเล่นที่ถูกเรียกบ่อยๆ สร้างพลังงานเช่นกัน คนไทยเชื้อสายจีนหลายคนจึงให้ซินแสดูชื่อเล่นให้ลูกด้วย</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-white mt-12 mb-6">🔗 ผสมผสานศาสตร์ไทย-จีน ให้ลงตัว</h2>
+
+            <p class="mb-6 text-slate-300 leading-relaxed">
+                สำหรับคนไทยเชื้อสายจีน การผสมผสาน <strong class="text-amber-400">ศาสตร์เลขไทย</strong> (ทักษา + ผลรวม) เข้ากับ <strong class="text-red-400">ศาสตร์จีน</strong> (ปาจื้อ + ธาตุ 5) จะทำให้ได้ชื่อที่ <em>ครบสมบูรณ์</em> ที่สุด
+            </p>
+
+            <div class="bg-gradient-to-r from-slate-800 to-slate-900 p-6 rounded-xl border border-slate-700 mb-8">
+                <h4 class="text-lg font-bold text-white mb-4">Checklist ตั้งชื่อแบบไทย-จีน ✓</h4>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-slate-300">
+                        <span class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 text-sm">✓</span>
+                        ผลรวมเลขศาสตร์ไทยเป็นมงคล (ไม่ตกเลขกาลกิณี)
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-300">
+                        <span class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 text-sm">✓</span>
+                        อักษรตรงหลักทักษา (บริวาร, ศรี, เดช ตามวันเกิด)
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-300">
+                        <span class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 text-sm">✓</span>
+                        ธาตุสมดุลตามปาจื้อ (เติมธาตุที่ขาด)
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-300">
+                        <span class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 text-sm">✓</span>
+                        จำนวนขีดอักษรจีนเป็นเลขมงคล
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-300">
+                        <span class="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 text-sm">✓</span>
+                        สอดคล้องกับปีนักษัตร (ไม่ขัดธาตุ)
+                    </li>
+                </ul>
+            </div>
+
+            <div class="my-12 p-8 rounded-3xl bg-gradient-to-b from-red-900/30 to-slate-900 border border-red-500/30 text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('/images/grid.png')] opacity-5"></div>
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-red-600/20 rounded-full blur-3xl"></div>
+                
+                <h3 class="text-3xl font-bold text-white mb-4 relative z-10">🏮 ตั้งชื่อลูกให้เป็นมงคลทั้งแบบไทยและจีน</h3>
+                <p class="text-slate-400 mb-8 max-w-xl mx-auto relative z-10 text-lg">วิเคราะห์ชื่อของคุณหรือลูกน้อยด้วยระบบ AI ที่ผสานศาสตร์เลขไทยและหลักธาตุจีน เพื่อชื่อที่สมบูรณ์แบบที่สุด</p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
+                    <a href="/name-analysis" class="group relative px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-lg rounded-full shadow-lg shadow-orange-900/30 hover:shadow-orange-700/50 hover:-translate-y-1 transition-all overflow-hidden">
+                        <span class="relative z-10 flex items-center gap-2">
+                            วิเคราะห์ชื่อฟรี
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                        </span>
+                    </a>
+                    <a href="/premium-search" class="group relative px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold text-lg rounded-full shadow-lg shadow-red-900/30 hover:shadow-red-700/50 hover:-translate-y-1 transition-all overflow-hidden">
+                        <span class="relative z-10 flex items-center gap-2">
+                            ค้นหาชื่อมงคล Premium
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+                        </span>
+                    </a>
+                </div>
+                <p class="mt-4 text-xs text-slate-500">*ระบบวิเคราะห์ทั้งหลักเลขศาสตร์ไทยและหลักธาตุจีน</p>
+            </div>
+
+            <p class="italic text-slate-500 text-sm">*บทความนี้เรียบเรียงจากความรู้โบราณจีนและการศึกษาเชิงลึกเกี่ยวกับศาสตร์ปาจื้อและธาตุทั้ง 5 โดยทีมงาน NameMongkol ปี 2569</p>
+        `
+    },
+    {
+        id: '14',
+        slug: '100-auspicious-boy-names-2569',
+        title: '100 ชื่อจริงลูกชาย ชื่อมงคล 2569 ความหมายดี เสริมบารมี งานรุ่ง เงินพุ่ง (อัปเดตล่าสุด)',
+        excerpt: 'รวม 100 ชื่อจริงลูกชายมงคล ประจำปี 2569 คัดมาแล้วเน้นความหมายดี ไพเราะ ทันสมัย เสริมดวงการเงิน การงาน และบารมี พร้อมเทคนิคตั้งชื่อลูกชายให้เฮง',
+        coverImage: '/images/articles/100-auspicious-boy-names-2569.png',
+        date: '2026-01-27',
+        author: 'ทีมงาน NameMongkol',
+        category: 'ตั้งชื่อลูก',
+        keywords: ['ชื่อจริงลูกชาย', 'ชื่อมงคล 2569', 'ชื่อมงคลผู้ชาย', 'ตั้งชื่อลูกชาย'],
+        metaTitle: '100 ชื่อจริงลูกชาย ชื่อมงคล 2569 ความหมายดี เสริมบารมี งานรุ่ง เงินพุ่ง',
+        metaDescription: 'รวม 100 ชื่อจริงลูกชายมงคล ประจำปี 2569 คัดมาแล้วเน้นความหมายดี ไพเราะ ทันสมัย เสริมดวงการเงิน การงาน และบารมี พร้อมเทคนิคตั้งชื่อลูกชายให้เฮง',
+        content: `
+            <p class="lead text-xl text-slate-300 mb-6">การต้อนรับสมาชิกใหม่ในปี 2569 (ปีมะเมีย) ถือเป็นเรื่องมงคลอย่างยิ่งสำหรับทุกครอบครัว สิ่งแรกที่พ่อแม่จะมอบให้เป็นของขวัญติดตัวลูกไปตลอดชีวิตก็คือ <strong>"ชื่อจริง"</strong> ครับ การตั้งชื่อลูกชายให้มีความหมายดี ถูกโฉลกตามหลักทักษาและเลขศาสตร์ ไม่เพียงแต่ช่วยเสริมสร้างความมั่นใจ แต่ยังเปรียบเสมือนการปูพื้นฐานดวงชะตาที่ดี ทั้งเรื่องวาสนา บารมี และโชคลาภ</p>
+            <p class="mb-6">ทีมงาน <strong>NameMongkol</strong> ได้รวบรวม <strong>100 ชื่อจริงลูกชาย</strong> ที่มีความไพเราะ ความหมายเป็นมงคล และมีความทันสมัย เหมาะสำหรับเด็กยุคใหม่ มาแบ่งหมวดหมู่ให้คุณพ่อคุณแม่เลือกได้ง่ายๆ ดังนี้ครับ</p>
+
+            <h2 class="text-2xl font-bold text-amber-400 mt-10 mb-6">💰 หมวดที่ 1: ชื่อมงคลเน้น "ความมั่งคั่ง ร่ำรวย" (โภคทรัพย์)</h2>
+            <p class="mb-4">เหมาะสำหรับครอบครัวที่อยากเสริมดวงลูกน้อยให้เป็นเศรษฐี มีกินมีใช้ไม่ขาดมือ</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">ธนภัทร</h3>
+                        <span class="text-lg font-serif text-amber-200">富 (Fù)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Tha-na-pat</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-amber-500/80">ความหมาย:</span> ผู้ดีงามด้วยทรัพย์
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">ธนดล</h3>
+                        <span class="text-lg font-serif text-amber-200">财 (Cái)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Tha-na-don</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-amber-500/80">ความหมาย:</span> บันดาลทรัพย์
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">ธนวินท์</h3>
+                        <span class="text-lg font-serif text-amber-200">禄 (Lù)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Tha-na-win</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-amber-500/80">ความหมาย:</span> ผู้ได้ทรัพย์สิน
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">ทรัพย์สิทธิ์</h3>
+                        <span class="text-lg font-serif text-amber-200">成 (Chéng)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Sap-sit</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-amber-500/80">ความหมาย:</span> ผู้มีความสำเร็จในทรัพย์
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">จิรสิน</h3>
+                        <span class="text-lg font-serif text-amber-200">恒 (Héng)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Ji-ra-sin</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-amber-500/80">ความหมาย:</span> มีทรัพย์ตลอดกาล
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">พีรดนย์</h3>
+                        <span class="text-lg font-serif text-amber-200">勇 (Yǒng)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Pee-ra-don</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-amber-500/80">ความหมาย:</span> ผู้ก่อให้เกิดความกล้าหาญและทรัพย์สิน
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">ศุภสิน</h3>
+                        <span class="text-lg font-serif text-amber-200">善 (Shàn)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Su-pa-sin</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-amber-500/80">ความหมาย:</span> สินทรัพย์ที่ดีงาม
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">อริย์ธัช</h3>
+                        <span class="text-lg font-serif text-amber-200">旗 (Qí)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">A-ri-yathat</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-amber-500/80">ความหมาย:</span> ธงชัยแห่งความเจริญ
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">วรภพ</h3>
+                        <span class="text-lg font-serif text-amber-200">界 (Jiè)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Wor-ra-pop</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-amber-500/80">ความหมาย:</span> ภพที่ประเสริฐ เลิศด้วยสมบัติ
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">ปัณณวิชญ์</h3>
+                        <span class="text-lg font-serif text-amber-200">智 (Zhì)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Pan-na-wit</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-amber-500/80">ความหมาย:</span> ผู้รู้หนังสือและมีทรัพย์
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">ธนโชติ</h3>
+                        <span class="text-lg font-serif text-amber-200">耀 (Yào)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Tha-na-chot</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-amber-500/80">ความหมาย:</span> ความรุ่งโรจน์ด้วยทรัพย์
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-amber-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">วรเศรษฐ์</h3>
+                        <span class="text-lg font-serif text-amber-200">佳 (Jiā)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Wor-ra-set</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-amber-500/80">ความหมาย:</span> เศรษฐีผู้ประเสริฐ
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-blue-400 mt-10 mb-6">📚 หมวดที่ 2: ชื่อมงคลเน้น "ปัญญาและความฉลาด" (นักปราชญ์)</h2>
+            <p class="mb-4">ส่งเสริมให้ลูกเป็นคนเรียนเก่ง ฉลาดทันคน ประสบความสำเร็จในการศึกษา</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">ณัฐฏ์</h3>
+                        <span class="text-lg font-serif text-blue-200">贤 (Xián)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Nat</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-blue-400/80">ความหมาย:</span> ผู้ตั้งอยู่ในความรู้, นักปราชญ์
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">ธีรภัทร</h3>
+                        <span class="text-lg font-serif text-blue-200">哲 (Zhé)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Tee-ra-pat</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-blue-400/80">ความหมาย:</span> นักปราชญ์ผู้เจริญ
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">ปราชญา</h3>
+                        <span class="text-lg font-serif text-blue-200">慧 (Huì)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Prat-ya</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-blue-400/80">ความหมาย:</span> ความรู้, ปัญญา
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">วรปรัชญ์</h3>
+                        <span class="text-lg font-serif text-blue-200">圣 (Shèng)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Wor-ra-prat</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-blue-400/80">ความหมาย:</span> นักปราชญ์ผู้ประเสริฐ
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">เตชินท์</h3>
+                        <span class="text-lg font-serif text-blue-200">威 (Wēi)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Te-chin</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-blue-400/80">ความหมาย:</span> ผู้มีเดช มีอำนาจและความรู้
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">กิตติพิชญ์</h3>
+                        <span class="text-lg font-serif text-blue-200">誉 (Yù)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Kit-ti-pit</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-blue-400/80">ความหมาย:</span> นักปราชญ์ผู้มีชื่อเสียง
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">ชานนท์</h3>
+                        <span class="text-lg font-serif text-blue-200">悦 (Yuè)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Cha-non</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-blue-400/80">ความหมาย:</span> เพลิดเพลินในความรู้
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">ญาณวร</h3>
+                        <span class="text-lg font-serif text-blue-200">觉 (Jué)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Yan-na-worn</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-blue-400/80">ความหมาย:</span> ผู้มีญาณอันประเสริฐ
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">พิชญ์</h3>
+                        <span class="text-lg font-serif text-blue-200">博 (Bó)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Pit</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-blue-400/80">ความหมาย:</span> นักปราชญ์
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">ภูริช</h3>
+                        <span class="text-lg font-serif text-blue-200">地 (Dì)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Pu-rit</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-blue-400/80">ความหมาย:</span> แผ่นดิน, ปัญญาแห่งแผ่นดิน
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">ณัฐดนัย</h3>
+                        <span class="text-lg font-serif text-blue-200">子 (Zǐ)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Nat-da-nai</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-blue-400/80">ความหมาย:</span> ลูกชายผู้เป็นนักปราชญ์
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-red-400 mt-10 mb-6">🦁 หมวดที่ 3: ชื่อมงคลเน้น "อำนาจ บารมี และความเป็นผู้นำ" (เดช)</h2>
+            <p class="mb-4">เหมาะสำหรับเสริมดวงให้เป็นเจ้าคนนายคน มีคนเคารพนับถือ</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-red-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-red-400 transition-colors">อัครเดช</h3>
+                        <span class="text-lg font-serif text-red-200">权 (Quán)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Ak-kara-det</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-red-400/80">ความหมาย:</span> ผู้มีอำนาจยิ่งใหญ่
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-red-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-red-400 transition-colors">บดินทร์</h3>
+                        <span class="text-lg font-serif text-red-200">王 (Wáng)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Bor-din</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-red-400/80">ความหมาย:</span> เจ้าแห่งแผ่นดิน, ผู้ยิ่งใหญ่
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-red-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-red-400 transition-colors">พชร</h3>
+                        <span class="text-lg font-serif text-red-200">刚 (Gāng)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Pa-cha-ra</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-red-400/80">ความหมาย:</span> เพชร, แข็งแกร่งดุจเพชร
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-red-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-red-400 transition-colors">กฤตเมธ</h3>
+                        <span class="text-lg font-serif text-red-200">谋 (Móu)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Krit-ta-met</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-red-400/80">ความหมาย:</span> ผู้สร้างปัญญา, ผู้มีอำนาจ
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-red-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-red-400 transition-colors">ชัยพล</h3>
+                        <span class="text-lg font-serif text-red-200">胜 (Shèng)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Chai-ya-pon</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-red-400/80">ความหมาย:</span> กำลังแห่งชัยชนะ
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-red-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-red-400 transition-colors">ภูธเนศ</h3>
+                        <span class="text-lg font-serif text-red-200">主 (Zhǔ)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Pu-tha-net</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-red-400/80">ความหมาย:</span> เจ้าแห่งแผ่นดินและทรัพย์
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-red-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-red-400 transition-colors">รวิพล</h3>
+                        <span class="text-lg font-serif text-red-200">阳 (Yáng)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Ra-wi-pon</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-red-400/80">ความหมาย:</span> กำลังแห่งพระอาทิตย์
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-red-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-red-400 transition-colors">ศิระ</h3>
+                        <span class="text-lg font-serif text-red-200">首 (Shǒu)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Si-ra</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-red-400/80">ความหมาย:</span> ยอด, หัวหน้า
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-red-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-red-400 transition-colors">อติวิชญ์</h3>
+                        <span class="text-lg font-serif text-red-200">伟 (Wěi)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">A-ti-wit</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-red-400/80">ความหมาย:</span> นักปราชญ์ผู้ยิ่งใหญ่
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-red-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-red-400 transition-colors">ติณห์</h3>
+                        <span class="text-lg font-serif text-red-200">健 (Jiàn)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Tin</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-red-400/80">ความหมาย:</span> กล้าหาญ, แข็งแกร่ง
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-red-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-red-400 transition-colors">เดชบดินทร์</h3>
+                        <span class="text-lg font-serif text-red-200">尊 (Zūn)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Det-bor-din</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-red-400/80">ความหมาย:</span> เจ้าแห่งแผ่นดินผู้มีอำนาจ
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-purple-400 mt-10 mb-6">🚀 หมวดที่ 4: ชื่อทันสมัย เขียนภาษาอังกฤษสวย (Inter & Modern)</h2>
+            <p class="mb-4">ชื่อพยางค์เดียว หรือสองพยางค์ ที่ออกเสียงง่ายทั้งไทยและอังกฤษ</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-purple-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">คิน</h3>
+                        <span class="text-lg font-serif text-purple-200">钦 (Qīn)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Kin</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-purple-400/80">เต็ม:</span> ภาคิน
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-purple-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">ฌาน</h3>
+                        <span class="text-lg font-serif text-purple-200">禅 (Chán)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Chan</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-purple-400/80">ความหมาย:</span> การเพ่งพินิจ
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-purple-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">ไทม์</h3>
+                        <span class="text-lg font-serif text-purple-200">时 (Shí)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Time/Thai</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-purple-400/80">ความหมาย:</span> เวลา / อิสระ
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-purple-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">ดีน</h3>
+                        <span class="text-lg font-serif text-purple-200">典 (Diǎn)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Dean/Din</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-purple-400/80">ความหมาย:</span> ผู้เป็นใหญ่
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-purple-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">ภีม</h3>
+                        <span class="text-lg font-serif text-purple-200">彬 (Bīn)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Peem</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-purple-400/80">ความหมาย:</span> น่าเกรงขาม
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-purple-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">ธาม</h3>
+                        <span class="text-lg font-serif text-purple-200">昙 (Tán)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Tham</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-purple-400/80">ความหมาย:</span> ยศศักดิ์
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-purple-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">วิน</h3>
+                        <span class="text-lg font-serif text-purple-200">赢 (Yíng)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Win</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-purple-400/80">ความหมาย:</span> ชนะ
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-purple-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">ปราบ</h3>
+                        <span class="text-lg font-serif text-purple-200">霸 (Bà)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Prab</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-purple-400/80">ความหมาย:</span> ผู้ชนะ
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-purple-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">แทน</h3>
+                        <span class="text-lg font-serif text-purple-200">泰 (Tài)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Tan</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-purple-400/80">ความหมาย:</span> ตัวแทน
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-purple-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">นัท</h3>
+                        <span class="text-lg font-serif text-purple-200">纳 (Nà)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Nut</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-purple-400/80">เต็ม:</span> ณัฐ (นักปราชญ์)
+                    </div>
+                </div>
+
+                 <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-purple-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">กาย</h3>
+                        <span class="text-lg font-serif text-purple-200">凯 (Kǎi)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Guy</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-purple-400/80">ความหมาย:</span> กายสิทธิ์
+                    </div>
+                </div>
+
+                  <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50 hover:border-purple-500/50 transition-all group">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">ธีร์</h3>
+                        <span class="text-lg font-serif text-purple-200">智 (Zhì)</span>
+                    </div>
+                    <div class="text-sm text-slate-400 mb-1 font-mono">Tee</div>
+                    <div class="text-xs text-slate-300 border-t border-slate-700 pt-2 mt-2">
+                        <span class="text-purple-400/80">เต็ม:</span> ธีรราช
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-amber-400 mt-10 mb-6">💡 ทริคสำคัญ: ชื่อดีต้องดีที่ "ผลรวม"</h2>
+            <p class="mb-4">การเลือกชื่อที่มีความหมายดีเป็นเพียงจุดเริ่มต้นครับ ในทางโหราศาสตร์และเลขศาสตร์ สิ่งที่สำคัญกว่าคือ <strong>"ชื่อต้องถูกโฉลกกับวันเดือนปีเกิด"</strong> ของน้องด้วย</p>
+            
+            <ul class="space-y-4 mb-8">
+                 <li class="flex items-start gap-3">
+                    <span class="bg-red-500/20 text-red-300 p-2 rounded-lg text-xs font-bold whitespace-nowrap">ระวัง!</span>
+                    <span class="text-slate-300"><strong>อักขระกาลกิณี:</strong> ต้องระวังตัวอักษรที่เป็นกากิณีประจำวันเกิด (เช่น คนเกิดวันอาทิตย์ ห้ามมี ศ, ษ, ส, ห, ฬ, ฮ)</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="bg-green-500/20 text-green-300 p-2 rounded-lg text-xs font-bold whitespace-nowrap">แนะนำ</span>
+                    <span class="text-slate-300"><strong>เลขศาสตร์:</strong> ผลรวมของชื่อบวกนามสกุล ควรตกเลขที่ดี (เช่น 14, 15, 24, 45, 59 ฯลฯ)</span>
+                </li>
+            </ul>
+
+            <div class="bg-slate-800/80 p-8 rounded-2xl border border-white/10 text-center relative overflow-hidden shadow-2xl mt-8">
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#0f172a]/80"></div>
+                <div class="relative z-10">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-600 mb-4">
+                        ตรวจสอบชื่อมงคล ฟรี!
+                    </h3>
+                    <p class="text-slate-300 mb-6 max-w-xl mx-auto">
+                        หากคุณพ่อคุณแม่ได้ชื่อที่ถูกใจจากรายการด้านบนแล้ว แต่ยังไม่แน่ใจว่าชื่อนั้นเหมาะกับลูกน้อยจริงหรือไม่? หรือชื่อจะไปขัดกับดวงวันเกิดหรือเปล่า? ให้ระบบอัจฉริยะของ NameMongkol ช่วยตรวจสอบความสมพงศ์ ทั้งทักษา เลขศาสตร์ และอายตนะ 6
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="/" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold py-4 px-10 rounded-full transition-all hover:scale-105 shadow-lg shadow-amber-900/40 text-lg group">
+                            <span>วิเคราะห์ชื่อฟรี คลิกเลย</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `
+    },
+    {
         id: '13',
         slug: 'top-20-popular-thai-names-numerology-analysis',
         title: 'ผ่าดวง 20 ชื่อยอดฮิตตลอดกาลของไทย! ชื่อโหลหรือชื่อเฮง? วิเคราะห์ด้วยหลักเลขศาสตร์',

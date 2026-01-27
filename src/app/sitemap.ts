@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { createClient } from '@supabase/supabase-js'
+import { articles as localArticles } from '@/data/articles'
 
 export const dynamic = 'force-dynamic'
 
@@ -25,7 +26,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         '/privacy',
         '/reviews',
         '/search',
-        '/slip-verification',
         '/terms',
         '/topup',
         '/wallpapers',
@@ -57,7 +57,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         console.error('Sitemap generation error (wallpapers):', error);
     }
 
-    // Fetch dynamic articles
+    // Fetch dynamic articles from database
     let articleUrls: MetadataRoute.Sitemap = [];
     try {
         const { data: articles } = await supabase
@@ -77,5 +77,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         console.error('Sitemap generation error (articles):', error);
     }
 
-    return [...staticUrls, ...wallpaperUrls, ...articleUrls];
+    // Add local articles from articles.ts (these are hardcoded articles)
+    const localArticleUrls: MetadataRoute.Sitemap = localArticles.map((article) => ({
+        url: `${baseUrl}/articles/${article.slug}`,
+        lastModified: article.date ? new Date(article.date) : new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.9, // Higher priority for main articles
+    }));
+
+    // Merge and deduplicate articles (local articles take priority)
+    const allArticleSlugs = new Set(localArticleUrls.map(a => a.url));
+    const dbOnlyArticles = articleUrls.filter(a => !allArticleSlugs.has(a.url));
+
+    return [...staticUrls, ...wallpaperUrls, ...localArticleUrls, ...dbOnlyArticles];
 }

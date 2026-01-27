@@ -1,17 +1,66 @@
 import { Metadata } from 'next';
+import Script from 'next/script';
 import ClientPage from './ClientPage';
 import { createClient } from '@/utils/supabaseServer';
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 
 export const metadata: Metadata = {
     title: 'เติมเครดิต (Top Up) - แพ็กเกจสุดคุ้ม | NameMongkol',
     description: 'เติมเครดิตเพื่อใช้งานบริการวิเคราะห์ชื่อมงคลขั้นสูงและดาวน์โหลดวอลเปเปอร์พรีเมียม สะดวกรวดเร็วผ่าน QR Code พร้อมเพย์ เริ่มต้นเพียง 29 บาท',
+    keywords: ['เติมเครดิต', 'Top Up', 'ซื้อเครดิต', 'NameMongkol', 'พร้อมเพย์', 'QR Code', 'แพ็กเกจ'],
     alternates: {
-        canonical: '/topup',
+        canonical: `${siteUrl}/topup`,
     },
     openGraph: {
-        title: 'เติมเครดิต - NameMongkol',
+        title: 'เติมเครดิต (Top Up) | NameMongkol',
+        description: 'เติมเครดิตง่ายๆ ผ่าน QR Code พร้อมเพย์ ใช้งานได้ทันที เริ่มต้นเพียง 29 บาท',
+        url: `${siteUrl}/topup`,
+        siteName: 'NameMongkol',
+        locale: 'th_TH',
+        type: 'website',
+        images: [`${siteUrl}/api/og?variant=default&title=เติมเครดิต%20Top%20Up&subtitle=สแกน%20QR%20พร้อมเพย์%20รับเครดิตทันที&tag=Top-up`],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'เติมเครดิต (Top Up) | NameMongkol',
         description: 'เติมเครดิตง่ายๆ ผ่าน QR Code พร้อมเพย์ ใช้งานได้ทันที',
-        images: ['/api/og?variant=default&title=เติมเครดิต%20Top%20Up&subtitle=สแกน%20QR%20พร้อมเพย์%20รับเครดิตทันที&tag=Top-up'],
+        images: [`${siteUrl}/api/og?variant=default&title=เติมเครดิต%20Top%20Up&subtitle=สแกน%20QR%20พร้อมเพย์%20รับเครดิตทันที&tag=Top-up`],
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
+};
+
+// JSON-LD for Top Up Page
+const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'เติมเครดิต NameMongkol',
+    description: 'เติมเครดิตเพื่อใช้งานบริการวิเคราะห์ชื่อมงคลขั้นสูง',
+    url: `${siteUrl}/topup`,
+    isPartOf: {
+        '@type': 'WebSite',
+        name: 'NameMongkol',
+        url: siteUrl,
+    },
+    breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'หน้าหลัก',
+                item: siteUrl,
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'เติมเครดิต',
+                item: `${siteUrl}/topup`,
+            },
+        ],
     },
 };
 
@@ -26,5 +75,14 @@ export default async function TopUpPage() {
     // Default to 'stripe' if not set
     const gateway = data?.value || 'stripe';
 
-    return <ClientPage gateway={gateway} />;
+    return (
+        <>
+            <Script
+                id="topup-json-ld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <ClientPage gateway={gateway} />
+        </>
+    );
 }
