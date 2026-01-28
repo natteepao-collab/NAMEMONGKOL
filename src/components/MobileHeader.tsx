@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Menu, Sparkles, UserPlus, LogIn, User as UserIcon } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 import { User } from '@supabase/supabase-js';
 
 interface MobileHeaderProps {
@@ -12,12 +13,12 @@ interface MobileHeaderProps {
 
 export const MobileHeader = ({ onMenuClick, user }: MobileHeaderProps) => {
     return (
-        <div className="lg:hidden fixed top-0 left-0 right-0 z-50 h-[72px] bg-[#0f172a]/95 backdrop-blur-xl border-b border-white/10 flex items-center px-4 justify-between transition-all duration-300">
+        <div className="lg:hidden fixed top-0 left-0 right-0 z-50 h-[72px] bg-white/95 dark:bg-[#0f172a]/95 backdrop-blur-xl border-b border-slate-200 dark:border-white/10 flex items-center px-4 justify-between transition-all duration-300">
             {/* Left: Menu Button */}
             <div className="flex items-center gap-3 relative z-20">
                 <button
                     onClick={onMenuClick}
-                    className="p-2.5 text-amber-500 hover:bg-amber-500/10 rounded-2xl border border-amber-500/50 transition-all active:scale-95 shadow-[0_0_10px_rgba(245,158,11,0.15)]"
+                    className="p-2.5 text-amber-500 hover:bg-amber-500/10 rounded-2xl border border-amber-500/30 dark:border-amber-500/50 transition-all active:scale-95 shadow-[0_0_10px_rgba(245,158,11,0.15)]"
                     aria-label="Open Menu"
                 >
                     <Menu size={20} className="stroke-[2.5]" />
@@ -31,14 +32,17 @@ export const MobileHeader = ({ onMenuClick, user }: MobileHeaderProps) => {
                         <Sparkles size={16} className="text-white drop-shadow-md" />
                     </div>
                     <div className="flex items-baseline tracking-tight">
-                        <span className="text-base font-bold text-white font-sans mr-[1px]">Name</span>
-                        <span className="text-base font-bold text-amber-400 font-sans">Mongkol</span>
+                        <span className="text-base font-bold text-slate-800 dark:text-white font-sans mr-[1px]">Name</span>
+                        <span className="text-base font-bold text-amber-500 dark:text-amber-400 font-sans">Mongkol</span>
                     </div>
                 </Link>
             </div>
 
             {/* Right: Auth Buttons */}
             <div className="flex items-center gap-2 relative z-20">
+                <div className="mr-1">
+                    <ThemeToggle />
+                </div>
                 {!user ? (
                     <>
                         <Link
@@ -59,7 +63,7 @@ export const MobileHeader = ({ onMenuClick, user }: MobileHeaderProps) => {
                 ) : (
                     <button
                         onClick={onMenuClick}
-                        className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-amber-500 hover:bg-white/10 transition-all"
+                        className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center text-amber-500 hover:bg-slate-200 dark:hover:bg-white/10 transition-all"
                     >
                         <UserIcon size={18} />
                     </button>

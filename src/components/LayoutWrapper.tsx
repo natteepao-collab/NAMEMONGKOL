@@ -38,7 +38,7 @@ export const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="flex min-h-screen overflow-x-hidden">
             <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-            <div className="flex-1 min-w-0 lg:pl-[360px] transition-all duration-300 relative bg-[#0f172a]">
+            <div className="flex-1 min-w-0 lg:pl-[360px] transition-all duration-300 relative bg-slate-50 dark:bg-[#0f172a]">
                 <MobileHeader onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} user={user} />
                 <TopNav />
                 <MobileSecondaryNav />

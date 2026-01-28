@@ -91,7 +91,7 @@ export default function PremiumAnalysisPage() {
 
     const handleAnalyze = async (isNewBatch = false) => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
 
         if (!surname || !birthDate || (!birthTime && !isUnknownTime)) {
             Swal.fire({
@@ -680,7 +680,7 @@ export default function PremiumAnalysisPage() {
                     {/* ==================== SEO CONTENT SECTION (Below the Fold) ==================== */}
                     {!hasAnalyzed && (
                         <section className="mt-8 pt-16 border-t border-white/10 space-y-16 pb-20">
-                        
+
                             {/* Section A: ความแตกต่างของการ "วิเคราะห์ขั้นสูง" */}
                             <div className="max-w-4xl mx-auto">
                                 <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-8">
@@ -845,11 +845,11 @@ export default function PremiumAnalysisPage() {
                                     <MessageSquareQuote className="w-8 h-8 text-amber-400" />
                                     รีวิวจากผู้ใช้จริง
                                 </h2>
-                                
+
                                 <div className="grid md:grid-cols-2 gap-6">
                                     <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
                                         <div className="flex items-center gap-1 mb-3">
-                                            {[1,2,3,4,5].map(i => <Star key={i} size={14} className="fill-amber-400 text-amber-400" />)}
+                                            {[1, 2, 3, 4, 5].map(i => <Star key={i} size={14} className="fill-amber-400 text-amber-400" />)}
                                         </div>
                                         <p className="text-slate-300 text-sm leading-relaxed mb-4">
                                             &quot;วิเคราะห์ละเอียดมาก เห็นภาพชัดว่าชื่อเดิมมีปัญหาตรงไหน ระบบแนะนำชื่อใหม่มาพร้อมคำอธิบายครบถ้วน ตัดสินใจเปลี่ยนชื่อได้ง่ายขึ้นเยอะเลยค่ะ&quot;
@@ -865,7 +865,7 @@ export default function PremiumAnalysisPage() {
 
                                     <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
                                         <div className="flex items-center gap-1 mb-3">
-                                            {[1,2,3,4,5].map(i => <Star key={i} size={14} className="fill-amber-400 text-amber-400" />)}
+                                            {[1, 2, 3, 4, 5].map(i => <Star key={i} size={14} className="fill-amber-400 text-amber-400" />)}
                                         </div>
                                         <p className="text-slate-300 text-sm leading-relaxed mb-4">
                                             &quot;ชอบที่เลือก Focus ได้ ผมเน้นเรื่องการงานเพราะอยากเลื่อนตำแหน่ง ระบบเลือกชื่อที่มีอักษรวรรคเดชนำมาให้หมดเลย สะดวกมากครับ&quot;
@@ -881,8 +881,8 @@ export default function PremiumAnalysisPage() {
                                 </div>
 
                                 <div className="mt-8 text-center">
-                                    <Link 
-                                        href="/reviews" 
+                                    <Link
+                                        href="/reviews"
                                         className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 transition-colors text-sm"
                                     >
                                         ดูรีวิวทั้งหมด
@@ -896,7 +896,7 @@ export default function PremiumAnalysisPage() {
                                 <h2 className="text-3xl font-bold text-center text-white mb-8">
                                     คำถามที่พบบ่อย
                                 </h2>
-                                
+
                                 <div className="space-y-4">
                                     <div className="bg-white/5 border border-white/10 rounded-xl p-6">
                                         <h3 className="text-lg font-bold text-amber-400 mb-2">
