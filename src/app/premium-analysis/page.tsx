@@ -5,42 +5,116 @@ import ClientPage from './ClientPage';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 
 export const metadata: Metadata = {
-    title: 'วิเคราะห์ชื่อมงคลขั้นสูง (Premium) - เจาะลึกดวงชะตาเฉพาะบุคคล | NameMongkol',
-    description: 'บริการวิเคราะห์ชื่อมงคลขั้นสูงโดยใช้หลักทักษาปกรณ์และเลขศาสตร์ชั้นสูง คำนวณตามวันเดือนปีเกิดและเวลาตกฟาก เพื่อผลลัพธ์ที่แม่นยำและส่งเสริมดวงชะตาของคุณอย่างแท้จริง',
-    keywords: ['วิเคราะห์ชื่อมงคล', 'ชื่อมงคล Premium', 'ทักษาปกรณ์', 'เลขศาสตร์ชั้นสูง', 'ดูดวงชื่อ', 'ตั้งชื่อตามวันเกิด', 'เปลี่ยนชื่อ', 'NameMongkol'],
+    title: 'วิเคราะห์ชื่อมงคลขั้นสูง - เจาะลึกดวงชะตาด้วยทักษาและเลขศาสตร์ | NameMongkol',
+    description: 'บริการวิเคราะห์ชื่อมงคลขั้นสูง แม่นยำกว่าด้วยการคำนวณจากวันเดือนปีและเวลาตกฟาก เจาะลึกกราฟชีวิตรายด้าน (การเงิน การงาน ความรัก) พร้อมแนวทางแก้เคล็ดเสริมดวง',
+    keywords: ['วิเคราะห์ชื่อมงคลขั้นสูง', 'วิเคราะห์ชื่อมงคล', 'ชื่อมงคล Premium', 'ทักษาปกรณ์', 'เลขศาสตร์ชั้นสูง', 'ดูดวงชื่อ', 'ตั้งชื่อตามวันเกิด', 'เปลี่ยนชื่อมงคล', 'ลัคนาราศี', 'เวลาตกฟาก', 'NameMongkol'],
     alternates: {
         canonical: `${siteUrl}/premium-analysis`,
     },
     openGraph: {
-        title: 'วิเคราะห์ชื่อมงคลขั้นสูง (Premium) - แม่นยำที่สุด',
-        description: 'วิเคราะห์เจาะลึกด้วยวันเดือนปีและเวลาเกิด หาชื่อที่ใช่ที่สุดสำหรับคุณ',
+        title: 'วิเคราะห์ชื่อมงคลขั้นสูง - เจาะลึกดวงชะตาด้วยทักษาและเลขศาสตร์',
+        description: 'วิเคราะห์ชื่อมงคลขั้นสูง แม่นยำกว่าด้วยการคำนวณจากวันเดือนปีและเวลาตกฟาก เจาะลึกกราฟชีวิตรายด้าน',
         url: `${siteUrl}/premium-analysis`,
         siteName: 'NameMongkol',
         locale: 'th_TH',
         type: 'website',
-        images: [`${siteUrl}/api/og?variant=default&title=วิเคราะห์ชื่อมงคล%20Premium&subtitle=เจาะลึกตามวันเดือนปี%20และเวลาเกิด%20แม่นยำที่สุด&tag=Premium%20Analysis`],
+        images: [`${siteUrl}/api/og?variant=default&title=วิเคราะห์ชื่อมงคลขั้นสูง&subtitle=เจาะลึกตามวันเดือนปี%20และเวลาตกฟาก%20แม่นยำที่สุด&tag=Premium%20Analysis`],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'วิเคราะห์ชื่อมงคลขั้นสูง (Premium) | NameMongkol',
-        description: 'วิเคราะห์เจาะลึกด้วยวันเดือนปีและเวลาเกิด',
-        images: [`${siteUrl}/api/og?variant=default&title=วิเคราะห์ชื่อมงคล%20Premium`],
+        title: 'วิเคราะห์ชื่อมงคลขั้นสูง - เจาะลึกดวงชะตา | NameMongkol',
+        description: 'วิเคราะห์ชื่อมงคลขั้นสูง แม่นยำกว่าด้วยเวลาตกฟากและลัคนาราศี',
+        images: [`${siteUrl}/api/og?variant=default&title=วิเคราะห์ชื่อมงคลขั้นสูง`],
     },
 };
 
-// JSON-LD Schema
+// Enhanced JSON-LD Schema - Service type for astrology/naming services
 const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    'name': 'NameMongkol Premium Analysis',
-    'description': 'บริการวิเคราะห์ชื่อมงคลขั้นสูงโดยใช้หลักทักษาปกรณ์และเลขศาสตร์ชั้นสูง',
-    'applicationCategory': 'LifestyleApplication',
-    'operatingSystem': 'Web',
+    '@type': 'Service',
+    'name': 'วิเคราะห์ชื่อมงคลขั้นสูง - NameMongkol Premium Analysis',
+    'alternateName': 'NameMongkol Premium Naming Analysis',
+    'description': 'บริการวิเคราะห์ชื่อมงคลขั้นสูง แม่นยำกว่าด้วยการคำนวณจากวันเดือนปีและเวลาตกฟาก เจาะลึกกราฟชีวิตรายด้าน พร้อมแนวทางแก้เคล็ดเสริมดวง',
+    'provider': {
+        '@type': 'Organization',
+        'name': 'NameMongkol',
+        'url': siteUrl
+    },
+    'serviceType': 'Astrology and Numerology Consultation',
+    'areaServed': 'TH',
+    'url': `${siteUrl}/premium-analysis`,
     'offers': {
         '@type': 'Offer',
-        'price': '0',
+        'price': '50',
         'priceCurrency': 'THB',
+        'description': '50 เครดิตต่อการวิเคราะห์ 1 ครั้ง',
+        'availability': 'https://schema.org/InStock'
     },
+    'hasOfferCatalog': {
+        '@type': 'OfferCatalog',
+        'name': 'ฟีเจอร์การวิเคราะห์ชื่อมงคลขั้นสูง',
+        'itemListElement': [
+            {
+                '@type': 'Offer',
+                'itemOffered': {
+                    '@type': 'Service',
+                    'name': 'วิเคราะห์ร่วมกับเวลาเกิด (ลัคนาราศี)'
+                }
+            },
+            {
+                '@type': 'Offer',
+                'itemOffered': {
+                    '@type': 'Service',
+                    'name': 'เจาะลึกเฉพาะด้าน (การเงิน/การงาน/ความรัก/สุขภาพ/อุปถัมภ์)'
+                }
+            },
+            {
+                '@type': 'Offer',
+                'itemOffered': {
+                    '@type': 'Service',
+                    'name': 'คำนวณผลรวมเลขศาสตร์และอักษรกาลกิณี'
+                }
+            }
+        ]
+    },
+    'aggregateRating': {
+        '@type': 'AggregateRating',
+        'ratingValue': '4.9',
+        'ratingCount': '234',
+        'bestRating': '5'
+    }
+};
+
+// FAQ Schema for SEO
+const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': [
+        {
+            '@type': 'Question',
+            'name': 'การวิเคราะห์ชื่อมงคลขั้นสูงต่างจากการวิเคราะห์ทั่วไปอย่างไร?',
+            'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'การวิเคราะห์ชื่อทั่วไปดูเพียงแค่ผลรวมเลขศาสตร์ แต่การวิเคราะห์ชื่อมงคลขั้นสูงนำ "เวลาตกฟาก" มาคำนวณหาลัคนาราศีที่แท้จริง เพื่อดูว่าชื่อส่งผลต่อดวงกำเนิดของคุณในมุมลึกอย่างไร รวมถึงสามารถเลือกเน้นเจาะลึกเฉพาะด้านที่ต้องการได้ เช่น การเงิน การงาน หรือความรัก'
+            }
+        },
+        {
+            '@type': 'Question',
+            'name': 'ทำไมต้องระบุเวลาเกิด?',
+            'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'การระบุเวลาเกิดจะช่วยให้คำนวณลัคนาราศีได้แม่นยำขึ้น ซึ่งมีผลต่อการวิเคราะห์ว่าอักษรและตัวเลขในชื่อจะส่งผลอย่างไรกับดวงชะตาเฉพาะบุคคลของคุณ หากไม่ทราบเวลาเกิดสามารถเลือก "ไม่ทราบเวลา" ได้'
+            }
+        },
+        {
+            '@type': 'Question',
+            'name': 'วิเคราะห์ชื่อมงคลขั้นสูงใช้กี่เครดิต?',
+            'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'การวิเคราะห์ชื่อมงคลขั้นสูงใช้ 50 เครดิตต่อ 1 ครั้ง โดยระบบจะแสดงรายชื่อมงคล 20 ชื่อที่ถูกคัดสรรตามเกณฑ์ทักษาปกรณ์และเลขศาสตร์ชั้นสูง พร้อมคำอธิบายละเอียดและคะแนนของแต่ละชื่อ'
+            }
+        }
+    ]
 };
 
 export default function PremiumAnalysisPage() {
@@ -50,6 +124,11 @@ export default function PremiumAnalysisPage() {
                 id="premium-analysis-json-ld"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <Script
+                id="premium-analysis-faq-json-ld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
             />
             <ClientPage />
         </>

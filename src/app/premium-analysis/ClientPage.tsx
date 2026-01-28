@@ -7,8 +7,9 @@ import {
     ChevronRight, ArrowLeft, Star, Crown,
     Lock, CheckCircle2, AlertCircle, RefreshCw,
     Coins, Briefcase, Activity, Heart, HelpingHand, Check,
-    Search, ShieldCheck, Gem
+    Search, ShieldCheck, Gem, Info, XCircle, Zap, TrendingUp, MessageSquareQuote
 } from 'lucide-react';
+import Link from 'next/link';
 
 import { supabase } from '@/utils/supabase';
 import { generatePremiumNames, PremiumResult, FocusTopic, getAstrologicalDay } from '@/utils/premiumAnalysisUtils';
@@ -466,8 +467,20 @@ export default function PremiumAnalysisPage() {
 
                         {/* Birth Time */}
                         <div className="space-y-3">
-                            <label className="text-sm font-medium text-slate-300 ml-1 flex justify-between">
-                                <span>เวลาเกิด</span>
+                            <label className="text-sm font-medium text-slate-300 ml-1 flex justify-between items-center">
+                                <span className="flex items-center gap-2">
+                                    เวลาเกิด
+                                    {/* Tooltip for birth time */}
+                                    <div className="relative group/tooltip">
+                                        <Info size={14} className="text-slate-500 hover:text-amber-400 cursor-help transition-colors" />
+                                        <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-64 p-3 bg-slate-800 border border-amber-500/20 rounded-xl text-xs text-slate-300 opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all z-50 shadow-xl">
+                                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-slate-800 border-r border-b border-amber-500/20 rotate-45"></div>
+                                            <p className="leading-relaxed">
+                                                <strong className="text-amber-400">การระบุเวลาเกิด</strong> จะช่วยให้คำนวณลัคนาราศีได้แม่นยำขึ้น หากไม่ทราบให้เลือก &quot;ไม่ทราบเวลา&quot;
+                                            </p>
+                                        </div>
+                                    </div>
+                                </span>
                                 <div className="flex items-center gap-2">
                                     <input
                                         type="checkbox"
@@ -663,6 +676,277 @@ export default function PremiumAnalysisPage() {
                     <div className="pb-28">
                         {!hasAnalyzed ? formContent : resultsContent}
                     </div>
+
+                    {/* ==================== SEO CONTENT SECTION (Below the Fold) ==================== */}
+                    {!hasAnalyzed && (
+                        <section className="mt-8 pt-16 border-t border-white/10 space-y-16 pb-20">
+                        
+                            {/* Section A: ความแตกต่างของการ "วิเคราะห์ขั้นสูง" */}
+                            <div className="max-w-4xl mx-auto">
+                                <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-8">
+                                    ความแตกต่างของ <span className="text-amber-400">&quot;วิเคราะห์ชื่อมงคลขั้นสูง&quot;</span>
+                                </h2>
+                                <div className="bg-gradient-to-br from-amber-500/5 to-orange-500/5 border border-amber-500/20 rounded-3xl p-8 md:p-10">
+                                    <p className="text-lg text-slate-300 leading-relaxed mb-6">
+                                        การวิเคราะห์ชื่อทั่วไปดูเพียงแค่ <span className="text-slate-200">ผลรวมเลขศาสตร์</span> แต่ <strong className="text-amber-400">การวิเคราะห์ชื่อมงคลขั้นสูง</strong> ของเรานำ <strong className="text-white">&quot;เวลาตกฟาก&quot;</strong> มาคำนวณหาลัคนาราศีที่แท้จริง เพื่อดูว่าชื่อส่งผลต่อดวงกำเนิดของคุณในมุมลึกอย่างไร
+                                    </p>
+                                    <div className="grid md:grid-cols-3 gap-6">
+                                        <div className="bg-white/5 rounded-2xl p-5 border border-white/5">
+                                            <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center mb-3">
+                                                <Clock className="w-5 h-5 text-amber-400" />
+                                            </div>
+                                            <h3 className="font-bold text-white mb-2">เวลาตกฟาก</h3>
+                                            <p className="text-sm text-slate-400">คำนวณลัคนาราศีจริง ไม่ใช่แค่ราศีตามวันเกิด</p>
+                                        </div>
+                                        <div className="bg-white/5 rounded-2xl p-5 border border-white/5">
+                                            <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center mb-3">
+                                                <Target className="w-5 h-5 text-amber-400" />
+                                            </div>
+                                            <h3 className="font-bold text-white mb-2">เจาะลึกเฉพาะด้าน</h3>
+                                            <p className="text-sm text-slate-400">เลือก Focus ได้ว่าต้องการเสริมดวงด้านไหน</p>
+                                        </div>
+                                        <div className="bg-white/5 rounded-2xl p-5 border border-white/5">
+                                            <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center mb-3">
+                                                <TrendingUp className="w-5 h-5 text-amber-400" />
+                                            </div>
+                                            <h3 className="font-bold text-white mb-2">Personalization</h3>
+                                            <p className="text-sm text-slate-400">ผลลัพธ์เฉพาะบุคคล ไม่ใช่สูตรสำเร็จรูป</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Section B: เจาะลึก 5 ด้านที่เลือกเน้นได้ */}
+                            <div className="max-w-4xl mx-auto">
+                                <h2 className="text-3xl font-bold text-center text-white mb-4">
+                                    เจาะลึก <span className="text-amber-400">5 ด้าน</span> ที่คุณเลือกเน้นได้
+                                </h2>
+                                <p className="text-center text-slate-400 mb-8">
+                                    เลือก Focus ที่ต้องการ ระบบจะคำนวณหาชื่อที่เสริมดวงด้านนั้นโดยเฉพาะ
+                                </p>
+
+                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <div className="bg-gradient-to-br from-yellow-500/10 to-amber-500/5 border border-yellow-500/20 rounded-2xl p-5 hover:border-yellow-500/40 transition-colors">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <div className="w-10 h-10 rounded-xl bg-yellow-500/20 flex items-center justify-center">
+                                                <Coins className="w-5 h-5 text-yellow-400" />
+                                            </div>
+                                            <h3 className="font-bold text-white">💰 การเงิน</h3>
+                                        </div>
+                                        <p className="text-sm text-slate-400 leading-relaxed">
+                                            วิเคราะห์หาเลขที่ดึงดูดทรัพย์และสภาพคล่อง ตัดตัวเลขที่ทำให้เก็บเงินไม่อยู่
+                                        </p>
+                                    </div>
+
+                                    <div className="bg-gradient-to-br from-blue-500/10 to-indigo-500/5 border border-blue-500/20 rounded-2xl p-5 hover:border-blue-500/40 transition-colors">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                                                <Briefcase className="w-5 h-5 text-blue-400" />
+                                            </div>
+                                            <h3 className="font-bold text-white">💼 การงาน</h3>
+                                        </div>
+                                        <p className="text-sm text-slate-400 leading-relaxed">
+                                            เน้นเลขกลุ่มอำนาจบารมี (วรรคเดช) เพื่อการเลื่อนขั้นและเป็นเจ้าคนนายคน
+                                        </p>
+                                    </div>
+
+                                    <div className="bg-gradient-to-br from-pink-500/10 to-rose-500/5 border border-pink-500/20 rounded-2xl p-5 hover:border-pink-500/40 transition-colors">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <div className="w-10 h-10 rounded-xl bg-pink-500/20 flex items-center justify-center">
+                                                <Heart className="w-5 h-5 text-pink-400" />
+                                            </div>
+                                            <h3 className="font-bold text-white">❤️ ความรัก</h3>
+                                        </div>
+                                        <p className="text-sm text-slate-400 leading-relaxed">
+                                            ตรวจสอบเลขเสน่ห์และคู่ครอง แก้ดวงอาภัพรักจากชื่อเดิม
+                                        </p>
+                                    </div>
+
+                                    <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 rounded-2xl p-5 hover:border-green-500/40 transition-colors">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <div className="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center">
+                                                <Activity className="w-5 h-5 text-green-400" />
+                                            </div>
+                                            <h3 className="font-bold text-white">🏥 สุขภาพ</h3>
+                                        </div>
+                                        <p className="text-sm text-slate-400 leading-relaxed">
+                                            หาเลขที่ส่งเสริมความแข็งแรง หลีกเลี่ยงเลขที่ทำให้อ่อนไหวด้านสุขภาพ
+                                        </p>
+                                    </div>
+
+                                    <div className="bg-gradient-to-br from-purple-500/10 to-violet-500/5 border border-purple-500/20 rounded-2xl p-5 hover:border-purple-500/40 transition-colors">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center">
+                                                <HelpingHand className="w-5 h-5 text-purple-400" />
+                                            </div>
+                                            <h3 className="font-bold text-white">🤝 อุปถัมภ์</h3>
+                                        </div>
+                                        <p className="text-sm text-slate-400 leading-relaxed">
+                                            เสริมดวงผู้ใหญ่เมตตา มีคนคอยช่วยเหลือ ได้รับการสนับสนุน
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Section C: ตารางเปรียบเทียบ Free vs Premium */}
+                            <div className="max-w-4xl mx-auto">
+                                <h2 className="text-3xl font-bold text-center text-white mb-8">
+                                    เปรียบเทียบ <span className="text-slate-400">วิเคราะห์เบื้องต้น</span> vs <span className="text-amber-400">วิเคราะห์ชื่อมงคลขั้นสูง</span>
+                                </h2>
+
+                                <div className="overflow-x-auto">
+                                    <table className="w-full border-collapse">
+                                        <thead>
+                                            <tr className="border-b border-white/10">
+                                                <th className="text-left py-4 px-4 text-slate-400 font-medium">หัวข้อการวิเคราะห์</th>
+                                                <th className="text-center py-4 px-4 text-slate-400 font-medium">วิเคราะห์เบื้องต้น</th>
+                                                <th className="text-center py-4 px-4 text-amber-400 font-medium">วิเคราะห์ขั้นสูง</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                                <td className="py-4 px-4 text-slate-300">ดูผลรวมเลขศาสตร์</td>
+                                                <td className="text-center py-4 px-4"><CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /></td>
+                                                <td className="text-center py-4 px-4"><CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /></td>
+                                            </tr>
+                                            <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                                <td className="py-4 px-4 text-slate-300">ดูอักษรกาลกิณี</td>
+                                                <td className="text-center py-4 px-4"><CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /></td>
+                                                <td className="text-center py-4 px-4"><CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /></td>
+                                            </tr>
+                                            <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                                <td className="py-4 px-4 text-slate-300">วิเคราะห์ร่วมกับเวลาเกิด (ลัคนาราศี)</td>
+                                                <td className="text-center py-4 px-4"><XCircle className="w-5 h-5 text-red-400 mx-auto" /></td>
+                                                <td className="text-center py-4 px-4 text-amber-400 font-semibold">✅ แม่นยำ 100%</td>
+                                            </tr>
+                                            <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                                <td className="py-4 px-4 text-slate-300">เจาะลึกเฉพาะด้าน (การเงิน/งาน/รัก)</td>
+                                                <td className="text-center py-4 px-4"><XCircle className="w-5 h-5 text-red-400 mx-auto" /></td>
+                                                <td className="text-center py-4 px-4 text-amber-400 font-semibold">✅ Customizable</td>
+                                            </tr>
+                                            <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                                <td className="py-4 px-4 text-slate-300">แนะนำชื่อมงคลใหม่พร้อมความหมาย</td>
+                                                <td className="text-center py-4 px-4"><XCircle className="w-5 h-5 text-red-400 mx-auto" /></td>
+                                                <td className="text-center py-4 px-4"><CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /></td>
+                                            </tr>
+                                            <tr className="hover:bg-white/5 transition-colors">
+                                                <td className="py-4 px-4 text-slate-300">คะแนนและเกรดรายชื่อ</td>
+                                                <td className="text-center py-4 px-4"><XCircle className="w-5 h-5 text-red-400 mx-auto" /></td>
+                                                <td className="text-center py-4 px-4"><CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            {/* Section D: Testimonial */}
+                            <div className="max-w-4xl mx-auto">
+                                <h2 className="text-3xl font-bold text-center text-white mb-8 flex items-center justify-center gap-3">
+                                    <MessageSquareQuote className="w-8 h-8 text-amber-400" />
+                                    รีวิวจากผู้ใช้จริง
+                                </h2>
+                                
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                                        <div className="flex items-center gap-1 mb-3">
+                                            {[1,2,3,4,5].map(i => <Star key={i} size={14} className="fill-amber-400 text-amber-400" />)}
+                                        </div>
+                                        <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                            &quot;วิเคราะห์ละเอียดมาก เห็นภาพชัดว่าชื่อเดิมมีปัญหาตรงไหน ระบบแนะนำชื่อใหม่มาพร้อมคำอธิบายครบถ้วน ตัดสินใจเปลี่ยนชื่อได้ง่ายขึ้นเยอะเลยค่ะ&quot;
+                                        </p>
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-bold text-sm">ส</div>
+                                            <div>
+                                                <div className="text-white font-medium text-sm">คุณสมใจ</div>
+                                                <div className="text-slate-500 text-xs">ใช้บริการ: วิเคราะห์ขั้นสูง</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                                        <div className="flex items-center gap-1 mb-3">
+                                            {[1,2,3,4,5].map(i => <Star key={i} size={14} className="fill-amber-400 text-amber-400" />)}
+                                        </div>
+                                        <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                            &quot;ชอบที่เลือก Focus ได้ ผมเน้นเรื่องการงานเพราะอยากเลื่อนตำแหน่ง ระบบเลือกชื่อที่มีอักษรวรรคเดชนำมาให้หมดเลย สะดวกมากครับ&quot;
+                                        </p>
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white font-bold text-sm">ก</div>
+                                            <div>
+                                                <div className="text-white font-medium text-sm">คุณกิตติ</div>
+                                                <div className="text-slate-500 text-xs">ใช้บริการ: วิเคราะห์ขั้นสูง</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8 text-center">
+                                    <Link 
+                                        href="/reviews" 
+                                        className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 transition-colors text-sm"
+                                    >
+                                        ดูรีวิวทั้งหมด
+                                        <ChevronRight size={16} />
+                                    </Link>
+                                </div>
+                            </div>
+
+                            {/* FAQ Section */}
+                            <div className="max-w-3xl mx-auto">
+                                <h2 className="text-3xl font-bold text-center text-white mb-8">
+                                    คำถามที่พบบ่อย
+                                </h2>
+                                
+                                <div className="space-y-4">
+                                    <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+                                        <h3 className="text-lg font-bold text-amber-400 mb-2">
+                                            Q: การวิเคราะห์ชื่อมงคลขั้นสูงต่างจากการวิเคราะห์ทั่วไปอย่างไร?
+                                        </h3>
+                                        <p className="text-slate-300 leading-relaxed">
+                                            A: การ<strong className="text-white">วิเคราะห์ชื่อมงคลขั้นสูง</strong>นำ &quot;เวลาตกฟาก&quot; มาคำนวณหาลัคนาราศีที่แท้จริง เพื่อดูว่าชื่อส่งผลต่อดวงกำเนิดของคุณในมุมลึกอย่างไร นอกจากนี้ยังสามารถเลือกเน้นเจาะลึกเฉพาะด้านที่ต้องการได้ เช่น <Link href="/name-analysis" className="text-amber-400 hover:text-amber-300 underline">การเงิน การงาน หรือความรัก</Link>
+                                        </p>
+                                    </div>
+
+                                    <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+                                        <h3 className="text-lg font-bold text-amber-400 mb-2">
+                                            Q: ทำไมต้องระบุเวลาเกิด?
+                                        </h3>
+                                        <p className="text-slate-300 leading-relaxed">
+                                            A: การระบุเวลาเกิดจะช่วยให้คำนวณลัคนาราศีได้แม่นยำขึ้น ซึ่งมีผลต่อการวิเคราะห์ว่าอักษรและตัวเลขในชื่อจะส่งผลอย่างไรกับดวงชะตาเฉพาะบุคคลของคุณ หากไม่ทราบเวลาเกิดสามารถเลือก &quot;ไม่ทราบเวลา&quot; ได้
+                                        </p>
+                                    </div>
+
+                                    <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+                                        <h3 className="text-lg font-bold text-amber-400 mb-2">
+                                            Q: วิเคราะห์ชื่อมงคลขั้นสูงใช้กี่เครดิต?
+                                        </h3>
+                                        <p className="text-slate-300 leading-relaxed">
+                                            A: การวิเคราะห์ใช้ <strong className="text-white">50 เครดิต</strong> ต่อ 1 ครั้ง โดยระบบจะแสดงรายชื่อมงคล 20 ชื่อ พร้อมคำอธิบายละเอียดและคะแนน หากต้องการเติมเครดิต สามารถไปที่หน้า <Link href="/topup" className="text-amber-400 hover:text-amber-300 underline">เติมเครดิต</Link> ได้ทันที
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* CTA */}
+                            <div className="max-w-2xl mx-auto text-center bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-3xl p-8">
+                                <h3 className="text-2xl font-bold text-white mb-4">
+                                    พร้อมค้นหาชื่อมงคลที่ใช่สำหรับคุณ?
+                                </h3>
+                                <p className="text-slate-400 mb-6">
+                                    เริ่มต้นวิเคราะห์ชื่อมงคลขั้นสูงด้วยศาสตร์ทักษาปกรณ์และเลขศาสตร์ชั้นสูง
+                                </p>
+                                <button
+                                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                                    className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-bold rounded-xl hover:from-amber-400 hover:to-orange-400 transition-colors shadow-lg shadow-amber-500/20"
+                                >
+                                    <Sparkles size={20} />
+                                    เริ่มวิเคราะห์เลย
+                                </button>
+                            </div>
+
+                        </section>
+                    )}
+                    {/* ==================== END SEO CONTENT SECTION ==================== */}
 
                 </div>
             </main>

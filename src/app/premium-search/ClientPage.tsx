@@ -3,7 +3,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
-import { Search, Sparkles, Calendar, Award, RotateCcw, Lock, ChevronDown } from 'lucide-react';
+import { Search, Sparkles, Calendar, Award, RotateCcw, Lock, ChevronDown, CheckCircle2, XCircle, Zap, Shield, Star, HelpCircle } from 'lucide-react';
 import { premiumNamesRaw } from '@/data/premiumNamesRaw';
 import { parsePremiumNames, PremiumNameData } from '@/utils/premiumDataParser';
 
@@ -635,6 +635,195 @@ export default function PremiumSearchPage() {
                             )}
                         </div>
                     )}
+
+                    {/* ==================== SEO CONTENT SECTION (Below the Fold) ==================== */}
+                    <section className="mt-20 pt-16 border-t border-white/10 space-y-16">
+                        
+                        {/* Section A: ทำไมต้อง "ค้นหาชื่อมงคล Pro"? */}
+                        <div className="max-w-4xl mx-auto">
+                            <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-8">
+                                ทำไมต้อง <span className="text-emerald-400">&quot;ค้นหาชื่อมงคล Pro&quot;</span>?
+                            </h2>
+                            <p className="text-lg text-slate-300 leading-relaxed mb-8 text-center">
+                                ระบบค้นหาชื่อมงคล Pro ของ NameMongkol แตกต่างจากการตั้งชื่อทั่วไป เพราะเราใช้ <strong className="text-emerald-400">Premium Database</strong> ที่ผ่านการคัดกรองมาแล้วถึง 3 ชั้น
+                            </p>
+
+                            <div className="grid md:grid-cols-3 gap-6">
+                                <div className="bg-gradient-to-br from-emerald-500/10 to-teal-500/5 border border-emerald-500/20 rounded-2xl p-6 hover:border-emerald-500/40 transition-colors">
+                                    <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center mb-4">
+                                        <Shield className="w-6 h-6 text-emerald-400" />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-3">ชั้นที่ 1: คัดตามหลักทักษา</h3>
+                                    <p className="text-slate-400 leading-relaxed">
+                                        อักษรนำดี กาลกิณีไม่มี 100% ทุกชื่อผ่านการตรวจสอบว่าไม่มีอักษรต้องห้ามตามวันเกิด
+                                    </p>
+                                </div>
+
+                                <div className="bg-gradient-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/20 rounded-2xl p-6 hover:border-amber-500/40 transition-colors">
+                                    <div className="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center mb-4">
+                                        <Star className="w-6 h-6 text-amber-400" />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-3">ชั้นที่ 2: คัดตามเลขศาสตร์</h3>
+                                    <p className="text-slate-400 leading-relaxed">
+                                        คัดเฉพาะผลรวมเลขศาสตร์ระดับ A+ เช่น 14, 15, 24, 36, 45 ที่ส่งเสริมดวงชะตาอย่างแท้จริง
+                                    </p>
+                                </div>
+
+                                <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/5 border border-purple-500/20 rounded-2xl p-6 hover:border-purple-500/40 transition-colors">
+                                    <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center mb-4">
+                                        <Zap className="w-6 h-6 text-purple-400" />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-3">ชั้นที่ 3: ความหมายดี</h3>
+                                    <p className="text-slate-400 leading-relaxed">
+                                        ความหมายดี ไพเราะ ไม่เชย เหมาะกับยุคสมัย เรียกชื่อแล้วดูดี มีความหมายเป็นสิริมงคล
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Section B: ตารางเปรียบเทียบ Free vs Pro */}
+                        <div className="max-w-4xl mx-auto">
+                            <h2 className="text-3xl font-bold text-center text-white mb-8">
+                                เปรียบเทียบ <span className="text-slate-400">ค้นหาทั่วไป</span> vs <span className="text-emerald-400">ค้นหาชื่อมงคล Pro</span>
+                            </h2>
+
+                            <div className="overflow-x-auto">
+                                <table className="w-full border-collapse">
+                                    <thead>
+                                        <tr className="border-b border-white/10">
+                                            <th className="text-left py-4 px-4 text-slate-400 font-medium">คุณสมบัติ</th>
+                                            <th className="text-center py-4 px-4 text-slate-400 font-medium">ค้นหาทั่วไป</th>
+                                            <th className="text-center py-4 px-4 text-emerald-400 font-medium">ค้นหาชื่อมงคล Pro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                            <td className="py-4 px-4 text-slate-300">คัดกรองอักษรกาลกิณี</td>
+                                            <td className="text-center py-4 px-4"><CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /></td>
+                                            <td className="text-center py-4 px-4"><CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /></td>
+                                        </tr>
+                                        <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                            <td className="py-4 px-4 text-slate-300">เลือกอักษรนำ (วรรคเดช/ศรี)</td>
+                                            <td className="text-center py-4 px-4"><XCircle className="w-5 h-5 text-red-400 mx-auto" /></td>
+                                            <td className="text-center py-4 px-4"><CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /></td>
+                                        </tr>
+                                        <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                            <td className="py-4 px-4 text-slate-300">เกรดของผลรวมเลขศาสตร์</td>
+                                            <td className="text-center py-4 px-4 text-slate-400">คละเกรด</td>
+                                            <td className="text-center py-4 px-4 text-emerald-400 font-semibold">เกรด A+ เท่านั้น</td>
+                                        </tr>
+                                        <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                            <td className="py-4 px-4 text-slate-300">จำนวนชื่อในฐานข้อมูล</td>
+                                            <td className="text-center py-4 px-4 text-slate-400">5,000+</td>
+                                            <td className="text-center py-4 px-4 text-emerald-400 font-semibold">{allNames.length.toLocaleString()} (คัดพิเศษ)</td>
+                                        </tr>
+                                        <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                            <td className="py-4 px-4 text-slate-300">กรองตามเพศ</td>
+                                            <td className="text-center py-4 px-4"><XCircle className="w-5 h-5 text-red-400 mx-auto" /></td>
+                                            <td className="text-center py-4 px-4"><CheckCircle2 className="w-5 h-5 text-emerald-400 mx-auto" /></td>
+                                        </tr>
+                                        <tr className="hover:bg-white/5 transition-colors">
+                                            <td className="py-4 px-4 text-slate-300">คุณภาพความหมาย</td>
+                                            <td className="text-center py-4 px-4 text-slate-400">ปานกลาง</td>
+                                            <td className="text-center py-4 px-4 text-emerald-400 font-semibold">คัดสรรพิเศษ</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        {/* Section C: วิธีใช้งาน */}
+                        <div className="max-w-4xl mx-auto">
+                            <h2 className="text-3xl font-bold text-center text-white mb-4">
+                                วิธีใช้งาน<span className="text-emerald-400">ค้นหาชื่อมงคล Pro</span>
+                            </h2>
+                            <p className="text-center text-slate-400 mb-8">
+                                เหมาะสำหรับผู้ที่กำลังมองหา <Link href="/name-analysis" className="text-emerald-400 hover:text-emerald-300 underline decoration-emerald-500/30">วิธีตั้งชื่อลูก</Link> หรือ <Link href="/name-analysis" className="text-emerald-400 hover:text-emerald-300 underline decoration-emerald-500/30">เปลี่ยนชื่อมงคลด้วยตัวเอง</Link>
+                            </p>
+
+                            <div className="grid md:grid-cols-3 gap-6">
+                                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center relative">
+                                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-sm">1</div>
+                                    <div className="pt-4">
+                                        <h3 className="text-lg font-bold text-white mb-2">เลือกวันเกิด</h3>
+                                        <p className="text-slate-400 text-sm">ใส่วันเกิดเพื่อให้ระบบคัดชื่อที่เหมาะกับทักษาของคุณโดยเฉพาะ</p>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center relative">
+                                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-sm">2</div>
+                                    <div className="pt-4">
+                                        <h3 className="text-lg font-bold text-white mb-2">เลือกอักษรนำ</h3>
+                                        <p className="text-slate-400 text-sm">ระบุว่าต้องการเสริม <strong className="text-amber-400">อำนาจบารมี (วรรคเดช)</strong> หรือ <strong className="text-pink-400">โชคลาภเสน่ห์ (วรรคศรี)</strong></p>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center relative">
+                                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-sm">3</div>
+                                    <div className="pt-4">
+                                        <h3 className="text-lg font-bold text-white mb-2">รับผลลัพธ์</h3>
+                                        <p className="text-slate-400 text-sm">ระบบจะประมวลผลและแสดง 20 ชื่อมงคลที่ตรงกับความต้องการของคุณ</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* CTA */}
+                            <div className="mt-12 text-center bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 rounded-2xl p-8">
+                                <p className="text-slate-300 mb-4">
+                                    💡 <strong className="text-emerald-400">คำแนะนำสำคัญ:</strong> หลังได้ชื่อที่ต้องการแล้ว อย่าลืมนำไป
+                                </p>
+                                <Link 
+                                    href="/name-analysis" 
+                                    className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-colors"
+                                >
+                                    <Sparkles size={18} />
+                                    วิเคราะห์ชื่อ-สกุล ก่อนนำไปใช้
+                                </Link>
+                                <p className="text-slate-500 text-sm mt-4">
+                                    เพื่อตรวจสอบความเข้ากันของชื่อกับนามสกุล และดูผลวิเคราะห์แบบละเอียด
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* FAQ Section */}
+                        <div className="max-w-3xl mx-auto">
+                            <h2 className="text-3xl font-bold text-center text-white mb-8 flex items-center justify-center gap-3">
+                                <HelpCircle className="w-8 h-8 text-emerald-400" />
+                                คำถามที่พบบ่อย
+                            </h2>
+                            
+                            <div className="space-y-4">
+                                <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+                                    <h3 className="text-lg font-bold text-emerald-400 mb-2">
+                                        Q: ค้นหาชื่อมงคล Pro ต่างจากค้นหาทั่วไปอย่างไร?
+                                    </h3>
+                                    <p className="text-slate-300 leading-relaxed">
+                                        A: ระบบค้นหาชื่อมงคล Pro ใช้ Premium Database ที่ผ่านการคัดกรอง 3 ชั้น ได้แก่ คัดตามหลักทักษา (ไม่มีอักษรกาลกิณี), คัดเฉพาะผลรวมเลขศาสตร์ระดับ A+, และความหมายดี ไพเราะ ทันสมัย นอกจากนี้ยังสามารถเลือกอักษรนำวรรคเดช/ศรี ได้ตามต้องการ
+                                    </p>
+                                </div>
+
+                                <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+                                    <h3 className="text-lg font-bold text-emerald-400 mb-2">
+                                        Q: วรรคเดชและวรรคศรีคืออะไร?
+                                    </h3>
+                                    <p className="text-slate-300 leading-relaxed">
+                                        A: <strong className="text-amber-400">วรรคเดช</strong> คืออักษรนำที่ส่งเสริมเรื่องอำนาจบารมี การเลื่อนขั้นเลื่อนตำแหน่ง เหมาะกับผู้ต้องการความก้าวหน้าในหน้าที่การงาน ส่วน <strong className="text-pink-400">วรรคศรี</strong> คืออักษรนำที่ส่งเสริมเรื่องโชคลาภ เสน่ห์ความรัก เหมาะกับผู้ต้องการดึงดูดความโชคดีและเสน่ห์
+                                    </p>
+                                </div>
+
+                                <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+                                    <h3 className="text-lg font-bold text-emerald-400 mb-2">
+                                        Q: ค้นหาชื่อมงคล Pro ใช้กี่เครดิต?
+                                    </h3>
+                                    <p className="text-slate-300 leading-relaxed">
+                                        A: การค้นหาชื่อมงคล Pro ใช้ <strong className="text-white">15 เครดิต</strong> ต่อ 1 ครั้ง โดยระบบจะสุ่มแสดงผล 20 รายชื่อจากฐานข้อมูลที่ตรงตามเงื่อนไขที่คุณเลือก หากต้องการเติมเครดิต สามารถไปที่หน้า <Link href="/topup" className="text-emerald-400 hover:text-emerald-300 underline">เติมเครดิต</Link> ได้ทันที
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+                    {/* ==================== END SEO CONTENT SECTION ==================== */}
                 </div>
             </main>
         </div>

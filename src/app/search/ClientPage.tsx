@@ -566,6 +566,211 @@ export default function SearchPage() {
                     </div>
                 </div>
 
+                {/* ==================== SEO Content Sections ==================== */}
+
+                {/* Why NameMongkol */}
+                <section className="mt-16 mb-12 max-w-4xl mx-auto">
+                    <h2 className="text-2xl font-bold text-center text-amber-400 mb-6">
+                        ทำไมต้องใช้ NameMongkol ค้นหาชื่อมงคล?
+                    </h2>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        <article className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-colors">
+                            <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-500/20 to-purple-500/20 flex items-center justify-center">
+                                <Sparkles className="w-6 h-6 text-amber-400" />
+                            </div>
+                            <h3 className="font-semibold text-slate-200 mb-2">ฐานข้อมูล 5,000+ ชื่อ</h3>
+                            <p className="text-slate-400 text-sm">
+                                รวบรวมชื่อมงคลที่คัดสรรจากผู้เชี่ยวชาญด้านเลขศาสตร์และภาษาไทย พร้อมความหมายที่เป็นสิริมงคล
+                            </p>
+                        </article>
+                        <article className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-colors">
+                            <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center">
+                                <CheckCircle className="w-6 h-6 text-emerald-400" />
+                            </div>
+                            <h3 className="font-semibold text-slate-200 mb-2">ตรวจสอบวันมงคล-กาลกิณี</h3>
+                            <p className="text-slate-400 text-sm">
+                                รู้ทันทีว่าชื่อนี้ใช้ได้กับวันเกิดไหน และวันไหนควรหลีกเลี่ยง ตามหลักทักษาภาษาไทย
+                            </p>
+                        </article>
+                        <article className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-colors">
+                            <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500/20 to-indigo-500/20 flex items-center justify-center">
+                                <Filter className="w-6 h-6 text-blue-400" />
+                            </div>
+                            <h3 className="font-semibold text-slate-200 mb-2">ฟิลเตอร์อัจฉริยะ</h3>
+                            <p className="text-slate-400 text-sm">
+                                กรองตามวันเกิด, เพศ, หรือผลรวมตัวเลขมงคลที่ต้องการ ค้นหาชื่อที่ใช่ได้ในไม่กี่วินาที
+                            </p>
+                        </article>
+                    </div>
+                </section>
+
+                {/* Free vs Pro Comparison Table */}
+                <section className="mt-16 mb-12 max-w-4xl mx-auto">
+                    <h2 className="text-2xl font-bold text-center text-amber-400 mb-6">
+                        เปรียบเทียบ: ค้นหาฟรี vs Pro (Premium Search)
+                    </h2>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-sm" aria-label="เปรียบเทียบฟีเจอร์ ค้นหาชื่อมงคลฟรี และ Pro">
+                            <thead>
+                                <tr className="bg-white/[0.05] border-b border-white/10">
+                                    <th className="px-4 py-3 text-left text-slate-300 font-semibold">ฟีเจอร์</th>
+                                    <th className="px-4 py-3 text-center text-slate-300 font-semibold">ฟรี (หน้านี้)</th>
+                                    <th className="px-4 py-3 text-center text-amber-400 font-semibold">Pro (Premium)</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-white/5">
+                                <tr className="hover:bg-white/[0.02] transition-colors">
+                                    <td className="px-4 py-3 text-slate-400">จำนวนชื่อมงคล</td>
+                                    <td className="px-4 py-3 text-center text-slate-300">5,000+ ชื่อ</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400 font-medium">5,000+ ชื่อ</td>
+                                </tr>
+                                <tr className="hover:bg-white/[0.02] transition-colors">
+                                    <td className="px-4 py-3 text-slate-400">กรองตามวันเกิด</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400">✓</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400">✓</td>
+                                </tr>
+                                <tr className="hover:bg-white/[0.02] transition-colors">
+                                    <td className="px-4 py-3 text-slate-400">กรองตามเพศ</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400">✓</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400">✓</td>
+                                </tr>
+                                <tr className="hover:bg-white/[0.02] transition-colors">
+                                    <td className="px-4 py-3 text-slate-400">กรองตามผลรวมตัวเลข</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400">✓</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400">✓</td>
+                                </tr>
+                                <tr className="hover:bg-white/[0.02] transition-colors">
+                                    <td className="px-4 py-3 text-slate-400">ใส่นามสกุลเพื่อวิเคราะห์คู่</td>
+                                    <td className="px-4 py-3 text-center text-rose-400">✗</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400 font-medium">✓ จับคู่อัตโนมัติ</td>
+                                </tr>
+                                <tr className="hover:bg-white/[0.02] transition-colors">
+                                    <td className="px-4 py-3 text-slate-400">แสดงคะแนนทั้งชื่อ+นามสกุล</td>
+                                    <td className="px-4 py-3 text-center text-rose-400">✗</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400">✓</td>
+                                </tr>
+                                <tr className="hover:bg-white/[0.02] transition-colors">
+                                    <td className="px-4 py-3 text-slate-400">เกรดคู่ชื่อ-นามสกุล (A+, A, B...)</td>
+                                    <td className="px-4 py-3 text-center text-rose-400">✗</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400">✓</td>
+                                </tr>
+                                <tr className="hover:bg-white/[0.02] transition-colors">
+                                    <td className="px-4 py-3 text-slate-400">ราคา</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400 font-bold">ฟรี!</td>
+                                    <td className="px-4 py-3 text-center text-amber-400 font-medium">1 เครดิต/ครั้ง</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="mt-6 text-center">
+                        <Link
+                            href="/premium-search"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold hover:from-amber-400 hover:to-amber-500 transition-all shadow-lg shadow-amber-500/20"
+                        >
+                            <Sparkles className="w-5 h-5" />
+                            ลองใช้ Premium Search
+                        </Link>
+                    </div>
+                </section>
+
+                {/* How to Use Steps */}
+                <section className="mt-16 mb-12 max-w-3xl mx-auto">
+                    <h2 className="text-2xl font-bold text-center text-amber-400 mb-8">
+                        วิธีค้นหาชื่อมงคลใน 3 ขั้นตอน
+                    </h2>
+                    <div className="space-y-6">
+                        <div className="flex gap-4 items-start">
+                            <div className="w-10 h-10 flex-shrink-0 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white font-bold">
+                                1
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-slate-200 mb-1">เลือกวันเกิด (ถ้าต้องการ)</h3>
+                                <p className="text-slate-400 text-sm">
+                                    กรองเฉพาะชื่อที่เหมาะกับวันเกิดของคุณ ระบบจะแสดงเฉพาะชื่อที่ไม่ตรงกับกาลกิณี
+                                </p>
+                            </div>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                            <div className="w-10 h-10 flex-shrink-0 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white font-bold">
+                                2
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-slate-200 mb-1">เลือกเพศและผลรวมมงคล</h3>
+                                <p className="text-slate-400 text-sm">
+                                    กรองตามเพศ (ชาย/หญิง/กลาง) และเลือกผลรวมตัวเลขที่ต้องการ เช่น 19, 24, 36, 41 ซึ่งเป็นเลขมงคล
+                                </p>
+                            </div>
+                        </div>
+                        <div className="flex gap-4 items-start">
+                            <div className="w-10 h-10 flex-shrink-0 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white font-bold">
+                                3
+                            </div>
+                            <div>
+                                <h3 className="font-semibold text-slate-200 mb-1">คลิกชื่อเพื่อดูรายละเอียด</h3>
+                                <p className="text-slate-400 text-sm">
+                                    คลิกที่ชื่อเพื่อดูวันที่ใช้ได้ (มงคล) และวันที่ห้ามใช้ (กาลกิณี) จากนั้นนำไป{' '}
+                                    <Link href="/" className="text-amber-400 hover:underline">วิเคราะห์ร่วมกับนามสกุล</Link>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Internal Links */}
+                <section className="mt-16 mb-12 max-w-4xl mx-auto">
+                    <h2 className="text-2xl font-bold text-center text-amber-400 mb-6">
+                        บริการอื่นๆ ที่เกี่ยวข้อง
+                    </h2>
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <Link
+                            href="/"
+                            className="group block bg-white/[0.03] border border-white/10 rounded-xl p-6 hover:border-amber-500/30 hover:bg-white/[0.05] transition-all"
+                        >
+                            <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-amber-400 transition-colors">
+                                🔮 วิเคราะห์ชื่อ-นามสกุล (ฟรี)
+                            </h3>
+                            <p className="text-slate-400 text-sm">
+                                ใส่ชื่อและนามสกุลเพื่อดูคะแนนรวม, เกรด, และคำทำนายตามหลักเลขศาสตร์ ฟรีไม่จำกัดครั้ง
+                            </p>
+                        </Link>
+                        <Link
+                            href="/premium-search"
+                            className="group block bg-white/[0.03] border border-white/10 rounded-xl p-6 hover:border-amber-500/30 hover:bg-white/[0.05] transition-all"
+                        >
+                            <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-amber-400 transition-colors">
+                                ⭐ ค้นหาชื่อมงคล Pro
+                            </h3>
+                            <p className="text-slate-400 text-sm">
+                                ใส่นามสกุลเพื่อให้ระบบจับคู่ชื่อ+นามสกุล และแสดงเกรดคู่ทันที (A+, A, B...)
+                            </p>
+                        </Link>
+                        <Link
+                            href="/premium-analysis"
+                            className="group block bg-white/[0.03] border border-white/10 rounded-xl p-6 hover:border-amber-500/30 hover:bg-white/[0.05] transition-all"
+                        >
+                            <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-amber-400 transition-colors">
+                                💎 วิเคราะห์ชื่อขั้นสูง (Premium)
+                            </h3>
+                            <p className="text-slate-400 text-sm">
+                                วิเคราะห์เชิงลึกด้วย AI รวมถึงคำทำนาย, อายตนะ, เงาอำนาจ และรูปภาพ Wallpaper สำหรับมือถือ
+                            </p>
+                        </Link>
+                        <Link
+                            href="/phone-analysis"
+                            className="group block bg-white/[0.03] border border-white/10 rounded-xl p-6 hover:border-amber-500/30 hover:bg-white/[0.05] transition-all"
+                        >
+                            <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-amber-400 transition-colors">
+                                📱 วิเคราะห์เบอร์มือถือมงคล
+                            </h3>
+                            <p className="text-slate-400 text-sm">
+                                ตรวจสอบความมงคลของเบอร์มือถือตามหลักเลขศาสตร์ไทย พร้อมคำทำนายเชิงลึก
+                            </p>
+                        </Link>
+                    </div>
+                </section>
+
+                {/* ==================== End SEO Content Sections ==================== */}
+
 
             </div>
         </div>

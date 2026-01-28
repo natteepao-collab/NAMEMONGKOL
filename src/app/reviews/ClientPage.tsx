@@ -4,12 +4,30 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, MessageCircle, Filter, Quote, Plus, Trash2, Edit, Search, Sparkles } from 'lucide-react';
-// import { reviews } from '@/data/reviews'; // Deprecated mock data
-import { Review } from '@/types';
+import { Star, MessageCircle, Filter, Quote, Plus, Trash2, Edit, Search, Sparkles, ThumbsUp, BadgeCheck, Share2 } from 'lucide-react';
+import { Review, ReviewServiceType } from '@/types';
 import { ReviewFormModal } from '@/components/ReviewFormModal';
 import { supabase } from '@/utils/supabase';
 import { useRouter } from 'next/navigation';
+
+// Service type mapping for SEO - ชื่อบริการและ URL
+const SERVICE_INFO: Record<ReviewServiceType, { name: string; url: string; shortName: string }> = {
+    'name-analysis': { name: 'วิเคราะห์ชื่อมงคล', url: '/name-analysis', shortName: 'วิเคราะห์ชื่อ' },
+    'phone-analysis': { name: 'วิเคราะห์เบอร์มงคล', url: '/phone-analysis', shortName: 'วิเคราะห์เบอร์' },
+    'premium-search': { name: 'ค้นหาชื่อมงคลพรีเมียม', url: '/premium-search', shortName: 'ค้นหาชื่อพรีเมียม' },
+    'premium-analysis': { name: 'วิเคราะห์ชื่อแบบพรีเมียม', url: '/premium-analysis', shortName: 'วิเคราะห์พรีเมียม' },
+    'wallpapers': { name: 'วอลเปเปอร์มงคล', url: '/wallpapers', shortName: 'วอลเปเปอร์' },
+    'general': { name: 'บริการ NameMongkol', url: '/', shortName: 'ทั่วไป' }
+};
+
+// Category URL mapping for clickable tags - SEO Internal Linking
+const TAG_URLS: Record<string, string> = {
+    'การเงิน': '/reviews?category=การเงิน',
+    'การงาน': '/reviews?category=การงาน',
+    'ความรัก': '/reviews?category=ความรัก',
+    'สุขภาพ': '/reviews?category=สุขภาพ',
+    'โชคลาภ': '/reviews?category=โชคลาภ'
+};
 
 const CATEGORIES = [
     { id: 'all', label: 'ทั้งหมด' },
@@ -26,6 +44,8 @@ export default function ClientPage() {
     const [editingReview, setEditingReview] = useState<Review | null>(null);
     const [currentUser, setCurrentUser] = useState<any>(null);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [helpfulVotes, setHelpfulVotes] = useState<Record<string, number>>({});
+    const [userVotedReviews, setUserVotedReviews] = useState<Set<string>>(new Set());
     const router = useRouter();
 
     useEffect(() => {
@@ -134,6 +154,84 @@ export default function ClientPage() {
 
     const [dbReviews, setDbReviews] = useState<Review[]>([]);
 
+    // Helper function to format date with <time> tag for SEO
+    const formatDateForSEO = (dateString: string) => {
+        const date = new Date(dateString);
+        const isoDate = date.toISOString().split('T')[0]; // ISO 8601 format
+        const thaiDate = date.toLocaleDateString('th-TH', {
+            day: 'numeric',
+            month: 'short',
+            year: '2-digit'
+        });
+        return { isoDate, thaiDate };
+    };
+
+    // Handle helpful vote
+    const handleHelpfulVote = async (reviewId: string) => {
+        if (userVotedReviews.has(reviewId)) {
+            // Already voted, could implement unvote logic
+            return;
+        }
+
+        try {
+            // Optimistic update
+            setHelpfulVotes(prev => ({
+                ...prev,
+                [reviewId]: (prev[reviewId] || 0) + 1
+            }));
+            setUserVotedReviews(prev => new Set(prev).add(reviewId));
+
+            // Store vote in localStorage to persist
+            const storedVotes = JSON.parse(localStorage.getItem('helpfulVotes') || '[]');
+            storedVotes.push(reviewId);
+            localStorage.setItem('helpfulVotes', JSON.stringify(storedVotes));
+
+            // Update in database (optional - for real implementation)
+            await supabase
+                .from('reviews')
+                .update({ helpful_count: (helpfulVotes[reviewId] || 0) + 1 })
+                .eq('id', reviewId);
+        } catch (error) {
+            console.error('Error voting:', error);
+        }
+    };
+
+    // Share review
+    const handleShareReview = async (review: Review) => {
+        const shareUrl = `${window.location.origin}/reviews#review-${review.id}`;
+        const shareText = `รีวิวจาก ${review.nickname}: "${review.content.substring(0, 100)}..."`;
+
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: 'รีวิวจาก NameMongkol',
+                    text: shareText,
+                    url: shareUrl
+                });
+            } catch (error) {
+                // User cancelled or error
+            }
+        } else {
+            // Fallback: copy to clipboard
+            navigator.clipboard.writeText(shareUrl);
+            const Swal = (await import('sweetalert2')).default;
+            Swal.fire({
+                title: 'คัดลอกลิงก์แล้ว!',
+                icon: 'success',
+                background: '#1e293b',
+                color: '#fff',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        }
+    };
+
+    // Load user's previous votes from localStorage
+    useEffect(() => {
+        const storedVotes = JSON.parse(localStorage.getItem('helpfulVotes') || '[]');
+        setUserVotedReviews(new Set(storedVotes));
+    }, []);
+
     const fetchReviews = async () => {
         const { data, error } = await supabase
             .from('reviews')
@@ -146,10 +244,30 @@ export default function ClientPage() {
             const formatted = data.map(r => ({
                 ...r,
                 date: r.created_at, // Map created_at to date
-                tags: r.tags || [r.category] // Ensure tags exist
+                tags: r.tags || [r.category], // Ensure tags exist
+                // Infer service_type from tags if not set
+                service_type: r.service_type || inferServiceType(r.tags || [r.category]),
+                // Default is_verified to true if user_id exists
+                is_verified: r.is_verified ?? !!r.user_id,
+                helpful_count: r.helpful_count || 0
             }));
             setDbReviews(formatted);
+            
+            // Initialize helpful votes from database
+            const votesMap: Record<string, number> = {};
+            formatted.forEach(r => {
+                votesMap[r.id] = r.helpful_count || 0;
+            });
+            setHelpfulVotes(votesMap);
         }
+    };
+
+    // Infer service type from tags for backward compatibility
+    const inferServiceType = (tags: string[]): ReviewServiceType => {
+        if (tags.some(t => t.includes('เบอร์') || t.includes('โทร'))) return 'phone-analysis';
+        if (tags.some(t => t.includes('ชื่อ'))) return 'name-analysis';
+        if (tags.some(t => t.includes('วอลเปเปอร์'))) return 'wallpapers';
+        return 'general';
     };
 
     useEffect(() => {
@@ -305,20 +423,41 @@ export default function ClientPage() {
                                             review.nickname.charAt(0)
                                         )}
                                     </div>
-                                    <div>
-                                        <div className="text-white font-bold">{review.nickname}</div>
-                                        <div className="text-amber-500/80 text-xs font-medium uppercase tracking-wide flex items-center gap-2">
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-white font-bold">{review.nickname}</span>
+                                            {/* Verified Badge - E-E-A-T Signal */}
+                                            {review.is_verified && (
+                                                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 text-[10px] font-semibold border border-emerald-500/20">
+                                                    <BadgeCheck size={12} className="fill-emerald-400 text-emerald-900" />
+                                                    Verified
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="text-amber-500/80 text-xs font-medium uppercase tracking-wide flex items-center gap-2 flex-wrap">
                                             {review.role}
+                                            {/* Service Type with Internal Link - SEO */}
+                                            {review.service_type && SERVICE_INFO[review.service_type] && (
+                                                <>
+                                                    <span className="w-1 h-1 rounded-full bg-slate-600"></span>
+                                                    <Link 
+                                                        href={SERVICE_INFO[review.service_type].url}
+                                                        className="text-cyan-400 hover:text-cyan-300 hover:underline transition-colors normal-case"
+                                                    >
+                                                        ใช้บริการ: {SERVICE_INFO[review.service_type].shortName}
+                                                    </Link>
+                                                </>
+                                            )}
+                                            {/* Date with <time> tag for SEO - ISO 8601 datetime */}
                                             {review.date && (
                                                 <>
                                                     <span className="w-1 h-1 rounded-full bg-slate-600"></span>
-                                                    <span className="text-slate-500">
-                                                        {new Date(review.date).toLocaleDateString('th-TH', {
-                                                            day: 'numeric',
-                                                            month: 'short',
-                                                            year: '2-digit'
-                                                        })}
-                                                    </span>
+                                                    <time 
+                                                        dateTime={formatDateForSEO(review.date).isoDate}
+                                                        className="text-slate-500"
+                                                    >
+                                                        {formatDateForSEO(review.date).thaiDate}
+                                                    </time>
                                                 </>
                                             )}
                                         </div>
@@ -348,12 +487,45 @@ export default function ClientPage() {
                                     </div>
                                 )}
 
+                                {/* Tags - Clickable for Internal Linking */}
                                 <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5">
                                     {review.tags.map((tag) => (
-                                        <span key={tag} className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                                        <Link 
+                                            key={tag} 
+                                            href={TAG_URLS[tag] || `/reviews?category=${encodeURIComponent(tag)}`}
+                                            className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 hover:bg-indigo-500/20 hover:text-indigo-200 transition-colors"
+                                        >
                                             #{tag}
-                                        </span>
+                                        </Link>
                                     ))}
+                                </div>
+
+                                {/* Helpful Vote & Share - User Engagement */}
+                                <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/5">
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); handleHelpfulVote(review.id); }}
+                                        disabled={userVotedReviews.has(review.id)}
+                                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                                            userVotedReviews.has(review.id)
+                                                ? 'bg-amber-500/20 text-amber-400 cursor-default'
+                                                : 'bg-white/5 text-slate-400 hover:bg-amber-500/10 hover:text-amber-400'
+                                        }`}
+                                    >
+                                        <ThumbsUp size={14} className={userVotedReviews.has(review.id) ? 'fill-amber-400' : ''} />
+                                        <span>มีประโยชน์</span>
+                                        {(helpfulVotes[review.id] || 0) > 0 && (
+                                            <span className="px-1.5 py-0.5 rounded-md bg-white/10 text-amber-400 font-semibold">
+                                                {helpfulVotes[review.id]}
+                                            </span>
+                                        )}
+                                    </button>
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); handleShareReview(review); }}
+                                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
+                                    >
+                                        <Share2 size={14} />
+                                        <span>แชร์</span>
+                                    </button>
                                 </div>
                             </motion.div>
                         ))}

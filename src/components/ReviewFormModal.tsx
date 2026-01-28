@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { X, Star, Send, Sparkles, MessageCircle, Gift } from 'lucide-react';
+import { X, Star, Send, Sparkles, MessageCircle, Gift, Briefcase } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { supabase } from '@/utils/supabase'; // Import supabase
+import { ReviewServiceType } from '@/types';
 
 interface ReviewFormModalProps {
     isOpen: boolean;
@@ -15,6 +16,7 @@ interface ReviewFormModalProps {
         content: string;
         rating: number;
         tags: string[];
+        service_type?: ReviewServiceType;
     } | null;
     onSuccess?: () => void;
 }
@@ -27,10 +29,21 @@ const CATEGORIES = [
     { id: 'โชคลาภ', label: 'โชคลาภ 🍀' }
 ];
 
+// Service types for the review - helps with SEO
+const SERVICE_TYPES: { id: ReviewServiceType; label: string }[] = [
+    { id: 'name-analysis', label: '🔮 วิเคราะห์ชื่อมงคล' },
+    { id: 'phone-analysis', label: '📱 วิเคราะห์เบอร์มงคล' },
+    { id: 'premium-search', label: '👑 ค้นหาชื่อพรีเมียม' },
+    { id: 'premium-analysis', label: '💎 วิเคราะห์แบบพรีเมียม' },
+    { id: 'wallpapers', label: '🎨 วอลเปเปอร์มงคล' },
+    { id: 'general', label: '📝 ทั่วไป' }
+];
+
 export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClose, initialData, onSuccess }) => {
     const [step, setStep] = useState<'form' | 'success'>('form');
     const [rating, setRating] = useState(initialData?.rating || 5);
     const [hoverRating, setHoverRating] = useState(0);
+    const [serviceType, setServiceType] = useState<ReviewServiceType>(initialData?.service_type || 'general');
     const [formData, setFormData] = useState<{
         nickname: string;
         role: string;
@@ -56,6 +69,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                     content: initialData.content
                 });
                 setRating(initialData.rating);
+                setServiceType(initialData.service_type || 'general');
             } else {
                 // Reset for new entry
                 setFormData({
@@ -65,6 +79,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                     content: ''
                 });
                 setRating(5);
+                setServiceType('general');
             }
         }
     }, [isOpen, initialData]);
@@ -107,6 +122,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                         category: formData.categories[0],
                         rating: rating,
                         tags: tags,
+                        service_type: serviceType, // SEO: Add service type
                         // status: 'pending' // Optionally reset status to pending on edit if you want re-approval
                         // For now let's assume if they edit it, it might need re-approval, or just let it be.
                         // Let's safe side: usually edits require re-approval. But for user simplicity, let's keep approved if it was approved, 
@@ -140,7 +156,8 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                     p_content: formData.content,
                     p_category: formData.categories[0], // Use first category as primary
                     p_rating: rating,
-                    p_tags: tags
+                    p_tags: tags,
+                    p_service_type: serviceType // SEO: Add service type
                 });
 
                 if (error) {
@@ -284,6 +301,32 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                                                     }`}
                                             >
                                                 {cat.label}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+                            {/* Service Type Selector - SEO Enhancement */}
+                            <div>
+                                <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1 flex items-center gap-2">
+                                    <Briefcase size={14} className="text-cyan-400" />
+                                    บริการที่ใช้
+                                </label>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                    {SERVICE_TYPES.map(service => {
+                                        const isSelected = serviceType === service.id;
+                                        return (
+                                            <button
+                                                key={service.id}
+                                                type="button"
+                                                onClick={() => setServiceType(service.id)}
+                                                className={`px-2 py-2 rounded-lg text-[10px] sm:text-xs font-medium border transition-all text-left ${isSelected
+                                                    ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 shadow-lg shadow-cyan-500/10'
+                                                    : 'bg-slate-900/50 text-slate-400 border-slate-700 hover:border-slate-500'
+                                                    }`}
+                                            >
+                                                {service.label}
                                             </button>
                                         );
                                     })}

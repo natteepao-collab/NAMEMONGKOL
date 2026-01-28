@@ -85,6 +85,15 @@ export interface Wallpaper {
 }
 
 
+// Service types for reviews - SEO optimized with internal links
+export type ReviewServiceType = 
+    | 'name-analysis'      // วิเคราะห์ชื่อ
+    | 'phone-analysis'     // วิเคราะห์เบอร์มงคล
+    | 'premium-search'     // ค้นหาชื่อมงคลพรีเมียม
+    | 'premium-analysis'   // วิเคราะห์ชื่อแบบพรีเมียม
+    | 'wallpapers'         // วอลเปเปอร์มงคล
+    | 'general';           // ทั่วไป
+
 export interface Review {
     id: string;
     nickname: string;
@@ -99,4 +108,7 @@ export interface Review {
     category?: string;
     status?: 'pending' | 'approved' | 'rejected';
     user_id?: string; // Owner ID
+    service_type?: ReviewServiceType; // บริการที่ใช้ - สำหรับ SEO
+    is_verified?: boolean; // ผู้ใช้ที่ยืนยันแล้ว - E-E-A-T
+    helpful_count?: number; // จำนวนคนที่กด Helpful
 }

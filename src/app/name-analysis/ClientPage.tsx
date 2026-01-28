@@ -2,7 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, Trash2, ClipboardList, CheckCircle2, Download, XCircle, Info, Hash, Save, ArrowDownWideNarrow, Printer, Coins, PlayCircle, LogIn } from 'lucide-react';
+import Link from 'next/link';
+import { Search, Trash2, ClipboardList, CheckCircle2, Download, XCircle, Info, Hash, Save, ArrowDownWideNarrow, Printer, Coins, PlayCircle, LogIn, Sparkles, Users, FileSpreadsheet, Zap, HelpCircle } from 'lucide-react';
 import { analyzeName } from '@/utils/nameAnalysis';
 import { NameAnalysisDetailCard } from '@/components/NameAnalysisDetailCard';
 // import { toPng } from 'html-to-image';
@@ -632,6 +633,316 @@ export default function NameAnalysisPage() {
                             </div>
                         </div>
                     </div>
+
+                    {/* ==================== SEO Content Sections ==================== */}
+
+                    {/* Why Bulk Analysis */}
+                    <section className="mt-20 mb-12 max-w-5xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-purple-300 mb-4">
+                            ทำไมต้องใช้ Bulk Analysis วิเคราะห์ชื่อแบบกลุ่ม?
+                        </h2>
+                        <p className="text-center text-slate-400 mb-10 max-w-2xl mx-auto">
+                            เครื่องมือที่ช่วยให้คุณตรวจสอบและเปรียบเทียบชื่อหลายชื่อได้ในคลิกเดียว ประหยัดเวลา และตัดสินใจได้แม่นยำขึ้น
+                        </p>
+                        <div className="grid md:grid-cols-4 gap-6">
+                            <article className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 text-center hover:border-indigo-500/30 transition-all group">
+                                <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <Zap className="w-7 h-7 text-indigo-400" />
+                                </div>
+                                <h3 className="font-semibold text-slate-200 mb-2">รวดเร็วทันใจ</h3>
+                                <p className="text-slate-400 text-sm">
+                                    วิเคราะห์ได้สูงสุด 1,000 ชื่อพร้อมกันในไม่กี่วินาที ไม่ต้องพิมพ์ทีละชื่อ
+                                </p>
+                            </article>
+                            <article className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 text-center hover:border-indigo-500/30 transition-all group">
+                                <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <ArrowDownWideNarrow className="w-7 h-7 text-emerald-400" />
+                                </div>
+                                <h3 className="font-semibold text-slate-200 mb-2">จัดเกรดอัตโนมัติ</h3>
+                                <p className="text-slate-400 text-sm">
+                                    ระบบจัดเกรด A+, A, B, C อัตโนมัติ พร้อมเรียงลำดับจากดีที่สุด
+                                </p>
+                            </article>
+                            <article className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 text-center hover:border-indigo-500/30 transition-all group">
+                                <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <FileSpreadsheet className="w-7 h-7 text-amber-400" />
+                                </div>
+                                <h3 className="font-semibold text-slate-200 mb-2">Export CSV/PDF</h3>
+                                <p className="text-slate-400 text-sm">
+                                    ดาวน์โหลดผลลัพธ์เป็น Excel หรือ PDF สำหรับพิมพ์หรือแชร์ได้ทันที
+                                </p>
+                            </article>
+                            <article className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 text-center hover:border-indigo-500/30 transition-all group">
+                                <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-rose-500/20 to-pink-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <Users className="w-7 h-7 text-rose-400" />
+                                </div>
+                                <h3 className="font-semibold text-slate-200 mb-2">เหมาะกับทุกคน</h3>
+                                <p className="text-slate-400 text-sm">
+                                    พ่อแม่ตั้งชื่อลูก, ผู้เปลี่ยนชื่อ, นักเลขศาสตร์, HR บริษัท
+                                </p>
+                            </article>
+                        </div>
+                    </section>
+
+                    {/* Pricing Tiers Table */}
+                    <section className="mt-16 mb-12 max-w-4xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-orange-300 mb-8">
+                            ราคาตามจำนวนรายชื่อ
+                        </h2>
+                        <div className="grid md:grid-cols-3 gap-6">
+                            {/* Entry Tier */}
+                            <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-emerald-500/30 transition-all">
+                                <div className="text-center mb-6">
+                                    <span className="inline-block px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-bold rounded-full mb-3">ENTRY</span>
+                                    <h3 className="text-xl font-bold text-slate-200">1 - 10 ชื่อ</h3>
+                                    <div className="mt-4">
+                                        <span className="text-4xl font-bold text-emerald-400">5</span>
+                                        <span className="text-slate-400 ml-1">เครดิต</span>
+                                    </div>
+                                </div>
+                                <ul className="space-y-2 text-sm text-slate-400">
+                                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> เหมาะสำหรับทดลองใช้</li>
+                                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> ตั้งชื่อลูก 2-3 ตัวเลือก</li>
+                                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> ผลลัพธ์ครบทุกฟีเจอร์</li>
+                                </ul>
+                            </div>
+                            {/* Standard Tier */}
+                            <div className="bg-gradient-to-b from-indigo-500/10 to-purple-500/10 border border-indigo-500/30 rounded-2xl p-6 relative scale-105 shadow-xl shadow-indigo-500/10">
+                                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                                    <span className="px-4 py-1 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs font-bold rounded-full">แนะนำ</span>
+                                </div>
+                                <div className="text-center mb-6">
+                                    <span className="inline-block px-3 py-1 bg-indigo-500/10 text-indigo-400 text-xs font-bold rounded-full mb-3">STANDARD</span>
+                                    <h3 className="text-xl font-bold text-slate-200">11 - 100 ชื่อ</h3>
+                                    <div className="mt-4">
+                                        <span className="text-4xl font-bold text-indigo-400">30</span>
+                                        <span className="text-slate-400 ml-1">เครดิต</span>
+                                    </div>
+                                </div>
+                                <ul className="space-y-2 text-sm text-slate-400">
+                                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-400" /> เหมาะสำหรับเปรียบเทียบ</li>
+                                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-400" /> มีหลายตัวเลือกให้เลือก</li>
+                                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-400" /> คุ้มค่าที่สุด!</li>
+                                </ul>
+                            </div>
+                            {/* Power User Tier */}
+                            <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-amber-500/30 transition-all">
+                                <div className="text-center mb-6">
+                                    <span className="inline-block px-3 py-1 bg-amber-500/10 text-amber-400 text-xs font-bold rounded-full mb-3">POWER USER</span>
+                                    <h3 className="text-xl font-bold text-slate-200">101 - 1,000 ชื่อ</h3>
+                                    <div className="mt-4">
+                                        <span className="text-4xl font-bold text-amber-400">100</span>
+                                        <span className="text-slate-400 ml-1">เครดิต</span>
+                                    </div>
+                                </div>
+                                <ul className="space-y-2 text-sm text-slate-400">
+                                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-amber-400" /> สำหรับนักเลขศาสตร์</li>
+                                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-amber-400" /> HR วิเคราะห์พนักงาน</li>
+                                    <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-amber-400" /> ประมวลผลจำนวนมาก</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* How to Use Steps */}
+                    <section className="mt-16 mb-12 max-w-3xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-300 mb-8">
+                            วิธีใช้งานใน 3 ขั้นตอน
+                        </h2>
+                        <div className="space-y-6">
+                            <div className="flex gap-5 items-start bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-cyan-500/30 transition-all">
+                                <div className="w-12 h-12 flex-shrink-0 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-cyan-500/20">
+                                    1
+                                </div>
+                                <div>
+                                    <h3 className="font-semibold text-slate-200 mb-2">วางรายชื่อที่ต้องการวิเคราะห์</h3>
+                                    <p className="text-slate-400 text-sm">
+                                        พิมพ์หรือ Copy/Paste รายชื่อลงในช่อง โดยใส่ <strong className="text-cyan-400">1 ชื่อต่อ 1 บรรทัด</strong> รองรับสูงสุด 1,000 ชื่อต่อครั้ง
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex gap-5 items-start bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-cyan-500/30 transition-all">
+                                <div className="w-12 h-12 flex-shrink-0 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-cyan-500/20">
+                                    2
+                                </div>
+                                <div>
+                                    <h3 className="font-semibold text-slate-200 mb-2">กดปุ่ม &quot;เริ่มวิเคราะห์&quot;</h3>
+                                    <p className="text-slate-400 text-sm">
+                                        ระบบจะตัดเครดิตตามจำนวนชื่อ (5/30/100 เครดิต) และประมวลผลทันที ใช้เวลาไม่ถึง 5 วินาที
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex gap-5 items-start bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-cyan-500/30 transition-all">
+                                <div className="w-12 h-12 flex-shrink-0 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-cyan-500/20">
+                                    3
+                                </div>
+                                <div>
+                                    <h3 className="font-semibold text-slate-200 mb-2">ดูผลลัพธ์และ Export</h3>
+                                    <p className="text-slate-400 text-sm">
+                                        ดูเกรด, ผลรวม, คู่ตัวเลข และวันที่ใช้ได้ จัดเรียงตามเกรด และ Export เป็น <strong className="text-cyan-400">CSV</strong> หรือ <strong className="text-cyan-400">PDF</strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Use Cases */}
+                    <section className="mt-16 mb-12 max-w-4xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-rose-300 to-pink-300 mb-8">
+                            ใครควรใช้ Bulk Analysis?
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-rose-500/30 transition-all">
+                                <h3 className="font-semibold text-slate-200 mb-3 flex items-center gap-2">
+                                    <span className="text-2xl">👶</span> พ่อแม่ที่กำลังตั้งชื่อลูก
+                                </h3>
+                                <p className="text-slate-400 text-sm">
+                                    มีรายชื่อที่ชอบหลายชื่อ? วางทั้งหมดแล้วให้ระบบจัดเกรดและเปรียบเทียบให้ เลือกชื่อที่ดีที่สุดได้ง่ายขึ้น
+                                </p>
+                            </div>
+                            <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-rose-500/30 transition-all">
+                                <h3 className="font-semibold text-slate-200 mb-3 flex items-center gap-2">
+                                    <span className="text-2xl">✨</span> ผู้ที่ต้องการเปลี่ยนชื่อ
+                                </h3>
+                                <p className="text-slate-400 text-sm">
+                                    คิดชื่อใหม่ไว้หลายตัวเลือก? วิเคราะห์พร้อมกันแล้วเลือกชื่อที่มีเกรด A+ เพื่อเปลี่ยนแปลงชีวิตให้ดีขึ้น
+                                </p>
+                            </div>
+                            <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-rose-500/30 transition-all">
+                                <h3 className="font-semibold text-slate-200 mb-3 flex items-center gap-2">
+                                    <span className="text-2xl">🔮</span> นักเลขศาสตร์และหมอดู
+                                </h3>
+                                <p className="text-slate-400 text-sm">
+                                    รับตั้งชื่อให้ลูกค้าหลายคน? ใช้ Bulk Analysis ประมวลผลรายชื่อจำนวนมากได้รวดเร็ว พร้อม Export รายงาน PDF
+                                </p>
+                            </div>
+                            <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-rose-500/30 transition-all">
+                                <h3 className="font-semibold text-slate-200 mb-3 flex items-center gap-2">
+                                    <span className="text-2xl">🏢</span> HR และฝ่ายบุคคล
+                                </h3>
+                                <p className="text-slate-400 text-sm">
+                                    วิเคราะห์ชื่อพนักงานหรือทีมงาน เพื่อดูภาพรวมความเป็นมงคลและความเหมาะสมในการทำงานร่วมกัน
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* FAQ Section */}
+                    <section className="mt-16 mb-12 max-w-3xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-violet-300 to-purple-300 mb-8">
+                            <HelpCircle className="inline-block w-7 h-7 mr-2 mb-1" />
+                            คำถามที่พบบ่อย (FAQ)
+                        </h2>
+                        <div className="space-y-4">
+                            <details className="group bg-white/[0.03] border border-white/10 rounded-xl p-5 cursor-pointer open:bg-white/[0.05] transition-colors">
+                                <summary className="font-semibold text-slate-200 list-none flex justify-between items-center">
+                                    Bulk Analysis วิเคราะห์ได้กี่ชื่อพร้อมกัน?
+                                    <span className="transition-transform group-open:rotate-180 text-violet-400">▼</span>
+                                </summary>
+                                <p className="mt-4 text-slate-400 text-sm pl-4 border-l-2 border-violet-500">
+                                    รองรับสูงสุด <strong className="text-violet-300">1,000 ชื่อต่อครั้ง</strong> โดยแบ่งเป็น 3 ระดับ: Entry (1-10 ชื่อ = 5 เครดิต), Standard (11-100 ชื่อ = 30 เครดิต), Power User (101-1,000 ชื่อ = 100 เครดิต)
+                                </p>
+                            </details>
+
+                            <details className="group bg-white/[0.03] border border-white/10 rounded-xl p-5 cursor-pointer open:bg-white/[0.05] transition-colors">
+                                <summary className="font-semibold text-slate-200 list-none flex justify-between items-center">
+                                    เกรด A+ หมายความว่าอย่างไร?
+                                    <span className="transition-transform group-open:rotate-180 text-violet-400">▼</span>
+                                </summary>
+                                <p className="mt-4 text-slate-400 text-sm pl-4 border-l-2 border-violet-500">
+                                    เกรด A+ คือชื่อที่มี<strong className="text-violet-300">ผลรวมเลขศาสตร์เป็นมงคลสูงสุด</strong> มีคู่ตัวเลขที่ดี (🟢) และใช้ได้กับหลายวันเกิด ถือเป็นชื่อที่แนะนำอย่างยิ่ง
+                                </p>
+                            </details>
+
+                            <details className="group bg-white/[0.03] border border-white/10 rounded-xl p-5 cursor-pointer open:bg-white/[0.05] transition-colors">
+                                <summary className="font-semibold text-slate-200 list-none flex justify-between items-center">
+                                    คู่ตัวเลข 🟢🟠🔴 หมายความว่าอย่างไร?
+                                    <span className="transition-transform group-open:rotate-180 text-violet-400">▼</span>
+                                </summary>
+                                <p className="mt-4 text-slate-400 text-sm pl-4 border-l-2 border-violet-500">
+                                    🟢 <strong className="text-emerald-400">สีเขียว</strong> = คู่ตัวเลขมงคล ส่งเสริมโชคลาภและบารมี<br />
+                                    🟠 <strong className="text-orange-400">สีส้ม</strong> = ปานกลาง ต้องอดทนแต่จะสำเร็จ<br />
+                                    🔴 <strong className="text-rose-400">สีแดง</strong> = ควรระวัง อาจมีอุปสรรคหรือปัญหาสุขภาพ
+                                </p>
+                            </details>
+
+                            <details className="group bg-white/[0.03] border border-white/10 rounded-xl p-5 cursor-pointer open:bg-white/[0.05] transition-colors">
+                                <summary className="font-semibold text-slate-200 list-none flex justify-between items-center">
+                                    สามารถ Export ผลลัพธ์ออกมาได้ไหม?
+                                    <span className="transition-transform group-open:rotate-180 text-violet-400">▼</span>
+                                </summary>
+                                <p className="mt-4 text-slate-400 text-sm pl-4 border-l-2 border-violet-500">
+                                    ได้! ระบบรองรับการ Export เป็น <strong className="text-violet-300">CSV</strong> สำหรับใช้ใน Excel/Google Sheets และ <strong className="text-violet-300">PDF</strong> สำหรับพิมพ์หรือแชร์
+                                </p>
+                            </details>
+
+                            <details className="group bg-white/[0.03] border border-white/10 rounded-xl p-5 cursor-pointer open:bg-white/[0.05] transition-colors">
+                                <summary className="font-semibold text-slate-200 list-none flex justify-between items-center">
+                                    ต่างจากวิเคราะห์ชื่อฟรีหน้าแรกอย่างไร?
+                                    <span className="transition-transform group-open:rotate-180 text-violet-400">▼</span>
+                                </summary>
+                                <p className="mt-4 text-slate-400 text-sm pl-4 border-l-2 border-violet-500">
+                                    <Link href="/" className="text-violet-400 hover:underline">หน้าแรก</Link> วิเคราะห์ทีละ 1 ชื่อ+นามสกุล ฟรี<br />
+                                    <strong className="text-violet-300">Bulk Analysis</strong> วิเคราะห์หลายชื่อพร้อมกัน (สูงสุด 1,000 ชื่อ) พร้อมจัดเกรดและเปรียบเทียบ
+                                </p>
+                            </details>
+                        </div>
+                    </section>
+
+                    {/* Internal Links */}
+                    <section className="mt-16 mb-12 max-w-4xl mx-auto">
+                        <h2 className="text-2xl font-bold text-center text-slate-300 mb-8">
+                            บริการอื่นๆ ที่เกี่ยวข้อง
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <Link
+                                href="/"
+                                className="group block bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-indigo-500/30 hover:bg-white/[0.05] transition-all"
+                            >
+                                <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-indigo-400 transition-colors">
+                                    🔮 วิเคราะห์ชื่อ-นามสกุล (ฟรี)
+                                </h3>
+                                <p className="text-slate-400 text-sm">
+                                    วิเคราะห์ชื่อ+นามสกุลทีละคู่ ดูคะแนนรวม เกรด และคำทำนายตามหลักเลขศาสตร์ ฟรีไม่จำกัด
+                                </p>
+                            </Link>
+                            <Link
+                                href="/search"
+                                className="group block bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-indigo-500/30 hover:bg-white/[0.05] transition-all"
+                            >
+                                <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-indigo-400 transition-colors">
+                                    🔍 ค้นหาชื่อมงคล
+                                </h3>
+                                <p className="text-slate-400 text-sm">
+                                    ค้นหาชื่อมงคลกว่า 5,000 ชื่อ กรองตามวันเกิด เพศ และผลรวมตัวเลขที่ต้องการ
+                                </p>
+                            </Link>
+                            <Link
+                                href="/premium-analysis"
+                                className="group block bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-amber-500/30 hover:bg-white/[0.05] transition-all"
+                            >
+                                <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-amber-400 transition-colors">
+                                    💎 วิเคราะห์ชื่อขั้นสูง (Premium)
+                                </h3>
+                                <p className="text-slate-400 text-sm">
+                                    วิเคราะห์เชิงลึกด้วย AI รวมถึงอายตนะ เงาอำนาจ และ Wallpaper มงคลสำหรับมือถือ
+                                </p>
+                            </Link>
+                            <Link
+                                href="/phone-analysis"
+                                className="group block bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-indigo-500/30 hover:bg-white/[0.05] transition-all"
+                            >
+                                <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-indigo-400 transition-colors">
+                                    📱 วิเคราะห์เบอร์มือถือมงคล
+                                </h3>
+                                <p className="text-slate-400 text-sm">
+                                    ตรวจสอบความมงคลของเบอร์มือถือตามหลักเลขศาสตร์ไทย พร้อมคำทำนาย
+                                </p>
+                            </Link>
+                        </div>
+                    </section>
+
+                    {/* ==================== End SEO Content Sections ==================== */}
                 </div>
             </main>
             {/* Detail Modal */}

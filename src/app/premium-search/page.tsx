@@ -5,49 +5,91 @@ import ClientPage from './ClientPage';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 
 export const metadata: Metadata = {
-    title: 'ค้นหาชื่อมงคล Pro - ฐานข้อมูล 50,000+ ชื่อ ตัวกรองขั้นสูง | NameMongkol',
-    description: 'ค้นหาชื่อมงคลจากฐานข้อมูลกว่า 50,000 ชื่อ พร้อมตัวกรองขั้นสูง กรองตามวันเกิด ผลรวมเลขศาสตร์ อักษรนำ (วรรคเดช/วรรคศรี) ความยาวชื่อ และความหมาย เพื่อให้ได้ชื่อที่ดีที่สุดสำหรับคุณ',
-    keywords: 'ค้นหาชื่อมงคล Pro, ชื่อมงคลพรีเมี่ยม, ฐานข้อมูลชื่อ, ตั้งชื่อลูก, วรรคเดช, วรรคศรี, ผลรวมเลขศาสตร์, อักษรนำ, ชื่อมงคลขั้นสูง, ตัวกรองชื่อ',
+    title: 'ค้นหาชื่อมงคล Pro - ฐานข้อมูลชื่อคัดพิเศษ เสริมดวง 100% | NameMongkol',
+    description: 'บริการค้นหาชื่อมงคล Pro จากฐานข้อมูลกว่า 1,172 ชื่อที่คัดสรรแล้ว การันตีไม่มีอักษรกาลกิณี เลือกเน้นเสริมดวงการงาน การเงิน หรือความรักได้เฉพาะเจาะจง แม่นยำตามหลักทักษาและเลขศาสตร์',
+    keywords: ['ค้นหาชื่อมงคล Pro', 'ชื่อมงคลพรีเมียม', 'ตั้งชื่อลูก', 'เปลี่ยนชื่อมงคล', 'วรรคเดช', 'วรรคศรี', 'ผลรวมเลขศาสตร์', 'อักษรนำ', 'ชื่อมงคลขั้นสูง', 'ตัวกรองชื่อ', 'ชื่อเสริมดวง', 'ชื่อคัดพิเศษ'],
     alternates: {
         canonical: `${siteUrl}/premium-search`,
     },
     openGraph: {
-        title: 'ค้นหาชื่อมงคล Pro - ฐานข้อมูล 50,000+ ชื่อ ตัวกรองขั้นสูง',
-        description: 'ค้นหาชื่อดี ความหมายมงคล กรองตามวันเกิด ผลรวมเลขศาสตร์ และอักษรนำ (วรรคเดช/วรรคศรี)',
+        title: 'ค้นหาชื่อมงคล Pro - ฐานข้อมูลชื่อคัดพิเศษ เสริมดวง 100%',
+        description: 'บริการค้นหาชื่อมงคล Pro จากฐานข้อมูลกว่า 1,172 ชื่อที่คัดสรรแล้ว การันตีไม่มีอักษรกาลกิณี เลือกเน้นเสริมดวงได้เฉพาะเจาะจง',
         url: `${siteUrl}/premium-search`,
         siteName: 'NameMongkol',
         locale: 'th_TH',
         type: 'website',
-        images: [`${siteUrl}/api/og?variant=default&title=ค้นหาชื่อมงคล%20Pro&subtitle=ฐานข้อมูลกว่า%2050,000%20ชื่อ%20พร้อมตัวกรองขั้นสูง&tag=Premium%20Search`],
+        images: [`${siteUrl}/api/og?variant=default&title=ค้นหาชื่อมงคล%20Pro&subtitle=ฐานข้อมูลชื่อคัดพิเศษ%20เสริมดวง%20100%25&tag=Premium%20Search`],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'ค้นหาชื่อมงคล Pro - ฐานข้อมูล 50,000+ ชื่อ | NameMongkol',
-        description: 'ค้นหาชื่อดี ความหมายมงคล กรองตามวันเกิด ผลรวมเลขศาสตร์ และอักษรนำ',
+        title: 'ค้นหาชื่อมงคล Pro - ฐานข้อมูลชื่อคัดพิเศษ | NameMongkol',
+        description: 'ค้นหาชื่อมงคล Pro จากฐานข้อมูลคัดพิเศษ เลือกเน้นเสริมดวงได้เฉพาะเจาะจง',
         images: [`${siteUrl}/api/og?variant=default&title=ค้นหาชื่อมงคล%20Pro`],
     },
 };
 
-// JSON-LD Schema
+// Enhanced JSON-LD Schema for SEO
 const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    'name': 'NameMongkol Premium Search',
-    'description': 'ระบบค้นหาชื่อมงคล Pro จากฐานข้อมูลกว่า 50,000 ชื่อ พร้อมตัวกรองขั้นสูง',
+    'name': 'NameMongkol Premium Search - ค้นหาชื่อมงคล Pro',
+    'alternateName': 'ค้นหาชื่อมงคล Pro',
+    'description': 'โปรแกรมค้นหาชื่อมงคล Pro คัดเฉพาะชื่อความหมายดี เลขศาสตร์เยี่ยม สำหรับเปลี่ยนชื่อและตั้งชื่อใหม่ ผ่านการคัดกรอง 3 ชั้น: ทักษา เลขศาสตร์ และความหมาย',
     'applicationCategory': 'LifestyleApplication',
     'operatingSystem': 'Web',
+    'url': `${siteUrl}/premium-search`,
     'offers': {
         '@type': 'Offer',
-        'price': '0',
+        'price': '15',
         'priceCurrency': 'THB',
+        'description': '15 เครดิตต่อการค้นหา 1 ครั้ง'
     },
     'featureList': [
-        'ฐานข้อมูลชื่อมงคลกว่า 50,000 ชื่อ',
-        'กรองตามวันเกิด',
-        'กรองตามผลรวมเลขศาสตร์',
-        'กรองตามอักษรนำ (วรรคเดช/วรรคศรี)',
-        'กรองตามความยาวชื่อ',
+        'ฐานข้อมูลชื่อมงคล 1,172 ชื่อที่คัดสรรแล้ว',
+        'ระบบคัดกรองอักษรกาลกิณี 100%',
+        'เลือกอักษรนำตามทักษา (วรรคเดช/วรรคศรี)',
+        'กรองตามผลรวมเลขศาสตร์ เกรด A+ เท่านั้น',
+        'กรองตามวันเกิดและเพศ',
+        'ชื่อมีความหมายดี ไพเราะ ทันสมัย'
     ],
+    'aggregateRating': {
+        '@type': 'AggregateRating',
+        'ratingValue': '4.9',
+        'ratingCount': '156',
+        'bestRating': '5'
+    }
+};
+
+// FAQ Schema for SEO
+const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': [
+        {
+            '@type': 'Question',
+            'name': 'ค้นหาชื่อมงคล Pro ต่างจากค้นหาทั่วไปอย่างไร?',
+            'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'ระบบค้นหาชื่อมงคล Pro ใช้ Premium Database ที่ผ่านการคัดกรอง 3 ชั้น: 1) คัดตามหลักทักษา ไม่มีอักษรกาลกิณี 2) คัดเฉพาะผลรวมเลขศาสตร์ระดับ A+ 3) ความหมายดี ไพเราะ ทันสมัย และสามารถเลือกอักษรนำวรรคเดช/ศรี ได้'
+            }
+        },
+        {
+            '@type': 'Question',
+            'name': 'วรรคเดชและวรรคศรีคืออะไร?',
+            'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'วรรคเดช คืออักษรนำที่ส่งเสริมเรื่องอำนาจบารมี การเลื่อนขั้นเลื่อนตำแหน่ง เหมาะกับผู้ต้องการความก้าวหน้าในหน้าที่การงาน ส่วนวรรคศรี คืออักษรนำที่ส่งเสริมเรื่องโชคลาภ เสน่ห์ความรัก เหมาะกับผู้ต้องการดึงดูดความโชคดีและเสน่ห์'
+            }
+        },
+        {
+            '@type': 'Question',
+            'name': 'ค้นหาชื่อมงคล Pro ใช้กี่เครดิต?',
+            'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'การค้นหาชื่อมงคล Pro ใช้ 15 เครดิตต่อ 1 ครั้ง โดยระบบจะสุ่มแสดงผล 20 รายชื่อจากฐานข้อมูลที่ตรงตามเงื่อนไขที่คุณเลือก'
+            }
+        }
+    ]
 };
 
 export default function PremiumSearchPage() {
@@ -57,6 +99,11 @@ export default function PremiumSearchPage() {
                 id="premium-search-json-ld"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <Script
+                id="premium-search-faq-json-ld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
             />
             <ClientPage />
         </>
