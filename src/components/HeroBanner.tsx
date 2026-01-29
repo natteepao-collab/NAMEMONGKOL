@@ -2,8 +2,11 @@
 
 import React from 'react';
 import { Target, Zap } from 'lucide-react';
+import { useLanguage } from './LanguageProvider';
 
 export const HeroBanner = () => {
+    const { t } = useLanguage();
+
     return (
         <div className="relative mb-6">
             <div className="relative bg-[#0F172A] rounded-2xl p-6 border border-slate-700/50 shadow-2xl overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6 group">
@@ -22,12 +25,12 @@ export const HeroBanner = () => {
 
                     {/* Title */}
                     <h1 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-3 tracking-tight">
-                        วิเคราะห์<span className="text-emerald-400">ชื่อมงคลฟรี</span>: <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 drop-shadow-[0_2px_10px_rgba(251,191,36,0.2)]">พลิกชีวิต</span> ปลดล็อคดวงชะตาเศรษฐี
+                        {t('home.hero.titlePrefix')}<span className="text-emerald-400">{t('home.hero.titleHighlight')}</span>: <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 drop-shadow-[0_2px_10px_rgba(251,191,36,0.2)]">{t('home.hero.titleSuffix')}</span>
                     </h1>
 
                     {/* Description */}
                     <p className="text-slate-300 text-sm leading-relaxed max-w-lg mb-2">
-                        <span className="text-amber-400 font-semibold">&quot;เปลี่ยนชื่อ เปลี่ยนชีวิต&quot;</span> ตรวจสอบดวงชะตาที่ซ่อนอยู่ในชื่อของคุณด้วย <strong>4 ศาสตร์ศักดิ์สิทธิ์</strong>: เลขศาสตร์, ทักษาปกรณ์, อายตนะ 6 และนิรันดร์ศาสตร์ แม่นยำที่สุดด้วยระบบ AI
+                        {t('home.hero.description')}
                     </p>
                 </div>
 
@@ -38,7 +41,7 @@ export const HeroBanner = () => {
                         <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <Target className="w-5 h-5 text-emerald-400 mb-1" />
                         <span className="block text-lg font-bold text-white leading-none">99%</span>
-                        <span className="text-[9px] text-slate-400 uppercase font-medium tracking-wide">แม่นยำ</span>
+                        <span className="text-[9px] text-slate-400 uppercase font-medium tracking-wide">{t('home.hero.statAccuracy')}</span>
                     </div>
 
                     {/* AI / Speed Card */}
@@ -46,7 +49,7 @@ export const HeroBanner = () => {
                         <div className="absolute inset-0 bg-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                         <Zap className="w-5 h-5 text-amber-400 mb-1" />
                         <span className="block text-lg font-bold text-white leading-none">AI</span>
-                        <span className="text-[9px] text-slate-400 uppercase font-medium tracking-wide">รวดเร็ว</span>
+                        <span className="text-[9px] text-slate-400 uppercase font-medium tracking-wide">{t('home.hero.statSpeed')}</span>
                     </div>
                 </div>
 

@@ -11,8 +11,9 @@ import { supabase } from '@/utils/supabase';
 import { getPrediction } from '@/utils/getPrediction';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { thaksaConfig } from '@/data/thaksaConfig';
+import { thaksaConfig } from '@/data/thaksa';
 import { DayKey } from '@/types';
+import { useLanguage } from '@/components/LanguageProvider';
 
 type LeadingCharType = 'Any' | 'Dech' | 'Si';
 
@@ -40,6 +41,7 @@ function ScoreDropdown({
 }) {
     const [open, setOpen] = useState(false);
     const rootRef = useRef<HTMLDivElement | null>(null);
+    const { t } = useLanguage();
 
     useEffect(() => {
         if (!open) return;
@@ -73,7 +75,9 @@ function ScoreDropdown({
         }
     }, [disabled]);
 
-    const selectedLabel = value ? `ผลรวม ${value}` : 'ทุกผลรวม';
+    const selectedLabel = value
+        ? `${t('pages.premiumSearch.filters.scorePrefix') || ''} ${value}`.trim()
+        : t('pages.premiumSearch.filters.scoreAny');
 
     return (
         <div ref={rootRef} className="relative">
@@ -103,7 +107,7 @@ function ScoreDropdown({
                             : 'text-slate-200 hover:bg-white/5 hover:text-white'
                             }`}
                     >
-                        ทุกผลรวม
+                        {t('pages.premiumSearch.filters.scoreAny')}
                     </button>
                     {scores.map(score => {
                         const { desc, color, level } = getPrediction(score);
@@ -123,7 +127,7 @@ function ScoreDropdown({
                                 <div className="flex flex-col flex-1 min-w-0 mr-4">
                                     <div className="flex items-center gap-2 mb-0.5">
                                         <span className={`font-medium transition-colors ${value === score.toString() ? 'text-white' : 'text-slate-200 group-hover/item:text-amber-400'}`}>
-                                            ผลรวม {score}
+                                            {(t('pages.premiumSearch.filters.scorePrefix') || '').trim()} {score}
                                         </span>
                                         <span className={`text-[10px] px-1.5 py-0.5 rounded-md bg-white/5 border border-white/5 ${color}`}>
                                             {level}
@@ -145,6 +149,7 @@ function ScoreDropdown({
 
 export default function PremiumSearchPage() {
     const router = useRouter();
+    const { t } = useLanguage();
     // Inputs
     // Inputs
     // const [searchTerm, setSearchTerm] = useState(''); // Removed
@@ -158,6 +163,20 @@ export default function PremiumSearchPage() {
     const [searchResults, setSearchResults] = useState<PremiumNameData[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [userCredits, setUserCredits] = useState<number | null>(null);
+
+    const dayOptions = useMemo(() => ([
+        { value: 'All', label: t('pages.premiumSearch.filters.dayAll') },
+        { value: 'อาทิตย์', label: t('pages.premiumSearch.days.sunday') },
+        { value: 'จันทร์', label: t('pages.premiumSearch.days.monday') },
+        { value: 'อังคาร', label: t('pages.premiumSearch.days.tuesday') },
+        { value: 'พุธ(กลางวัน)', label: t('pages.premiumSearch.days.wednesday') },
+        { value: 'พุธ(กลางคืน)', label: t('pages.premiumSearch.days.wednesday_night') },
+        { value: 'พฤหัสบดี', label: t('pages.premiumSearch.days.thursday') },
+        { value: 'ศุกร์', label: t('pages.premiumSearch.days.friday') },
+        { value: 'เสาร์', label: t('pages.premiumSearch.days.saturday') },
+    ]), [t]);
+
+    const getDayLabel = (value: string) => dayOptions.find(opt => opt.value === value)?.label || value;
 
     // Load Data & Credits
     const allNames = useMemo(() => parsePremiumNames(premiumNamesRaw), []);
@@ -182,8 +201,6 @@ export default function PremiumSearchPage() {
         fetchCredits();
     }, []);
 
-    const daysOfWeek = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ(กลางวัน)', 'พุธ(กลางคืน)', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
-
     const handleSearch = async () => {
         // @ts-ignore
         const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
@@ -191,12 +208,12 @@ export default function PremiumSearchPage() {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
             const result = await Swal.fire({
-                title: 'กรุณาเข้าสู่ระบบ',
-                text: 'ท่านจำเป็นต้องเข้าสู่ระบบก่อนใช้งานฟีเจอร์ค้นหาชื่อมงคลขั้นสูง',
+                title: t('pages.premiumSearch.alerts.loginTitle'),
+                text: t('pages.premiumSearch.alerts.loginText'),
                 icon: 'info',
                 showCancelButton: true,
-                confirmButtonText: 'เข้าสู่ระบบ',
-                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: t('pages.premiumSearch.alerts.loginConfirm'),
+                cancelButtonText: t('pages.premiumSearch.alerts.loginCancel'),
                 confirmButtonColor: '#f59e0b',
                 background: '#1e293b',
                 color: '#fff'
@@ -211,12 +228,12 @@ export default function PremiumSearchPage() {
         // Check for insufficient credits first
         if (userCredits !== null && userCredits < 15) {
             const result = await Swal.fire({
-                title: 'เครดิตไม่เพียงพอ',
-                text: 'การค้นหาต้องใช้ 15 เครดิต ต้องการเติมเครดิตเลยหรือไม่?',
+                title: t('pages.premiumSearch.alerts.creditsTitle'),
+                text: t('pages.premiumSearch.alerts.creditsText'),
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'เติมเครดิต',
-                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: t('pages.premiumSearch.alerts.creditsConfirm'),
+                cancelButtonText: t('pages.premiumSearch.alerts.creditsCancel'),
                 confirmButtonColor: '#10b981', // Emerald 500
                 cancelButtonColor: '#64748b', // Slate 500
                 background: '#1e293b',
@@ -232,12 +249,12 @@ export default function PremiumSearchPage() {
 
         // Confirm Search
         const result = await Swal.fire({
-            title: 'ยืนยันการค้นหา',
-            text: 'ระบบจะหัก 15 เครดิตเพื่อค้นรหัสรายชื่อมงคลชุดใหม่',
+            title: t('pages.premiumSearch.alerts.confirmTitle'),
+            text: t('pages.premiumSearch.alerts.confirmText'),
             icon: 'question',
             showCancelButton: true,
-            confirmButtonText: 'ยืนยัน (ใช้ 15 เครดิต)',
-            cancelButtonText: 'ยกเลิก',
+            confirmButtonText: t('pages.premiumSearch.alerts.confirmConfirm'),
+            cancelButtonText: t('pages.premiumSearch.alerts.confirmCancel'),
             confirmButtonColor: '#059669', // Emerald 600
             cancelButtonColor: '#ef4444', // Red 500
             background: '#1e293b', // Slate 800
@@ -260,6 +277,9 @@ export default function PremiumSearchPage() {
 
             // 2. Perform Search
             await new Promise(resolve => setTimeout(resolve, 800)); // Fake delay for UX
+
+            console.log('Starting search with params:', { selectedDay, targetScore, selectedGender, leadingCharType });
+            console.log('Total names available:', allNames.length);
 
             // Filter
             // Filter
@@ -296,6 +316,8 @@ export default function PremiumSearchPage() {
 
                 return matchesScore && matchesGender && matchesDay && matchesLeadingChar;
             });
+
+            console.log('Filtered count:', filtered.length);
 
             // Shuffle and Limit to 30
             const shuffled = [...filtered].sort(() => 0.5 - Math.random());
@@ -343,10 +365,10 @@ export default function PremiumSearchPage() {
         } catch (err) {
             console.error('Search Error:', err);
             Swal.fire({
-                title: 'เกิดข้อผิดพลาด',
-                text: 'ไม่สามารถดำเนินการได้ในขณะนี้',
+                title: t('pages.premiumSearch.alerts.errorTitle'),
+                text: t('pages.premiumSearch.alerts.errorText'),
                 icon: 'error',
-                confirmButtonText: 'ตกลง',
+                confirmButtonText: 'OK',
                 background: '#1e293b',
                 color: '#fff'
             });
@@ -384,26 +406,27 @@ export default function PremiumSearchPage() {
                     <header className="text-center space-y-4">
                         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium animate-pulse">
                             <Sparkles size={14} />
-                            <span>Premium Database</span>
+                            <span>{t('pages.premiumSearch.headerBadge')}</span>
                         </div>
                         <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-teal-200 to-emerald-300 drop-shadow-[0_0_15px_rgba(52,211,153,0.3)]">
-                            ค้นหาชื่อมงคล Pro
+                            {t('pages.premiumSearch.headerTitle')}
                         </h1>
                         <div className="max-w-2xl mx-auto space-y-2">
                             <p className="text-slate-400">
-                                เข้าถึงฐานข้อมูลรายชื่อมงคลกว่า {allNames.length.toLocaleString()} รายชื่อ คัดสรรมาอย่างดี
+                                {t('pages.premiumSearch.headerDesc').replace('{count}', allNames.length.toLocaleString())}
                             </p>
                             <p className="text-emerald-300 font-medium text-lg">
-                                เลือกใช้อักษรทุกวรรค ยกเว้นวรรคกาลกิณี นำหน้าชื่อ
+                                {t('pages.premiumSearch.headerSub')}
                             </p>
 
                             <div className="mt-4 mx-auto w-fit bg-[#0F1C2E] border border-emerald-500/30 rounded-xl px-6 py-3 shadow-lg shadow-emerald-900/20">
                                 <p className="text-emerald-400 font-medium text-sm md:text-base">
-                                    💡 คำแนะนำ: ได้ชื่อที่ต้องการแล้วอย่าลืมนำไป <Link href="/" className="underline decoration-emerald-500/50 hover:text-emerald-300 transition-colors">วิเคราะห์ชื่อ - สกุล</Link> ก่อนนำไปใช้ด้วยนะครับ
+                                    {t('pages.premiumSearch.headerHint')}{' '}
+                                    <Link href="/" className="underline decoration-emerald-500/50 hover:text-emerald-300 transition-colors">{t('sidebar.analyzeName')}</Link>
                                 </p>
                             </div>
                             <p className="text-slate-500 text-sm pt-4">
-                                แสดงผล 20 รายชื่อต่อการค้นหาโดยการสุ่มจากผลลัพธ์ที่ตรงเงื่อนไข
+                                {t('pages.premiumSearch.headerNote')}
                             </p>
                         </div>
                     </header>
@@ -415,23 +438,21 @@ export default function PremiumSearchPage() {
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 relative z-10">
                             {/* Filters */}
                             <div className="md:col-span-4">
-                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">วันเกิดที่เหมาะสม</label>
+                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{t('pages.premiumSearch.filters.dayLabel')}</label>
                                 <div className="relative">
                                     <select
                                         value={selectedDay}
                                         onChange={(e) => {
                                             const newVal = e.target.value;
                                             setSelectedDay(newVal);
-                                            // Reset leading char if switching to 'All'
                                             if (newVal === 'All') setLeadingCharType('Any');
                                         }}
                                         className="block w-full px-4 py-4 bg-black/40 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:border-emerald-500/50 backdrop-blur-xl transition-all appearance-none cursor-pointer font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                                         disabled={isLoading}
                                     >
-                                        <option value="All">ทุกวันเกิด</option>
-                                        {daysOfWeek.map(day => (
-                                            <option key={day} value={day} className="bg-[#0f172a]">
-                                                {day}
+                                        {dayOptions.map(day => (
+                                            <option key={day.value} value={day.value} className="bg-[#0f172a]">
+                                                {day.label}
                                             </option>
                                         ))}
                                     </select>
@@ -442,12 +463,12 @@ export default function PremiumSearchPage() {
                             </div>
 
                             <div className="md:col-span-4">
-                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">ผลรวมเลขศาสตร์</label>
+                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{t('pages.premiumSearch.filters.scoreLabel')}</label>
                                 <ScoreDropdown value={targetScore} onChange={setTargetScore} scores={uniqueScores} disabled={isLoading} />
                             </div>
 
                             <div className="md:col-span-4">
-                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">เพศ</label>
+                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{t('pages.premiumSearch.filters.genderLabel')}</label>
                                 <div className="relative">
                                     <select
                                         value={selectedGender}
@@ -455,10 +476,10 @@ export default function PremiumSearchPage() {
                                         className="block w-full px-4 py-4 bg-black/40 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:border-emerald-500/50 backdrop-blur-xl transition-all appearance-none cursor-pointer font-medium text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                                         disabled={isLoading}
                                     >
-                                        <option value="all" className="bg-[#0f172a]">ทั้งหมด</option>
-                                        <option value="male" className="bg-[#0f172a]">ชาย</option>
-                                        <option value="female" className="bg-[#0f172a]">หญิง</option>
-                                        <option value="neutral" className="bg-[#0f172a]">ไม่ระบุ</option>
+                                        <option value="all" className="bg-[#0f172a]">{t('pages.premiumSearch.filters.genderAll')}</option>
+                                        <option value="male" className="bg-[#0f172a]">{t('pages.premiumSearch.filters.genderMale')}</option>
+                                        <option value="female" className="bg-[#0f172a]">{t('pages.premiumSearch.filters.genderFemale')}</option>
+                                        <option value="neutral" className="bg-[#0f172a]">{t('pages.premiumSearch.filters.genderNeutral')}</option>
                                     </select>
                                     <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
                                         <ChevronDown className="h-4 w-4" />
@@ -469,7 +490,10 @@ export default function PremiumSearchPage() {
                             {/* Leading Character Filter (Replaces Search) */}
                             <div className="md:col-span-12">
                                 <label className="block text-xs font-bold uppercase tracking-wider mb-4 text-slate-400 transition-colors">
-                                    อักษรนำ {selectedDay === 'All' && <span className="text-amber-500/80 ml-2 normal-case font-normal">(ผลลัพธ์จะแสดงเมื่อเลือกวันเกิด)</span>}
+                                    {t('pages.premiumSearch.leading.label')}{' '}
+                                    {selectedDay === 'All' && (
+                                        <span className="text-amber-500/80 ml-2 normal-case font-normal">{t('pages.premiumSearch.leading.hint')}</span>
+                                    )}
                                 </label>
                                 <div className="flex flex-wrap items-center gap-6">
                                     <label className="flex items-center gap-3 cursor-pointer group">
@@ -485,7 +509,7 @@ export default function PremiumSearchPage() {
                                             <div className="absolute inset-0 m-auto w-3 h-3 rounded-full bg-emerald-500 scale-0 peer-checked:scale-100 transition-transform"></div>
                                         </div>
                                         <span className={`text-lg font-medium transition-colors ${leadingCharType === 'Dech' ? 'text-white' : 'text-slate-400 group-hover:text-slate-300'}`}>
-                                            วรรคเดช (อำนาจบารมี / เลื่อนขั้นเลื่อนตำแหน่ง)
+                                            {t('pages.premiumSearch.leading.dech')}
                                         </span>
                                     </label>
 
@@ -502,7 +526,7 @@ export default function PremiumSearchPage() {
                                             <div className="absolute inset-0 m-auto w-3 h-3 rounded-full bg-emerald-500 scale-0 peer-checked:scale-100 transition-transform"></div>
                                         </div>
                                         <span className={`text-lg font-medium transition-colors ${leadingCharType === 'Si' ? 'text-white' : 'text-slate-400 group-hover:text-slate-300'}`}>
-                                            วรรคศรี (โชคลาภ / เสน่ห์ความรัก)
+                                            {t('pages.premiumSearch.leading.si')}
                                         </span>
                                     </label>
 
@@ -519,7 +543,7 @@ export default function PremiumSearchPage() {
                                             <div className="absolute inset-0 m-auto w-3 h-3 rounded-full bg-blue-500 scale-0 peer-checked:scale-100 transition-transform"></div>
                                         </div>
                                         <span className={`text-lg font-medium transition-colors ${leadingCharType === 'Any' ? 'text-white' : 'text-slate-400 group-hover:text-slate-300'}`}>
-                                            ไม่กำหนด
+                                            {t('pages.premiumSearch.leading.any')}
                                         </span>
                                     </label>
                                 </div>
@@ -534,9 +558,9 @@ export default function PremiumSearchPage() {
                                 className="group relative inline-flex items-center gap-3 px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl shadow-lg shadow-emerald-500/20 transition-all hover:-translate-y-1 disabled:opacity-50 disabled:translate-y-0 disabled:cursor-not-allowed flex-1 justify-center max-w-md"
                             >
                                 {isLoading ? <span className="animate-spin">⏳</span> : <Search size={20} />}
-                                <span className="text-lg">ค้นหารายชื่อ</span>
+                                <span className="text-lg">{t('pages.premiumSearch.actions.search')}</span>
                                 <span className="ml-2 bg-black/20 px-3 py-1 rounded-lg text-sm font-semibold flex items-center gap-1">
-                                    <Lock size={12} /> -15 เครดิต
+                                    <Lock size={12} /> {t('pages.premiumSearch.actions.searchCost')}
                                 </span>
                             </button>
 
@@ -546,13 +570,13 @@ export default function PremiumSearchPage() {
                                     className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold rounded-2xl transition-colors"
                                 >
                                     <RotateCcw size={18} />
-                                    ล้างค่า
+                                    {t('pages.premiumSearch.actions.reset')}
                                 </button>
                             )}
                         </div>
                         {hasSearched && (
                             <p className="text-center text-slate-400 text-sm mt-4">
-                                * การกดค้นหาใหม่ จะสุ่มรายชื่อใหม่และหักเครดิตทุกครั้ง
+                                {t('pages.premiumSearch.actions.rerollNote')}
                             </p>
                         )}
                     </div>
@@ -563,21 +587,30 @@ export default function PremiumSearchPage() {
                             <div className="flex items-center justify-between px-4">
                                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
                                     <Sparkles className="text-emerald-400" />
-                                    ผลลัพธ์การค้นหา {searchResults.length > 0 ? `(แสดง 20 รายชื่อ)` : '(0)'}
+                                    {t('pages.premiumSearch.results.title')}{' '}
+                                    {searchResults.length > 0 ? t('pages.premiumSearch.results.countLabel') : t('pages.premiumSearch.results.zeroLabel')}
                                 </h2>
                             </div>
 
                             {/* Recommendation Context */}
                             <div className="mx-4 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 rounded-xl p-6 text-center">
                                 <p className="text-emerald-300 font-medium text-lg leading-relaxed">
-                                    นี่คือผลการค้นหาชื่อมงคลสำหรับ <span className="text-white font-bold underline decoration-amber-500/50 underline-offset-4">ผู้ที่เกิดวัน{selectedDay === 'All' ? 'ทุกวัน' : selectedDay}</span> เลือกใช้อักษรทุกวรรค ยกเว้นวรรคกาลกิณี นำหน้าชื่อ มีรายชื่อที่สุ่มมาแสดงทั้งหมด {searchResults.length} ชื่อค่ะ
+                                    {t('pages.premiumSearch.results.recommendationPrefix')}{' '}
+                                    <span className="text-white font-bold underline decoration-amber-500/50 underline-offset-4">
+                                        {selectedDay === 'All'
+                                            ? t('pages.premiumSearch.results.recommendationDayAll')
+                                            : t('pages.premiumSearch.results.recommendationDay').replace('{day}', getDayLabel(selectedDay))}
+                                    </span>{' '}
+                                    — {t('pages.premiumSearch.headerSub')}{' '}
+                                    ({searchResults.length})
                                 </p>
                             </div>
 
                             {/* Tip Match Image */}
                             <div className="mx-4 bg-[#0F1C2E] border border-emerald-500/30 rounded-xl p-4 flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/20">
                                 <p className="text-emerald-400 font-medium text-sm md:text-base">
-                                    💡 คำแนะนำ: ได้ชื่อที่ต้องการแล้วอย่าลืมนำไป <Link href="/" className="underline decoration-emerald-500/50 hover:text-emerald-300 transition-colors">วิเคราะห์ชื่อ - สกุล</Link> ก่อนนำไปใช้ด้วยนะครับ
+                                    {t('pages.premiumSearch.results.tip')}{' '}
+                                    <Link href="/" className="underline decoration-emerald-500/50 hover:text-emerald-300 transition-colors">{t('sidebar.analyzeName')}</Link>
                                 </p>
                             </div>
 
@@ -604,7 +637,7 @@ export default function PremiumSearchPage() {
                                                     <div className="flex flex-wrap gap-2">
                                                         {item.suitableDays.map((day: string, i: number) => (
                                                             <span key={i} className="inline-block px-2 py-0.5 rounded bg-slate-800/50 border border-white/5 text-slate-300 text-xs text-center">
-                                                                {day}
+                                                                {getDayLabel(day)}
                                                             </span>
                                                         ))}
                                                     </div>
@@ -629,8 +662,8 @@ export default function PremiumSearchPage() {
                                     <div className="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
                                         <Search size={32} className="text-slate-500" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-2">ไม่พบรายชื่อที่ตรงกับเงื่อนไข</h3>
-                                    <p className="text-slate-400">ลองปรับเปลี่ยนตัวกรอง หรือค้นหาด้วยคำอื่น</p>
+                                    <h3 className="text-xl font-bold text-white mb-2">{t('pages.premiumSearch.results.emptyTitle')}</h3>
+                                    <p className="text-slate-400">{t('pages.premiumSearch.results.emptyDesc')}</p>
                                 </div>
                             )}
                         </div>
@@ -638,7 +671,7 @@ export default function PremiumSearchPage() {
 
                     {/* ==================== SEO CONTENT SECTION (Below the Fold) ==================== */}
                     <section className="mt-20 pt-16 border-t border-white/10 space-y-16">
-                        
+
                         {/* Section A: ทำไมต้อง "ค้นหาชื่อมงคล Pro"? */}
                         <div className="max-w-4xl mx-auto">
                             <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-8">
@@ -772,8 +805,8 @@ export default function PremiumSearchPage() {
                                 <p className="text-slate-300 mb-4">
                                     💡 <strong className="text-emerald-400">คำแนะนำสำคัญ:</strong> หลังได้ชื่อที่ต้องการแล้ว อย่าลืมนำไป
                                 </p>
-                                <Link 
-                                    href="/name-analysis" 
+                                <Link
+                                    href="/name-analysis"
                                     className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition-colors"
                                 >
                                     <Sparkles size={18} />
@@ -791,7 +824,7 @@ export default function PremiumSearchPage() {
                                 <HelpCircle className="w-8 h-8 text-emerald-400" />
                                 คำถามที่พบบ่อย
                             </h2>
-                            
+
                             <div className="space-y-4">
                                 <div className="bg-white/5 border border-white/10 rounded-xl p-6">
                                     <h3 className="text-lg font-bold text-emerald-400 mb-2">

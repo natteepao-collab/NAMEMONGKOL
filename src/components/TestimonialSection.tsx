@@ -8,12 +8,14 @@ import { Review } from '@/types';
 import { ReviewFormModal } from '@/components/ReviewFormModal';
 import { supabase } from '@/utils/supabase';
 import { useRouter } from 'next/navigation';
+import { useLanguage } from './LanguageProvider';
 
 export const TestimonialSection = () => {
     // Select top 3-4 reviews for the homepage
     const [featuredReviews, setFeaturedReviews] = useState<Review[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const router = useRouter();
+    const { t } = useLanguage();
 
     useEffect(() => {
         const getReviews = async () => {
@@ -75,13 +77,13 @@ export const TestimonialSection = () => {
                 <div className="flex flex-col items-center mb-12 text-center">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
                         <MessageCircle size={14} />
-                        <span>เสียงจากผู้ใช้จริง</span>
+                        <span>{t('sections.testimonials.badge')}</span>
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                        พลิกชีวิต... <span className="text-amber-500">ลิขิตเองได้</span>
+                        {t('sections.testimonials.title')}
                     </h2>
                     <p className="text-slate-400 max-w-2xl">
-                        รวมประสบการณ์จริงจากผู้ใช้ NameMongkol กว่า 10,000 ท่าน ที่พิสูจน์แล้วว่าพลังของชื่อมงคลเปลี่ยนชีวิตได้จริง
+                        {t('sections.testimonials.description')}
                     </p>
                 </div>
 
@@ -134,14 +136,14 @@ export const TestimonialSection = () => {
                         href="/reviews"
                         className="px-8 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold transition-all shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 hover:-translate-y-1 flex items-center gap-2"
                     >
-                        อ่านเรื่องราวทั้งหมด
+                        {t('sections.testimonials.viewAll')}
                     </Link>
                     <button
                         onClick={handleWriteStory}
                         className="px-8 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium transition-all border border-white/10 hover:border-white/20 flex items-center gap-2"
                     >
                         <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                        เขียนเรื่องราวของคุณ (-รับเครดิตฟรี)
+                        {t('sections.testimonials.write')}
                     </button>
                 </div>
             </div>

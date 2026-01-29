@@ -22,6 +22,7 @@ import { calculateGrade } from '@/utils/gradeResult';
 import { AnalysisResult } from '@/types';
 import { HeroBanner } from '@/components/HeroBanner';
 import { HomeFallback } from '@/components/HomeFallback';
+import { useLanguage } from '@/components/LanguageProvider';
 
 // Dynamic Imports for heavy components below the fold or conditional
 const WallpaperShowcase = dynamic(() => import('@/components/WallpaperShowcase').then(mod => mod.WallpaperShowcase), {
@@ -134,6 +135,8 @@ function HomeContent() {
         window.history.pushState({}, '', '/');
     };
 
+    const { t } = useLanguage();
+
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-amber-500 selection:text-white relative overflow-hidden">
 
@@ -154,7 +157,7 @@ function HomeContent() {
                         {/* HeroBanner decoupled for LCP - No fade-in delay */}
                         <div className="w-full animate-fade-in">
                             <h2 className="text-center text-amber-200/60 font-medium tracking-widest uppercase text-xs mb-4">
-                                Professional Naming Analysis
+                                {t('home.hero.badge')}
                             </h2>
                             <HeroBanner />
                         </div>
@@ -176,7 +179,7 @@ function HomeContent() {
                                 onClick={resetForm}
                                 className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors text-sm font-medium px-4 py-2 rounded-lg hover:bg-white/5"
                             >
-                                <ChevronRight className="w-4 h-4 rotate-180" /> กลับหน้าหลัก
+                                <ChevronRight className="w-4 h-4 rotate-180" /> {t('home.backHome')}
                             </button>
                         </div>
 
@@ -219,7 +222,7 @@ function HomeContent() {
 
             {/* Footer */}
             <footer className="w-full py-6 text-center text-slate-600 text-sm relative z-10 px-4">
-                <p>© 2024 NameMongkol.com - บริการวิเคราะห์ชื่อมงคล ดูดวงชื่อ-นามสกุล และตั้งชื่อลูกตามหลักเลขศาสตร์ แม่นยำ ฟรี 24 ชม.</p>
+                <p>{t('home.footer')}</p>
             </footer>
         </div>
     );

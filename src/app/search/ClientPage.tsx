@@ -6,11 +6,13 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/utils/supabase';
 import { Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, X, Lock, Unlock } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 import { calculateScore } from '@/utils/numerologyUtils';
 import { getDayFromName, analyzeNameSuitability } from '@/utils/thaksaUtils';
 import { thaksaConfig, DayKey } from '@/data/thaksa';
 import { getPrediction } from '@/utils/getPrediction';
+import { useLanguage } from '@/components/LanguageProvider';
 
 function NameRow({ name }: { name: string }) {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -119,6 +121,7 @@ const ITEMS_PER_PAGE = 60;
 
 export default function SearchPage() {
     const router = useRouter();
+    const { t } = useLanguage();
     const [selectedDay, setSelectedDay] = useState<DayKey | 'all'>('all');
     const [selectedGender, setSelectedGender] = useState<'all' | 'male' | 'female' | 'neutral'>('all'); // NEW
     const [targetSum, setTargetSum] = useState('');
@@ -128,6 +131,7 @@ export default function SearchPage() {
     // Freemium State
     const [visibleCount, setVisibleCount] = useState(10);
     const [userCredits, setUserCredits] = useState<number | null>(null);
+    const [isUnlocking, setIsUnlocking] = useState(false);
 
     const [names, setNames] = useState<{ name: string; gender: string }[]>([]); // Update type
     const [loading, setLoading] = useState(true);
@@ -136,11 +140,22 @@ export default function SearchPage() {
     useEffect(() => {
         const fetchCredits = async () => {
             const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                const { data } = await supabase.from('user_profiles').select('credits').eq('id', user.id).maybeSingle();
-                if (data) setUserCredits(data.credits);
+            if (!user) return;
+
+            const { data, error } = await supabase
+                .from('user_profiles')
+                .select('credits')
+                .eq('id', user.id)
+                .maybeSingle();
+
+            if (error) {
+                console.error('Error fetching credits:', error);
+                return;
             }
+
+            if (data) setUserCredits(data.credits);
         };
+
         fetchCredits();
     }, []);
 
@@ -216,80 +231,149 @@ export default function SearchPage() {
     };
 
     const handleUnlock = async () => {
-        // 1. Check Login Status
-        const { data: { user } } = await supabase.auth.getUser();
+        if (isUnlocking) return;
+        setIsUnlocking(true);
 
-        // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        try {
+            // 1. Check Login Status
+            const { data: { user } } = await supabase.auth.getUser();
 
-        if (!user) {
-            const result = await Swal.fire({
-                title: 'กรุณาเข้าสู่ระบบ',
-                text: 'เพื่อทำการปลดล็อกรายชื่อและบันทึกประวัติ',
-                icon: 'info',
-                showCancelButton: true,
-                confirmButtonText: 'เข้าสู่ระบบ',
-                cancelButtonText: 'ยกเลิก',
-                background: '#1e293b',
-                color: '#fff',
-                confirmButtonColor: '#3b82f6', // Blue-500
-                cancelButtonColor: '#64748b'
-            });
-
-            if (result.isConfirmed) {
-                router.push('/login');
-            }
-            return;
-        }
-
-        if ((userCredits || 0) < 5) {
-            const result = await Swal.fire({
-                title: 'เครดิตไม่เพียงพอ',
-                text: 'การปลดล็อกต้องใช้ 5 เครดิต กดเพื่อเติมเงิน',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'เติมเครดิต',
-                cancelButtonText: 'ยกเลิก',
-                background: '#1e293b',
-                color: '#fff',
-                confirmButtonColor: '#10b981',
-                cancelButtonColor: '#64748b'
-            });
-            if (result.isConfirmed) router.push('/topup');
-            return;
-        }
-
-        const result = await Swal.fire({
-            title: 'ปลดล็อก 5 เครดิต',
-            text: 'เพื่อดูรายชื่อที่เหลือทั้งหมด',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'ยืนยัน',
-            cancelButtonText: 'ยกเลิก',
-            background: '#1e293b',
-            color: '#fff',
-            confirmButtonColor: '#059669',
-            cancelButtonColor: '#ef4444'
-        });
-
-        if (result.isConfirmed) {
-            const { error } = await supabase.rpc('deduct_credits', { amount: 5 });
-            if (!error) {
-                setUserCredits(prev => (prev || 0) - 5);
-                window.dispatchEvent(new Event('force_credits_update'));
-                setVisibleCount(prev => prev + 50); // Load next 50
-                Swal.fire({
-                    title: 'โหลดรายชื่อสำเร็จ!',
-                    text: 'เพิ่มรายชื่ออีก 50 ชื่อเรียบร้อยแล้ว',
-                    icon: 'success',
-                    timer: 1500,
-                    showConfirmButton: false,
+            if (!user) {
+                const result = await Swal.fire({
+                    title: 'กรุณาเข้าสู่ระบบ',
+                    text: 'เพื่อทำการปลดล็อกรายชื่อและบันทึกประวัติ',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonText: 'เข้าสู่ระบบ',
+                    cancelButtonText: 'ยกเลิก',
                     background: '#1e293b',
-                    color: '#fff'
+                    color: '#fff',
+                    confirmButtonColor: '#3b82f6', // Blue-500
+                    cancelButtonColor: '#64748b',
+                    customClass: { popup: 'rounded-2xl', confirmButton: 'rounded-xl', cancelButton: 'rounded-xl' }
                 });
-            } else {
-                Swal.fire('Error', 'เกิดข้อผิดพลาดในการตัดเครดิต', 'error');
+
+                if (result.isConfirmed) {
+                    router.push('/login');
+                }
+                return;
             }
+
+            const fetchLatestCredits = async () => {
+                const { data, error } = await supabase
+                    .from('user_profiles')
+                    .select('credits')
+                    .eq('id', user.id)
+                    .maybeSingle();
+
+                if (error) {
+                    console.error('Error refreshing credits:', error);
+                    return null;
+                }
+
+                if (data) {
+                    setUserCredits(data.credits);
+                    return data.credits;
+                }
+
+                return null;
+            };
+
+            // Always refresh credits to avoid stale values
+            const latestCredits = await fetchLatestCredits();
+
+            if (latestCredits === null) {
+                await Swal.fire({
+                    title: 'ไม่สามารถดึงเครดิตได้',
+                    text: 'กรุณาลองใหม่อีกครั้ง',
+                    icon: 'error',
+                    background: '#1e293b',
+                    color: '#fff',
+                    customClass: { popup: 'rounded-2xl' }
+                });
+                return;
+            }
+
+            if (latestCredits < 5) {
+                const result = await Swal.fire({
+                    title: 'เครดิตไม่เพียงพอ',
+                    text: 'การปลดล็อกต้องใช้ 5 เครดิต กดเพื่อเติมเงิน',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'เติมเครดิต',
+                    cancelButtonText: 'ยกเลิก',
+                    background: '#1e293b',
+                    color: '#fff',
+                    confirmButtonColor: '#10b981',
+                    cancelButtonColor: '#64748b',
+                    customClass: { popup: 'rounded-2xl', confirmButton: 'rounded-xl', cancelButton: 'rounded-xl' }
+                });
+                if (result.isConfirmed) router.push('/topup');
+                return;
+            }
+
+            const result = await Swal.fire({
+                title: 'ปลดล็อก 5 เครดิต',
+                text: 'เพื่อดูรายชื่อที่เหลือทั้งหมด',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก',
+                background: '#1e293b',
+                color: '#fff',
+                confirmButtonColor: '#059669',
+                cancelButtonColor: '#ef4444',
+                customClass: { popup: 'rounded-2xl', confirmButton: 'rounded-xl', cancelButton: 'rounded-xl' }
+            });
+
+            if (!result.isConfirmed) return;
+
+            const { error } = await supabase.rpc('deduct_credits', { amount: 5 });
+            if (error) {
+                console.error('deduct_credits error:', error);
+                await Swal.fire({
+                    title: 'Error',
+                    text: error.message || 'เกิดข้อผิดพลาดในการตัดเครดิต',
+                    icon: 'error',
+                    background: '#1e293b',
+                    color: '#fff',
+                    customClass: { popup: 'rounded-2xl' }
+                });
+                return;
+            }
+
+            const updatedCredits = latestCredits - 5;
+            setUserCredits(updatedCredits);
+            setVisibleCount(prev => prev + 50);
+            window.dispatchEvent(new Event('force_credits_update'));
+
+            await Swal.fire({
+                title: 'โหลดรายชื่อสำเร็จ!',
+                text: 'เพิ่มรายชื่ออีก 50 ชื่อเรียบร้อยแล้ว',
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false,
+                background: '#1e293b',
+                color: '#fff',
+                customClass: { popup: 'rounded-2xl' }
+            });
+
+            // Refresh credits from server to stay in sync
+            await fetchLatestCredits();
+        } catch (err) {
+            console.error('unlock error:', err);
+            // @ts-ignore
+            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+            await Swal.fire({
+                title: 'เกิดข้อผิดพลาด',
+                text: 'ไม่สามารถดำเนินการได้ กรุณาลองใหม่',
+                icon: 'error',
+                background: '#1e293b',
+                color: '#fff',
+                customClass: { popup: 'rounded-2xl' }
+            });
+        } finally {
+            setIsUnlocking(false);
         }
     };
 
@@ -307,14 +391,13 @@ export default function SearchPage() {
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-sm mb-4">
                         <Sparkles className="w-4 h-4" />
-                        <span>รวมรายชื่อมงคล 2568</span>
+                        <span>{t('pages.search.badge')}</span>
                     </div>
                     <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-4 leading-tight pb-1">
-                        ค้นหาชื่อมงคลฟรี: ตั้งชื่อลูก เปลี่ยนชื่อใหม่ เสริมดวงชะตา
+                        {t('pages.search.title')}
                     </h1>
                     <p className="text-slate-400 max-w-2xl mx-auto mb-6">
-                        รวมสุดยอดชื่อมงคลกว่า 5,000 รายชื่อ คัดเน้นๆ เฉพาะเกรด A+ ความหมายดี เป็นสิริมงคล
-                        เหมาะสำหรับ <strong className="text-amber-400 font-normal">ตั้งชื่อลูก</strong> <strong className="text-amber-400 font-normal">เปลี่ยนชื่อใหม่</strong> หรือ <strong className="text-amber-400 font-normal">ตั้งชื่อเล่น</strong> ครอบคลุมทุกวันเกิด กรองง่ายตามหลักทักษาปกรณ์
+                        {t('pages.search.description')}
                     </p>
 
                     {/* Pro Tip / Guidance Block */}
@@ -324,9 +407,9 @@ export default function SearchPage() {
                             <Sparkles className="w-5 h-5" />
                         </div>
                         <div className="relative z-10">
-                            <h3 className="text-amber-200 font-semibold mb-1 text-sm">💡 ข้อแนะนำก่อนนำไปใช้:</h3>
+                            <h3 className="text-amber-200 font-semibold mb-1 text-sm">💡 {t('pages.search.tipTitle')}</h3>
                             <p className="text-slate-400 text-sm leading-relaxed">
-                                รายชื่อเหล่านี้ผ่านการคัดกรองความหมายและทักษาที่ดีในเบื้องต้นแล้ว แต่เพื่อให้ได้ผลลัพธ์ที่ดีที่สุด <strong className="text-slate-200">มนุษย์ต้องมีนามสกุล</strong> เราแนะนำให้ท่านเลือกชื่อที่ชอบ 5-10 ชื่อ แล้วนำไป <Link href="/" className="text-amber-400 hover:underline decoration-amber-400/30 underline-offset-4">&quot;วิเคราะห์ชื่อร่วมกับนามสกุล&quot;</Link> อีกครั้ง เพื่อตรวจสอบผลรวมเลขศาสตร์ให้ได้เกรด A+ ที่สมพงศ์กับดวงชะตาของท่านที่สุด
+                                {t('pages.search.tipBody')} <Link href="/" className="text-amber-400 hover:underline decoration-amber-400/30 underline-offset-4">{t('pages.search.links.l1Title')}</Link>
                             </p>
                         </div>
                     </div>
@@ -348,7 +431,7 @@ export default function SearchPage() {
                                 onChange={handleDayChange}
                                 className="block w-full pl-11 pr-4 py-3 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all appearance-none cursor-pointer"
                             >
-                                <option value="all">ทุกวันเกิด</option>
+                                <option value="all">{t('pages.search.filters.dayAny')}</option>
                                 {Object.keys(thaksaConfig).map((key) => (
                                     <option key={key} value={key} className="bg-[#1e293b]">
                                         {thaksaConfig[key as DayKey].name}
@@ -363,7 +446,7 @@ export default function SearchPage() {
                         {/* Gender Filter */}
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <span className="text-slate-400 text-sm">เพศ</span>
+                                <span className="text-slate-400 text-sm">{t('pages.search.filters.genderLabel')}</span>
                             </div>
                             <select
                                 value={selectedGender}
@@ -373,10 +456,10 @@ export default function SearchPage() {
                                 }}
                                 className="block w-full pl-12 pr-4 py-3 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all appearance-none cursor-pointer"
                             >
-                                <option value="all" className="bg-[#1e293b]">ทั้งหมด</option>
-                                <option value="male" className="bg-[#1e293b]">ชาย</option>
-                                <option value="female" className="bg-[#1e293b]">หญิง</option>
-                                <option value="neutral" className="bg-[#1e293b]">ไม่ระบุ</option>
+                                <option value="all" className="bg-[#1e293b]">{t('pages.search.filters.genderAll')}</option>
+                                <option value="male" className="bg-[#1e293b]">{t('pages.search.filters.genderMale')}</option>
+                                <option value="female" className="bg-[#1e293b]">{t('pages.search.filters.genderFemale')}</option>
+                                <option value="neutral" className="bg-[#1e293b]">{t('pages.search.filters.genderNeutral')}</option>
                             </select>
                             <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                                 <ChevronDown className="h-4 w-4 text-slate-400" />
@@ -396,7 +479,7 @@ export default function SearchPage() {
                                 }}
                                 onBlur={() => setTimeout(() => setIsSumFocused(false), 200)} // Delay to allow click
                                 className="block w-full px-4 py-3 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                placeholder="ระบุผลรวม... (หรือเลือก)"
+                                placeholder={t('pages.search.filters.sumPlaceholder')}
                             />
 
                             <div className={`absolute top-full left-0 w-full mt-2 max-h-80 overflow-y-auto bg-[#1e293b] border border-white/10 rounded-xl shadow-xl z-50 transition-all duration-200 custom-scrollbar ${isSumFocused ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-2 invisible'}`}>
@@ -429,7 +512,7 @@ export default function SearchPage() {
                                     })}
                                 {uniqueScores.filter(score => !targetSum || score.toString().includes(targetSum)).length === 0 && (
                                     <div className="px-4 py-3 text-slate-500 text-center italic text-sm">
-                                        ไม่พบผลรวมที่ค้นหา
+                                        {t('pages.search.filters.sumNoResult')}
                                     </div>
                                 )}
                             </div>
@@ -458,7 +541,7 @@ export default function SearchPage() {
                 {/* Helper / Recommendation */}
                 <div className="mb-6 bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4 text-center">
                     <p className="text-emerald-300 text-sm md:text-base font-medium">
-                        💡 คำแนะนำ: ได้ชื่อที่ต้องการแล้วอย่าลืมนำไป <Link href="/" className="underline decoration-emerald-500/50 hover:text-emerald-200 transition-colors">วิเคราะห์ชื่อ - สกุล</Link> ก่อนนำไปใช้ด้วยนะครับ
+                        💡 {t('pages.search.helper')} <Link href="/" className="underline decoration-emerald-500/50 hover:text-emerald-200 transition-colors">{t('pages.search.links.l1Title')}</Link>
                     </p>
                 </div>
 
@@ -467,9 +550,9 @@ export default function SearchPage() {
                     <table className="w-full text-left">
                         <thead>
                             <tr className="bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-amber-500/10 border-b border-white/10 text-amber-200">
-                                <th className="px-4 md:px-8 py-5 font-semibold text-lg tracking-wide">ชื่อมงคล</th>
-                                <th className="px-4 md:px-8 py-5 font-semibold text-lg tracking-wide">วัน</th>
-                                <th className="px-4 md:px-8 py-5 font-semibold text-lg tracking-wide text-center">ผลรวมเลขศาสตร์</th>
+                                <th className="px-4 md:px-8 py-5 font-semibold text-lg tracking-wide">{t('pages.search.table.name')}</th>
+                                <th className="px-4 md:px-8 py-5 font-semibold text-lg tracking-wide">{t('pages.search.table.day')}</th>
+                                <th className="px-4 md:px-8 py-5 font-semibold text-lg tracking-wide text-center">{t('pages.search.table.score')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
@@ -493,14 +576,18 @@ export default function SearchPage() {
                                                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-[#0f172a] via-[#0f172a]/80 to-transparent">
                                                     <button
                                                         onClick={handleUnlock}
-                                                        className="group relative flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold rounded-2xl shadow-lg shadow-amber-500/20 transition-all hover:scale-105 active:scale-95"
+                                                        disabled={isUnlocking}
+                                                        className={`group relative flex items-center gap-3 px-8 py-4 rounded-2xl shadow-lg shadow-amber-500/20 transition-all ${isUnlocking
+                                                            ? 'bg-amber-500/60 text-black cursor-not-allowed'
+                                                            : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black hover:scale-105 active:scale-95'
+                                                            }`}
                                                     >
                                                         <div className="p-1.5 bg-black/20 rounded-lg">
                                                             <Lock size={18} />
                                                         </div>
-                                                        <span className="text-lg">โหลดเพิ่ม 50 รายชื่อ</span>
+                                                        <span className="text-lg">{t('pages.search.unlock.button')}</span>
                                                         <div className="bg-black/80 text-amber-500 text-xs px-2 py-1 rounded-md font-bold flex items-center gap-1">
-                                                            ใช้ 5 Credits
+                                                            {t('pages.search.unlock.cost')}
                                                         </div>
                                                     </button>
                                                 </div>
@@ -513,7 +600,7 @@ export default function SearchPage() {
                                     <td colSpan={3} className="px-8 py-16 text-center text-slate-500">
                                         <div className="flex flex-col items-center gap-3">
                                             <Sparkles className="w-8 h-8 opacity-20" />
-                                            <span>ไม่พบรายชื่อที่ตรงกับเงื่อนไข</span>
+                                            <span>{t('pages.search.empty')}</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -524,43 +611,43 @@ export default function SearchPage() {
 
                 {filteredNames.length > 0 && (
                     <div className="mt-4 text-center text-slate-500 text-sm">
-                        แสดงผล {Math.min(visibleCount, filteredNames.length)} จาก {filteredNames.length} รายชื่อ
+                        {t('pages.search.showingPrefix')} {Math.min(visibleCount, filteredNames.length)} {t('pages.search.showingConnector')} {filteredNames.length}
                     </div>
                 )}
 
                 {/* FAQ Section */}
                 <div className="mt-16 mb-12 max-w-3xl mx-auto">
                     <h2 className="text-2xl font-bold text-center text-amber-400 mb-8">
-                        คำถามที่พบบ่อย (FAQ)
+                        {t('pages.search.faqTitle')}
                     </h2>
                     <div className="space-y-4">
                         <details className="group bg-white/[0.03] border border-white/10 rounded-xl p-4 cursor-pointer open:bg-white/[0.05] transition-colors">
                             <summary className="font-semibold text-slate-200 list-none flex justify-between items-center">
-                                ค้นหาชื่อมงคลที่ NameMongkol เสียเงินไหม?
+                                {t('pages.search.faq.q1')}
                                 <span className="transition-transform group-open:rotate-180">▼</span>
                             </summary>
                             <p className="mt-3 text-slate-400 text-sm pl-4 border-l-2 border-amber-500">
-                                <span className="text-emerald-400 font-bold">ฟรี! ไม่มีค่าใช้จ่าย</span> คุณสามารถค้นหาและตรวจสอบความหมายของชื่อมงคลกว่า 5,000 ชื่อได้ฟรีทันที โดยไม่มีข้อผูกมัดใดๆ
+                                {t('pages.search.faq.a1')}
                             </p>
                         </details>
 
                         <details className="group bg-white/[0.03] border border-white/10 rounded-xl p-4 cursor-pointer open:bg-white/[0.05] transition-colors">
                             <summary className="font-semibold text-slate-200 list-none flex justify-between items-center">
-                                มีรายชื่อมงคลให้เลือกกี่ชื่อ?
+                                {t('pages.search.faq.q2')}
                                 <span className="transition-transform group-open:rotate-180">▼</span>
                             </summary>
                             <p className="mt-3 text-slate-400 text-sm pl-4 border-l-2 border-amber-500">
-                                เรามีฐานข้อมูลชื่อมงคลที่คัดสรรมาแล้วกว่า <span className="text-amber-400 font-bold">5,000+ รายชื่อ</span> ครอบคลุมทุกวันเกิด ทั้งชายและหญิง พร้อมความหมายที่เป็นสิริมงคล
+                                {t('pages.search.faq.a2')}
                             </p>
                         </details>
 
                         <details className="group bg-white/[0.03] border border-white/10 rounded-xl p-4 cursor-pointer open:bg-white/[0.05] transition-colors">
                             <summary className="font-semibold text-slate-200 list-none flex justify-between items-center">
-                                เลือกชื่อจากที่นี่แล้วต้องทำอย่างไรต่อ?
+                                {t('pages.search.faq.q3')}
                                 <span className="transition-transform group-open:rotate-180">▼</span>
                             </summary>
                             <p className="mt-3 text-slate-400 text-sm pl-4 border-l-2 border-amber-500">
-                                เมื่อได้ชื่อที่ถูกใจแล้ว แนะนำให้นำไป <Link href="/" className="text-amber-400 hover:underline">วิเคราะห์ชื่อ-นามสกุล</Link> อีกครั้งเพื่อดูผลรวมร่วมกับนามสกุลของคุณ ว่าได้เกรด A+ หรือไม่
+                                {t('pages.search.faq.a3')}
                             </p>
                         </details>
                     </div>
@@ -571,34 +658,34 @@ export default function SearchPage() {
                 {/* Why NameMongkol */}
                 <section className="mt-16 mb-12 max-w-4xl mx-auto">
                     <h2 className="text-2xl font-bold text-center text-amber-400 mb-6">
-                        ทำไมต้องใช้ NameMongkol ค้นหาชื่อมงคล?
+                        {t('pages.search.benefitsTitle')}
                     </h2>
                     <div className="grid md:grid-cols-3 gap-6">
                         <article className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-colors">
                             <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-500/20 to-purple-500/20 flex items-center justify-center">
                                 <Sparkles className="w-6 h-6 text-amber-400" />
                             </div>
-                            <h3 className="font-semibold text-slate-200 mb-2">ฐานข้อมูล 5,000+ ชื่อ</h3>
+                            <h3 className="font-semibold text-slate-200 mb-2">{t('pages.search.benefits.b1Title')}</h3>
                             <p className="text-slate-400 text-sm">
-                                รวบรวมชื่อมงคลที่คัดสรรจากผู้เชี่ยวชาญด้านเลขศาสตร์และภาษาไทย พร้อมความหมายที่เป็นสิริมงคล
+                                {t('pages.search.benefits.b1Desc')}
                             </p>
                         </article>
                         <article className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-colors">
                             <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center">
                                 <CheckCircle className="w-6 h-6 text-emerald-400" />
                             </div>
-                            <h3 className="font-semibold text-slate-200 mb-2">ตรวจสอบวันมงคล-กาลกิณี</h3>
+                            <h3 className="font-semibold text-slate-200 mb-2">{t('pages.search.benefits.b2Title')}</h3>
                             <p className="text-slate-400 text-sm">
-                                รู้ทันทีว่าชื่อนี้ใช้ได้กับวันเกิดไหน และวันไหนควรหลีกเลี่ยง ตามหลักทักษาภาษาไทย
+                                {t('pages.search.benefits.b2Desc')}
                             </p>
                         </article>
                         <article className="bg-white/[0.03] border border-white/10 rounded-xl p-6 text-center hover:border-amber-500/30 transition-colors">
                             <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500/20 to-indigo-500/20 flex items-center justify-center">
                                 <Filter className="w-6 h-6 text-blue-400" />
                             </div>
-                            <h3 className="font-semibold text-slate-200 mb-2">ฟิลเตอร์อัจฉริยะ</h3>
+                            <h3 className="font-semibold text-slate-200 mb-2">{t('pages.search.benefits.b3Title')}</h3>
                             <p className="text-slate-400 text-sm">
-                                กรองตามวันเกิด, เพศ, หรือผลรวมตัวเลขมงคลที่ต้องการ ค้นหาชื่อที่ใช่ได้ในไม่กี่วินาที
+                                {t('pages.search.benefits.b3Desc')}
                             </p>
                         </article>
                     </div>
@@ -607,57 +694,57 @@ export default function SearchPage() {
                 {/* Free vs Pro Comparison Table */}
                 <section className="mt-16 mb-12 max-w-4xl mx-auto">
                     <h2 className="text-2xl font-bold text-center text-amber-400 mb-6">
-                        เปรียบเทียบ: ค้นหาฟรี vs Pro (Premium Search)
+                        {t('pages.search.compareTitle')}
                     </h2>
                     <div className="overflow-x-auto">
-                        <table className="w-full text-sm" aria-label="เปรียบเทียบฟีเจอร์ ค้นหาชื่อมงคลฟรี และ Pro">
+                        <table className="w-full text-sm" aria-label="feature comparison">
                             <thead>
                                 <tr className="bg-white/[0.05] border-b border-white/10">
-                                    <th className="px-4 py-3 text-left text-slate-300 font-semibold">ฟีเจอร์</th>
-                                    <th className="px-4 py-3 text-center text-slate-300 font-semibold">ฟรี (หน้านี้)</th>
-                                    <th className="px-4 py-3 text-center text-amber-400 font-semibold">Pro (Premium)</th>
+                                    <th className="px-4 py-3 text-left text-slate-300 font-semibold">{t('pages.search.compare.feature')}</th>
+                                    <th className="px-4 py-3 text-center text-slate-300 font-semibold">{t('pages.search.compare.free')}</th>
+                                    <th className="px-4 py-3 text-center text-amber-400 font-semibold">{t('pages.search.compare.pro')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-white/5">
                                 <tr className="hover:bg-white/[0.02] transition-colors">
-                                    <td className="px-4 py-3 text-slate-400">จำนวนชื่อมงคล</td>
-                                    <td className="px-4 py-3 text-center text-slate-300">5,000+ ชื่อ</td>
-                                    <td className="px-4 py-3 text-center text-emerald-400 font-medium">5,000+ ชื่อ</td>
+                                    <td className="px-4 py-3 text-slate-400">{t('pages.search.compare.row1')}</td>
+                                    <td className="px-4 py-3 text-center text-slate-300">5,000+</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400 font-medium">5,000+</td>
                                 </tr>
                                 <tr className="hover:bg-white/[0.02] transition-colors">
-                                    <td className="px-4 py-3 text-slate-400">กรองตามวันเกิด</td>
-                                    <td className="px-4 py-3 text-center text-emerald-400">✓</td>
-                                    <td className="px-4 py-3 text-center text-emerald-400">✓</td>
-                                </tr>
-                                <tr className="hover:bg-white/[0.02] transition-colors">
-                                    <td className="px-4 py-3 text-slate-400">กรองตามเพศ</td>
+                                    <td className="px-4 py-3 text-slate-400">{t('pages.search.compare.row2')}</td>
                                     <td className="px-4 py-3 text-center text-emerald-400">✓</td>
                                     <td className="px-4 py-3 text-center text-emerald-400">✓</td>
                                 </tr>
                                 <tr className="hover:bg-white/[0.02] transition-colors">
-                                    <td className="px-4 py-3 text-slate-400">กรองตามผลรวมตัวเลข</td>
+                                    <td className="px-4 py-3 text-slate-400">{t('pages.search.compare.row3')}</td>
                                     <td className="px-4 py-3 text-center text-emerald-400">✓</td>
                                     <td className="px-4 py-3 text-center text-emerald-400">✓</td>
                                 </tr>
                                 <tr className="hover:bg-white/[0.02] transition-colors">
-                                    <td className="px-4 py-3 text-slate-400">ใส่นามสกุลเพื่อวิเคราะห์คู่</td>
+                                    <td className="px-4 py-3 text-slate-400">{t('pages.search.compare.row4')}</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400">✓</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400">✓</td>
+                                </tr>
+                                <tr className="hover:bg-white/[0.02] transition-colors">
+                                    <td className="px-4 py-3 text-slate-400">{t('pages.search.compare.row5')}</td>
                                     <td className="px-4 py-3 text-center text-rose-400">✗</td>
                                     <td className="px-4 py-3 text-center text-emerald-400 font-medium">✓ จับคู่อัตโนมัติ</td>
                                 </tr>
                                 <tr className="hover:bg-white/[0.02] transition-colors">
-                                    <td className="px-4 py-3 text-slate-400">แสดงคะแนนทั้งชื่อ+นามสกุล</td>
+                                    <td className="px-4 py-3 text-slate-400">{t('pages.search.compare.row6')}</td>
                                     <td className="px-4 py-3 text-center text-rose-400">✗</td>
                                     <td className="px-4 py-3 text-center text-emerald-400">✓</td>
                                 </tr>
                                 <tr className="hover:bg-white/[0.02] transition-colors">
-                                    <td className="px-4 py-3 text-slate-400">เกรดคู่ชื่อ-นามสกุล (A+, A, B...)</td>
+                                    <td className="px-4 py-3 text-slate-400">{t('pages.search.compare.row7')}</td>
                                     <td className="px-4 py-3 text-center text-rose-400">✗</td>
                                     <td className="px-4 py-3 text-center text-emerald-400">✓</td>
                                 </tr>
                                 <tr className="hover:bg-white/[0.02] transition-colors">
-                                    <td className="px-4 py-3 text-slate-400">ราคา</td>
-                                    <td className="px-4 py-3 text-center text-emerald-400 font-bold">ฟรี!</td>
-                                    <td className="px-4 py-3 text-center text-amber-400 font-medium">1 เครดิต/ครั้ง</td>
+                                    <td className="px-4 py-3 text-slate-400">{t('pages.search.compare.row8')}</td>
+                                    <td className="px-4 py-3 text-center text-emerald-400 font-bold">{t('pages.search.compare.freePrice')}</td>
+                                    <td className="px-4 py-3 text-center text-amber-400 font-medium">{t('pages.search.compare.proPrice')}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -668,7 +755,7 @@ export default function SearchPage() {
                             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold hover:from-amber-400 hover:to-amber-500 transition-all shadow-lg shadow-amber-500/20"
                         >
                             <Sparkles className="w-5 h-5" />
-                            ลองใช้ Premium Search
+                            {t('pages.search.compare.tryPro')}
                         </Link>
                     </div>
                 </section>
@@ -676,7 +763,7 @@ export default function SearchPage() {
                 {/* How to Use Steps */}
                 <section className="mt-16 mb-12 max-w-3xl mx-auto">
                     <h2 className="text-2xl font-bold text-center text-amber-400 mb-8">
-                        วิธีค้นหาชื่อมงคลใน 3 ขั้นตอน
+                        {t('pages.search.stepsTitle')}
                     </h2>
                     <div className="space-y-6">
                         <div className="flex gap-4 items-start">
@@ -684,9 +771,9 @@ export default function SearchPage() {
                                 1
                             </div>
                             <div>
-                                <h3 className="font-semibold text-slate-200 mb-1">เลือกวันเกิด (ถ้าต้องการ)</h3>
+                                <h3 className="font-semibold text-slate-200 mb-1">{t('pages.search.steps.s1Title')}</h3>
                                 <p className="text-slate-400 text-sm">
-                                    กรองเฉพาะชื่อที่เหมาะกับวันเกิดของคุณ ระบบจะแสดงเฉพาะชื่อที่ไม่ตรงกับกาลกิณี
+                                    {t('pages.search.steps.s1Desc')}
                                 </p>
                             </div>
                         </div>
@@ -695,9 +782,9 @@ export default function SearchPage() {
                                 2
                             </div>
                             <div>
-                                <h3 className="font-semibold text-slate-200 mb-1">เลือกเพศและผลรวมมงคล</h3>
+                                <h3 className="font-semibold text-slate-200 mb-1">{t('pages.search.steps.s2Title')}</h3>
                                 <p className="text-slate-400 text-sm">
-                                    กรองตามเพศ (ชาย/หญิง/กลาง) และเลือกผลรวมตัวเลขที่ต้องการ เช่น 19, 24, 36, 41 ซึ่งเป็นเลขมงคล
+                                    {t('pages.search.steps.s2Desc')}
                                 </p>
                             </div>
                         </div>
@@ -706,10 +793,9 @@ export default function SearchPage() {
                                 3
                             </div>
                             <div>
-                                <h3 className="font-semibold text-slate-200 mb-1">คลิกชื่อเพื่อดูรายละเอียด</h3>
+                                <h3 className="font-semibold text-slate-200 mb-1">{t('pages.search.steps.s3Title')}</h3>
                                 <p className="text-slate-400 text-sm">
-                                    คลิกที่ชื่อเพื่อดูวันที่ใช้ได้ (มงคล) และวันที่ห้ามใช้ (กาลกิณี) จากนั้นนำไป{' '}
-                                    <Link href="/" className="text-amber-400 hover:underline">วิเคราะห์ร่วมกับนามสกุล</Link>
+                                    {t('pages.search.steps.s3Desc')} <Link href="/" className="text-amber-400 hover:underline">{t('pages.search.links.l1Title')}</Link>
                                 </p>
                             </div>
                         </div>
@@ -719,7 +805,7 @@ export default function SearchPage() {
                 {/* Internal Links */}
                 <section className="mt-16 mb-12 max-w-4xl mx-auto">
                     <h2 className="text-2xl font-bold text-center text-amber-400 mb-6">
-                        บริการอื่นๆ ที่เกี่ยวข้อง
+                        {t('pages.search.linksTitle')}
                     </h2>
                     <div className="grid md:grid-cols-2 gap-6">
                         <Link
@@ -727,10 +813,10 @@ export default function SearchPage() {
                             className="group block bg-white/[0.03] border border-white/10 rounded-xl p-6 hover:border-amber-500/30 hover:bg-white/[0.05] transition-all"
                         >
                             <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-amber-400 transition-colors">
-                                🔮 วิเคราะห์ชื่อ-นามสกุล (ฟรี)
+                                🔮 {t('pages.search.links.l1Title')}
                             </h3>
                             <p className="text-slate-400 text-sm">
-                                ใส่ชื่อและนามสกุลเพื่อดูคะแนนรวม, เกรด, และคำทำนายตามหลักเลขศาสตร์ ฟรีไม่จำกัดครั้ง
+                                {t('pages.search.links.l1Desc')}
                             </p>
                         </Link>
                         <Link
@@ -738,10 +824,10 @@ export default function SearchPage() {
                             className="group block bg-white/[0.03] border border-white/10 rounded-xl p-6 hover:border-amber-500/30 hover:bg-white/[0.05] transition-all"
                         >
                             <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-amber-400 transition-colors">
-                                ⭐ ค้นหาชื่อมงคล Pro
+                                ⭐ {t('pages.search.links.l2Title')}
                             </h3>
                             <p className="text-slate-400 text-sm">
-                                ใส่นามสกุลเพื่อให้ระบบจับคู่ชื่อ+นามสกุล และแสดงเกรดคู่ทันที (A+, A, B...)
+                                {t('pages.search.links.l2Desc')}
                             </p>
                         </Link>
                         <Link
@@ -749,10 +835,10 @@ export default function SearchPage() {
                             className="group block bg-white/[0.03] border border-white/10 rounded-xl p-6 hover:border-amber-500/30 hover:bg-white/[0.05] transition-all"
                         >
                             <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-amber-400 transition-colors">
-                                💎 วิเคราะห์ชื่อขั้นสูง (Premium)
+                                💎 {t('pages.search.links.l3Title')}
                             </h3>
                             <p className="text-slate-400 text-sm">
-                                วิเคราะห์เชิงลึกด้วย AI รวมถึงคำทำนาย, อายตนะ, เงาอำนาจ และรูปภาพ Wallpaper สำหรับมือถือ
+                                {t('pages.search.links.l3Desc')}
                             </p>
                         </Link>
                         <Link
@@ -760,10 +846,10 @@ export default function SearchPage() {
                             className="group block bg-white/[0.03] border border-white/10 rounded-xl p-6 hover:border-amber-500/30 hover:bg-white/[0.05] transition-all"
                         >
                             <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-amber-400 transition-colors">
-                                📱 วิเคราะห์เบอร์มือถือมงคล
+                                📱 {t('pages.search.links.l4Title')}
                             </h3>
                             <p className="text-slate-400 text-sm">
-                                ตรวจสอบความมงคลของเบอร์มือถือตามหลักเลขศาสตร์ไทย พร้อมคำทำนายเชิงลึก
+                                {t('pages.search.links.l4Desc')}
                             </p>
                         </Link>
                     </div>

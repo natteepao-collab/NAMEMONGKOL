@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { BookOpen, ArrowRight, Calendar, User } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 import { ArticleImage } from './ArticleImage';
+import { useLanguage } from './LanguageProvider';
 
 // Define the interface locally or import from types if available
 interface Article {
@@ -24,6 +25,7 @@ interface Article {
 export const ArticleSection: React.FC = () => {
     const [recentArticles, setRecentArticles] = useState<Article[]>([]);
     const [loading, setLoading] = useState(true);
+    const { t } = useLanguage();
 
     useEffect(() => {
         const fetchArticles = async () => {
@@ -68,13 +70,13 @@ export const ArticleSection: React.FC = () => {
                     <div className="text-left">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50 text-purple-400 text-sm font-medium mb-3">
                             <BookOpen size={16} />
-                            <span>บทความน่ารู้</span>
+                            <span>{t('sections.articles.badge')}</span>
                         </div>
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                            บทความ<span className="text-purple-400">ชื่อมงคล</span>และเกร็ดความรู้
+                            {t('sections.articles.title')}
                         </h2>
                         <p className="text-slate-400 max-w-xl">
-                            รวบรวมบทความ เกร็ดความรู้ และเทคนิคการเสริมดวงชะตาผ่านการตั้งชื่อและการปรับเปลี่ยนวิถีชีวิต
+                            {t('sections.articles.description')}
                         </p>
                     </div>
 
@@ -82,7 +84,7 @@ export const ArticleSection: React.FC = () => {
                         href="/articles"
                         className="group flex items-center gap-2 text-slate-300 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10 shrink-0"
                     >
-                        <span>ดูบทความทั้งหมด</span>
+                        <span>{t('sections.articles.viewAll')}</span>
                         <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </div>
@@ -126,7 +128,7 @@ export const ArticleSection: React.FC = () => {
                                 </p>
 
                                 <div className="flex items-center text-sm font-medium text-purple-400 gap-1 group/link">
-                                    อ่านเพิ่มเติม
+                                    {t('sections.articles.readMore')}
                                     <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
                                 </div>
                             </div>

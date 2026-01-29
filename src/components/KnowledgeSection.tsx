@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Book, Calculator, Calendar, Heart, Infinity as InfinityIcon, Sparkles, ChevronDown, ChevronUp, Table } from 'lucide-react';
 import { thaksaConfig } from '@/data/thaksaConfig';
 import { DayKey } from '@/types';
+import { useLanguage } from './LanguageProvider';
 
 type ScienceType = 'numerology' | 'thaksa' | 'ayatana' | 'nirun';
 
@@ -14,6 +15,7 @@ export const KnowledgeSection: React.FC = () => {
     const initialTab = searchParams.get('tab') as ScienceType | null;
     const [activeTab, setActiveTab] = useState<ScienceType>(initialTab || 'numerology');
     const [selectedThaksaDay, setSelectedThaksaDay] = useState<DayKey>('sunday');
+    const { t } = useLanguage();
 
     // Update active tab if URL param changes (optional, but good for navigation)
     React.useEffect(() => {
@@ -44,13 +46,13 @@ export const KnowledgeSection: React.FC = () => {
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-amber-500 text-sm font-medium mb-4">
                         <Book size={16} />
-                        <span>คลังความรู้ศาสตร์มงคล</span>
+                        <span>{t('sections.knowledge.badge')}</span>
                     </div>
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                        เจาะลึก 4 ศาสตร์ <span className="text-amber-500">ชื่อมงคล</span>และการตั้งชื่อ
+                        {t('sections.knowledge.title')}
                     </h2>
                     <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-                        เรียนรู้หลักการคำนวณและที่มาของศาสตร์แต่ละแขนง เพื่อความเข้าใจที่ลึกซึ้งก่อนตัดสินใจเลือกชื่อที่ใช่สำหรับคุณ
+                        {t('sections.knowledge.description')}
                     </p>
                 </div>
 
@@ -64,7 +66,7 @@ export const KnowledgeSection: React.FC = () => {
                             }`}
                     >
                         <Calculator size={20} />
-                        <span className="font-bold">1. เลขศาสตร์</span>
+                        <span className="font-bold">{t('sections.knowledge.tabs.numerology')}</span>
                     </button>
                     <button
                         onClick={() => setActiveTab('thaksa')}
@@ -74,7 +76,7 @@ export const KnowledgeSection: React.FC = () => {
                             }`}
                     >
                         <Calendar size={20} />
-                        <span className="font-bold">2. ทักษาปกรณ์</span>
+                        <span className="font-bold">{t('sections.knowledge.tabs.thaksa')}</span>
                     </button>
                     <button
                         onClick={() => setActiveTab('ayatana')}
@@ -84,7 +86,7 @@ export const KnowledgeSection: React.FC = () => {
                             }`}
                     >
                         <Heart size={20} />
-                        <span className="font-bold">3. อายตนะ 6</span>
+                        <span className="font-bold">{t('sections.knowledge.tabs.ayatana')}</span>
                     </button>
                     <button
                         onClick={() => setActiveTab('nirun')}
@@ -94,7 +96,7 @@ export const KnowledgeSection: React.FC = () => {
                             }`}
                     >
                         <InfinityIcon size={20} />
-                        <span className="font-bold">4. นิรันดร์ศาสตร์</span>
+                        <span className="font-bold">{t('sections.knowledge.tabs.nirun')}</span>
                     </button>
                 </div>
 

@@ -17,7 +17,7 @@ export const MobileSecondaryNav = () => {
 
     return (
         <>
-            <div className="lg:hidden w-full fixed top-[72px] z-40 bg-[#0f172a]/95 backdrop-blur-md border-b border-white/5">
+            <div className="lg:hidden w-full fixed top-[72px] z-40 bg-[#0f172a]/92 backdrop-blur-xl border-b border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.28)]">
                 <div className="flex items-center gap-3 px-4 py-3 overflow-x-auto custom-scrollbar no-scrollbar">
                     {navItems.map((item) => {
                         const isActive = pathname === item.path;
@@ -27,13 +27,13 @@ export const MobileSecondaryNav = () => {
                             <Link
                                 key={item.path}
                                 href={item.path}
-                                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full whitespace-nowrap transition-all duration-300 border ${isActive
-                                    ? 'bg-amber-500/10 border-amber-500/30 text-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.1)]'
-                                    : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 hover:text-slate-200'
+                                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full whitespace-nowrap transition-all duration-250 border ${isActive
+                                    ? 'bg-white text-slate-900 border-white/80 shadow-[0_10px_22px_rgba(255,255,255,0.18)]'
+                                    : 'bg-white/12 border-white/15 text-slate-100/80 hover:bg-white/18 hover:text-white hover:border-white/30'
                                     }`}
                             >
-                                <Icon size={14} className={isActive ? 'text-amber-400' : ''} />
-                                <span className="text-xs font-medium">{item.name}</span>
+                                <Icon size={14} className={isActive ? 'text-slate-900' : 'opacity-85'} />
+                                <span className={`text-xs font-medium ${isActive ? 'text-slate-900' : ''}`}>{item.name}</span>
                             </Link>
                         );
                     })}

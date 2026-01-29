@@ -9,6 +9,7 @@ import { createClient } from '@supabase/supabase-js';
 import Script from 'next/script';
 
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/components/LanguageProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -156,12 +157,13 @@ export default async function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          forcedTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
-          <GoogleTagManager gtmId={gtmId} />
-          <CookieConsent />
+          <LanguageProvider>
+            <GoogleTagManager gtmId={gtmId} />
+            <CookieConsent />
 
           {/* Facebook Pixel */}
           {facebookPixelId && (
@@ -194,10 +196,11 @@ export default async function RootLayout({
             </Script>
           )}
 
-          <LayoutWrapper>
-            {children}
-            <ScrollToTop />
-          </LayoutWrapper>
+            <LayoutWrapper>
+              {children}
+              <ScrollToTop />
+            </LayoutWrapper>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

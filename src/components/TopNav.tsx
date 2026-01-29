@@ -4,9 +4,10 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { LogIn, Info, User as UserIcon, LogOut, Sparkles, Zap, BookOpen } from 'lucide-react';
-import { ThemeToggle } from './ThemeToggle';
 import { supabase } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';
+import { LanguageToggle } from './LanguageToggle';
+import { useLanguage } from './LanguageProvider';
 
 export const TopNav = () => {
     const [user, setUser] = useState<User | null>(null);
@@ -17,6 +18,7 @@ export const TopNav = () => {
     const pathname = usePathname();
     const router = useRouter();
     const menuRef = React.useRef<HTMLDivElement>(null);
+    const { t } = useLanguage();
 
     const fetchUserInfo = async (userId: string) => {
         const { data, error } = await supabase
@@ -107,7 +109,7 @@ export const TopNav = () => {
                     }`}
             >
                 <BookOpen size={16} />
-                <span>บทความ</span>
+                <span>{t('nav.articles')}</span>
             </Link>
 
             <Link
@@ -118,7 +120,7 @@ export const TopNav = () => {
                     }`}
             >
                 <Info size={16} />
-                <span>เกี่ยวกับเรา</span>
+                <span>{t('nav.about')}</span>
             </Link>
 
             {user ? (
@@ -136,7 +138,7 @@ export const TopNav = () => {
                             </span>
                             {credits !== null && (
                                 <span className="text-[10px] text-amber-500 dark:text-amber-400 font-bold flex items-center gap-1">
-                                    <Sparkles size={10} /> {credits} Credits
+                                    <Sparkles size={10} /> {credits} {t('nav.credits', 'Credits')}
                                 </span>
                             )}
                         </div>
@@ -147,7 +149,7 @@ export const TopNav = () => {
                         <div className="absolute right-0 top-full mt-2 w-56 rounded-2xl bg-white/95 dark:bg-[#0f172a]/95 border border-slate-200 dark:border-white/10 shadow-xl backdrop-blur-xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                             <div className="p-3 border-b border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-white/5">
                                 <div className="flex items-center justify-between mb-2">
-                                    <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Credit Balance</span>
+                                            <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">{t('general.creditBalance', 'Credit Balance')}</span>
                                 </div>
                                 <div className="flex items-center justify-between bg-white dark:bg-black/40 rounded-xl p-2 border border-slate-200 dark:border-white/5">
                                     <div className="flex items-center gap-2 text-sm text-amber-400 font-bold px-1">
@@ -159,7 +161,7 @@ export const TopNav = () => {
                                         onClick={() => setIsOpen(false)}
                                         className="text-[10px] text-emerald-950 hover:text-emerald-900 font-bold bg-emerald-400 hover:bg-emerald-300 px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 shadow-lg shadow-emerald-500/20 hover:-translate-y-0.5"
                                     >
-                                        <Zap size={12} fill="currentColor" /> เติมเงิน
+                                                <Zap size={12} fill="currentColor" /> {t('nav.topup')}
                                     </Link>
                                 </div>
                             </div>
@@ -170,7 +172,7 @@ export const TopNav = () => {
                                     className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors text-sm font-medium"
                                 >
                                     <LogOut size={16} />
-                                    ออกจากระบบ
+                                            {t('nav.logout')}
                                 </button>
                             </div>
                         </div>
@@ -185,11 +187,11 @@ export const TopNav = () => {
                         }`}
                 >
                     <LogIn size={16} />
-                    <span>เข้าสู่ระบบ</span>
+                            <span>{t('nav.login')}</span>
                 </Link>
             )}
 
-            <ThemeToggle />
+			<LanguageToggle />
         </div>
     );
 };

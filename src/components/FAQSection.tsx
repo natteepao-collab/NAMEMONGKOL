@@ -1,43 +1,46 @@
 import React from 'react';
 import { HelpCircle, ChevronDown } from 'lucide-react';
+import { useLanguage } from './LanguageProvider';
 
 export const FAQSection = () => {
+    const { t } = useLanguage();
+
     return (
         <section className="py-16 md:py-24 relative overflow-hidden">
             <div className="container mx-auto px-4 relative z-10">
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-slate-400 text-sm mb-4">
                         <HelpCircle size={16} />
-                        <span>คำถามที่พบบ่อย</span>
+                        <span>{t('sections.faq.badge')}</span>
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                        ไขข้อข้องใจเรื่อง <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200">ชื่อมงคล</span>
+                        {t('sections.faq.title')}
                     </h2>
                     <p className="text-slate-400 max-w-2xl mx-auto">
-                        รวบรวมคำถามยอดฮิตเกี่ยวกับการตั้งชื่อ เปลี่ยนชื่อ และวิเคราะห์ชื่อมงคล เพื่อช่วยให้คุณเข้าใจศาสตร์แห่งตัวเลขและดวงดาวได้ดียิ่งขึ้น
+                        {t('sections.faq.description')}
                     </p>
                 </div>
 
                 <div className="max-w-3xl mx-auto space-y-4">
                     <FAQItem
-                        question="วิเคราะห์ชื่อมงคลที่ NameMongkol แม่นยำแค่ไหน?"
-                        answer="NameMongkol ใช้ระบบ AI ประมวลผลร่วมกับ 4 ศาสตร์หลัก ได้แก่ เลขศาสตร์, ทักษาปกรณ์, อายตนะ 6 และนิรันดร์ศาสตร์ ซึ่งเป็นตำราโหราศาสตร์ไทยโบราณที่ได้รับการยอมรับ ทำให้ผลลัพธ์มีความละเอียดและแม่นยำกว่าโปรแกรมทั่วไป"
+                        question={t('sections.faq.q1')}
+                        answer={t('sections.faq.a1')}
                     />
                     <FAQItem
-                        question="ผลรวมตัวเลขที่ดีที่สุด ควรเป็นเลขอะไร?"
-                        answer="ผลรวมที่ดีขึ้นอยู่กับอาชีพและดวงชะตาของแต่ละบุคคล แต่โดยทั่วไป ผลรวมที่จัดว่าดีเยี่ยมในระดับสากล ได้แก่ 14, 15, 24, 36, 41, 42, 45, 50, 51, 54, 56, 59, 63, 65 ซึ่งส่งผลดีในด้านความสำเร็จและการเงิน"
+                        question={t('sections.faq.q2')}
+                        answer={t('sections.faq.a2')}
                     />
                     <FAQItem
-                        question="เปลี่ยนชื่อแล้ว ชีวิตจะดีขึ้นภายในกี่วัน?"
-                        answer="ตามหลักครูบาอาจารย์ เชื่อว่าเมื่อเปลี่ยนชื่อใหม่แล้ว จะเริ่มเห็นผลการเปลี่ยนแปลงภายใน 3-6 เดือน โดยพลังของชื่อใหม่จะค่อยๆ ส่งผลต่อความคิด การตัดสินใจ และดึงดูดสิ่งดีๆ เข้ามา ทั้งนี้ขึ้นอยู่กับการทำบุญและการปฏิบัติตนควบคู่กันไปด้วย"
+                        question={t('sections.faq.q3')}
+                        answer={t('sections.faq.a3')}
                     />
                     <FAQItem
-                        question="อักษรกาลกิณี คืออะไร? ทำไมต้องห้าม?"
-                        answer="อักษรกาลกิณี คือพยัญชนะที่เป็นอริกับดวงวันเกิด หากมีในชื่อจะเปรียบเสมือนมีอุปสรรคขัดขวาง ทำให้ชีวิตเหนื่อยยาก มีศัตรู หรือเกิดอุบัติเหตุได้ง่าย การตั้งชื่อมงคลจึงควรหลีกเลี่ยงอักษรกาลกิณีอย่างเด็ดขาด"
+                        question={t('sections.faq.q4')}
+                        answer={t('sections.faq.a4')}
                     />
                     <FAQItem
-                        question="ใช้ NameMongkol ตั้งชื่อลูกได้หรือไม่?"
-                        answer="ได้แน่นอน! ระบบของเราสามารถใช้วิเคราะห์เพื่อตั้งชื่อลูกแรกเกิดได้ โดยพิจารณาจากวันเกิด (ทักษา) เพื่อหาตัวอักษรที่เป็นมงคล (เดช, ศรี, มนตรี) และหลีกเลี่ยงกาลกิณี เพื่อวางรากฐานชีวิตที่ดีให้กับบุตรหลานของคุณ"
+                        question={t('sections.faq.q5')}
+                        answer={t('sections.faq.a5')}
                     />
                 </div>
             </div>
