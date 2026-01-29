@@ -6,7 +6,10 @@ export const supportedLanguages: { code: SupportedLanguage; label: string }[] = 
     { code: 'zh', label: '中文' },
 ];
 
-export type TranslationDict = Record<string, string | TranslationDict>;
+type TranslationValue = string | TranslationDict;
+export interface TranslationDict {
+    [key: string]: TranslationValue;
+}
 
 const dictionaries: Record<SupportedLanguage, TranslationDict> = {
     th: {

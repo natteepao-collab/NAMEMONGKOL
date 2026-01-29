@@ -19,10 +19,6 @@ const remotePatterns: RemotePattern[] = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
-  eslint: {
-    // Skip blocking builds on lint errors to allow deploy; run `npm run lint` locally to fix.
-    ignoreDuringBuilds: true,
-  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns,
