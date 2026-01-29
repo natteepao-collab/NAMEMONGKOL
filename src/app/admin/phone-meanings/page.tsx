@@ -128,7 +128,7 @@ export default function AdminPhoneMeaningsPage() {
 
     const handleApplyStandardGrades = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Apply Standard Grades?',
             text: "This will update the GRADE (Good/Bad/Neutral) of all pairs in the database to match the Standard Table (Red/Green/Orange). Titles and descriptions will NOT be changed.",
@@ -167,7 +167,7 @@ export default function AdminPhoneMeaningsPage() {
 
     const handleSync = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+            const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Sync Local Data?',
             text: "This will populate the 'phone_pair_meanings' table from your local 'src/data/pairDefinitions.ts'. Existing pairs in DB will be updated.",
@@ -210,7 +210,7 @@ export default function AdminPhoneMeaningsPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         setSaving(true);
         try {
             if (!currentMeaning.pair || !currentMeaning.title) {

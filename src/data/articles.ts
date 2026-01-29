@@ -1552,7 +1552,7 @@ export const articles: Article[] = [
         coverImage: '/images/articles/phone-guide-2026.jpg', // Placeholder
         date: '2026-01-21',
         author: 'ทีมวิเคราะห์ชื่อ NameMongkol',
-        category: 'In-depth Report',
+        category: 'เลขศาสตร์เบอร์มงคล',
         keywords: ['วิเคราะห์เบอร์มงคล', 'เลือกเบอร์มงคลปี 2569', 'เลขศาสตร์', 'เบอร์มงคลปีมะเมีย', 'NameMongkol', 'คู่เลขมงคล', 'กาลกิณีวันเกิด'],
         metaTitle: 'วิธีเลือกเบอร์มงคล 2569 ด้วยตัวเอง: คู่มือฉบับสมบูรณ์ | NameMongkol',
         metaDescription: 'สอนวิธีเลือกและวิเคราะห์เบอร์มงคลปี 2569 ด้วยตัวเอง เช็คคู่ลำดับ ผลรวม และกาลกิณีตามวันเกิด เปลี่ยนเบอร์รับปีมะเมียธาตุไฟให้รวยและรุ่ง',
@@ -1649,7 +1649,7 @@ export const articles: Article[] = [
         coverImage: '/images/articles/naming-stats-2025.jpg', // Placeholder, needs actual image
         date: '2026-01-20',
         author: 'ทีมวิเคราะห์ชื่อ NameMongkol',
-        category: 'In-depth Report',
+        category: 'สถิติและเทรนด์',
         keywords: ['สถิติชื่อไทย 2568', 'ตัวอักษรตั้งชื่อมงคล', 'เทรนด์ตั้งชื่อ', 'NameMongkol', 'ชื่อมงคลปีมะเส็ง', 'ชื่อมงคลปีมะเมีย', 'ความหมายชื่อ'],
         metaTitle: 'สถิติชื่อไทยปี 2568 และเทรนด์ปี 2569: อักษรไหนปังสุด? | NameMongkol',
         metaDescription: 'เจาะลึกสถิติชื่อไทยปี 2568 และเทรนด์ปี 2569 ตัวอักษรไหนปังสุด? ทำไมคนไทยเน้นความหมายมากกว่าความคล้องจอง? อ่านวิเคราะห์เจาะลึกจาก NameMongkol ได้ที่นี่',
@@ -1929,7 +1929,7 @@ export const articles: Article[] = [
         coverImage: '/images/articles/naming-power-cover.png',
         date: '2026-01-05',
         author: 'อ.ณัฐ นามมงคล',
-        category: 'ความเชื่อและการตั้งชื่อ',
+        category: 'ศาสตร์ตั้งชื่อ',
         keywords: ['ตั้งชื่อมงคล', 'วิเคราะห์ชื่อ', 'เปลี่ยนชื่อ', 'เลขศาสตร์', 'ดูดวงชื่อ'],
         metaTitle: 'พลังแห่งการตั้งชื่อ: ชื่อมงคลเปลี่ยนชีวิตได้จริงหรือ? - NAMEMONGKOL',
         metaDescription: 'เจาะลึกศาสตร์แห่งการตั้งชื่อมงคลและเลขศาสตร์ ชื่อส่งผลต่อชีวิตอย่างไร และหลักการตั้งชื่อที่ดีเพื่อเสริมดวงชะตา'
@@ -2529,7 +2529,7 @@ export const articles: Article[] = [
         coverImage: '/images/articles/lucky-numbers-2569.png',
         date: '2026-01-12',
         author: 'NameMongkol Editorial',
-        category: 'เลขศาสตร์และการเงิน',
+        category: 'เลขศาสตร์',
         keywords: ['เลขมงคลตามวันเกิด', 'คู่เลขมงคล', 'เสริมดวง 2569', 'เลขกาลกิณี', 'NameMongkol', 'วอลเปเปอร์มงคล'],
         metaTitle: 'คู่มือเลือกเลขมงคลตามวันเกิดปี 2569 เสริมดวงชะตา พลิกชีวิตให้ปัง! | NameMongkol',
         metaDescription: 'เช็กเลขมงคลตามวันเกิดปี 2569 ครบทั้ง 7 วัน พร้อมคู่เลขเสริมการเงิน การงาน ความรัก และเลขกาลกิณีที่ควรเลี่ยง เพื่อการเลือกเบอร์โทรศัพท์และเลขมงคลที่ถูกต้อง'
@@ -2742,7 +2742,7 @@ export const articles: Article[] = [
         coverImage: '/images/articles/auspicious-colors-2569.png',
         date: '2026-01-12',
         author: 'NameMongkol Editorial',
-        category: 'สีมงคลและโหราศาสตร์',
+        category: 'สีมงคล',
         keywords: ['สีมงคลปี 2569', 'สีมงคลตามวันเกิด', 'NameMongkol', 'สีกาลกิณี', 'สีเสริมดวง'],
         metaTitle: 'ตารางสีมงคลตามวันเกิดปี 2569 เสริมดวงเฮง การเงินพุ่ง รักรุ่งตลอดปี! | NameMongkol',
         metaDescription: 'เช็กตารางสีมงคลประจำวันเกิดปี 2569 เสริมอำนาจ โชคลาภ และเมตตา พร้อมสีที่ควรเลี่ยง เพื่อความเฮงตลอดปี'
@@ -3473,7 +3473,7 @@ export const articles: Article[] = [
         coverImage: '/images/articles/shadow-power-cover.png',
         date: '2026-01-21',
         author: 'Grandmaster NameMongkol',
-        category: 'ความรู้ชั้นสูง',
+        category: 'ความรู้ขั้นสูง',
         keywords: ['พลังเงา', 'Shadow Power', 'วิเคราะห์ชื่อ', 'ตั้งชื่อมงคล', 'จิตใต้สำนึก', 'ศาสตร์ตัวเลข'],
         metaTitle: 'พลังเงา (Shadow Power) คืออะไร? ศาสตร์ลับวิเคราะห์ชื่อชั้นสูง - NameMongkol',
         metaDescription: 'เปิดโปงความลับ "พลังเงา" ที่ซ่อนอยู่ในชื่อ ศาสตร์วิเคราะห์ชื่อชั้นสูงที่แม่นยำกว่าผลรวมทั่วไป เปรียบเทียบ Main Power vs Shadow Power'

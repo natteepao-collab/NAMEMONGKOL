@@ -61,7 +61,7 @@ export default function AdminUsersPage() {
 
     const fetchUsers = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();
@@ -104,7 +104,7 @@ export default function AdminUsersPage() {
     const handleSave = async () => {
         if (!editingUser) return;
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         setSaving(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();

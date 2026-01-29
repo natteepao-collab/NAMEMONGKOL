@@ -44,7 +44,7 @@ export const TestimonialSection = () => {
             // Dynamic import SweetAlert2
             // Dynamic import SweetAlert2 - Rebuild trigger
             // @ts-ignore
-            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+            const Swal = (await import('sweetalert2')).default;
 
             Swal.fire({
                 title: 'กรุณาเข้าสู่ระบบ',

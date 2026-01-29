@@ -14,7 +14,7 @@ export default function AdminNamesPage() {
     // Fetch initial data
     const fetchNames = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         setIsLoading(true);
         try {
             const res = await fetch('/api/admin/names');
@@ -42,7 +42,7 @@ export default function AdminNamesPage() {
 
     const handleSave = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         setIsSaving(true);
         try {
             // Parse raw input: split by comma or newline, trim, remove empty
@@ -89,7 +89,7 @@ export default function AdminNamesPage() {
 
     const copyToClipboard = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         navigator.clipboard.writeText(rawInput);
         const Toast = Swal.mixin({
             toast: true,

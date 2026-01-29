@@ -104,6 +104,37 @@ export default async function ArticlePage({ params }: Props) {
         return notFound();
     }
 
+    // Get related articles (same category, excluding current)
+    const relatedArticles = localArticles
+        .filter(a => a.category === article.category && a.slug !== slug)
+        .slice(0, 3);
+
+    // Breadcrumb Schema
+    const breadcrumbJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+            {
+                '@type': 'ListItem',
+                'position': 1,
+                'name': 'หน้าหลัก',
+                'item': 'https://www.namemongkol.com'
+            },
+            {
+                '@type': 'ListItem',
+                'position': 2,
+                'name': 'บทความชื่อมงคล',
+                'item': 'https://www.namemongkol.com/articles'
+            },
+            {
+                '@type': 'ListItem',
+                'position': 3,
+                'name': article.title,
+                'item': `https://www.namemongkol.com/articles/${slug}`
+            }
+        ]
+    };
+
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-purple-500 selection:text-white relative overflow-hidden pb-28">
             {/* Background Decor */}
@@ -140,13 +171,30 @@ export default async function ArticlePage({ params }: Props) {
                         "mainEntityOfPage": {
                             "@type": "WebPage",
                             "@id": `https://www.namemongkol.com/articles/${article.slug}`
-                        }
+                        },
+                        "keywords": article.keywords?.join(', ') || ''
                     })
                 }}
+            />
+            <Script
+                id="article-breadcrumb-json-ld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
             />
 
             <main className="w-full max-w-[1400px] px-4 py-8 relative z-10 pt-6 md:pt-32">
                 <div className="max-w-3xl">
+                    {/* Breadcrumb Navigation */}
+                    <nav className="mb-6 text-sm text-slate-400" aria-label="Breadcrumb">
+                        <ol className="flex items-center gap-2 flex-wrap">
+                            <li><Link href="/" className="hover:text-white transition-colors">หน้าหลัก</Link></li>
+                            <li className="text-slate-600">/</li>
+                            <li><Link href="/articles" className="hover:text-white transition-colors">บทความ</Link></li>
+                            <li className="text-slate-600">/</li>
+                            <li className="text-purple-400 font-medium truncate max-w-[200px] md:max-w-none">{article.title}</li>
+                        </ol>
+                    </nav>
+
                     {/* Back Link */}
                     <Link href="/articles" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors group">
                         <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
@@ -222,6 +270,69 @@ export default async function ArticlePage({ params }: Props) {
                         <span className="text-slate-400 font-medium">แชร์บทความนี้</span>
                         <ArticleShareButtons title={article.title} slug={article.slug} />
                     </div>
+
+                    {/* Related Articles Section */}
+                    {relatedArticles.length > 0 && (
+                        <section className="mt-12 pt-8 border-t border-white/10">
+                            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                                <span className="text-2xl">📚</span>
+                                บทความที่เกี่ยวข้อง
+                            </h3>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                {relatedArticles.map((related) => (
+                                    <Link
+                                        key={related.slug}
+                                        href={`/articles/${related.slug}`}
+                                        className="group bg-slate-800/40 border border-slate-700/50 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all hover:-translate-y-1"
+                                    >
+                                        <div className="h-32 w-full bg-slate-700 relative overflow-hidden">
+                                            <ArticleImage
+                                                src={related.coverImage}
+                                                alt={related.title}
+                                                priority={false}
+                                                className="group-hover:scale-105 transition-transform duration-300"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
+                                        </div>
+                                        <div className="p-4">
+                                            <div className="text-xs text-purple-400 mb-2">{related.category}</div>
+                                            <h4 className="text-sm font-medium text-white group-hover:text-purple-300 transition-colors line-clamp-2 leading-snug">
+                                                {related.title}
+                                            </h4>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </section>
+                    )}
+
+                    {/* SEO Bottom Content */}
+                    <section className="mt-12 pt-8 border-t border-white/10 bg-slate-800/30 rounded-xl p-6">
+                        <h3 className="text-lg font-bold text-amber-400 mb-4">เกี่ยวกับ NameMongkol</h3>
+                        <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                            <strong className="text-slate-300">NameMongkol</strong> คือเว็บไซต์วิเคราะห์ชื่อมงคลอันดับ 1 ของไทย 
+                            ใช้ระบบ AI ผสานศาสตร์โบราณ ครอบคลุม <strong className="text-slate-300">เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6</strong> 
+                            และ <strong className="text-slate-300">อักษรกาลกิณี</strong> 
+                            ให้บริการทั้งวิเคราะห์ชื่อฟรีและค้นหาชื่อมงคล Premium พร้อมวอลเปเปอร์มงคลเสริมดวง
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            <Link href="/" className="text-xs bg-slate-700/50 hover:bg-purple-600/30 px-3 py-1.5 rounded-full text-slate-300 hover:text-white transition-colors">
+                                วิเคราะห์ชื่อฟรี
+                            </Link>
+                            <Link href="/premium-search" className="text-xs bg-slate-700/50 hover:bg-purple-600/30 px-3 py-1.5 rounded-full text-slate-300 hover:text-white transition-colors">
+                                ค้นหาชื่อมงคล Premium
+                            </Link>
+                            <Link href="/phone-analysis" className="text-xs bg-slate-700/50 hover:bg-purple-600/30 px-3 py-1.5 rounded-full text-slate-300 hover:text-white transition-colors">
+                                วิเคราะห์เบอร์มงคล
+                            </Link>
+                            <Link href="/wallpapers" className="text-xs bg-slate-700/50 hover:bg-purple-600/30 px-3 py-1.5 rounded-full text-slate-300 hover:text-white transition-colors">
+                                วอลเปเปอร์มงคล
+                            </Link>
+                            <Link href="/articles" className="text-xs bg-slate-700/50 hover:bg-purple-600/30 px-3 py-1.5 rounded-full text-slate-300 hover:text-white transition-colors">
+                                บทความทั้งหมด
+                            </Link>
+                        </div>
+                    </section>
                 </div>
             </main>
         </div>

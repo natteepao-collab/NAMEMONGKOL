@@ -203,7 +203,7 @@ export default function PremiumSearchPage() {
 
     const handleSearch = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         // Check Authentication
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {

@@ -22,7 +22,7 @@ export default function AdminSlipsPage() {
 
     const fetchSlips = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();

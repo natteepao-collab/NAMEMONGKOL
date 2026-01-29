@@ -37,7 +37,7 @@ export default function AdminWallpapersPage() {
         } catch (error) {
             console.error('Error fetching wallpapers:', error);
             // @ts-ignore
-            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+            const Swal = (await import('sweetalert2')).default;
             Swal.fire('Error', 'Failed to fetch wallpapers', 'error');
         } finally {
             setLoading(false);
@@ -79,7 +79,7 @@ export default function AdminWallpapersPage() {
 
     const handleDelete = async (id: number) => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -144,7 +144,7 @@ export default function AdminWallpapersPage() {
         e.preventDefault();
         setUploading(true);
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
 
         try {
             let finalImageUrl = currentWallpaper.image;

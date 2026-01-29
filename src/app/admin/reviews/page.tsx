@@ -17,7 +17,7 @@ export default function AdminReviewsPage() {
 
     const fetchReviews = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();
@@ -58,7 +58,7 @@ export default function AdminReviewsPage() {
 
     const handleUpdateStatus = async (id: string, newStatus: string) => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         try {
             const { data: { session } } = await supabase.auth.getSession();
 
@@ -96,7 +96,7 @@ export default function AdminReviewsPage() {
 
     const handleDelete = async (id: string) => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",

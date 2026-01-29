@@ -35,7 +35,7 @@ export default function AdminPricingPage() {
 
     const fetchTiers = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();
@@ -81,7 +81,7 @@ export default function AdminPricingPage() {
 
     const handleDelete = async (id: string) => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -116,7 +116,7 @@ export default function AdminPricingPage() {
 
     const handleSave = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         setSaving(true);
         try {
             const { data: { session } } = await supabase.auth.getSession();

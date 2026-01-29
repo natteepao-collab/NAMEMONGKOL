@@ -363,7 +363,7 @@ export default function SearchPage() {
         } catch (err) {
             console.error('unlock error:', err);
             // @ts-ignore
-            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+            const Swal = (await import('sweetalert2')).default;
             await Swal.fire({
                 title: 'เกิดข้อผิดพลาด',
                 text: 'ไม่สามารถดำเนินการได้ กรุณาลองใหม่',

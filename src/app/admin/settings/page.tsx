@@ -46,7 +46,7 @@ export default function AdminSettingsPage() {
 
     const handleSave = async () => {
         // @ts-ignore
-        const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+        const Swal = (await import('sweetalert2')).default;
         setSaving(true);
         try {
             const { data: { user } } = await supabase.auth.getUser();

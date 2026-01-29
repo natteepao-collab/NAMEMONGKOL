@@ -157,8 +157,8 @@ export default async function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          forcedTheme="light"
-          enableSystem={false}
+          defaultTheme="dark"
+          enableSystem
           disableTransitionOnChange
         >
           <LanguageProvider>

@@ -53,7 +53,7 @@ export default function TopUpPage({ gateway }: TopUpPageProps) {
                 const status = searchParams.get('payment_status');
                 const sessionId = searchParams.get('session_id');
                 // @ts-ignore
-                const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+                const Swal = (await import('sweetalert2')).default;
 
                 if (status === 'success' && sessionId) {
                     // Remove params immediately to prevent double-firing (though idempotency handles it)
@@ -137,7 +137,7 @@ export default function TopUpPage({ gateway }: TopUpPageProps) {
         } catch (error: any) {
             console.error('Checkout error:', error);
             // @ts-ignore
-            const Swal = (await import('sweetalert2/dist/sweetalert2.js')).default;
+            const Swal = (await import('sweetalert2')).default;
             Swal.fire({
                 title: 'เกิดข้อผิดพลาด',
                 text: error.message || 'ไม่สามารถสร้างรายการชำระเงินได้',
