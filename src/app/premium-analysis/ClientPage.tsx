@@ -15,6 +15,24 @@ import { supabase } from '@/utils/supabase';
 import { generatePremiumNames, PremiumResult, FocusTopic, getAstrologicalDay } from '@/utils/premiumAnalysisUtils';
 import { formatThaiBirthDate, ThaiDateResult } from '@/utils/thaiDateUtils';
 
+const THAI_MONTHS = [
+    'มกราคม (01)', 'กุมภาพันธ์ (02)', 'มีนาคม (03)', 'เมษายน (04)', 'พฤษภาคม (05)', 'มิถุนายน (06)',
+    'กรกฎาคม (07)', 'สิงหาคม (08)', 'กันยายน (09)', 'ตุลาคม (10)', 'พฤศจิกายน (11)', 'ธันวาคม (12)'
+];
+
+const DAYS = Array.from({ length: 31 }, (_, i) => (i + 1).toString().padStart(2, '0'));
+const HOURS = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
+const MINUTES = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, '0'));
+
+// Years range: B.E. 2450 - 2590 (A.D. 1907 - 2047)
+const START_BE = 2450;
+const END_BE = 2590;
+const YEARS = Array.from({ length: END_BE - START_BE + 1 }, (_, i) => {
+    const be = START_BE + i;
+    const ad = be - 543;
+    return { val: ad.toString(), label: `${be} / ${ad}` };
+});
+
 export default function PremiumAnalysisPage() {
     const router = useRouter();
     // Form State
@@ -33,41 +51,42 @@ export default function PremiumAnalysisPage() {
     const [dateDetails, setDateDetails] = useState<ThaiDateResult | null>(null);
 
     // Derived state for display input to allow typing
-    const [dateInput, setDateInput] = useState('');
+    // Derived state for display input to allow typing
+    const [selectedDay, setSelectedDay] = useState('');
+    const [selectedMonth, setSelectedMonth] = useState('');
+    const [selectedYear, setSelectedYear] = useState('');
+    const [selectedHour, setSelectedHour] = useState('12');
+    const [selectedMinute, setSelectedMinute] = useState('00');
+
+    // Derived state for display input to allow typing
     const [isUnknownTime, setIsUnknownTime] = useState(false);
-    const timeInputRef = useRef<HTMLInputElement | null>(null);
-    const dateInputRef = useRef<HTMLInputElement | null>(null);
 
-    const openTimePicker = () => {
-        if (isUnknownTime) return;
-        const el = timeInputRef.current;
-        if (!el) return;
-        if (typeof el.showPicker === 'function') {
-            el.showPicker();
+    // Sync Dropdowns -> birthDate
+    useEffect(() => {
+        if (selectedDay && selectedMonth && selectedYear) {
+            const mIndex = THAI_MONTHS.indexOf(selectedMonth) + 1;
+            const mStr = mIndex.toString().padStart(2, '0');
+            setBirthDate(`${selectedYear}-${mStr}-${selectedDay}`);
         } else {
-            el.focus();
+            setBirthDate('');
         }
-    };
+    }, [selectedDay, selectedMonth, selectedYear]);
 
-    const openDatePicker = () => {
-        const el = dateInputRef.current;
-        if (!el) return;
-        if (typeof el.showPicker === 'function') {
-            el.showPicker();
+    // Sync Dropdowns -> birthTime
+    useEffect(() => {
+        if (isUnknownTime) {
+            setBirthTime('');
         } else {
-            el.focus();
+            setBirthTime(`${selectedHour}:${selectedMinute}`);
         }
-    };
+    }, [selectedHour, selectedMinute, isUnknownTime]);
+
+
 
     const [shownNames, setShownNames] = useState<string[]>([]);
 
-    // Sync birthDate to dateInput when picked from calendar
-    useEffect(() => {
-        if (birthDate) {
-            const [y, m, d] = birthDate.split('-');
-            setDateInput(`${d}/${m}/${y}`);
-        }
-    }, [birthDate]);
+    // Sync birthDate state back to dropdowns if set externally (optional, but good for robust sync)
+    // For now, simpler to just let dropdowns drive the state.
 
     const focusOptions: Array<{ key: FocusTopic; title: string; subtitle: string; icon: React.ReactNode }> = [
         { key: 'WEALTH', title: 'โชคลาภ', subtitle: 'การเงินมั่งคั่ง', icon: <Coins size={20} /> },
@@ -455,42 +474,59 @@ export default function PremiumAnalysisPage() {
                     {/* Birth Date & Time */}
                     <div className="grid grid-cols-1 gap-6">
                         {/* Birth Date */}
+                        {/* Birth Date (Dropdowns) */}
                         <div className="space-y-3">
                             <label className="text-sm font-medium text-slate-300 ml-1">วันเกิด</label>
-                            <div className="relative group">
-                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-amber-400 transition-colors pointer-events-none z-10">
-                                    <Calendar size={20} />
+                            <div className="grid grid-cols-12 gap-2 sm:gap-4">
+                                {/* Day */}
+                                <div className="col-span-4 sm:col-span-3 relative">
+                                    <select
+                                        value={selectedDay}
+                                        onChange={(e) => setSelectedDay(e.target.value)}
+                                        className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/10 text-white appearance-none cursor-pointer text-center"
+                                    >
+                                        <option value="" disabled>วัน</option>
+                                        {DAYS.map(d => (
+                                            <option key={d} value={d} className="bg-slate-900 text-slate-200">{d}</option>
+                                        ))}
+                                    </select>
+                                    <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                                        <ChevronRight size={12} className="rotate-90" />
+                                    </div>
                                 </div>
-                                <input
-                                    type="text"
-                                    value={dateInput}
-                                    onChange={(e) => {
-                                        const val = e.target.value;
-                                        setDateInput(val);
-                                        if (val.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
-                                            const [d, m, y] = val.split('/');
-                                            if (parseInt(d) > 0 && parseInt(d) <= 31 && parseInt(m) > 0 && parseInt(m) <= 12) {
-                                                setBirthDate(`${y}-${m}-${d}`);
-                                            }
-                                        } else if (val === '') {
-                                            setBirthDate('');
-                                        }
-                                    }}
-                                    placeholder="DD/MM/YYYY"
-                                    className="w-full bg-slate-900/50 border border-white/10 rounded-2xl pl-12 pr-12 py-4 text-base focus:outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/10 transition-all text-slate-200 placeholder:text-slate-600 font-mono"
-                                />
-                                <div
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-amber-400 transition-colors cursor-pointer p-2"
-                                    onClick={openDatePicker}
-                                >
-                                    <input
-                                        ref={dateInputRef}
-                                        type="date"
-                                        value={birthDate}
-                                        onChange={(e) => setBirthDate(e.target.value)}
-                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                    />
-                                    <ChevronRight size={16} className="rotate-90" />
+
+                                {/* Month */}
+                                <div className="col-span-8 sm:col-span-5 relative">
+                                    <select
+                                        value={selectedMonth}
+                                        onChange={(e) => setSelectedMonth(e.target.value)}
+                                        className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-2 py-3 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/10 text-white appearance-none cursor-pointer pl-3 text-center"
+                                    >
+                                        <option value="" disabled>เดือน</option>
+                                        {THAI_MONTHS.map(m => (
+                                            <option key={m} value={m} className="bg-slate-900 text-slate-200">{m}</option>
+                                        ))}
+                                    </select>
+                                    <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                                        <ChevronRight size={12} className="rotate-90" />
+                                    </div>
+                                </div>
+
+                                {/* Year */}
+                                <div className="col-span-12 sm:col-span-4 relative">
+                                    <select
+                                        value={selectedYear}
+                                        onChange={(e) => setSelectedYear(e.target.value)}
+                                        className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-2 py-3 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/10 text-white appearance-none cursor-pointer pl-3 text-center"
+                                    >
+                                        <option value="" disabled>ปี (พ.ศ. / ค.ศ.)</option>
+                                        {YEARS.map(y => (
+                                            <option key={y.val} value={y.val} className="bg-slate-900 text-slate-200">{y.label}</option>
+                                        ))}
+                                    </select>
+                                    <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                                        <ChevronRight size={12} className="rotate-90" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -525,23 +561,41 @@ export default function PremiumAnalysisPage() {
                                     <label htmlFor="unknownTime" className="text-xs text-slate-400 cursor-pointer hover:text-white transition-colors">ไม่ทราบเวลา</label>
                                 </div>
                             </label>
-                            <div className={`relative group ${isUnknownTime ? 'opacity-50 pointer-events-none' : ''}`}>
-                                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-amber-400 transition-colors pointer-events-none z-10">
-                                    <Clock size={20} />
+                            <div className={`grid grid-cols-2 gap-4 ${isUnknownTime ? 'opacity-50 pointer-events-none' : ''}`}>
+                                {/* Hour */}
+                                <div className="relative">
+                                    <select
+                                        value={selectedHour}
+                                        onChange={(e) => setSelectedHour(e.target.value)}
+                                        disabled={isUnknownTime}
+                                        className="w-full bg-slate-900/50 border border-white/10 rounded-xl pl-4 pr-14 py-3 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/10 text-white appearance-none cursor-pointer text-center"
+                                    >
+                                        {HOURS.map(h => (
+                                            <option key={h} value={h} className="bg-slate-900 text-slate-200">{h}</option>
+                                        ))}
+                                    </select>
+                                    <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                                        <span className="text-xs mr-1">นาฬิกา</span>
+                                        <ChevronRight size={10} className="rotate-90 inline" />
+                                    </div>
                                 </div>
-                                <input
-                                    type="time"
-                                    value={birthTime}
-                                    disabled={isUnknownTime}
-                                    onChange={(e) => setBirthTime(e.target.value)}
-                                    ref={timeInputRef}
-                                    className="w-full bg-slate-900/50 border border-white/10 rounded-2xl pl-12 pr-12 py-4 text-base focus:outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/10 transition-all text-slate-200 disabled:bg-slate-900/30 time-picker-light font-mono"
-                                />
-                                <div
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-amber-400 transition-colors cursor-pointer p-2"
-                                    onClick={openTimePicker}
-                                >
-                                    <Clock size={16} />
+
+                                {/* Minute */}
+                                <div className="relative">
+                                    <select
+                                        value={selectedMinute}
+                                        onChange={(e) => setSelectedMinute(e.target.value)}
+                                        disabled={isUnknownTime}
+                                        className="w-full bg-slate-900/50 border border-white/10 rounded-xl pl-4 pr-14 py-3 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/10 text-white appearance-none cursor-pointer text-center"
+                                    >
+                                        {MINUTES.map(m => (
+                                            <option key={m} value={m} className="bg-slate-900 text-slate-200">{m}</option>
+                                        ))}
+                                    </select>
+                                    <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                                        <span className="text-xs mr-1">นาที</span>
+                                        <ChevronRight size={10} className="rotate-90 inline" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
