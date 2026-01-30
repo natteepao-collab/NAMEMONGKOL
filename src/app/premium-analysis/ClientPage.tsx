@@ -13,6 +13,7 @@ import Link from 'next/link';
 
 import { supabase } from '@/utils/supabase';
 import { generatePremiumNames, PremiumResult, FocusTopic, getAstrologicalDay } from '@/utils/premiumAnalysisUtils';
+import { formatThaiBirthDate, ThaiDateResult } from '@/utils/thaiDateUtils';
 
 export default function PremiumAnalysisPage() {
     const router = useRouter();
@@ -27,6 +28,9 @@ export default function PremiumAnalysisPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [hasAnalyzed, setHasAnalyzed] = useState(false);
     const [userCredits, setUserCredits] = useState<number | null>(null);
+
+    // New state for extended date details
+    const [dateDetails, setDateDetails] = useState<ThaiDateResult | null>(null);
 
     // Derived state for display input to allow typing
     const [dateInput, setDateInput] = useState('');
@@ -175,6 +179,10 @@ export default function PremiumAnalysisPage() {
             const dateObj = new Date(birthDate);
             const astDay = getAstrologicalDay(dateObj, birthTime);
 
+            // Calculate Thai Date Details
+            const dateInfo = formatThaiBirthDate(birthDate);
+            setDateDetails(dateInfo);
+
             await new Promise(resolve => setTimeout(resolve, 1500));
 
             let currentExclusions: string[] = [];
@@ -270,6 +278,28 @@ export default function PremiumAnalysisPage() {
                     <span className="text-slate-400 text-sm">รายชื่อมงคล</span>
                 </div>
             </div>
+
+            {/* Date Details Box */}
+            {dateDetails && (
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center space-y-4">
+                    <p className="text-xl text-slate-200">
+                        คุณเกิดวัน <span className="text-amber-400 font-bold">{dateDetails.dayOfWeek}</span> ครับ
+                    </p>
+                    <div className="text-sm text-slate-400 space-y-2 bg-black/20 p-4 rounded-xl border border-white/5 inline-block w-full max-w-2xl">
+                        <p>สำหรับรายละเอียดเพิ่มเติมของวันที่ {dateDetails.fullSolarDateWithType} มีดังนี้ครับ:</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-left md:text-center">
+                            <div className="bg-white/5 p-3 rounded-lg border border-white/5">
+                                <span className="block text-xs text-slate-500 mb-1">ตรงกับวัน</span>
+                                <span className="text-white font-medium">{dateDetails.dayOfWeek}</span>
+                            </div>
+                            <div className="bg-white/5 p-3 rounded-lg border border-white/5">
+                                <span className="block text-xs text-slate-500 mb-1">วันทางจันทรคติ</span>
+                                <span className="text-amber-200 font-medium">{dateDetails.lunarDate}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Recommendation Box */}
             <div className="relative overflow-hidden bg-gradient-to-r from-emerald-900/40 to-teal-900/40 border border-emerald-500/30 rounded-3xl p-8 text-center space-y-3">
