@@ -17,6 +17,376 @@ export interface Article {
 
 export const articles: Article[] = [
     {
+        id: '23',
+        slug: 'naming-style-evolution-5-generations',
+        title: 'สไตล์การตั้งชื่อเปลี่ยนไปอย่างไร? เจาะลึกรสนิยม 5 Generation กับ "ชื่อมงคล"',
+        excerpt: 'เจาะลึกวิวัฒนาการการตั้งชื่อมงคลจาก Baby Boomer สู่ Gen Alpha แต่ละยุคมีสไตล์และความเชื่อต่างกันอย่างไร พร้อมตัวอย่างชื่อมงคลที่เหมาะกับแต่ละรสนิยม',
+        coverImage: '/images/articles/naming-5-generations.png',
+        date: '2026-01-30',
+        author: 'ทีมงาน NameMongkol',
+        category: 'วิเคราะห์ชื่อ',
+        keywords: ['สไตล์การตั้งชื่อ', 'ชื่อมงคล 5 Gen', 'ตั้งชื่อลูก Gen Alpha', 'ชื่อมงคล Gen Z', 'เทรนด์ตั้งชื่อ'],
+        metaTitle: 'สไตล์การตั้งชื่อเปลี่ยนไปอย่างไร? เจาะลึก 5 Generation กับชื่อมงคล',
+        metaDescription: 'ดูวิวัฒนาการตั้งชื่อมงคล 5 ยุค จาก Baby Boomers ถึง Gen Alpha พร้อมไอเดียชื่อมงคลที่สะท้อนตัวตนแต่ละเจนเนอเรชัน',
+        content: `
+            <p class="lead text-xl text-slate-300 mb-6">
+                การตั้งชื่อเปรียบเสมือน <strong>"ของขวัญชิ้นแรก"</strong> ที่จะติดตัวเราไปตลอดชีวิต แต่ละยุคสมัยมีค่านิยมและมุมมองต่อความหมายของชื่อที่แตกต่างกัน วันนี้ NameMongkol จะพาไปดูว่าคนแต่ละ Gen เขามีสไตล์การตั้งชื่ออย่างไร และศาสตร์มงคลแบบไหนที่ตอบโจทย์พวกเขามากที่สุด
+            </p>
+
+            <p class="mb-8 text-slate-300">
+                หากคุณกำลังมองหาชื่อดีๆ ที่เหมาะกับยุคสมัยและดวงชะตา ลองใช้เครื่องมือ <a href="/name-analysis" class="text-amber-400 font-bold hover:underline">วิเคราะห์ชื่อมงคล ฟรี</a> ของเราได้เลยครับ หรือถ้าต้องการชื่อที่คัดสรรมาอย่างดีที่สุด แนะนำ <a href="/premium-search" class="text-amber-400 font-bold hover:underline">ค้นหาชื่อมงคล Premium</a>
+            </p>
+
+            <!-- Quick Navigation -->
+            <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700 mb-10 shadow-lg">
+                <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="text-amber-400">📌</span> เลือกอ่านตาม Generation
+                </h3>
+                <div class="flex flex-wrap gap-3">
+                    <a href="#gen-boomer" class="px-4 py-2 bg-amber-900/20 text-amber-300 text-sm rounded-full border border-amber-500/30 hover:bg-amber-800/40 hover:scale-105 transition-all">Baby Boomer</a>
+                    <a href="#gen-x" class="px-4 py-2 bg-blue-900/20 text-blue-300 text-sm rounded-full border border-blue-500/30 hover:bg-blue-800/40 hover:scale-105 transition-all">Gen X</a>
+                    <a href="#gen-y" class="px-4 py-2 bg-emerald-900/20 text-emerald-300 text-sm rounded-full border border-emerald-500/30 hover:bg-emerald-800/40 hover:scale-105 transition-all">Gen Y</a>
+                    <a href="#gen-z" class="px-4 py-2 bg-purple-900/20 text-purple-300 text-sm rounded-full border border-purple-500/30 hover:bg-purple-800/40 hover:scale-105 transition-all">Gen Z</a>
+                    <a href="#gen-alpha" class="px-4 py-2 bg-red-900/20 text-red-300 text-sm rounded-full border border-red-500/30 hover:bg-red-800/40 hover:scale-105 transition-all">Gen Alpha</a>
+                </div>
+            </div>
+
+            <!-- Generation 1: Baby Boomers -->
+            <div id="gen-boomer" class="mb-12 p-8 bg-slate-800/40 rounded-2xl border-l-4 border-amber-500 shadow-xl shadow-amber-900/10">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-3xl bg-amber-500/20 w-12 h-12 flex items-center justify-center rounded-full text-amber-400">1</span>
+                    <h3 class="text-2xl font-bold text-amber-400">Baby Boomers (พ.ศ. 2489 – 2507)</h3>
+                </div>
+                <p class="italic text-slate-400 mb-6 text-lg border-l-2 border-slate-600 pl-4">"เน้นบารมี ศักดิ์ศรี และความเป็นสิริมงคล"</p>
+                <p class="text-slate-300 mb-4 leading-relaxed">คนยุคนี้เติบโตในยุคสร้างร่างสร้างตัว ชื่อจึงมักสะท้อนถึง <strong>ความมั่งคั่ง ความก้าวหน้า</strong> และความเป็นมงคลแบบดั้งเดิม</p>
+                <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-700/50">
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <span class="text-amber-500 mt-1">🔸</span>
+                            <span><strong class="text-amber-200">สไตล์ชื่อ:</strong> มักเป็นคำบาลี-สันสกฤตที่ฟังดูขลัง มีความหมายตรงตัว เช่น <span class="text-white font-medium bg-slate-700/50 px-2 py-0.5 rounded">ประเสริฐ, สมชาย, พรพรรณ, วิชัย</span></span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-amber-500 mt-1">🔸</span>
+                            <span><strong class="text-amber-200">ศาสตร์มงคล:</strong> เน้น <strong>"ทักษาปกรณ์"</strong> เป็นหลัก เพื่อหลีกเลี่ยงอักษรกาลกิณี และเสริมเดช ศรี มนตรี ให้กับหน้าที่การงาน</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Generation 2: Gen X -->
+            <div id="gen-x" class="mb-12 p-8 bg-slate-800/40 rounded-2xl border-l-4 border-blue-500 shadow-xl shadow-blue-900/10">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-3xl bg-blue-500/20 w-12 h-12 flex items-center justify-center rounded-full text-blue-400">2</span>
+                    <h3 class="text-2xl font-bold text-blue-400">Gen X (พ.ศ. 2508 – 2523)</h3>
+                </div>
+                <p class="italic text-slate-400 mb-6 text-lg border-l-2 border-slate-600 pl-4">"ความมั่นคง ที่มาพร้อมกับความทันสมัย"</p>
+                <p class="text-slate-300 mb-4 leading-relaxed">ยุคที่เริ่มมีการผสมผสานระหว่างชื่อดั้งเดิมกับชื่อที่ฟังดูนุ่มนวลขึ้น เริ่มเห็นชื่อที่มี 3-4 พยางค์มากขึ้น</p>
+                <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-700/50">
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-500 mt-1">🔹</span>
+                            <span><strong class="text-blue-200">สไตล์ชื่อ:</strong> ชื่อที่สื่อถึงความสำเร็จและความสงบสุข เช่น <span class="text-white font-medium bg-slate-700/50 px-2 py-0.5 rounded">พีรพล, ธนากร, ณัฐพงษ์, ปิยนุช</span></span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-500 mt-1">🔹</span>
+                            <span><strong class="text-blue-200">ศาสตร์มงคล:</strong> เริ่มให้ความสำคัญกับ <strong>"เลขศาสตร์" (Numerology)</strong> มากขึ้น เพื่อให้ชื่อรวมกับนามสกุลแล้วได้ค่าพลังที่ดี ส่งเสริมความมั่นคงในชีวิตและครอบครัว</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Generation 3: Gen Y -->
+            <div id="gen-y" class="mb-12 p-8 bg-slate-800/40 rounded-2xl border-l-4 border-emerald-500 shadow-xl shadow-emerald-900/10">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-3xl bg-emerald-500/20 w-12 h-12 flex items-center justify-center rounded-full text-emerald-400">3</span>
+                    <h3 class="text-2xl font-bold text-emerald-400">Gen Y / Millennials (พ.ศ. 2524 – 2539)</h3>
+                </div>
+                <p class="italic text-slate-400 mb-6 text-lg border-l-2 border-slate-600 pl-4">"ความหมายดี มีเอกลักษณ์ และสะท้อนตัวตน"</p>
+                <p class="text-slate-300 mb-4 leading-relaxed">กลุ่มที่เป็นคุณพ่อคุณแม่ในยุคปัจจุบัน นิยมตั้งชื่อที่ฟังดูเพราะ เขียนสวย และมักจะนำชื่อพ่อกับแม่มาผสมกัน</p>
+                <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-700/50">
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-500 mt-1">✳️</span>
+                            <span><strong class="text-emerald-200">สไตล์ชื่อ:</strong> ชื่อที่มีตัวสะกดแปลกใหม่แต่ความหมายลึกซึ้ง เช่น <span class="text-white font-medium bg-slate-700/50 px-2 py-0.5 rounded">ภูริช, รินรดา, กิตติ์ธเนศ, ณิชา</span></span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-500 mt-1">✳️</span>
+                            <span><strong class="text-emerald-200">ศาสตร์มงคล:</strong> เน้นความสมบูรณ์แบบทั้ง <strong>ทักษา + เลขศาสตร์ + อายตนะ 6</strong> และต้องเป็นชื่อที่ "ไม่ซ้ำใคร" ในทะเบียนราษฎร์</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Generation 4: Gen Z -->
+            <div id="gen-z" class="mb-12 p-8 bg-slate-800/40 rounded-2xl border-l-4 border-purple-500 shadow-xl shadow-purple-900/10">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-3xl bg-purple-500/20 w-12 h-12 flex items-center justify-center rounded-full text-purple-400">4</span>
+                    <h3 class="text-2xl font-bold text-purple-400">Gen Z (พ.ศ. 2540 – 2555)</h3>
+                </div>
+                <p class="italic text-slate-400 mb-6 text-lg border-l-2 border-slate-600 pl-4">"สั้น กระชับ อินเตอร์ และเป็นกลางทางเพศ"</p>
+                <p class="text-slate-300 mb-4 leading-relaxed">คน Gen นี้ให้ความสำคัญกับความเป็นปัจเจก (Individuality) ชื่อที่ยาวเกินไปเริ่มลดความนิยมลง</p>
+                <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-700/50">
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <span class="text-purple-500 mt-1">🟣</span>
+                            <span><strong class="text-purple-200">สไตล์ชื่อ:</strong> นิยมชื่อ 1-2 พยางค์ที่ออกเสียงง่ายทั้งไทยและอังกฤษ (Global Name) เช่น <span class="text-white font-medium bg-slate-700/50 px-2 py-0.5 rounded">วิน, มินนี่, กวิน, นารา, ลิซ่า</span></span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-purple-500 mt-1">🟣</span>
+                            <span><strong class="text-purple-200">ศาสตร์มงคล:</strong> นอกจากเรื่องดวงแล้ว ยังเน้นที่ <strong>"พลังงานของเสียง"</strong> และชื่อที่ส่งเสริมความคิดสร้างสรรค์ รวมถึงชื่อที่เป็น <strong>"Unisex"</strong> ไม่ยึดติดกับเพศสภาพ</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Generation 5: Gen Alpha -->
+            <div id="gen-alpha" class="mb-12 p-8 bg-slate-800/40 rounded-2xl border-l-4 border-red-500 shadow-xl shadow-red-900/10">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-3xl bg-red-500/20 w-12 h-12 flex items-center justify-center rounded-full text-red-400">5</span>
+                    <h3 class="text-2xl font-bold text-red-400">Gen Alpha (พ.ศ. 2556 – 2568)</h3>
+                </div>
+                <p class="italic text-slate-400 mb-6 text-lg border-l-2 border-slate-600 pl-4">"ชื่อดิจิทัล พลังแห่งอนาคต และความล้ำสมัย"</p>
+                <p class="text-slate-300 mb-4 leading-relaxed">กลุ่มที่เกิดมาพร้อมกับ AI และเทคโนโลยี ชื่อของพวกเขาจะถูกคัดสรรมาอย่างละเอียดจากฐานข้อมูล</p>
+                <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-700/50">
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-500 mt-1">🔴</span>
+                            <span><strong class="text-red-200">สไตล์ชื่อ:</strong> ชื่อที่สื่อถึงความฉลาด พลังงาน หรือธรรมชาติในมุมมองใหม่ เช่น <span class="text-white font-medium bg-slate-700/50 px-2 py-0.5 rounded">ไอน์, ปัญญา, เอวา, สกาย, อะตอม</span></span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-500 mt-1">🔴</span>
+                            <span><strong class="text-red-200">ศาสตร์มงคล:</strong> การใช้ <strong>"AI วิเคราะห์ชื่อ"</strong> (เหมือนระบบของ NameMongkol) ที่คำนวณทุกศาสตร์มารวมกัน ทั้งวันเกิด เวลาเกิด และพลังดวงดาว เพื่อวางรากฐานชีวิตให้พร้อมรับมือกับโลกอนาคต</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500 mt-12 mb-8">📊 สรุปตารางความนิยมการตั้งชื่อ</h2>
+            <div class="overflow-x-auto mb-12 shadow-xl rounded-xl border border-slate-700">
+                <table class="w-full text-left border-collapse bg-slate-900/80">
+                    <thead>
+                        <tr class="bg-black/40 text-amber-400 border-b border-slate-700">
+                            <th class="p-4 font-bold whitespace-nowrap">Generation</th>
+                            <th class="p-4 font-bold whitespace-nowrap">คีย์เวิร์ดสำคัญ</th>
+                            <th class="p-4 font-bold whitespace-nowrap">ศาสตร์มงคลยอดนิยม</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-300 divide-y divide-slate-700/50">
+                        <tr class="hover:bg-slate-800/50 transition-colors">
+                            <td class="p-4 font-medium text-amber-200">Baby Boomer</td>
+                            <td class="p-4">บารมี / สิริมงคล</td>
+                            <td class="p-4">ทักษาปกรณ์ (วันเกิด)</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/50 transition-colors">
+                            <td class="p-4 font-medium text-blue-200">Gen X</td>
+                            <td class="p-4">ความสำเร็จ / มั่นคง</td>
+                            <td class="p-4">ทักษา + เลขศาสตร์</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/50 transition-colors">
+                            <td class="p-4 font-medium text-emerald-200">Gen Y</td>
+                            <td class="p-4">ตัวตน / แตกต่าง</td>
+                            <td class="p-4">ทักษา + เลขศาสตร์ + อายตนะ</td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/50 transition-colors">
+                            <td class="p-4 font-medium text-purple-200">Gen Z</td>
+                            <td class="p-4">ทันสมัย / อินเตอร์</td>
+                            <td class="p-4">ความหมายกว้าง / พลังเสียง</td>
+                        </tr>
+                         <tr class="hover:bg-slate-800/50 transition-colors">
+                            <td class="p-4 font-medium text-red-200">Gen Alpha</td>
+                            <td class="p-4">อนาคต / สติปัญญา</td>
+                            <td class="p-4">การวิเคราะห์เชิงลึกด้วย Data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="text-2xl font-bold text-white mt-12 mb-8 flex items-center gap-3">
+                <span class="text-3xl">💡</span> เจาะลึกตัวอย่างชื่อมงคล 5 Generation
+            </h2>
+            <p class="text-slate-300 mb-8 border-l-4 border-amber-500 pl-4 py-2 bg-slate-900/30 rounded-r-lg">
+                เพื่อให้เห็นภาพชัดเจนขึ้น เรามาดูตัวอย่างชื่อยอดนิยมและชื่อที่มีความหมายดีตามลักษณะเด่นของแต่ละ Generation กันครับ
+            </p>
+
+            <div class="space-y-6">
+                <!-- Gen 1 Examples -->
+                <div class="border border-slate-700/50 rounded-xl overflow-hidden shadow-lg">
+                    <div class="bg-amber-900/30 px-6 py-3 border-b border-amber-500/20">
+                        <h4 class="text-lg font-bold text-amber-400">1. Baby Boomers: ยุคแห่งบารมีและระเบียบวินัย</h4>
+                    </div>
+                    <div class="bg-slate-800/40 p-6">
+                        <p class="text-slate-400 mb-4 text-sm italic">ชื่อยุคนี้มักเน้นความหมายที่สื่อถึง "ความเป็นใหญ่" "บุญบารมี" หรือ "ความดีงามที่ยั่งยืน"</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-slate-900/50 p-4 rounded-lg">
+                                <strong class="text-white block mb-2 border-b border-slate-700 pb-1">👨 ชาย</strong>
+                                <span class="text-slate-300 text-sm">สมชาย, สมศักดิ์, บุญช่วย, บุญยืน, วิชัย, ไพโรจน์</span>
+                            </div>
+                            <div class="bg-slate-900/50 p-4 rounded-lg">
+                                <strong class="text-white block mb-2 border-b border-slate-700 pb-1">👩 หญิง</strong>
+                                <span class="text-slate-300 text-sm">สมศรี, พรพรรณ, มาลี, ประณีต, รัตนา, ยุพิน</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gen 2 Examples -->
+                <div class="border border-slate-700/50 rounded-xl overflow-hidden shadow-lg">
+                    <div class="bg-blue-900/30 px-6 py-3 border-b border-blue-500/20">
+                        <h4 class="text-lg font-bold text-blue-400">2. Gen X: ยุคแห่งความมั่งคั่งและสร้างตัว</h4>
+                    </div>
+                    <div class="bg-slate-800/40 p-6">
+                        <p class="text-slate-400 mb-4 text-sm italic">ชื่อในยุคนี้เริ่มมีความซับซ้อนขึ้น มักสะท้อนถึง "ความสำเร็จ" และ "ความก้าวหน้า"</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-slate-900/50 p-4 rounded-lg">
+                                <strong class="text-white block mb-2 border-b border-slate-700 pb-1">👨 ชาย</strong>
+                                <span class="text-slate-300 text-sm">ธนากร, กิตติศักดิ์, อนุชิต, วรวุฒิ, ชาญชัย</span>
+                            </div>
+                            <div class="bg-slate-900/50 p-4 rounded-lg">
+                                <strong class="text-white block mb-2 border-b border-slate-700 pb-1">👩 หญิง</strong>
+                                <span class="text-slate-300 text-sm">ศิริพร, กนกวรรณ, จินตนา, อรอนงค์, สุภาวดี</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gen 3 Examples -->
+                <div class="border border-slate-700/50 rounded-xl overflow-hidden shadow-lg">
+                    <div class="bg-emerald-900/30 px-6 py-3 border-b border-emerald-500/20">
+                        <h4 class="text-lg font-bold text-emerald-400">3. Gen Y Millennials: ยุคแห่งเสน่ห์</h4>
+                    </div>
+                    <div class="bg-slate-800/40 p-6">
+                        <p class="text-slate-400 mb-4 text-sm italic">ยุคนี้เริ่มนิยมชื่อที่ออกเสียงไพเราะ มีตัวสะกดที่ดูทันสมัย และมักเน้นเรื่อง "เสน่ห์" หรือ "สติปัญญา"</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-slate-900/50 p-4 rounded-lg">
+                                <strong class="text-white block mb-2 border-b border-slate-700 pb-1">👨 ชาย</strong>
+                                <span class="text-slate-300 text-sm">ณัฐพัทธ์, ธนกฤต, ชยพล, กฤษฎา, จิรายุ</span>
+                            </div>
+                            <div class="bg-slate-900/50 p-4 rounded-lg">
+                                <strong class="text-white block mb-2 border-b border-slate-700 pb-1">👩 หญิง</strong>
+                                <span class="text-slate-300 text-sm">รินรดา, พิมพิกา, ชลลดา, กัญญ์ณณัฐ, ลลิตา</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gen 4 Examples -->
+                <div class="border border-slate-700/50 rounded-xl overflow-hidden shadow-lg">
+                    <div class="bg-purple-900/30 px-6 py-3 border-b border-purple-500/20">
+                        <h4 class="text-lg font-bold text-purple-400">4. Gen Z: ยุคแห่งความกระชับ</h4>
+                    </div>
+                    <div class="bg-slate-800/40 p-6">
+                        <p class="text-slate-400 mb-4 text-sm italic">ชื่อเน้นความหมายที่เข้าถึงง่าย มักเป็นชื่อ 1-2 พยางค์ และให้ความรู้สึกที่เป็นมิตร</p>
+                        <div class="bg-slate-900/50 p-4 rounded-lg border border-purple-500/10">
+                            <strong class="text-white block mb-2 border-b border-slate-700 pb-1">✨ Unisex / Modern</strong>
+                            <span class="text-slate-300 text-sm">นารา, ตะวัน, มินนี่, กวิน, วิน, น่าน, พรีม</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gen 5 Examples -->
+                <div class="border border-slate-700/50 rounded-xl overflow-hidden shadow-lg">
+                    <div class="bg-red-900/30 px-6 py-3 border-b border-red-500/20">
+                        <h4 class="text-lg font-bold text-red-400">5. Gen Alpha: ยุคแห่งอนาคต</h4>
+                    </div>
+                    <div class="bg-slate-800/40 p-6">
+                        <p class="text-slate-400 mb-4 text-sm italic">ชื่อเด็กยุคใหม่จะเน้นความล้ำสมัย ชื่อที่สื่อถึงนวัตกรรม ธรรมชาติ หรือความเป็นสากล</p>
+                        <div class="bg-slate-900/50 p-4 rounded-lg border border-red-500/10">
+                            <strong class="text-white block mb-2 border-b border-slate-700 pb-1">🚀 Future / Smart</strong>
+                            <span class="text-slate-300 text-sm">ไอน์ (Einstein), เอวา (Life), อะตอม, เธียร, สกาย, ลิลิน</span>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <a href="/premium-search" class="inline-block px-6 py-2 bg-gradient-to-r from-red-600/20 to-amber-600/20 text-amber-300 text-sm rounded-full border border-amber-500/30 hover:bg-amber-800/30 transition-all">
+                                🔍 ค้นหาชื่อมงคลรับยุค AI
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-white mt-12 mb-8 text-center">
+                 ตารางสรุปเปรียบเทียบคำที่นิยมใช้ในชื่อ
+            </h2>
+            <div class="overflow-x-auto mb-12 shadow-2xl rounded-2xl border border-slate-700/50">
+                <table class="w-full text-left border-collapse bg-slate-900/40 backdrop-blur-sm">
+                    <thead>
+                        <tr class="bg-slate-800/60 text-amber-400 border-b border-slate-700">
+                            <th class="p-4 font-bold text-center">Gen</th>
+                            <th class="p-4 font-bold">คำที่พบบ่อยในชื่อ</th>
+                            <th class="p-4 font-bold">แนวโน้มความยาวชื่อ</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-300 divide-y divide-slate-700/50">
+                        <tr>
+                            <td class="p-4 text-center font-mono text-amber-200/70">Boomer</td>
+                            <td class="p-4">สม, บุญ, ศรี, พร, ชัย</td>
+                            <td class="p-4 text-sm">2 พยางค์ (เรียบง่าย)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-center font-mono text-blue-200/70">Gen X</td>
+                            <td class="p-4">กิตติ, วัฒน์, ศักดิ์, วรรณ</td>
+                            <td class="p-4 text-sm">2 - 3 พยางค์ (ทางการ)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-center font-mono text-emerald-200/70">Gen Y</td>
+                            <td class="p-4">ณัฐ, ภัทร, ธน, ฐา, ริ</td>
+                            <td class="p-4 text-sm">3 - 4 พยางค์ (เน้นความเพราะ)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-center font-mono text-purple-200/70">Gen Z</td>
+                            <td class="p-4">วิน, นารา, ริน, น่าน</td>
+                            <td class="p-4 text-sm">1 - 2 พยางค์ (สั้น กระชับ)</td>
+                        </tr>
+                         <tr>
+                            <td class="p-4 text-center font-mono text-red-200/70">Gen Alpha</td>
+                            <td class="p-4">เอวา, ไอน์, เธียร, สกาย</td>
+                            <td class="p-4 text-sm">1 - 2 พยางค์ (อินเตอร์/มินิมอล)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- FAQ Section for SEO -->
+            <div class="mt-16 mb-8">
+                <h2 class="text-2xl font-bold text-white mb-6">คำถามที่พบบ่อย (FAQ)</h2>
+                <div class="space-y-4">
+                    <details class="bg-slate-900/30 rounded-lg p-4 border border-slate-700 open:bg-slate-800/30 transition-all cursor-pointer">
+                        <summary class="font-bold text-amber-300 list-none flex items-center gap-2">
+                             ควรตั้งชื่อลูกตามเทรนด์ Generation ไหนดี?
+                        </summary>
+                        <p class="text-slate-400 mt-2 text-sm pl-4 border-l-2 border-amber-500/30 ml-1">
+                            ควรเลือกตามความเหมาะสมของยุคปัจจุบัน (Gen Alpha) ที่เน้นความทันสมัย เป็นสากล แต่ยังคงรากฐานความเป็นมงคลไว้ หรือผสมผสานกับความหมายดีๆ แบบ Gen Y เพื่อให้ชื่อดูมีเอกลักษณ์และไม่ตกยุค
+                        </p>
+                    </details>
+                    <details class="bg-slate-900/30 rounded-lg p-4 border border-slate-700 open:bg-slate-800/30 transition-all cursor-pointer">
+                        <summary class="font-bold text-amber-300 list-none flex items-center gap-2">
+                             วิเคราะห์ชื่อด้วย AI แม่นยำแค่ไหน?
+                        </summary>
+                        <p class="text-slate-400 mt-2 text-sm pl-4 border-l-2 border-amber-500/30 ml-1">
+                            ระบบ AI ของ NameMongkol ประมวลผลจากฐานข้อมูลโหราศาสตร์ที่แม่นยำ คำนวณตามหลักทักษา เลขศาสตร์ และอายตนะ 6 อย่างละเอียด ทำให้ได้ผลลัพธ์ที่ครอบคลุมและเป็นกลางกว่าการใช้หนังสือตั้งชื่อทั่วไป
+                        </p>
+                    </details>
+                </div>
+            </div>
+
+            <div class="my-12 p-10 rounded-3xl bg-gradient-to-br from-amber-900/40 via-slate-900 to-black border border-amber-500/30 text-center relative overflow-hidden group">
+                <div class="absolute inset-0 bg-[url('/images/stars-bg.png')] opacity-20"></div>
+                <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 blur-3xl rounded-full"></div>
+                <div class="relative z-10">
+                    <h3 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-orange-400 mb-4">
+                        มองหาชื่อที่ "ใช่" สำหรับ Gen ของคุณ?
+                    </h3>
+                    <p class="text-slate-400 mb-8 max-w-2xl mx-auto text-lg">
+                        ไม่ว่าคุณจะอยู่ในวัยไหน หรือกำลังมองหาชื่อให้ลูกหลาน ให้ <strong>NameMongkol.com</strong> ช่วยวิเคราะห์ชื่อมงคลที่ตรงใจและถูกต้องตามหลักโหราศาสตร์ที่สุดสำหรับคุณ
+                    </p>
+                    <a href="/name-analysis" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-lg rounded-full shadow-lg shadow-orange-900/50 hover:shadow-orange-700/70 hover:scale-105 transition-all transform keyframes-pulse">
+                        <span>✨ เช็คชื่อมงคลของคุณฟรี</span>
+                    </a>
+                </div>
+            </div>
+        `
+    },
+
+    {
         id: '22',
         slug: 'thai-chinese-naming-bazi-five-elements',
         title: 'ตั้งชื่อมงคลสไตล์จีน 2569: หลักปาจื้อ (Bazi) และธาตุทั้ง 5 สำหรับคนไทยเชื้อสายจีน',
