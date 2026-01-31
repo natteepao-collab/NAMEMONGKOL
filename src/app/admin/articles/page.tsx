@@ -256,17 +256,17 @@ export default function AdminArticlesPage() {
         const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Sync Local Articles?',
-            text: "This will import hardcoded articles from 'src/data/articles.ts' into the database. Existing articles with the same slug will be skipped.",
+            text: "This will import hardcoded articles from 'src/data/articles.ts' into the database. Existing articles with the same slug will be UPDATED with local data.",
             icon: 'info',
             showCancelButton: true,
-            confirmButtonText: 'Yes, Sync!',
+            confirmButtonText: 'Yes, Sync & Overwrite!',
             cancelButtonText: 'Cancel'
         });
 
         if (result.isConfirmed) {
             setLoading(true);
             let addedCount = 0;
-            let skippedCount = 0;
+            let updatedCount = 0;
 
             try {
                 // Fetch existing slugs to avoid duplicates (safeguard)
@@ -279,18 +279,13 @@ export default function AdminArticlesPage() {
                 const existingSlugs = new Set(existingArticles?.map(a => a.slug) || []);
 
                 for (const article of localArticles) {
-                    if (existingSlugs.has(article.slug)) {
-                        skippedCount++;
-                        continue;
-                    }
-
                     // Map local article to DB schema
                     const payload = {
                         title: article.title,
                         slug: article.slug,
                         excerpt: article.excerpt || '',
                         content: article.content || '',
-                        cover_image: article.coverImage || '', // Note: camelCase in local to snake_case in DB
+                        cover_image: article.coverImage || '',
                         date: article.date,
                         author: article.author,
                         category: article.category,
@@ -300,19 +295,32 @@ export default function AdminArticlesPage() {
                         is_published: true
                     };
 
-                    const { error: insertError } = await supabase
-                        .from('articles')
-                        .insert([payload]);
+                    if (existingSlugs.has(article.slug)) {
+                        const { error: updateError } = await supabase
+                            .from('articles')
+                            .update(payload)
+                            .eq('slug', article.slug);
 
-                    if (insertError) {
-                        console.error(`Failed to import ${article.slug}:`, insertError);
+                        if (updateError) {
+                            console.error(`Failed to update ${article.slug}:`, updateError);
+                        } else {
+                            updatedCount++;
+                        }
                     } else {
-                        addedCount++;
+                        const { error: insertError } = await supabase
+                            .from('articles')
+                            .insert([payload]);
+
+                        if (insertError) {
+                            console.error(`Failed to import ${article.slug}:`, insertError);
+                        } else {
+                            addedCount++;
+                        }
                     }
                 }
 
                 await fetchArticles(); // Refresh list
-                Swal.fire('Sync Complete', `Imported: ${addedCount}, Skipped: ${skippedCount}`, 'success');
+                Swal.fire('Sync Complete', `Imported: ${addedCount}, Updated: ${updatedCount}`, 'success');
 
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
@@ -390,6 +398,14 @@ export default function AdminArticlesPage() {
                                                     fill
                                                     className="object-cover"
                                                     sizes="64px"
+                                                    onError={(e) => {
+                                                        const target = e.target as HTMLImageElement;
+                                                        target.style.display = 'none';
+                                                        target.parentElement?.classList.add('flex', 'items-center', 'justify-center');
+                                                        const icon = document.createElement('div');
+                                                        icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-500"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>';
+                                                        target.parentElement?.appendChild(icon);
+                                                    }}
                                                 />
                                             ) : (
                                                 <div className="w-full h-full flex items-center justify-center text-slate-500">
