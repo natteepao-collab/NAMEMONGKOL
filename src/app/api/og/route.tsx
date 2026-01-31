@@ -159,6 +159,23 @@ export async function GET(req: Request) {
         </div>
       </div>
     );
+  } else if (variant === 'about') {
+    content = (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', width: '100%', gap: 24 }}>
+        <div style={{ ...pillStyle, background: 'rgba(139,92,246,0.16)', color: '#c4b5fd', borderColor: 'rgba(139,92,246,0.35)', fontSize: 20 }}>
+          เกี่ยวกับเรา
+        </div>
+        <div style={{ fontSize: 64, fontWeight: 800, color: '#f8fafc', lineHeight: 1.1 }}>
+          NameMongkol
+        </div>
+        <div style={{ fontSize: 32, color: '#fbbf24', fontWeight: 700 }}>
+          ผู้เชี่ยวชาญวิเคราะห์ชื่อมงคล อันดับ 1 ของไทย
+        </div>
+        <div style={{ fontSize: 24, color: '#94a3b8', maxWidth: 800, lineHeight: 1.5 }}>
+          ผสาน 4 ศาสตร์มงคล: เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 นิรันดร์ศาสตร์ เข้ากับเทคโนโลยี AI
+        </div>
+      </div>
+    );
   } else {
     content = (
       <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', paddingRight: 20 }}>

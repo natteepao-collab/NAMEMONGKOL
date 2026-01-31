@@ -26,7 +26,10 @@ const geistMono = Geist_Mono({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 
 export const metadata: Metadata = {
-  title: "NameMongkol | วิเคราะห์ชื่อมงคล ทำนายชื่อ-นามสกุล แม่นยำที่สุด",
+  title: {
+    default: "NameMongkol | วิเคราะห์ชื่อมงคล ทำนายชื่อ-นามสกุล แม่นยำที่สุด",
+    template: "%s | NameMongkol"
+  },
   description: "NameMongkol (เนมมงคล) บริการวิเคราะห์ชื่อมงคล ดูผลรวมชื่อ-นามสกุล พลังเงา และความหมายตามหลักเลขศาสตร์และทักษาปกรณ์ ฟรี! เช็คชื่อของคุณวันนี้เพื่อความเป็นสิริมงคล",
   keywords: ["NameMongkol", "ชื่อมงคล", "วิเคราะห์ชื่อ", "ตั้งชื่อมงคล", "ดูดวงชื่อ", "เลขศาสตร์", "ตั้งชื่อลูก", "เปลี่ยนชื่อ", "ความหมายเลขศาสตร์", "ทักษาปกรณ์", "ตั้งชื่อมงคลวันเกิด"],
   metadataBase: new URL(siteUrl),
@@ -38,13 +41,15 @@ export const metadata: Metadata = {
       { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],
     apple: [
-      { url: '/icon-192.png' },
+      { url: '/icon-192.png', sizes: '180x180', type: 'image/png' },
     ],
+    shortcut: '/favicon.ico',
   },
+  manifest: '/manifest.webmanifest',
   openGraph: {
     type: 'website',
     locale: 'th_TH',
-    url: 'https://www.namemongkol.com',
+    url: siteUrl,
     siteName: 'NameMongkol',
     title: 'NameMongkol - วิเคราะห์ชื่อมงคล อันดับ 1',
     description: 'เช็คชื่อมงคล วิเคราะห์ชื่อ-นามสกุล ฟรี! ด้วยศาสตร์คำนวณที่แม่นยำที่สุด',
@@ -54,6 +59,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'NameMongkol - วิเคราะห์ชื่อมงคล',
+        type: 'image/png',
       },
     ],
   },
@@ -62,9 +68,24 @@ export const metadata: Metadata = {
     title: 'NameMongkol - วิเคราะห์ชื่อมงคล',
     description: 'วิเคราะห์ชื่อ-นามสกุล ดูผลรวม พลังเงา และความหมายมงคล ฟรี',
     images: [`${siteUrl}/api/og?variant=default`],
+    creator: '@namemongkol',
   },
   alternates: {
     canonical: siteUrl,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'googleda422e9133accc04',
   },
 };
 
@@ -73,33 +94,40 @@ const jsonLd = {
   '@graph': [
     {
       '@type': 'WebSite',
-      '@id': 'https://www.namemongkol.com/#website',
-      'url': 'https://www.namemongkol.com',
+      '@id': `${siteUrl}/#website`,
+      'url': siteUrl,
       'name': 'NameMongkol',
+      'alternateName': 'เนมมงคล',
       'description': 'บริการวิเคราะห์ชื่อมงคลและตั้งชื่อใหม่ตามหลักเลขศาสตร์',
+      'inLanguage': 'th-TH',
       'publisher': {
-        '@id': 'https://www.namemongkol.com/#organization'
+        '@id': `${siteUrl}/#organization`
       },
       'potentialAction': {
         '@type': 'SearchAction',
-        'target': 'https://www.namemongkol.com/?name={search_term_string}',
+        'target': {
+          '@type': 'EntryPoint',
+          'urlTemplate': `${siteUrl}/?name={search_term_string}`
+        },
         'query-input': 'required name=search_term_string'
       }
     },
     {
       '@type': 'Organization',
-      '@id': 'https://www.namemongkol.com/#organization',
+      '@id': `${siteUrl}/#organization`,
       'name': 'NameMongkol',
-      'url': 'https://www.namemongkol.com',
+      'alternateName': 'เนมมงคล',
+      'url': siteUrl,
       'logo': {
         '@type': 'ImageObject',
-        'url': 'https://www.namemongkol.com/icon.png',
+        'url': `${siteUrl}/icon-512.png`,
         'width': 512,
         'height': 512
       },
+      'image': `${siteUrl}/icon-512.png`,
       'sameAs': [
         'https://www.facebook.com/namemongkol',
-        // Add other social profiles here
+        'https://line.me/ti/p/@namemongkol'
       ]
     }
   ]

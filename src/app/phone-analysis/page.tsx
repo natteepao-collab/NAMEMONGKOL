@@ -2,6 +2,8 @@ import React from 'react';
 import { Metadata } from 'next';
 import ClientPage from './ClientPage';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
+
 export const metadata: Metadata = {
     title: 'วิเคราะห์เบอร์มงคล ฟรี! ดูดวงเบอร์โทรศัพท์ เช็คเบอร์มือถือ 2568 | Namemongkol',
     description: 'วิเคราะห์เบอร์มงคล เช็คเบอร์โทรศัพท์ ดูดวงเบอร์มือถือ ฟรี! ด้วยระบบ AI อัจฉริยะ วิเคราะห์คู่เลข ผลรวม กราฟพลังงาน 6 ด้าน รู้ทันทีว่าเบอร์ดีหรือร้าย เบอร์มงคล เบอร์เสริมดวง เบอร์เงินล้าน พร้อมความหมายคู่เลขครบถ้วน',
@@ -13,13 +15,13 @@ export const metadata: Metadata = {
         siteName: 'Namemongkol',
         locale: 'th_TH',
         type: 'website',
-        images: ['/api/og?variant=phone'],
+        images: [`${siteUrl}/api/og?variant=phone`],
     },
     twitter: {
         card: 'summary_large_image',
         title: 'วิเคราะห์เบอร์มงคล ฟรี! ดูดวงเบอร์โทรศัพท์ | Namemongkol',
         description: 'เช็คเบอร์โทรศัพท์ว่าดีหรือร้าย? วิเคราะห์เบอร์มงคลฟรี พร้อมกราฟพลังงาน 6 ด้าน',
-        images: ['/api/og?variant=phone'],
+        images: [`${siteUrl}/api/og?variant=phone`],
     },
     alternates: {
         canonical: 'https://www.namemongkol.com/phone-analysis',

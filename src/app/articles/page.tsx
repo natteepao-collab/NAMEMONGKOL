@@ -54,16 +54,36 @@ async function getArticles() {
 
     const dbArticles: ArticleRow[] = (articles as ArticleRow[]) || [];
 
-    // Fallback to local articles if DB fails or just mix them
-    // Filter out local articles that are already present in DB (by slug)
-    const existingSlugs = new Set(dbArticles.map(a => a.slug));
+    // Enhance DB articles with local data (fallback for images)
+    const enrichedDbArticles = dbArticles.map(dbArticle => {
+        const localMatch = localArticles.find(a => a.slug === dbArticle.slug);
+        return {
+            ...dbArticle,
+            // Use DB image if available, otherwise fallback to local
+            cover_image: dbArticle.cover_image || localMatch?.coverImage,
+            // Normalize for components using coverImage
+            coverImage: dbArticle.cover_image || localMatch?.coverImage || ''
+        };
+    });
+
+    // Filter out local articles that are already present in DB
+    const existingSlugs = new Set(enrichedDbArticles.map(a => a.slug));
     const uniqueLocalArticles = localArticles.filter(a => !existingSlugs.has(a.slug));
 
     // Combine
-    const allArticles = [...dbArticles, ...uniqueLocalArticles];
+    const allArticles = [...enrichedDbArticles, ...uniqueLocalArticles];
 
     // Sort by date descending
-    return allArticles.sort((a, b) => parseThaiDate(b.date) - parseThaiDate(a.date));
+    const sorted = allArticles.sort((a, b) => parseThaiDate(b.date) - parseThaiDate(a.date));
+
+    // Debug log to check image paths for first 5 articles
+    console.log('--- Debug Articles Image Paths ---');
+    sorted.slice(0, 10).forEach(a => {
+        console.log(`Title: ${a.title.substring(0, 30)}... | Slug: ${a.slug} | cover_image: ${a.cover_image} | coverImage: ${a.coverImage}`);
+    });
+    console.log('----------------------------------');
+
+    return sorted;
 }
 
 import { Metadata } from 'next';
@@ -242,7 +262,7 @@ export default async function ArticlesPage() {
                         <p className="text-slate-300 text-lg mb-4">
                             รวมบทความศาสตร์มงคล เคล็ดลับการตั้งชื่อ และเกร็ดความรู้เพื่อชีวิตที่ดีกว่า
                         </p>
-                        
+
                         {/* SEO Rich Content Introduction */}
                         <div className="bg-slate-800/40 border border-slate-700/50 rounded-xl p-6 mb-8">
                             <h2 className="text-xl font-bold text-amber-400 mb-3 flex items-center gap-2">
@@ -250,8 +270,8 @@ export default async function ArticlesPage() {
                                 คลังความรู้การตั้งชื่อครบวงจร
                             </h2>
                             <p className="text-slate-300 leading-relaxed mb-4">
-                                ยินดีต้อนรับสู่คลังบทความ <strong className="text-white">NameMongkol</strong> แหล่งรวมความรู้ด้านศาสตร์การตั้งชื่อที่ครบถ้วนที่สุดในประเทศไทย 
-                                ไม่ว่าคุณกำลังมองหา <strong className="text-amber-300">ชื่อมงคลสำหรับลูกน้อย</strong> ต้องการเรียนรู้หลัก <strong className="text-amber-300">เลขศาสตร์</strong> และ <strong className="text-amber-300">ทักษาปกรณ์</strong> 
+                                ยินดีต้อนรับสู่คลังบทความ <strong className="text-white">NameMongkol</strong> แหล่งรวมความรู้ด้านศาสตร์การตั้งชื่อที่ครบถ้วนที่สุดในประเทศไทย
+                                ไม่ว่าคุณกำลังมองหา <strong className="text-amber-300">ชื่อมงคลสำหรับลูกน้อย</strong> ต้องการเรียนรู้หลัก <strong className="text-amber-300">เลขศาสตร์</strong> และ <strong className="text-amber-300">ทักษาปกรณ์</strong>
                                 หรือกำลังพิจารณา <strong className="text-amber-300">เปลี่ยนชื่อเสริมดวง</strong> เรามีบทความครอบคลุมทุกหัวข้อ
                             </p>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
@@ -348,7 +368,7 @@ export default async function ArticlesPage() {
                             <span className="text-3xl">❓</span>
                             คำถามที่พบบ่อยเกี่ยวกับการตั้งชื่อมงคล
                         </h2>
-                        
+
                         <div className="space-y-4">
                             <details className="bg-slate-800/40 border border-slate-700/50 rounded-xl overflow-hidden group">
                                 <summary className="p-5 cursor-pointer font-medium text-white hover:bg-slate-700/30 transition-colors flex items-center justify-between">

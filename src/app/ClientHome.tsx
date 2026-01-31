@@ -35,6 +35,8 @@ const FAQSection = dynamic(() => import('@/components/FAQSection').then(mod => m
 const HomeSeoContent = dynamic(() => import('@/components/HomeSeoContent').then(mod => mod.HomeSeoContent));
 const TestimonialSection = dynamic(() => import('@/components/TestimonialSection').then(mod => mod.TestimonialSection));
 const WelcomeOffer = dynamic(() => import('@/components/WelcomeOffer').then(mod => mod.WelcomeOffer), { ssr: false });
+const UspSection = dynamic(() => import('@/components/UspSection').then(mod => mod.UspSection));
+const ComparisonSection = dynamic(() => import('@/components/ComparisonSection').then(mod => mod.ComparisonSection));
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -212,6 +214,8 @@ function HomeContent() {
             {!result && (
                 <>
                     <WallpaperShowcase />
+                    <UspSection />
+                    <ComparisonSection />
                     <HomeSeoContent />
                     <KnowledgeSection />
                     <TestimonialSection />

@@ -20,11 +20,13 @@ export const metadata: Metadata = {
         siteName: 'NameMongkol',
         locale: 'th_TH',
         type: 'website',
+        images: [`${siteUrl}/api/og?variant=default&title=นโยบายความเป็นส่วนตัว&subtitle=PDPA%20Compliant&tag=Legal`],
     },
     twitter: {
-        card: 'summary',
+        card: 'summary_large_image',
         title: 'นโยบายความเป็นส่วนตัว | NameMongkol',
         description: 'นโยบายการคุ้มครองข้อมูลส่วนบุคคลตามมาตรฐาน PDPA',
+        images: [`${siteUrl}/api/og?variant=default&title=นโยบายความเป็นส่วนตัว`],
     },
     robots: {
         index: true,

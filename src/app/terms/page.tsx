@@ -20,11 +20,13 @@ export const metadata: Metadata = {
         siteName: 'NameMongkol',
         locale: 'th_TH',
         type: 'website',
+        images: [`${siteUrl}/api/og?variant=default&title=ข้อตกลงและเงื่อนไข&subtitle=Terms%20of%20Service&tag=Legal`],
     },
     twitter: {
-        card: 'summary',
+        card: 'summary_large_image',
         title: 'ข้อตกลงและเงื่อนไขการใช้งาน | NameMongkol',
         description: 'ข้อตกลงและเงื่อนไขการใช้งานเว็บไซต์ NameMongkol',
+        images: [`${siteUrl}/api/og?variant=default&title=ข้อตกลงและเงื่อนไข`],
     },
     robots: {
         index: true,
