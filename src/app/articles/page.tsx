@@ -76,13 +76,6 @@ async function getArticles() {
     // Sort by date descending
     const sorted = allArticles.sort((a, b) => parseThaiDate(b.date) - parseThaiDate(a.date));
 
-    // Debug log to check image paths for first 5 articles
-    console.log('--- Debug Articles Image Paths ---');
-    sorted.slice(0, 10).forEach(a => {
-        console.log(`Title: ${a.title.substring(0, 30)}... | Slug: ${a.slug} | cover_image: ${a.cover_image} | coverImage: ${a.coverImage}`);
-    });
-    console.log('----------------------------------');
-
     return sorted;
 }
 

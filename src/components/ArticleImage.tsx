@@ -9,19 +9,13 @@ interface ArticleImageProps {
     alt: string;
     priority?: boolean;
     className?: string;
-    /** Width hint for srcset optimization */
-    width?: number;
-    /** Height hint for srcset optimization */
-    height?: number;
 }
 
 export const ArticleImage: React.FC<ArticleImageProps> = ({ 
     src, 
     alt, 
     priority = false, 
-    className,
-    width,
-    height 
+    className
 }) => {
     const [error, setError] = useState(false);
 
