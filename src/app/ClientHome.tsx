@@ -12,6 +12,7 @@ import { PairAnalysisCard } from '@/components/PairAnalysisCard';
 import { ThaksaTable } from '@/components/ThaksaTable';
 import { ShadowPowerCard } from '@/components/ShadowPowerCard';
 import { PredictionCard } from '@/components/PredictionCard';
+import { PremiumBlurOverlay } from '@/components/PremiumBlurOverlay';
 import { ShareButton } from '@/components/ShareButton';
 import { calculateScore } from '@/utils/calculateScore';
 import { analyzePairs } from '@/utils/analyzePairs';
@@ -49,6 +50,7 @@ function HomeContent() {
     const [day, setDay] = useState(initialDay);
     const [result, setResult] = useState<AnalysisResult | null>(null);
     const [loading, setLoading] = useState(false);
+    const [isPremiumUnlocked, setIsPremiumUnlocked] = useState(false);
     const didInitFromParams = useRef(false);
 
     const performAnalysis = useCallback(async (inputName: string, inputSurname: string, inputDay: string) => {
@@ -188,9 +190,21 @@ function HomeContent() {
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
                             {/* Main Score & Ayatana (Left Column - 4 cols) */}
                             <div className="md:col-span-4 space-y-6">
+                                {/* ส่วนฟรี - แสดงเกรดและผลรวม */}
                                 <ResultHeader result={result} />
-                                <ShadowPowerCard name={result.name} surname={result.surname} />
-                                <PredictionCard prediction={result.prediction} />
+                                
+                                {/* ส่วน Premium - เบลอ ShadowPowerCard และ PredictionCard */}
+                                <PremiumBlurOverlay 
+                                    isLocked={!isPremiumUnlocked}
+                                    creditCost={19}
+                                    featureName="พลังเงา & คำทำนายเชิงลึก"
+                                    onUnlock={() => setIsPremiumUnlocked(true)}
+                                >
+                                    <ShadowPowerCard name={result.name} surname={result.surname} />
+                                    <div className="mt-6">
+                                        <PredictionCard prediction={result.prediction} />
+                                    </div>
+                                </PremiumBlurOverlay>
                             </div>
 
                             {/* Details (Right Column - 8 cols) */}

@@ -32,6 +32,7 @@ export default function AdminArticlesPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentArticle, setCurrentArticle] = useState<Partial<Article>>({});
     const [isEditing, setIsEditing] = useState(false);
+    const [isRestoring, setIsRestoring] = useState(false);
 
     // Upload & Form State
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -167,6 +168,19 @@ export default function AdminArticlesPage() {
         return data.publicUrl;
     };
 
+    const extractStoragePathFromUrl = (url?: string | null) => {
+        if (!url || !/^https?:\/\//i.test(url)) return null;
+        try {
+            const parsed = new URL(url);
+            const marker = '/storage/v1/object/public/articles/';
+            const idx = parsed.pathname.indexOf(marker);
+            if (idx === -1) return null;
+            return decodeURIComponent(parsed.pathname.substring(idx + marker.length));
+        } catch {
+            return null;
+        }
+    };
+
     // Auto-generate slug from title if empty
     const generateSlug = (title: string) => {
         return title
@@ -184,6 +198,7 @@ export default function AdminArticlesPage() {
 
         try {
             let finalImageUrl = currentArticle.cover_image;
+            const previousCoverImage = currentArticle.cover_image;
 
             if (selectedFile) {
                 try {
@@ -226,6 +241,17 @@ export default function AdminArticlesPage() {
                     .eq('id', currentArticle.id);
 
                 if (error) throw error;
+
+                if (selectedFile) {
+                    const prevPath = extractStoragePathFromUrl(previousCoverImage);
+                    const newPath = extractStoragePathFromUrl(finalImageUrl || '');
+                    if (prevPath && prevPath !== newPath) {
+                        const { error: removeError } = await supabase.storage
+                            .from('articles')
+                            .remove([prevPath]);
+                        if (removeError) console.warn('Remove old cover error:', removeError);
+                    }
+                }
 
                 // Refresh list or update local state
                 setArticles(prev => prev.map(a => a.id === currentArticle.id ? { ...a, ...payload, id: currentArticle.id as string } : a));
@@ -272,20 +298,28 @@ export default function AdminArticlesPage() {
                 // Fetch existing slugs to avoid duplicates (safeguard)
                 const { data: existingArticles, error: fetchError } = await supabase
                     .from('articles')
-                    .select('slug');
+                    .select('slug, cover_image');
 
                 if (fetchError) throw fetchError;
 
                 const existingSlugs = new Set(existingArticles?.map(a => a.slug) || []);
+                const existingBySlug = new Map(
+                    (existingArticles || []).map(a => [a.slug, a])
+                );
 
                 for (const article of localArticles) {
                     // Map local article to DB schema
+                    const localCover = article.coverImage || '';
+                    const isLocalCoverAbsolute = /^https?:\/\//i.test(localCover);
+                    const existingCover = existingBySlug.get(article.slug)?.cover_image || '';
+                    const coverImageToUse = isLocalCoverAbsolute ? localCover : (existingCover || localCover);
+
                     const payload = {
                         title: article.title,
                         slug: article.slug,
                         excerpt: article.excerpt || '',
                         content: article.content || '',
-                        cover_image: article.coverImage || '',
+                        cover_image: coverImageToUse,
                         date: article.date,
                         author: article.author,
                         category: article.category,
@@ -332,6 +366,95 @@ export default function AdminArticlesPage() {
         }
     };
 
+    const isLocalCover = (url?: string | null) => {
+        if (!url) return true;
+        return !/^https?:\/\//i.test(url);
+    };
+
+    const getLatestUploadedCoverUrl = async (slug: string) => {
+        const { data, error } = await supabase.storage
+            .from('articles')
+            .list('', { limit: 200, search: `${slug}-` });
+
+        if (error || !data) return null;
+
+        const candidates = data
+            .filter(item => item.name?.startsWith(`${slug}-`))
+            .map(item => {
+                const match = item.name.match(/-(\d+)\.[^.]+$/);
+                const ts = match ? Number(match[1]) : 0;
+                return { name: item.name, ts };
+            })
+            .sort((a, b) => (b.ts || 0) - (a.ts || 0));
+
+        const latest = candidates[0];
+        if (!latest?.name) return null;
+
+        const { data: publicData } = supabase.storage
+            .from('articles')
+            .getPublicUrl(latest.name);
+
+        return publicData?.publicUrl || null;
+    };
+
+    const handleRestoreCoverImages = async () => {
+        // @ts-ignore
+        const Swal = (await import('sweetalert2')).default;
+
+        const result = await Swal.fire({
+            title: 'Restore Cover Images?',
+            text: 'จะพยายามกู้รูปปกล่าสุดจาก Storage สำหรับบทความที่รูปถูกทับด้วยไฟล์ local หลัง Sync',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Restore',
+            cancelButtonText: 'Cancel'
+        });
+
+        if (!result.isConfirmed) return;
+
+        setIsRestoring(true);
+        setLoading(true);
+        let restoredCount = 0;
+        let skippedCount = 0;
+
+        try {
+            const { data: dbArticles, error } = await supabase
+                .from('articles')
+                .select('id, slug, cover_image');
+
+            if (error) throw error;
+
+            for (const article of dbArticles || []) {
+                if (!isLocalCover(article.cover_image)) {
+                    skippedCount++;
+                    continue;
+                }
+
+                const latestUrl = await getLatestUploadedCoverUrl(article.slug);
+                if (!latestUrl) {
+                    skippedCount++;
+                    continue;
+                }
+
+                const { error: updateError } = await supabase
+                    .from('articles')
+                    .update({ cover_image: latestUrl })
+                    .eq('id', article.id);
+
+                if (!updateError) restoredCount++;
+            }
+
+            await fetchArticles();
+            Swal.fire('Restore Complete', `Restored: ${restoredCount}, Skipped: ${skippedCount}`, 'success');
+        } catch (err: any) {
+            console.error('Restore cover images error:', err);
+            Swal.fire('Restore Failed', err.message || 'Unknown error occurred', 'error');
+        } finally {
+            setIsRestoring(false);
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="p-4 md:p-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -346,6 +469,14 @@ export default function AdminArticlesPage() {
                     >
                         <RefreshCw size={20} />
                         Sync Articles
+                    </button>
+                    <button
+                        onClick={handleRestoreCoverImages}
+                        disabled={isRestoring}
+                        className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-lg shadow-amber-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        <ImageIcon size={20} />
+                        Restore Covers
                     </button>
                     <button
                         onClick={handleAdd}

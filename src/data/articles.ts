@@ -17,6 +17,600 @@ export interface Article {
 
 export const articles: Article[] = [
     {
+        id: '27',
+        slug: 'history-of-thai-naming-tradition',
+        title: 'ย้อนรอยศาสตร์แห่งนาม: ทำไมคนไทยถึงเชื่อว่า "ชื่อดี มีชัยไปกว่าครึ่ง"?',
+        excerpt: 'ไทม์ไลน์ประวัติศาสตร์การตั้งชื่อของไทยกว่า 700 ปี จากยุคทักษาปกรณ์ ยุครัชกาลที่ 6 สู่ยุคเลขศาสตร์ พร้อมเจาะลึกหลักการตั้งชื่อมงคลที่คนไทยสืบทอด',
+        coverImage: '/images/articles/thai-naming-history.png',
+        date: '2026-02-03',
+        author: 'อาจารย์ณัฐ (NameMongkol)',
+        category: 'ความรู้ศาสตร์มงคล',
+        keywords: ['ตั้งชื่อมงคล', 'เปลี่ยนชื่อ', 'วิเคราะห์ชื่อ', 'เลขศาสตร์', 'ทักษาปกรณ์', 'ประวัติศาสตร์ตั้งชื่อ', 'รัชกาลที่ 6', 'นามสกุล', 'กาลกิณี', 'ชื่อมงคลตามวันเกิด', 'เปลี่ยนชื่อเปลี่ยนดวง', 'นามสกุลพระราชทาน', 'รัฐนิยม', 'จอมพล ป'],
+        metaTitle: 'ประวัติศาสตร์การตั้งชื่อมงคลของคนไทย 700 ปี: ทักษาปกรณ์สู่เลขศาสตร์ | NameMongkol',
+        metaDescription: 'ย้อนรอยไทม์ไลน์ 700 ปี ศาสตร์การตั้งชื่อมงคลของคนไทย ตั้งแต่ยุคสุโขทัย ทักษาปกรณ์ กำเนิดนามสกุลรัชกาลที่ 6 สู่ยุคเลขศาสตร์ พร้อม FAQ และเคล็ดลับตั้งชื่อให้ดวงปัง',
+        content: `
+            <!-- บทนำ -->
+            <p class="lead text-xl text-slate-300 mb-8 leading-relaxed">
+                <strong class="text-amber-400">"ชื่อ"</strong> สำหรับคนไทย ไม่ใช่เพียงแค่ถ้อยคำสำหรับเรียกขานเพื่อระบุตัวตน แต่เป็นดั่ง <strong>"ตราประทับแรกแห่งชีวิต"</strong> ที่แฝงไปด้วยความเชื่อ ความศรัทธา และความหวังที่จะกำหนดชะตาชีวิตให้เจริญรุ่งเรือง ในทางโหราศาสตร์ไทย เชื่อกันว่าชื่อมีอิทธิพลต่อดวงชะตาถึง <strong class="text-emerald-400">40-60%</strong> ของชีวิตทั้งหมด
+            </p>
+
+            <p class="text-slate-300 mb-6">
+                แต่คุณเคยสงสัยหรือไม่ว่า ศาสตร์การ<strong class="text-amber-400">ตั้งชื่อมงคล</strong>ที่เราใช้กันอยู่ในปัจจุบัน ไม่ว่าจะเป็นการดู<strong class="text-purple-400">ทักษา</strong> การคำนวณ<strong class="text-emerald-400">เลขศาสตร์</strong> หรือพลังเงา มีจุดเริ่มต้นมาจากไหน? บทความนี้จะพาคุณย้อนรอยไทม์ไลน์ประวัติศาสตร์การตั้งชื่อของไทย จากอดีตสู่ปัจจุบัน เพื่อให้คุณเข้าใจรากฐานของนามมงคลได้อย่างลึกซึ้งยิ่งขึ้น
+            </p>
+
+            <!-- Statistics Box -->
+            <div class="bg-gradient-to-r from-slate-800/80 to-slate-900/80 p-6 rounded-2xl border border-slate-700 mb-10">
+                <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="text-2xl">📊</span> สถิติที่น่าสนใจเกี่ยวกับการตั้งชื่อในประเทศไทย
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-amber-400">70%</div>
+                        <div class="text-slate-400 text-sm">คนไทยเชื่อว่าชื่อมีผลต่อชีวิต</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-400">2.5 ล้าน</div>
+                        <div class="text-slate-400 text-sm">คนเปลี่ยนชื่อต่อปี (ประมาณการ)</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-emerald-400">113 ปี</div>
+                        <div class="text-slate-400 text-sm">นับตั้งแต่มี พ.ร.บ.นามสกุล</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-400">6,565+</div>
+                        <div class="text-slate-400 text-sm">นามสกุลพระราชทาน</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Container -->
+            <div class="relative my-12">
+                <!-- Vertical Timeline Line -->
+                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-500 via-purple-500 to-emerald-500 transform md:-translate-x-1/2 rounded-full"></div>
+
+                <!-- Era 1: ยุคจารีตโบราณ -->
+                <div class="relative flex flex-col md:flex-row items-start mb-16 group">
+                    <div class="hidden md:block md:w-1/2 pr-8 text-right">
+                        <div class="inline-block px-4 py-1 bg-amber-500/20 text-amber-400 text-sm font-bold rounded-full mb-2">สมัยสุโขทัย - อยุธยา</div>
+                        <p class="text-slate-400 text-sm">ประมาณ 700 ปีก่อน</p>
+                    </div>
+                    <div class="absolute left-4 md:left-1/2 w-8 h-8 bg-amber-500 rounded-full transform md:-translate-x-1/2 flex items-center justify-center shadow-lg shadow-amber-500/30 z-10">
+                        <span class="text-white font-bold text-sm">1</span>
+                    </div>
+                    <div class="ml-16 md:ml-0 md:w-1/2 md:pl-8">
+                        <div class="bg-gradient-to-br from-amber-900/30 to-slate-900/50 p-6 rounded-2xl border border-amber-500/20 shadow-xl hover:shadow-amber-500/10 transition-all duration-300">
+                            <div class="md:hidden inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded-full mb-3">สมัยสุโขทัย - อยุธยา</div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center">
+                                    <span class="text-2xl">📜</span>
+                                </div>
+                                <h2 class="text-xl font-bold text-amber-400">ยุคจารีตโบราณ: "ทักษาปกรณ์" ศาสตร์แห่งชนชั้นสูง</h2>
+                            </div>
+                            <p class="text-slate-300 mb-4">
+                                ย้อนกลับไปในสมัยสุโขทัยจนถึงอยุธยา การตั้งชื่อโดยอิงหลักโหราศาสตร์ชั้นสูงอย่าง <strong class="text-amber-300">"ทักษาปกรณ์"</strong> (การคำนวณหาอักษร เดช ศรี มนตรี กาลกิณี ตามวันเกิด) นั้น เป็นสิทธิพิเศษที่สงวนไว้เฉพาะเจ้านายและขุนนางชั้นผู้ใหญ่ โดยมี<strong>พราหมณ์ปุโรหิต</strong>เป็นผู้คำนวณถวาย
+                            </p>
+                            
+                            <!-- Deep Dive: ทักษาปกรณ์ -->
+                            <div class="bg-amber-900/20 p-4 rounded-xl border border-amber-500/30 mb-4">
+                                <h4 class="text-amber-300 font-bold mb-2 flex items-center gap-2">
+                                    <span>💡</span> ทักษาปกรณ์คืออะไร?
+                                </h4>
+                                <p class="text-slate-300 text-sm mb-3">
+                                    <strong class="text-amber-400">ทักษาปกรณ์</strong> คือศาสตร์โบราณที่แบ่งอักษรออกเป็น 8 หมวด ตามตำแหน่งทักษาประจำวันเกิด โดยแต่ละหมวดมีความหมายและพลังต่างกัน:
+                                </p>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-green-400 font-bold">บริวาร</span>
+                                        <p class="text-slate-400">ผู้คนนับหน้าถือตา</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-yellow-400 font-bold">อายุ</span>
+                                        <p class="text-slate-400">สุขภาพแข็งแรง</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-red-400 font-bold">เดช</span>
+                                        <p class="text-slate-400">อำนาจบารมี</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-pink-400 font-bold">ศรี</span>
+                                        <p class="text-slate-400">เสน่ห์ ความงาม</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-blue-400 font-bold">มูละ</span>
+                                        <p class="text-slate-400">รากฐานมั่นคง</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-cyan-400 font-bold">อุตสาหะ</span>
+                                        <p class="text-slate-400">ความขยันขันแข็ง</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-purple-400 font-bold">มนตรี</span>
+                                        <p class="text-slate-400">มีคนช่วยเหลือ</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-gray-400 font-bold">กาลกิณี</span>
+                                        <p class="text-slate-500">อักษรต้องห้าม</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                                <h4 class="text-sm font-bold text-slate-400 mb-2 uppercase tracking-wider">👑 ชนชั้นสูง</h4>
+                                <p class="text-slate-300 text-sm mb-2">ใช้หลักทักษาปกรณ์คำนวณอักษรมงคลตามวันเกิด</p>
+                                <p class="text-slate-400 text-xs mb-3 italic">ตัวอย่าง: พระนามเจ้านายมักขึ้นต้นด้วยอักษรศรี เช่น "สมเด็จ", "ศรีสุริยวงศ์"</p>
+                                
+                                <h4 class="text-sm font-bold text-slate-400 mb-2 uppercase tracking-wider">🏠 ชาวบ้านสามัญ</h4>
+                                <p class="text-slate-300 text-sm mb-2">ตั้งชื่อตาม "รูปลักษณ์" หรือ "เหตุการณ์" พยางค์เดียวจบ</p>
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    <span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs rounded">แดง (ผิวแดง)</span>
+                                    <span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs rounded">ดำ (ผิวคล้ำ)</span>
+                                    <span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs rounded">อิน (เกิดวันอินทร์)</span>
+                                    <span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs rounded">จัน (เกิดวันจันทร์)</span>
+                                    <span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs rounded">หมู, หมา, แมว</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Historical Note -->
+                            <div class="mt-4 p-3 bg-slate-700/30 rounded-lg border-l-4 border-amber-500">
+                                <p class="text-slate-400 text-sm italic">
+                                    <strong class="text-amber-400">📚 หลักฐานทางประวัติศาสตร์:</strong> ในศิลาจารึกหลักที่ 1 (พ่อขุนรามคำแหง) พบการกล่าวถึงชื่อบุคคลที่มักสั้นและมีความหมายตรงไปตรงมา เช่น "ขุนศรีอินทราทิตย์" ซึ่งผสมผสานคำบาลี-สันสกฤตกับความเชื่อท้องถิ่น
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Era 2: ยุคแห่งอารยะ -->
+                <div class="relative flex flex-col md:flex-row items-start mb-16 group">
+                    <div class="hidden md:block md:w-1/2 pr-8 text-right order-1 md:order-none">
+                        <div class="bg-gradient-to-bl from-purple-900/30 to-slate-900/50 p-6 rounded-2xl border border-purple-500/20 shadow-xl hover:shadow-purple-500/10 transition-all duration-300">
+                            <div class="flex items-center justify-end gap-3 mb-4">
+                                <h2 class="text-xl font-bold text-purple-400">ยุคแห่งอารยะ: การกำเนิด "นามสกุล"</h2>
+                                <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+                                    <span class="text-2xl">👑</span>
+                                </div>
+                            </div>
+                            <p class="text-slate-300 mb-4">
+                                จุดเปลี่ยนครั้งสำคัญของประวัติศาสตร์ไทยเกิดขึ้นในปี <strong class="text-purple-300">พ.ศ. 2456</strong> เมื่อพระบาทสมเด็จพระมงกุฎเกล้าเจ้าอยู่หัว (รัชกาลที่ 6) ทรงประกาศใช้ <strong>"พระราชบัญญัติขนานนามสกุล"</strong> ซึ่งมีผลบังคับใช้ตั้งแต่วันที่ 1 กรกฎาคม 2456
+                            </p>
+                            
+                            <!-- Deep Dive: นามสกุล -->
+                            <div class="bg-purple-900/20 p-4 rounded-xl border border-purple-500/30 mb-4">
+                                <h4 class="text-purple-300 font-bold mb-2 flex items-center gap-2">
+                                    <span>📜</span> เหตุผลที่ทรงตรา พ.ร.บ.นามสกุล
+                                </h4>
+                                <ul class="text-slate-300 text-sm space-y-2">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-purple-400 mt-1">•</span>
+                                        <span><strong>ความเป็นสากล:</strong> ประเทศตะวันตกใช้ระบบนามสกุลมานานแล้ว การมีนามสกุลช่วยให้ไทยเป็นที่ยอมรับในเวทีโลก</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-purple-400 mt-1">•</span>
+                                        <span><strong>การจัดเก็บทะเบียน:</strong> ง่ายต่อการบริหารราชการ สำมะโนครัว และการเก็บภาษี</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-purple-400 mt-1">•</span>
+                                        <span><strong>สายสกุลวงศ์:</strong> สามารถสืบสาวเชื้อสายและมรดกได้ชัดเจน</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 mb-4">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-purple-400">✨</span>
+                                    <span class="text-slate-300 text-sm">เริ่มใช้ภาษา<strong class="text-purple-300">บาลี-สันสกฤต</strong>ในการตั้งชื่อ</span>
+                                </div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-purple-400">✨</span>
+                                    <span class="text-slate-300 text-sm">เน้นความไพเราะ คล้องจอง และความหมายมงคล</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-purple-400">✨</span>
+                                    <span class="text-slate-300 text-sm">ยกระดับมาตรฐานการ<strong>ตั้งชื่อมงคล</strong>ให้ซับซ้อนขึ้น</span>
+                                </div>
+                            </div>
+                            
+                            <!-- นามสกุลพระราชทาน -->
+                            <div class="bg-gradient-to-r from-purple-800/20 to-pink-800/20 p-4 rounded-xl border border-purple-500/20">
+                                <h4 class="text-purple-300 font-bold mb-3 flex items-center gap-2">
+                                    <span>👑</span> นามสกุลพระราชทาน: มรดกทางวัฒนธรรมอันล้ำค่า
+                                </h4>
+                                <p class="text-slate-300 text-sm mb-3">
+                                    รัชกาลที่ 6 ทรงพระราชทานนามสกุลด้วยพระองค์เองกว่า <strong class="text-purple-400">6,565 นามสกุล</strong> โดยทรงคิดค้นให้มีความหมายดี ไพเราะ และเหมาะสมกับแต่ละตระกูล
+                                </p>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div class="bg-slate-800/50 p-2 rounded">
+                                        <span class="text-purple-400 font-bold">ณ อยุธยา</span>
+                                        <p class="text-slate-500">สายสกุลเชื้อพระวงศ์</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded">
+                                        <span class="text-purple-400 font-bold">บุนนาค</span>
+                                        <p class="text-slate-500">สกุลขุนนางชั้นสูง</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded">
+                                        <span class="text-purple-400 font-bold">สิงหเสนี</span>
+                                        <p class="text-slate-500">ความแข็งแกร่งดั่งสิงห์</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded">
+                                        <span class="text-purple-400 font-bold">เทพหัสดิน</span>
+                                        <p class="text-slate-500">ช้างแห่งเทพ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute left-4 md:left-1/2 w-8 h-8 bg-purple-500 rounded-full transform md:-translate-x-1/2 flex items-center justify-center shadow-lg shadow-purple-500/30 z-10">
+                        <span class="text-white font-bold text-sm">2</span>
+                    </div>
+                    <div class="ml-16 md:ml-0 md:w-1/2 md:pl-8 md:hidden">
+                        <div class="bg-gradient-to-br from-purple-900/30 to-slate-900/50 p-6 rounded-2xl border border-purple-500/20 shadow-xl">
+                            <div class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-bold rounded-full mb-3">รัชกาลที่ 6 (พ.ศ. 2456)</div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+                                    <span class="text-2xl">👑</span>
+                                </div>
+                                <h2 class="text-xl font-bold text-purple-400">ยุคแห่งอารยะ: การกำเนิด "นามสกุล"</h2>
+                            </div>
+                            <p class="text-slate-300 mb-4">
+                                พระบาทสมเด็จพระมงกุฎเกล้าเจ้าอยู่หัว ทรงประกาศใช้ "พระราชบัญญัติขนานนามสกุล" เพื่อวางรากฐานความเป็นสากล
+                            </p>
+                        </div>
+                    </div>
+                    <div class="hidden md:block md:w-1/2 md:pl-8">
+                        <div class="inline-block px-4 py-1 bg-purple-500/20 text-purple-400 text-sm font-bold rounded-full mb-2">รัชกาลที่ 6</div>
+                        <p class="text-slate-400 text-sm">พ.ศ. 2456 (113 ปีก่อน)</p>
+                    </div>
+                </div>
+
+                <!-- Era 3: ยุคสร้างชาติ -->
+                <div class="relative flex flex-col md:flex-row items-start mb-16 group">
+                    <div class="hidden md:block md:w-1/2 pr-8 text-right">
+                        <div class="inline-block px-4 py-1 bg-blue-500/20 text-blue-400 text-sm font-bold rounded-full mb-2">จอมพล ป. พิบูลสงคราม</div>
+                        <p class="text-slate-400 text-sm">พ.ศ. 2482 - 2487</p>
+                    </div>
+                    <div class="absolute left-4 md:left-1/2 w-8 h-8 bg-blue-500 rounded-full transform md:-translate-x-1/2 flex items-center justify-center shadow-lg shadow-blue-500/30 z-10">
+                        <span class="text-white font-bold text-sm">3</span>
+                    </div>
+                    <div class="ml-16 md:ml-0 md:w-1/2 md:pl-8">
+                        <div class="bg-gradient-to-br from-blue-900/30 to-slate-900/50 p-6 rounded-2xl border border-blue-500/20 shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                            <div class="md:hidden inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-bold rounded-full mb-3">พ.ศ. 2482 - 2487</div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                                    <span class="text-2xl">⚖️</span>
+                                </div>
+                                <h2 class="text-xl font-bold text-blue-400">ยุคสร้างชาติ: ระบุเพศและอัตลักษณ์</h2>
+                            </div>
+                            <p class="text-slate-300 mb-4">
+                                ภายใต้นโยบาย <strong class="text-blue-300">"รัฐนิยม"</strong> ของจอมพล ป. พิบูลสงคราม รัฐบาลได้เข้ามาจัดระเบียบวัฒนธรรมการตั้งชื่ออีกครั้ง โดยออกประกาศ "รัฐนิยม" หลายฉบับที่ส่งผลต่อวิถีชีวิตคนไทย รวมถึงเรื่องการตั้งชื่อ
+                            </p>
+                            
+                            <!-- รัฐนิยมที่เกี่ยวข้อง -->
+                            <div class="bg-blue-900/20 p-4 rounded-xl border border-blue-500/30 mb-4">
+                                <h4 class="text-blue-300 font-bold mb-2 flex items-center gap-2">
+                                    <span>📋</span> รัฐนิยมที่เกี่ยวข้องกับการตั้งชื่อ
+                                </h4>
+                                <ul class="text-slate-300 text-sm space-y-2">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-blue-400 mt-1">•</span>
+                                        <span><strong>รัฐนิยม ฉบับที่ 1:</strong> เปลี่ยนชื่อประเทศจาก "สยาม" เป็น "ประเทศไทย" (2482)</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-blue-400 mt-1">•</span>
+                                        <span><strong>รัฐนิยม ฉบับที่ 6:</strong> ให้เลิกใช้คำที่ไม่สุภาพ เช่น ไอ้, อี, อ้าย นำหน้าชื่อ</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-blue-400 mt-1">•</span>
+                                        <span><strong>รัฐนิยม ฉบับที่ 12:</strong> รณรงค์ให้คนไทยตั้งชื่อที่มีความหมาย ไม่ซ้ำกัน และระบุเพศชัดเจน</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-3">
+                                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="text-blue-400 text-lg">♂♀</span>
+                                        <span class="text-white font-bold text-sm">ระบุเพศชัดเจน</span>
+                                    </div>
+                                    <p class="text-slate-400 text-sm mb-2">ชื่อผู้ชายต้องฟังดูเข้มแข็ง ชื่อผู้หญิงต้องฟังดูอ่อนหวาน</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded">ชาย: เข้มแข็ง, วีระ, ชัย</span>
+                                        <span class="px-2 py-1 bg-pink-500/20 text-pink-300 text-xs rounded">หญิง: มาลี, วารี, สุดา</span>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="text-blue-400 text-lg">🚫</span>
+                                        <span class="text-white font-bold text-sm">ความมีอารยะ</span>
+                                    </div>
+                                    <p class="text-slate-400 text-sm">ยกเลิกการใช้คำนำหน้าชื่อเล่นแบบเดิม (เช่น ไอ้, อี) และรณรงค์ไม่ให้ตั้งชื่อซ้ำกันพร่ำเพรื่อ</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Impact Box -->
+                            <div class="mt-4 p-3 bg-slate-700/30 rounded-lg border-l-4 border-blue-500">
+                                <p class="text-slate-400 text-sm italic">
+                                    <strong class="text-blue-400">💡 ผลกระทบ:</strong> ยุคนี้ทำให้ชื่อของคนไทยเริ่มมีความเป็นสากล (Universal) มากขึ้น และเป็นรากฐานของโครงสร้างชื่อจริงที่เราใช้กันจวบจนปัจจุบัน ชื่อยอดนิยมในยุคนี้ เช่น สมชาย, สมศักดิ์, สมหญิง, มาลี
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Era 4: ยุคทองของเลขศาสตร์ -->
+                <div class="relative flex flex-col md:flex-row items-start group">
+                    <div class="hidden md:block md:w-1/2 pr-8 text-right order-1 md:order-none">
+                        <div class="bg-gradient-to-bl from-emerald-900/30 to-slate-900/50 p-6 rounded-2xl border border-emerald-500/20 shadow-xl hover:shadow-emerald-500/10 transition-all duration-300">
+                            <div class="flex items-center justify-end gap-3 mb-4">
+                                <h2 class="text-xl font-bold text-emerald-400">ยุคทองของ "เลขศาสตร์": พลิกชะตา แก้ไขดวง</h2>
+                                <div class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                                    <span class="text-2xl">🔢</span>
+                                </div>
+                            </div>
+                            <p class="text-slate-300 mb-4">
+                                เมื่อสังคมเข้าสู่ยุคสมัยใหม่ ความเชื่อเรื่องการตั้งชื่อได้พัฒนาจาก "ศิลปะ" สู่ <strong class="text-emerald-300">"อุตสาหกรรมความเชื่อ"</strong> อย่างเต็มรูปแบบ ตั้งแต่ช่วงปี พ.ศ. 2500 เป็นต้นมา ศาสตร์การ<strong>วิเคราะห์ชื่อ</strong>ได้ผนวกเอา <strong class="text-emerald-400">"เลขศาสตร์" (Numerology)</strong> เข้ามาเป็นแกนหลัก
+                            </p>
+                            
+                            <!-- เลขศาสตร์ Deep Dive -->
+                            <div class="bg-emerald-900/20 p-4 rounded-xl border border-emerald-500/30 mb-4">
+                                <h4 class="text-emerald-300 font-bold mb-2 flex items-center gap-2">
+                                    <span>🔢</span> เลขศาสตร์ในการตั้งชื่อคืออะไร?
+                                </h4>
+                                <p class="text-slate-300 text-sm mb-3">
+                                    <strong class="text-emerald-400">เลขศาสตร์</strong> คือการกำหนดค่าตัวเลขให้กับตัวอักษรแต่ละตัว (ก-ฮ = 1-44) แล้วนำมารวมกันเพื่อหาผลรวม ซึ่งแต่ละตัวเลขมีความหมายและพลังต่างกัน
+                                </p>
+                                <div class="grid grid-cols-3 gap-2 text-xs">
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-green-400 font-bold text-lg">14</span>
+                                        <p class="text-slate-400">นักเจรจา, มีคนช่วยเหลือ</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-green-400 font-bold text-lg">24</span>
+                                        <p class="text-slate-400">เมตตามหานิยม, คนรัก</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-green-400 font-bold text-lg">36</span>
+                                        <p class="text-slate-400">เศรษฐี, มั่งคั่ง</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-green-400 font-bold text-lg">45</span>
+                                        <p class="text-slate-400">เทพีแห่งโชค</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-green-400 font-bold text-lg">59</span>
+                                        <p class="text-slate-400">สมองเพชร, ฉลาดล้ำลึก</p>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-2 rounded text-center">
+                                        <span class="text-green-400 font-bold text-lg">63</span>
+                                        <p class="text-slate-400">มหาโชคลาภ</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700 mb-4">
+                                <h4 class="text-emerald-400 font-bold mb-3">องค์ประกอบ 3 ประการ ของชื่อมงคลยุคใหม่:</h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-6 h-6 rounded-full bg-emerald-500/30 flex items-center justify-center text-emerald-400 text-xs font-bold flex-shrink-0">1</span>
+                                        <div>
+                                            <span class="text-white font-bold">ความไพเราะ</span>
+                                            <p class="text-slate-400 text-sm">ถูกต้องตามหลักภาษา ออกเสียงง่าย มีความหมายดี</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-6 h-6 rounded-full bg-emerald-500/30 flex items-center justify-center text-emerald-400 text-xs font-bold flex-shrink-0">2</span>
+                                        <div>
+                                            <span class="text-white font-bold">ทักษา</span>
+                                            <p class="text-slate-400 text-sm">อักษรต้องเป็นมงคลตามวันเกิด หลีกเลี่ยงกาลกิณี</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="w-6 h-6 rounded-full bg-emerald-500/30 flex items-center justify-center text-emerald-400 text-xs font-bold flex-shrink-0">3</span>
+                                        <div>
+                                            <span class="text-white font-bold">เลขศาสตร์</span>
+                                            <p class="text-slate-400 text-sm">ผลรวมของตัวเลขต้องตกในเลขมหามงคล (เช่น 14, 24, 45, 63)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- ปรากฏการณ์เปลี่ยนชื่อ -->
+                            <div class="bg-gradient-to-r from-emerald-800/20 to-teal-800/20 p-4 rounded-xl border border-emerald-500/20 mb-4">
+                                <h4 class="text-emerald-300 font-bold mb-3 flex items-center gap-2">
+                                    <span>🔄</span> ปรากฏการณ์ "เปลี่ยนชื่อเปลี่ยนดวง"
+                                </h4>
+                                <p class="text-slate-300 text-sm mb-3">
+                                    ในยุคปัจจุบัน การ<strong class="text-emerald-400">เปลี่ยนชื่อ</strong>เพื่อแก้ดวงกลายเป็นเรื่องปกติ สถิติจากกรมการปกครองพบว่ามีคนไทยเปลี่ยนชื่อ-นามสกุลมากถึง <strong>2.5 ล้านคนต่อปี</strong> (ประมาณการ)
+                                </p>
+                                <div class="grid grid-cols-2 gap-3 text-sm">
+                                    <div class="bg-slate-800/50 p-3 rounded-lg">
+                                        <span class="text-emerald-400 font-bold">เหตุผลในการเปลี่ยนชื่อ</span>
+                                        <ul class="text-slate-400 text-xs mt-2 space-y-1">
+                                            <li>• แก้ดวงชะตา</li>
+                                            <li>• เริ่มต้นชีวิตใหม่</li>
+                                            <li>• เลขศาสตร์ไม่ดี</li>
+                                            <li>• ทักษาตกกาลกิณี</li>
+                                        </ul>
+                                    </div>
+                                    <div class="bg-slate-800/50 p-3 rounded-lg">
+                                        <span class="text-emerald-400 font-bold">วิธีการตั้งชื่อยุคใหม่</span>
+                                        <ul class="text-slate-400 text-xs mt-2 space-y-1">
+                                            <li>• AI วิเคราะห์ชื่อ</li>
+                                            <li>• สะกดแบบเฉพาะตัว</li>
+                                            <li>• ผสมผสานหลายศาสตร์</li>
+                                            <li>• พลังเงาและอายตนะ</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p class="text-slate-300 text-sm italic">
+                                นี่จึงเป็นที่มาของปรากฏการณ์ <strong class="text-emerald-300">"การเปลี่ยนชื่อเปลี่ยนดวง"</strong> ที่แพร่หลายในปัจจุบัน รวมถึงการสร้างคำศัพท์ใหม่ๆ หรือการสะกดคำแบบเฉพาะตัว เพื่อให้ได้ผลลัพธ์ทางตัวเลขที่สมบูรณ์แบบที่สุดตามความเชื่อ
+                            </p>
+                        </div>
+                    </div>
+                    <div class="absolute left-4 md:left-1/2 w-8 h-8 bg-emerald-500 rounded-full transform md:-translate-x-1/2 flex items-center justify-center shadow-lg shadow-emerald-500/30 z-10">
+                        <span class="text-white font-bold text-sm">4</span>
+                    </div>
+                    <div class="ml-16 md:ml-0 md:w-1/2 md:pl-8 md:hidden">
+                        <div class="bg-gradient-to-br from-emerald-900/30 to-slate-900/50 p-6 rounded-2xl border border-emerald-500/20 shadow-xl">
+                            <div class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-full mb-3">พ.ศ. 2500 - ปัจจุบัน</div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                                    <span class="text-2xl">🔢</span>
+                                </div>
+                                <h2 class="text-xl font-bold text-emerald-400">ยุคทองของ "เลขศาสตร์"</h2>
+                            </div>
+                            <p class="text-slate-300 mb-4">
+                                ศาสตร์การตั้งชื่อไม่ได้หยุดอยู่แค่หลักภาษาหรือทักษา แต่ได้ผนวกเอา "เลขศาสตร์" (Numerology) เข้ามาเป็นแกนหลัก
+                            </p>
+                        </div>
+                    </div>
+                    <div class="hidden md:block md:w-1/2 md:pl-8">
+                        <div class="inline-block px-4 py-1 bg-emerald-500/20 text-emerald-400 text-sm font-bold rounded-full mb-2">กึ่งพุทธกาล - ปัจจุบัน</div>
+                        <p class="text-slate-400 text-sm">พ.ศ. 2500 - ปัจจุบัน</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Section -->
+            <div class="mt-16 mb-12 relative">
+                <div class="absolute inset-0 bg-gradient-to-r from-amber-500/5 via-purple-500/5 to-emerald-500/5 rounded-3xl blur-2xl"></div>
+                <div class="relative bg-slate-900/80 p-8 rounded-2xl border border-slate-700 shadow-2xl">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-500 to-purple-500 flex items-center justify-center">
+                            <span class="text-2xl">📖</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white">บทสรุป</h2>
+                    </div>
+                    <p class="text-slate-300 text-lg leading-relaxed mb-6">
+                        จากชื่อเรียกขานง่ายๆ สู่การคำนวณตัวเลขที่ซับซ้อน สะท้อนให้เห็นว่า<strong class="text-amber-400">คนไทยไม่เคยหยุดที่จะแสวงหา "สิริมงคล" ให้กับชีวิต</strong> การ<strong>ตั้งชื่อมงคล</strong>และ<strong>เปลี่ยนชื่อ</strong>จึงเป็นมากกว่าความเชื่อ แต่คือวัฒนธรรมที่สืบทอดมากว่า 700 ปี
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="text-center p-4 bg-amber-500/10 rounded-xl border border-amber-500/20">
+                            <div class="text-3xl mb-2">📜</div>
+                            <div class="text-amber-400 font-bold text-sm">700+ ปี</div>
+                            <div class="text-slate-500 text-xs">ประวัติศาสตร์</div>
+                        </div>
+                        <div class="text-center p-4 bg-purple-500/10 rounded-xl border border-purple-500/20">
+                            <div class="text-3xl mb-2">👑</div>
+                            <div class="text-purple-400 font-bold text-sm">รัชกาลที่ 6</div>
+                            <div class="text-slate-500 text-xs">กำเนิดนามสกุล</div>
+                        </div>
+                        <div class="text-center p-4 bg-blue-500/10 rounded-xl border border-blue-500/20">
+                            <div class="text-3xl mb-2">⚖️</div>
+                            <div class="text-blue-400 font-bold text-sm">รัฐนิยม</div>
+                            <div class="text-slate-500 text-xs">จัดระเบียบชื่อ</div>
+                        </div>
+                        <div class="text-center p-4 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
+                            <div class="text-3xl mb-2">🔢</div>
+                            <div class="text-emerald-400 font-bold text-sm">เลขศาสตร์</div>
+                            <div class="text-slate-500 text-xs">ยุคปัจจุบัน</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Section for SEO -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="text-3xl">❓</span> คำถามที่พบบ่อยเกี่ยวกับการตั้งชื่อมงคล
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700">
+                        <h3 class="text-lg font-bold text-amber-400 mb-2">ทักษาปกรณ์ต่างจากเลขศาสตร์อย่างไร?</h3>
+                        <p class="text-slate-300 text-sm">
+                            <strong>ทักษาปกรณ์</strong> เน้นการเลือกอักษรตัวแรกของชื่อให้เป็นมงคลตามวันเกิด โดยดูจากหมวดอักษร 8 หมวด ขณะที่ <strong>เลขศาสตร์</strong> คำนวณค่าตัวเลขของทุกตัวอักษรในชื่อแล้วนำมารวมกัน ทั้งสองศาสตร์ควรใช้ควบคู่กันเพื่อให้ได้ชื่อที่ดีที่สุด
+                        </p>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700">
+                        <h3 class="text-lg font-bold text-purple-400 mb-2">เลขผลรวมที่ดีที่สุดในการตั้งชื่อคือเลขอะไร?</h3>
+                        <p class="text-slate-300 text-sm">
+                            เลขมงคลที่นิยมมากที่สุด ได้แก่ <strong class="text-emerald-400">14</strong> (นักเจรจา), <strong class="text-emerald-400">24</strong> (เมตตามหานิยม), <strong class="text-emerald-400">36</strong> (เศรษฐี), <strong class="text-emerald-400">45</strong> (เทพีแห่งโชค), <strong class="text-emerald-400">59</strong> (สมองเพชร), และ <strong class="text-emerald-400">63</strong> (มหาโชคลาภ) แต่ต้องพิจารณาร่วมกับทักษาและวันเกิดด้วย
+                        </p>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700">
+                        <h3 class="text-lg font-bold text-emerald-400 mb-2">การเปลี่ยนชื่อช่วยเปลี่ยนดวงได้จริงหรือ?</h3>
+                        <p class="text-slate-300 text-sm">
+                            ตามความเชื่อโหราศาสตร์ไทย ชื่อมีอิทธิพลต่อดวงชะตาถึง 40-60% การ<strong class="text-amber-400">เปลี่ยนชื่อ</strong>ที่ถูกหลักสามารถช่วยเสริมสิริมงคล แก้ไขจุดอ่อนในดวงชะตา และเปิดโอกาสใหม่ๆ ในชีวิต แต่ควรทำโดยผู้เชี่ยวชาญที่คำนึงถึงหลายปัจจัยร่วมกัน
+                        </p>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700">
+                        <h3 class="text-lg font-bold text-blue-400 mb-2">กาลกิณีคืออะไร? ทำไมต้องหลีกเลี่ยง?</h3>
+                        <p class="text-slate-300 text-sm">
+                            <strong>กาลกิณี</strong> คืออักษรที่เป็นอัปมงคลตามวันเกิดของแต่ละคน หากมีอักษรกาลกิณีในชื่อ เชื่อว่าจะทำให้ชีวิตมีอุปสรรค ทำอะไรไม่สำเร็จ หรือเกิดเหตุไม่ดี การ<strong>วิเคราะห์ชื่อ</strong>จึงต้องตรวจสอบว่าไม่มีอักษรกาลกิณีเป็นสิ่งสำคัญ
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="my-12 p-8 rounded-2xl bg-gradient-to-r from-amber-900/40 via-slate-900 to-emerald-900/40 border border-amber-500/30 text-center relative overflow-hidden group">
+                <div class="absolute inset-0 bg-[url('/images/noise.png')] opacity-5"></div>
+                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-amber-500 rounded-full blur-[120px] opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                
+                <h3 class="text-2xl font-bold text-white mb-4 relative z-10">พร้อมเริ่มต้นชีวิตด้วยชื่อมงคล?</h3>
+                <p class="text-amber-200/80 mb-8 max-w-2xl mx-auto relative z-10">
+                    หากคุณกำลังมองหาชื่อมงคลที่ผสานทั้งศาสตร์โบราณและความเชื่อยุคใหม่ เพื่อเริ่มต้นชีวิตหรือธุรกิจด้วยความมั่นใจ <strong>Namemongkol.com</strong> พร้อมเป็นที่ปรึกษาเพื่อเฟ้นหานามที่ดีที่สุดสำหรับคุณ
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+                    <a href="/" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-xl shadow-lg shadow-amber-500/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-500/40 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                        วิเคราะห์ชื่อฟรี
+                    </a>
+                    <a href="/premium-search" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl border border-slate-600 hover:-translate-y-1 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        ค้นหาชื่อมงคล Premium
+                    </a>
+                </div>
+            </div>
+
+            <!-- Related Keywords for SEO -->
+            <div class="mt-8 pt-6 border-t border-slate-800">
+                <h3 class="text-slate-400 text-sm font-bold mb-3">🔍 คำค้นหาที่เกี่ยวข้อง:</h3>
+                <div class="flex flex-wrap gap-2">
+                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">ตั้งชื่อมงคล</a>
+                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">เปลี่ยนชื่อ</a>
+                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">วิเคราะห์ชื่อ</a>
+                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">เลขศาสตร์</a>
+                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">ทักษาปกรณ์</a>
+                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">ชื่อมงคลตามวันเกิด</a>
+                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">กาลกิณี</a>
+                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">นามสกุลพระราชทาน</a>
+                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">เปลี่ยนชื่อเปลี่ยนดวง</a>
+                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">ชื่อลูก</a>
+                </div>
+            </div>
+            
+            <!-- Read More Section -->
+            <div class="mt-8 p-6 bg-slate-800/30 rounded-xl border border-slate-700">
+                <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+                    <span>📚</span> อ่านบทความที่เกี่ยวข้อง
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="/articles/shadow-power-ayatana-6-meaning" class="group flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg hover:bg-slate-700/50 transition-colors">
+                        <span class="text-2xl">🌑</span>
+                        <div>
+                            <div class="text-white font-medium group-hover:text-purple-400 transition-colors">พลังเงาและอายตนะ 6</div>
+                            <div class="text-slate-500 text-xs">ศาสตร์ลับที่คนอยากเปลี่ยนชื่อต้องรู้</div>
+                        </div>
+                    </a>
+                    <a href="/articles/micro-analysis-lucky-number-pairs" class="group flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg hover:bg-slate-700/50 transition-colors">
+                        <span class="text-2xl">🔢</span>
+                        <div>
+                            <div class="text-white font-medium group-hover:text-emerald-400 transition-colors">เจาะลึกคู่เลขมงคล</div>
+                            <div class="text-slate-500 text-xs">Micro-Analysis สำคัญกว่าผลรวมอย่างไร?</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        `
+    },
+    {
         id: '26',
         slug: 'case-study-khemanit-name-analysis',
         title: 'Case Study: วิเคราะห์ชื่อคนดัง "เขมนิจ จามิกรณ์" ทำไมถึงได้เกรด A+?',
