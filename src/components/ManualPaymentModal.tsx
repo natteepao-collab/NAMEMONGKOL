@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Copy, CheckCircle2 } from 'lucide-react';
+import { X, CheckCircle2 } from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
 import generatePayload from 'promptpay-qr';
 import SlipUploader from './SlipUploader';
@@ -9,15 +9,17 @@ interface ManualPaymentModalProps {
     credits: number;
     tierId: string;
     tierName: string;
+    promptpayNumber?: string;
     onClose: () => void;
 }
 
-export default function ManualPaymentModal({ price, credits, tierId, tierName, onClose }: ManualPaymentModalProps) {
-    const PROMPTPAY_ID = '0891682824';
-    const payload = generatePayload(PROMPTPAY_ID, { amount: price });
+export default function ManualPaymentModal({ price, credits, tierId, tierName, promptpayNumber, onClose }: ManualPaymentModalProps) {
+    const PROMPTPAY_ID = (promptpayNumber || '').trim();
+    const payload = PROMPTPAY_ID ? generatePayload(PROMPTPAY_ID, { amount: price }) : '';
     const [copied, setCopied] = React.useState(false);
 
     const handleCopy = () => {
+        if (!PROMPTPAY_ID) return;
         navigator.clipboard.writeText(PROMPTPAY_ID);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
@@ -73,22 +75,30 @@ export default function ManualPaymentModal({ price, credits, tierId, tierName, o
                     {/* QR Code Section */}
                     <div className="flex flex-col items-center space-y-3 mb-6">
                         <div className="p-3 bg-white rounded-xl shadow-sm border border-slate-100 relative">
-                            <QRCodeCanvas
-                                value={payload}
-                                size={180}
-                                level="M"
-                                imageSettings={{
-                                    src: "https://upload.wikimedia.org/wikipedia/commons/c/c5/PromptPay_logo.png",
-                                    height: 20,
-                                    width: 50,
-                                    excavate: true,
-                                }}
-                            />
+                            {PROMPTPAY_ID ? (
+                                <QRCodeCanvas
+                                    value={payload}
+                                    size={180}
+                                    level="M"
+                                    imageSettings={{
+                                        src: "https://upload.wikimedia.org/wikipedia/commons/c/c5/PromptPay_logo.png",
+                                        height: 20,
+                                        width: 50,
+                                        excavate: true,
+                                    }}
+                                />
+                            ) : (
+                                <div className="w-[180px] h-[180px] flex items-center justify-center text-center text-xs text-slate-500 bg-slate-50">
+                                    ยังไม่ได้ตั้งค่า PromptPay<br />กรุณาตั้งค่าในหน้า Admin
+                                </div>
+                            )}
                         </div>
 
                         <button
-                            className="flex items-center gap-2 px-5 py-1.5 bg-[#eef2f6] hover:bg-[#dbeafe] text-[#1a3a6c] rounded-full text-xs font-medium transition-colors"
+                            className="flex items-center gap-2 px-5 py-1.5 bg-[#eef2f6] hover:bg-[#dbeafe] text-[#1a3a6c] rounded-full text-xs font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled={!PROMPTPAY_ID}
                             onClick={() => {
+                                if (!PROMPTPAY_ID) return;
                                 const canvas = document.querySelector('canvas');
                                 if (canvas) {
                                     const link = document.createElement('a');
@@ -104,6 +114,23 @@ export default function ManualPaymentModal({ price, credits, tierId, tierName, o
                             บันทึกรูป QR Code
                         </button>
                     </div>
+
+                    {PROMPTPAY_ID && (
+                        <div className="mb-4 flex items-center justify-center gap-2 text-xs text-slate-600">
+                            <span>หมายเลขพร้อมเพย์:</span>
+                            <button
+                                onClick={handleCopy}
+                                className="px-2 py-1 rounded-full bg-[#eef2f6] hover:bg-[#dbeafe] text-[#1a3a6c] font-semibold"
+                            >
+                                {PROMPTPAY_ID}
+                            </button>
+                            {copied && (
+                                <span className="text-emerald-600 flex items-center gap-1">
+                                    <CheckCircle2 size={12} /> คัดลอกแล้ว
+                                </span>
+                            )}
+                        </div>
+                    )}
 
                     {/* Divider */}
                     {/* <div className="border-t border-dashed border-slate-300 my-6 relative">

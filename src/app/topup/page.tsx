@@ -68,12 +68,23 @@ export default async function TopUpPage() {
     const supabase = await createClient();
     const { data } = await supabase
         .from('app_settings')
-        .select('value')
-        .eq('key', 'payment_gateway')
-        .single();
+        .select('key, value')
+        .in('key', ['payment_gateway', 'promptpay_number', 'promptpay_id', 'promptpay', 'promptpay_phone', 'promptpay_account']);
+
+    const settingsMap = (data || []).reduce<Record<string, string>>((acc, curr) => {
+        acc[curr.key] = curr.value || '';
+        return acc;
+    }, {});
 
     // Default to 'stripe' if not set
-    const gateway = data?.value || 'stripe';
+    const gateway = settingsMap['payment_gateway'] || 'stripe';
+    const promptpayNumber =
+        settingsMap['promptpay_number'] ||
+        settingsMap['promptpay_id'] ||
+        settingsMap['promptpay'] ||
+        settingsMap['promptpay_phone'] ||
+        settingsMap['promptpay_account'] ||
+        '';
 
     return (
         <>
@@ -82,7 +93,7 @@ export default async function TopUpPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            <ClientPage gateway={gateway} />
+            <ClientPage gateway={gateway} promptpayNumber={promptpayNumber} />
         </>
     );
 }

@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { supabase } from '@/utils/supabase';
 import { generatePremiumNames, PremiumResult, FocusTopic, getAstrologicalDay } from '@/utils/premiumAnalysisUtils';
 import { formatThaiBirthDate, ThaiDateResult } from '@/utils/thaiDateUtils';
+import { CertificateGenerator } from '@/components/CertificateGenerator';
 
 const THAI_MONTHS = [
     'มกราคม (01)', 'กุมภาพันธ์ (02)', 'มีนาคม (03)', 'เมษายน (04)', 'พฤษภาคม (05)', 'มิถุนายน (06)',
@@ -82,6 +83,8 @@ export default function PremiumAnalysisPage() {
     }, [selectedHour, selectedMinute, isUnknownTime]);
 
 
+    // State สำหรับเก็บวันเกิดตามโหราศาสตร์
+    const [astrologicalDay, setAstrologicalDay] = useState<string>('sunday');
 
     const [shownNames, setShownNames] = useState<string[]>([]);
 
@@ -197,6 +200,7 @@ export default function PremiumAnalysisPage() {
 
             const dateObj = new Date(birthDate);
             const astDay = getAstrologicalDay(dateObj, birthTime);
+            setAstrologicalDay(astDay);
 
             // Calculate Thai Date Details
             const dateInfo = formatThaiBirthDate(birthDate);
@@ -399,6 +403,22 @@ export default function PremiumAnalysisPage() {
                                     </span>
                                     <span className="text-xs text-slate-500">/ 100</span>
                                 </div>
+                            </div>
+
+                            {/* ปุ่มออกใบรับรองมงคล */}
+                            <div className="pt-3 mt-3 border-t border-white/5">
+                                <CertificateGenerator
+                                    name={result.name}
+                                    surname={surname}
+                                    grade={result.grade}
+                                    totalScore={result.totalScore}
+                                    day={astrologicalDay}
+                                    prediction={{
+                                        level: result.grade === 'A+' ? 'ชื่อมงคลระดับสูงสุด' : result.grade === 'A' ? 'ชื่อมงคลระดับสูง' : 'ชื่อมงคล',
+                                        desc: result.meaning
+                                    }}
+                                    compact
+                                />
                             </div>
                         </div>
                     );

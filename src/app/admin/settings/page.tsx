@@ -9,6 +9,7 @@ export default function AdminSettingsPage() {
     const [gtmId, setGtmId] = useState('');
     const [tiktokPixelId, setTiktokPixelId] = useState('');
     const [facebookPixelId, setFacebookPixelId] = useState('');
+    const [promptPayNumber, setPromptPayNumber] = useState('');
     const [paymentGateway, setPaymentGateway] = useState<'stripe' | 'slip2go'>('stripe');
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -23,7 +24,17 @@ export default function AdminSettingsPage() {
             const { data, error } = await supabase
                 .from('app_settings')
                 .select('key, value')
-                .in('key', ['gtm_id', 'tiktok_pixel_id', 'facebook_pixel_id', 'payment_gateway']);
+                .in('key', [
+                    'gtm_id',
+                    'tiktok_pixel_id',
+                    'facebook_pixel_id',
+                    'payment_gateway',
+                    'promptpay_number',
+                    'promptpay_id',
+                    'promptpay',
+                    'promptpay_phone',
+                    'promptpay_account'
+                ]);
 
             if (data) {
                 const settingsMap = data.reduce((acc: any, curr) => {
@@ -33,6 +44,14 @@ export default function AdminSettingsPage() {
                 setGtmId(settingsMap['gtm_id'] || '');
                 setTiktokPixelId(settingsMap['tiktok_pixel_id'] || '');
                 setFacebookPixelId(settingsMap['facebook_pixel_id'] || '');
+                setPromptPayNumber(
+                    settingsMap['promptpay_number'] ||
+                    settingsMap['promptpay_id'] ||
+                    settingsMap['promptpay'] ||
+                    settingsMap['promptpay_phone'] ||
+                    settingsMap['promptpay_account'] ||
+                    ''
+                );
                 setPaymentGateway(settingsMap['payment_gateway'] || 'stripe');
             } else if (error) {
                 console.error('Error fetching settings:', error);
@@ -55,6 +74,9 @@ export default function AdminSettingsPage() {
                 { key: 'gtm_id', value: gtmId, description: 'Google Tag Manager Container ID', updated_by: user?.id },
                 { key: 'tiktok_pixel_id', value: tiktokPixelId, description: 'TikTok Pixel ID', updated_by: user?.id },
                 { key: 'facebook_pixel_id', value: facebookPixelId, description: 'Facebook Pixel ID', updated_by: user?.id },
+                { key: 'promptpay_number', value: promptPayNumber, description: 'PromptPay ID/Phone for Manual Transfer', updated_by: user?.id },
+                { key: 'promptpay_id', value: promptPayNumber, description: 'PromptPay ID/Phone for Manual Transfer (legacy)', updated_by: user?.id },
+                { key: 'promptpay', value: promptPayNumber, description: 'PromptPay ID/Phone for Manual Transfer (legacy)', updated_by: user?.id },
                 { key: 'payment_gateway', value: paymentGateway, description: 'Active Payment Gateway (stripe/slip2go)', updated_by: user?.id }
             ];
 
@@ -227,6 +249,35 @@ export default function AdminSettingsPage() {
                                 value={tiktokPixelId}
                                 onChange={(e) => setTiktokPixelId(e.target.value)}
                                 placeholder="XXXXXXXXXXXXXXX"
+                                disabled={loading}
+                                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-all font-mono placeholder:text-slate-600"
+                            />
+                        </div>
+                    </div>
+
+                    {/* PromptPay Number */}
+                    <div className="flex flex-col md:flex-row gap-6 border-t border-slate-800 pt-8">
+                        <div className="md:w-1/3">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                                        <rect x="2" y="5" width="20" height="14" rx="2" />
+                                        <line x1="2" x2="22" y1="10" y2="10" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-bold text-white">PromptPay Number</h3>
+                            </div>
+                            <p className="text-sm text-slate-400">หมายเลขพร้อมเพย์สำหรับโอนแบบแนบสลิป (Slip2Go)</p>
+                        </div>
+                        <div className="md:w-2/3">
+                            <label className="block text-sm font-medium text-slate-300 mb-2">
+                                PromptPay ID / เบอร์โทรศัพท์
+                            </label>
+                            <input
+                                type="text"
+                                value={promptPayNumber}
+                                onChange={(e) => setPromptPayNumber(e.target.value)}
+                                placeholder="089xxxxxxx หรือ เลขบัตร/PromptPay ID"
                                 disabled={loading}
                                 className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-all font-mono placeholder:text-slate-600"
                             />

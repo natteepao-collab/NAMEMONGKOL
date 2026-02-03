@@ -34,9 +34,10 @@ const fetchTiers = async () => {
 
 interface TopUpPageProps {
     gateway: string;
+    promptpayNumber?: string;
 }
 
-export default function TopUpPage({ gateway }: TopUpPageProps) {
+export default function TopUpPage({ gateway, promptpayNumber }: TopUpPageProps) {
     const searchParams = useSearchParams();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -249,6 +250,7 @@ export default function TopUpPage({ gateway }: TopUpPageProps) {
                             credits={selectedTier.credits}
                             tierId={selectedTier.id}
                             tierName={selectedTier.name}
+                            promptpayNumber={promptpayNumber}
                             onClose={() => setSelectedTier(null)}
                         />
                     )}

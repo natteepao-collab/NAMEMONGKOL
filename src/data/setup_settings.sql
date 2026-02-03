@@ -36,5 +36,6 @@ INSERT INTO public.app_settings (key, value, description)
 VALUES 
     ('gtm_id', 'GTM-WCW8R5BK', 'Google Tag Manager Container ID'),
     ('tiktok_pixel_id', '', 'TikTok Pixel ID'),
-    ('facebook_pixel_id', '', 'Facebook Pixel ID')
+    ('facebook_pixel_id', '', 'Facebook Pixel ID'),
+    ('promptpay_number', '', 'PromptPay ID/Phone for Manual Transfer')
 ON CONFLICT (key) DO NOTHING;

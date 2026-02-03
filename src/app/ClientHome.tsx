@@ -14,6 +14,8 @@ import { ShadowPowerCard } from '@/components/ShadowPowerCard';
 import { PredictionCard } from '@/components/PredictionCard';
 import { PremiumBlurOverlay } from '@/components/PremiumBlurOverlay';
 import { ShareButton } from '@/components/ShareButton';
+import { BeforeAfterComparison } from '@/components/BeforeAfterComparison';
+import { CertificateGenerator } from '@/components/CertificateGenerator';
 import { calculateScore } from '@/utils/calculateScore';
 import { analyzePairs } from '@/utils/analyzePairs';
 import { analyzeThaksa } from '@/utils/analyzeThaksa';
@@ -211,6 +213,13 @@ function HomeContent() {
                             <div className="md:col-span-8 space-y-6">
                                 <PairAnalysisCard namePairs={result.namePairs} surnamePairs={result.surnamePairs} />
                                 {result.thaksa && <ThaksaTable thaksa={result.thaksa} day={day} />}
+                                
+                                {/* Before & After Comparison - Value Proposition */}
+                                <BeforeAfterComparison 
+                                    currentScore={result.totalScore}
+                                    currentGrade={result.grade}
+                                    currentLevel={result.prediction.level}
+                                />
                             </div>
                         </div>
 
@@ -220,6 +229,18 @@ function HomeContent() {
 
                         <div className="mt-4">
                             <ShareButton result={result} day={day} />
+                        </div>
+
+                        {/* Certificate Generator - ใบรับรองมงคล */}
+                        <div className="mt-4">
+                            <CertificateGenerator
+                                name={result.name}
+                                surname={result.surname}
+                                grade={result.grade}
+                                totalScore={result.totalScore}
+                                day={day}
+                                prediction={result.prediction}
+                            />
                         </div>
                     </div>
                 )}
