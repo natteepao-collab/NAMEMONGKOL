@@ -1,12 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Share2, Facebook, MessageCircle, Link as LinkIcon, Check, Image as ImageIcon } from 'lucide-react';
+import { Share2, Facebook, MessageCircle, Link as LinkIcon, Check, Image as ImageIcon, Smartphone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 // import confetti from 'canvas-confetti'; // dynamic imported
 import dynamic from 'next/dynamic';
 import { AnalysisResult } from '@/types';
 const ImageGeneratorModal = dynamic(() => import('./ImageGeneratorModal').then(mod => mod.ImageGeneratorModal), {
+    ssr: false
+});
+const CustomWallpaperGenerator = dynamic(() => import('./CustomWallpaperGenerator').then(mod => mod.CustomWallpaperGenerator), {
     ssr: false
 });
 
@@ -19,6 +22,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ result, day }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [copied, setCopied] = useState(false);
     const [showImageModal, setShowImageModal] = useState(false);
+    const [showWallpaperModal, setShowWallpaperModal] = useState(false);
 
     const toggleShare = () => {
         setIsOpen(!isOpen);
@@ -67,7 +71,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ result, day }) => {
         });
     };
 
-    const handleShare = (platform: 'facebook' | 'line' | 'copy' | 'image') => {
+    const handleShare = (platform: 'facebook' | 'line' | 'copy' | 'image' | 'wallpaper') => {
         // Construct URL with query parameters
         let url = window.location.href;
 
@@ -100,10 +104,15 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ result, day }) => {
                 setIsOpen(false);
                 setShowImageModal(true);
                 break;
+            case 'wallpaper':
+                setIsOpen(false);
+                setShowWallpaperModal(true);
+                break;
         }
     };
 
     const menuItems = [
+        { id: 'wallpaper', icon: Smartphone, color: 'bg-gradient-to-r from-purple-500 to-pink-500', label: 'วอลเปเปอร์ส่วนตัว' },
         { id: 'image', icon: ImageIcon, color: 'bg-gradient-to-r from-amber-500 to-amber-600', label: 'Save as Image' },
         { id: 'facebook', icon: Facebook, color: 'bg-[#1877F2]', label: 'Facebook' },
         { id: 'line', icon: MessageCircle, color: 'bg-[#06C755]', label: 'Line' },
@@ -123,7 +132,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ result, day }) => {
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: 20, scale: 0.8 }}
                                     transition={{ delay: index * 0.1, type: "spring", stiffness: 300, damping: 20 }}
-                                    onClick={() => handleShare(item.id as 'facebook' | 'line' | 'copy' | 'image')}
+                                    onClick={() => handleShare(item.id as 'facebook' | 'line' | 'copy' | 'image' | 'wallpaper')}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-white shadow-lg backdrop-blur-md ${item.color} hover:brightness-110 transition-all active:scale-95 whitespace-nowrap`}
                                 >
                                     <item.icon className="w-4 h-4" />
@@ -158,6 +167,18 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ result, day }) => {
                     isOpen={showImageModal}
                     onClose={() => setShowImageModal(false)}
                     result={result}
+                />
+            )}
+            
+            {result && showWallpaperModal && day && (
+                <CustomWallpaperGenerator
+                    isOpen={showWallpaperModal}
+                    onClose={() => setShowWallpaperModal(false)}
+                    name={result.name}
+                    surname={result.surname}
+                    totalScore={result.totalScore}
+                    grade={result.grade}
+                    day={day}
                 />
             )}
         </>

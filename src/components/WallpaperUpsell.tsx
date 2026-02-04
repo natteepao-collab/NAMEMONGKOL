@@ -1,10 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Sparkles, ArrowRight, Wallet, Star } from 'lucide-react';
+import { Sparkles, ArrowRight, Wallet, Star, Wand2 } from 'lucide-react';
 import { AnalysisResult } from '@/types';
+import dynamic from 'next/dynamic';
+
+const CustomWallpaperGenerator = dynamic(
+    () => import('./CustomWallpaperGenerator').then(mod => mod.CustomWallpaperGenerator),
+    { ssr: false }
+);
 
 interface WallpaperUpsellProps {
     result: AnalysisResult | null;
@@ -25,12 +31,15 @@ const WALLPAPER_MAPPING: Record<string, string> = {
 const DEFAULT_WALLPAPER = '/Wallpaper/thao-wessuwan-v2.png';
 
 export const WallpaperUpsell = ({ result, day = 'sunday' }: WallpaperUpsellProps) => {
+    const [showCustomGenerator, setShowCustomGenerator] = useState(false);
+    
     if (!result) return null;
 
     const wallpaperImage = WALLPAPER_MAPPING[day.toLowerCase()] || DEFAULT_WALLPAPER;
     const isGoodScore = result.totalScore > 50; // Example logic
 
     return (
+        <>
         <div className="w-full mt-8 animate-fade-in-up">
             <div className="relative overflow-hidden rounded-3xl border border-amber-500/30 bg-[#1e293b]/70 backdrop-blur-xl p-1">
                 {/* Background Effects */}
@@ -75,6 +84,13 @@ export const WallpaperUpsell = ({ result, day = 'sunday' }: WallpaperUpsellProps
                         </p>
 
                         <div className="flex flex-wrap gap-4">
+                            <button
+                                onClick={() => setShowCustomGenerator(true)}
+                                className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all transform hover:-translate-y-0.5"
+                            >
+                                <Wand2 size={18} />
+                                สร้างวอลเปเปอร์ส่วนตัว
+                            </button>
                             <Link
                                 href="/wallpapers"
                                 className="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold py-3 px-6 rounded-xl shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all transform hover:-translate-y-0.5"
@@ -93,5 +109,17 @@ export const WallpaperUpsell = ({ result, day = 'sunday' }: WallpaperUpsellProps
                 </div>
             </div>
         </div>
+        
+        {/* Custom Wallpaper Generator Modal */}
+        <CustomWallpaperGenerator
+            isOpen={showCustomGenerator}
+            onClose={() => setShowCustomGenerator(false)}
+            name={result.name}
+            surname={result.surname}
+            totalScore={result.totalScore}
+            grade={result.grade}
+            day={day}
+        />
+        </>
     );
 };
