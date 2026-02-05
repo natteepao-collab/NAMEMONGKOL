@@ -47,7 +47,7 @@ const generateMessage = (): TickerMessage => {
     const types: Array<'topup' | 'analysis' | 'grade' | 'online'> = ['topup', 'analysis', 'grade', 'online'];
     const weights = [0.3, 0.3, 0.3, 0.1]; // Probability weights
     
-    let random = Math.random();
+    const random = Math.random();
     let type: 'topup' | 'analysis' | 'grade' | 'online' = 'analysis';
     let cumulative = 0;
     

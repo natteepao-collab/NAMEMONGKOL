@@ -1,10 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Mail, Lock, ArrowRight, Facebook, Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react';
+import { Mail, Lock, ArrowRight, Facebook, Eye, EyeOff, Loader2, AlertCircle, Clock } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
+
+// Rate limit error interface
+interface RateLimitError {
+    error: string;
+    code: string;
+    retryAfter?: number;
+    remaining?: number;
+}
 
 export default function LoginClientPage() {
     const router = useRouter();
@@ -15,34 +23,83 @@ export default function LoginClientPage() {
     const [error, setError] = useState<string | null>(null);
     const [rememberMe, setRememberMe] = useState(false);
     const [isAgreed, setIsAgreed] = useState(false);
+    const [remainingAttempts, setRemainingAttempts] = useState<number | null>(null);
+    const [retryAfter, setRetryAfter] = useState<number | null>(null);
 
     const [showForgotPassword, setShowForgotPassword] = useState(false);
+
+    // Format retry time for display
+    const formatRetryTime = useCallback((seconds: number): string => {
+        if (seconds < 60) return `${seconds} วินาที`;
+        const minutes = Math.ceil(seconds / 60);
+        if (minutes < 60) return `${minutes} นาที`;
+        const hours = Math.ceil(minutes / 60);
+        return `${hours} ชั่วโมง`;
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!isAgreed) return;
+        if (retryAfter && retryAfter > 0) return; // Prevent submit while rate limited
+        
         setIsLoading(true);
         setError(null);
 
         try {
-            const { error } = await supabase.auth.signInWithPassword({
-                email,
-                password,
+            // Use API route with rate limiting
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
             });
-            if (error) throw error;
+
+            const data = await response.json();
+
+            // Handle rate limiting
+            if (response.status === 429) {
+                const rateLimitData = data as RateLimitError;
+                setError(rateLimitData.error);
+                setRemainingAttempts(0);
+                if (rateLimitData.retryAfter) {
+                    setRetryAfter(rateLimitData.retryAfter);
+                    // Start countdown
+                    const countdown = setInterval(() => {
+                        setRetryAfter(prev => {
+                            if (prev === null || prev <= 1) {
+                                clearInterval(countdown);
+                                return null;
+                            }
+                            return prev - 1;
+                        });
+                    }, 1000);
+                }
+                return;
+            }
+
+            // Handle validation/auth errors
+            if (!response.ok) {
+                const errorData = data as RateLimitError;
+                setError(errorData.error);
+                if (errorData.remaining !== undefined) {
+                    setRemainingAttempts(errorData.remaining);
+                }
+                return;
+            }
+
+            // Success - Set session from API response
+            if (data.session) {
+                await supabase.auth.setSession(data.session);
+            }
 
             console.log('Login successful');
-            router.refresh(); // Update server components/middleware state
-            router.push('/'); // Redirect to home
+            router.refresh();
+            router.push('/');
 
         } catch (err: unknown) {
             console.error('Login error:', err);
-            const errorMessage = (err as Error).message;
-            if (errorMessage === 'Invalid login credentials') {
-                setError('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
-            } else {
-                setError(errorMessage || 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ');
-            }
+            setError('เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง');
         } finally {
             setIsLoading(false);
         }
@@ -108,7 +165,20 @@ export default function LoginClientPage() {
                     {error && (
                         <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-200 text-sm flex items-start gap-2">
                             <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
-                            <span>{error}</span>
+                            <div className="flex-1">
+                                <span>{error}</span>
+                                {retryAfter && retryAfter > 0 && (
+                                    <div className="mt-2 flex items-center gap-2 text-amber-400">
+                                        <Clock className="w-4 h-4" />
+                                        <span>รอได้ใน {formatRetryTime(retryAfter)}</span>
+                                    </div>
+                                )}
+                                {remainingAttempts !== null && remainingAttempts > 0 && (
+                                    <div className="mt-1 text-xs text-slate-400">
+                                        เหลือโอกาสอีก {remainingAttempts} ครั้ง
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     )}
 

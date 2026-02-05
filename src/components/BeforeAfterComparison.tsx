@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { TrendingUp, TrendingDown, Sparkles, ArrowRight, Wallet, Heart, Shield, Star, Zap, Crown } from 'lucide-react';
 
@@ -17,7 +17,11 @@ export const BeforeAfterComparison: React.FC<BeforeAfterComparisonProps> = ({
 }) => {
     // Calculate percentage (assuming max score around 99)
     const currentPercent = Math.min(Math.round((currentScore / 99) * 100), 100);
-    const projectedPercent = Math.min(currentPercent + 35 + Math.floor(Math.random() * 15), 98);
+    // Use useMemo to ensure random value is stable during re-renders
+    const projectedPercent = useMemo(() => 
+        Math.min(currentPercent + 35 + Math.floor(Math.random() * 15), 98), 
+        [currentPercent]
+    );
 
     // Determine current score status
     const isLowScore = currentPercent < 50;
