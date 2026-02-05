@@ -3,11 +3,25 @@
 import React, { useState, Suspense, useEffect } from 'react';
 import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Download, Share2, Sparkles, Filter, Lock, LogIn } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Download, Share2, Sparkles, Filter, Lock, LogIn, Palette, ImageIcon, Crown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/utils/supabase';
+import dynamic from 'next/dynamic';
 
 import { Wallpaper } from '@/types';
+
+// Dynamic import for CustomWallpaperGenerator (standalone version)
+const StandaloneWallpaperGenerator = dynamic(
+    () => import('@/components/StandaloneWallpaperGenerator'),
+    { 
+        ssr: false,
+        loading: () => (
+            <div className="min-h-[60vh] flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500"></div>
+            </div>
+        )
+    }
+);
 
 // Fallback constant for immediate load/SSR if needed, but we will rely on DB
 const INITIAL_WALLPAPERS: Wallpaper[] = [
@@ -33,10 +47,16 @@ const DAYS = [
     { value: 'saturday', label: 'วันเสาร์' },
 ];
 
+// Tab types
+type TabType = 'collection' | 'custom';
+
 function WallpapersContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const initialDay = searchParams.get('day') || 'all';
+    const initialTab = (searchParams.get('tab') as TabType) || 'collection';
+    
+    const [activeTab, setActiveTab] = useState<TabType>(initialTab);
     const [selectedDay, setSelectedDay] = useState(initialDay);
     const [selectedWallpaper, setSelectedWallpaper] = useState<Wallpaper | null>(null);
     const [userCredits, setUserCredits] = useState<number | null>(null);
@@ -222,35 +242,76 @@ function WallpapersContent() {
             <div className="max-w-7xl mx-auto space-y-8">
 
                 {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div className="flex flex-col gap-4">
                     <div>
                         <h1 className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-gradient-x mb-2">
                             วอลเปเปอร์มงคล
                         </h1>
                         <p className="text-slate-400">
-                            เสริมดวงชะตา บารมี โชคลาภ ด้วยพลังแห่งภาพมงคล {loading && <span className="animate-pulse ml-2">(กำลังโหลดข้อมูล...)</span>}
+                            เสริมดวงชะตา บารมี โชคลาภ ด้วยพลังแห่งภาพมงคล
                         </p>
                     </div>
 
-                    {/* Filter */}
-                    <div className="flex bg-slate-900/50 p-1.5 rounded-xl border border-white/10 overflow-x-auto max-w-full no-scrollbar">
-                        {DAYS.map((d) => (
-                            <button
-                                key={d.value}
-                                onClick={() => setSelectedDay(d.value)}
-                                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedDay === d.value
-                                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
-                                    : 'text-slate-400 hover:text-white hover:bg-white/5'
-                                    }`}
-                            >
-                                {d.label}
-                            </button>
-                        ))}
+                    {/* Main Tabs */}
+                    <div className="flex bg-slate-900/80 p-1.5 rounded-2xl border border-white/10 w-fit">
+                        <button
+                            onClick={() => setActiveTab('collection')}
+                            className={`px-6 py-3 rounded-xl text-sm font-bold whitespace-nowrap transition-all flex items-center gap-2 ${activeTab === 'collection'
+                                ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
+                                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                            }`}
+                        >
+                            <ImageIcon size={18} />
+                            คอลเลกชันมงคล
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('custom')}
+                            className={`px-6 py-3 rounded-xl text-sm font-bold whitespace-nowrap transition-all flex items-center gap-2 ${activeTab === 'custom'
+                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/20'
+                                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                            }`}
+                        >
+                            <Palette size={18} />
+                            สร้างวอลเปเปอร์ส่วนตัว
+                            <Crown size={14} className="text-amber-400" />
+                        </button>
                     </div>
                 </div>
 
-                {/* Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
+                <AnimatePresence mode="wait">
+                    {activeTab === 'collection' ? (
+                        <motion.div
+                            key="collection"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.3 }}
+                            className="space-y-6"
+                        >
+                            {/* Day Filter */}
+                            <div className="flex bg-slate-900/50 p-1.5 rounded-xl border border-white/10 overflow-x-auto max-w-full no-scrollbar w-fit">
+                                {DAYS.map((d) => (
+                                    <button
+                                        key={d.value}
+                                        onClick={() => setSelectedDay(d.value)}
+                                        className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedDay === d.value
+                                            ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
+                                            : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                        }`}
+                                    >
+                                {d.label}
+                                    </button>
+                                ))}
+                            </div>
+
+                            {loading && (
+                                <div className="flex items-center justify-center py-4">
+                                    <span className="animate-pulse text-slate-400">กำลังโหลดข้อมูล...</span>
+                                </div>
+                            )}
+
+                            {/* Grid */}
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
                     {filteredWallpapers.map((wp) => (
                         <motion.div
                             key={wp.id}
@@ -296,10 +357,23 @@ function WallpapersContent() {
                             </div>
                         </motion.div>
                     ))}
-                </div>
+                            </div>
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            key="custom"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <StandaloneWallpaperGenerator />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
-                {/* Modal */}
-                {selectedWallpaper && (
+                {/* Modal - Only show in collection tab */}
+                {activeTab === 'collection' && selectedWallpaper && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm" onClick={() => setSelectedWallpaper(null)}>
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
