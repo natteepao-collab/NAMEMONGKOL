@@ -133,36 +133,42 @@ const jsonLd = {
   ]
 }
 
-async function getSettings() {
-  try {
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
-    const { data } = await supabase
-      .from('app_settings')
-      .select('key, value')
-      .in('key', ['gtm_id', 'tiktok_pixel_id', 'facebook_pixel_id']);
+import { unstable_cache } from 'next/cache';
 
-    // Default values
-    const settings = {
-      gtmId: 'GTM-WCW8R5BK',
-      tiktokPixelId: '',
-      facebookPixelId: ''
-    };
+const getSettings = unstable_cache(
+  async () => {
+    try {
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      const { data } = await supabase
+        .from('app_settings')
+        .select('key, value')
+        .in('key', ['gtm_id', 'tiktok_pixel_id', 'facebook_pixel_id']);
 
-    if (data) {
-      data.forEach(item => {
-        if (item.key === 'gtm_id') settings.gtmId = item.value || settings.gtmId;
-        if (item.key === 'tiktok_pixel_id') settings.tiktokPixelId = item.value || '';
-        if (item.key === 'facebook_pixel_id') settings.facebookPixelId = item.value || '';
-      });
+      // Default values
+      const settings = {
+        gtmId: 'GTM-WCW8R5BK',
+        tiktokPixelId: '',
+        facebookPixelId: ''
+      };
+
+      if (data) {
+        data.forEach(item => {
+          if (item.key === 'gtm_id') settings.gtmId = item.value || settings.gtmId;
+          if (item.key === 'tiktok_pixel_id') settings.tiktokPixelId = item.value || '';
+          if (item.key === 'facebook_pixel_id') settings.facebookPixelId = item.value || '';
+        });
+      }
+      return settings;
+    } catch (error) {
+      return { gtmId: 'GTM-WCW8R5BK', tiktokPixelId: '', facebookPixelId: '' };
     }
-    return settings;
-  } catch (error) {
-    return { gtmId: 'GTM-WCW8R5BK', tiktokPixelId: '', facebookPixelId: '' };
-  }
-}
+  },
+  ['app-settings'],
+  { revalidate: 3600, tags: ['settings'] }
+);
 
 export default async function RootLayout({
   children,
@@ -193,10 +199,10 @@ export default async function RootLayout({
             <GoogleTagManager gtmId={gtmId} />
             <CookieConsent />
 
-          {/* Facebook Pixel */}
-          {facebookPixelId && (
-            <Script id="facebook-pixel" strategy="afterInteractive">
-              {`
+            {/* Facebook Pixel */}
+            {facebookPixelId && (
+              <Script id="facebook-pixel" strategy="afterInteractive">
+                {`
                   !function(f,b,e,v,n,t,s)
                   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
                   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -208,21 +214,21 @@ export default async function RootLayout({
                   fbq('init', '${facebookPixelId}');
                   fbq('track', 'PageView');
                   `}
-            </Script>
-          )}
+              </Script>
+            )}
 
-          {/* TikTok Pixel */}
-          {tiktokPixelId && (
-            <Script id="tiktok-pixel" strategy="afterInteractive">
-              {`
+            {/* TikTok Pixel */}
+            {tiktokPixelId && (
+              <Script id="tiktok-pixel" strategy="afterInteractive">
+                {`
                   !function (w, d, t) {
                   w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq.methods[i=0];i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);return ttq},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
                   ttq.load('${tiktokPixelId}');
                   ttq.page();
                   }(window, document, 'ttq');
                   `}
-            </Script>
-          )}
+              </Script>
+            )}
 
             <LayoutWrapper>
               {children}

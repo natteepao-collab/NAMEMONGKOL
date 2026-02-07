@@ -277,6 +277,21 @@ export default function AdminArticlesPage() {
         }
     };
 
+    // Helper for batched async operations
+    const processInChunks = async <T, R>(
+        items: T[],
+        chunkSize: number,
+        fn: (item: T) => Promise<R>
+    ): Promise<R[]> => {
+        const results: R[] = [];
+        for (let i = 0; i < items.length; i += chunkSize) {
+            const chunk = items.slice(i, i + chunkSize);
+            const chunkResults = await Promise.all(chunk.map(fn));
+            results.push(...chunkResults);
+        }
+        return results;
+    };
+
     const handleSync = async () => {
         // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
@@ -307,7 +322,8 @@ export default function AdminArticlesPage() {
                     (existingArticles || []).map(a => [a.slug, a])
                 );
 
-                for (const article of localArticles) {
+                // Process in chunks of 5 to avoid rate limits
+                await processInChunks(localArticles, 5, async (article) => {
                     // Map local article to DB schema
                     const localCover = article.coverImage || '';
                     const isLocalCoverAbsolute = /^https?:\/\//i.test(localCover);
@@ -338,7 +354,7 @@ export default function AdminArticlesPage() {
                         if (updateError) {
                             console.error(`Failed to update ${article.slug}:`, updateError);
                         } else {
-                            updatedCount++;
+                            updatedCount++; // Note: strictly speaking not atomic in parallel, but JS single thread handles increment
                         }
                     } else {
                         const { error: insertError } = await supabase
@@ -351,7 +367,7 @@ export default function AdminArticlesPage() {
                             addedCount++;
                         }
                     }
-                }
+                });
 
                 await fetchArticles(); // Refresh list
                 Swal.fire('Sync Complete', `Imported: ${addedCount}, Updated: ${updatedCount}`, 'success');
@@ -424,16 +440,15 @@ export default function AdminArticlesPage() {
 
             if (error) throw error;
 
-            for (const article of dbArticles || []) {
-                if (!isLocalCover(article.cover_image)) {
-                    skippedCount++;
-                    continue;
-                }
+            const articlesToProcess = (dbArticles || []).filter(a => isLocalCover(a.cover_image));
+            skippedCount = (dbArticles?.length || 0) - articlesToProcess.length;
 
+            // Process in chunks of 5
+            await processInChunks(articlesToProcess, 5, async (article) => {
                 const latestUrl = await getLatestUploadedCoverUrl(article.slug);
                 if (!latestUrl) {
                     skippedCount++;
-                    continue;
+                    return;
                 }
 
                 const { error: updateError } = await supabase
@@ -441,8 +456,12 @@ export default function AdminArticlesPage() {
                     .update({ cover_image: latestUrl })
                     .eq('id', article.id);
 
-                if (!updateError) restoredCount++;
-            }
+                if (!updateError) {
+                    restoredCount++;
+                } else {
+                    console.error(`Failed to update ${article.slug}:`, updateError);
+                }
+            });
 
             await fetchArticles();
             Swal.fire('Restore Complete', `Restored: ${restoredCount}, Skipped: ${skippedCount}`, 'success');

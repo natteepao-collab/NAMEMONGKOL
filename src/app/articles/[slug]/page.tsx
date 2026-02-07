@@ -16,7 +16,7 @@ const ArticleShareButtons = dynamic(() => import('@/components/ArticleShareButto
 const ArticleCTA = dynamic(() => import('@/components/ArticleCTA').then(mod => mod.ArticleCTA), {
     loading: () => <div className="h-64 bg-slate-800/50 rounded-2xl animate-pulse" />
 });
-import { articles as localArticles } from '@/data/articles';
+import { articles as localArticles, Article } from '@/data/articles';
 import { shimmer, toBase64 } from '@/utils/imageUtils';
 
 type Props = {
@@ -26,9 +26,9 @@ type Props = {
 import { supabase } from '@/utils/supabase';
 
 // Helper to fetch article (cached if possible, but for simplicity direct call here)
-async function getArticle(slug: string) {
+async function getArticle(slug: string): Promise<Article | null> {
     const localMatch = localArticles.find(a => a.slug === slug);
-    const forceLocalSlugs = ['naming-tips-2026-year-of-horse', 'forbidden-letters-kalakini', 'most-accurate-phone-number-analysis-2026', 'what-is-shadow-power'];
+    const forceLocalSlugs = ['naming-tips-2026-year-of-horse', 'forbidden-letters-kalakini', 'most-accurate-phone-number-analysis-2026', 'what-is-shadow-power', 'history-of-thai-naming-tradition'];
 
     if (localMatch && forceLocalSlugs.includes(slug)) {
         return localMatch;
@@ -44,7 +44,25 @@ async function getArticle(slug: string) {
         // Fallback to local articles
         return localMatch || null;
     }
-    return data;
+
+    // Map Supabase snake_case to Article camelCase
+    return {
+        id: data.id,
+        slug: data.slug,
+        title: data.title,
+        excerpt: data.excerpt,
+        content: data.content,
+        coverImage: data.cover_image, // Map here
+        date: data.date,
+        author: data.author,
+        category: data.category,
+        keywords: data.keywords,
+        metaTitle: data.meta_title, // Map here
+        metaDescription: data.meta_description, // Map here
+        // DB columns might not exist for these yet
+        relatedSlugs: [],
+        toc: []
+    } as Article;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -58,22 +76,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.namemongkol.com';
-    const rawImageUrl = article.cover_image || article.coverImage;
-    const ogFallback = `${baseUrl}/api/og?variant=article&title=${encodeURIComponent(article.title)}&category=${encodeURIComponent(article.category || '')}&meta=${encodeURIComponent(article.meta_description || article.excerpt || '')}`;
+    const rawImageUrl = article.coverImage;
+    const ogFallback = `${baseUrl}/api/og?variant=article&title=${encodeURIComponent(article.title)}&category=${encodeURIComponent(article.category || '')}&meta=${encodeURIComponent(article.metaDescription || article.excerpt || '')}`;
     const imageUrl = rawImageUrl
         ? (rawImageUrl.startsWith('http') ? rawImageUrl : `${baseUrl}${rawImageUrl}`)
         : ogFallback;
 
     return {
-        title: article.meta_title || article.title,
-        description: article.meta_description || article.excerpt,
+        title: article.metaTitle || article.title,
+        description: article.metaDescription || article.excerpt,
         keywords: article.keywords,
         alternates: {
             canonical: `${baseUrl}/articles/${slug}`,
         },
         openGraph: {
-            title: article.meta_title || article.title,
-            description: article.meta_description || article.excerpt,
+            title: article.metaTitle || article.title,
+            description: article.metaDescription || article.excerpt,
             url: `${baseUrl}/articles/${slug}`,
             images: [
                 {
@@ -89,8 +107,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         },
         twitter: {
             card: 'summary_large_image',
-            title: article.meta_title || article.title,
-            description: article.meta_description || article.excerpt,
+            title: article.metaTitle || article.title,
+            description: article.metaDescription || article.excerpt,
             images: [imageUrl],
         },
     };
@@ -104,10 +122,22 @@ export default async function ArticlePage({ params }: Props) {
         return notFound();
     }
 
-    // Get related articles (same category, excluding current)
-    const relatedArticles = localArticles
-        .filter(a => a.category === article.category && a.slug !== slug)
-        .slice(0, 3);
+    // Get related articles (prioritize manual relatedSlugs, then fall back to category)
+    let relatedArticles: Article[] = [];
+
+    if (article.relatedSlugs && article.relatedSlugs.length > 0) {
+        relatedArticles = localArticles.filter(a => article.relatedSlugs?.includes(a.slug));
+    }
+
+    // Fill up with category matches if needed
+    if (relatedArticles.length < 3) {
+        const categoryMatches = localArticles.filter(a =>
+            a.category === article.category &&
+            a.slug !== slug &&
+            !relatedArticles.some(r => r.slug === a.slug)
+        );
+        relatedArticles = [...relatedArticles, ...categoryMatches].slice(0, 3);
+    }
 
     // Breadcrumb Schema
     const breadcrumbJsonLd = {
@@ -152,7 +182,7 @@ export default async function ArticlePage({ params }: Props) {
                         "@type": "Article",
                         "headline": article.title,
                         "description": article.excerpt,
-                        "image": article.cover_image || article.coverImage,
+                        "image": article.coverImage,
                         "datePublished": article.date,
                         "dateModified": article.date,
                         "author": [{
@@ -238,6 +268,23 @@ export default async function ArticlePage({ params }: Props) {
                         />
                     </div>
 
+                    {/* Table of Contents */}
+                    {article.toc && article.toc.length > 0 && (
+                        <nav className="bg-slate-800/50 rounded-xl p-6 mb-8 border border-slate-700/50">
+                            <h2 className="text-lg font-bold text-white mb-4">สารบัญ</h2>
+                            <ul className="space-y-2">
+                                {article.toc.map((item) => (
+                                    <li key={item.id} style={{ paddingLeft: (item.level - 2) * 16 }}>
+                                        <a href={`#${item.id}`} className="text-slate-400 hover:text-purple-400 transition-colors text-sm flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 bg-slate-600 rounded-full flex-shrink-0" />
+                                            {item.title}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    )}
+
                     {/* Content */}
                     <article className="prose prose-invert prose-lg max-w-none text-slate-300">
                         <p className="lead text-xl text-slate-200 font-light border-l-4 border-purple-500 pl-4 italic">
@@ -310,9 +357,9 @@ export default async function ArticlePage({ params }: Props) {
                     <section className="mt-12 pt-8 border-t border-white/10 bg-slate-800/30 rounded-xl p-6">
                         <h3 className="text-lg font-bold text-amber-400 mb-4">เกี่ยวกับ NameMongkol</h3>
                         <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                            <strong className="text-slate-300">NameMongkol</strong> คือเว็บไซต์วิเคราะห์ชื่อมงคลอันดับ 1 ของไทย 
-                            ใช้ระบบ AI ผสานศาสตร์โบราณ ครอบคลุม <strong className="text-slate-300">เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6</strong> 
-                            และ <strong className="text-slate-300">อักษรกาลกิณี</strong> 
+                            <strong className="text-slate-300">NameMongkol</strong> คือเว็บไซต์วิเคราะห์ชื่อมงคลอันดับ 1 ของไทย
+                            ใช้ระบบ AI ผสานศาสตร์โบราณ ครอบคลุม <strong className="text-slate-300">เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6</strong>
+                            และ <strong className="text-slate-300">อักษรกาลกิณี</strong>
                             ให้บริการทั้งวิเคราะห์ชื่อฟรีและค้นหาชื่อมงคล Premium พร้อมวอลเปเปอร์มงคลเสริมดวง
                         </p>
                         <div className="flex flex-wrap gap-2">
