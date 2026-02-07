@@ -354,7 +354,7 @@ const WallpaperContent = React.forwardRef<HTMLDivElement, WallpaperContentProps>
             >
                 {/* Base Background */}
                 <div style={{ position: 'absolute', inset: 0, background: theme.bgGradient }} />
-                
+
                 {/* Sacred Pattern */}
                 {getSacredPattern(theme.pattern, theme.primary)}
 
@@ -534,8 +534,8 @@ const VessavanaWallpaperContent = React.forwardRef<HTMLDivElement, VessavanaWall
                 }}
             >
                 {/* Background Image - ท้าวเวสสุวรรณ (มีพรและมนตราในรูปอยู่แล้ว) */}
-                <img 
-                    src="/Wallpaper/vessavana-main.png"
+                <img
+                    src="/wallpapers/vessavana-main.png"
                     alt="ท้าวเวสสุวรรณ"
                     style={{
                         position: 'absolute',
@@ -608,13 +608,13 @@ export default function StandaloneWallpaperGenerator() {
     const [user, setUser] = useState<SupabaseUser | null>(null);
     const [userCredits, setUserCredits] = useState<number>(0);
     const [showPreview, setShowPreview] = useState(false);
-    
+
     const wallpaperRef = useRef<HTMLDivElement>(null);
     const vessavanaWallpaperRef = useRef<HTMLDivElement>(null);
 
     const theme = dayThemes[day];
     const luckyNumbers = generateLuckyNumbers(name + surname);
-    
+
     const dimensions = format === 'mobile'
         ? { width: 1080, height: 1920 }
         : { width: 1920, height: 1080 };
@@ -686,7 +686,7 @@ export default function StandaloneWallpaperGenerator() {
             return;
         }
 
-        const templateInfo = template === 'birthday' 
+        const templateInfo = template === 'birthday'
             ? `<p><strong>วันเกิด:</strong> วัน${dayNames[day]}</p>`
             : `<p><strong>แบบ:</strong> ${vessavanaThemes[vessavanaVariant as keyof typeof vessavanaThemes].name}</p>`;
 
@@ -742,12 +742,12 @@ export default function StandaloneWallpaperGenerator() {
     // Fix for unsupported CSS color functions like lab(), oklch() etc.
     const fixColorFunctions = (element: HTMLElement) => {
         const unsupportedColorRegex = /lab\(|oklch\(|oklab\(|lch\(/;
-        
+
         const processElement = (el: Element) => {
             if (el instanceof HTMLElement) {
                 const computedStyle = window.getComputedStyle(el);
                 const properties = ['color', 'backgroundColor', 'borderColor', 'outlineColor', 'textDecorationColor', 'fill', 'stroke', 'boxShadow', 'textShadow'];
-                
+
                 properties.forEach(prop => {
                     const cssProperty = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
                     const value = computedStyle.getPropertyValue(cssProperty);
@@ -762,7 +762,7 @@ export default function StandaloneWallpaperGenerator() {
                         el.style.setProperty(cssProperty, fallback, 'important');
                     }
                 });
-                
+
                 // Also check inline styles
                 const inlineStyle = el.getAttribute('style');
                 if (inlineStyle && unsupportedColorRegex.test(inlineStyle)) {
@@ -773,7 +773,7 @@ export default function StandaloneWallpaperGenerator() {
                     el.setAttribute('style', fixedStyle);
                 }
             }
-            
+
             // Process SVG elements separately
             if (el instanceof SVGElement && !(el instanceof HTMLElement)) {
                 const svgProps = ['fill', 'stroke', 'stop-color'];
@@ -784,10 +784,10 @@ export default function StandaloneWallpaperGenerator() {
                     }
                 });
             }
-            
+
             Array.from(el.children).forEach(child => processElement(child));
         };
-        
+
         processElement(element);
     };
 
@@ -814,10 +814,10 @@ export default function StandaloneWallpaperGenerator() {
                 if (original instanceof HTMLElement && clone instanceof HTMLElement) {
                     const computed = window.getComputedStyle(original);
                     const unsupportedColorRegex = /lab\(|oklch\(|oklab\(|lch\(/;
-                    
+
                     // Copy computed styles but replace unsupported color functions
                     const importantProps = [
-                        'color', 'background-color', 'background', 'border-color', 
+                        'color', 'background-color', 'background', 'border-color',
                         'font-size', 'font-weight', 'font-family', 'text-align',
                         'padding', 'margin', 'width', 'height', 'display',
                         'flex-direction', 'align-items', 'justify-content', 'gap',
@@ -825,7 +825,7 @@ export default function StandaloneWallpaperGenerator() {
                         'border-radius', 'opacity', 'overflow', 'letter-spacing',
                         'line-height', 'text-shadow', 'box-shadow'
                     ];
-                    
+
                     importantProps.forEach(prop => {
                         let value = computed.getPropertyValue(prop);
                         if (value && unsupportedColorRegex.test(value)) {
@@ -843,7 +843,7 @@ export default function StandaloneWallpaperGenerator() {
                         }
                     });
                 }
-                
+
                 const originalChildren = Array.from(original.children);
                 const cloneChildren = Array.from(clone.children);
                 originalChildren.forEach((child, i) => {
@@ -852,7 +852,7 @@ export default function StandaloneWallpaperGenerator() {
                     }
                 });
             };
-            
+
             inlineAllStyles(targetRef.current, clonedElement);
 
             const canvas = await html2canvas(clonedElement, {
@@ -865,8 +865,8 @@ export default function StandaloneWallpaperGenerator() {
                 foreignObjectRendering: false,
                 ignoreElements: (element: Element) => {
                     // Ignore style and link elements to prevent CSS parsing
-                    return element.tagName === 'STYLE' || 
-                           (element.tagName === 'LINK' && element.getAttribute('rel') === 'stylesheet');
+                    return element.tagName === 'STYLE' ||
+                        (element.tagName === 'LINK' && element.getAttribute('rel') === 'stylesheet');
                 },
             } as Parameters<typeof html2canvas>[1]);
 
@@ -905,7 +905,7 @@ export default function StandaloneWallpaperGenerator() {
                     <div>
                         <h2 className="text-xl font-bold text-white mb-2">สร้างวอลเปเปอร์ส่วนตัว</h2>
                         <p className="text-slate-400 text-sm">
-                            ใส่ชื่อของคุณและเลือกวันเกิด เพื่อสร้างวอลเปเปอร์มงคลเฉพาะบุคคล 
+                            ใส่ชื่อของคุณและเลือกวันเกิด เพื่อสร้างวอลเปเปอร์มงคลเฉพาะบุคคล
                             พร้อมยันต์ศักดิ์สิทธิ์ มนตรา และเลขมงคลประจำตัว
                         </p>
                         <div className="flex items-center gap-4 mt-3">
@@ -932,11 +932,10 @@ export default function StandaloneWallpaperGenerator() {
                             <div className="grid grid-cols-2 gap-3">
                                 <button
                                     onClick={() => { setTemplate('birthday'); setIsPremiumUnlocked(false); }}
-                                    className={`p-4 rounded-xl border-2 transition-all text-left ${
-                                        template === 'birthday'
+                                    className={`p-4 rounded-xl border-2 transition-all text-left ${template === 'birthday'
                                             ? 'border-purple-500 bg-purple-500/10'
                                             : 'border-white/10 bg-slate-800/50 hover:border-white/20'
-                                    }`}
+                                        }`}
                                 >
                                     <div className="flex items-center gap-2 mb-2">
                                         <Calendar size={20} className={template === 'birthday' ? 'text-purple-400' : 'text-slate-400'} />
@@ -946,11 +945,10 @@ export default function StandaloneWallpaperGenerator() {
                                 </button>
                                 <button
                                     onClick={() => { setTemplate('vessavana'); setIsPremiumUnlocked(false); }}
-                                    className={`p-4 rounded-xl border-2 transition-all text-left ${
-                                        template === 'vessavana'
+                                    className={`p-4 rounded-xl border-2 transition-all text-left ${template === 'vessavana'
                                             ? 'border-amber-500 bg-amber-500/10'
                                             : 'border-white/10 bg-slate-800/50 hover:border-white/20'
-                                    }`}
+                                        }`}
                                 >
                                     <div className="flex items-center gap-2 mb-2">
                                         <Shield size={20} className={template === 'vessavana' ? 'text-amber-400' : 'text-slate-400'} />
@@ -992,58 +990,56 @@ export default function StandaloneWallpaperGenerator() {
 
                         {/* Day Selector - Only for birthday template */}
                         {template === 'birthday' && (
-                        <div>
-                            <label className="block text-sm font-medium text-slate-300 mb-2">
-                                <Calendar size={16} className="inline mr-2" />
-                                วันเกิด
-                            </label>
-                            <div className="grid grid-cols-4 gap-2">
-                                {Object.entries(dayNames).map(([key, label]) => (
-                                    <button
-                                        key={key}
-                                        onClick={() => setDay(key)}
-                                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                                            day === key
-                                                ? 'text-white shadow-lg'
-                                                : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
-                                        }`}
-                                        style={day === key ? { background: dayThemes[key].gradient } : {}}
-                                    >
-                                        {label}
-                                    </button>
-                                ))}
+                            <div>
+                                <label className="block text-sm font-medium text-slate-300 mb-2">
+                                    <Calendar size={16} className="inline mr-2" />
+                                    วันเกิด
+                                </label>
+                                <div className="grid grid-cols-4 gap-2">
+                                    {Object.entries(dayNames).map(([key, label]) => (
+                                        <button
+                                            key={key}
+                                            onClick={() => setDay(key)}
+                                            className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${day === key
+                                                    ? 'text-white shadow-lg'
+                                                    : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                                                }`}
+                                            style={day === key ? { background: dayThemes[key].gradient } : {}}
+                                        >
+                                            {label}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
                         )}
 
                         {/* Vessavana Variant Selector - Only for vessavana template */}
                         {template === 'vessavana' && (
                             <div>
-                            <label className="block text-sm font-medium text-slate-300 mb-2">
-                                <Shield size={16} className="inline mr-2" />
-                                เลือกพรที่ต้องการ
-                            </label>
-                            <div className="grid grid-cols-2 gap-2">
-                                {Object.values(vessavanaThemes).map((vTheme) => (
-                                    <button
-                                        key={vTheme.id}
-                                        onClick={() => setVessavanaVariant(vTheme.id)}
-                                        className={`p-3 rounded-lg text-left transition-all ${
-                                            vessavanaVariant === vTheme.id
-                                                ? 'bg-amber-500/20 border-2 border-amber-500'
-                                                : 'bg-slate-800 border-2 border-transparent hover:bg-slate-700'
-                                        }`}
-                                    >
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-lg">{vTheme.icon}</span>
-                                            <span className={`font-medium ${vessavanaVariant === vTheme.id ? 'text-amber-300' : 'text-slate-300'}`}>
-                                                {vTheme.name}
-                                            </span>
-                                        </div>
-                                        <p className="text-xs text-slate-500 mt-1">{vTheme.blessing}</p>
-                                    </button>
-                                ))}
-                            </div>
+                                <label className="block text-sm font-medium text-slate-300 mb-2">
+                                    <Shield size={16} className="inline mr-2" />
+                                    เลือกพรที่ต้องการ
+                                </label>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {Object.values(vessavanaThemes).map((vTheme) => (
+                                        <button
+                                            key={vTheme.id}
+                                            onClick={() => setVessavanaVariant(vTheme.id)}
+                                            className={`p-3 rounded-lg text-left transition-all ${vessavanaVariant === vTheme.id
+                                                    ? 'bg-amber-500/20 border-2 border-amber-500'
+                                                    : 'bg-slate-800 border-2 border-transparent hover:bg-slate-700'
+                                                }`}
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-lg">{vTheme.icon}</span>
+                                                <span className={`font-medium ${vessavanaVariant === vTheme.id ? 'text-amber-300' : 'text-slate-300'}`}>
+                                                    {vTheme.name}
+                                                </span>
+                                            </div>
+                                            <p className="text-xs text-slate-500 mt-1">{vTheme.blessing}</p>
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
                         )}
 
@@ -1055,22 +1051,20 @@ export default function StandaloneWallpaperGenerator() {
                             <div className="flex gap-2">
                                 <button
                                     onClick={() => setFormat('mobile')}
-                                    className={`flex-1 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${
-                                        format === 'mobile'
+                                    className={`flex-1 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${format === 'mobile'
                                             ? 'bg-purple-500 text-white'
                                             : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
-                                    }`}
+                                        }`}
                                 >
                                     <Smartphone size={18} />
                                     มือถือ (9:16)
                                 </button>
                                 <button
                                     onClick={() => setFormat('desktop')}
-                                    className={`flex-1 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${
-                                        format === 'desktop'
+                                    className={`flex-1 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${format === 'desktop'
                                             ? 'bg-purple-500 text-white'
                                             : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
-                                    }`}
+                                        }`}
                                 >
                                     <Monitor size={18} />
                                     คอมพิวเตอร์ (16:9)
@@ -1121,17 +1115,17 @@ export default function StandaloneWallpaperGenerator() {
                 {/* Right - Preview */}
                 <div className="space-y-4">
                     <h3 className="text-lg font-bold text-white">ตัวอย่างวอลเปเปอร์</h3>
-                    <div 
+                    <div
                         className="relative bg-slate-900/50 border border-white/10 rounded-2xl overflow-hidden flex items-center justify-center"
-                        style={{ 
+                        style={{
                             aspectRatio: format === 'mobile' ? '9/16' : '16/9',
                             maxHeight: format === 'mobile' ? '70vh' : '50vh'
                         }}
                     >
                         {name.trim() ? (
-                            <div 
+                            <div
                                 className="w-full h-full"
-                                style={{ 
+                                style={{
                                     transform: `scale(${format === 'mobile' ? 0.25 : 0.3})`,
                                     transformOrigin: 'top left',
                                     width: dimensions.width,

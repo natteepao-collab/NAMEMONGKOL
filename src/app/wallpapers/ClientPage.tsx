@@ -13,7 +13,7 @@ import { Wallpaper } from '@/types';
 // Dynamic import for CustomWallpaperGenerator (standalone version)
 const StandaloneWallpaperGenerator = dynamic(
     () => import('@/components/StandaloneWallpaperGenerator'),
-    { 
+    {
         ssr: false,
         loading: () => (
             <div className="min-h-[60vh] flex items-center justify-center">
@@ -25,15 +25,15 @@ const StandaloneWallpaperGenerator = dynamic(
 
 // Fallback constant for immediate load/SSR if needed, but we will rely on DB
 const INITIAL_WALLPAPERS: Wallpaper[] = [
-    { id: 1, name: 'มหาเทพประทานทรัพย์ (วันอาทิตย์)', image: '/Wallpaper/คนเกิดวันเอาทิตย์.png', day: 'sunday', tags: ['การเงิน', 'อำนาจ'], premium: false, downloads: 2540 },
-    { id: 2, name: 'เสน่ห์เมตตามหานิยม (วันจันทร์)', image: '/Wallpaper/คนเกิดวันจันทร์.png', day: 'monday', tags: ['ความรัก', 'เมตตา'], premium: false, downloads: 3120 },
-    { id: 3, name: 'นักรบกล้าหาญ (วันอังคาร)', image: '/Wallpaper/คนเกิดวันอังคาร.png', day: 'tuesday', tags: ['การงาน', 'แข่งขัน'], premium: false, downloads: 1890 },
-    { id: 4, name: 'วาจาเรียกทรัพย์ (วันพุธ)', image: '/Wallpaper/คนเกิดพุธ.png', day: 'wednesday', tags: ['การเจรจา', 'ค้าขาย'], premium: false, downloads: 2100 },
-    { id: 5, name: 'ปัญญาบารมี (วันพฤหัสบดี)', image: '/Wallpaper/คนเกิดพฤหัส.png', day: 'thursday', tags: ['การเรียน', 'ผู้ใหญ่เมตตา'], premium: false, downloads: 2750 },
-    { id: 6, name: 'ทรัพย์สินพอกพูน (วันศุกร์)', image: '/Wallpaper/คนเกิดศุกร์.png', day: 'friday', tags: ['การเงิน', 'ความสุข'], premium: false, downloads: 3420 },
-    { id: 7, name: 'อำนาจบารมี (วันเสาร์)', image: '/Wallpaper/คนเกิดวันเสาร์.png', day: 'saturday', tags: ['อำนาจ', 'แคล้วคลาด'], premium: false, downloads: 1980 },
-    { id: 8, name: 'ท้าวเวสสุวรรณ ปลดหนี้', image: '/Wallpaper/thao-wessuwan-v2.png', day: 'all', tags: ['ปลดหนี้', 'กันชง'], premium: true, downloads: 4500 },
-    { id: 9, name: '4289 ท้าวเวสสุวรรณ (สีชมพู)', image: '/Wallpaper/4289_ท้าวเวสสุวรรณ_สีชมพู.png', day: 'all', tags: ['การเงิน', 'โชคลาภ', '4289'], premium: false, downloads: 0, description: 'เหมาะอย่างยิ่งสำหรับ "คนทำมาค้าขาย, เจ้าของธุรกิจ, Sales, และคนที่ต้องการเสริมดวงโชคลาภและการเงิน" โดยเน้นที่ความราบรื่น (ปางเด็ก) และเงินทองไหลมาเทมา (4289 + ถุงเงิน) ครับ' },
+    { id: 1, name: 'มหาเทพประทานทรัพย์ (วันอาทิตย์)', image: '/wallpapers/คนเกิดวันเอาทิตย์.png', day: 'sunday', tags: ['การเงิน', 'อำนาจ'], premium: false, downloads: 2540 },
+    { id: 2, name: 'เสน่ห์เมตตามหานิยม (วันจันทร์)', image: '/wallpapers/คนเกิดวันจันทร์.png', day: 'monday', tags: ['ความรัก', 'เมตตา'], premium: false, downloads: 3120 },
+    { id: 3, name: 'นักรบกล้าหาญ (วันอังคาร)', image: '/wallpapers/คนเกิดวันอังคาร.png', day: 'tuesday', tags: ['การงาน', 'แข่งขัน'], premium: false, downloads: 1890 },
+    { id: 4, name: 'วาจาเรียกทรัพย์ (วันพุธ)', image: '/wallpapers/คนเกิดพุธ.png', day: 'wednesday', tags: ['การเจรจา', 'ค้าขาย'], premium: false, downloads: 2100 },
+    { id: 5, name: 'ปัญญาบารมี (วันพฤหัสบดี)', image: '/wallpapers/คนเกิดพฤหัส.png', day: 'thursday', tags: ['การเรียน', 'ผู้ใหญ่เมตตา'], premium: false, downloads: 2750 },
+    { id: 6, name: 'ทรัพย์สินพอกพูน (วันศุกร์)', image: '/wallpapers/คนเกิดศุกร์.png', day: 'friday', tags: ['การเงิน', 'ความสุข'], premium: false, downloads: 3420 },
+    { id: 7, name: 'อำนาจบารมี (วันเสาร์)', image: '/wallpapers/คนเกิดวันเสาร์.png', day: 'saturday', tags: ['อำนาจ', 'แคล้วคลาด'], premium: false, downloads: 1980 },
+    { id: 8, name: 'ท้าวเวสสุวรรณ ปลดหนี้', image: '/wallpapers/thao-wessuwan-v2.png', day: 'all', tags: ['ปลดหนี้', 'กันชง'], premium: true, downloads: 4500 },
+    { id: 9, name: '4289 ท้าวเวสสุวรรณ (สีชมพู)', image: '/wallpapers/4289_ท้าวเวสสุวรรณ_สีชมพู.png', day: 'all', tags: ['การเงิน', 'โชคลาภ', '4289'], premium: false, downloads: 0, description: 'เหมาะอย่างยิ่งสำหรับ \"คนทำมาค้าขาย, เจ้าของธุรกิจ, Sales, และคนที่ต้องการเสริมดวงโชคลาภและการเงิน\" โดยเน้นที่ความราบรื่น (ปางเด็ก) และเงินทองไหลมาเทมา (4289 + ถุงเงิน) ครับ' },
 ];
 
 const DAYS = [
@@ -55,7 +55,7 @@ function WallpapersContent() {
     const searchParams = useSearchParams();
     const initialDay = searchParams.get('day') || 'all';
     const initialTab = (searchParams.get('tab') as TabType) || 'collection';
-    
+
     const [activeTab, setActiveTab] = useState<TabType>(initialTab);
     const [selectedDay, setSelectedDay] = useState(initialDay);
     const [selectedWallpaper, setSelectedWallpaper] = useState<Wallpaper | null>(null);
@@ -259,7 +259,7 @@ function WallpapersContent() {
                             className={`px-6 py-3 rounded-xl text-sm font-bold whitespace-nowrap transition-all flex items-center gap-2 ${activeTab === 'collection'
                                 ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
                                 : 'text-slate-400 hover:text-white hover:bg-white/5'
-                            }`}
+                                }`}
                         >
                             <ImageIcon size={18} />
                             คอลเลกชันมงคล
@@ -269,7 +269,7 @@ function WallpapersContent() {
                             className={`px-6 py-3 rounded-xl text-sm font-bold whitespace-nowrap transition-all flex items-center gap-2 ${activeTab === 'custom'
                                 ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/20'
                                 : 'text-slate-400 hover:text-white hover:bg-white/5'
-                            }`}
+                                }`}
                         >
                             <Palette size={18} />
                             สร้างวอลเปเปอร์ส่วนตัว
@@ -297,9 +297,9 @@ function WallpapersContent() {
                                         className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedDay === d.value
                                             ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
                                             : 'text-slate-400 hover:text-white hover:bg-white/5'
-                                        }`}
+                                            }`}
                                     >
-                                {d.label}
+                                        {d.label}
                                     </button>
                                 ))}
                             </div>
@@ -312,51 +312,51 @@ function WallpapersContent() {
 
                             {/* Grid */}
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
-                    {filteredWallpapers.map((wp) => (
-                        <motion.div
-                            key={wp.id}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            whileHover={{ y: -5 }}
-                            className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-slate-900 border border-white/10 hover:border-amber-500/50 transition-all duration-300 shadow-xl cursor-pointer"
-                            onClick={() => setSelectedWallpaper(wp)}
-                        >
-                            <Image
-                                src={wp.image}
-                                alt={wp.name}
-                                fill
-                                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 20vw, 16vw"
-                                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                            />
+                                {filteredWallpapers.map((wp) => (
+                                    <motion.div
+                                        key={wp.id}
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        whileHover={{ y: -5 }}
+                                        className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-slate-900 border border-white/10 hover:border-amber-500/50 transition-all duration-300 shadow-xl cursor-pointer"
+                                        onClick={() => setSelectedWallpaper(wp)}
+                                    >
+                                        <Image
+                                            src={wp.image}
+                                            alt={wp.name}
+                                            fill
+                                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 20vw, 16vw"
+                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
 
-                            {/* Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
+                                        {/* Overlay */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
 
-                            {/* Tags */}
-                            <div className="absolute top-2 right-2 flex flex-col items-end gap-1">
-                                {wp.premium && (
-                                    <span className="bg-amber-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg flex items-center gap-1">
-                                        <Lock size={8} /> PREMIUM
-                                    </span>
-                                )}
-                                <span className="bg-black/50 backdrop-blur-md text-white/80 text-[10px] font-medium px-2 py-1 rounded-full flex items-center gap-1">
-                                    <Download size={8} /> {wp.downloads.toLocaleString()}
-                                </span>
-                            </div>
+                                        {/* Tags */}
+                                        <div className="absolute top-2 right-2 flex flex-col items-end gap-1">
+                                            {wp.premium && (
+                                                <span className="bg-amber-500 text-black text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg flex items-center gap-1">
+                                                    <Lock size={8} /> PREMIUM
+                                                </span>
+                                            )}
+                                            <span className="bg-black/50 backdrop-blur-md text-white/80 text-[10px] font-medium px-2 py-1 rounded-full flex items-center gap-1">
+                                                <Download size={8} /> {wp.downloads.toLocaleString()}
+                                            </span>
+                                        </div>
 
-                            {/* Content */}
-                            <div className="absolute bottom-0 left-0 w-full p-3">
-                                <h3 className="text-white font-bold text-sm line-clamp-1 mb-1">{wp.name}</h3>
-                                <div className="flex flex-wrap gap-1">
-                                    {wp.tags.map(t => (
-                                        <span key={t} className="text-[9px] text-slate-300 bg-white/10 px-1.5 py-0.5 rounded-md">
-                                            #{t}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
+                                        {/* Content */}
+                                        <div className="absolute bottom-0 left-0 w-full p-3">
+                                            <h3 className="text-white font-bold text-sm line-clamp-1 mb-1">{wp.name}</h3>
+                                            <div className="flex flex-wrap gap-1">
+                                                {wp.tags.map(t => (
+                                                    <span key={t} className="text-[9px] text-slate-300 bg-white/10 px-1.5 py-0.5 rounded-md">
+                                                        #{t}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                ))}
                             </div>
                         </motion.div>
                     ) : (
