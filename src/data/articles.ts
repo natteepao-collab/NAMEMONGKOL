@@ -20,11 +20,585 @@ export interface Article {
 
 export const articles: Article[] = [
     {
+        id: '28',
+        slug: 'grade-a-plus-auspicious-names-2025',
+        title: 'เปิดกรุ "ชื่อมงคล เกรด A+" คัดเน้นๆ พลังเลขศาสตร์หนุนดวง การงาน-ความรัก (ฉบับคัดพิเศษ 2025)',
+        excerpt: 'แจกฟรี! รายชื่อมงคลเกรด A+ ที่คัดสรรด้วยระบบ AI ขั้นสูง ไม่ใช่แค่ผลรวมดีแต่เจาะลึกถึง "คู่เลขมงคล" พลังเงา และความหมาย หนุนดวงการงาน-ความรักแบบเฉพาะเจาะจง',
+        coverImage: '/images/articles/grade-a-names-cover.png',
+        date: '2026-02-08',
+        author: 'อาจารย์ณัฐ (NameMongkol)',
+        category: 'ชื่อมงคลเกรด A+',
+        keywords: ['ชื่อมงคลเกรด A+', 'ตั้งชื่อลูกตามวันเกิด', 'ชื่อมงคลเลขศาสตร์ผลรวมดี', 'วิเคราะห์ชื่อมงคล', 'ชื่อมงคลขึ้นต้นด้วย ก', 'ชื่อผลรวม 54', 'คู่เลขมงคลเรียกทรัพย์'],
+        metaTitle: 'แจกชื่อมงคลเกรด A+ (คัดพิเศษ 2025) ผลรวมดี คู่เลขปัง หนุนดวงเศรษฐี | NameMongkol',
+        metaDescription: 'เปิดกรุชื่อมงคลเกรด A+ คัดเน้นๆ เฉพาะชื่อที่ผลรวมดี (41, 45, 54, 59, 63) และคู่เลขมงคล 100% เหมาะสำหรับคนเกิดวันอาทิตย์ พุธ ศุกร์ เสาร์',
+        relatedSlugs: ['micro-analysis-lucky-number-pairs', 'shadow-power-ayatana-6-meaning', 'history-of-thai-naming-tradition'],
+        toc: [
+            { title: 'บทนำ: ทำไมต้อง "เกรด A+"?', id: 'intro', level: 2 },
+            { title: 'กลุ่มอักษร "ก" (ก ไก่) - พลังแห่งความสำเร็จ', id: 'group-k', level: 2 },
+            { title: 'กลุ่มอักษร "จ" และ "ช" - เจรจาเรียกทรัพย์', id: 'group-j-ch', level: 2 },
+            { title: 'วิเคราะห์ละเอียด: ครบ 20 ชื่อเกรด A+', id: 'detailed-analysis', level: 2 },
+            { title: 'ความลับของ "คู่เลข" (Pairing)', id: 'pairing-secret', level: 2 },
+            { title: 'สรุป: เลือกชื่ออย่างไรให้ปัง?', id: 'conclusion', level: 2 },
+        ],
+        content: `
+            <p id="intro" class="lead text-xl text-slate-300 mb-8 leading-relaxed">
+                เคยไหม? หา<strong class="text-amber-400">ชื่อมงคล</strong>ตามเว็บแล้วเจอเป็นพันชื่อ แต่ไม่รู้จะเลือกชื่อไหนที่ดีที่สุด... ในฐานะที่คร่ำหวอดในวงการเลขศาสตร์และการตั้งชื่อ วันนี้ทาง <strong>NameMongkol.com</strong> ไม่ได้มาแจกชื่อแบบหว่านแห แต่เรานำข้อมูลลับฉบับ <strong class="text-emerald-400">"Grade A+"</strong> ที่ผ่านการคัดกรองมาอย่างละเอียด
+            </p>
+            
+            <p class="text-slate-300 mb-6">
+                ความพิเศษของรายชื่อชุดนี้คือ ไม่ใช่แค่ดูที่ <strong class="text-purple-400">"ผลรวม"</strong> (Sum) เพียงอย่างเดียว แต่เราเจาะลึกถึง <strong class="text-emerald-400">"คู่เลขมงคลในชื่อ" (Pairing)</strong> ทุกคู่ต้องเป็นคู่มงคล (ระดับปลอดภัย-ดีเยี่ยม) เท่านั้น! เพื่อช่วยหนุนดวงชะตาเฉพาะด้านให้คุณอย่างแท้จริง
+            </p>
+
+            <div class="bg-gradient-to-r from-slate-800 to-slate-900 border-l-4 border-amber-500 p-4 rounded-r-lg mb-10">
+                <p class="text-slate-300 text-sm">
+                    <strong>🎯 เหมาะสำหรับ:</strong> คนที่เกิด วันอาทิตย์, พุธ (กลางวัน/กลางคืน), ศุกร์ และเสาร์ <br>
+                    <strong>🎯 เน้นกลุ่มอักษร:</strong> ก, จ, ช ซึ่งเป็นอักษรยอดนิยมที่ตั้งแล้วดูทันสมัยและมีความหมายดี
+                </p>
+            </div>
+
+            <h2 id="group-k" class="text-2xl font-bold text-amber-400 mt-12 mb-6 flex items-center gap-3">
+                <span class="text-3xl">🏆</span> เจาะลึกกลุ่มอักษร "ก" (ก ไก่) - พลังแห่งการเริ่มต้น
+            </h2>
+            <p class="text-slate-300 mb-6">
+                สำหรับคนที่ชอบชื่อขึ้นต้นด้วย <strong>ก. ไก่</strong> ถือเป็นพยัญชนะตัวแรกที่ส่งพลังเรื่องความเป็นผู้นำและความกระตือรือร้น จากตารางวิเคราะห์ด้วย AI ของเรา พบชื่อที่ได้คะแนนระดับ <strong>A+</strong> ดังนี้:
+            </p>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-700 shadow-xl mb-8">
+                <table class="w-full text-left text-slate-300">
+                    <thead class="bg-slate-800 text-amber-400 uppercase text-sm font-bold">
+                        <tr>
+                            <th class="px-6 py-3">ชื่อมงคล</th>
+                            <th class="px-6 py-3">ผลรวม</th>
+                            <th class="px-6 py-3">วันที่ใช้ได้ดีที่สุด</th>
+                            <th class="px-6 py-3">จุดเด่น (คู่เลขมงคล)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700 bg-slate-900/50">
+                        <tr class="hover:bg-slate-800/50 transition-colors">
+                            <td class="px-6 py-4 font-bold text-white">กมลลักษณ์</td>
+                            <td class="px-6 py-4"><span class="inline-block px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-bold">41</span></td>
+                            <td class="px-6 py-4 text-sm">พุธ (กลางวัน), เสาร์, อาทิตย์</td>
+                            <td class="px-6 py-4 text-sm">
+                                <strong class="text-emerald-400">พลังความสำเร็จ (41):</strong> คู่เลข 15, 56, 45, 59 หนุนปัญญาและสิ่งศักดิ์สิทธิ์คุ้มครองดีมาก
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/50 transition-colors">
+                            <td class="px-6 py-4 font-bold text-white">กัญญนันทน์</td>
+                            <td class="px-6 py-4"><span class="inline-block px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-bold">42</span></td>
+                            <td class="px-6 py-4 text-sm">อาทิตย์, พุธ, ศุกร์</td>
+                            <td class="px-6 py-4 text-sm">
+                                <strong class="text-pink-400">เมตตามหานิยม (42):</strong> คู่เลข 54, 45, 59, 15 ผู้ใหญ่รักใคร่เมตตา
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/50 transition-colors">
+                            <td class="px-6 py-4 font-bold text-white">กรอัครินทร์</td>
+                            <td class="px-6 py-4"><span class="inline-block px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-bold">46</span></td>
+                            <td class="px-6 py-4 text-sm">อาทิตย์, พฤหัส, ศุกร์</td>
+                            <td class="px-6 py-4 text-sm">
+                                <strong class="text-blue-400">พลังแห่งเสน่ห์ (46):</strong> ชื่อดูยิ่งใหญ่ คู่เลข 14, 46, 64, 45, 51 การเงินและการเจรจาดีเยี่ยม
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/50 transition-colors">
+                            <td class="px-6 py-4 font-bold text-white">กัญญ์วริน</td>
+                            <td class="px-6 py-4"><span class="inline-block px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-bold">41</span></td>
+                            <td class="px-6 py-4 text-sm">พุธ, เสาร์</td>
+                            <td class="px-6 py-4 text-sm">
+                                <strong class="text-emerald-400">ฉลาดล้ำลึก (41):</strong> คู่เลข 49, 96, 64, 45 ทันสมัยและหาเงินเก่ง
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-amber-900/20 border border-amber-500/30 p-6 rounded-xl mb-12">
+                <h3 class="font-bold text-amber-400 mb-2 flex items-center gap-2">✨ Expert's Note / เกร็ดความรู้จากประสบการณ์จริง:</h3>
+                <p class="text-slate-300 italic">
+                    "ชื่อ <strong>กมลลักษณ์</strong> (ผลรวม 41) เป็นชื่อระดับ Masterpiece ที่ผมอยากแนะนำครับ เพราะนอกจากผลรวมจะดีเยี่ยม (พลังมหาจักรวาล/ความสำเร็จ) แล้ว ไส้ในยังเต็มไปด้วยคู่เลข <strong>15, 56, 45, 59</strong> ซึ่งเป็นกลุ่มเลข 'ปัญญาบารมี' ใครทำงานสายวิชาการ แพทย์ หรือผู้บริหาร ชื่อนี้คือตัวจบครับ"
+                </p>
+            </div>
+
+            <h2 id="group-j-ch" class="text-2xl font-bold text-purple-400 mt-12 mb-6 flex items-center gap-3">
+                <span class="text-3xl">💎</span> กลุ่มอักษร "จ" และ "ช" - เจรจาเป็นทรัพย์ รับโชคก้อนโต
+            </h2>
+            <p class="text-slate-300 mb-6">
+                หากลูกหลานของท่าน หรือตัวท่านเองต้องการเน้นเรื่อง <strong>"วาจาเรียกทรัพย์"</strong> และ "เสน่ห์เมตตา" กลุ่มอักษรนี้คือคำตอบครับ
+            </p>
+
+            <div class="space-y-6 mb-10">
+                <!-- Card 1 -->
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-purple-500/20 hover:border-purple-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">จิระเจริญรุจน์ (ผลรวม 63)</h3>
+                        <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs font-bold">The Best of Wealth</span>
+                    </div>
+                    <p class="text-slate-300 mb-3"><strong class="text-purple-400">ความพิเศษ:</strong> ผลรวม 63 คือเลขแห่งความรักและความสำเร็จที่สมบูรณ์แบบที่สุดเลขหนึ่งในระบบเลขศาสตร์</p>
+                    <p class="text-slate-400 text-sm">
+                        <span class="text-emerald-400">คู่เลขในชื่อ:</span> 64, 42, 26, 65, 59 จะสังเกตว่ามีคู่เลข <strong>26/62 (วาจาเป็นทรัพย์)</strong> และ <strong>65 (คู่ทรัพย์คู่โชค)</strong> อัดแน่นอยู่ เป็นชื่อที่ "รวย" มากครับ
+                    </p>
+                    <div class="mt-3 text-xs text-slate-500">เหมาะกับ: วันอาทิตย์, พุธ (กลางวัน/คืน), ศุกร์ (ชาย/หญิง ใช้ได้)</div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-blue-500/20 hover:border-blue-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">ชญาณ์นันท์ (ผลรวม 45)</h3>
+                        <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs font-bold">Wisdom & Success</span>
+                    </div>
+                    <p class="text-slate-300 mb-3"><strong class="text-blue-400">ความพิเศษ:</strong> ชื่อนี้โดดเด่นที่คู่เลข 59, 95 และ 45 เป็นเลขแห่ง "เทพีแห่งโชค" ทำอะไรก็มักจะประสบความสำเร็จได้ง่ายกว่าคนอื่น</p>
+                    <p class="text-slate-400 text-sm">
+                        <span class="text-emerald-400">คู่เลขในชื่อ:</span> 24, 15, 59, 95, 54, 51 มีเลข 5 (สติปัญญา) ประกบเลข 9 (สิ่งศักดิ์สิทธิ์) เยอะมาก ทำให้เป็นคนทันคนและมีลางสังหรณ์แม่นยำ
+                    </p>
+                    <div class="mt-3 text-xs text-slate-500">เหมาะกับ: วันจันทร์, พุธ, ศุกร์, เสาร์</div>
+                </div>
+
+                 <!-- Card 3 -->
+                <div class="bg-slate-800/40 p-6 rounded-xl border border-pink-500/20 hover:border-pink-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-white">จิรเปรมธนิก (ผลรวม 41)</h3>
+                        <span class="px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full text-xs font-bold">Love & Money</span>
+                    </div>
+                    <p class="text-slate-300 mb-3"><strong class="text-pink-400">ความพิเศษ:</strong> ชื่อนี้มีความหมายดีทั้งคำว่า "เปรม" (สุข) และ "ธนิก" (ผู้มีทรัพย์) บวกกับพลังเลข 41 ทำให้ฉลาดในการหาเงิน</p>
+                    <p class="text-slate-400 text-sm">
+                        <span class="text-emerald-400">คู่เลขในชื่อ:</span> 64, 42, 24, 45, 54 เต็มไปด้วยคู่เลขเมตตา (24, 42) และความสำเร็จ (45, 54)
+                    </p>
+                    <div class="mt-3 text-xs text-slate-500">เหมาะกับ: วันศุกร์, เสาร์, อาทิตย์</div>
+                </div>
+            </div>
+
+            <h2 id="detailed-analysis" class="text-2xl font-bold text-cyan-400 mt-16 mb-6 flex items-center gap-3">
+                <span class="text-3xl">🔬</span> วิเคราะห์ละเอียด: ครบ 20 ชื่อเกรด A+ พร้อมถอดรหัสเลขศาสตร์กันแบบจัดเต็ม!
+            </h2>
+            <p class="text-slate-300 mb-8">
+                เพื่อความโปร่งใสและเพิ่มความน่าเชื่อถือ ผมขอเปิดเกมส์แสดงวิธีการถอดรหัสชื่อ <strong class="text-cyan-400">แบบละเอียดทุกขั้นตอน</strong> สำหรับ 20 ชื่อเกรด A+ ที่วิเคราะห์มาแล้ว คุณจะเห็นว่าเราไม่ได้ "ตั้งชื่อสุ่ม" แต่เป็นการคำนวณอย่างตรงไปตรงมาตามหลักเลขศาสตร์ไทยแบบดั้งเดิม
+            </p>
+
+            <div class="bg-cyan-900/20 border-l-4 border-cyan-400 p-6 rounded-r-xl mb-10">
+                <h3 class="font-bold text-cyan-300 mb-3 flex items-center gap-2">
+                    <span class="text-2xl">📐</span> วิธีการวิเคราะห์ (Methodology)
+                </h3>
+                <ol class="text-slate-300 space-y-2 list-decimal list-inside text-sm">
+                    <li><strong class="text-white">แปลงอักษรเป็นตัวเลข:</strong> ใช้ระบบเลขศาสตร์ไทยแบบดั้งเดิม (ก=1, ข=2, ฆ=3, ค=4... ตามตารางมาตรฐาน)</li>
+                    <li><strong class="text-white">หาผลรวม (Sum):</strong> รวมค่าเลขทั้งหมดในชื่อ เพื่อดูพลังโดยรวม</li>
+                    <li><strong class="text-white">วิเคราะห์คู่เลข (Pairing):</strong> ดูเลข 2 ตัวที่ติดกัน เช่น หากชื่อมีเลข "1-5-6-4" จะได้คู่เลข 15, 56, 64</li>
+                    <li><strong class="text-white">ตรวจสอบคุณภาพคู่เลข:</strong> ทุกคู่ต้องเป็น Level 0 (ปลอดภัย) หรือ Level 1 (ดีเยี่ยม) เท่านั้น ไม่มี Level 2 (เสี่ยง)</li>
+                </ol>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-700 shadow-2xl mb-12 bg-slate-900/50">
+                <table class="w-full text-left text-slate-300 text-sm">
+                    <thead class="bg-gradient-to-r from-cyan-900 to-slate-800 text-cyan-300 uppercase text-xs font-bold sticky top-0">
+                        <tr>
+                            <th class="px-4 py-3 border-r border-slate-700">ชื่อ</th>
+                            <th class="px-4 py-3 border-r border-slate-700">ผลรวม</th>
+                            <th class="px-4 py-3 border-r border-slate-700">วันเกิดที่เหมาะสม</th>
+                            <th class="px-4 py-3">คู่เลขมงคลทั้งหมด ✅</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800">
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กันต์กนิษฐ์</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-green-500/30 text-green-300 rounded-full font-bold">54</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">พุธ (กลางวัน), พฤหัส, ศุกร์</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">45</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">53</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">39</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">91</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">15</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">54</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">49</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">99</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กัญญ์นลิน</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-green-500/30 text-green-300 rounded-full font-bold">46</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, พฤหัส, ศุกร์</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">46</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">65</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">59</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">96</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">65</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">56</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กมลโลจน์</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-green-500/30 text-green-300 rounded-full font-bold">42</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, พฤหัส, ศุกร์</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">15</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">56</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">64</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">46</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">66</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">65</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">59</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กมลลักษณ์</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-green-500/30 text-green-300 rounded-full font-bold">41</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">พุธ (กลางวัน), เสาร์, อาทิตย์</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">15</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">56</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">66</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">64</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">45</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">59</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กมลจันทร์</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-purple-500/30 text-purple-300 rounded-full font-bold">36</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, พฤหัส, ศุกร์</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">15</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">56</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">66</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">64</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">54</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">45</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">51</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">19</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">เทศกนค์นต์</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-purple-500/30 text-purple-300 rounded-full font-bold">36</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">พุธ (กลางวัน), พุธ (กลางคืน)</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">15</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">51</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">16</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">64</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">45</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">59</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กรกรรม</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-blue-500/30 text-blue-300 rounded-full font-bold">24</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">จันทร์, พุธ (กลางวัน), เสาร์, ศุกร์, พุธ (กลางคืน)</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">16</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">64</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กรทัศน์</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-blue-500/30 text-blue-300 rounded-full font-bold">24</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">พุธ (กลางวัน), พุธ (กลางคืน), ศุกร์, พุธ (กลางคืน)</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">16</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">64</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">49</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">ใจกัญญา</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-blue-500/30 text-blue-300 rounded-full font-bold">24</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, เสาร์, พฤหัส, ศุกร์, พุธ (กลางคืน)</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">91</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">16</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">64</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กรรณณ</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-blue-500/30 text-blue-300 rounded-full font-bold">24</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, จันทร์, พุธ (กลางวัน), เสาร์, พุธ (กลางคืน)</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">46</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">64</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">45</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กชกรุ</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-blue-500/30 text-blue-300 rounded-full font-bold">24</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">พุธ (กลางวัน), พุธ (กลางคืน)</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">15</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">54</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">49</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">91</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กรณ</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-amber-500/30 text-amber-300 rounded-full font-bold">19</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, พุธ (กลางวัน), จันทร์, พฤหัส, ศุกร์</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">45</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">59</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">ถิงวาน</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-amber-500/30 text-amber-300 rounded-full font-bold">19</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, พุธ (กลางวัน), พฤหัส, ศุกร์, พุธ (กลางคืน)</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">42</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">26</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">61</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">15</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กันทร</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-pink-500/30 text-pink-300 rounded-full font-bold">15</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, พุธ (กลางวัน), พฤหัส, ศุกร์, พุธ (กลางคืน)</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">45</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">51</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กัญญา</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-pink-500/30 text-pink-300 rounded-full font-bold">15</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, พุธ (กลางวัน), เสาร์, พุธ (กลางคืน)</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กัญญดา</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-pink-500/30 text-pink-300 rounded-full font-bold">15</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, เสาร์, พฤหัส, ศุกร์</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">11</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กัญญุรา</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-orange-500/30 text-orange-300 rounded-full font-bold">14</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, เสาร์, พฤหัส, ศุกร์</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">กชิรา</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-orange-500/30 text-orange-300 rounded-full font-bold">14</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">พุธ (กลางวัน), เสาร์, พฤหัส, ศุกร์, พุธ (กลางคืน)</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">44</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">ชงธวา</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-blue-500/30 text-blue-300 rounded-full font-bold">24</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">เสาร์, พฤหัส, ศุกร์, พุธ (กลางคืน)</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">26</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">64</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">46</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">61</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">ตนนท</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-orange-500/30 text-orange-300 rounded-full font-bold">14</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, พุธ (กลางวัน), เสาร์, ศุกร์</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">45</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">54</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/70 transition-colors">
+                            <td class="px-4 py-4 font-bold text-white border-r border-slate-800">ตาวน</td>
+                            <td class="px-4 py-4 border-r border-slate-800"><span class="inline-block px-3 py-1 bg-orange-500/30 text-orange-300 rounded-full font-bold">14</span></td>
+                            <td class="px-4 py-4 border-r border-slate-800 text-xs">อาทิตย์, พุธ (กลางวัน), เสาร์, พฤหัส, ศุกร์</td>
+                            <td class="px-4 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">41</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">16</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">14</span>
+                                    <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded text-xs">45</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-gradient-to-br from-slate-800 to-slate-900 border border-cyan-500/30 p-8 rounded-2xl mb-12">
+                <h3 class="text-xl font-bold text-cyan-300 mb-4 flex items-center gap-3">
+                    <span class="text-2xl">💡</span> วิธีอ่านตาราง: ตัวอย่าง "กันต์กนิษฐ์"
+                </h3>
+                <div class="space-y-4 text-slate-300">
+                    <div class="flex items-start gap-3">
+                        <span class="text-2xl">1️⃣</span>
+                        <div>
+                            <p class="font-bold text-white mb-1">แปลงเป็นเลข:</p>
+                            <p class="text-sm">ก(1) ั(4) น(5) ต(3) ์(9) ก(1) น(5) ิ(4) ษ(4) ฐ(9) ์(9)</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-2xl">2️⃣</span>
+                        <div>
+                            <p class="font-bold text-white mb-1">รวมผลรวม:</p>
+                            <p class="text-sm">1+4+5+3+9+1+5+4+4+9+9 = <strong class="text-green-400">54</strong> (เลขมงคล!)</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-2xl">3️⃣</span>
+                        <div>
+                            <p class="font-bold text-white mb-1">จับคู่เลข:</p>
+                            <p class="text-sm">1-4 → <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded">14</span>, 4-5 → <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded">45</span>, 5-3 → <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded">53</span>... (ทุกคู่เป็นเลขมงคล ✅)</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-2xl">✅</span>
+                        <div>
+                            <p class="font-bold text-white mb-1">ผลวิเคราะห์:</p>
+                            <p class="text-sm">ชื่อนี้ได้ <strong class="text-emerald-400">Grade A+</strong> เพราะทั้งผลรวม (54) และคู่เลขทุกคู่ล้วนเป็นมงคล ไม่มีคู่เลขเสี่ยงแม้แต่คู่เดียว!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="pairing-secret" class="text-2xl font-bold text-emerald-400 mt-12 mb-6">
+                🔓 ถอดรหัสลับ: ทำไมต้องดู "คู่เลข" ในชื่อ? (Secret of Number Pairing)
+            </h2>
+            <p class="text-slate-300 mb-6">
+                หลายเว็บอาจบอกแค่ผลรวม (เช่น รวมได้ 24 ดีมาก) แต่ <strong>namemongkol.com</strong> เราใส่ใจลึกกว่านั้น หากถอดรหัสออกมาดู "ไส้ใน" ของชื่อ จะเห็นความลับที่ซ่อนอยู่:
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-slate-900 p-4 rounded-lg border border-slate-700 text-center">
+                    <span class="text-3xl mb-2 block">🗣️</span>
+                    <h4 class="font-bold text-white mb-2">กลุ่มเจรจาพารวย</h4>
+                    <div class="text-emerald-400 font-bold mb-2">14, 41, 24, 42, 26, 62</div>
+                    <p class="text-xs text-slate-400">ใครทำงานค้าขาย ต้องพูดคุยกับคน ควรมีเลขเหล่านี้แทรกอยู่ในชื่อ</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-lg border border-slate-700 text-center">
+                    <span class="text-3xl mb-2 block">🧠</span>
+                    <h4 class="font-bold text-white mb-2">กลุ่มปัญญาบารมี</h4>
+                    <div class="text-emerald-400 font-bold mb-2">15, 51, 45, 54, 55</div>
+                    <p class="text-xs text-slate-400">ผู้ใหญ่รักใคร่ เลื่อนขั้นเลื่อนตำแหน่งไว เรียนเก่ง</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-lg border border-slate-700 text-center">
+                    <span class="text-3xl mb-2 block">🔮</span>
+                    <h4 class="font-bold text-white mb-2">กลุ่มสิ่งศักดิ์สิทธิ์</h4>
+                    <div class="text-emerald-400 font-bold mb-2">59, 95, 99, 19, 91</div>
+                    <p class="text-xs text-slate-400">แคล้วคลาดปลอดภัย มีลางสังหรณ์ และมักมีโชคลาภลอย</p>
+                </div>
+            </div>
+
+            <h2 id="conclusion" class="text-2xl font-bold text-white mt-12 mb-6">สรุป: เลือกชื่ออย่างไรให้ปังที่สุด?</h2>
+            <ul class="text-slate-300 space-y-4 mb-8 list-disc list-inside">
+                <li>การเลือกชื่อจากตาราง <strong>Grade A+</strong> นี้ เป็นก้าวแรกของความสำเร็จครับ แต่สิ่งที่สำคัญที่สุดคือ <strong>"การเลือกให้ตรงกับวันเกิด"</strong></li>
+                <li>หากคุณเกิด <strong>วันอาทิตย์ หรือ พฤหัสบดี</strong> ชื่อกลุ่ม "กมลลักษณ์" หรือ "กรอัครินทร์" จะหนุนนำคุณได้ดีที่สุด</li>
+                <li>แต่หากคุณเกิด <strong>วันพุธ หรือ ศุกร์</strong> แนะนำให้เล็งไปที่ "จิระเจริญรุจน์" หรือ "ชญาณ์นันท์" เพื่อดึงพลังแห่งโชคลาภออกมาสูงสุด</li>
+            </ul>
+
+            <div class="my-10 p-8 rounded-2xl bg-gradient-to-r from-amber-600 to-orange-600 text-center shadow-lg shadow-orange-500/20">
+                <h3 class="text-2xl font-bold text-white mb-2">ยังไม่จุใจ? ค้นหาชื่อมงคลเฉพาะบุคคลแบบละเอียด</h3>
+                <p class="text-white/90 mb-6">วิเคราะห์ลึกถึง "วันเดือนปีเกิดและเวลาตกฟาก" เพื่อหาชื่อที่ Perfect ที่สุดสำหรับคุณ</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="/" class="px-8 py-3 bg-white text-orange-600 font-bold rounded-xl hover:bg-slate-100 transition-colors shadow-md">
+                        วิเคราะห์ชื่อฟรี
+                    </a>
+                    <a href="/premium-search" class="px-8 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors shadow-md border border-white/20">
+                        ค้นหาชื่อมงคล Premium
+                    </a>
+                </div>
+            </div>
+        `
+    },
+    {
         id: '27',
         slug: 'history-of-thai-naming-tradition',
         title: 'ย้อนรอยศาสตร์แห่งนาม: ทำไมคนไทยถึงเชื่อว่า "ชื่อดี มีชัยไปกว่าครึ่ง"?',
         excerpt: 'ไทม์ไลน์ประวัติศาสตร์การตั้งชื่อของไทยกว่า 700 ปี จากยุคทักษาปกรณ์ ยุครัชกาลที่ 6 สู่ยุคเลขศาสตร์ พร้อมเจาะลึกหลักการตั้งชื่อมงคลที่คนไทยสืบทอด',
-        coverImage: '/images/articles/thai-naming-history.png',
+        coverImage: '/images/articles/history-of-thai-naming-tradition.png',
         date: '2026-02-03',
         author: 'อาจารย์ณัฐ (NameMongkol)',
         category: 'ความรู้ศาสตร์มงคล',
@@ -681,7 +1255,7 @@ export const articles: Article[] = [
         slug: 'shadow-power-ayatana-6-meaning',
         title: 'พลังเงาและอายตนะ 6: ศาสตร์ลับที่คนอยากเปลี่ยนชื่อต้องรู้ (ก่อนจะสายเกินไป)',
         excerpt: 'ทำไมชื่อดีแต่ชีวิตยังติดขัด? รู้จักกับ "พลังเงา" และ "อายตนะ 6" แรงสั่นสะเทือนที่มองไม่เห็นแต่กำหนดชะตาชีวิตคุณมากกว่าที่คุณคิด',
-        coverImage: '/images/articles/ayatana-meaning.png',
+        coverImage: '/images/articles/shadow-power-ayatana-6-meaning.png',
         date: '2026-01-31',
         author: 'อาจารย์ณัฐ (NameMongkol)',
         category: 'ความรู้ศาสตร์มงคล',
@@ -743,7 +1317,7 @@ export const articles: Article[] = [
         slug: 'micro-analysis-lucky-number-pairs',
         title: 'เจาะลึก "คู่เลขมงคล" (Micro-Analysis) สำคัญกว่าผลรวมอย่างไร?',
         excerpt: 'ทำไมผลรวมดีแต่อาจตกม้าตายเพราะ "คู่เลขเสีย"? มารู้จักการวิเคราะห์คู่เลข 00-99 ที่ละเอียดที่สุด เพื่อปิดรูรั่วดวงชะตา',
-        coverImage: '/images/articles/numerology-power-cover.png',
+        coverImage: '/images/articles/micro-analysis-lucky-number-pairs.png',
         date: '2026-01-31',
         author: 'ทีมงาน NameMongkol',
         category: 'เลขศาสตร์เชิงลึก',
@@ -3449,7 +4023,7 @@ export const articles: Article[] = [
                 </div>
             </div>
         `,
-        coverImage: '/images/articles/ayatana-Meaning.png',
+        coverImage: '/images/articles/what-is-ayatana-6.png',
         date: '2026-01-11',
         author: 'อ.ณัฐ นามมงคล',
         category: 'ความรู้ขั้นสูง',
@@ -3666,7 +4240,7 @@ export const articles: Article[] = [
                 <p class="text-xs text-amber-500/60 mt-4 relative z-10">ออกแบบเฉพาะคุณตามศาสตร์ตัวเลขและสีมงคล (เริ่มต้นเพียง 29 บาท)</p>
             </div>
         `,
-        coverImage: '/images/articles/lucky-numbers-2569.png',
+        coverImage: '/images/articles/lucky-numbers-2569-guide.png',
         date: '2026-01-12',
         author: 'NameMongkol Editorial',
         category: 'เลขศาสตร์',
@@ -4193,7 +4767,7 @@ export const articles: Article[] = [
                  </div>
             </div>
         `,
-        coverImage: '/images/articles/numerology-power-cover.png',
+        coverImage: '/images/articles/numerology-0-9-power-guide.png',
         date: '2026-01-14',
         author: 'NameMongkol Editorial',
         category: 'ความรู้ขั้นสูง',
@@ -4300,7 +4874,7 @@ export const articles: Article[] = [
             <h2 class="text-2xl font-bold text-white mt-10 mb-4">สรุป</h2>
             <p>การรู้จักอักษรกาลกิณีเป็นเพียงก้าวแรกของการมีชื่อที่มงคล การตั้งชื่อที่ดีควรพิจารณาทั้ง <strong>หลักทักษา</strong> (อักษรตามวันเกิด) และ <strong>หลักเลขศาสตร์</strong> (ผลรวมของชื่อ) ควบคู่กันไปเพื่อให้ได้ชื่อที่ส่งเสริมชีวิตคุณในทุกด้าน</p>
         `,
-        coverImage: '/images/articles/check-kalakini-7-days.png',
+        coverImage: '/images/articles/check-kalakini-letters-7-days.png',
         date: '2026-01-18',
         author: 'NameMongkol Editorial',
         category: 'เกร็ดความรู้',
@@ -4450,7 +5024,7 @@ export const articles: Article[] = [
 
             <p class="italic text-slate-500 text-sm">*บทความนี้เรียบเรียงจากสถิติและการเก็บข้อมูลจริงของผู้ใช้เบอร์มงคลกว่า 50,000 ราย โดยทีมงาน NameMongkol</p>
         `,
-        coverImage: '/images/articles/phone-analysis-hero.png',
+        coverImage: '/images/articles/most-accurate-phone-number-analysis-2026.png',
         date: '2026-01-20',
         author: 'NameMongkol Data Team',
         category: 'ความรู้ขั้นสูง',
@@ -4610,7 +5184,7 @@ export const articles: Article[] = [
                 </a>
             </div>
         `,
-        coverImage: '/images/articles/shadow-power-cover.png',
+        coverImage: '/images/articles/what-is-shadow-power.png',
         date: '2026-01-21',
         author: 'Grandmaster NameMongkol',
         category: 'ความรู้ขั้นสูง',
@@ -4619,11 +5193,12 @@ export const articles: Article[] = [
         metaDescription: 'เปิดโปงความลับ "พลังเงา" ที่ซ่อนอยู่ในชื่อ ศาสตร์วิเคราะห์ชื่อชั้นสูงที่แม่นยำกว่าผลรวมทั่วไป เปรียบเทียบ Main Power vs Shadow Power'
     },
     {
-        id: '28',
+        id: '29',
         slug: 'caishen-wallpaper-free-download',
         title: 'แจกฟรี! วอลเปเปอร์มือถือ "เทพเจ้าไฉ่ซิงเอี๊ย" เสริมดวงการเงิน โชคลาภ จัดเต็มทุกปาง',
         excerpt: 'ดาวน์โหลดวอลเปเปอร์เทพเจ้าไฉ่ซิงเอี๊ย 4 สีมงคล ขนาด 9:16 สำหรับมือถือ เสริมดวงการเงิน โชคลาภ การค้า เฉพาะสมาชิก Namemongkol เท่านั้น',
-        coverImage: '/images/articles/caishen-wallpaper-cover.png',
+        coverImage: '/images/articles/caishen-wallpaper-free-download.png',
+        relatedSlugs: ['lucky-numbers-2569-guide', 'auspicious-colors-2569-guide'],
         date: '2026-02-05',
         author: 'อาจารย์ณัฐ (NameMongkol)',
         category: 'วอลเปเปอร์มงคล',
