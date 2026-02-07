@@ -261,7 +261,7 @@ export default async function ArticlePage({ params }: Props) {
                            In a real scenario, make sure these images exist in public/ folder.
                         */}
                         <ArticleImage
-                            src={article.cover_image || article.coverImage}
+                            src={article.coverImage}
                             alt={article.title}
                             priority
                             className="group-hover:scale-100" // Disable zoom effect if not needed, or keep standard
