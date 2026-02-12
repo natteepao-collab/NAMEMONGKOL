@@ -245,10 +245,10 @@ function WallpapersContent() {
                 <div className="flex flex-col gap-4">
                     <div>
                         <h1 className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 animate-gradient-x mb-2">
-                            วอลเปเปอร์มงคล
+                            วอลเปเปอร์มงคล เสริมดวงชะตา บารมี และโชคลาภ
                         </h1>
                         <p className="text-slate-400">
-                            เสริมดวงชะตา บารมี โชคลาภ ด้วยพลังแห่งภาพมงคล
+                            ยกระดับพลังบวกให้กับชีวิตทุกครั้งที่เปิดหน้าจอมือถือ ด้วยพลังแห่งภาพมงคลและสีมงคลตามวันเกิด
                         </p>
                     </div>
 
@@ -323,7 +323,7 @@ function WallpapersContent() {
                                     >
                                         <Image
                                             src={wp.image}
-                                            alt={wp.name}
+                                            alt={`วอลเปเปอร์มงคล ${wp.name} - เสริมดวง${wp.tags.join(' ')} | NameMongkol`}
                                             fill
                                             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 20vw, 16vw"
                                             className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -398,7 +398,7 @@ function WallpapersContent() {
                                 <div className="relative w-full h-full p-4 md:p-6 transition-transform duration-500 group-hover:scale-105">
                                     <Image
                                         src={selectedWallpaper.image}
-                                        alt={selectedWallpaper.name}
+                                        alt={`วอลเปเปอร์มงคล ${selectedWallpaper.name} - เสริมดวง${selectedWallpaper.tags.join(' ')} | NameMongkol`}
                                         fill
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                         className="object-contain drop-shadow-2xl"

@@ -109,6 +109,9 @@ export default async function ReviewsPage() {
                     },
                     "datePublished": review.created_at || review.date,
                     "reviewBody": review.content,
+                    ...(review.images && review.images.length > 0 && {
+                        "image": review.images
+                    }),
                     ...(review.is_verified && {
                         "author": {
                             "@type": "Person",

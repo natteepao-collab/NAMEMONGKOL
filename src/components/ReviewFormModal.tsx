@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { X, Star, Send, Sparkles, MessageCircle, Gift, Briefcase } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { X, Star, Send, Sparkles, MessageCircle, Gift, Briefcase, Image as ImageIcon, Trash2, Loader2, UploadCloud } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { supabase } from '@/utils/supabase'; // Import supabase
 import { ReviewServiceType } from '@/types';
+import Image from 'next/image';
 
 interface ReviewFormModalProps {
     isOpen: boolean;
@@ -17,6 +18,7 @@ interface ReviewFormModalProps {
         rating: number;
         tags: string[];
         service_type?: ReviewServiceType;
+        images?: string[];
     } | null;
     onSuccess?: () => void;
 }
@@ -57,6 +59,11 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    // Image Upload State
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+    const [previewUrls, setPreviewUrls] = useState<string[]>(initialData?.images || []);
+    const [isDragging, setIsDragging] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     // Sync state with initialData when it changes or modal opens
     useEffect(() => {
@@ -70,6 +77,8 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                 });
                 setRating(initialData.rating);
                 setServiceType(initialData.service_type || 'general');
+                setPreviewUrls(initialData.images || []);
+                setSelectedFiles([]);
             } else {
                 // Reset for new entry
                 setFormData({
@@ -80,9 +89,116 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                 });
                 setRating(5);
                 setServiceType('general');
+                setPreviewUrls([]);
+                setSelectedFiles([]);
             }
         }
     }, [isOpen, initialData]);
+
+    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            processFiles(Array.from(e.target.files));
+        }
+    };
+
+    const processFiles = (files: File[]) => {
+        const currentCount = selectedFiles.length + (initialData?.images?.length || 0);
+        const remainingSlots = 2 - currentCount;
+
+        if (remainingSlots <= 0) {
+            alert('อัปโหลดรูปภาพได้สูงสุด 2 รูป');
+            return;
+        }
+
+        const validFiles = files.slice(0, remainingSlots).filter(file => {
+            if (file.size > 5 * 1024 * 1024) { // 5MB
+                alert(`ไฟล์ ${file.name} มีขนาดใหญ่เกิน 5MB`);
+                return false;
+            }
+            if (!file.type.startsWith('image/')) {
+                alert(`ไฟล์ ${file.name} ไม่ใช่รูปภาพ`);
+                return false;
+            }
+            return true;
+        });
+
+        if (validFiles.length > 0) {
+            setSelectedFiles(prev => [...prev, ...validFiles]);
+
+            // Create preview URLs
+            const newPreviews = validFiles.map(file => URL.createObjectURL(file));
+            setPreviewUrls(prev => [...prev, ...newPreviews]);
+        }
+    };
+
+    const handleRemoveFile = (index: number) => {
+        if (initialData?.images && index < initialData.images.length) {
+            // Removing a previously uploaded image (not implemented in this simplified version for edit mode)
+            // For now, let's just allow removing new files or prevent editing existing images easily without more logic.
+            // Assuming this handles mixed preview of existing + new is complex.
+            // Simplified: If editing, clearing initialImages is purely visual unless we handle delete logic on backend.
+            // Let's just update previewUrls. Real deletion from storage usually happens on "Update" click or user request.
+            setPreviewUrls(prev => prev.filter((_, i) => i !== index));
+            // Warning: This doesn't remove from DB until save.
+        } else {
+            // Removing a newly selected file
+            const newFileIndex = index - (initialData?.images?.length || 0);
+            if (newFileIndex >= 0) {
+                const urlToRemove = previewUrls[index];
+                URL.revokeObjectURL(urlToRemove); // Cleanup
+                setSelectedFiles(prev => prev.filter((_, i) => i !== newFileIndex));
+                setPreviewUrls(prev => prev.filter((_, i) => i !== index));
+            } else {
+                // Just remove from preview if it was existing
+                setPreviewUrls(prev => prev.filter((_, i) => i !== index));
+            }
+        }
+    };
+
+    // Drag and Drop handlers
+    const onDragOver = (e: React.DragEvent) => {
+        e.preventDefault();
+        setIsDragging(true);
+    };
+    const onDragLeave = (e: React.DragEvent) => {
+        e.preventDefault();
+        setIsDragging(false);
+    };
+    const onDrop = (e: React.DragEvent) => {
+        e.preventDefault();
+        setIsDragging(false);
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            processFiles(Array.from(e.dataTransfer.files));
+        }
+    };
+
+    const uploadImages = async (userId: string): Promise<string[]> => {
+        const uploadedUrls: string[] = [];
+
+        for (const file of selectedFiles) {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
+            const filePath = `${userId}/${fileName}`;
+
+            const { error: uploadError } = await supabase.storage
+                .from('review-images')
+                .upload(filePath, file);
+
+            if (uploadError) {
+                console.error('Error uploading image:', uploadError);
+                throw new Error('ไม่สามารถอัปโหลดรูปภาพได้');
+            }
+
+            const { data } = supabase.storage
+                .from('review-images')
+                .getPublicUrl(filePath);
+
+            if (data) {
+                uploadedUrls.push(data.publicUrl);
+            }
+        }
+        return uploadedUrls;
+    };
 
     if (!isOpen) return null;
 
@@ -107,6 +223,17 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
         }
 
         try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) throw new Error('กรุณาเข้าสู่ระบบอีกครั้ง');
+
+            // 1. Upload new images
+            const newImageUrls = selectedFiles.length > 0 ? await uploadImages(session.user.id) : [];
+
+            // Combine with existing images (that weren't removed)
+            // Note: This logic assumes previewUrls contains valid existing URLs + valid blob URLs.
+            // We need to filter out blob URLs from previewUrls to find retained existing images.
+            const retainedExistingImages = previewUrls.filter(url => url.startsWith('http') && !url.startsWith('blob:'));
+            const finalImages = [...retainedExistingImages, ...newImageUrls];
 
             // Prepare tags based on categories
             const tags = formData.categories;
@@ -122,17 +249,14 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                         category: formData.categories[0],
                         rating: rating,
                         tags: tags,
-                        service_type: serviceType, // SEO: Add service type
-                        // status: 'pending' // Optionally reset status to pending on edit if you want re-approval
-                        // For now let's assume if they edit it, it might need re-approval, or just let it be.
-                        // Let's safe side: usually edits require re-approval. But for user simplicity, let's keep approved if it was approved, 
-                        // UNLESS we want strict control. Let's just update fields.
+                        service_type: serviceType,
+                        images: finalImages
                     })
                     .eq('id', initialData.id);
 
                 if (error) throw error;
 
-                // Show simple success for edit (no credits or confetti usually)
+                // Show simple success for edit
                 // @ts-ignore
                 const Swal = (await import('sweetalert2')).default;
                 Swal.fire({
@@ -143,13 +267,12 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                     timer: 1500,
                     showConfirmButton: false
                 });
-                // Close directly
                 onClose();
                 if (onSuccess) onSuccess();
                 return;
 
             } else {
-                // Insert Mode (Existing Logic)
+                // Insert Mode
                 const { data, error } = await supabase.rpc('submit_review', {
                     p_nickname: formData.nickname,
                     p_role: formData.role,
@@ -157,7 +280,8 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                     p_category: formData.categories[0], // Use first category as primary
                     p_rating: rating,
                     p_tags: tags,
-                    p_service_type: serviceType // SEO: Add service type
+                    p_service_type: serviceType,
+                    p_images: finalImages
                 });
 
                 if (error) {
@@ -166,13 +290,8 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                 }
 
                 if (data && data.success) {
-                    // setEarnedCredits(data.bonus_credits || 0); // Removed: Credits awarded on approval
                     setStep('success');
                     if (onSuccess) onSuccess();
-
-                    // if (data.bonus_credits > 0) {
-                    //    window.dispatchEvent(new Event('force_credits_update'));
-                    // }
 
                     confetti({
                         particleCount: 150,
@@ -217,6 +336,8 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
             setStep('form');
             setFormData({ nickname: '', role: '', categories: [], content: '' });
             setRating(5);
+            setSelectedFiles([]);
+            setPreviewUrls([]);
         }, 300);
     };
 
@@ -229,7 +350,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
             />
 
             {/* Modal Card */}
-            <div className="relative bg-[#1e293b] border border-amber-500/20 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl shadow-amber-500/10 transform animate-scale-in overflow-hidden">
+            <div className="relative bg-[#1e293b] border border-amber-500/20 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl shadow-amber-500/10 transform animate-scale-in overflow-hidden max-h-[90vh] overflow-y-auto custom-scrollbar">
                 {/* Background Decor */}
                 <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-amber-500/5 to-transparent pointer-events-none" />
                 <button
@@ -360,6 +481,80 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                                 </div>
                             </div>
 
+                            {/* Image Upload Section */}
+                            <div>
+                                <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1 flex items-center gap-1">
+                                    <ImageIcon size={14} className="text-purple-400" />
+                                    รูปภาพประกอบ (สูงสุด 2 รูป)
+                                </label>
+
+                                <div
+                                    className={`border-2 border-dashed rounded-xl p-4 transition-all ${isDragging
+                                            ? 'border-amber-500 bg-amber-500/10'
+                                            : 'border-slate-700 bg-slate-900/30 hover:border-slate-600'
+                                        }`}
+                                    onDragOver={onDragOver}
+                                    onDragLeave={onDragLeave}
+                                    onDrop={onDrop}
+                                >
+                                    <input
+                                        type="file"
+                                        ref={fileInputRef}
+                                        onChange={handleFileSelect}
+                                        className="hidden"
+                                        accept="image/*"
+                                        multiple
+                                    />
+
+                                    {previewUrls.length > 0 ? (
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {previewUrls.map((url, index) => (
+                                                <div key={index} className="relative aspect-video rounded-lg overflow-hidden group border border-slate-700">
+                                                    <Image
+                                                        src={url}
+                                                        alt="Preview"
+                                                        fill
+                                                        className="object-cover"
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleRemoveFile(index)}
+                                                        className="absolute top-1 right-1 p-1 bg-black/60 hover:bg-red-500/80 text-white rounded-full transition-colors opacity-0 group-hover:opacity-100"
+                                                    >
+                                                        <X size={14} />
+                                                    </button>
+                                                </div>
+                                            ))}
+                                            {previewUrls.length < 2 && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => fileInputRef.current?.click()}
+                                                    className="flex flex-col items-center justify-center aspect-video rounded-lg border border-dashed border-slate-600 hover:border-amber-500 hover:bg-slate-800/50 transition-all group"
+                                                >
+                                                    <Sparkles size={20} className="text-slate-500 group-hover:text-amber-400 mb-1" />
+                                                    <span className="text-xs text-slate-500 group-hover:text-slate-300">เพิ่มรูปภาพ</span>
+                                                </button>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <div className="flex flex-col items-center justify-center py-4 text-center">
+                                            <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center mb-2">
+                                                <UploadCloud size={20} className="text-slate-400" />
+                                            </div>
+                                            <p className="text-sm text-slate-300 font-medium">คลิกเพื่ออัปโหลด หรือลากไฟล์มาวาง</p>
+                                            <p className="text-[10px] text-slate-500 mt-1">ไฟล์ JPG, PNG ขนาดไม่เกิน 5MB</p>
+                                            <button
+                                                type="button"
+                                                onClick={() => fileInputRef.current?.click()}
+                                                className="mt-3 px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 font-medium transition-colors border border-slate-700"
+                                            >
+                                                เลือกรูปภาพ
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
                             <div>
                                 <label className="block text-xs font-medium text-slate-400 mb-1.5 ml-1">ให้คะแนนความพึงพอใจ</label>
                                 <div className="flex gap-2">
@@ -391,8 +586,8 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                             >
                                 {isSubmitting ? (
                                     <>
-                                        <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                        กำลังส่งข้อมูล...
+                                        <Loader2 size={20} className="animate-spin" />
+                                        กำลังบันทึกข้อมูล...
                                     </>
                                 ) : (
                                     <>

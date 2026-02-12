@@ -86,7 +86,7 @@ export interface Wallpaper {
 
 
 // Service types for reviews - SEO optimized with internal links
-export type ReviewServiceType = 
+export type ReviewServiceType =
     | 'name-analysis'      // วิเคราะห์ชื่อ
     | 'phone-analysis'     // วิเคราะห์เบอร์มงคล
     | 'premium-search'     // ค้นหาชื่อมงคลพรีเมียม
@@ -104,7 +104,7 @@ export interface Review {
     date: string; // ISO string from created_at
     created_at?: string; // Database field
     rating: number;
-    image?: string;
+    images?: string[]; // Array of image URLs
     category?: string;
     status?: 'pending' | 'approved' | 'rejected';
     user_id?: string; // Owner ID

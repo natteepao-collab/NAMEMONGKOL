@@ -4,7 +4,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, MessageCircle, Filter, Quote, Plus, Trash2, Edit, Search, Sparkles, ThumbsUp, BadgeCheck, Share2 } from 'lucide-react';
+import { Star, MessageCircle, Filter, Quote, Plus, Trash2, Edit, Search, Sparkles, ThumbsUp, BadgeCheck, Share2, Image as ImageIcon } from 'lucide-react';
+import Image from 'next/image';
 import { Review, ReviewServiceType } from '@/types';
 import { ReviewFormModal } from '@/components/ReviewFormModal';
 import { supabase } from '@/utils/supabase';
@@ -251,10 +252,11 @@ export default function ClientPage() {
                 service_type: r.service_type || inferServiceType(r.tags || [r.category]),
                 // Default is_verified to true if user_id exists
                 is_verified: r.is_verified ?? !!r.user_id,
-                helpful_count: r.helpful_count || 0
+                helpful_count: r.helpful_count || 0,
+                images: r.images || []
             }));
             setDbReviews(formatted);
-            
+
             // Initialize helpful votes from database
             const votesMap: Record<string, number> = {};
             formatted.forEach(r => {
@@ -440,7 +442,7 @@ export default function ClientPage() {
                                             {review.service_type && SERVICE_INFO[review.service_type] && (
                                                 <>
                                                     <span className="w-1 h-1 rounded-full bg-slate-600"></span>
-                                                    <Link 
+                                                    <Link
                                                         href={SERVICE_INFO[review.service_type].url}
                                                         className="text-cyan-400 hover:text-cyan-300 hover:underline transition-colors normal-case"
                                                     >
@@ -452,7 +454,7 @@ export default function ClientPage() {
                                             {review.date && (
                                                 <>
                                                     <span className="w-1 h-1 rounded-full bg-slate-600"></span>
-                                                    <time 
+                                                    <time
                                                         dateTime={formatDateForSEO(review.date).isoDate}
                                                         className="text-slate-500"
                                                     >
@@ -478,20 +480,33 @@ export default function ClientPage() {
                                     &quot;{review.content}&quot;
                                 </p>
 
-                                {review.image && (
-                                    <div className="mb-4 rounded-xl overflow-hidden border border-white/10">
-                                        <div className="aspect-[4/3] bg-slate-800 flex items-center justify-center text-slate-600 text-xs">
-                                            {/* In real app, use Next Image */}
-                                            [รูปประกอบการรีวิว]
-                                        </div>
+                                {review.images && review.images.length > 0 && (
+                                    <div className={`grid gap-2 mb-6 ${review.images.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                                        {review.images.map((img, idx) => (
+                                            <div
+                                                key={idx}
+                                                className={`relative rounded-xl overflow-hidden border border-white/10 group ${review.images!.length === 1 ? 'aspect-video' : 'aspect-square'
+                                                    }`}
+                                            >
+                                                <div className="absolute inset-0 bg-slate-800/50" />
+                                                <Image
+                                                    src={img}
+                                                    alt={`รีวิวจาก ${review.nickname} - ${idx + 1}`}
+                                                    fill
+                                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                        ))}
                                     </div>
                                 )}
 
                                 {/* Tags - Clickable for Internal Linking */}
                                 <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5">
                                     {review.tags.map((tag) => (
-                                        <Link 
-                                            key={tag} 
+                                        <Link
+                                            key={tag}
                                             href={TAG_URLS[tag] || `/reviews?category=${encodeURIComponent(tag)}`}
                                             className="text-[11px] font-medium px-2.5 py-1 rounded-lg bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 hover:bg-indigo-500/20 hover:text-indigo-200 transition-colors"
                                         >
@@ -505,11 +520,10 @@ export default function ClientPage() {
                                     <button
                                         onClick={(e) => { e.stopPropagation(); handleHelpfulVote(review.id); }}
                                         disabled={userVotedReviews.has(review.id)}
-                                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                                            userVotedReviews.has(review.id)
+                                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${userVotedReviews.has(review.id)
                                                 ? 'bg-amber-500/20 text-amber-400 cursor-default'
                                                 : 'bg-white/5 text-slate-400 hover:bg-amber-500/10 hover:text-amber-400'
-                                        }`}
+                                            }`}
                                     >
                                         <ThumbsUp size={14} className={userVotedReviews.has(review.id) ? 'fill-amber-400' : ''} />
                                         <span>{t('pages.reviews.helpful')}</span>
