@@ -6,9 +6,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com
 export const metadata: Metadata = {
     title: 'ตรวจสอบสลิป | NameMongkol',
     description: 'ระบบตรวจสอบสลิปการโอนเงินอัตโนมัติของ NameMongkol สำหรับการเติมเครดิต',
-    alternates: {
-        canonical: `${siteUrl}/slip-verification`,
-    },
+
     robots: {
         index: false, // Internal tool - should not be indexed
         follow: false,

@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
   display: 'swap',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.namemongkol.com';
 
 export const metadata: Metadata = {
   title: {
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     creator: '@namemongkol',
   },
   alternates: {
-    canonical: siteUrl,
+    canonical: './',
   },
   robots: {
     index: true,

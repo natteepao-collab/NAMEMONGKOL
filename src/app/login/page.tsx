@@ -8,9 +8,7 @@ export const metadata: Metadata = {
     title: 'เข้าสู่ระบบ | NameMongkol - วิเคราะห์ชื่อมงคล',
     description: 'เข้าสู่ระบบ NameMongkol เพื่อใช้งานบริการวิเคราะห์ชื่อมงคล ดูประวัติการวิเคราะห์ และเข้าถึงฟีเจอร์พิเศษสำหรับสมาชิก',
     keywords: ['เข้าสู่ระบบ', 'ล็อกอิน', 'สมาชิก', 'NameMongkol', 'วิเคราะห์ชื่อมงคล'],
-    alternates: {
-        canonical: `${siteUrl}/login`,
-    },
+
     openGraph: {
         title: 'เข้าสู่ระบบ | NameMongkol',
         description: 'เข้าสู่ระบบเพื่อใช้งานบริการวิเคราะห์ชื่อมงคลครบวงจร',

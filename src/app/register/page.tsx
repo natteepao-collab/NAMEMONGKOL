@@ -8,9 +8,7 @@ export const metadata: Metadata = {
     title: 'สมัครสมาชิก | NameMongkol - วิเคราะห์ชื่อมงคลฟรี',
     description: 'สมัครสมาชิก NameMongkol ฟรี! เพื่อรับเครดิตต้อนรับและใช้งานบริการวิเคราะห์ชื่อมงคล เบอร์มงคล พร้อมฟีเจอร์พิเศษมากมาย',
     keywords: ['สมัครสมาชิก', 'ลงทะเบียน', 'Register', 'NameMongkol', 'วิเคราะห์ชื่อมงคล', 'สมัครฟรี'],
-    alternates: {
-        canonical: `${siteUrl}/register`,
-    },
+
     openGraph: {
         title: 'สมัครสมาชิก | NameMongkol',
         description: 'สมัครสมาชิกฟรี! รับเครดิตต้อนรับทันที พร้อมใช้งานบริการวิเคราะห์ชื่อมงคลครบวงจร',

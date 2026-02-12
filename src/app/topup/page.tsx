@@ -9,9 +9,7 @@ export const metadata: Metadata = {
     title: 'เติมเครดิต (Top Up) - แพ็กเกจสุดคุ้ม | NameMongkol',
     description: 'เติมเครดิตเพื่อใช้งานบริการวิเคราะห์ชื่อมงคลขั้นสูงและดาวน์โหลดวอลเปเปอร์พรีเมียม สะดวกรวดเร็วผ่าน QR Code พร้อมเพย์ เริ่มต้นเพียง 29 บาท',
     keywords: ['เติมเครดิต', 'Top Up', 'ซื้อเครดิต', 'NameMongkol', 'พร้อมเพย์', 'QR Code', 'แพ็กเกจ'],
-    alternates: {
-        canonical: `${siteUrl}/topup`,
-    },
+
     openGraph: {
         title: 'เติมเครดิต (Top Up) | NameMongkol',
         description: 'เติมเครดิตง่ายๆ ผ่าน QR Code พร้อมเพย์ ใช้งานได้ทันที เริ่มต้นเพียง 29 บาท',

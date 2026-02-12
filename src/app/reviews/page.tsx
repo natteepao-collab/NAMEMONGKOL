@@ -19,9 +19,7 @@ export const metadata: Metadata = {
     title: 'รวมรีวิว NameMongkol: เปลี่ยนชื่อ-เบอร์โทรศัพท์มงคล ชีวิตเปลี่ยนจริงไหม?',
     description: 'รวมประสบการณ์จริงจากผู้ใช้งาน NameMongkol ที่เปลี่ยนชื่อมงคลและเบอร์โทรศัพท์แล้วชีวิตดีขึ้น ทั้งเรื่องการเงิน การงาน และความรัก พิสูจน์ความแม่นยำด้วยตัวคุณเองได้ที่นี่',
     keywords: ['รีวิวเปลี่ยนชื่อมงคล', 'ประสบการณ์เปลี่ยนชื่อ', 'ตั้งชื่อมงคลที่ไหนดี', 'วิเคราะห์เบอร์โทรแม่นๆ', 'รีวิวเบอร์มงคล', 'แก้กรรมด้วยชื่อ', 'รีวิว NameMongkol'],
-    alternates: {
-        canonical: `${siteUrl}/reviews`,
-    },
+
     openGraph: {
         title: 'รวมรีวิว NameMongkol: เปลี่ยนชื่อ-เบอร์โทรศัพท์มงคล ชีวิตเปลี่ยนจริงไหม?',
         description: 'รวมประสบการณ์จริงจากผู้ใช้งาน NameMongkol ที่เปลี่ยนชื่อมงคลและเบอร์โทรศัพท์แล้วชีวิตดีขึ้น ทั้งเรื่องการเงิน การงาน และความรัก',
@@ -63,7 +61,7 @@ export default async function ReviewsPage() {
 
     // Calculate aggregate rating for SEO
     const totalRatings = reviews.length;
-    const avgRating = totalRatings > 0 
+    const avgRating = totalRatings > 0
         ? (reviews.reduce((sum, r) => sum + r.rating, 0) / totalRatings).toFixed(1)
         : "5";
 
@@ -91,7 +89,7 @@ export default async function ReviewsPage() {
             "review": reviews.slice(0, 20).map((review) => {
                 const serviceType = (review.service_type || 'general') as ReviewServiceType;
                 const serviceInfo = SERVICE_INFO[serviceType] || SERVICE_INFO['general'];
-                
+
                 return {
                     "@type": "Review",
                     "itemReviewed": {

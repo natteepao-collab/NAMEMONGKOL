@@ -32,9 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: `ความหมายชื่อ ${decodedName} ดีไหม? เช็คความหมายและเลขศาสตร์ - NameMongkol`,
         description: `วิเคราะห์ชื่อ "${decodedName}" ตามหลักเลขศาสตร์ ได้ผลรวม ${score} หมายถึง ${prediction.desc.substring(0, 100)}... เช็คชื่อมงคล ฟรี`,
         keywords: [`ความหมายชื่อ ${decodedName}`, 'วิเคราะห์ชื่อ', 'เลขศาสตร์', 'ชื่อมงคล', `ชื่อ ${decodedName}`, 'ผลรวมชื่อ', 'ตั้งชื่อลูก'],
-        alternates: {
-            canonical: `${siteUrl}/meaning/${encodeURIComponent(decodedName)}`,
-        },
+
         openGraph: {
             title: `ความหมายชื่อ "${decodedName}" ผลรวม ${score} - ดีหรือไม่?`,
             description: `วิเคราะห์ชื่อ ${decodedName} ตามหลักเลขศาสตร์ ได้ผลรวม ${score} ระดับ: ${prediction.level} | ${prediction.desc.substring(0, 80)}...`,

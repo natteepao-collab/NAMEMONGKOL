@@ -23,9 +23,7 @@ export const metadata: Metadata = {
         description: 'เช็คเบอร์โทรศัพท์ว่าดีหรือร้าย? วิเคราะห์เบอร์มงคลฟรี พร้อมกราฟพลังงาน 6 ด้าน',
         images: [`${siteUrl}/api/og?variant=phone`],
     },
-    alternates: {
-        canonical: 'https://www.namemongkol.com/phone-analysis',
-    },
+
 };
 
 export default function PhoneAnalysisPage() {

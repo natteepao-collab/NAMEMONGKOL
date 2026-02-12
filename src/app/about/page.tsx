@@ -28,9 +28,7 @@ export const metadata: Metadata = {
         description: 'แพลตฟอร์มวิเคราะห์ชื่อมงคลอันดับ 1 ของไทย ผสานศาสตร์โบราณ 4 แขนง เข้ากับเทคโนโลยี AI',
         images: ['/api/og?variant=about'],
     },
-    alternates: {
-        canonical: 'https://www.namemongkol.com/about',
-    },
+
 };
 
 export default function AboutPage() {

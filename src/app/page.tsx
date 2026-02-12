@@ -36,9 +36,7 @@ export async function generateMetadata(
         description: 'วิเคราะห์ชื่อมงคลฟรี ด้วยระบบ AI ผสาน 4 ศาสตร์ เช็คพลังเงา ผลรวมชื่อ อักษรกาลกิณี',
         images: [`${siteUrl}/api/og?variant=default`],
       },
-      alternates: {
-        canonical: 'https://www.namemongkol.com',
-      },
+
     }
   }
 
