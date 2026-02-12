@@ -6,13 +6,13 @@ export const dynamic = 'force-dynamic'
 
 // Popular names for meaning pages (SEO-important pages)
 const popularNames = [
-    'ภูมิพัฒน์', 'ธนกร', 'ปภาวรินทร์', 'ณัฐชา', 'พิชญา', 'กันต์พงษ์', 'สิรภพ', 
+    'ภูมิพัฒน์', 'ธนกร', 'ปภาวรินทร์', 'ณัฐชา', 'พิชญา', 'กันต์พงษ์', 'สิรภพ',
     'อภิชญา', 'พิมพ์ชนก', 'ชนิดาภา', 'กิตติภัทร', 'วรินทร', 'ภัคพล', 'ธนัช',
     'นภัสสร', 'ปุณยวีร์', 'ณิชา', 'ชนมน', 'กฤษณ์', 'ศุภกร', 'ธีรภัทร', 'ปัณณวิชญ์'
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.namemongkol.com'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.namemongkol.com'
 
     // Initialize Supabase client
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
