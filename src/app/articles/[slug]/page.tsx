@@ -226,9 +226,9 @@ export default async function ArticlePage({ params }: Props) {
                     </nav>
 
                     {/* Back Link */}
-                    <Link href="/articles" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors group">
-                        <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-                        ย้อนกลับไปหน้าบทความ
+                    <Link href="/articles" className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-white mb-6 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group backdrop-blur-sm w-fit">
+                        <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
+                        <span>บทความทั้งหมด</span>
                     </Link>
 
                     {/* Meta */}

@@ -38,6 +38,8 @@ export default function AdminArticlesPage() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    // Validation State
+    const [formError, setFormError] = useState<string | null>(null);
 
     useEffect(() => {
         fetchArticles();
@@ -195,10 +197,27 @@ export default function AdminArticlesPage() {
         // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
         setUploading(true);
+        setFormError(null);
 
         try {
             let finalImageUrl = currentArticle.cover_image;
             const previousCoverImage = currentArticle.cover_image;
+
+            // Validation: Title required
+            if (!currentArticle.title || currentArticle.title.trim() === '') {
+                setFormError('กรุณากรอกชื่อบทความ');
+                setUploading(false);
+                return;
+            }
+
+            // Validation: Slug unique
+            const slugToCheck = (currentArticle.slug || generateSlug(currentArticle.title)).trim();
+            const duplicate = articles.find(a => a.slug === slugToCheck && a.id !== currentArticle.id);
+            if (duplicate) {
+                setFormError('Slug ซ้ำกับบทความอื่น กรุณาเปลี่ยน');
+                setUploading(false);
+                return;
+            }
 
             if (selectedFile) {
                 try {
@@ -213,15 +232,9 @@ export default function AdminArticlesPage() {
                 }
             }
 
-            if (!currentArticle.title) {
-                Swal.fire('Error', 'Title is required', 'error');
-                setUploading(false);
-                return;
-            }
-
             const payload = {
                 title: currentArticle.title,
-                slug: currentArticle.slug || generateSlug(currentArticle.title),
+                slug: slugToCheck,
                 excerpt: currentArticle.excerpt || '',
                 content: currentArticle.content || '',
                 cover_image: finalImageUrl || '',
@@ -627,6 +640,11 @@ export default function AdminArticlesPage() {
 
                         <div className="overflow-y-auto p-6">
                             <form onSubmit={handleSubmit} className="space-y-6">
+                                {formError && (
+                                    <div className="bg-red-500/10 border border-red-500 text-red-400 rounded-lg px-4 py-2 mb-4">
+                                        {formError}
+                                    </div>
+                                )}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium text-slate-300">Title</label>
