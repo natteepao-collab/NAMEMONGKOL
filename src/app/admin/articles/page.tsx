@@ -3,6 +3,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabase';
+import { compressImage } from '@/utils/image';
+
 import { Loader2, Plus, Edit, Trash2, Save, X, Search, Image as ImageIcon, Upload, Eye, RefreshCw } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -145,7 +147,23 @@ export default function AdminArticlesPage() {
     };
 
     const uploadImage = async (file: File, baseName: string): Promise<string> => {
-        const fileExt = file.name.split('.').pop();
+        if (!file) throw new Error('No file selected');
+
+        // Compress if image (double check type just in case)
+        let fileToUpload = file;
+        if (file.type.startsWith('image/')) {
+            try {
+                // Compress to max 1200px width, 80% quality
+                const compressedBlob = await compressImage(file, 1200, 0.8);
+                // Create new File with .jpg extension
+                const newName = baseName.replace(/\.[^.]+$/, '') + '.jpg';
+                fileToUpload = new File([compressedBlob], newName, { type: 'image/jpeg' });
+            } catch (err) {
+                console.warn('Image compression failed, falling back to original', err);
+            }
+        }
+
+        const fileExt = fileToUpload.name.split('.').pop();
         // Create an SEO-friendly filename: slug-timestamp.ext
         // Ensure the baseName is safe (alphanumeric + dashes only)
         const safeName = baseName
@@ -159,7 +177,8 @@ export default function AdminArticlesPage() {
 
         const { error: uploadError } = await supabase.storage
             .from('articles')
-            .upload(filePath, file);
+            .upload(filePath, fileToUpload);
+
 
         if (uploadError) throw uploadError;
 

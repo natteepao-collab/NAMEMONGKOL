@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import { X, Star, Send, Sparkles, MessageCircle, Gift, Briefcase, Image as ImageIcon, Trash2, Loader2, UploadCloud } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { supabase } from '@/utils/supabase'; // Import supabase
+import { compressImage } from '@/utils/image';
+
 import { ReviewServiceType } from '@/types';
 import Image from 'next/image';
 
@@ -123,11 +125,24 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
         });
 
         if (validFiles.length > 0) {
-            setSelectedFiles(prev => [...prev, ...validFiles]);
-
-            // Create preview URLs
-            const newPreviews = validFiles.map(file => URL.createObjectURL(file));
-            setPreviewUrls(prev => [...prev, ...newPreviews]);
+            // Compress images before adding to state
+            Promise.all(validFiles.map(async (file) => {
+                try {
+                    const compressedBlob = await compressImage(file, 1200, 0.8);
+                    // Create a new File object from the compressed Blob to maintain name/type if needed
+                    // Use .jpg extension as compression output is jpeg
+                    const newName = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+                    const compressedFile = new File([compressedBlob], newName, { type: 'image/jpeg' });
+                    return compressedFile;
+                } catch (error) {
+                    console.error('Compression failed for', file.name, error);
+                    return file; // Fallback to original if compression fails
+                }
+            })).then((processedFiles) => {
+                setSelectedFiles(prev => [...prev, ...processedFiles]);
+                const newPreviews = processedFiles.map(file => URL.createObjectURL(file));
+                setPreviewUrls(prev => [...prev, ...newPreviews]);
+            });
         }
     };
 
@@ -490,8 +505,8 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
 
                                 <div
                                     className={`border-2 border-dashed rounded-xl p-4 transition-all ${isDragging
-                                            ? 'border-amber-500 bg-amber-500/10'
-                                            : 'border-slate-700 bg-slate-900/30 hover:border-slate-600'
+                                        ? 'border-amber-500 bg-amber-500/10'
+                                        : 'border-slate-700 bg-slate-900/30 hover:border-slate-600'
                                         }`}
                                     onDragOver={onDragOver}
                                     onDragLeave={onDragLeave}
