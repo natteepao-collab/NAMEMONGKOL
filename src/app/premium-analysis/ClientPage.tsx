@@ -15,6 +15,7 @@ import { supabase } from '@/utils/supabase';
 import { generatePremiumNames, PremiumResult, FocusTopic, getAstrologicalDay } from '@/utils/premiumAnalysisUtils';
 import { formatThaiBirthDate, ThaiDateResult } from '@/utils/thaiDateUtils';
 import { CertificateGenerator } from '@/components/CertificateGenerator';
+import { SearchableSelect } from '@/components/SearchableSelect';
 
 const THAI_MONTHS = [
     'มกราคม (01)', 'กุมภาพันธ์ (02)', 'มีนาคม (03)', 'เมษายน (04)', 'พฤษภาคม (05)', 'มิถุนายน (06)',
@@ -392,18 +393,6 @@ export default function PremiumAnalysisPage() {
                                 </div>
                             </div>
 
-                            <div className="pt-4 mt-2 border-t border-white/5 flex items-center justify-between">
-                                <span className="text-slate-500 text-xs font-medium uppercase tracking-wider">Total Score</span>
-                                <div className="flex items-baseline gap-1">
-                                    <span className={`text-2xl font-black text-transparent bg-clip-text ${isPremium
-                                        ? 'bg-gradient-to-r from-amber-200 to-yellow-400'
-                                        : 'bg-gradient-to-r from-slate-200 to-slate-400'
-                                        }`}>
-                                        {result.totalScore}
-                                    </span>
-                                    <span className="text-xs text-slate-500">/ 100</span>
-                                </div>
-                            </div>
 
                             {/* ปุ่มออกใบรับรองมงคล */}
                             <div className="pt-3 mt-3 border-t border-white/5">
@@ -500,53 +489,35 @@ export default function PremiumAnalysisPage() {
                             <div className="grid grid-cols-12 gap-2 sm:gap-4">
                                 {/* Day */}
                                 <div className="col-span-4 sm:col-span-3 relative">
-                                    <select
+                                    <SearchableSelect
                                         value={selectedDay}
-                                        onChange={(e) => setSelectedDay(e.target.value)}
-                                        className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-3 py-3 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/10 text-white appearance-none cursor-pointer text-center"
-                                    >
-                                        <option value="" disabled>วัน</option>
-                                        {DAYS.map(d => (
-                                            <option key={d} value={d} className="bg-slate-900 text-slate-200">{d}</option>
-                                        ))}
-                                    </select>
-                                    <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
-                                        <ChevronRight size={12} className="rotate-90" />
-                                    </div>
+                                        onChange={setSelectedDay}
+                                        options={DAYS}
+                                        placeholder="วัน"
+                                        searchPlaceholder="ค้นหาวัน..."
+                                    />
                                 </div>
 
                                 {/* Month */}
                                 <div className="col-span-8 sm:col-span-5 relative">
-                                    <select
+                                    <SearchableSelect
                                         value={selectedMonth}
-                                        onChange={(e) => setSelectedMonth(e.target.value)}
-                                        className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-2 py-3 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/10 text-white appearance-none cursor-pointer pl-3 text-center"
-                                    >
-                                        <option value="" disabled>เดือน</option>
-                                        {THAI_MONTHS.map(m => (
-                                            <option key={m} value={m} className="bg-slate-900 text-slate-200">{m}</option>
-                                        ))}
-                                    </select>
-                                    <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
-                                        <ChevronRight size={12} className="rotate-90" />
-                                    </div>
+                                        onChange={setSelectedMonth}
+                                        options={THAI_MONTHS}
+                                        placeholder="เดือน"
+                                        searchPlaceholder="ค้นหาเดือน..."
+                                    />
                                 </div>
 
                                 {/* Year */}
                                 <div className="col-span-12 sm:col-span-4 relative">
-                                    <select
+                                    <SearchableSelect
                                         value={selectedYear}
-                                        onChange={(e) => setSelectedYear(e.target.value)}
-                                        className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-2 py-3 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/10 text-white appearance-none cursor-pointer pl-3 text-center"
-                                    >
-                                        <option value="" disabled>ปี (พ.ศ. / ค.ศ.)</option>
-                                        {YEARS.map(y => (
-                                            <option key={y.val} value={y.val} className="bg-slate-900 text-slate-200">{y.label}</option>
-                                        ))}
-                                    </select>
-                                    <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
-                                        <ChevronRight size={12} className="rotate-90" />
-                                    </div>
+                                        onChange={setSelectedYear}
+                                        options={YEARS.map(y => ({ value: y.val, label: y.label }))}
+                                        placeholder="ปี (พ.ศ.)"
+                                        searchPlaceholder="ค้นหาปี..."
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -584,38 +555,26 @@ export default function PremiumAnalysisPage() {
                             <div className={`grid grid-cols-2 gap-4 ${isUnknownTime ? 'opacity-50 pointer-events-none' : ''}`}>
                                 {/* Hour */}
                                 <div className="relative">
-                                    <select
+                                    <SearchableSelect
                                         value={selectedHour}
-                                        onChange={(e) => setSelectedHour(e.target.value)}
+                                        onChange={setSelectedHour}
+                                        options={HOURS}
                                         disabled={isUnknownTime}
-                                        className="w-full bg-slate-900/50 border border-white/10 rounded-xl pl-4 pr-14 py-3 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/10 text-white appearance-none cursor-pointer text-center"
-                                    >
-                                        {HOURS.map(h => (
-                                            <option key={h} value={h} className="bg-slate-900 text-slate-200">{h}</option>
-                                        ))}
-                                    </select>
-                                    <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
-                                        <span className="text-xs mr-1">นาฬิกา</span>
-                                        <ChevronRight size={10} className="rotate-90 inline" />
-                                    </div>
+                                        placeholder="นาฬิกา"
+                                        searchPlaceholder="ค้นหา..."
+                                    />
                                 </div>
 
                                 {/* Minute */}
                                 <div className="relative">
-                                    <select
+                                    <SearchableSelect
                                         value={selectedMinute}
-                                        onChange={(e) => setSelectedMinute(e.target.value)}
+                                        onChange={setSelectedMinute}
+                                        options={MINUTES}
                                         disabled={isUnknownTime}
-                                        className="w-full bg-slate-900/50 border border-white/10 rounded-xl pl-4 pr-14 py-3 text-sm focus:outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/10 text-white appearance-none cursor-pointer text-center"
-                                    >
-                                        {MINUTES.map(m => (
-                                            <option key={m} value={m} className="bg-slate-900 text-slate-200">{m}</option>
-                                        ))}
-                                    </select>
-                                    <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
-                                        <span className="text-xs mr-1">นาที</span>
-                                        <ChevronRight size={10} className="rotate-90 inline" />
-                                    </div>
+                                        placeholder="นาที"
+                                        searchPlaceholder="ค้นหา..."
+                                    />
                                 </div>
                             </div>
                         </div>
