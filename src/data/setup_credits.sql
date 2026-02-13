@@ -1,14 +1,3 @@
--- Function to add credits
--- Usage: supabase.rpc('add_credits', { amount: 50 })
+-- Function removed for security reasons.
+-- Do NOT add any function that allows direct credit manipulation without strict checks.
 
-create or replace function add_credits(amount int)
-returns void
-language plpgsql
-security definer
-as $$
-begin
-  update user_profiles
-  set credits = coalesce(credits, 0) + amount
-  where id = auth.uid();
-end;
-$$;
