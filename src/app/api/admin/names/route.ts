@@ -47,8 +47,16 @@ export async function POST(req: Request) {
             return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
         }
 
-        // Check admin role logic here if needed, though RLS should handle it.
+        // Check admin role
+        const { data: profile } = await supabase
+            .from('user_profiles')
+            .select('role')
+            .eq('id', user.id)
+            .single();
 
+        if (profile?.role !== 'admin') {
+            return NextResponse.json({ success: false, error: 'Forbidden' }, { status: 403 });
+        }
 
         // De-duplicate immediately
         const uniqueNames = [...new Set(names)].sort((a: any, b: any) => a.localeCompare(b, 'th'));

@@ -9,7 +9,7 @@ function getClientIp(request: NextRequest): string {
     const forwarded = request.headers.get('x-forwarded-for');
     const realIp = request.headers.get('x-real-ip');
     const cfIp = request.headers.get('cf-connecting-ip');
-    
+
     if (cfIp) return cfIp;
     if (forwarded) return forwarded.split(',')[0].trim();
     if (realIp) return realIp;
@@ -17,29 +17,29 @@ function getClientIp(request: NextRequest): string {
 }
 
 function checkMiddlewareRateLimit(
-    key: string, 
-    maxRequests: number, 
+    key: string,
+    maxRequests: number,
     windowMs: number
 ): { allowed: boolean; remaining: number; resetTime: number } {
     const now = Date.now();
     const entry = rateLimitStore.get(key);
-    
+
     // Cleanup old entries periodically (1% chance per request)
     if (Math.random() < 0.01) {
         for (const [k, v] of rateLimitStore.entries()) {
             if (now > v.resetTime) rateLimitStore.delete(k);
         }
     }
-    
+
     if (!entry || now > entry.resetTime) {
         rateLimitStore.set(key, { count: 1, resetTime: now + windowMs });
         return { allowed: true, remaining: maxRequests - 1, resetTime: now + windowMs };
     }
-    
+
     if (entry.count >= maxRequests) {
         return { allowed: false, remaining: 0, resetTime: entry.resetTime };
     }
-    
+
     entry.count++;
     return { allowed: true, remaining: maxRequests - entry.count, resetTime: entry.resetTime };
 }
@@ -47,17 +47,17 @@ function checkMiddlewareRateLimit(
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
     const ip = getClientIp(request);
-    
+
     // Rate limit for auth API endpoints
     if (pathname.startsWith('/api/auth')) {
         const key = `middleware:auth:${ip}`;
         const { allowed, remaining, resetTime } = checkMiddlewareRateLimit(key, 30, 60 * 1000); // 30 req/min
-        
+
         if (!allowed) {
             const retryAfter = Math.ceil((resetTime - Date.now()) / 1000);
             return NextResponse.json(
                 { error: 'คำขอมากเกินไป กรุณารอสักครู่', code: 'RATE_LIMITED' },
-                { 
+                {
                     status: 429,
                     headers: {
                         'Retry-After': retryAfter.toString(),
@@ -67,25 +67,25 @@ export async function middleware(request: NextRequest) {
             );
         }
     }
-    
+
     // Stricter rate limit for login endpoint specifically
     if (pathname === '/api/auth/login' && request.method === 'POST') {
         const key = `middleware:login:${ip}`;
         const { allowed, remaining } = checkMiddlewareRateLimit(key, 10, 5 * 60 * 1000); // 10 req/5min
-        
+
         if (!allowed) {
             return NextResponse.json(
                 { error: 'พยายามเข้าสู่ระบบมากเกินไป กรุณารอ 5 นาที', code: 'LOGIN_RATE_LIMITED' },
                 { status: 429 }
             );
         }
-        
+
         // Add rate limit headers
         const response = NextResponse.next();
         response.headers.set('X-RateLimit-Remaining', remaining.toString());
         // Continue to next middleware/handler with headers
     }
-    
+
     let response = NextResponse.next({
         request: {
             headers: request.headers,
@@ -144,12 +144,15 @@ export async function middleware(request: NextRequest) {
     // 1. Admin Routes
     if (request.nextUrl.pathname.startsWith('/admin')) {
         if (!user) {
-            // return NextResponse.redirect(new URL('/login', request.url));
+            return NextResponse.redirect(new URL('/login', request.url));
         }
+    }
 
-        // Optional: Fetch profile to check role (can be expensive in middleware, 
-        // often better to rely on layout/page protection or custom claim)
-        // For now, at least ensure they are logged in.
+    // Protected API Routes
+    if (request.nextUrl.pathname.startsWith('/api/admin')) {
+        if (!user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
     }
 
     // 2. Protected User Routes
