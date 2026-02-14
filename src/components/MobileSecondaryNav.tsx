@@ -27,13 +27,13 @@ export const MobileSecondaryNav = () => {
                             <Link
                                 key={item.path}
                                 href={item.path}
-                                className={`flex items-center gap-1 px-2.5 py-1 rounded-full whitespace-nowrap transition-all duration-250 border ${isActive
-                                    ? 'bg-gradient-to-r from-purple-500/90 to-blue-500/90 text-white border-white/25 shadow-[0_4px_12px_rgba(139,92,246,0.25)]'
-                                    : 'bg-white/6 border-white/10 text-slate-300/80 hover:bg-white/12 hover:text-white hover:border-white/20'
+                                className={`flex items-center gap-1 px-2.5 py-1 rounded-full whitespace-nowrap transition-all duration-300 border backdrop-blur-md ${isActive
+                                    ? 'bg-gradient-to-r from-violet-600 to-blue-500 text-white border-white/30 shadow-[0_0_10px_rgba(139,92,246,0.5)] scale-100'
+                                    : 'bg-slate-800/80 border-white/20 text-slate-200 hover:bg-slate-700 hover:text-white hover:border-white/40'
                                     }`}
                             >
-                                <Icon size={12} className={isActive ? 'text-white' : 'opacity-70'} />
-                                <span className={`text-[10px] font-medium ${isActive ? 'text-white' : ''}`}>{item.name}</span>
+                                <Icon size={13} className={isActive ? 'text-white' : 'text-slate-300'} />
+                                <span className={`text-[10px] font-bold tracking-wide ${isActive ? 'text-white' : 'text-slate-200'}`}>{item.name}</span>
                             </Link>
                         );
                     })}
