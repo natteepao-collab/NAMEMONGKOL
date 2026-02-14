@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import { Download, Award, Sparkles, Loader2, Share2, X } from 'lucide-react';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import React, { useRef, useState, useEffect } from 'react';
+import { Download, Award, Sparkles, Loader2, Share2, X, Coins } from 'lucide-react';
+
 import { analyzePairs } from '@/utils/analyzePairs';
+import { supabase } from '@/utils/supabase';
+import { useRouter } from 'next/navigation';
+import { User } from '@supabase/supabase-js';
 
 interface CertificateGeneratorProps {
     name: string;
@@ -18,6 +20,8 @@ interface CertificateGeneratorProps {
     };
     compact?: boolean;
 }
+
+const DOWNLOAD_CREDIT_COST = 20;
 
 const dayNames: Record<string, string> = {
     sunday: 'อาทิตย์',
@@ -42,13 +46,44 @@ const gradeColors: Record<string, { bg1: string; bg2: string; text: string; glow
 export const CertificateGenerator: React.FC<CertificateGeneratorProps> = ({
     name, surname, grade, totalScore, day, prediction, compact = false,
 }) => {
+    const router = useRouter();
     const certificateRef = useRef<HTMLDivElement>(null);
     const [isGenerating, setIsGenerating] = useState(false);
     const [showCertificate, setShowCertificate] = useState(false);
+    const [user, setUser] = useState<User | null>(null);
+    const [credits, setCredits] = useState<number | null>(null);
 
     const currentDate = new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
     const gs = gradeColors[grade] || gradeColors['B'];
     const thaiDay = dayNames[day] || day;
+
+    useEffect(() => {
+        const getUser = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            setUser(user);
+            if (user) {
+                const { data } = await supabase
+                    .from('user_profiles')
+                    .select('credits')
+                    .eq('id', user.id)
+                    .maybeSingle();
+                setCredits(typeof data?.credits === 'number' ? data.credits : 0);
+            }
+        };
+        getUser();
+
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+            setUser(session?.user ?? null);
+            if (session?.user) {
+                supabase.from('user_profiles').select('credits').eq('id', session.user.id).maybeSingle()
+                    .then(({ data }) => setCredits(typeof data?.credits === 'number' ? data.credits : 0));
+            } else {
+                setCredits(null);
+            }
+        });
+
+        return () => { subscription.unsubscribe(); };
+    }, []);
 
     const fixColorFunctions = (clone: Document) => {
         clone.querySelectorAll('*').forEach((el) => {
@@ -62,24 +97,27 @@ export const CertificateGenerator: React.FC<CertificateGeneratorProps> = ({
         });
     };
 
-    const captureCanvas = () => html2canvas(certificateRef.current!, {
-        backgroundColor: '#0f172a', logging: false, useCORS: true, scale: 3,
-        onclone: (d: Document) => fixColorFunctions(d),
-    } as Parameters<typeof html2canvas>[1]);
+    const captureCanvas = async () => {
+        const html2canvas = (await import('html2canvas')).default;
+        return html2canvas(certificateRef.current!, {
+            backgroundColor: '#0f172a', logging: false, useCORS: true, scale: 3,
+            onclone: (d: Document) => fixColorFunctions(d),
+        } as Parameters<typeof html2canvas>[1]);
+    };
 
-    const handleDownloadPDF = async () => {
+    const doDownloadPDF = async () => {
         if (!certificateRef.current) return;
         setIsGenerating(true);
         try {
             const canvas = await captureCanvas();
             const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = await import('jspdf');
             const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a5' });
             const pw = pdf.internal.pageSize.getWidth(), ph = pdf.internal.pageSize.getHeight();
             const ip = pdf.getImageProperties(imgData);
             const r = ip.width / ip.height, pr = pw / ph;
             const [w, h] = r > pr ? [pw, pw / r] : [ph * r, ph];
-            // Fill entire page with dark background to remove white margins
-            pdf.setFillColor(15, 23, 42); // #0f172a
+            pdf.setFillColor(15, 23, 42);
             pdf.rect(0, 0, pw, ph, 'F');
             pdf.addImage(imgData, 'PNG', (pw - w) / 2, (ph - h) / 2, w, h);
             pdf.save(`ใบรับรองมงคล-${name}${surname}.pdf`);
@@ -87,7 +125,7 @@ export const CertificateGenerator: React.FC<CertificateGeneratorProps> = ({
         finally { setIsGenerating(false); }
     };
 
-    const handleDownloadImage = async () => {
+    const doDownloadImage = async () => {
         if (!certificateRef.current) return;
         setIsGenerating(true);
         try {
@@ -99,6 +137,117 @@ export const CertificateGenerator: React.FC<CertificateGeneratorProps> = ({
         } catch (e) { console.error('Image error:', e); }
         finally { setIsGenerating(false); }
     };
+
+    const handleDownloadWithCredit = async (downloadFn: () => Promise<void>, type: string) => {
+        // @ts-ignore
+        const Swal = (await import('sweetalert2')).default;
+
+        if (!user) {
+            const result = await Swal.fire({
+                title: 'กรุณาเข้าสู่ระบบ',
+                text: 'ต้องเข้าสู่ระบบก่อนดาวน์โหลดใบรับรอง',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'เข้าสู่ระบบ',
+                cancelButtonText: 'ยกเลิก',
+                background: '#1e293b',
+                color: '#fff',
+                confirmButtonColor: '#f59e0b',
+                cancelButtonColor: '#64748b',
+                customClass: { popup: 'rounded-2xl', confirmButton: 'rounded-xl', cancelButton: 'rounded-xl' }
+            });
+            if (result.isConfirmed) router.push('/login?redirect=/premium-analysis');
+            return;
+        }
+
+        // Fetch latest credits
+        const { data } = await supabase
+            .from('user_profiles')
+            .select('credits')
+            .eq('id', user.id)
+            .maybeSingle();
+        const latestCredits = typeof data?.credits === 'number' ? data.credits : 0;
+        setCredits(latestCredits);
+
+        if (latestCredits < DOWNLOAD_CREDIT_COST) {
+            const result = await Swal.fire({
+                title: 'เครดิตไม่เพียงพอ',
+                html: `การดาวน์โหลด${type}ต้องใช้ <b>${DOWNLOAD_CREDIT_COST} เครดิต</b><br/>ท่านมี <b>${latestCredits} เครดิต</b>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'เติมเครดิต',
+                cancelButtonText: 'ยกเลิก',
+                background: '#1e293b',
+                color: '#fff',
+                confirmButtonColor: '#10b981',
+                cancelButtonColor: '#64748b',
+                customClass: { popup: 'rounded-2xl', confirmButton: 'rounded-xl', cancelButton: 'rounded-xl' }
+            });
+            if (result.isConfirmed) router.push('/topup');
+            return;
+        }
+
+        const confirm = await Swal.fire({
+            title: `ดาวน์โหลดใบรับรอง (${type})`,
+            html: `หัก <b>${DOWNLOAD_CREDIT_COST} เครดิต</b> สำหรับดาวน์โหลด<br/><span style="color:#94a3b8;font-size:13px">เครดิตคงเหลือ: ${latestCredits} → ${latestCredits - DOWNLOAD_CREDIT_COST}</span>`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: '✨ ยืนยันดาวน์โหลด',
+            cancelButtonText: 'ยกเลิก',
+            background: '#1e293b',
+            color: '#fff',
+            confirmButtonColor: '#f59e0b',
+            cancelButtonColor: '#ef4444',
+            customClass: { popup: 'rounded-2xl', confirmButton: 'rounded-xl', cancelButton: 'rounded-xl' }
+        });
+
+        if (!confirm.isConfirmed) return;
+
+        // Deduct credits
+        const { error } = await supabase.rpc('deduct_credits', { amount: DOWNLOAD_CREDIT_COST });
+        if (error) {
+            console.error('deduct_credits error:', error);
+            const message = error.message || 'เกิดข้อผิดพลาดในการตัดเครดิต';
+            const looksLikeInsufficient = /insufficient|not\s*enough|เครดิตไม่พอ|ไม่เพียงพอ/i.test(message);
+            const result = await Swal.fire({
+                title: looksLikeInsufficient ? 'เครดิตไม่เพียงพอ' : 'เกิดข้อผิดพลาด',
+                text: looksLikeInsufficient ? 'เครดิตไม่พอสำหรับดาวน์โหลด กดเพื่อเติมเครดิต' : message,
+                icon: looksLikeInsufficient ? 'warning' : 'error',
+                showCancelButton: looksLikeInsufficient,
+                confirmButtonText: looksLikeInsufficient ? 'เติมเครดิต' : 'ตกลง',
+                cancelButtonText: looksLikeInsufficient ? 'ยกเลิก' : undefined,
+                background: '#1e293b',
+                color: '#fff',
+                confirmButtonColor: '#10b981',
+                cancelButtonColor: '#64748b',
+                customClass: { popup: 'rounded-2xl', confirmButton: 'rounded-xl', cancelButton: 'rounded-xl' }
+            });
+            if (looksLikeInsufficient && result.isConfirmed) router.push('/topup');
+            return;
+        }
+
+        // Update local credits and dispatch global event
+        setCredits(latestCredits - DOWNLOAD_CREDIT_COST);
+        window.dispatchEvent(new Event('force_credits_update'));
+
+        // Proceed with download
+        await downloadFn();
+
+        // Show success
+        await Swal.fire({
+            title: 'ดาวน์โหลดสำเร็จ!',
+            text: `หัก ${DOWNLOAD_CREDIT_COST} เครดิตเรียบร้อย`,
+            icon: 'success',
+            timer: 1800,
+            showConfirmButton: false,
+            background: '#1e293b',
+            color: '#fff',
+            customClass: { popup: 'rounded-2xl' }
+        });
+    };
+
+    const handleDownloadPDF = () => handleDownloadWithCredit(doDownloadPDF, 'PDF');
+    const handleDownloadImage = () => handleDownloadWithCredit(doDownloadImage, 'รูปภาพ');
 
     // --- Trigger Buttons ---
     if (!showCertificate) {
@@ -122,10 +271,6 @@ export const CertificateGenerator: React.FC<CertificateGeneratorProps> = ({
     }
 
     // ===== MODAL =====
-    // Header = 36px, Buttons = 52px — reserved. Certificate scrolls in the remaining space.
-    const HEADER_H = 36;
-    const BUTTON_H = 52;
-
     return (
         <div style={{
             position: 'fixed', inset: 0, zIndex: 100,
@@ -282,7 +427,7 @@ export const CertificateGenerator: React.FC<CertificateGeneratorProps> = ({
             }}>
                 <button onClick={handleDownloadPDF} disabled={isGenerating}
                     style={{
-                        flex: 1, height: '32px',
+                        flex: 1, height: '36px',
                         background: 'linear-gradient(135deg, #f59e0b, #ea580c)',
                         color: '#fff', fontWeight: 'bold', fontSize: '11px',
                         border: 'none', borderRadius: '6px', cursor: isGenerating ? 'not-allowed' : 'pointer',
@@ -292,10 +437,17 @@ export const CertificateGenerator: React.FC<CertificateGeneratorProps> = ({
                     }}>
                     {isGenerating ? <Loader2 size={12} className="animate-spin" /> : <Download size={12} />}
                     PDF
+                    <span style={{
+                        fontSize: '9px', padding: '1px 5px',
+                        background: 'rgba(0,0,0,0.25)', borderRadius: '8px',
+                        fontWeight: 600,
+                    }}>
+                        {DOWNLOAD_CREDIT_COST}฿
+                    </span>
                 </button>
                 <button onClick={handleDownloadImage} disabled={isGenerating}
                     style={{
-                        flex: 1, height: '32px',
+                        flex: 1, height: '36px',
                         background: '#1e293b',
                         color: '#cbd5e1', fontWeight: 600, fontSize: '11px',
                         border: '1px solid rgba(255,255,255,0.1)', borderRadius: '6px',
@@ -305,10 +457,17 @@ export const CertificateGenerator: React.FC<CertificateGeneratorProps> = ({
                     }}>
                     {isGenerating ? <Loader2 size={12} className="animate-spin" /> : <Share2 size={12} />}
                     รูปภาพ
+                    <span style={{
+                        fontSize: '9px', padding: '1px 5px',
+                        background: 'rgba(255,255,255,0.08)', borderRadius: '8px',
+                        fontWeight: 600, color: '#94a3b8',
+                    }}>
+                        {DOWNLOAD_CREDIT_COST}฿
+                    </span>
                 </button>
                 <button onClick={() => setShowCertificate(false)}
                     style={{
-                        height: '32px', padding: '0 14px',
+                        height: '36px', padding: '0 14px',
                         background: '#334155',
                         color: '#94a3b8', fontWeight: 600, fontSize: '11px',
                         border: 'none', borderRadius: '6px', cursor: 'pointer',

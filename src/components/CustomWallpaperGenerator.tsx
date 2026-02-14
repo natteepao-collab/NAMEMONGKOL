@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { X, Download, Smartphone, Monitor, Loader2, Sparkles, Crown, Lock, Star, Zap } from 'lucide-react';
-import html2canvas from 'html2canvas';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';
@@ -231,7 +231,7 @@ const calculateLuckyNumbers = (score: number): number[] => {
     if (score >= 80) numbers.push(9, 19);
     else if (score >= 60) numbers.push(6, 24);
     else numbers.push(3, 14);
-    
+
     return [...new Set(numbers)].slice(0, 5);
 };
 
@@ -325,7 +325,7 @@ export const CustomWallpaperGenerator: React.FC<CustomWallpaperGeneratorProps> =
             try {
                 const computedStyle = window.getComputedStyle(el);
                 const stylesToCheck = ['color', 'backgroundColor', 'borderColor', 'borderTopColor', 'borderRightColor', 'borderBottomColor', 'borderLeftColor', 'outlineColor', 'textDecorationColor', 'fill', 'stroke', 'boxShadow', 'textShadow'];
-                
+
                 stylesToCheck.forEach((prop) => {
                     try {
                         const value = computedStyle.getPropertyValue(prop);
@@ -336,7 +336,7 @@ export const CustomWallpaperGenerator: React.FC<CustomWallpaperGeneratorProps> =
                         // Ignore errors for individual properties
                     }
                 });
-                
+
                 // Check background
                 const bg = computedStyle.background;
                 if (bg && (bg.includes('lab(') || bg.includes('oklch(') || bg.includes('oklab('))) {
@@ -357,6 +357,8 @@ export const CustomWallpaperGenerator: React.FC<CustomWallpaperGeneratorProps> =
             await new Promise(resolve => setTimeout(resolve, 300));
 
             const element = wallpaperRef.current;
+
+            const html2canvas = (await import('html2canvas')).default;
 
             const canvas = await html2canvas(element, {
                 scale: 3,
@@ -480,22 +482,20 @@ export const CustomWallpaperGenerator: React.FC<CustomWallpaperGeneratorProps> =
                         <div className="flex justify-center gap-2 bg-black/30 p-1 rounded-xl">
                             <button
                                 onClick={() => setFormat('mobile')}
-                                className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
-                                    format === 'mobile'
-                                        ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/30'
-                                        : 'text-slate-400 hover:text-white hover:bg-white/5'
-                                }`}
+                                className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${format === 'mobile'
+                                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/30'
+                                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                    }`}
                             >
                                 <Smartphone className="w-4 h-4" />
                                 มือถือ (9:16)
                             </button>
                             <button
                                 onClick={() => setFormat('desktop')}
-                                className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
-                                    format === 'desktop'
-                                        ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/30'
-                                        : 'text-slate-400 hover:text-white hover:bg-white/5'
-                                }`}
+                                className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${format === 'desktop'
+                                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/30'
+                                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                    }`}
                             >
                                 <Monitor className="w-4 h-4" />
                                 เดสก์ท็อป (16:9)
@@ -712,7 +712,7 @@ const WallpaperContent = React.forwardRef<HTMLDivElement, WallpaperContentProps>
                         background: theme.bgGradient,
                     }}
                 />
-                
+
                 {/* Sacred Pattern Background - Unique per day */}
                 {getSacredPattern(theme.pattern, theme.primary)}
 
@@ -925,8 +925,8 @@ const WallpaperContent = React.forwardRef<HTMLDivElement, WallpaperContentProps>
 
                         {/* Deity Name with ornate styling - Better contrast */}
                         <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 20 : 15, marginBottom: isMobile ? 12 : 8 }}>
-                            <div style={{ 
-                                fontSize: isMobile ? 26 : 16, 
+                            <div style={{
+                                fontSize: isMobile ? 26 : 16,
                                 color: 'rgba(255,255,255,0.8)',
                             }}>{theme.sacredSymbol}</div>
                             <div style={{ width: isMobile ? 60 : 50, height: 2, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6))' }} />
@@ -942,12 +942,12 @@ const WallpaperContent = React.forwardRef<HTMLDivElement, WallpaperContentProps>
                                 {theme.deity}
                             </div>
                             <div style={{ width: isMobile ? 60 : 50, height: 2, background: 'linear-gradient(90deg, rgba(255,255,255,0.6), transparent)' }} />
-                            <div style={{ 
-                                fontSize: isMobile ? 26 : 16, 
+                            <div style={{
+                                fontSize: isMobile ? 26 : 16,
                                 color: 'rgba(255,255,255,0.8)',
                             }}>{theme.sacredSymbol}</div>
                         </div>
-                        
+
                         {/* Day label with element */}
                         <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 16 : 12 }}>
                             <div
@@ -992,7 +992,7 @@ const WallpaperContent = React.forwardRef<HTMLDivElement, WallpaperContentProps>
                                 background: `radial-gradient(circle, ${theme.primary}15 0%, transparent 50%)`,
                                 borderRadius: '50%',
                             }} />
-                            
+
                             {/* Yantra container with premium styling */}
                             <div
                                 style={{
@@ -1022,7 +1022,7 @@ const WallpaperContent = React.forwardRef<HTMLDivElement, WallpaperContentProps>
                                         boxShadow: `0 0 10px ${theme.primary}`,
                                     }} />
                                 ))}
-                                
+
                                 <div
                                     style={{
                                         fontSize: isMobile ? 90 : 75,
@@ -1160,10 +1160,10 @@ const WallpaperContent = React.forwardRef<HTMLDivElement, WallpaperContentProps>
                             }}
                         >
                             <span style={{ fontSize: isMobile ? 26 : 16 }}>⭐</span>
-                            <span style={{ 
-                                fontSize: isMobile ? 24 : 15, 
+                            <span style={{
+                                fontSize: isMobile ? 24 : 15,
                                 color: '#fde68a',
-                                fontWeight: 700, 
+                                fontWeight: 700,
                                 letterSpacing: '0.1em',
                                 textShadow: '0 2px 10px rgba(0,0,0,0.6)',
                             }}>

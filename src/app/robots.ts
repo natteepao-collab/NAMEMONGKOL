@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
         rules: [
             {
                 userAgent: '*',
-                allow: '/',
+                allow: ['/', '/api/og/*'],
                 disallow: ['/admin/', '/profile/', '/history/', '/api/', '/slip-verification/'],
             },
             // Allow AI crawlers for GEO (Generative Engine Optimization)

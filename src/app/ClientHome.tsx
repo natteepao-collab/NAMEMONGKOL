@@ -8,6 +8,7 @@ import { saveAnalysisResult } from '@/services/analysisService';
 import { checkNirunName } from '@/app/actions/checkNirunName';
 import { InputForm } from '@/components/InputForm';
 import { ResultHeader } from '@/components/ResultHeader';
+import { ResultTotalScoreCard } from '@/components/ResultTotalScoreCard';
 import { PairAnalysisCard } from '@/components/PairAnalysisCard';
 import { ThaksaTable } from '@/components/ThaksaTable';
 import { ShadowPowerCard } from '@/components/ShadowPowerCard';
@@ -188,39 +189,37 @@ function HomeContent() {
                             </button>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-                            {/* Main Score & Ayatana (Left Column - 4 cols) */}
-                            <div className="md:col-span-4 space-y-6">
-                                {/* ส่วนฟรี - แสดงเกรดและผลรวม */}
-                                <ResultHeader result={result} />
-                                
-                                {/* ส่วน Premium - เบลอ ShadowPowerCard และ PredictionCard */}
-                                <PremiumBlurOverlay 
-                                    isLocked={!isPremiumUnlocked}
-                                    creditCost={19}
-                                    featureName="พลังเงา & คำทำนายเชิงลึก"
-                                    onUnlock={() => setIsPremiumUnlocked(true)}
-                                >
-                                    <ShadowPowerCard name={result.name} surname={result.surname} />
-                                    <div className="mt-6">
-                                        <PredictionCard prediction={result.prediction} />
-                                    </div>
-                                </PremiumBlurOverlay>
-                            </div>
+                        {/* Row 1: ผลรวมชื่อ + ผลรวมนามสกุล (2 cols) + ผลรวมชื่อ-สกุล + วิเคราะห์คู่ตัวเลข (2 cols on mobile) */}
+                        <ResultHeader result={result} />
 
-                            {/* Details (Right Column - 8 cols) */}
-                            <div className="md:col-span-8 space-y-6">
-                                <PairAnalysisCard namePairs={result.namePairs} surnamePairs={result.surnamePairs} />
-                                {result.thaksa && <ThaksaTable thaksa={result.thaksa} day={day} />}
-                                
-                                {/* Before & After Comparison - Value Proposition */}
-                                <BeforeAfterComparison 
-                                    currentScore={result.totalScore}
-                                    currentGrade={result.grade}
-                                    currentLevel={result.prediction.level}
-                                />
-                            </div>
+                        {/* ผลรวมชื่อ-สกุล + วิเคราะห์คู่ตัวเลข — side by side always */}
+                        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                            <ResultTotalScoreCard result={result} />
+                            <PairAnalysisCard namePairs={result.namePairs} surnamePairs={result.surnamePairs} />
                         </div>
+
+                        {/* Premium Section */}
+                        <PremiumBlurOverlay
+                            isLocked={!isPremiumUnlocked}
+                            creditCost={19}
+                            featureName="พลังเงา & คำทำนายเชิงลึก"
+                            onUnlock={() => setIsPremiumUnlocked(true)}
+                        >
+                            <ShadowPowerCard name={result.name} surname={result.surname} />
+                            <div className="mt-6">
+                                <PredictionCard prediction={result.prediction} />
+                            </div>
+                        </PremiumBlurOverlay>
+
+                        {/* Details */}
+                        {result.thaksa && <ThaksaTable thaksa={result.thaksa} day={day} />}
+
+                        {/* Before & After Comparison - Value Proposition */}
+                        <BeforeAfterComparison
+                            currentScore={result.totalScore}
+                            currentGrade={result.grade}
+                            currentLevel={result.prediction.level}
+                        />
 
                         <div className="mt-4">
                             <WallpaperUpsell result={result} day={day} />

@@ -26,17 +26,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { path: '/articles', priority: 0.9, changeFreq: 'daily' as const },
         { path: '/login', priority: 0.3, changeFreq: 'monthly' as const },
         { path: '/register', priority: 0.3, changeFreq: 'monthly' as const },
-        { path: '/name-analysis', priority: 0.9, changeFreq: 'weekly' as const },
+        { path: '/name-analysis', priority: 1.0, changeFreq: 'daily' as const }, // High priority tool
         { path: '/phone-analysis', priority: 0.9, changeFreq: 'weekly' as const },
-        { path: '/premium-analysis', priority: 0.8, changeFreq: 'weekly' as const },
+        { path: '/premium-analysis', priority: 0.9, changeFreq: 'weekly' as const },
         { path: '/premium-search', priority: 0.8, changeFreq: 'weekly' as const },
         { path: '/privacy', priority: 0.2, changeFreq: 'yearly' as const },
-        { path: '/reviews', priority: 0.7, changeFreq: 'weekly' as const },
+        { path: '/reviews', priority: 0.8, changeFreq: 'weekly' as const },
         { path: '/search', priority: 0.9, changeFreq: 'daily' as const },
         { path: '/terms', priority: 0.2, changeFreq: 'yearly' as const },
         { path: '/topup', priority: 0.5, changeFreq: 'monthly' as const },
-        { path: '/wallpapers', priority: 0.7, changeFreq: 'weekly' as const },
-    ]
+        { path: '/wallpapers', priority: 0.8, changeFreq: 'daily' as const }, // New designs often
+        { path: '/meaning', priority: 0.8, changeFreq: 'weekly' as const }, // Add meaning index if exists, or just specific names
+    ];
 
     const staticUrls = routes.map((route) => ({
         url: `${baseUrl}${route.path}`,

@@ -29,58 +29,74 @@ export const metadata: Metadata = {
 // Enhanced JSON-LD Schema - Service type for astrology/naming services
 const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Service',
-    'name': 'วิเคราะห์ชื่อมงคลขั้นสูง - NameMongkol Premium Analysis',
-    'alternateName': 'NameMongkol Premium Naming Analysis',
-    'description': 'บริการวิเคราะห์ชื่อมงคลขั้นสูง แม่นยำกว่าด้วยการคำนวณจากวันเดือนปีและเวลาตกฟาก เจาะลึกกราฟชีวิตรายด้าน พร้อมแนวทางแก้เคล็ดเสริมดวง',
-    'provider': {
-        '@type': 'Organization',
-        'name': 'NameMongkol',
-        'url': siteUrl
-    },
-    'serviceType': 'Astrology and Numerology Consultation',
-    'areaServed': 'TH',
-    'url': `${siteUrl}/premium-analysis`,
-    'offers': {
-        '@type': 'Offer',
-        'price': '50',
-        'priceCurrency': 'THB',
-        'description': '50 เครดิตต่อการวิเคราะห์ 1 ครั้ง',
-        'availability': 'https://schema.org/InStock'
-    },
-    'hasOfferCatalog': {
-        '@type': 'OfferCatalog',
-        'name': 'ฟีเจอร์การวิเคราะห์ชื่อมงคลขั้นสูง',
-        'itemListElement': [
-            {
+    '@graph': [
+        {
+            '@type': 'SoftwareApplication',
+            'name': 'NameMongkol Premium Analysis',
+            'applicationCategory': 'LifestyleApplication',
+            'operatingSystem': 'Web',
+            'offers': {
                 '@type': 'Offer',
-                'itemOffered': {
-                    '@type': 'Service',
-                    'name': 'วิเคราะห์ร่วมกับเวลาเกิด (ลัคนาราศี)'
-                }
+                'price': '50',
+                'priceCurrency': 'THB',
+                'description': '50 เครดิตต่อการวิเคราะห์ 1 ครั้ง'
             },
-            {
-                '@type': 'Offer',
-                'itemOffered': {
-                    '@type': 'Service',
-                    'name': 'เจาะลึกเฉพาะด้าน (การเงิน/การงาน/ความรัก/สุขภาพ/อุปถัมภ์)'
-                }
-            },
-            {
-                '@type': 'Offer',
-                'itemOffered': {
-                    '@type': 'Service',
-                    'name': 'คำนวณผลรวมเลขศาสตร์และอักษรกาลกิณี'
-                }
+            'aggregateRating': {
+                '@type': 'AggregateRating',
+                'ratingValue': '4.9',
+                'ratingCount': '234',
+                'bestRating': '5'
             }
-        ]
-    },
-    'aggregateRating': {
-        '@type': 'AggregateRating',
-        'ratingValue': '4.9',
-        'ratingCount': '234',
-        'bestRating': '5'
-    }
+        },
+        {
+            '@type': 'Service',
+            'name': 'วิเคราะห์ชื่อมงคลขั้นสูง - NameMongkol Premium Analysis',
+            'alternateName': 'NameMongkol Premium Naming Analysis',
+            'description': 'บริการวิเคราะห์ชื่อมงคลขั้นสูง แม่นยำกว่าด้วยการคำนวณจากวันเดือนปีและเวลาตกฟาก เจาะลึกกราฟชีวิตรายด้าน พร้อมแนวทางแก้เคล็ดเสริมดวง',
+            'provider': {
+                '@type': 'Organization',
+                'name': 'NameMongkol',
+                'url': siteUrl
+            },
+            'serviceType': 'Astrology and Numerology Consultation',
+            'areaServed': 'TH',
+            'url': `${siteUrl}/premium-analysis`,
+            'offers': {
+                '@type': 'Offer',
+                'price': '50',
+                'priceCurrency': 'THB',
+                'description': '50 เครดิตต่อการวิเคราะห์ 1 ครั้ง',
+                'availability': 'https://schema.org/InStock'
+            },
+            'hasOfferCatalog': {
+                '@type': 'OfferCatalog',
+                'name': 'ฟีเจอร์การวิเคราะห์ชื่อมงคลขั้นสูง',
+                'itemListElement': [
+                    {
+                        '@type': 'Offer',
+                        'itemOffered': {
+                            '@type': 'Service',
+                            'name': 'วิเคราะห์ร่วมกับเวลาเกิด (ลัคนาราศี)'
+                        }
+                    },
+                    {
+                        '@type': 'Offer',
+                        'itemOffered': {
+                            '@type': 'Service',
+                            'name': 'เจาะลึกเฉพาะด้าน (การเงิน/การงาน/ความรัก/สุขภาพ/อุปถัมภ์)'
+                        }
+                    },
+                    {
+                        '@type': 'Offer',
+                        'itemOffered': {
+                            '@type': 'Service',
+                            'name': 'คำนวณผลรวมเลขศาสตร์และอักษรกาลกิณี'
+                        }
+                    }
+                ]
+            }
+        }
+    ]
 };
 
 // FAQ Schema for SEO

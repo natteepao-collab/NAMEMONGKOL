@@ -4,8 +4,8 @@ import { GoogleTagManager } from '@next/third-parties/google'
 import "./globals.css";
 import { LayoutWrapper } from "@/components/LayoutWrapper";
 import { ScrollToTop } from "@/components/ScrollToTop";
-import CookieConsent from "@/components/CookieConsent";
 import { createClient } from '@supabase/supabase-js';
+import CookieConsentWrapper from '@/components/CookieConsentWrapper';
 import Script from 'next/script';
 
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -197,7 +197,7 @@ export default async function RootLayout({
         >
           <LanguageProvider>
             <GoogleTagManager gtmId={gtmId} />
-            <CookieConsent />
+            <CookieConsentWrapper />
 
             {/* Facebook Pixel */}
             {facebookPixelId && (
