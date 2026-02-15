@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Book, Calculator, Calendar, Heart, Infinity as InfinityIcon, Sparkles, ChevronDown, ChevronUp, Table } from 'lucide-react';
+import Image from 'next/image';
 import { thaksaConfig } from '@/data/thaksaConfig';
 import { DayKey } from '@/types';
 import { useLanguage } from './LanguageProvider';
@@ -123,35 +124,15 @@ export const KnowledgeSection: React.FC = () => {
                                     <Table size={20} /> ตารางเทียบค่าตัวเลขอักษรไทย-อังกฤษ
                                 </h4>
 
-                                <div className="overflow-x-auto">
-                                    <table className="w-full text-left border-collapse">
-                                        <thead>
-                                            <tr className="border-b border-white/10 text-slate-400 text-sm md:text-base">
-                                                <th className="p-4 bg-amber-500/10 rounded-tl-xl text-amber-300 font-bold w-24 text-center">ค่าตัวเลข</th>
-                                                <th className="p-4 bg-slate-800/80 font-bold">อักษร สระ วรรณยุกต์ (ไทย)</th>
-                                                <th className="p-4 bg-slate-800/80 rounded-tr-xl font-bold">ภาษาอังกฤษ</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="divide-y divide-white/5 text-slate-300">
-                                            {[
-                                                { val: 1, th: "ก ด ท ถ ภ ฤ ฤๅ สระอา สระอํา สระอุ ไม้เอก", en: "A I J Q Y" },
-                                                { val: 2, th: "ข ช ง บ ป สระอู สระเอ สระแอ ไม้โท", en: "B K R" },
-                                                { val: 3, th: "ฆ ต ฑ ฒ ไม้จัตวา (หรือ ฆ ต ฑ ฒ)", en: "C G L S" },
-                                                { val: 4, th: "ค ธ ร ญ ษ โ สระอะ สระอิ สระอือ", en: "D M T" },
-                                                { val: 5, th: "ฉ ณ ฌ น ม ห ฮ ฬ สระอึ", en: "E H N X" },
-                                                { val: 6, th: "จ ล ว อ สระใอ", en: "U V W" },
-                                                { val: 7, th: "ซ ศ ส สระอี สระอื ไม้ตรี", en: "O Z" },
-                                                { val: 8, th: "ผ ฝ พ ฟ ย ไม้ไต่คู้", en: "F P" },
-                                                { val: 9, th: "ฎ ฏ ไ สระไอ", en: "-" },
-                                            ].map((row, idx) => (
-                                                <tr key={idx} className="hover:bg-white/5 transition-colors">
-                                                    <td className="p-4 text-center font-bold text-white bg-white/5">{row.val}</td>
-                                                    <td className="p-4 font-prompt tracking-wide">{row.th}</td>
-                                                    <td className="p-4 font-mono text-slate-400">{row.en}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+                                <div className="rounded-xl overflow-hidden shadow-lg border border-white/10">
+                                    <Image
+                                        src="/images/thai-numerology-decoding-chart.png"
+                                        alt="ตารางถอดรหัสเลขศาสตร์ อักษรไทย-อังกฤษ สำหรับวิเคราะห์ชื่อมงคล (Thai Numerology Decoding Chart)"
+                                        width={800}
+                                        height={600}
+                                        className="w-full h-auto object-cover"
+                                        title="ตารางเทียบค่าตัวเลขอักษรไทย-อังกฤษ เพื่อวิเคราะห์ชื่อมงคล"
+                                    />
                                 </div>
                             </div>
 
