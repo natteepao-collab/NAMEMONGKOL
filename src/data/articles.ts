@@ -19,6 +19,1005 @@ export interface Article {
 
 export const articles: Article[] = [
     {
+        id: '30',
+        slug: '100-auspicious-women-names-2026',
+        title: '100 ชื่อมงคลผู้หญิง 2569: ทันสมัย ความหมายดี เสริมดวงและบุคลิกให้ดูอินเตอร์',
+        excerpt: 'คัดสรร 100 ชื่อมงคลผู้หญิงที่ทั้งทันสมัย ออกเสียงเป็นสากลได้ง่าย ความหมายดี เสริมดวงชะตาตามหลักเลขศาสตร์และทักษา พร้อมจัดกลุ่มตามบุคลิกและดวงชะตา',
+        coverImage: '/images/articles/100-auspicious-women-names-2026.png',
+        date: '2026-02-16',
+        author: 'อาจารย์ณัฐ (NameMongkol)',
+        category: 'ชื่อมงคล',
+        keywords: [
+            'ชื่อมงคลผู้หญิง', 'ชื่อมงคลผู้หญิง 2569', 'ตั้งชื่อลูกสาว', 'ชื่อมงคล 2026',
+            'ชื่อผู้หญิงความหมายดี', 'ชื่ออินเตอร์ผู้หญิง', 'ชื่อเสริมดวง', 'ชื่อทันสมัยผู้หญิง',
+            'ตั้งชื่อมงคล', 'ชื่อลูกสาวเสริมดวง', 'เปลี่ยนชื่อมงคล', 'ชื่อเพราะๆ ผู้หญิง',
+            'ชื่อมงคลตามวันเกิด', 'เลขศาสตร์ชื่อ', 'ทักษาชื่อ'
+        ],
+        metaTitle: '100 ชื่อมงคลผู้หญิง 2569 ทันสมัย ความหมายดี เสริมดวง | NameMongkol',
+        metaDescription: 'รวม 100 ชื่อมงคลผู้หญิง 2569 คัดสรรมาแล้วว่าทันสมัย ออกเสียงง่าย ความหมายดี เสริมดวงชะตา แบ่งตามบุคลิกและดวง พร้อมเคล็ดลับทักษาและเลขศาสตร์',
+        relatedSlugs: ['lucky-names-for-2026-grade-a-plus', 'micro-analysis-lucky-number-pairs', 'case-study-khemanit-name-analysis'],
+        toc: [
+            { title: 'ทำไมต้องตั้งชื่อมงคลให้ "ทันสมัย"?', id: 'why-modern', level: 2 },
+            { title: 'ชื่อมงคลผู้หญิงแบ่งตามบุคลิกและดวงชะตา', id: 'names-by-personality', level: 2 },
+            { title: 'กลุ่มปัญญาและความฉลาด (The Wise One)', id: 'group-wisdom', level: 2 },
+            { title: 'กลุ่มความมั่งคั่งและโชคลาภ (The Prosperous)', id: 'group-wealth', level: 2 },
+            { title: 'กลุ่มเสน่ห์และความรัก (The Charming)', id: 'group-charm', level: 2 },
+            { title: 'กลุ่มผู้นำและพลังอำนาจ (The Leader)', id: 'group-leader', level: 2 },
+            { title: 'กลุ่มสุขภาพและความสงบ (The Serene)', id: 'group-serene', level: 2 },
+            { title: 'เคล็ดลับทักษาและเลขศาสตร์', id: 'tips-taksa', level: 2 },
+            { title: 'FAQ: คำถามที่พบบ่อย', id: 'faq', level: 2 },
+            { title: 'สรุป', id: 'conclusion', level: 2 },
+        ],
+        content: `
+<div class="space-y-10">
+    <!-- Introduction -->
+    <div>
+        <p class="text-xl text-slate-300 leading-relaxed mb-6">
+            <strong class="text-amber-400">"ชื่อ"</strong> ไม่ได้เป็นเพียงแค่คำเรียกขานตามความเชื่อเท่านั้น แต่คือ <strong>Personal Branding</strong> อย่างหนึ่ง การตั้งชื่อมงคลผู้หญิงในยุคนี้จึงต้อง <strong class="text-emerald-400">"มงคลที่ความหมาย"</strong> และ <strong class="text-cyan-400">"ดูดีที่การออกเสียง"</strong> เพื่อให้ก้าวทันโลกยุคดิจิทัล
+        </p>
+        <p class="text-slate-300 mb-8 leading-relaxed">
+            บทความนี้ <strong class="text-cyan-400">namemongkol.com</strong> ได้คัดสรร <strong class="text-amber-300">100 ชื่อมงคลผู้หญิง</strong> ที่ผ่านการวิเคราะห์มาแล้วว่า ออกเสียงง่าย มีเอกลักษณ์ และส่งเสริมพลังบวกให้กับเจ้าของชื่ออย่างยั่งยืน พร้อมจัดกลุ่มตาม <strong>"บุคลิกและดวงชะตา"</strong> ไม่ใช่เรียงตาม ก-ฮ แบบเดิมๆ!
+        </p>
+    </div>
+
+    <!-- Section: Why Modern? -->
+    <div id="why-modern">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">✨</span> ทำไมต้องตั้งชื่อมงคลให้ "ทันสมัย"?
+        </h2>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            ในอดีตเราอาจเน้นความอลังการของอักขระ แต่ปัจจุบันเทรนด์การตั้งชื่อเปลี่ยนไป โดยเน้น <strong class="text-amber-300">3 หัวใจหลัก:</strong>
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-gradient-to-b from-cyan-900/20 to-slate-900/80 p-6 rounded-2xl border border-cyan-500/20 hover:-translate-y-1 transition-transform duration-300">
+                <span class="text-4xl mb-4 block">🌍</span>
+                <h3 class="text-xl font-bold text-cyan-400 mb-2">Global Phonetics</h3>
+                <p class="text-slate-300 text-sm">ออกเสียงเป็นภาษาอังกฤษได้ง่าย ไม่ซับซ้อน ใช้ได้ทั้งในไทยและต่างประเทศ</p>
+            </div>
+            <div class="bg-gradient-to-b from-emerald-900/20 to-slate-900/80 p-6 rounded-2xl border border-emerald-500/20 hover:-translate-y-1 transition-transform duration-300">
+                <span class="text-4xl mb-4 block">🍀</span>
+                <h3 class="text-xl font-bold text-emerald-400 mb-2">Auspicious Meaning</h3>
+                <p class="text-slate-300 text-sm">ความหมายต้องสื่อถึงพลังงานบวก เช่น ความสุข, ปัญญา, หรือความรุ่งเรือง</p>
+            </div>
+            <div class="bg-gradient-to-b from-pink-900/20 to-slate-900/80 p-6 rounded-2xl border border-pink-500/20 hover:-translate-y-1 transition-transform duration-300">
+                <span class="text-4xl mb-4 block">🎵</span>
+                <h3 class="text-xl font-bold text-pink-400 mb-2">Aesthetic Sound</h3>
+                <p class="text-slate-300 text-sm">โทนเสียงของชื่อต้องฟังแล้วดูอบอุ่นหรือมีความมั่นใจ (Psychology of Sound)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section: Names by Personality -->
+    <div id="names-by-personality">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">💎</span> คัดมาให้แล้ว! ชื่อมงคลผู้หญิงแบ่งตาม "บุคลิกและดวงชะตา"
+        </h2>
+        <p class="text-slate-300 mb-8 leading-relaxed">
+            แทนที่จะเรียงตาม ก-ฮ แบบเว็บอื่น เราจัดกลุ่มตาม <strong class="text-amber-300">"Vibe"</strong> ที่คุณอยากให้เจ้าของชื่อเป็น ซึ่งตรงใจคนยุคใหม่มากกว่า!
+        </p>
+
+        <div class="overflow-x-auto rounded-xl border border-slate-700 shadow-xl bg-slate-900/60 mb-10">
+            <table class="w-full text-left text-slate-300">
+                <thead class="bg-gradient-to-r from-amber-900/50 to-slate-800 text-amber-300 uppercase text-sm font-bold">
+                    <tr>
+                        <th class="px-5 py-4">ชื่อ (Thai)</th>
+                        <th class="px-5 py-4">ชื่อ (English)</th>
+                        <th class="px-5 py-4">ความหมาย</th>
+                        <th class="px-5 py-4">เสริมด้าน</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr class="hover:bg-slate-800/50 transition-colors"><td class="px-5 py-3 font-bold text-white">นลิน</td><td class="px-5 py-3">Nalin</td><td class="px-5 py-3">ดอกบัว, ความบริสุทธิ์</td><td class="px-5 py-3 text-pink-300">เมตตามหานิยม, ความสงบ</td></tr>
+                    <tr class="hover:bg-slate-800/50 transition-colors"><td class="px-5 py-3 font-bold text-white">อลิส</td><td class="px-5 py-3">Alis</td><td class="px-5 py-3">ผู้มีเกียรติ</td><td class="px-5 py-3 text-purple-300">บารมี, ความมั่นใจ</td></tr>
+                    <tr class="hover:bg-slate-800/50 transition-colors"><td class="px-5 py-3 font-bold text-white">ดาริน</td><td class="px-5 py-3">Darin</td><td class="px-5 py-3">ดวงดาวที่ยิ่งใหญ่</td><td class="px-5 py-3 text-amber-300">ชื่อเสียง, ความสำเร็จ</td></tr>
+                    <tr class="hover:bg-slate-800/50 transition-colors"><td class="px-5 py-3 font-bold text-white">พริมา</td><td class="px-5 py-3">Prima</td><td class="px-5 py-3">ผู้เป็นหนึ่ง, ยอดเยี่ยม</td><td class="px-5 py-3 text-emerald-300">การงาน, ผู้นำ</td></tr>
+                    <tr class="hover:bg-slate-800/50 transition-colors"><td class="px-5 py-3 font-bold text-white">เมญ่า</td><td class="px-5 py-3">Maya</td><td class="px-5 py-3">ความรัก, เมตตา</td><td class="px-5 py-3 text-pink-300">ความรัก, มนุษยสัมพันธ์</td></tr>
+                    <tr class="hover:bg-slate-800/50 transition-colors"><td class="px-5 py-3 font-bold text-white">ธีรา</td><td class="px-5 py-3">Theera</td><td class="px-5 py-3">นักปราชญ์, ผู้มีปัญญา</td><td class="px-5 py-3 text-cyan-300">สติปัญญา, การเรียน</td></tr>
+                    <tr class="hover:bg-slate-800/50 transition-colors"><td class="px-5 py-3 font-bold text-white">ลลิน</td><td class="px-5 py-3">Lalin</td><td class="px-5 py-3">พระจันทร์</td><td class="px-5 py-3 text-emerald-300">ความเย็นใจ, ทรัพย์สิน</td></tr>
+                    <tr class="hover:bg-slate-800/50 transition-colors"><td class="px-5 py-3 font-bold text-white">รดา</td><td class="px-5 py-3">Rada</td><td class="px-5 py-3">ผู้มีความยินดี, รุ่งเรือง</td><td class="px-5 py-3 text-amber-300">โชคลาภ, การเงิน</td></tr>
+                </tbody>
+            </table>
+        </div>
+    
+<!-- Part 2: Detailed Name Groups -->
+
+<!-- Group 1: Wisdom -->
+<div id="group-wisdom">
+    <h2 class="text-2xl font-bold text-cyan-400 mt-16 mb-6 flex items-center gap-3">
+        <span class="text-3xl">🧠</span> กลุ่มที่ 1: ปัญญาและความฉลาด (The Wise One)
+    </h2>
+    <p class="text-slate-300 mb-6 leading-relaxed">สำหรับพ่อแม่หรือคนที่ต้องการเสริมดวงด้าน <strong
+            class="text-cyan-300">การเรียน สติปัญญา และการแก้ปัญหา</strong></p>
+    <div class="overflow-x-auto rounded-xl border border-cyan-500/20 shadow-xl bg-slate-900/60 mb-8">
+        <table class="w-full text-left text-slate-300 text-sm">
+            <thead class="bg-gradient-to-r from-cyan-900/50 to-slate-800 text-cyan-300 uppercase text-xs font-bold">
+                <tr>
+                    <th class="px-4 py-3">ชื่อ</th>
+                    <th class="px-4 py-3">English</th>
+                    <th class="px-4 py-3">ความหมาย</th>
+                    <th class="px-4 py-3">วันเกิดที่เหมาะ</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700/50">
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ญานิน</td>
+                    <td class="px-4 py-3">Yanin</td>
+                    <td class="px-4 py-3">ผู้มีความรู้</td>
+                    <td class="px-4 py-3 text-xs">อังคาร, พุธ</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ธีรา</td>
+                    <td class="px-4 py-3">Theera</td>
+                    <td class="px-4 py-3">นักปราชญ์, ผู้มีปัญญา</td>
+                    <td class="px-4 py-3 text-xs">พุธ, พฤหัส</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">มนิน</td>
+                    <td class="px-4 py-3">Manin</td>
+                    <td class="px-4 py-3">ผู้มีใจฉลาด</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, พฤหัส</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ปรียาภัทร</td>
+                    <td class="px-4 py-3">Preeyapat</td>
+                    <td class="px-4 py-3">ผู้เป็นที่รักและดีงาม</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">เมธาวี</td>
+                    <td class="px-4 py-3">Methawee</td>
+                    <td class="px-4 py-3">ผู้มีปัญญายิ่ง</td>
+                    <td class="px-4 py-3 text-xs">พุธ, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ภัทรวดี</td>
+                    <td class="px-4 py-3">Pattrawadee</td>
+                    <td class="px-4 py-3">หญิงผู้มีความเจริญ</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">วิชญาดา</td>
+                    <td class="px-4 py-3">Wichayada</td>
+                    <td class="px-4 py-3">ผู้มีความรู้สูง</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ชญานิน</td>
+                    <td class="px-4 py-3">Chayanin</td>
+                    <td class="px-4 py-3">ผู้มีปัญญาเฉียบแหลม</td>
+                    <td class="px-4 py-3 text-xs">อังคาร, พุธ</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ปัณณิกา</td>
+                    <td class="px-4 py-3">Pannika</td>
+                    <td class="px-4 py-3">ผู้เปี่ยมด้วยปัญญา</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">อภิชญา</td>
+                    <td class="px-4 py-3">Apichaya</td>
+                    <td class="px-4 py-3">ความรู้อันยิ่งใหญ่</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, พฤหัส</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">กมลพิชญ์</td>
+                    <td class="px-4 py-3">Kamonphit</td>
+                    <td class="px-4 py-3">ใจนักปราชญ์</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ณิชากร</td>
+                    <td class="px-4 py-3">Nichakorn</td>
+                    <td class="px-4 py-3">บ่อเกิดแห่งสิ่งบริสุทธิ์</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">พิชญ์สินี</td>
+                    <td class="px-4 py-3">Phitsinee</td>
+                    <td class="px-4 py-3">หญิงงามผู้มีปัญญา</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ณัฐกฤตา</td>
+                    <td class="px-4 py-3">Natkrita</td>
+                    <td class="px-4 py-3">ผู้สร้างให้เป็นนักปราชญ์</td>
+                    <td class="px-4 py-3 text-xs">เสาร์, จันทร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ชญานุตม์</td>
+                    <td class="px-4 py-3">Chayanut</td>
+                    <td class="px-4 py-3">ผู้มีความรู้สูงสุด</td>
+                    <td class="px-4 py-3 text-xs">อังคาร, พุธ</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">อรวรรยา</td>
+                    <td class="px-4 py-3">Onwanya</td>
+                    <td class="px-4 py-3">หญิงงามผู้ประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, พุธ(กลางคืน)</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ปวริศา</td>
+                    <td class="px-4 py-3">Pawarisa</td>
+                    <td class="px-4 py-3">ผู้ประเสริฐยิ่ง</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ปัญยาพร</td>
+                    <td class="px-4 py-3">Panyaporn</td>
+                    <td class="px-4 py-3">ปัญญาอันประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ปริยาภัทร</td>
+                    <td class="px-4 py-3">Pariyapat</td>
+                    <td class="px-4 py-3">ผู้เป็นที่รักอันประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">กัญญ์วรา</td>
+                    <td class="px-4 py-3">Kanwara</td>
+                    <td class="px-4 py-3">หญิงสาวผู้ประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, ศุกร์</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Group 2: Wealth -->
+<div id="group-wealth">
+    <h2 class="text-2xl font-bold text-emerald-400 mt-16 mb-6 flex items-center gap-3">
+        <span class="text-3xl">💰</span> กลุ่มที่ 2: ความมั่งคั่งและโชคลาภ (The Prosperous)
+    </h2>
+    <p class="text-slate-300 mb-6 leading-relaxed">เหมาะสำหรับผู้หญิงสายธุรกิจ หรือต้องการ <strong
+            class="text-emerald-300">เสริมดวงการเงินและโชคลาภ</strong></p>
+    <div class="overflow-x-auto rounded-xl border border-emerald-500/20 shadow-xl bg-slate-900/60 mb-8">
+        <table class="w-full text-left text-slate-300 text-sm">
+            <thead
+                class="bg-gradient-to-r from-emerald-900/50 to-slate-800 text-emerald-300 uppercase text-xs font-bold">
+                <tr>
+                    <th class="px-4 py-3">ชื่อ</th>
+                    <th class="px-4 py-3">English</th>
+                    <th class="px-4 py-3">ความหมาย</th>
+                    <th class="px-4 py-3">วันเกิดที่เหมาะ</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700/50">
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">รดา</td>
+                    <td class="px-4 py-3">Rada</td>
+                    <td class="px-4 py-3">ผู้มีความยินดี, รุ่งเรือง</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ลลิน</td>
+                    <td class="px-4 py-3">Lalin</td>
+                    <td class="px-4 py-3">พระจันทร์, ทรัพย์สิน</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ธรินดา</td>
+                    <td class="px-4 py-3">Tarinda</td>
+                    <td class="px-4 py-3">ผู้ถือไว้ซึ่งโชคลาภ</td>
+                    <td class="px-4 py-3 text-xs">พุธ, เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ทิพย์สุดา</td>
+                    <td class="px-4 py-3">Thipsuda</td>
+                    <td class="px-4 py-3">หญิงสาวจากสรวงสวรรค์</td>
+                    <td class="px-4 py-3 text-xs">เสาร์, พฤหัส</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">กนกวรรณ</td>
+                    <td class="px-4 py-3">Kanokwan</td>
+                    <td class="px-4 py-3">ผิวพรรณดุจทองคำ</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ศิริลักษณ์</td>
+                    <td class="px-4 py-3">Sirilak</td>
+                    <td class="px-4 py-3">ผู้มีลักษณะดีอันเป็นสิริ</td>
+                    <td class="px-4 py-3 text-xs">ศุกร์, อาทิตย์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">อัญชิสา</td>
+                    <td class="px-4 py-3">Anchisa</td>
+                    <td class="px-4 py-3">ผู้มีอำนาจเหนือผู้อื่น</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">สิริยากร</td>
+                    <td class="px-4 py-3">Siriyakorn</td>
+                    <td class="px-4 py-3">บ่อเกิดแห่งสิริมงคล</td>
+                    <td class="px-4 py-3 text-xs">ศุกร์, อาทิตย์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">มณีรินทร์</td>
+                    <td class="px-4 py-3">Maneerin</td>
+                    <td class="px-4 py-3">แก้วมณีอันยิ่งใหญ่</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, พฤหัส</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">รมิดา</td>
+                    <td class="px-4 py-3">Ramida</td>
+                    <td class="px-4 py-3">ผู้รื่นรมย์, มีความสุข</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ลักษิกา</td>
+                    <td class="px-4 py-3">Laksika</td>
+                    <td class="px-4 py-3">ผู้มีเครื่องหมายอันประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ธนัชพร</td>
+                    <td class="px-4 py-3">Thanatporn</td>
+                    <td class="px-4 py-3">เกิดมาเพื่อทรัพย์สินอันประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">เสาร์, พุธ</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">พิมพ์มาดา</td>
+                    <td class="px-4 py-3">Pimmada</td>
+                    <td class="px-4 py-3">แม่แบบแห่งความงดงาม</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ชลิตา</td>
+                    <td class="px-4 py-3">Chalita</td>
+                    <td class="px-4 py-3">ผู้รุ่งเรืองแล้ว</td>
+                    <td class="px-4 py-3 text-xs">อังคาร, เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">กรวรรณ</td>
+                    <td class="px-4 py-3">Kornwan</td>
+                    <td class="px-4 py-3">มีผิวพรรณงดงาม</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">พรรณวรท</td>
+                    <td class="px-4 py-3">Panwarot</td>
+                    <td class="px-4 py-3">ให้พรคือผิวพรรณงาม</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">จิรัชญา</td>
+                    <td class="px-4 py-3">Jiratchaya</td>
+                    <td class="px-4 py-3">ผู้มีความรู้ยั่งยืน</td>
+                    <td class="px-4 py-3 text-xs">อังคาร, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ณัฐธิดา</td>
+                    <td class="px-4 py-3">Nattida</td>
+                    <td class="px-4 py-3">ลูกสาวของนักปราชญ์</td>
+                    <td class="px-4 py-3 text-xs">เสาร์, จันทร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">อริสรา</td>
+                    <td class="px-4 py-3">Arisara</td>
+                    <td class="px-4 py-3">ยอดเยี่ยมที่สุด</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ภาวิดา</td>
+                    <td class="px-4 py-3">Pawida</td>
+                    <td class="px-4 py-3">ผู้สุกใส, เจริญรุ่งเรือง</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Group 3: Charm -->
+<div id="group-charm">
+    <h2 class="text-2xl font-bold text-pink-400 mt-16 mb-6 flex items-center gap-3">
+        <span class="text-3xl">💕</span> กลุ่มที่ 3: เสน่ห์และความรัก (The Charming)
+    </h2>
+    <p class="text-slate-300 mb-6 leading-relaxed">เสริม <strong class="text-pink-300">เมตตามหานิยม ความรักที่ดี
+            และมนุษยสัมพันธ์</strong></p>
+    <div class="overflow-x-auto rounded-xl border border-pink-500/20 shadow-xl bg-slate-900/60 mb-8">
+        <table class="w-full text-left text-slate-300 text-sm">
+            <thead class="bg-gradient-to-r from-pink-900/50 to-slate-800 text-pink-300 uppercase text-xs font-bold">
+                <tr>
+                    <th class="px-4 py-3">ชื่อ</th>
+                    <th class="px-4 py-3">English</th>
+                    <th class="px-4 py-3">ความหมาย</th>
+                    <th class="px-4 py-3">วันเกิดที่เหมาะ</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700/50">
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">นลิน</td>
+                    <td class="px-4 py-3">Nalin</td>
+                    <td class="px-4 py-3">ดอกบัว, ความบริสุทธิ์</td>
+                    <td class="px-4 py-3 text-xs">เสาร์, พุธ</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">เมญ่า</td>
+                    <td class="px-4 py-3">Maya</td>
+                    <td class="px-4 py-3">ความรัก, เมตตา</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">กชมน</td>
+                    <td class="px-4 py-3">Kotchamon</td>
+                    <td class="px-4 py-3">ใจประเสริฐเหมือนดอกบัว</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, จันทร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">นาราภัทร</td>
+                    <td class="px-4 py-3">Narapat</td>
+                    <td class="px-4 py-3">รัศมีอันงดงาม</td>
+                    <td class="px-4 py-3 text-xs">เสาร์, พุธ</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">มัณฑิตา</td>
+                    <td class="px-4 py-3">Mantita</td>
+                    <td class="px-4 py-3">ประดับตกแต่งแล้ว</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, พฤหัส</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">จริยา</td>
+                    <td class="px-4 py-3">Jariya</td>
+                    <td class="px-4 py-3">กิริยาเพียบพร้อม</td>
+                    <td class="px-4 py-3 text-xs">อังคาร, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ชาคริยา</td>
+                    <td class="px-4 py-3">Chakriya</td>
+                    <td class="px-4 py-3">ผู้มีความเพียร</td>
+                    <td class="px-4 py-3 text-xs">อังคาร, พฤหัส</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ปุณยาพร</td>
+                    <td class="px-4 py-3">Punyaporn</td>
+                    <td class="px-4 py-3">บุญอันประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ณิชาภัทร</td>
+                    <td class="px-4 py-3">Nichapat</td>
+                    <td class="px-4 py-3">บริสุทธิ์และดีงาม</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">กัญญาวีร์</td>
+                    <td class="px-4 py-3">Kanyawee</td>
+                    <td class="px-4 py-3">หญิงสาวผู้กล้าหาญ</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, พุธ(กลางคืน)</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">อชิรญา</td>
+                    <td class="px-4 py-3">Achiraya</td>
+                    <td class="px-4 py-3">รู้ได้อย่างรวดเร็ว</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">จรัสศรี</td>
+                    <td class="px-4 py-3">Jarassri</td>
+                    <td class="px-4 py-3">ผู้รุ่งเรืองด้วยศรี</td>
+                    <td class="px-4 py-3 text-xs">อังคาร, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">กนกพร</td>
+                    <td class="px-4 py-3">Kanokporn</td>
+                    <td class="px-4 py-3">ทองประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">เขมจิรา</td>
+                    <td class="px-4 py-3">Khemjira</td>
+                    <td class="px-4 py-3">มีความปลอดภัยตลอดกาล</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, พุธ</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ขจีพร</td>
+                    <td class="px-4 py-3">Khajeeporn</td>
+                    <td class="px-4 py-3">ผู้ประเสริฐงาม</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, พุธ</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">พิชชาพร</td>
+                    <td class="px-4 py-3">Pitchaporn</td>
+                    <td class="px-4 py-3">ความรู้อันประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">วรัญญา</td>
+                    <td class="px-4 py-3">Waranya</td>
+                    <td class="px-4 py-3">ผู้รู้สิ่งประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">รินรดา</td>
+                    <td class="px-4 py-3">Rinrada</td>
+                    <td class="px-4 py-3">ผู้ไหลล้นด้วยความยินดี</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ภิญญาพัชญ์</td>
+                    <td class="px-4 py-3">Pinyapat</td>
+                    <td class="px-4 py-3">ผู้เจริญด้วยปัญญา</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">อรณิชา</td>
+                    <td class="px-4 py-3">Onnicha</td>
+                    <td class="px-4 py-3">หญิงงามผู้บริสุทธิ์</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, ศุกร์</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Part 3: Leader + Serene Groups + Tips + FAQ + Conclusion -->
+
+<!-- Group 4: Leader -->
+<div id="group-leader">
+    <h2 class="text-2xl font-bold text-purple-400 mt-16 mb-6 flex items-center gap-3">
+        <span class="text-3xl">👑</span> กลุ่มที่ 4: ผู้นำและพลังอำนาจ (The Leader)
+    </h2>
+    <p class="text-slate-300 mb-6 leading-relaxed">เหมาะกับผู้ที่ต้องการ <strong class="text-purple-300">บารมี
+            ความก้าวหน้า และเป็นที่ยอมรับ</strong></p>
+    <div class="overflow-x-auto rounded-xl border border-purple-500/20 shadow-xl bg-slate-900/60 mb-8">
+        <table class="w-full text-left text-slate-300 text-sm">
+            <thead class="bg-gradient-to-r from-purple-900/50 to-slate-800 text-purple-300 uppercase text-xs font-bold">
+                <tr>
+                    <th class="px-4 py-3">ชื่อ</th>
+                    <th class="px-4 py-3">English</th>
+                    <th class="px-4 py-3">ความหมาย</th>
+                    <th class="px-4 py-3">วันเกิดที่เหมาะ</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700/50">
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">อลิส</td>
+                    <td class="px-4 py-3">Alis</td>
+                    <td class="px-4 py-3">ผู้มีเกียรติ</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">พริมา</td>
+                    <td class="px-4 py-3">Prima</td>
+                    <td class="px-4 py-3">ผู้เป็นหนึ่ง, ยอดเยี่ยม</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ดาริน</td>
+                    <td class="px-4 py-3">Darin</td>
+                    <td class="px-4 py-3">ดวงดาวที่ยิ่งใหญ่</td>
+                    <td class="px-4 py-3 text-xs">เสาร์, พุธ</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">วรินทร์</td>
+                    <td class="px-4 py-3">Warin</td>
+                    <td class="px-4 py-3">ผู้เป็นใหญ่อันประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ภัทรภร</td>
+                    <td class="px-4 py-3">Pattaraporn</td>
+                    <td class="px-4 py-3">ผู้ค้ำจุนสิ่งประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ธัญชนก</td>
+                    <td class="px-4 py-3">Thanchanok</td>
+                    <td class="px-4 py-3">ผู้ให้กำเนิดสิ่งประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">เสาร์, อังคาร</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">อภิสรา</td>
+                    <td class="px-4 py-3">Apisara</td>
+                    <td class="px-4 py-3">ผู้เป็นใหญ่เหนือทุกสิ่ง</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">พัชรวลัย</td>
+                    <td class="px-4 py-3">Patcharawalai</td>
+                    <td class="px-4 py-3">กำไลเพชร</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">กรภัทร์</td>
+                    <td class="px-4 py-3">Kornpat</td>
+                    <td class="px-4 py-3">มีโชคในการกระทำ</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ชญาดา</td>
+                    <td class="px-4 py-3">Chayada</td>
+                    <td class="px-4 py-3">ผู้มีปัญญาสูง</td>
+                    <td class="px-4 py-3 text-xs">อังคาร, เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">กัญญ์นลิน</td>
+                    <td class="px-4 py-3">Kannalin</td>
+                    <td class="px-4 py-3">หญิงสาวดุจดอกบัว</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ปุณณดา</td>
+                    <td class="px-4 py-3">Punnada</td>
+                    <td class="px-4 py-3">ผู้ให้ความเต็มเปี่ยม</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ธนพร</td>
+                    <td class="px-4 py-3">Thanaporn</td>
+                    <td class="px-4 py-3">ทรัพย์อันประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">เสาร์, พุธ</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">พิมพ์ลภัส</td>
+                    <td class="px-4 py-3">Pimlapat</td>
+                    <td class="px-4 py-3">รูปร่างอันเป็นลาภ</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">กัญญ์วรา</td>
+                    <td class="px-4 py-3">Kanwara</td>
+                    <td class="px-4 py-3">หญิงสาวผู้ประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ศุภิสรา</td>
+                    <td class="px-4 py-3">Supisara</td>
+                    <td class="px-4 py-3">ผู้ดีงามและเป็นใหญ่</td>
+                    <td class="px-4 py-3 text-xs">ศุกร์, อาทิตย์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">อนัญญา</td>
+                    <td class="px-4 py-3">Ananya</td>
+                    <td class="px-4 py-3">ผู้ไม่มีใครเสมอเหมือน</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ลภัสรดา</td>
+                    <td class="px-4 py-3">Lapatsarada</td>
+                    <td class="px-4 py-3">ผู้ยินดีในลาภ</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ณัฐชา</td>
+                    <td class="px-4 py-3">Natcha</td>
+                    <td class="px-4 py-3">เกิดจากนักปราชญ์</td>
+                    <td class="px-4 py-3 text-xs">เสาร์, จันทร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">พรปวีณ์</td>
+                    <td class="px-4 py-3">Pornpawee</td>
+                    <td class="px-4 py-3">ผู้ชำนาญอันประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Group 5: Serene -->
+<div id="group-serene">
+    <h2 class="text-2xl font-bold text-teal-400 mt-16 mb-6 flex items-center gap-3">
+        <span class="text-3xl">🌿</span> กลุ่มที่ 5: สุขภาพและความสงบ (The Serene)
+    </h2>
+    <p class="text-slate-300 mb-6 leading-relaxed">เสริม <strong class="text-teal-300">ความสงบ สุขภาพดี
+            และจิตใจที่ผ่องใส</strong></p>
+    <div class="overflow-x-auto rounded-xl border border-teal-500/20 shadow-xl bg-slate-900/60 mb-8">
+        <table class="w-full text-left text-slate-300 text-sm">
+            <thead class="bg-gradient-to-r from-teal-900/50 to-slate-800 text-teal-300 uppercase text-xs font-bold">
+                <tr>
+                    <th class="px-4 py-3">ชื่อ</th>
+                    <th class="px-4 py-3">English</th>
+                    <th class="px-4 py-3">ความหมาย</th>
+                    <th class="px-4 py-3">วันเกิดที่เหมาะ</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-700/50">
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ปริมล</td>
+                    <td class="px-4 py-3">Primon</td>
+                    <td class="px-4 py-3">กลิ่นหอม, ความสดชื่น</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">สุชาดา</td>
+                    <td class="px-4 py-3">Suchada</td>
+                    <td class="px-4 py-3">ผู้เกิดมาดี</td>
+                    <td class="px-4 py-3 text-xs">ศุกร์, อาทิตย์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">อนงค์นาฏ</td>
+                    <td class="px-4 py-3">Anongnat</td>
+                    <td class="px-4 py-3">หญิงงามดุจนางในวรรณคดี</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">รมิตา</td>
+                    <td class="px-4 py-3">Ramita</td>
+                    <td class="px-4 py-3">ผู้รื่นรมย์, มีความสุข</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ธิดาพร</td>
+                    <td class="px-4 py-3">Thidaporn</td>
+                    <td class="px-4 py-3">ลูกสาวผู้ประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">เสาร์, พฤหัส</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">แพรวา</td>
+                    <td class="px-4 py-3">Praewa</td>
+                    <td class="px-4 py-3">ผ้าแพรงดงาม</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">มนัสนันท์</td>
+                    <td class="px-4 py-3">Manasanan</td>
+                    <td class="px-4 py-3">ใจเป็นสุข</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">สิริกัญญา</td>
+                    <td class="px-4 py-3">Sirikanya</td>
+                    <td class="px-4 py-3">หญิงผู้เป็นสิริ</td>
+                    <td class="px-4 py-3 text-xs">ศุกร์, จันทร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ปิยกานต์</td>
+                    <td class="px-4 py-3">Piyakan</td>
+                    <td class="px-4 py-3">ผู้เป็นที่รักยิ่ง</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ณัฐนิชา</td>
+                    <td class="px-4 py-3">Natnicha</td>
+                    <td class="px-4 py-3">นักปราชญ์ผู้บริสุทธิ์</td>
+                    <td class="px-4 py-3 text-xs">เสาร์, จันทร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">จรรยพร</td>
+                    <td class="px-4 py-3">Janyaporn</td>
+                    <td class="px-4 py-3">ความประพฤติดี ประเสริฐ</td>
+                    <td class="px-4 py-3 text-xs">อังคาร, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ปภาวรินทร์</td>
+                    <td class="px-4 py-3">Papawarin</td>
+                    <td class="px-4 py-3">แสงสว่างอันยิ่งใหญ่</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, พุธ(กลางคืน)</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">อัญชิสา</td>
+                    <td class="px-4 py-3">Anchisa</td>
+                    <td class="px-4 py-3">ผู้มีอำนาจอันยิ่งใหญ่</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">พิชามญชุ์</td>
+                    <td class="px-4 py-3">Phichamonchu</td>
+                    <td class="px-4 py-3">ดอกมะลิงาม</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, อังคาร</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ศศิกานต์</td>
+                    <td class="px-4 py-3">Sasikan</td>
+                    <td class="px-4 py-3">ผู้เป็นที่รักดุจดวงจันทร์</td>
+                    <td class="px-4 py-3 text-xs">ศุกร์, อาทิตย์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">อธิญา</td>
+                    <td class="px-4 py-3">Athiya</td>
+                    <td class="px-4 py-3">ผู้มีความรู้ดียิ่ง</td>
+                    <td class="px-4 py-3 text-xs">อาทิตย์, ศุกร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ปณิดา</td>
+                    <td class="px-4 py-3">Panida</td>
+                    <td class="px-4 py-3">ผู้ได้รับการสรรเสริญ</td>
+                    <td class="px-4 py-3 text-xs">พฤหัส, จันทร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">ณิชชา</td>
+                    <td class="px-4 py-3">Nitcha</td>
+                    <td class="px-4 py-3">ผู้บริสุทธิ์</td>
+                    <td class="px-4 py-3 text-xs">พุธ(กลางคืน), เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">สุวภัทร</td>
+                    <td class="px-4 py-3">Suwapat</td>
+                    <td class="px-4 py-3">ดีงามยิ่ง</td>
+                    <td class="px-4 py-3 text-xs">ศุกร์, เสาร์</td>
+                </tr>
+                <tr class="hover:bg-slate-800/50">
+                    <td class="px-4 py-3 font-bold text-white">กานต์ธิดา</td>
+                    <td class="px-4 py-3">Kanthida</td>
+                    <td class="px-4 py-3">ลูกสาวผู้เป็นที่รัก</td>
+                    <td class="px-4 py-3 text-xs">จันทร์, เสาร์</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Tips Section -->
+<div id="tips-taksa">
+    <h2 class="text-2xl font-bold text-amber-400 mt-16 mb-6 flex items-center gap-3">
+        <span class="text-3xl">🔑</span> เคล็ดลับจากผู้เชี่ยวชาญ: ตั้งชื่ออย่างไรให้ถูกหลัก "ทักษา" และ "เลขศาสตร์"
+    </h2>
+    <p class="text-slate-300 mb-6 leading-relaxed">
+        การตั้งชื่อที่ <strong class="text-cyan-400">namemongkol.com</strong> แนะนำ ไม่ใช่แค่ความหมายดี แต่ต้องตรวจเช็ก
+        <strong class="text-amber-300">"ตัวกาลกิณี"</strong> ตามวันเกิดด้วย
+    </p>
+    <div class="bg-slate-800/40 border border-amber-500/20 rounded-xl p-6 mb-8">
+        <h4 class="text-lg font-bold text-white mb-4">ตารางอักษรกาลกิณีที่ต้องหลีกเลี่ยง</h4>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left text-slate-300">
+                <thead class="bg-slate-900/50 text-amber-300 font-bold">
+                    <tr>
+                        <th class="p-3">วันเกิด</th>
+                        <th class="p-3">อักษรมงคล ✅</th>
+                        <th class="p-3">อักษรกาลกิณี ❌</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr>
+                        <td class="p-3 font-semibold text-white">วันอาทิตย์</td>
+                        <td class="p-3">สระทั้งหมด</td>
+                        <td class="p-3 text-red-400">ศ ษ ส ห ฬ ฮ</td>
+                    </tr>
+                    <tr>
+                        <td class="p-3 font-semibold text-white">วันจันทร์</td>
+                        <td class="p-3">ก ข ค ฆ ง</td>
+                        <td class="p-3 text-red-400">สระทั้งหมด</td>
+                    </tr>
+                    <tr>
+                        <td class="p-3 font-semibold text-white">วันอังคาร</td>
+                        <td class="p-3">จ ฉ ช ซ ฌ ญ</td>
+                        <td class="p-3 text-red-400">ก ข ค ฆ ง</td>
+                    </tr>
+                    <tr>
+                        <td class="p-3 font-semibold text-white">วันพุธ (กลางวัน)</td>
+                        <td class="p-3">ฎ ฏ ฐ ฑ ฒ ณ</td>
+                        <td class="p-3 text-red-400">จ ฉ ช ซ ฌ ญ</td>
+                    </tr>
+                    <tr>
+                        <td class="p-3 font-semibold text-white">วันพฤหัสบดี</td>
+                        <td class="p-3">บ ป ผ ฝ พ ฟ ภ ม</td>
+                        <td class="p-3 text-red-400">ด ต ถ ท ธ น</td>
+                    </tr>
+                    <tr>
+                        <td class="p-3 font-semibold text-white">วันศุกร์</td>
+                        <td class="p-3">ศ ษ ส ห ฬ ฮ</td>
+                        <td class="p-3 text-red-400">ย ร ล ว</td>
+                    </tr>
+                    <tr>
+                        <td class="p-3 font-semibold text-white">วันเสาร์</td>
+                        <td class="p-3">ด ต ถ ท ธ น</td>
+                        <td class="p-3 text-red-400">ฎ ฏ ฐ ฑ ฒ ณ</td>
+                    </tr>
+                    <tr>
+                        <td class="p-3 font-semibold text-white">วันพุธ (กลางคืน)</td>
+                        <td class="p-3">ย ร ล ว</td>
+                        <td class="p-3 text-red-400">บ ป ผ ฝ พ ฟ ภ ม</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="bg-gradient-to-r from-amber-600/20 to-orange-600/20 p-6 rounded-xl border border-amber-500/30">
+        <h4 class="text-amber-300 font-bold text-lg mb-3">📊 เลขศาสตร์: ผลรวมมงคลที่ควรรู้</h4>
+        <p class="text-slate-300 text-sm mb-4">
+            การรวมเลขศาสตร์ให้ได้ผลรวมที่เป็นมงคลจะช่วยส่งเสริมดวงชะตาให้มั่นคงยิ่งขึ้น:</p>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+            <div class="bg-slate-800/50 p-3 rounded-lg text-center"><span
+                    class="text-amber-400 font-bold text-lg">24</span>
+                <p class="text-slate-400 text-xs mt-1">เมตตามหานิยม</p>
+            </div>
+            <div class="bg-slate-800/50 p-3 rounded-lg text-center"><span
+                    class="text-emerald-400 font-bold text-lg">36</span>
+                <p class="text-slate-400 text-xs mt-1">ก้าวหน้ารุ่งเรือง</p>
+            </div>
+            <div class="bg-slate-800/50 p-3 rounded-lg text-center"><span
+                    class="text-pink-400 font-bold text-lg">42</span>
+                <p class="text-slate-400 text-xs mt-1">เสน่ห์มหานิยม</p>
+            </div>
+            <div class="bg-slate-800/50 p-3 rounded-lg text-center"><span
+                    class="text-cyan-400 font-bold text-lg">45</span>
+                <p class="text-slate-400 text-xs mt-1">สำเร็จทุกด้าน</p>
+            </div>
+            <div class="bg-slate-800/50 p-3 rounded-lg text-center"><span
+                    class="text-purple-400 font-bold text-lg">51</span>
+                <p class="text-slate-400 text-xs mt-1">บารมีสูงส่ง</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FAQ Section -->
+<div id="faq">
+    <h2 class="text-2xl font-bold text-white mt-16 mb-6 flex items-center gap-3">
+        <span class="text-3xl">❓</span> FAQ: คำถามที่พบบ่อยเกี่ยวกับการตั้งชื่อมงคลผู้หญิง
+    </h2>
+    <div class="space-y-4">
+        <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+            <h3 class="text-white font-bold mb-2 flex items-center gap-2"><span class="text-cyan-400">Q:</span>
+                ชื่อมงคลผู้หญิง 2 พยางค์ ดีกว่าชื่อยาวๆ จริงไหม?</h3>
+            <p class="text-slate-300 text-sm"><strong class="text-cyan-400">A:</strong> ในเชิงจิตวิทยา ชื่อ 2
+                พยางค์จำง่ายและมีพลังในการเรียก (Call to Action) มากกว่า ส่วนในเชิงมงคล ความสำคัญอยู่ที่
+                <strong>"ผลรวมเลขศาสตร์"</strong> และ <strong>"อักขระ"</strong> ไม่ใช่ความยาวของชื่อ</p>
+        </div>
+        <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+            <h3 class="text-white font-bold mb-2 flex items-center gap-2"><span class="text-cyan-400">Q:</span>
+                เปลี่ยนชื่อมงคลแล้วต้องทำอย่างไรต่อ?</h3>
+            <p class="text-slate-300 text-sm"><strong class="text-cyan-400">A:</strong>
+                นอกจากการเปลี่ยนเอกสารทางราชการแล้ว ตามความเชื่อควรทำบุญถวายสังฆทานและกรวดน้ำให้เจ้ากรรมนายเวร เพื่อ
+                "เปิดดวงชื่อใหม่" ให้ราบรื่น</p>
+        </div>
+        <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+            <h3 class="text-white font-bold mb-2 flex items-center gap-2"><span class="text-cyan-400">Q:</span>
+                ตั้งชื่อมงคลผู้หญิงให้ลูกสาว ต้องดูวันเกิดเด็กหรือวันเกิดพ่อแม่?</h3>
+            <p class="text-slate-300 text-sm"><strong class="text-cyan-400">A:</strong> ต้องดู
+                <strong>วันเกิดของเจ้าของชื่อ</strong> (ตัวเด็ก) เป็นหลัก
+                เพื่อหลีกเลี่ยงอักษรกาลกิณีและเลือกอักษรมงคลที่ตรงวัน
+                ส่วนวันเกิดพ่อแม่ก็ควรพิจารณาร่วมด้วยในเชิงความสัมพันธ์</p>
+        </div>
+        <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+            <h3 class="text-white font-bold mb-2 flex items-center gap-2"><span class="text-cyan-400">Q:</span>
+                ชื่อที่ออกเสียงเป็นภาษาอังกฤษได้ จะยังมงคลเท่าชื่อไทยดั้งเดิมไหม?</h3>
+            <p class="text-slate-300 text-sm"><strong class="text-cyan-400">A:</strong> ความมงคลของชื่อขึ้นอยู่กับ
+                <strong>ตัวอักษรภาษาไทย</strong> ที่ใช้เขียน ไม่ใช่การออกเสียงภาษาอังกฤษ
+                ดังนั้นชื่อที่ฟังดูอินเตอร์ก็มงคลได้ตราบใดที่โครงสร้างอักขระถูกต้องตามหลักทักษา</p>
+        </div>
+    </div>
+</div>
+
+<!-- Conclusion -->
+<div id="conclusion" class="mt-16 pt-8 border-t border-slate-700">
+    <h2 class="text-2xl font-bold text-emerald-400 mb-4">สรุป: เลือกชื่อมงคลคือเลือกวิสัยทัศน์ให้ชีวิต</h2>
+    <p class="text-slate-300 leading-relaxed mb-6">
+        การเลือก <strong>ชื่อมงคลผู้หญิง</strong> ไม่ใช่เพียงแค่การหาคำที่เพราะ แต่คือ <strong
+            class="text-amber-400">การเลือกวิสัยทัศน์ให้กับชีวิต</strong> ชื่อที่ดีต้องมีทั้งความหมายมงคล
+        เสียงที่ทันสมัย และถูกหลักทักษาตามวันเกิด เพื่อส่งเสริมดวงชะตาอย่างแท้จริง
+    </p>
+</div>
+
+<!-- CTA -->
+<div
+    class="my-10 p-8 rounded-2xl bg-gradient-to-r from-amber-600 to-orange-600 text-center shadow-lg shadow-orange-500/20">
+    <h3 class="text-2xl font-bold text-white mb-2">🔍 กำลังหาชื่อที่ใช่สำหรับลูกสาวหรือตัวคุณเอง?</h3>
+    <p class="text-white/90 mb-6">ให้เราช่วยวิเคราะห์ชื่อมงคลเฉพาะบุคคล ตรวจสอบว่าชื่อที่คุณเลือก
+        "เหมาะกับดวงชะตาหรือไม่"</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/"
+            class="px-8 py-3 bg-white text-orange-600 font-bold rounded-xl hover:bg-slate-100 transition-colors shadow-md">วิเคราะห์ชื่อฟรี</a>
+        <a href="/premium-search"
+            class="px-8 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors shadow-md border border-white/20">ค้นหาชื่อมงคล
+            Premium</a>
+    </div>
+</div>
+
+<!-- Related -->
+<div class="mt-12 pt-8 border-t border-slate-800">
+    <h3 class="text-lg font-bold text-slate-400 mb-4">อ่านบทความเพิ่มเติม</h3>
+    <div class="flex flex-wrap gap-3">
+        <a href="/articles/lucky-names-for-2026-grade-a-plus"
+            class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm transition-colors">⭐ 20
+            ชื่อมงคลเกรด A+ ปี 2569</a>
+        <a href="/articles/micro-analysis-lucky-number-pairs"
+            class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm transition-colors">🔬
+            วิเคราะห์คู่เลขมงคล</a>
+        <a href="/articles/case-study-khemanit-name-analysis"
+            class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm transition-colors">📊
+            กรณีศึกษาวิเคราะห์ชื่อ</a>
+        <a href="/"
+            class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-sm transition-colors font-bold">🏠
+            วิเคราะห์ชื่อของคุณฟรี</a>
+    </div>
+</div>
+</div>
+        `
+    },
+    {
         id: '29',
         slug: '17-auspicious-thai-cats-2569',
         title: '17 แมวมงคลไทย 2569: เปิดตำราสมุดข่อยโบราณ เลี้ยงเสริมดวงตามความเชื่อ',
