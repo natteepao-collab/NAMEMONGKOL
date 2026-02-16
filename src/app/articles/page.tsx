@@ -50,23 +50,29 @@ async function getArticles() {
     const { data: articles, error } = await supabase
         .from('articles')
         .select('*')
-        .eq('is_published', true); // Removed .order from DB to do consistent custom sort in JS for mixed data types
+        .eq('is_published', true);
 
     const dbArticles: ArticleRow[] = (articles as ArticleRow[]) || [];
 
     // Enhance DB articles with local data (fallback for images)
     const enrichedDbArticles = dbArticles.map(dbArticle => {
         const localMatch = localArticles.find(a => a.slug === dbArticle.slug);
+        // Prioritize DB image, then local image. 
+        // Important: Ensure we have a valid path string.
+        const dbImage = dbArticle.cover_image || dbArticle.coverImage;
+        const localImage = localMatch?.coverImage;
+
+        const finalImage = dbImage || localImage || '';
+
         return {
             ...dbArticle,
-            // Use DB image if available, otherwise fallback to local
-            cover_image: dbArticle.cover_image || localMatch?.coverImage,
-            // Normalize for components using coverImage
-            coverImage: dbArticle.cover_image || localMatch?.coverImage || ''
+            coverImage: finalImage,
+            // Keep cover_image for backward compatibility if needed, but we'll use coverImage primarily
+            cover_image: finalImage
         };
     });
 
-    // Filter out local articles that are already present in DB
+    // Filter out local articles that are already present in DB (by slug)
     const existingSlugs = new Set(enrichedDbArticles.map(a => a.slug));
     const uniqueLocalArticles = localArticles.filter(a => !existingSlugs.has(a.slug));
 
@@ -308,7 +314,7 @@ export default async function ArticlesPage() {
                             >
                                 <div className="h-56 w-full bg-slate-800 relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
                                     <ArticleImage
-                                        src={(article as any).cover_image || (article as any).coverImage}
+                                        src={article.coverImage as string}
                                         alt={article.title}
                                         priority={index < 6}
                                         className="group-hover:scale-100"

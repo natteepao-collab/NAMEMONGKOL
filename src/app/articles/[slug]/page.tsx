@@ -77,10 +77,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.namemongkol.com';
     const rawImageUrl = article.coverImage;
-    const ogFallback = `${baseUrl}/api/og?variant=article&title=${encodeURIComponent(article.title)}&category=${encodeURIComponent(article.category || '')}&meta=${encodeURIComponent(article.metaDescription || article.excerpt || '')}`;
-    const imageUrl = rawImageUrl
-        ? (rawImageUrl.startsWith('http') ? rawImageUrl : `${baseUrl}${rawImageUrl}`)
-        : ogFallback;
+
+    // Construct the OG image URL
+    let imageUrl = `${baseUrl}/api/og?variant=article&title=${encodeURIComponent(article.title)}&category=${encodeURIComponent(article.category || '')}&meta=${encodeURIComponent(article.metaDescription || article.excerpt || '')}`;
+
+    if (rawImageUrl) {
+        try {
+            // Check if it's already an absolute URL
+            if (rawImageUrl.startsWith('http')) {
+                imageUrl = rawImageUrl;
+            } else {
+                // Combine baseUrl and relative path, using URL object to handle encoding of Thai characters automatically
+                // We ensure rawImageUrl starts with / to be safe, but URL constructor handles it relative to base
+                const cleanPath = rawImageUrl.startsWith('/') ? rawImageUrl : `/${rawImageUrl}`;
+                imageUrl = new URL(cleanPath, baseUrl).toString();
+            }
+        } catch (e) {
+            console.error('Error constructing OG image URL:', e);
+            // Fallback to OG generator if URL construction fails
+        }
+    }
 
     return {
         title: article.metaTitle || article.title,
