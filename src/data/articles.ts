@@ -23,7 +23,7 @@ export const articles: Article[] = [
         slug: '100-auspicious-women-names-2026',
         title: '100 ชื่อมงคลผู้หญิง 2569: ทันสมัย ความหมายดี เสริมดวงและบุคลิกให้ดูอินเตอร์',
         excerpt: 'คัดสรร 100 ชื่อมงคลผู้หญิงที่ทั้งทันสมัย ออกเสียงเป็นสากลได้ง่าย ความหมายดี เสริมดวงชะตาตามหลักเลขศาสตร์และทักษา พร้อมจัดกลุ่มตามบุคลิกและดวงชะตา',
-        coverImage: '/images/articles/100-auspicious-women-names-2026.png',
+        coverImage: '/images/articles/cover2569.png',
         date: '2026-02-16',
         author: 'อาจารย์ณัฐ (NameMongkol)',
         category: 'ชื่อมงคล',

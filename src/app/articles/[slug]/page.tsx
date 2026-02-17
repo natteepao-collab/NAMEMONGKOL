@@ -28,7 +28,7 @@ import { supabase } from '@/utils/supabase';
 // Helper to fetch article (cached if possible, but for simplicity direct call here)
 async function getArticle(slug: string): Promise<Article | null> {
     const localMatch = localArticles.find(a => a.slug === slug);
-    const forceLocalSlugs = ['naming-tips-2026-year-of-horse', 'forbidden-letters-kalakini', 'most-accurate-phone-number-analysis-2026', 'what-is-shadow-power', 'history-of-thai-naming-tradition'];
+    const forceLocalSlugs = ['naming-tips-2026-year-of-horse', 'forbidden-letters-kalakini', 'most-accurate-phone-number-analysis-2026', 'what-is-shadow-power', 'history-of-thai-naming-tradition', '100-auspicious-women-names-2026'];
 
     if (localMatch && forceLocalSlugs.includes(slug)) {
         return localMatch;

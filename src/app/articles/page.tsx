@@ -54,6 +54,9 @@ async function getArticles() {
 
     const dbArticles: ArticleRow[] = (articles as ArticleRow[]) || [];
 
+    // Slugs where local image should override DB image
+    const forceLocalImageSlugs = ['100-auspicious-women-names-2026'];
+
     // Enhance DB articles with local data (fallback for images)
     const enrichedDbArticles = dbArticles.map(dbArticle => {
         const localMatch = localArticles.find(a => a.slug === dbArticle.slug);
@@ -62,7 +65,10 @@ async function getArticles() {
         const dbImage = dbArticle.cover_image || dbArticle.coverImage;
         const localImage = localMatch?.coverImage;
 
-        const finalImage = dbImage || localImage || '';
+        // For specific articles, use local image; otherwise prioritize DB image
+        const finalImage = (forceLocalImageSlugs.includes(dbArticle.slug) && localImage)
+            ? localImage
+            : (dbImage || localImage || '');
 
         return {
             ...dbArticle,

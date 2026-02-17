@@ -17,8 +17,8 @@ export const MobileSecondaryNav = () => {
 
     return (
         <>
-            <div className="lg:hidden w-full fixed top-[72px] z-40 bg-[#0f172a]/90 backdrop-blur-xl border-b border-white/8 shadow-[0_4px_16px_rgba(0,0,0,0.2)]">
-                <div className="flex items-center gap-2 px-3 py-1.5 overflow-x-auto custom-scrollbar no-scrollbar">
+            <div className="lg:hidden w-full fixed top-[64px] z-40 bg-[#0f172a]/90 backdrop-blur-xl border-b border-white/8 shadow-[0_4px_16px_rgba(0,0,0,0.2)]">
+                <div className="flex items-center gap-2 px-3 py-1 overflow-x-auto custom-scrollbar no-scrollbar">
                     {navItems.map((item) => {
                         const isActive = pathname === item.path;
                         const Icon = item.icon;
@@ -40,7 +40,7 @@ export const MobileSecondaryNav = () => {
                 </div>
             </div>
             {/* Spacer to prevent layout shift */}
-            <div className="lg:hidden h-10 w-full" />
+            <div className="lg:hidden h-8 w-full" />
         </>
     );
 };
