@@ -17,6 +17,23 @@ metadata:
 - The task is unrelated to seo cannibalization detector
 - You need a different domain or tool outside this scope
 
+## Project Context: NameMongkol Risks
+
+### Known Cannibalization Risks
+These keyword pairs have overlapping intent and must be carefully managed:
+1.  **"ตั้งชื่อลูก" (Naming Baby) vs "ตั้งชื่อมงคล" (Auspicious Naming)**
+    -   *Risk*: Both target parents.
+    -   *Strategy*: "ตั้งชื่อลูก" should be broader (include modern, inter names). "ตั้งชื่อมงคล" must focus strictly on the *science/belief* (numbers, days).
+2.  **"วิเคราะห์ชื่อ" (Analyze Name) vs "ดูดวงชื่อ" (Name Horoscope)**
+    -   *Risk*: Searchers want the same thing (is my name good?).
+    -   *Strategy*: Map "วิเคราะห์ชื่อ" to the *Tool Page* (Functional). Map "ดูดวงชื่อ" to a *Content Page* explaining the prediction method, which then links to the Tool.
+3.  **"ผลรวม XX" vs "ความหมายเลข XX"**
+    -   *Risk*: Identity overlap.
+    -   *Strategy*: Canonicalize to a single "Meaning of Number XX" page. Do not create separate pages for "Sum" vs "Meaning" unless search volume justifies distinct intent.
+
+### Pillar vs Cluster Guardrails
+-   **Cluster Pages** (e.g., "Sunday Names") MUST NOT optimize for the broad term "Auspicious Names" in their H1/Title. They must always include the specific modifier (Day/Gender).
+
 ## Instructions
 
 - Clarify goals, constraints, and required inputs.

@@ -33,6 +33,23 @@ Reference these guidelines when:
 | 7 | JavaScript Performance | LOW-MEDIUM | `js-` |
 | 8 | Advanced Patterns | LOW | `advanced-` |
 
+## Project Context: NameMongkol Tech Stack
+
+### Core Technologies
+-   **Framework**: Next.js 14+ (App Router).
+-   **Language**: TypeScript (Strict mode, no `any`).
+-   **Styling**: Tailwind CSS (Use `cn` utility for class merging).
+-   **Database**: Supabase (Use typed client).
+
+### Performance Standards
+-   **Images**: ALWAYS use `next/image`.
+    -   *Rule*: `auspicious-names.jpg` (kebab-case).
+    -   *Rule*: Must have `alt` text in Thai.
+-   **Components**: Default to Server Components. Use `'use client'` only for interactivity (Hooks, Event Listeners).
+-   **Data Fetching**:
+    -   Use `await` in Server Components.
+    -   Use `revalidate = 0` for real-time admin updates (Articles).
+
 ## Quick Reference
 
 ### 1. Eliminating Waterfalls (CRITICAL)

@@ -320,6 +320,24 @@ Before auditing, understand:
 
 ---
 
+## Project Context: NameMongkol Audit
+
+### Specific Audit Points
+
+1. **Checklist Compliance**:
+   - Verify against [NameMongkol Detailed Checklist](../seo-aeo-best-practices/resources/namemongkol-checklist.md).
+   - **H1 Check**: Does it contain the primary keyword?
+   - **Link Check**: Is there a visible link to `/name-analysis` ("วิเคราะห์ชื่อฟรี")?
+
+2. **Technical Checks (Next.js)**:
+   - **Hydration**: Check console for hydration errors.
+   - **Caching**: Ensure `revalidate = 0` (or appropriate value) is set for dynamic content pages if immediate updates are required (see `src/app/articles/page.tsx`).
+   - **Images**: Verify `next/image` usage and `alt` text in Thai.
+
+3. **Content Quality**:
+   - **Tone**: Is it "Mystical yet Scientific"? (Reference SEO Plan).
+   - **Trust**: Are sources (Thaksa, Numerology) cited?
+
 ## Output Format
 
 ### Audit Report Structure

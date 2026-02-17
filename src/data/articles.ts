@@ -19,6 +19,432 @@ export interface Article {
 
 export const articles: Article[] = [
     {
+    id: '31',
+    slug: 'auspicious-names-by-birthday-2026',
+    title: 'ตั้งชื่อมงคลตามวันเกิด 2569: คู่มือครบจบ ตำราทักษาปกรณ์ ปีม้าไฟ พร้อมชื่อแนะนำทั้ง 7 วัน',
+    excerpt: 'คู่มือตั้งชื่อมงคลตามวันเกิดฉบับสมบูรณ์ อ้างอิงตำราทักษาปกรณ์ เจาะลึกอักษรมงคล-กาลกิณีทั้ง 8 วรรค พร้อมชื่อแนะนำสำหรับเด็กเกิดปี 2569 ปีม้าไฟ แบ่งตามวันเกิดและวัตถุประสงค์',
+    coverImage: '/images/articles/cover-birthday-names.png',
+    date: '2026-02-17',
+    author: 'อาจารย์ณัฐ (NameMongkol)',
+    category: 'ชื่อมงคล',
+    keywords: [
+        'ตั้งชื่อมงคลตามวันเกิด', 'ตั้งชื่อมงคลตามวันเกิด 2569', 'ชื่อมงคลตามวันเกิด',
+        'ทักษาปกรณ์', 'อักษรมงคล', 'อักษรกาลกิณี', 'ตั้งชื่อลูก 2569',
+        'ชื่อมงคลปีม้าไฟ', 'ตั้งชื่อลูกตามวันเกิด', 'ชื่อเสริมดวง',
+        'ตั้งชื่อมงคล', 'ชื่อมงคลผู้ชาย', 'ชื่อมงคลผู้หญิง', 'เปลี่ยนชื่อมงคล'
+    ],
+    metaTitle: 'ตั้งชื่อมงคลตามวันเกิด 2569 คู่มือทักษาปกรณ์ ปีม้าไฟ | NameMongkol',
+    metaDescription: 'คู่มือตั้งชื่อมงคลตามวันเกิดฉบับสมบูรณ์ 2569 อ้างอิงตำราทักษาปกรณ์ เจาะลึกอักษรมงคล-กาลกิณี 8 วรรค พร้อมชื่อแนะนำปีม้าไฟ แบ่งตามวัน',
+    relatedSlugs: ['100-auspicious-women-names-2026', 'lucky-names-for-2026-grade-a-plus', 'forbidden-letters-kalakini'],
+    toc: [
+        { title: 'รู้จักตำราทักษาปกรณ์: ศาสตร์แห่งการตั้งชื่อ', id: 'intro-taksapakorn', level: 2 },
+        { title: 'ปี 2569 ปีม้าไฟ: ชื่อแบบไหนเสริมดวง?', id: 'year-2569', level: 2 },
+        { title: 'ตารางอักษรมงคล-กาลกิณี ทั้ง 7 วัน', id: 'taksa-table', level: 2 },
+        { title: 'ชื่อมงคลแนะนำตามวันเกิด', id: 'names-by-day', level: 2 },
+        { title: 'คู่มือ DIY: วิธีคิดชื่อมงคลด้วยตัวเอง', id: 'diy-guide', level: 2 },
+        { title: 'วิเคราะห์ชื่อคนดังตามหลักทักษาปกรณ์', id: 'case-study', level: 2 },
+        { title: 'NameMongkol ต่างจากเว็บอื่นอย่างไร?', id: 'why-different', level: 2 },
+        { title: 'FAQ: คำถามที่พบบ่อย', id: 'faq', level: 2 },
+    ],
+    content: `
+<div class="space-y-10">
+
+    <!-- บทนำ -->
+    <div>
+        <p class="text-xl text-slate-300 leading-relaxed mb-6">
+            การ<strong class="text-amber-400">ตั้งชื่อมงคลตามวันเกิด</strong>ไม่ใช่แค่ความเชื่อ แต่คือ <strong>ศาสตร์โบราณที่สืบทอดมากว่า 700 ปี</strong> ผ่านตำรา<strong class="text-emerald-400">ทักษาปกรณ์</strong> ซึ่งจัดระบบความสัมพันธ์ระหว่างตัวอักษรกับวันเกิดอย่างเป็นวิทยาศาสตร์ บทความนี้จะพาคุณเจาะลึกตั้งแต่หลักการ ไปจนถึงรายชื่อที่คัดมาแล้วว่าเหมาะกับเด็กเกิดปี 2569 (ปีม้าไฟ)
+        </p>
+        <div class="bg-gradient-to-r from-amber-500/10 to-transparent border-l-4 border-amber-500 p-6 rounded-r-xl mb-8">
+            <p class="text-amber-200 font-medium">📌 บทความนี้แตกต่างจากเว็บอื่นอย่างไร?</p>
+            <ul class="text-slate-300 text-sm mt-3 space-y-1">
+                <li>✅ อ้างอิงตำราทักษาปกรณ์ฉบับเต็ม ไม่ใช่แค่ตารางลอยๆ</li>
+                <li>✅ วิเคราะห์ชื่อเชิงลึกด้วยหลักเลขศาสตร์ + ทักษา</li>
+                <li>✅ ชื่อทันสมัย ออกเสียงเป็นสากลได้ ไม่ใช่ชื่อยุคเก่า</li>
+                <li>✅ มีคู่มือ DIY ให้คิดชื่อเองได้</li>
+                <li>✅ อัปเดตปี 2569 ปีม้าไฟ เชื่อมโยงกับโหราศาสตร์จีน</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section 1: ทักษาปกรณ์ -->
+    <div id="intro-taksapakorn">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">📜</span> รู้จักตำราทักษาปกรณ์: ศาสตร์แห่งการตั้งชื่อ
+        </h2>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            <strong class="text-white">ตำราทักษาปกรณ์</strong> เป็นตำราโบราณที่ใช้ในราชสำนักไทยมาตั้งแต่สมัยสุโขทัย หลักการสำคัญคือการแบ่งตัวอักษรไทยออกเป็น <strong class="text-amber-300">8 กลุ่ม (วรรค)</strong> แล้วจับคู่กับวันเกิด เพื่อหาว่าอักษรใดเป็น "มงคล" และอักษรใดเป็น "กาลกิณี" สำหรับแต่ละคน
+        </p>
+
+        <h3 class="text-xl font-bold text-cyan-400 mb-4">📐 8 วรรคอักษรตามหลักทักษาปกรณ์</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <div class="bg-emerald-900/20 p-5 rounded-xl border border-emerald-500/20">
+                <h4 class="font-bold text-emerald-400 mb-2">1. บริวาร 🤝</h4>
+                <p class="text-slate-300 text-sm">เสริมเรื่องลูกหลาน คู่ครอง ผู้ใต้บังคับบัญชา</p>
+            </div>
+            <div class="bg-teal-900/20 p-5 rounded-xl border border-teal-500/20">
+                <h4 class="font-bold text-teal-400 mb-2">2. อายุ 💚</h4>
+                <p class="text-slate-300 text-sm">เสริมเรื่องสุขภาพ อายุยืน ความเป็นอยู่</p>
+            </div>
+            <div class="bg-purple-900/20 p-5 rounded-xl border border-purple-500/20">
+                <h4 class="font-bold text-purple-400 mb-2">3. เดช 👑</h4>
+                <p class="text-slate-300 text-sm">เสริมอำนาจ เกียรติยศ ความก้าวหน้า (นิยมใช้นำหน้าชื่อผู้ชาย)</p>
+            </div>
+            <div class="bg-pink-900/20 p-5 rounded-xl border border-pink-500/20">
+                <h4 class="font-bold text-pink-400 mb-2">4. ศรี 🌸</h4>
+                <p class="text-slate-300 text-sm">เสริมโชคลาภ ความสำเร็จ (นิยมใช้นำหน้าชื่อผู้หญิง)</p>
+            </div>
+            <div class="bg-amber-900/20 p-5 rounded-xl border border-amber-500/20">
+                <h4 class="font-bold text-amber-400 mb-2">5. มูละ 💰</h4>
+                <p class="text-slate-300 text-sm">เสริมเรื่องทรัพย์สิน มรดก ความมั่นคง</p>
+            </div>
+            <div class="bg-blue-900/20 p-5 rounded-xl border border-blue-500/20">
+                <h4 class="font-bold text-blue-400 mb-2">6. อุตสาหะ 💪</h4>
+                <p class="text-slate-300 text-sm">เสริมความขยัน มานะ ความอดทน</p>
+            </div>
+            <div class="bg-indigo-900/20 p-5 rounded-xl border border-indigo-500/20">
+                <h4 class="font-bold text-indigo-400 mb-2">7. มนตรี 🏛️</h4>
+                <p class="text-slate-300 text-sm">เสริมเรื่องผู้ใหญ่อุปถัมภ์ การสนับสนุน</p>
+            </div>
+            <div class="bg-red-900/20 p-5 rounded-xl border border-red-500/20">
+                <h4 class="font-bold text-red-400 mb-2">8. กาลกิณี ⛔</h4>
+                <p class="text-slate-300 text-sm">อักษรต้องห้าม! ห้ามมีในชื่อเด็ดขาด จะนำโชคร้ายมาสู่</p>
+            </div>
+        </div>
+
+        <div class="bg-red-900/10 border border-red-500/20 rounded-xl p-6 mb-8">
+            <h4 class="text-red-400 font-bold mb-3">⚠️ ข้อควรระวัง: หลักการที่คนส่วนใหญ่พลาด</h4>
+            <ul class="text-slate-300 text-sm space-y-2">
+                <li>❌ <strong>ดูแค่พยัญชนะตัวแรก</strong> → ต้องดูทุกตัวอักษร ทุกสระ และไม้การันต์ในชื่อ</li>
+                <li>❌ <strong>ลืมนับสระเป็นกาลกิณี</strong> → คนเกิดวันจันทร์ สระทั้งหมดเป็นกาลกิณี</li>
+                <li>❌ <strong>นับวันผิด</strong> → ตามหลักโหราศาสตร์ไทย วันเริ่ม 06:00 น. ถ้าเกิดก่อน 06:00 น. ให้นับเป็นวันก่อนหน้า</li>
+                <li>❌ <strong>ลืมแยกวันพุธกลางวัน/กลางคืน</strong> → วันพุธมี 2 แบบ มีอักษรกาลกิณีต่างกัน</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section 2: ปี 2569 ปีม้าไฟ -->
+    <div id="year-2569">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">🐴🔥</span> ปี 2569 ปีม้าไฟ: ชื่อแบบไหนเสริมดวง?
+        </h2>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            ปี พ.ศ. 2569 (ค.ศ. 2026) ตรงกับปี <strong class="text-amber-300">ม้าไฟ (เปี้ยโง้ว)</strong> ตามโหราศาสตร์จีน ซึ่งมีพลังธาตุไฟซ้อนกัน 2 ชั้น (ม้า = ไฟ + ธาตุประจำปี = ไฟ) ทำให้เด็กที่เกิดปีนี้มีพลัง <strong class="text-red-400">"หยาง"</strong> สูงเป็นพิเศษ
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+            <div class="bg-gradient-to-b from-red-900/20 to-slate-900/80 p-6 rounded-2xl border border-red-500/20">
+                <span class="text-4xl mb-4 block">☀️</span>
+                <h3 class="text-lg font-bold text-red-400 mb-2">หมวดแสงสว่าง/พลังอำนาจ</h3>
+                <p class="text-slate-300 text-sm mb-3">ชื่อที่เสริมพลังผู้นำ ความกล้า</p>
+                <p class="text-amber-300 text-xs">เช่น จรัสระวี, ภูริวัจน์, เตชินท์</p>
+            </div>
+            <div class="bg-gradient-to-b from-amber-900/20 to-slate-900/80 p-6 rounded-2xl border border-amber-500/20">
+                <span class="text-4xl mb-4 block">💎</span>
+                <h3 class="text-lg font-bold text-amber-400 mb-2">หมวดทรัพย์สิน/ความมั่งคั่ง</h3>
+                <p class="text-slate-300 text-sm mb-3">ชื่อที่เสริมดวงการเงิน โชคลาภ</p>
+                <p class="text-amber-300 text-xs">เช่น ธนัชพร, ลักษิกา, มณีรินทร์</p>
+            </div>
+            <div class="bg-gradient-to-b from-cyan-900/20 to-slate-900/80 p-6 rounded-2xl border border-cyan-500/20">
+                <span class="text-4xl mb-4 block">🧠</span>
+                <h3 class="text-lg font-bold text-cyan-400 mb-2">หมวดปัญญา/ความงาม</h3>
+                <p class="text-slate-300 text-sm mb-3">ชื่อที่เสริมสติปัญญาและเสน่ห์</p>
+                <p class="text-amber-300 text-xs">เช่น ปัณณิกา, ประภาวรินทร์, วิชญาดา</p>
+            </div>
+        </div>
+
+        <div class="bg-amber-900/10 border border-amber-500/20 rounded-xl p-6 mb-6">
+            <p class="text-amber-200 font-medium mb-2">💡 เคล็ดลับสำหรับเด็กเกิดปีม้าไฟ</p>
+            <p class="text-slate-300 text-sm">เนื่องจากพลังไฟสูง ควรเลือกชื่อที่มี <strong class="text-cyan-300">ธาตุน้ำ</strong> หรือ <strong class="text-emerald-300">ธาตุดิน</strong> มาเสริมสมดุล เช่น ชื่อที่มีความหมายเกี่ยวกับน้ำ พระจันทร์ ป่าไม้ เพื่อไม่ให้พลังไฟ "แรงเกินไป" แต่ยังคงความเป็นผู้นำ</p>
+        </div>
+    </div>
+
+    <!-- Section 3: ตารางอักษรมงคล-กาลกิณี -->
+    <div id="taksa-table">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">📊</span> ตารางอักษรมงคล-กาลกิณี ทั้ง 7 วัน
+        </h2>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            ตารางสำคัญที่ต้องตรวจสอบก่อนตั้งชื่อทุกครั้ง อักษรในวรรค <strong class="text-red-400">กาลกิณี</strong> ห้ามมีในชื่อเด็ดขาด ส่วนอักษรในวรรค <strong class="text-emerald-400">ศรี/เดช/มูละ</strong> ถือเป็นมงคลสูงสุด
+        </p>
+
+        <div class="overflow-x-auto rounded-xl border border-slate-700 shadow-xl bg-slate-900/60 mb-10">
+            <table class="w-full text-left text-slate-300 text-sm">
+                <thead class="bg-gradient-to-r from-amber-900/50 to-slate-800 text-amber-300 uppercase text-xs font-bold">
+                    <tr>
+                        <th class="px-4 py-3">วันเกิด</th>
+                        <th class="px-4 py-3 text-emerald-300">ศรี (มงคล)</th>
+                        <th class="px-4 py-3 text-purple-300">เดช (อำนาจ)</th>
+                        <th class="px-4 py-3 text-red-300">กาลกิณี (ห้าม!)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-red-400">อาทิตย์</td><td class="px-4 py-3 text-emerald-300">บ ป ผ ฝ พ ฟ ภ ม</td><td class="px-4 py-3 text-purple-300">ก ข ค ฆ ง</td><td class="px-4 py-3 text-red-400 font-bold">ศ ษ ส ห ฬ ฮ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-yellow-400">จันทร์</td><td class="px-4 py-3 text-emerald-300">ก ข ค ฆ ง</td><td class="px-4 py-3 text-purple-300">จ ฉ ช ซ ฌ ญ</td><td class="px-4 py-3 text-red-400 font-bold">อ + สระทั้งหมด</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-pink-400">อังคาร</td><td class="px-4 py-3 text-emerald-300">จ ฉ ช ซ ฌ ญ</td><td class="px-4 py-3 text-purple-300">ฎ ฏ ฐ ฑ ฒ ณ</td><td class="px-4 py-3 text-red-400 font-bold">ก ข ค ฆ ง</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-green-400">พุธ (กลางวัน)</td><td class="px-4 py-3 text-emerald-300">ฎ ฏ ฐ ฑ ฒ ณ</td><td class="px-4 py-3 text-purple-300">ด ต ถ ท ธ น</td><td class="px-4 py-3 text-red-400 font-bold">จ ฉ ช ซ ฌ ญ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-green-600">พุธ (กลางคืน)</td><td class="px-4 py-3 text-emerald-300">ศ ษ ส ห ฬ ฮ</td><td class="px-4 py-3 text-purple-300">อ + สระ</td><td class="px-4 py-3 text-red-400 font-bold">บ ป ผ ฝ พ ฟ ภ ม</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-orange-400">พฤหัสบดี</td><td class="px-4 py-3 text-emerald-300">ด ต ถ ท ธ น</td><td class="px-4 py-3 text-purple-300">บ ป ผ ฝ พ ฟ ภ ม</td><td class="px-4 py-3 text-red-400 font-bold">ด ต ถ ท ธ น</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-blue-400">ศุกร์</td><td class="px-4 py-3 text-emerald-300">อ + สระ</td><td class="px-4 py-3 text-purple-300">ศ ษ ส ห ฬ ฮ</td><td class="px-4 py-3 text-red-400 font-bold">ย ร ล ว</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-purple-400">เสาร์</td><td class="px-4 py-3 text-emerald-300">ย ร ล ว</td><td class="px-4 py-3 text-purple-300">อ + สระ</td><td class="px-4 py-3 text-red-400 font-bold">ฎ ฏ ฐ ฑ ฒ ณ</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Section 4: ชื่อมงคลแนะนำตามวันเกิด -->
+    <div id="names-by-day">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">⭐</span> ชื่อมงคลแนะนำตามวันเกิด
+        </h2>
+        <p class="text-slate-300 mb-8 leading-relaxed">
+            ชื่อที่คัดสรรมาแล้วว่า <strong class="text-amber-300">ปลอดอักษรกาลกิณี</strong> สำหรับแต่ละวัน พร้อมความหมาย คำอ่านภาษาอังกฤษ และบอกว่าเสริมดวงด้านไหน
+        </p>
+
+        <!-- วันอาทิตย์ -->
+        <h3 class="text-xl font-bold text-red-400 mb-4 mt-10">☀️ คนเกิดวันอาทิตย์</h3>
+        <p class="text-slate-400 text-sm mb-4">กาลกิณี: ศ ษ ส ห ฬ ฮ → ชื่อด้านล่างหลีกเลี่ยงหมดแล้ว</p>
+        <div class="overflow-x-auto rounded-xl border border-red-500/20 shadow-xl bg-slate-900/60 mb-8">
+            <table class="w-full text-left text-slate-300 text-sm">
+                <thead class="bg-gradient-to-r from-red-900/50 to-slate-800 text-red-300 uppercase text-xs font-bold">
+                    <tr><th class="px-4 py-3">ชื่อ</th><th class="px-4 py-3">English</th><th class="px-4 py-3">ความหมาย</th><th class="px-4 py-3">เสริมด้าน</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ภูมิพัฒน์</td><td class="px-4 py-3">Bhumipat</td><td class="px-4 py-3">ผู้พัฒนาแผ่นดิน</td><td class="px-4 py-3 text-purple-300">เดช, ความก้าวหน้า</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">กชมน</td><td class="px-4 py-3">Kotchamon</td><td class="px-4 py-3">ใจงามดุจดอกบัว</td><td class="px-4 py-3 text-pink-300">เมตตา, ความรัก</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">อภิชญา</td><td class="px-4 py-3">Apichaya</td><td class="px-4 py-3">ความรู้อันยิ่งใหญ่</td><td class="px-4 py-3 text-cyan-300">ปัญญา, การเรียน</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ปัณณวิชญ์</td><td class="px-4 py-3">Pannawit</td><td class="px-4 py-3">ผู้มีความรู้ในตำรา</td><td class="px-4 py-3 text-cyan-300">ปัญญา, การงาน</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">อัญชิรา</td><td class="px-4 py-3">Anchira</td><td class="px-4 py-3">ผู้มีอำนาจยั่งยืน</td><td class="px-4 py-3 text-purple-300">บารมี, ผู้นำ</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- วันจันทร์ -->
+        <h3 class="text-xl font-bold text-yellow-400 mb-4 mt-10">🌙 คนเกิดวันจันทร์</h3>
+        <p class="text-slate-400 text-sm mb-4">กาลกิณี: อ + สระทั้งหมด → ชื่อที่ขึ้นต้นสระ/มี อ ห้ามใช้</p>
+        <div class="overflow-x-auto rounded-xl border border-yellow-500/20 shadow-xl bg-slate-900/60 mb-8">
+            <table class="w-full text-left text-slate-300 text-sm">
+                <thead class="bg-gradient-to-r from-yellow-900/50 to-slate-800 text-yellow-300 uppercase text-xs font-bold">
+                    <tr><th class="px-4 py-3">ชื่อ</th><th class="px-4 py-3">English</th><th class="px-4 py-3">ความหมาย</th><th class="px-4 py-3">เสริมด้าน</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">กนกวรรณ</td><td class="px-4 py-3">Kanokwan</td><td class="px-4 py-3">ผิวพรรณดุจทองคำ</td><td class="px-4 py-3 text-emerald-300">ศรี, โชคลาภ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">กัญญ์วรา</td><td class="px-4 py-3">Kanwara</td><td class="px-4 py-3">หญิงสาวผู้ประเสริฐ</td><td class="px-4 py-3 text-pink-300">ศรี, ความรัก</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ขจีพร</td><td class="px-4 py-3">Khajeeporn</td><td class="px-4 py-3">ผู้ประเสริฐงดงาม</td><td class="px-4 py-3 text-pink-300">เสน่ห์, เมตตา</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">มณีรินทร์</td><td class="px-4 py-3">Maneerin</td><td class="px-4 py-3">แก้วมณีอันยิ่งใหญ่</td><td class="px-4 py-3 text-amber-300">มูละ, ทรัพย์สิน</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">กัณต์พงษ์</td><td class="px-4 py-3">Kantapong</td><td class="px-4 py-3">ตระกูลอันเป็นที่รัก</td><td class="px-4 py-3 text-purple-300">เดช, การงาน</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- วันอังคาร -->
+        <h3 class="text-xl font-bold text-pink-400 mb-4 mt-10">🔥 คนเกิดวันอังคาร</h3>
+        <p class="text-slate-400 text-sm mb-4">กาลกิณี: ก ข ค ฆ ง → ชื่อด้านล่างหลีกเลี่ยงหมดแล้ว</p>
+        <div class="overflow-x-auto rounded-xl border border-pink-500/20 shadow-xl bg-slate-900/60 mb-8">
+            <table class="w-full text-left text-slate-300 text-sm">
+                <thead class="bg-gradient-to-r from-pink-900/50 to-slate-800 text-pink-300 uppercase text-xs font-bold">
+                    <tr><th class="px-4 py-3">ชื่อ</th><th class="px-4 py-3">English</th><th class="px-4 py-3">ความหมาย</th><th class="px-4 py-3">เสริมด้าน</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ชญานิน</td><td class="px-4 py-3">Chayanin</td><td class="px-4 py-3">ผู้มีปัญญาเฉียบแหลม</td><td class="px-4 py-3 text-cyan-300">ปัญญา, การเรียน</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ชลิตา</td><td class="px-4 py-3">Chalita</td><td class="px-4 py-3">ผู้รุ่งเรืองแล้ว</td><td class="px-4 py-3 text-amber-300">โชคลาภ, ความสำเร็จ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">จรัสศรี</td><td class="px-4 py-3">Jarassri</td><td class="px-4 py-3">รุ่งเรืองด้วยศรี</td><td class="px-4 py-3 text-emerald-300">ศรี, ความสำเร็จ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">จริยา</td><td class="px-4 py-3">Jariya</td><td class="px-4 py-3">กิริยาเพียบพร้อม</td><td class="px-4 py-3 text-pink-300">เมตตา, มนุษยสัมพันธ์</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ณัฐธีร์</td><td class="px-4 py-3">Natthee</td><td class="px-4 py-3">นักปราชญ์ผู้กล้า</td><td class="px-4 py-3 text-purple-300">เดช, ผู้นำ</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- วันพุธ (กลางวัน) -->
+        <h3 class="text-xl font-bold text-green-400 mb-4 mt-10">🌿 คนเกิดวันพุธ (กลางวัน)</h3>
+        <p class="text-slate-400 text-sm mb-4">กาลกิณี: จ ฉ ช ซ ฌ ญ</p>
+        <div class="overflow-x-auto rounded-xl border border-green-500/20 shadow-xl bg-slate-900/60 mb-8">
+            <table class="w-full text-left text-slate-300 text-sm">
+                <thead class="bg-gradient-to-r from-green-900/50 to-slate-800 text-green-300 uppercase text-xs font-bold">
+                    <tr><th class="px-4 py-3">ชื่อ</th><th class="px-4 py-3">English</th><th class="px-4 py-3">ความหมาย</th><th class="px-4 py-3">เสริมด้าน</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ธีรา</td><td class="px-4 py-3">Theera</td><td class="px-4 py-3">นักปราชญ์ ผู้มีปัญญา</td><td class="px-4 py-3 text-cyan-300">ปัญญา, การเรียน</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ธรินดา</td><td class="px-4 py-3">Tarinda</td><td class="px-4 py-3">ผู้ถือไว้ซึ่งโชคลาภ</td><td class="px-4 py-3 text-emerald-300">มูละ, โชคลาภ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ณิชากร</td><td class="px-4 py-3">Nichakorn</td><td class="px-4 py-3">บ่อเกิดแห่งสิ่งบริสุทธิ์</td><td class="px-4 py-3 text-pink-300">ศรี, ความสงบ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ภูริวัจน์</td><td class="px-4 py-3">Bhuriwat</td><td class="px-4 py-3">ถ้อยคำอันกว้างขวาง</td><td class="px-4 py-3 text-purple-300">เดช, อำนาจ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ดาริน</td><td class="px-4 py-3">Darin</td><td class="px-4 py-3">ดวงดาวที่ยิ่งใหญ่</td><td class="px-4 py-3 text-amber-300">ชื่อเสียง, ความสำเร็จ</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- วันพฤหัสบดี -->
+        <h3 class="text-xl font-bold text-orange-400 mb-4 mt-10">🔶 คนเกิดวันพฤหัสบดี</h3>
+        <p class="text-slate-400 text-sm mb-4">กาลกิณี: ด ต ถ ท ธ น</p>
+        <div class="overflow-x-auto rounded-xl border border-orange-500/20 shadow-xl bg-slate-900/60 mb-8">
+            <table class="w-full text-left text-slate-300 text-sm">
+                <thead class="bg-gradient-to-r from-orange-900/50 to-slate-800 text-orange-300 uppercase text-xs font-bold">
+                    <tr><th class="px-4 py-3">ชื่อ</th><th class="px-4 py-3">English</th><th class="px-4 py-3">ความหมาย</th><th class="px-4 py-3">เสริมด้าน</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ภัทรภร</td><td class="px-4 py-3">Pattaraporn</td><td class="px-4 py-3">ผู้ค้ำจุนสิ่งประเสริฐ</td><td class="px-4 py-3 text-purple-300">เดช, โชคลาภ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ปริมล</td><td class="px-4 py-3">Primon</td><td class="px-4 py-3">กลิ่นหอม ความสดชื่น</td><td class="px-4 py-3 text-pink-300">ศรี, สุขภาพ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">พริมา</td><td class="px-4 py-3">Prima</td><td class="px-4 py-3">ผู้เป็นหนึ่ง ยอดเยี่ยม</td><td class="px-4 py-3 text-emerald-300">ผู้นำ, การงาน</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ปวริศา</td><td class="px-4 py-3">Pawarisa</td><td class="px-4 py-3">ผู้ประเสริฐยิ่ง</td><td class="px-4 py-3 text-amber-300">บารมี, ความสำเร็จ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ภูริภัทร</td><td class="px-4 py-3">Bhuriphat</td><td class="px-4 py-3">ดีงามอย่างกว้างขวาง</td><td class="px-4 py-3 text-cyan-300">ปัญญา, มูละ</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- วันศุกร์ -->
+        <h3 class="text-xl font-bold text-blue-400 mb-4 mt-10">💙 คนเกิดวันศุกร์</h3>
+        <p class="text-slate-400 text-sm mb-4">กาลกิณี: ย ร ล ว</p>
+        <div class="overflow-x-auto rounded-xl border border-blue-500/20 shadow-xl bg-slate-900/60 mb-8">
+            <table class="w-full text-left text-slate-300 text-sm">
+                <thead class="bg-gradient-to-r from-blue-900/50 to-slate-800 text-blue-300 uppercase text-xs font-bold">
+                    <tr><th class="px-4 py-3">ชื่อ</th><th class="px-4 py-3">English</th><th class="px-4 py-3">ความหมาย</th><th class="px-4 py-3">เสริมด้าน</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ณิชาภัทร</td><td class="px-4 py-3">Nichapat</td><td class="px-4 py-3">บริสุทธิ์และดีงาม</td><td class="px-4 py-3 text-pink-300">ศรี, เมตตา</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">อภิสิทธิ์</td><td class="px-4 py-3">Apisit</td><td class="px-4 py-3">ผู้มีสิทธิ์พิเศษ</td><td class="px-4 py-3 text-purple-300">เดช, อำนาจ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">สุชาดา</td><td class="px-4 py-3">Suchada</td><td class="px-4 py-3">ผู้เกิดมาดี</td><td class="px-4 py-3 text-emerald-300">ศรี, สุขภาพ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ณัฐกฤตา</td><td class="px-4 py-3">Natkrita</td><td class="px-4 py-3">ผู้สร้างให้เป็นนักปราชญ์</td><td class="px-4 py-3 text-cyan-300">ปัญญา, การเรียน</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">อัญชิสา</td><td class="px-4 py-3">Anchisa</td><td class="px-4 py-3">ผู้มีอำนาจอันยิ่งใหญ่</td><td class="px-4 py-3 text-amber-300">มูละ, ทรัพย์สิน</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- วันเสาร์ -->
+        <h3 class="text-xl font-bold text-purple-400 mb-4 mt-10">🔮 คนเกิดวันเสาร์</h3>
+        <p class="text-slate-400 text-sm mb-4">กาลกิณี: ฎ ฏ ฐ ฑ ฒ ณ</p>
+        <div class="overflow-x-auto rounded-xl border border-purple-500/20 shadow-xl bg-slate-900/60 mb-8">
+            <table class="w-full text-left text-slate-300 text-sm">
+                <thead class="bg-gradient-to-r from-purple-900/50 to-slate-800 text-purple-300 uppercase text-xs font-bold">
+                    <tr><th class="px-4 py-3">ชื่อ</th><th class="px-4 py-3">English</th><th class="px-4 py-3">ความหมาย</th><th class="px-4 py-3">เสริมด้าน</th></tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">รมิดา</td><td class="px-4 py-3">Ramida</td><td class="px-4 py-3">ผู้รื่นรมย์มีความสุข</td><td class="px-4 py-3 text-emerald-300">ศรี, ความสุข</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ดาริน</td><td class="px-4 py-3">Darin</td><td class="px-4 py-3">ดวงดาวที่ยิ่งใหญ่</td><td class="px-4 py-3 text-amber-300">ชื่อเสียง, ความสำเร็จ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">นลิน</td><td class="px-4 py-3">Nalin</td><td class="px-4 py-3">ดอกบัว ความบริสุทธิ์</td><td class="px-4 py-3 text-pink-300">เมตตา, ความสงบ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">ธัญชนก</td><td class="px-4 py-3">Thanchanok</td><td class="px-4 py-3">ผู้ให้กำเนิดสิ่งดี</td><td class="px-4 py-3 text-purple-300">บริวาร, ครอบครัว</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-white">วรลักษณ์</td><td class="px-4 py-3">Woralak</td><td class="px-4 py-3">ผู้มีลักษณะประเสริฐ</td><td class="px-4 py-3 text-cyan-300">ศรี, ปัญญา</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Section 5: คู่มือ DIY -->
+    <div id="diy-guide">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">🛠️</span> คู่มือ DIY: วิธีคิดชื่อมงคลด้วยตัวเอง
+        </h2>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            อยากตั้งชื่อลูกเองให้มงคล? ทำตาม 4 ขั้นตอนง่ายๆ นี้ รับรองว่าได้ชื่อดี แถมภูมิใจที่พ่อแม่ตั้งให้เอง!
+        </p>
+        
+        <div class="space-y-4">
+            <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-amber-500/50 transition-colors">
+                <h3 class="text-lg font-bold text-amber-300 mb-2">1. เช็ควันเกิดและอักษรกาลกิณี</h3>
+                <p class="text-slate-300 text-sm">ดูตารางด้านบนว่าวันเกิดลูกห้ามใช้อักษรตัวไหน (ห้ามเด็ดขาด!)</p>
+            </div>
+            <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-amber-500/50 transition-colors">
+                <h3 class="text-lg font-bold text-amber-300 mb-2">2. เลือก "อักษรนำ" ตามความต้องการ</h3>
+                <p class="text-slate-300 text-sm">
+                    อยากให้ลูกเด่นเรื่องอะไร? ใช้อักษรวรรคนั้นนำหน้าชื่อ
+                    <br>• ผู้ชาย นิยมใช้วรรค <strong>"เดช"</strong> (อำนาจ)
+                    <br>• ผู้หญิง นิยมใช้วรรค <strong>"ศรี"</strong> (โชคลาภ/เสน่ห์)
+                </p>
+            </div>
+            <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-amber-500/50 transition-colors">
+                <h3 class="text-lg font-bold text-amber-300 mb-2">3. ผสมคำให้มีความหมาย</h3>
+                <p class="text-slate-300 text-sm">
+                    ใช้พจนานุกรมไทย หรือเว็บ <strong class="text-cyan-400">Namemongkol.com</strong> ค้นหาคำศัพท์ที่มีความหมายดี แล้วนำมาผสมกัน เช่น "ณัฐ" (ปราชญ์) + "ณิชา" (บริสุทธิ์) = ณัฐณิชา
+                </p>
+            </div>
+            <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700 hover:border-amber-500/50 transition-colors">
+                <h3 class="text-lg font-bold text-amber-300 mb-2">4. เช็คผลรวมเลขศาสตร์</h3>
+                <p class="text-slate-300 text-sm">
+                    เมื่อได้ชื่อแล้ว นำไปวิเคราะห์ผลรวมเลขศาสตร์ (เลขมงคล) เพื่อดูว่าผลรวมดีไหม และกราฟชีวิตเป็นอย่างไร
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 6: Case Study -->
+    <div id="case-study">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">🔍</span> วิเคราะห์ชื่อคนดังตามหลักทักษาปกรณ์
+        </h2>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            ลองมาดูตัวอย่างชื่อคนดังว่าทำไมถึงรุ่งเรือง (เพื่อการศึกษาเท่านั้น)
+        </p>
+
+        <div class="bg-gradient-to-r from-purple-900/20 to-slate-900 border border-purple-500/20 rounded-2xl p-6 mb-6">
+            <h3 class="text-xl font-bold text-white mb-2">ลิซ่า (LISA) - ลลิตา มโนบาล</h3>
+            <p class="text-slate-400 text-sm mb-4">(ชื่อเดิมก่อนเปลี่ยนเป็น ลลิษา)</p>
+            <ul class="space-y-2 text-slate-300 text-sm">
+                <li>• <strong>เกิดวันพฤหัสบดี</strong> (กาลกิณีคือ ด ต ถ ท ธ น)</li>
+                <li>• <strong>ลลิตา</strong>: อักษร ล (บริวาร), ต (กาลกิณี!) → <em>สังเกตว่าชื่อเดิมมีกาลกิณี</em></li>
+                <li>• <strong>เปลี่ยนเป็น "ลลิษา"</strong>: 
+                    <br><span class="pl-4">- ล (บริวาร)</span>
+                    <br><span class="pl-4">- ษ (ศรี/มูละ) ช่วยเสริมโชคลาภและทรัพย์สิน</span>
+                    <br><span class="text-emerald-400 pl-4">✅ ไม่มีอักษรกาลกิณีแล้ว แถมมีศรีนำ!</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section 7: Why Different -->
+    <div id="why-different">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">✨</span> ทำไมตั้งชื่อกับ NameMongkol ถึงดีกว่า?
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-slate-800/60 p-6 rounded-xl border border-slate-700">
+                <h3 class="font-bold text-white mb-2">1. ข้อมูลลึกกว่าแค่ตาราง</h3>
+                <p class="text-slate-400 text-sm">เราไม่ได้มีแค่ตารางบอกอักษรแบบเว็บทั่วไป (เช่น myhora) แต่เรามี AI ช่วยวิเคราะห์กราฟชีวิตและผลรวมเลขศาสตร์ให้ด้วย</p>
+            </div>
+            <div class="bg-slate-800/60 p-6 rounded-xl border border-slate-700">
+                <h3 class="font-bold text-white mb-2">2. ชื่อทันสมัย (Modern Naming)</h3>
+                <p class="text-slate-400 text-sm">เราคัดเฉพาะชื่อที่ "ออกเสียงเพราะ" ในภาษาอังกฤษ (Global Phonetic) เพื่อเตรียมลูกคุณให้พร้อมสำหรับโลกอนาคต</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <div id="faq">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">❓</span> คำถามที่พบบ่อย (FAQ)
+        </h2>
+        <div class="space-y-4">
+            <details class="bg-slate-900/50 border border-slate-700 rounded-xl p-4 cursor-pointer group">
+                <summary class="font-bold text-amber-200 list-none flex justify-between items-center">
+                    ต้องตั้งชื่อตามวันเกิดจริง หรือวันแจ้งเกิด?
+                    <span class="text-amber-500 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                    ต้องใช้ <strong>"วันเกิดจริง"</strong> เท่านั้น และต้องระวังเรื่องเวลาเกิดด้วย ถ้าเกิดก่อน 6 โมงเช้า (06:00 น.) ให้นับเป็นวันก่อนหน้าตามหลักโหราศาสตร์ไทย
+                </p>
+            </details>
+            <details class="bg-slate-900/50 border border-slate-700 rounded-xl p-4 cursor-pointer group">
+                <summary class="font-bold text-amber-200 list-none flex justify-between items-center">
+                    ถ้าชื่อมีกาลกิณี จะเป็นอะไรไหม?
+                    <span class="text-amber-500 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                    ตามความเชื่อ กาลกิณีอาจนำมาซึ่งอุปสรรค ความเหนื่อยยาก หรือปัญหาสุขภาพ หากเลี่ยงได้ควรเลี่ยงเพื่อความสบายใจ แต่ถ้าชื่อเดิมใช้มานานและชีวิตดีอยู่แล้ว ก็ไม่จำเป็นต้องเปลี่ยนครับ
+                </p>
+            </details>
+            <details class="bg-slate-900/50 border border-slate-700 rounded-xl p-4 cursor-pointer group">
+                <summary class="font-bold text-amber-200 list-none flex justify-between items-center">
+                    ลูกเกิดปีม้าไฟ 2569 ควรระวังเรื่องอะไร?
+                    <span class="text-amber-500 group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p class="text-slate-300 text-sm mt-3 leading-relaxed">
+                    เด็กปีม้าไฟจะมีพลังงานสูง ใจร้อน ควรตั้งชื่อที่มีความหมายเย็นๆ หรือใช้อักษรวรรค "อายุ" (สุขภาพ/ความสงบ) มาช่วยเบรกความร้อนแรง จะทำให้เลี้ยงง่ายขึ้น
+                </p>
+            </details>
+        </div>
+    </div>
+</div>
+`
+},
+
+    {
         id: '30',
         slug: '100-auspicious-women-names-2026',
         title: '100 ชื่อมงคลผู้หญิง 2569: ทันสมัย ความหมายดี เสริมดวงและบุคลิกให้ดูอินเตอร์',

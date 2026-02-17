@@ -32,6 +32,21 @@ Optimizing content to be selected as authoritative answers by AI systems.
 ### EEAT (Experience, Expertise, Authoritativeness, Trustworthiness)
 Google's framework for evaluating content quality.
 
+## Project Context: NameMongkol
+
+### EEAT Strategy
+- **Expertise/Authority**: Position NameMongkol as the "Scientific" expert. Explain "Why" and "How" behind numerology, not just results.
+- **Trustworthiness**: Cite sources (Thaksa scriptures), show transparent analysis methods, and include user reviews/case studies (as per SEO Plan Week 1 & 2).
+
+### AEO/GEO Focus
+- **Tone**: Professional, Trustworthy, Empowering, Mystical yet Scientific.
+- **Answer Formats**: Use clear definitions, lists, and direct answers for questions like "What is..." or "How to...".
+- **Structured Data**: Implement `HowTo` for naming guides, `FAQPage` for Q&A, and `SoftwareApplication` for the analysis tool.
+
+> See also:
+> - [NameMongkol Detailed Checklist](./resources/namemongkol-checklist.md) 
+> - [NameMongkol Keyword Strategy](../keyword-research/project_context.md)
+
 ## Resources
 
 See `resources/` for detailed guidance:

@@ -21,8 +21,8 @@ type ArticleRow = {
     category: string;
 } & Record<string, unknown>;
 
-// Revalidate every hour
-export const revalidate = 3600;
+// Revalidate immediately for admin updates
+export const revalidate = 0;
 
 // Helper to parse Thai date string "DD Month YYYY" to timestamp
 const parseThaiDate = (dateStr: string) => {

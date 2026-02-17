@@ -37,9 +37,9 @@ export default function AdminArticlesPage() {
     const [isRestoring, setIsRestoring] = useState(false);
 
     // Upload & Form State
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [uploading, setUploading] = useState(false);
-    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    // Form State
+    // const [uploading, setUploading] = useState(false); // Removed upload state
+
     // Validation State
     const [formError, setFormError] = useState<string | null>(null);
 
@@ -89,16 +89,18 @@ export default function AdminArticlesPage() {
             keywords: [],
             is_published: true
         });
-        setSelectedFile(null);
-        setPreviewUrl(null);
+        // setSelectedFile(null);
+        // setPreviewUrl(null);
+
         setIsEditing(false);
         setIsModalOpen(true);
     };
 
     const handleEdit = (article: Article) => {
         setCurrentArticle({ ...article });
-        setSelectedFile(null);
-        setPreviewUrl(article.cover_image);
+        // setSelectedFile(null);
+        // setPreviewUrl(article.cover_image);
+
         setIsEditing(true);
         setIsModalOpen(true);
     };
@@ -134,73 +136,8 @@ export default function AdminArticlesPage() {
         }
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!e.target.files || e.target.files.length === 0) {
-            setSelectedFile(null);
-            return;
-        }
+    // File upload logic removed
 
-        const file = e.target.files[0];
-        setSelectedFile(file);
-        const objectUrl = URL.createObjectURL(file);
-        setPreviewUrl(objectUrl);
-    };
-
-    const uploadImage = async (file: File, baseName: string): Promise<string> => {
-        if (!file) throw new Error('No file selected');
-
-        // Compress if image (double check type just in case)
-        let fileToUpload = file;
-        if (file.type.startsWith('image/')) {
-            try {
-                // Compress to max 1200px width, 80% quality
-                const compressedBlob = await compressImage(file, 1200, 0.8);
-                // Create new File with .jpg extension
-                const newName = baseName.replace(/\.[^.]+$/, '') + '.jpg';
-                fileToUpload = new File([compressedBlob], newName, { type: 'image/jpeg' });
-            } catch (err) {
-                console.warn('Image compression failed, falling back to original', err);
-            }
-        }
-
-        const fileExt = fileToUpload.name.split('.').pop();
-        // Create an SEO-friendly filename: slug-timestamp.ext
-        // Ensure the baseName is safe (alphanumeric + dashes only)
-        const safeName = baseName
-            .toLowerCase()
-            .replace(/[^a-z0-9\u0E00-\u0E7F-]/g, '-') // Allow Thai + English + Dashes
-            .replace(/-+/g, '-')
-            .replace(/^-|-$/g, '');
-
-        const fileName = `${safeName}-${Date.now()}.${fileExt}`;
-        const filePath = `${fileName}`;
-
-        const { error: uploadError } = await supabase.storage
-            .from('articles')
-            .upload(filePath, fileToUpload);
-
-
-        if (uploadError) throw uploadError;
-
-        const { data } = supabase.storage
-            .from('articles')
-            .getPublicUrl(filePath);
-
-        return data.publicUrl;
-    };
-
-    const extractStoragePathFromUrl = (url?: string | null) => {
-        if (!url || !/^https?:\/\//i.test(url)) return null;
-        try {
-            const parsed = new URL(url);
-            const marker = '/storage/v1/object/public/articles/';
-            const idx = parsed.pathname.indexOf(marker);
-            if (idx === -1) return null;
-            return decodeURIComponent(parsed.pathname.substring(idx + marker.length));
-        } catch {
-            return null;
-        }
-    };
 
     // Auto-generate slug from title if empty
     const generateSlug = (title: string) => {
@@ -215,17 +152,14 @@ export default function AdminArticlesPage() {
         e.preventDefault();
         // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
-        setUploading(true);
+        // setUploading(true);
         setFormError(null);
 
         try {
-            let finalImageUrl = currentArticle.cover_image;
-            const previousCoverImage = currentArticle.cover_image;
-
             // Validation: Title required
             if (!currentArticle.title || currentArticle.title.trim() === '') {
                 setFormError('กรุณากรอกชื่อบทความ');
-                setUploading(false);
+                // setUploading(false);
                 return;
             }
 
@@ -234,21 +168,8 @@ export default function AdminArticlesPage() {
             const duplicate = articles.find(a => a.slug === slugToCheck && a.id !== currentArticle.id);
             if (duplicate) {
                 setFormError('Slug ซ้ำกับบทความอื่น กรุณาเปลี่ยน');
-                setUploading(false);
+                // setUploading(false);
                 return;
-            }
-
-            if (selectedFile) {
-                try {
-                    // Use slug if available, otherwise title (sanitized by uploadImage)
-                    const baseName = currentArticle.slug || currentArticle.title || 'untitled';
-                    finalImageUrl = await uploadImage(selectedFile, baseName);
-                } catch (uploadError: any) {
-                    console.error('Upload Error', uploadError);
-                    Swal.fire('Upload Failed', uploadError.message || 'Could not upload image', 'error');
-                    setUploading(false);
-                    return;
-                }
             }
 
             const payload = {
@@ -256,7 +177,7 @@ export default function AdminArticlesPage() {
                 slug: slugToCheck,
                 excerpt: currentArticle.excerpt || '',
                 content: currentArticle.content || '',
-                cover_image: finalImageUrl || '',
+                cover_image: currentArticle.cover_image || '', // Direct text input
                 date: currentArticle.date || new Date().toISOString().split('T')[0],
                 author: currentArticle.author || '',
                 category: currentArticle.category || '',
@@ -273,17 +194,6 @@ export default function AdminArticlesPage() {
                     .eq('id', currentArticle.id);
 
                 if (error) throw error;
-
-                if (selectedFile) {
-                    const prevPath = extractStoragePathFromUrl(previousCoverImage);
-                    const newPath = extractStoragePathFromUrl(finalImageUrl || '');
-                    if (prevPath && prevPath !== newPath) {
-                        const { error: removeError } = await supabase.storage
-                            .from('articles')
-                            .remove([prevPath]);
-                        if (removeError) console.warn('Remove old cover error:', removeError);
-                    }
-                }
 
                 // Refresh list or update local state
                 setArticles(prev => prev.map(a => a.id === currentArticle.id ? { ...a, ...payload, id: currentArticle.id as string } : a));
@@ -305,7 +215,7 @@ export default function AdminArticlesPage() {
             console.error('Error saving article:', error);
             Swal.fire('Error', 'Failed to save article', 'error');
         } finally {
-            setUploading(false);
+            // setUploading(false);
         }
     };
 
@@ -738,17 +648,22 @@ export default function AdminArticlesPage() {
                                     />
                                 </div>
 
-                                {/* Image Upload */}
+                                {/* Image Path Input */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-slate-300">Cover Image</label>
+
+                                    <label className="text-sm font-medium text-slate-300">Cover Image Path (Local)</label>
                                     <div className="flex gap-4 items-start">
                                         <div className="relative w-40 h-24 bg-slate-800 border border-slate-700 rounded-lg overflow-hidden flex-shrink-0">
-                                            {previewUrl ? (
+                                            {currentArticle.cover_image ? (
                                                 <Image
-                                                    src={previewUrl}
+                                                    src={currentArticle.cover_image}
                                                     alt="Preview"
                                                     fill
                                                     className="object-cover"
+                                                    onError={(e) => {
+                                                        const target = e.target as HTMLImageElement;
+                                                        target.style.display = 'none';
+                                                    }}
                                                 />
                                             ) : (
                                                 <div className="w-full h-full flex items-center justify-center text-slate-500">
@@ -756,19 +671,17 @@ export default function AdminArticlesPage() {
                                                 </div>
                                             )}
                                         </div>
-                                        <div className="flex-1">
+                                        <div className="flex-1 space-y-2">
                                             <input
-                                                type="file"
-                                                accept="image/*"
-                                                onChange={handleFileChange}
-                                                className="block w-full text-sm text-slate-400
-                                                    file:mr-4 file:py-2 file:px-4
-                                                    file:rounded-full file:border-0
-                                                    file:text-sm file:font-semibold
-                                                    file:bg-emerald-500/10 file:text-emerald-400
-                                                    hover:file:bg-emerald-500/20"
+                                                type="text"
+                                                value={currentArticle.cover_image || ''}
+                                                onChange={e => setCurrentArticle({ ...currentArticle, cover_image: e.target.value })}
+                                                placeholder="/images/articles/my-image.png"
+                                                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-emerald-500 text-sm font-mono"
                                             />
-                                            <p className="text-xs text-slate-500 mt-2">Recommended size: 1200x675px (16:9)</p>
+                                            <p className="text-xs text-slate-500">
+                                                Path to image in public folder. E.g., <span className="text-emerald-400">/images/articles/your-file.jpg</span>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -783,11 +696,13 @@ export default function AdminArticlesPage() {
                                     </button>
                                     <button
                                         type="submit"
-                                        disabled={uploading}
+
                                         className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-lg font-bold shadow-lg shadow-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
-                                        {uploading ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
-                                        {uploading ? 'Saving...' : 'Save Article'}
+
+                                        <Save size={20} />
+                                        Save Article
+
                                     </button>
                                 </div>
                             </form>

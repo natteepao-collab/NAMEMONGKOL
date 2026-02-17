@@ -387,6 +387,23 @@ When a user requests internal linking optimization:
    - [ ] Internal link distribution changes
    ```
 
+## Project Context: NameMongkol
+
+### Internal Linking Rules
+
+1. **Golden Rule**: Every article MUST link to the Name Analysis Tool.
+   - **Target**: `/name-analysis` (or the relevant tool page)
+   - **Anchor**: "วิเคราะห์ชื่อฟรี", "เช็คชื่อมงคล", "ตรวจสอบชื่อของคุณ"
+   - **Location**: Intro, Relevant Sections, and Conclusion CTA.
+
+2. **Pillar Strategy**:
+   - **Pillar Pages** (e.g., "คู่มือตั้งชื่อมงคล") must link to all sub-topics (Days/Numbers).
+   - **Cluster Pages** (e.g., "ชื่อมงคลวันจันทร์") must link back to the Pillar and to related "Forbidden Letters" or "Meaning of Numbers" pages.
+
+3. **Cross-Linking**:
+   - Articles about specific numbers (e.g., Sum 45) should link to "Finance/Wealth" articles if the number promotes wealth.
+   - Use `relatedSlugs` in `src/data/articles.ts` to identify and implement these links programmatically if possible, or manually in content.
+
 ## Example
 
 **User**: "Find internal linking opportunities for my blog post about 'email marketing best practices'"

@@ -7,6 +7,8 @@ description: Discovers high-value keywords with search intent analysis, difficul
 
 This skill helps you discover, analyze, and prioritize keywords for SEO and GEO content strategies. It identifies high-value opportunities based on search volume, competition, intent, and business relevance.
 
+> **Project Context**: For specific guidelines and keywords related to the **NameMongkol** project, please refer to the [Project Context](./project_context.md) file in this directory.
+
 ## When to Use This Skill
 
 - Starting a new content strategy or campaign
@@ -264,26 +266,27 @@ When a user requests keyword research:
 
 ## Example
 
-**User**: "Research keywords for a project management software company targeting small businesses"
+**User**: "Research keywords for auspicous naming for newborns (Thai naming)"
 
 **Output**:
 
 ```markdown
-# Keyword Research Report: Project Management Software
+# Keyword Research Report: Auspicious Naming (ตั้งชื่อมงคล)
 
-**Generated**: December 2024
-**Target Audience**: Small business owners and teams
-**Business Goal**: Software signups and trials
+**Generated**: February 2026
+**Target Audience**: Expectant parents, individuals seeking luck
+**Business Goal**: Traffic to analysis tool & Premium Naming Service
 
 ## Executive Summary
 
-- Total keywords analyzed: 150+
-- High-priority opportunities: 23
-- Estimated traffic potential: 45,000/month
+- Total keywords analyzed: 200+
+- High-priority opportunities: 15
+- Estimated traffic potential: 120,000/month
 - Recommended focus areas: 
-  - Task management workflows
-  - Team collaboration
-  - Small business productivity
+  - Auspicious names by birthday (Year 2569)
+  - Name analysis program (Free tool)
+  - Meaning of numerology sum (เลขศาสตร์)
+  - Forbidden letters (กาลกิณี)
 
 ## Top Keyword Opportunities
 
@@ -291,106 +294,67 @@ When a user requests keyword research:
 
 | Keyword | Volume | Difficulty | Intent | Score |
 |---------|--------|------------|--------|-------|
-| project management for small teams | 1,200 | 28 | Commercial | 92 |
-| simple task management software | 890 | 25 | Commercial | 89 |
-| best free project management tool | 2,400 | 35 | Commercial | 85 |
-| how to manage remote team projects | 720 | 22 | Informational | 82 |
-| project tracking spreadsheet alternative | 480 | 18 | Commercial | 80 |
+| ชื่อมงคลตามวันเกิด 2569 | 15,000 | 35 | Informational | 95 |
+| วิเคราะห์ชื่อฟรี | 45,000 | 42 | Transactional | 90 |
+| ตั้งชื่อลูกสาวพร้อมความหมาย | 12,000 | 28 | Informational | 88 |
+| อักษรกาลกิณีวันจันทร์ | 3,500 | 15 | Informational | 85 |
+| เปลี่ยนชื่อที่ไหนดี | 2,800 | 22 | Commercial | 82 |
 
 ### Growth Keywords (Priority: 3-6 months)
 
 | Keyword | Volume | Difficulty | Intent | Score |
 |---------|--------|------------|--------|-------|
-| project management software | 18,000 | 72 | Commercial | 65 |
-| best project management tools 2024 | 8,500 | 65 | Commercial | 62 |
-| project management app | 12,000 | 68 | Commercial | 58 |
+| ชื่อมงคล | 150,000 | 75 | Informational | 65 |
+| ดูดวงชื่อ | 90,000 | 68 | Transactional | 62 |
+| ความหมายชื่อ | 60,000 | 60 | Informational | 58 |
 
 ### GEO Opportunities (AI-citation potential)
 
 | Keyword | Type | AI Potential | Recommended Format |
 |---------|------|--------------|-------------------|
-| what is project management | Definition | ⭐⭐⭐⭐⭐ | Clear definition + methodology |
-| agile vs waterfall | Comparison | ⭐⭐⭐⭐⭐ | Side-by-side comparison table |
-| project management methodologies | List | ⭐⭐⭐⭐ | Comprehensive list with pros/cons |
-| how to create a project plan | How-to | ⭐⭐⭐⭐ | Step-by-step guide |
-| project management best practices | List | ⭐⭐⭐⭐ | Numbered best practices |
+| วิธีตั้งชื่อลูกตามหลักเลขศาสตร์ | How-to | ⭐⭐⭐⭐⭐ | Step-by-step guide with calculator |
+| ทักษาปกรณ์คืออะไร | Definition | ⭐⭐⭐⭐⭐ | Clear definition + table |
+| ชื่อมงคลคนเกิดวันอังคาร | List | ⭐⭐⭐⭐ | List with meanings |
+| ผลรวมเลขศาสตร์ 45 ดีไหม | Question | ⭐⭐⭐⭐ | Detailed answer with pros/cons |
 
 ## Topic Clusters
 
-### Cluster 1: Project Management Fundamentals
+### Cluster 1: Naming Principles (หลักการตั้งชื่อ)
 
-**Pillar**: "Complete Guide to Project Management" (8,500 volume)
-
-Cluster articles:
-1. What is project management? (2,200 volume)
-2. Project management methodologies explained (1,800 volume)
-3. How to create a project plan (1,400 volume)
-4. Project management best practices (1,200 volume)
-5. Project management roles and responsibilities (890 volume)
-
-### Cluster 2: Team Collaboration
-
-**Pillar**: "Team Collaboration Tools Guide" (4,200 volume)
+**Pillar**: "Complete Guide to Thai Naming Science" (คู่มือตั้งชื่อมงคลฉบับสมบูรณ์)
 
 Cluster articles:
-1. How to improve team communication (1,600 volume)
-2. Remote team management tips (1,400 volume)
-3. Best practices for distributed teams (920 volume)
-4. Team productivity tools comparison (780 volume)
+1. What is Numerology? (เลขศาสตร์คืออะไร)
+2. Understanding Thaksa (ทักษาปกรณ์และอักษรตามวันเกิด)
+3. Ayatana 6 Explained (อายตนะ 6 คืออะไร)
+4. Shadow Power in Naming (พลังเงาและพลังซ้อน)
+
+### Cluster 2: Naming by Birthday (ตั้งชื่อตามวันเกิด)
+
+**Pillar**: "Auspicious Names by Birthday 2026" (ตั้งชื่อมงคลตามวันเกิด 2569)
+
+Cluster articles:
+1. Auspicious names for Sunday (ชื่อมงคลวันอาทิตย์)
+2. Auspicious names for Monday (ชื่อมงคลวันจันทร์)
+3. ... (Tuesday - Saturday)
+4. Forbidden letters for each day (อักษรกาลกิณีประจำวัน)
 
 ## Content Calendar Recommendations
 
 | Month | Content | Target Keyword | Type |
 |-------|---------|----------------|------|
-| Week 1 | Simple Task Management Guide | simple task management software | Blog + Demo |
-| Week 2 | Project Management for Small Teams | project management for small teams | Pillar Page |
-| Week 3 | Agile vs Waterfall: Complete Comparison | agile vs waterfall | Comparison |
-| Week 4 | Free PM Tools Roundup | best free project management tool | Listicle |
+| Week 1 | 4 Naming Sciences You Must Know | ศาสตร์การตั้งชื่อ | Educational Guide |
+| Week 2 | Numerology 101: Numbers 0-9 | ความหมายตัวเลข | Educational |
+| Week 3 | Check Your Forbidden Letters | อักษรกาลกิณี | Interactive/List |
+| Week 4 | Top 10 Popular Names 2026 | ชื่อยอดฮิต 2569 | Trend |
 
 ## Next Steps
 
-1. **Immediate**: Create landing pages for top 5 quick-win keywords
-2. **Week 1-2**: Write pillar content for "Project Management Fundamentals"
-3. **Week 3-4**: Build out cluster content with internal linking
-4. **Ongoing**: Track rankings and adjust strategy based on performance
+1. **Immediate**: Optimize homepage for "วิเคราะห์ชื่อ"
+2. **Week 1-2**: Publish "Auspicious Names by Birthday 2569" pillar page
+3. **Week 3-4**: Create calculator/tool landing pages
+4. **Ongoing**: Monitor rankings for "ชื่อมงคล"
 ```
-
-## Advanced Features
-
-### Intent Mapping
-
-```
-Map all keywords for [topic] by search intent and funnel stage
-```
-
-### Seasonal Analysis
-
-```
-Identify seasonal keyword trends for [industry]
-```
-
-### Competitor Gap
-
-```
-What keywords do [competitor 1], [competitor 2], [competitor 3] rank for 
-that I'm missing?
-```
-
-### Local Keywords
-
-```
-Research local keywords for [business type] in [city/region]
-```
-
-## Tips for Success
-
-1. **Start with seed keywords** that describe your core offering
-2. **Don't ignore long-tail** - they often have highest conversion rates
-3. **Match content to intent** - informational queries need guides, not sales pages
-4. **Group into clusters** for topical authority
-5. **Prioritize quick wins** to build momentum and credibility
-6. **Include GEO keywords** in your strategy for AI visibility
-7. **Review quarterly** - keyword dynamics change over time
 
 ## Related Skills
 
@@ -398,4 +362,3 @@ Research local keywords for [business type] in [city/region]
 - [content-gap-analysis](../content-gap-analysis/) - Find missing keyword opportunities
 - [seo-content-writer](../../build/seo-content-writer/) - Create content for target keywords
 - [geo-content-optimizer](../../build/geo-content-optimizer/) - Optimize for AI citations
-

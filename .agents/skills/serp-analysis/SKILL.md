@@ -365,6 +365,22 @@ When a user requests SERP analysis:
    3. [Optimization action]
    ```
 
+## Project Context: NameMongkol SERP Patterns
+
+### Competitor Archetypes
+-   **Old School Astrologers**: Content-heavy, outdated design, trust based on "Ajarn" persona.
+-   **Mass Content Farms**: Ad-heavy, generic lists, low trust.
+-   **Modern Tools** (Target): Clean UI, instant results, high engagement.
+
+### Opportunity Mapping
+-   **Featured Snippets (Lists)**: "ตั้งชื่อลูกสาววันจันทร์ 2569" -> Structure content as `<ul>` or `<table>` to win this.
+-   **People Also Ask (PAA)**: "ชื่อ XX แปลว่าอะไร?" -> Create distinct "Meaning" pages or a glossary section.
+-   **Image Pack**: Optimize table images (e.g. "ตารางทักษา") with file name `auspicious-table-monday.jpg` to rank here.
+
+### Search Intent Decoding
+-   If Top 3 results are **Tools**: Prioritize `/name-analysis` modifications.
+-   If Top 3 results are **Long-form Content**: Create a "Ultimate Guide" pillar page.
+
 ## Example
 
 **User**: "Analyze the SERP for 'how to start a podcast'"

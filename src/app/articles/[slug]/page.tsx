@@ -19,6 +19,9 @@ const ArticleCTA = dynamic(() => import('@/components/ArticleCTA').then(mod => m
 import { articles as localArticles, Article } from '@/data/articles';
 import { shimmer, toBase64 } from '@/utils/imageUtils';
 
+// Revalidate immediately for admin updates
+export const revalidate = 0;
+
 type Props = {
     params: Promise<{ slug: string }>;
 };
