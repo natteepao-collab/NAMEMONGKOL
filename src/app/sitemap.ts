@@ -12,7 +12,12 @@ const popularNames = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.namemongkol.com'
+    // IMPORTANT: Must use www. to match canonical URLs in page metadata
+    const rawBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.namemongkol.com';
+    // Ensure www. prefix for consistency with page canonical URLs
+    const baseUrl = rawBaseUrl.includes('namemongkol.com') && !rawBaseUrl.includes('www.')
+        ? rawBaseUrl.replace('://namemongkol.com', '://www.namemongkol.com')
+        : rawBaseUrl;
 
     // Initialize Supabase client
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';

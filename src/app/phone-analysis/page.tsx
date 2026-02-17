@@ -1,11 +1,12 @@
 import React from 'react';
 import { Metadata } from 'next';
+import Script from 'next/script';
 import ClientPage from './ClientPage';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 
 export const metadata: Metadata = {
-    title: 'วิเคราะห์เบอร์มงคล ฟรี! ดูดวงเบอร์โทรศัพท์ เช็คเบอร์มือถือ 2568 | Namemongkol',
+    title: 'วิเคราะห์เบอร์มงคล ฟรี! ดูดวงเบอร์โทรศัพท์ เช็คเบอร์มือถือ 2569 | Namemongkol',
     description: 'วิเคราะห์เบอร์มงคล เช็คเบอร์โทรศัพท์ ดูดวงเบอร์มือถือ ฟรี! ด้วยระบบ AI อัจฉริยะ วิเคราะห์คู่เลข ผลรวม กราฟพลังงาน 6 ด้าน รู้ทันทีว่าเบอร์ดีหรือร้าย เบอร์มงคล เบอร์เสริมดวง เบอร์เงินล้าน พร้อมความหมายคู่เลขครบถ้วน',
     keywords: 'วิเคราะห์เบอร์มงคล, เช็คเบอร์มงคล, ดูดวงเบอร์โทรศัพท์, เบอร์มงคล, ทำนายเบอร์โทรศัพท์, เลขมงคล, คู่เลขมงคล, เบอร์เสริมดวง, เบอร์เงินล้าน, เบอร์สวย, เลขศาสตร์, ดูดวงเบอร์มือถือ, เช็คเบอร์มือถือ',
     openGraph: {
@@ -23,7 +24,9 @@ export const metadata: Metadata = {
         description: 'เช็คเบอร์โทรศัพท์ว่าดีหรือร้าย? วิเคราะห์เบอร์มงคลฟรี พร้อมกราฟพลังงาน 6 ด้าน',
         images: [`${siteUrl}/api/og?variant=phone`],
     },
-
+    alternates: {
+        canonical: 'https://www.namemongkol.com/phone-analysis',
+    },
 };
 
 export default function PhoneAnalysisPage() {
@@ -160,7 +163,8 @@ export default function PhoneAnalysisPage() {
 
     return (
         <>
-            <script
+            <Script
+                id="phone-analysis-jsonld"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />

@@ -1,7 +1,11 @@
 import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.namemongkol.com'
+    const rawBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.namemongkol.com';
+    // Ensure www. prefix for consistency with canonical URLs
+    const baseUrl = rawBaseUrl.includes('namemongkol.com') && !rawBaseUrl.includes('www.')
+        ? rawBaseUrl.replace('://namemongkol.com', '://www.namemongkol.com')
+        : rawBaseUrl;
 
     return {
         rules: [
