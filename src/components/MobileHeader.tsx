@@ -28,15 +28,15 @@ export const MobileHeader = ({ onMenuClick, user }: MobileHeaderProps) => {
                 </button>
             </div>
 
-            {/* Center: Logo */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-fit">
+            {/* Center: Logo (Centered between Menu and Right Actions) */}
+            <div className="flex-1 flex justify-center items-center px-2">
                 <Link href="/" className="flex items-center gap-2">
                     <div className="w-8 h-8 max-[400px]:w-7 max-[400px]:h-7 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 ring-1 ring-white/10 mr-1">
                         <Sparkles size={16} className="text-white drop-shadow-md" />
                     </div>
-                    <div className="hidden min-[500px]:flex items-baseline tracking-tight">
-                        <span className="text-base font-bold text-slate-800 dark:text-white font-sans mr-[1px]">Name</span>
-                        <span className="text-base font-bold text-amber-500 dark:text-amber-400 font-sans">Mongkol</span>
+                    <div className="flex items-baseline tracking-tight">
+                        <span className="text-sm min-[380px]:text-base font-bold text-slate-800 dark:text-white font-sans mr-[1px]">Name</span>
+                        <span className="text-sm min-[380px]:text-base font-bold text-amber-500 dark:text-amber-400 font-sans">Mongkol</span>
                     </div>
                 </Link>
             </div>

@@ -156,13 +156,13 @@ function HomeContent() {
 
 
 
-            <main className="relative z-10 w-full max-w-[1400px] px-4 sm:px-6 lg:px-12 xl:px-16 pt-24 md:pt-32 pb-28 flex flex-col items-center min-h-[80vh]">
+            <main className="relative z-10 w-full max-w-[1400px] px-4 sm:px-6 lg:px-12 xl:px-16 pt-20 md:pt-32 pb-12 md:pb-28 flex flex-col items-center min-h-[80vh]">
 
                 {!result ? (
                     <div className="w-full max-w-lg flex flex-col items-center">
                         {/* HeroBanner decoupled for LCP - No fade-in delay */}
                         <div className="w-full animate-fade-in">
-                            <h2 className="text-center text-amber-200/60 font-medium tracking-widest uppercase text-xs mb-4">
+                            <h2 className="text-center text-amber-200/60 font-medium tracking-widest uppercase text-xs mb-2 sm:mb-4">
                                 {t('home.hero.badge')}
                             </h2>
                             <HeroBanner />

@@ -30,16 +30,16 @@ export const InputForm: React.FC<InputFormProps> = ({
         <div className="w-full max-w-lg animate-fade-in-up">
             {/* HeroBanner moved to parent for LCP optimization */}
 
-            <div className="glass-card p-5 sm:p-8 rounded-2xl shadow-2xl shadow-purple-900/20">
-                <div className="space-y-5 sm:space-y-6">
+            <div className="glass-card p-4 sm:p-5 md:p-8 rounded-2xl shadow-2xl shadow-purple-900/20">
+                <div className="space-y-3 sm:space-y-6">
                     <div>
-                        <label htmlFor="birth-day" className="block text-sm font-medium text-slate-300 mb-2 ml-1">วันเกิด</label>
+                        <label htmlFor="birth-day" className="block text-xs sm:text-sm font-medium text-slate-300 mb-1 sm:mb-2 ml-1">วันเกิด</label>
                         <div className="relative">
                             <select
                                 id="birth-day"
                                 value={day}
                                 onChange={(e) => onDayChange(e.target.value)}
-                                className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-base sm:text-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all text-slate-200 cursor-pointer"
+                                className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-2 sm:py-3 text-sm sm:text-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all text-slate-200 cursor-pointer"
                             >
                                 {Object.entries(thaksaConfig).map(([key, config]) => (
                                     <option key={key} value={key}>{config.name}</option>
@@ -48,27 +48,27 @@ export const InputForm: React.FC<InputFormProps> = ({
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-3 sm:gap-4">
                         <div>
-                            <label htmlFor="input-name" className="block text-sm font-medium text-slate-300 mb-2 ml-1">ชื่อจริง</label>
+                            <label htmlFor="input-name" className="block text-xs sm:text-sm font-medium text-slate-300 mb-1 sm:mb-2 ml-1">ชื่อจริง</label>
                             <input
                                 id="input-name"
                                 type="text"
                                 value={name}
                                 onChange={(e) => onNameChange(e.target.value)}
                                 placeholder="เช่น สมชาย"
-                                className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-base sm:text-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all placeholder:text-slate-600"
+                                className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all placeholder:text-slate-600"
                             />
                         </div>
                         <div>
-                            <label htmlFor="input-surname" className="block text-sm font-medium text-slate-300 mb-2 ml-1">นามสกุล</label>
+                            <label htmlFor="input-surname" className="block text-xs sm:text-sm font-medium text-slate-300 mb-1 sm:mb-2 ml-1">นามสกุล</label>
                             <input
                                 id="input-surname"
                                 type="text"
                                 value={surname}
                                 onChange={(e) => onSurnameChange(e.target.value)}
                                 placeholder="เช่น ใจดี"
-                                className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-4 py-3 text-base sm:text-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all placeholder:text-slate-600"
+                                className="w-full bg-slate-900/50 border border-slate-700 rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all placeholder:text-slate-600"
                             />
                         </div>
                     </div>
@@ -76,7 +76,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                     <button
                         onClick={onAnalyze}
                         disabled={!name || loading}
-                        className={`w-full group relative overflow-hidden rounded-xl py-3.5 sm:py-4 font-semibold text-base sm:text-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] ${!name ? 'bg-slate-700 text-slate-500 cursor-not-allowed' : 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg shadow-amber-500/25'
+                        className={`w-full group relative overflow-hidden rounded-xl py-3 sm:py-4 font-semibold text-sm sm:text-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] ${!name ? 'bg-slate-700 text-slate-500 cursor-not-allowed' : 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg shadow-amber-500/25'
                             }`}
                     >
                         <span className="relative z-10 flex items-center justify-center gap-2">
