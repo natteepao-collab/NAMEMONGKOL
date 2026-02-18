@@ -42,7 +42,7 @@ export const WallpaperShowcase = () => {
     }, []);
 
     return (
-        <div className="w-full max-w-5xl mx-auto mt-16 mb-8 px-4">
+        <div className="w-full max-w-5xl mx-auto mt-4 md:mt-16 mb-8 px-4">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
                 <div>
                     <h2 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 flex items-center gap-3">

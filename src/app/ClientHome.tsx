@@ -156,7 +156,7 @@ function HomeContent() {
 
 
 
-            <main className="relative z-10 w-full max-w-[1400px] px-4 sm:px-6 lg:px-12 xl:px-16 pt-20 md:pt-32 pb-12 md:pb-28 flex flex-col items-center min-h-[80vh]">
+            <main className="relative z-10 w-full max-w-[1400px] px-4 sm:px-6 lg:px-12 xl:px-16 pt-20 md:pt-32 pb-6 md:pb-28 flex flex-col items-center min-h-[80vh]">
 
                 {!result ? (
                     <div className="w-full max-w-lg flex flex-col items-center">
