@@ -142,39 +142,27 @@ export const LiveTicker: React.FC = () => {
 
     return (
         <div
-            className={`fixed bottom-24 lg:bottom-8 left-1/2 -translate-x-1/2 lg:left-8 lg:translate-x-0 z-50 transition-all duration-500 ease-out ${isVisible
+            className={`fixed bottom-20 left-1/2 -translate-x-1/2 z-40 transition-all duration-500 ease-out pointer-events-none ${isVisible
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-4'
                 }`}
         >
-            <div className="relative flex items-center gap-3 px-4 py-2.5 rounded-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-lg border border-slate-200/50 dark:border-slate-700/50 pr-12">
+            <div className="relative flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/60 backdrop-blur-md shadow-lg border border-white/10">
                 {/* Icon */}
-                <div className={`shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-800 ${currentMessage.color}`}>
-                    <IconComponent className="w-3.5 h-3.5" />
+                <div className={`shrink-0 flex items-center justify-center w-4 h-4 rounded-full bg-white/10 ${currentMessage.color}`}>
+                    <IconComponent className="w-2.5 h-2.5" />
                 </div>
 
                 {/* Message */}
-                <span className="text-sm text-slate-600 dark:text-slate-300 font-medium whitespace-nowrap">
+                <span className="text-xs text-slate-200 font-medium whitespace-nowrap pr-1">
                     {currentMessage.message}
                 </span>
 
                 {/* Live Indicator */}
-                <span className="relative flex h-2 w-2 ml-1">
+                <span className="relative flex h-1.5 w-1.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
                 </span>
-
-                {/* Close Button - White X on subtle background */}
-                <button
-                    onClick={handleDismiss}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-full bg-slate-400/80 hover:bg-slate-500 text-white transition-colors"
-                    aria-label="Close"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M18 6 6 18" />
-                        <path d="m6 6 18 18" />
-                    </svg>
-                </button>
             </div>
         </div>
     );
