@@ -19,10 +19,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ? rawBaseUrl.replace('://namemongkol.com', '://www.namemongkol.com')
         : rawBaseUrl;
 
-    // Initialize Supabase client
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    // Initialize Supabase client (optional). Sitemap must not fail if env is missing.
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
 
     // Define static routes with proper priorities
     const routes = [
@@ -32,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { path: '/login', priority: 0.3, changeFreq: 'monthly' as const },
         { path: '/register', priority: 0.3, changeFreq: 'monthly' as const },
         { path: '/name-analysis', priority: 1.0, changeFreq: 'daily' as const }, // High priority tool
-        { path: '/phone-analysis', priority: 0.9, changeFreq: 'weekly' as const },
+        { path: '/phone-analysis', priority: 1.0, changeFreq: 'daily' as const },
         { path: '/premium-analysis', priority: 0.9, changeFreq: 'weekly' as const },
         { path: '/premium-search', priority: 0.8, changeFreq: 'weekly' as const },
         { path: '/privacy', priority: 0.2, changeFreq: 'yearly' as const },
@@ -62,6 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Fetch dynamic wallpapers
     let wallpaperUrls: MetadataRoute.Sitemap = [];
     try {
+        if (!supabase) throw new Error('Supabase is not configured');
         const { data: wallpapers } = await supabase
             .from('wallpapers')
             .select('id, created_at');
@@ -81,6 +82,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Fetch dynamic articles from database
     let articleUrls: MetadataRoute.Sitemap = [];
     try {
+        if (!supabase) throw new Error('Supabase is not configured');
         const { data: articles } = await supabase
             .from('articles')
             .select('slug, date')

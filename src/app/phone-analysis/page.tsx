@@ -3,7 +3,10 @@ import { Metadata } from 'next';
 import Script from 'next/script';
 import ClientPage from './ClientPage';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.namemongkol.com';
+const siteUrl = rawSiteUrl.includes('namemongkol.com') && !rawSiteUrl.includes('www.')
+    ? rawSiteUrl.replace('://namemongkol.com', '://www.namemongkol.com')
+    : rawSiteUrl;
 
 export const metadata: Metadata = {
     title: 'วิเคราะห์เบอร์มงคล ฟรี! ดูดวงเบอร์โทรศัพท์ เช็คเบอร์มือถือ 2569 | Namemongkol',
@@ -12,7 +15,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'วิเคราะห์เบอร์มงคล ฟรี! ดูดวงเบอร์โทรศัพท์ เช็คเบอร์มือถือ | Namemongkol',
         description: 'เช็คเบอร์โทรศัพท์ว่าดีหรือร้าย? วิเคราะห์เบอร์มงคลฟรี พร้อมกราฟพลังงาน 6 ด้าน คู่เลขมงคล ผลรวม และคำทำนายเชิงลึก',
-        url: 'https://www.namemongkol.com/phone-analysis',
+        url: `${siteUrl}/phone-analysis`,
         siteName: 'Namemongkol',
         locale: 'th_TH',
         type: 'website',
@@ -25,7 +28,18 @@ export const metadata: Metadata = {
         images: [`${siteUrl}/api/og?variant=phone`],
     },
     alternates: {
-        canonical: 'https://www.namemongkol.com/phone-analysis',
+        canonical: `${siteUrl}/phone-analysis`,
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
     },
 };
 
@@ -36,15 +50,15 @@ export default function PhoneAnalysisPage() {
         '@graph': [
             {
                 '@type': 'WebPage',
-                '@id': 'https://www.namemongkol.com/phone-analysis',
-                'url': 'https://www.namemongkol.com/phone-analysis',
+                '@id': `${siteUrl}/phone-analysis`,
+                'url': `${siteUrl}/phone-analysis`,
                 'name': 'วิเคราะห์เบอร์มงคล ฟรี! ดูดวงเบอร์โทรศัพท์ เช็คเบอร์มือถือ | Namemongkol',
                 'description': 'วิเคราะห์เบอร์มงคล เช็คเบอร์โทรศัพท์ ดูดวงเบอร์มือถือ ฟรี! ด้วยระบบ AI อัจฉริยะ วิเคราะห์คู่เลข ผลรวม กราฟพลังงาน 6 ด้าน',
                 'inLanguage': 'th-TH',
                 'isPartOf': {
                     '@type': 'WebSite',
                     'name': 'Namemongkol',
-                    'url': 'https://www.namemongkol.com'
+                    'url': siteUrl
                 }
             },
             {
