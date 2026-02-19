@@ -88,6 +88,9 @@ const generateMessage = (): TickerMessage => {
 };
 
 export const LiveTicker: React.FC = () => {
+    // LiveTicker popup disabled — remove this line to re-enable
+    return null;
+
     const [currentMessage, setCurrentMessage] = useState<TickerMessage | null>(null);
     const [isVisible, setIsVisible] = useState(false);
     const [isClient, setIsClient] = useState(false);

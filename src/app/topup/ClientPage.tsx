@@ -255,26 +255,6 @@ export default function TopUpPage({ gateway, promptpayNumber }: TopUpPageProps) 
                         />
                     )}
 
-                    {/* Support Section */}
-                    <div className="bg-slate-900/50 border border-white/10 rounded-2xl p-6 md:p-8 text-center space-y-4 max-w-3xl mx-auto">
-                        <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/10 text-blue-400 mb-2">
-                            <ShieldCheck size={24} />
-                        </div>
-                        <h3 className="text-xl md:text-2xl font-bold text-white">ต้องการความช่วยเหลือ?</h3>
-                        <p className="text-slate-400 max-w-lg mx-auto">
-                            หากพบปัญหาในการเติมเครดิต สแกนแล้วเครดิตไม่เข้า หรือต้องการสอบถามข้อมูลเพิ่มเติม <br className="hidden md:block" />
-                            สามารถติดต่อทีมงานได้ตลอด 24 ชั่วโมง
-                        </p>
-                        <a
-                            href="https://line.me/ti/p/@namemongkol"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#06C755] hover:bg-[#05b54d] text-white font-bold transition-all shadow-lg shadow-emerald-500/20 active:scale-95"
-                        >
-                            <span>ติดต่อ Admin ผ่าน LINE</span>
-                        </a>
-                    </div>
-
                     {/* Trust Badges */}
                     <div className="flex flex-wrap justify-center gap-8 md:gap-16 pt-8 border-t border-white/5 opacity-50">
                         <div className="flex items-center gap-3 text-slate-400">

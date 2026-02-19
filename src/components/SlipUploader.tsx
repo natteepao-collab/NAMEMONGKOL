@@ -2,11 +2,7 @@
 
 import { useState } from 'react';
 import { supabase } from '@/utils/supabase';
-import dynamic from 'next/dynamic';
-
-const CreditReceivedModal = dynamic(() => import('./CreditReceivedModal').then(mod => mod.CreditReceivedModal), {
-    ssr: false
-});
+import { CreditReceivedModal } from './CreditReceivedModal';
 
 interface SlipUploaderProps {
     amount?: number;

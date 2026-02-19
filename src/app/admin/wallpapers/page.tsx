@@ -15,10 +15,10 @@ export default function AdminWallpapersPage() {
     const [currentWallpaper, setCurrentWallpaper] = useState<Partial<Wallpaper>>({});
     const [isEditing, setIsEditing] = useState(false);
 
-    // Upload State (Removed for Vercel Static Path)
-    // const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    // Upload State
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
-    // const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
     useEffect(() => {
         fetchWallpapers();
@@ -63,17 +63,16 @@ export default function AdminWallpapersPage() {
             downloads: 0,
             description: ''
         });
-        // setSelectedFile(null);
-        // setPreviewUrl(null);
-        // setPreviewUrl(null);
+        setSelectedFile(null);
+        setPreviewUrl(null);
         setIsEditing(false);
         setIsModalOpen(true);
     };
 
     const handleEdit = (wallpaper: Wallpaper) => {
         setCurrentWallpaper({ ...wallpaper });
-        // setSelectedFile(null);
-        // setPreviewUrl(wallpaper.image);
+        setSelectedFile(null);
+        setPreviewUrl(wallpaper.image);
         setIsEditing(true);
         setIsModalOpen(true);
     };
@@ -109,27 +108,37 @@ export default function AdminWallpapersPage() {
         }
     };
 
-    // REMOVED: handleFileChange and uploadImage as we now use static paths
-    /*
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files || e.target.files.length === 0) {
             setSelectedFile(null);
             return;
         }
-    
+
         const file = e.target.files[0];
         setSelectedFile(file);
-    
+
         // Show local preview
         const objectUrl = URL.createObjectURL(file);
         setPreviewUrl(objectUrl);
     };
-    
+
     const uploadImage = async (file: File): Promise<string> => {
-        // ... implementation removed
-        return '';
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+            .from('wallpapers')
+            .upload(filePath, file);
+
+        if (uploadError) throw uploadError;
+
+        const { data } = supabase.storage
+            .from('wallpapers')
+            .getPublicUrl(filePath);
+
+        return data.publicUrl;
     };
-    */
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -138,19 +147,19 @@ export default function AdminWallpapersPage() {
         const Swal = (await import('sweetalert2')).default;
 
         try {
-            // DIRECT PATH USAGE
-            const finalImageUrl = currentWallpaper.image;
+            let finalImageUrl = currentWallpaper.image;
 
-            /* UPLOAD LOGIC REMOVED
             // 1. Upload new image if selected
             if (selectedFile) {
                 try {
                     finalImageUrl = await uploadImage(selectedFile);
                 } catch (uploadError: any) {
-                   // ...
+                    console.error('Upload Error', uploadError);
+                    Swal.fire('Upload Failed', uploadError.message || 'Could not upload image', 'error');
+                    setUploading(false);
+                    return;
                 }
             }
-            */
 
             // Validate
             if (!currentWallpaper.name || !finalImageUrl) {
@@ -344,14 +353,14 @@ export default function AdminWallpapersPage() {
                                     />
                                 </div>
 
-                                {/* Image Path Input (Manual) */}
+                                {/* Image Upload */}
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-slate-300">Wallpaper Path (Public Folder) *</label>
+                                    <label className="text-sm font-medium text-slate-300">Wallpaper Image *</label>
                                     <div className="flex gap-4 items-start">
                                         <div className="relative w-20 h-28 bg-slate-800 border border-slate-700 rounded-lg overflow-hidden flex-shrink-0">
-                                            {currentWallpaper.image ? (
+                                            {previewUrl ? (
                                                 <Image
-                                                    src={currentWallpaper.image}
+                                                    src={previewUrl}
                                                     alt="Preview"
                                                     fill
                                                     sizes="80px"
@@ -363,19 +372,25 @@ export default function AdminWallpapersPage() {
                                                 </div>
                                             )}
                                         </div>
-                                        <div className="flex-1 space-y-2">
-                                            <input
-                                                type="text"
-                                                placeholder="/wallpapers/my-image.png"
-                                                value={currentWallpaper.image || ''}
-                                                onChange={e => setCurrentWallpaper({ ...currentWallpaper, image: e.target.value })}
-                                                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-emerald-500"
-                                            />
-                                            <p className="text-xs text-slate-500">
-                                                Image must be in <code>public/wallpapers</code> folder.
-                                            </p>
+                                        <div className="flex-1">
+                                            <label className="flex flex-col items-center justify-center w-full h-28 border-2 border-slate-700 border-dashed rounded-lg cursor-pointer bg-slate-800/50 hover:bg-slate-800 hover:border-emerald-500 transition-all">
+                                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                                    <Upload className="w-8 h-8 mb-2 text-slate-400" />
+                                                    <p className="text-xs text-slate-400">Click to upload image</p>
+                                                    <p className="text-[10px] text-slate-500 mt-1">PNG, JPG (MAX. 5MB)</p>
+                                                </div>
+                                                <input
+                                                    type="file"
+                                                    className="hidden"
+                                                    accept="image/*"
+                                                    onChange={handleFileChange}
+                                                />
+                                            </label>
                                         </div>
                                     </div>
+                                    {currentWallpaper.image && !selectedFile && (
+                                        <p className="text-xs text-slate-500 truncate">Current URL: {currentWallpaper.image}</p>
+                                    )}
                                 </div>
 
                                 {/* Day */}
