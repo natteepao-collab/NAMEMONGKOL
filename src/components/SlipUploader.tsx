@@ -30,7 +30,7 @@ export default function SlipUploader({ amount, credits, tierId }: SlipUploaderPr
     const handleUpload = async () => {
         if (!selectedFile) return;
 
-        // Dynamic import SweetAlert2 (explicit path to ensure chunk exists)
+        // Dynamic import SweetAlert2 (available for both try/catch)
         // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
 

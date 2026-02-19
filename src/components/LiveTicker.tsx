@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Sparkles, Users, TrendingUp, Star, Zap } from 'lucide-react';
+import { Sparkles, Users, TrendingUp, Star } from 'lucide-react';
 import { auspiciousNames } from '@/data/auspiciousNames';
 
 interface TickerMessage {
@@ -88,17 +88,17 @@ const generateMessage = (): TickerMessage => {
 };
 
 export const LiveTicker: React.FC = () => {
-    // LiveTicker popup disabled — remove this line to re-enable
-    return null;
-
     const [currentMessage, setCurrentMessage] = useState<TickerMessage | null>(null);
     const [isVisible, setIsVisible] = useState(false);
     const [isClient, setIsClient] = useState(false);
     const [isDismissed, setIsDismissed] = useState(false);
 
+    const isEnabled = false;
+
     useEffect(() => {
+        if (!isEnabled) return;
         setIsClient(true);
-    }, []);
+    }, [isEnabled]);
 
     const showNextMessage = useCallback(() => {
         if (isDismissed) return;
@@ -114,7 +114,7 @@ export const LiveTicker: React.FC = () => {
     }, [isDismissed]);
 
     useEffect(() => {
-        if (!isClient || isDismissed) return;
+        if (!isEnabled || !isClient || isDismissed) return;
 
         // Initial delay
         const initialDelay = Math.random() * 2000 + 1000;
@@ -133,13 +133,7 @@ export const LiveTicker: React.FC = () => {
         };
     }, [showNextMessage, isClient, isDismissed]);
 
-    const handleDismiss = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        setIsVisible(false);
-        setTimeout(() => setIsDismissed(true), 300); // Wait for animation
-    };
-
-    if (!isClient || !currentMessage || isDismissed) return null;
+    if (!isEnabled || !isClient || !currentMessage || isDismissed) return null;
 
     const IconComponent = currentMessage.icon;
 

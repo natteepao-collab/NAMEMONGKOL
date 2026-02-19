@@ -213,20 +213,19 @@ export default function TopUpPage({ gateway, promptpayNumber }: TopUpPageProps) 
 
                                 <div className="mt-auto">
                                     {paymentMode === 'stripe' ? (
-                                        <form action={() => handleSelectTier(tier)}>
-                                            <button
-                                                type="submit"
-                                                disabled={isLoading}
-                                                className={`w-full py-3 md:py-4 rounded-xl font-bold transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 text-sm md:text-base ${isLoading
-                                                    ? 'bg-slate-700 text-slate-400 cursor-not-allowed'
-                                                    : tier.popular
-                                                        ? 'bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white shadow-amber-500/25'
-                                                        : 'bg-white text-slate-900 hover:bg-slate-200'
-                                                    }`}
-                                            >
-                                                {isLoading ? 'กำลังดำเนินการ...' : 'ซื้อแพ็กเกจ (PromptPay)'}
-                                            </button>
-                                        </form>
+                                        <button
+                                            type="button"
+                                            onClick={() => handleSelectTier(tier)}
+                                            disabled={isLoading}
+                                            className={`w-full py-3 md:py-4 rounded-xl font-bold transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 text-sm md:text-base ${isLoading
+                                                ? 'bg-slate-700 text-slate-400 cursor-not-allowed'
+                                                : tier.popular
+                                                    ? 'bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white shadow-amber-500/25'
+                                                    : 'bg-white text-slate-900 hover:bg-slate-200'
+                                                }`}
+                                        >
+                                            {isLoading ? 'กำลังดำเนินการ...' : 'ซื้อแพ็กเกจ (PromptPay)'}
+                                        </button>
                                     ) : (
                                         <button
                                             onClick={() => handleSelectTier(tier)}
