@@ -93,7 +93,11 @@ async function getArticles() {
 
 import { Metadata } from 'next';
 
+// Base URL for metadata
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.namemongkol.com';
+
 export const metadata: Metadata = {
+    metadataBase: new URL(baseUrl),
     title: 'บทความชื่อมงคล 2569 - คู่มือตั้งชื่อลูก เลขศาสตร์ ทักษา อายตนะ 6 | NameMongkol',
     description: 'รวม 50+ บทความศาสตร์ตั้งชื่อมงคล 2569 ครบทุกเรื่อง: วิธีตั้งชื่อลูกชายหญิง เลขศาสตร์ผลรวมมงคล ทักษาปกรณ์ อายตนะ 6 อักษรกาลกิณี เปลี่ยนชื่อเสริมดวง พร้อมตัวอย่างชื่อมงคลกว่า 500 ชื่อ โดยผู้เชี่ยวชาญ',
     keywords: 'บทความชื่อมงคล 2569, ตั้งชื่อลูก 2569, หลักการตั้งชื่อ, เลขศาสตร์ชื่อ, ทักษาปกรณ์, อายตนะ 6, ผลรวมมงคล, อักษรกาลกิณี, เปลี่ยนชื่อเสริมดวง, ชื่อลูกชายมงคล, ชื่อลูกสาวมงคล, ความหมายชื่อ, ชื่อมงคลปีมะเมีย, วิเคราะห์ชื่อ AI',
@@ -101,17 +105,17 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'บทความชื่อมงคล 2569 - คู่มือตั้งชื่อลูก เลขศาสตร์ ทักษา | NameMongkol',
         description: 'รวม 50+ บทความศาสตร์ตั้งชื่อมงคลครบทุกเรื่อง วิธีตั้งชื่อลูก เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 พร้อมตัวอย่างชื่อมงคลกว่า 500 ชื่อ',
-        url: 'https://www.namemongkol.com/articles',
+        url: '/articles',
         siteName: 'NameMongkol',
         locale: 'th_TH',
         type: 'website',
-        images: ['/api/og?variant=default&title=บทความชื่อมงคล%202569&subtitle=รวมความรู้ศาสตร์การตั้งชื่อ%20เลขศาสตร์%20ทักษา%20อายตนะ&tag=Articles'],
+        images: [`${baseUrl}/api/og?variant=default&title=บทความชื่อมงคล%202569&subtitle=รวมความรู้ศาสตร์การตั้งชื่อ%20เลขศาสตร์%20ทักษา%20อายตนะ&tag=Articles`],
     },
     twitter: {
         card: 'summary_large_image',
         title: 'บทความชื่อมงคล 2569 - คู่มือตั้งชื่อลูก เลขศาสตร์ ทักษา | NameMongkol',
         description: 'รวม 50+ บทความศาสตร์ตั้งชื่อมงคล วิธีตั้งชื่อลูก เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6',
-        images: ['/api/og?variant=default&title=บทความชื่อมงคล%202569'],
+        images: [`${baseUrl}/api/og?variant=default&title=บทความชื่อมงคล%202569`],
     },
 };
 
