@@ -326,7 +326,7 @@ export default async function ArticlesPage() {
                                 <div className="h-56 w-full bg-slate-800 relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
                                     <ArticleImage
                                         src={article.coverImage as string}
-                                        alt={article.title}
+                                        alt={`ภาพหน้าปอบทความ ${article.title} - บทความชื่อมงคล NameMongkol`}
                                         priority={index < 6}
                                         className="group-hover:scale-100"
                                     />

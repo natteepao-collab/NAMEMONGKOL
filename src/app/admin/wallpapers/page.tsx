@@ -361,7 +361,7 @@ export default function AdminWallpapersPage() {
                                             {previewUrl ? (
                                                 <Image
                                                     src={previewUrl}
-                                                    alt="Preview"
+                                                    alt="ตัวอย่างวอลเปเปอร์ที่เลือก"
                                                     fill
                                                     sizes="80px"
                                                     className="object-cover"

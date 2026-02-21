@@ -383,11 +383,11 @@ function WallpapersContent() {
                         >
                             {/* Image Section */}
                             <div className="relative w-full h-[55%] md:h-full md:w-1/2 bg-black flex items-center justify-center overflow-hidden group">
-                                {/* Blur Background */}
-                                <div className="absolute inset-0 opacity-30 blur-xl scale-110">
+                                {/* Blur Background - decorative, same as main image */}
+                                <div className="absolute inset-0 opacity-30 blur-xl scale-110" aria-hidden="true">
                                     <Image
                                         src={selectedWallpaper.image}
-                                        alt="bg-blur"
+                                        alt=""
                                         fill
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                         className="object-cover"

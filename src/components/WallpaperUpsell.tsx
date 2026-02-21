@@ -27,6 +27,16 @@ const WALLPAPER_MAPPING: Record<string, string> = {
     saturday: '/wallpapers/คนเกิดวันเสาร์.png',
 };
 
+const DAY_LABELS: Record<string, string> = {
+    sunday: 'อาทิตย์',
+    monday: 'จันทร์',
+    tuesday: 'อังคาร',
+    wednesday: 'พุธ',
+    thursday: 'พฤหัสบดี',
+    friday: 'ศุกร์',
+    saturday: 'เสาร์',
+};
+
 // Default mapping if day isn't found or strictly English day names are used
 const DEFAULT_WALLPAPER = '/wallpapers/thao-wessuwan-v2.png';
 
@@ -35,7 +45,9 @@ export const WallpaperUpsell = ({ result, day = 'sunday' }: WallpaperUpsellProps
 
     if (!result) return null;
 
-    const wallpaperImage = WALLPAPER_MAPPING[day.toLowerCase()] || DEFAULT_WALLPAPER;
+    const dayKey = day.toLowerCase();
+    const wallpaperImage = WALLPAPER_MAPPING[dayKey] || DEFAULT_WALLPAPER;
+    const dayLabel = DAY_LABELS[dayKey] || 'อาทิตย์';
     const isGoodScore = result.totalScore > 50; // Example logic
 
     return (
@@ -52,7 +64,7 @@ export const WallpaperUpsell = ({ result, day = 'sunday' }: WallpaperUpsellProps
                             <div className="relative aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border border-white/10 group cursor-pointer">
                                 <Image
                                     src={wallpaperImage}
-                                    alt="Lucky Wallpaper"
+                                    alt={`วอลเปเปอร์มงคลเสริมดวงสำหรับคนเกิดวัน${dayLabel}`}
                                     fill
                                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 25vw"
                                     className="object-cover transition-transform duration-700 group-hover:scale-105"

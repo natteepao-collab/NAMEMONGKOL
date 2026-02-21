@@ -99,7 +99,7 @@ export const ArticleSection: React.FC = () => {
                             <div className="h-48 w-full bg-slate-800 relative overflow-hidden">
                                 <ArticleImage
                                     src={article.cover_image || article.coverImage}
-                                    alt={article.title}
+                                    alt={`ภาพหน้าปอบทความ ${article.title} - บทความชื่อมงคล NameMongkol`}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-60" />
                                 <div className="absolute bottom-3 left-3 px-2 py-1 bg-black/60 backdrop-blur-md rounded text-[10px] text-white font-medium uppercase tracking-wider border border-white/10">

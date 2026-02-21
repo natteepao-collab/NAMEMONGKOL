@@ -527,7 +527,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                                                 <div key={index} className="relative aspect-video rounded-lg overflow-hidden group border border-slate-700">
                                                     <Image
                                                         src={url}
-                                                        alt="Preview"
+                                                        alt="ตัวอย่างรูปภาพรีวิวที่เลือก"
                                                         fill
                                                         className="object-cover"
                                                     />
