@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { MobileSecondaryNav } from './MobileSecondaryNav';
 import { MobileHeader } from './MobileHeader';
-import { BottomNav } from './BottomNav';
+const BottomNav = dynamic(() => import('./BottomNav').then(mod => mod.BottomNav), { ssr: false });
 import { TopNav } from './TopNav';
 import { supabase } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';

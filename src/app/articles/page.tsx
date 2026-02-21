@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Script from 'next/script';
+import { unstable_cache } from 'next/cache';
 import { supabase } from '@/utils/supabase';
 import { Calendar, User, ArrowLeft, Search, BookOpen } from 'lucide-react';
 import { articles as localArticles } from '@/data/articles';
@@ -21,8 +22,8 @@ type ArticleRow = {
     category: string;
 } & Record<string, unknown>;
 
-// Revalidate immediately for admin updates
-export const revalidate = 0;
+// ISR: cache 1 hour, invalidate via revalidateTag('articles') when admin updates
+export const revalidate = 3600;
 
 // Helper to parse Thai date string "DD Month YYYY" to timestamp
 const parseThaiDate = (dateStr: string) => {
@@ -46,13 +47,22 @@ const parseThaiDate = (dateStr: string) => {
     return 0; // Fallback
 };
 
-async function getArticles() {
-    const { data: articles, error } = await supabase
+async function fetchArticlesFromDb() {
+    const { data: articles } = await supabase
         .from('articles')
         .select('*')
         .eq('is_published', true);
+    return (articles as ArticleRow[]) || [];
+}
 
-    const dbArticles: ArticleRow[] = (articles as ArticleRow[]) || [];
+const getCachedDbArticles = unstable_cache(
+    fetchArticlesFromDb,
+    ['articles-list'],
+    { revalidate: 3600, tags: ['articles'] }
+);
+
+async function getArticles() {
+    const dbArticles = await getCachedDbArticles();
 
     // Slugs where local image should override DB image
     const forceLocalImageSlugs = ['100-auspicious-women-names-2026'];

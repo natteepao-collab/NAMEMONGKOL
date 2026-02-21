@@ -19,8 +19,8 @@ const ArticleCTA = dynamic(() => import('@/components/ArticleCTA').then(mod => m
 import { articles as localArticles, Article } from '@/data/articles';
 import { shimmer, toBase64 } from '@/utils/imageUtils';
 
-// Revalidate immediately for admin updates
-export const revalidate = 0;
+// ISR: cache 1 hour, invalidate via revalidateTag('articles') when admin updates
+export const revalidate = 3600;
 
 type Props = {
     params: Promise<{ slug: string }>;
@@ -28,8 +28,8 @@ type Props = {
 
 import { supabase } from '@/utils/supabase';
 
-// Helper to fetch article (cached if possible, but for simplicity direct call here)
-async function getArticle(slug: string): Promise<Article | null> {
+// Dedupe fetches between generateMetadata and page component
+const getArticle = React.cache(async (slug: string): Promise<Article | null> => {
     const localMatch = localArticles.find(a => a.slug === slug);
     const forceLocalSlugs = ['naming-tips-2026-year-of-horse', 'forbidden-letters-kalakini', 'most-accurate-phone-number-analysis-2026', 'what-is-shadow-power', 'history-of-thai-naming-tradition', '100-auspicious-women-names-2026'];
 
@@ -66,7 +66,7 @@ async function getArticle(slug: string): Promise<Article | null> {
         relatedSlugs: [],
         toc: []
     } as Article;
-}
+});
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;

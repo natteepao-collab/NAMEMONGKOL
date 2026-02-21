@@ -86,6 +86,14 @@ export async function middleware(request: NextRequest) {
         // Continue to next middleware/handler with headers
     }
 
+    // Skip Supabase auth for public paths (faster response)
+    const publicPaths = ['/', '/articles', '/search', '/about', '/terms', '/privacy', '/phone-analysis', '/name-analysis', '/premium-search', '/wallpapers', '/reviews', '/meaning', '/login', '/register'];
+    const isPublicPath = publicPaths.some(p => pathname === p || (p !== '/' && pathname.startsWith(p + '/')));
+    const needsAuth = pathname.startsWith('/admin') || pathname.startsWith('/api/admin') || ['/topup', '/history', '/profile'].some(p => pathname.startsWith(p));
+    if (isPublicPath && !needsAuth) {
+        return NextResponse.next({ request: { headers: request.headers } });
+    }
+
     let response = NextResponse.next({
         request: {
             headers: request.headers,

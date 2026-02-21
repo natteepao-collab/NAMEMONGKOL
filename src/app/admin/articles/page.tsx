@@ -9,6 +9,7 @@ import { Loader2, Plus, Edit, Trash2, Save, X, Search, Image as ImageIcon, Uploa
 import Image from 'next/image';
 import Link from 'next/link';
 import { articles as localArticles } from '@/data/articles';
+import { revalidateArticles } from '@/app/actions/revalidateArticles';
 
 // Define Article Type locally or import from types if verified
 interface Article {
@@ -126,6 +127,7 @@ export default function AdminArticlesPage() {
                     .eq('id', id);
 
                 if (error) throw error;
+                await revalidateArticles();
 
                 setArticles(prev => prev.filter(a => a.id !== id));
                 Swal.fire('Deleted!', 'Article has been deleted.', 'success');
@@ -194,6 +196,7 @@ export default function AdminArticlesPage() {
                     .eq('id', currentArticle.id);
 
                 if (error) throw error;
+                await revalidateArticles();
 
                 // Refresh list or update local state
                 setArticles(prev => prev.map(a => a.id === currentArticle.id ? { ...a, ...payload, id: currentArticle.id as string } : a));
@@ -206,6 +209,7 @@ export default function AdminArticlesPage() {
                     .single();
 
                 if (error) throw error;
+                await revalidateArticles();
                 if (data) setArticles(prev => [data as Article, ...prev]);
                 Swal.fire('Success', 'Article created successfully', 'success');
             }
@@ -311,6 +315,7 @@ export default function AdminArticlesPage() {
                     }
                 });
 
+                await revalidateArticles();
                 await fetchArticles(); // Refresh list
                 Swal.fire('Sync Complete', `Imported: ${addedCount}, Updated: ${updatedCount}`, 'success');
 
@@ -405,6 +410,7 @@ export default function AdminArticlesPage() {
                 }
             });
 
+            await revalidateArticles();
             await fetchArticles();
             Swal.fire('Restore Complete', `Restored: ${restoredCount}, Skipped: ${skippedCount}`, 'success');
         } catch (err: any) {

@@ -73,7 +73,7 @@ function HomeContent() {
         const [isNirun] = await Promise.all([
             checkNirunName(inputName),
             // Artificial delay to minimalize flicker if needed
-            new Promise(resolve => setTimeout(resolve, 800))
+            new Promise(resolve => setTimeout(resolve, 300))
         ]);
 
         // Get predictions
