@@ -1,5 +1,5 @@
 
-import React from 'react';
+import { cache } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -23,13 +23,13 @@ import { shimmer, toBase64 } from '@/utils/imageUtils';
 export const revalidate = 3600;
 
 type Props = {
-    params: Promise<{ slug: string }>;
+    params: { slug: string };
 };
 
 import { supabase } from '@/utils/supabase';
 
 // Dedupe fetches between generateMetadata and page component
-const getArticle = React.cache(async (slug: string): Promise<Article | null> => {
+const getArticle = cache(async (slug: string): Promise<Article | null> => {
     const localMatch = localArticles.find(a => a.slug === slug);
     const forceLocalSlugs = ['naming-tips-2026-year-of-horse', 'forbidden-letters-kalakini', 'most-accurate-phone-number-analysis-2026', 'what-is-shadow-power', 'history-of-thai-naming-tradition', '100-auspicious-women-names-2026'];
 
@@ -69,7 +69,7 @@ const getArticle = React.cache(async (slug: string): Promise<Article | null> => 
 });
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { slug } = await params;
+    const { slug } = params;
     const article = await getArticle(slug);
 
     if (!article) {
@@ -132,7 +132,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ArticlePage({ params }: Props) {
-    const { slug } = await params;
+    const { slug } = params;
     const article = await getArticle(slug);
 
     if (!article) {
