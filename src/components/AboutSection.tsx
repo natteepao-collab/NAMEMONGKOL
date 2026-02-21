@@ -28,7 +28,7 @@ const AboutSection = () => {
                         </div>
 
                         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
-                            เกี่ยวกับ NAMEMONGKOL <br className="hidden md:block" />
+                            เกี่ยวกับ NameMongkol - วิเคราะห์ชื่อมงคลอันดับ 1 <br className="hidden md:block" />
                             <span className="text-slate-300 text-2xl md:text-4xl lg:text-5xl font-medium block mt-4">ผสานภูมิปัญญาโบราณ เข้ากับเทคโนโลยีแห่งอนาคต</span>
                         </h1>
 

@@ -5,7 +5,28 @@ import { ArrowRight, Sparkles, Image as ImageIcon, Phone, Users } from 'lucide-r
 
 export const ArticleCTA = () => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-8 animate-fade-in-up">
+        <div className="my-8">
+            <p className="text-slate-300 mb-4">
+                อยากรู้ว่าชื่อของคุณดีแค่ไหน?{' '}
+                <Link href="/name-analysis" className="text-amber-400 hover:text-amber-300 font-semibold underline underline-offset-2">
+                    คลิกวิเคราะห์ฟรีที่นี่
+                </Link>
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in-up">
+
+            {/* Mandatory: วิเคราะห์ชื่อฟรี - links to /name-analysis per SEO checklist */}
+            <Link href="/name-analysis" className="group relative overflow-hidden rounded-xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-500/50 transition-all p-5 hover:bg-amber-500/20">
+                <div className="flex items-start justify-between">
+                    <div>
+                        <span className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2 block">แนะนำ</span>
+                        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-amber-300 transition-colors">วิเคราะห์ชื่อฟรี</h3>
+                        <p className="text-slate-400 text-xs mb-0 line-clamp-2">
+                            เช็คชื่อมงคล ตรวจสอบหลายชื่อพร้อมกัน สูงสุด 1,000 ชื่อ
+                        </p>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-amber-500/70 group-hover:text-amber-400 group-hover:translate-x-1 transition-all" />
+                </div>
+            </Link>
 
             {/* Premium Analysis Card */}
             <Link href="/premium-analysis" className="group relative overflow-hidden rounded-xl bg-slate-800/40 border border-slate-700/50 hover:border-purple-500/40 transition-all p-5 hover:bg-slate-800/60">
@@ -71,6 +92,7 @@ export const ArticleCTA = () => {
                 </div>
             </Link>
 
+            </div>
         </div>
     );
 };

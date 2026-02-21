@@ -102,6 +102,7 @@ export const metadata: Metadata = {
     description: 'รวม 50+ บทความศาสตร์ตั้งชื่อมงคล 2569 ครบทุกเรื่อง: วิธีตั้งชื่อลูกชายหญิง เลขศาสตร์ผลรวมมงคล ทักษาปกรณ์ อายตนะ 6 อักษรกาลกิณี เปลี่ยนชื่อเสริมดวง พร้อมตัวอย่างชื่อมงคลกว่า 500 ชื่อ โดยผู้เชี่ยวชาญ',
     keywords: 'บทความชื่อมงคล 2569, ตั้งชื่อลูก 2569, หลักการตั้งชื่อ, เลขศาสตร์ชื่อ, ทักษาปกรณ์, อายตนะ 6, ผลรวมมงคล, อักษรกาลกิณี, เปลี่ยนชื่อเสริมดวง, ชื่อลูกชายมงคล, ชื่อลูกสาวมงคล, ความหมายชื่อ, ชื่อมงคลปีมะเมีย, วิเคราะห์ชื่อ AI',
 
+    alternates: { canonical: `${baseUrl.replace(/\/$/, '')}/articles` },
     openGraph: {
         title: 'บทความชื่อมงคล 2569 - คู่มือตั้งชื่อลูก เลขศาสตร์ ทักษา | NameMongkol',
         description: 'รวม 50+ บทความศาสตร์ตั้งชื่อมงคลครบทุกเรื่อง วิธีตั้งชื่อลูก เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 พร้อมตัวอย่างชื่อมงคลกว่า 500 ชื่อ',
@@ -497,7 +498,7 @@ export default async function ArticlesPage() {
                             ใช้ระบบ AI วิเคราะห์ชื่อฟรี! ตรวจสอบเลขศาสตร์ ทักษา อายตนะ 6 และอักษรกาลกิณี ภายในไม่กี่วินาที
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link href="/" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold py-4 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-amber-900/40">
+                            <Link href="/name-analysis" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold py-4 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-amber-900/40">
                                 <span>วิเคราะห์ชื่อฟรี</span>
                                 <ArrowLeft size={18} className="rotate-180" />
                             </Link>

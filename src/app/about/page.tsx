@@ -2,8 +2,11 @@ import AboutSection from '@/components/AboutSection';
 import { Metadata } from 'next';
 import Script from 'next/script';
 
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com').replace(/\/$/, '');
+
 export const metadata: Metadata = {
     title: 'เกี่ยวกับเรา | NameMongkol - ผู้เชี่ยวชาญวิเคราะห์ชื่อมงคล ตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง',
+    alternates: { canonical: `${siteUrl}/about` },
     description: 'NameMongkol แพลตฟอร์มวิเคราะห์ชื่อมงคลอันดับ 1 ของไทย ผสานศาสตร์โบราณ 4 แขนง ได้แก่ เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 และนิรันดร์ศาสตร์ เข้ากับเทคโนโลยี AI ช่วยตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง วิเคราะห์ชื่อฟรี แม่นยำ น่าเชื่อถือ',
     keywords: 'เกี่ยวกับ NameMongkol, ตั้งชื่อมงคล, วิเคราะห์ชื่อ, ดูดวงชื่อ, เลขศาสตร์, ทักษาปกรณ์, อายตนะ 6, ชื่อมงคล, เปลี่ยนชื่อ, ตั้งชื่อลูก, ชื่อเสริมดวง, ผลรวมชื่อ, อักษรกาลกิณี, ตั้งชื่อตามวันเกิด, นิรันดร์ศาสตร์, ชื่อดีเป็นศรีแก่ตัว',
     openGraph: {

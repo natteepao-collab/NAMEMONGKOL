@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     description: 'ข้อตกลงและเงื่อนไขการใช้งานเว็บไซต์ NameMongkol รวมถึงการใช้บริการวิเคราะห์ชื่อมงคล เบอร์มงคล และบริการอื่นๆ ตามกฎหมายไทย',
     keywords: ['ข้อตกลง', 'เงื่อนไขการใช้งาน', 'Terms of Service', 'NameMongkol', 'กฎหมาย'],
 
+    alternates: { canonical: `${siteUrl.replace(/\/$/, '')}/terms` },
     openGraph: {
         title: 'ข้อตกลงและเงื่อนไขการใช้งาน | NameMongkol',
         description: 'ข้อตกลงและเงื่อนไขการใช้งานเว็บไซต์ NameMongkol',

@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     description: 'นโยบายความเป็นส่วนตัวและการคุ้มครองข้อมูลส่วนบุคคลของ NameMongkol อธิบายวิธีการเก็บรวบรวม ใช้ และปกป้องข้อมูลของผู้ใช้งานตามกฎหมาย PDPA',
     keywords: ['นโยบายความเป็นส่วนตัว', 'PDPA', 'การคุ้มครองข้อมูล', 'NameMongkol', 'ข้อมูลส่วนบุคคล'],
 
+    alternates: { canonical: `${siteUrl.replace(/\/$/, '')}/privacy` },
     openGraph: {
         title: 'นโยบายความเป็นส่วนตัว | NameMongkol',
         description: 'นโยบายการคุ้มครองข้อมูลส่วนบุคคลตามมาตรฐาน PDPA',

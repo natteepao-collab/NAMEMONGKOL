@@ -16,11 +16,14 @@ export async function generateMetadata(
   const surname = searchParams.surname as string | undefined;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 
+  const canonicalUrl = siteUrl.replace(/\/$/, '') || 'https://www.namemongkol.com';
+
   if (!name) {
     return {
       title: 'วิเคราะห์ชื่อมงคล ฟรี! ตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง 2568 | NameMongkol',
       description: 'วิเคราะห์ชื่อมงคลฟรี ตั้งชื่อลูก เปลี่ยนชื่อใหม่ ด้วยระบบ AI อัจฉริยะ ผสาน 4 ศาสตร์ ได้แก่ เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 นิรันดร์ศาสตร์ เช็คพลังเงา ผลรวมชื่อ อักษรกาลกิณี แม่นยำ น่าเชื่อถือ',
       keywords: 'วิเคราะห์ชื่อมงคล, วิเคราะห์ชื่อ 2568, ตั้งชื่อลูก 2568, เปลี่ยนชื่อ, ชื่อมงคล, ดูดวงชื่อ, เลขศาสตร์, ทักษาปกรณ์, อายตนะ 6, ผลรวมชื่อ, อักษรกาลกิณี, ชื่อเสริมดวง, ตั้งชื่อตามวันเกิด, พลังเงา, NameMongkol, ดูดวงฟรี',
+      alternates: { canonical: canonicalUrl },
       openGraph: {
         title: 'วิเคราะห์ชื่อมงคล ฟรี! ตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง | NameMongkol',
         description: 'วิเคราะห์ชื่อมงคลฟรี ด้วยระบบ AI ผสาน 4 ศาสตร์ เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 นิรันดร์ศาสตร์ เช็คพลังเงา ผลรวมชื่อ อักษรกาลกิณี',
@@ -51,6 +54,7 @@ export async function generateMetadata(
   return {
     title: `${title} - NameMongkol`,
     description: description,
+    alternates: { canonical: canonicalUrl },
     openGraph: {
       title: title,
       description: description,

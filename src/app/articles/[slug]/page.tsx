@@ -78,7 +78,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         };
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.namemongkol.com';
+    const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com').replace(/\/$/, '');
     const rawImageUrl = article.coverImage;
 
     // Construct the OG image URL
@@ -105,7 +105,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: article.metaTitle || article.title,
         description: article.metaDescription || article.excerpt,
         keywords: article.keywords,
-
+        alternates: { canonical: `${baseUrl}/articles/${slug}` },
         openGraph: {
             title: article.metaTitle || article.title,
             description: article.metaDescription || article.excerpt,
