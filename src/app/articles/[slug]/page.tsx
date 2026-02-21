@@ -23,7 +23,7 @@ import { shimmer, toBase64 } from '@/utils/imageUtils';
 export const revalidate = 3600;
 
 type Props = {
-    params: { slug: string };
+    params: Promise<{ slug: string }>;
 };
 
 import { supabase } from '@/utils/supabase';
@@ -69,7 +69,7 @@ const getArticle = cache(async (slug: string): Promise<Article | null> => {
 });
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { slug } = params;
+    const { slug } = await params;
     const article = await getArticle(slug);
 
     if (!article) {
@@ -132,7 +132,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ArticlePage({ params }: Props) {
-    const { slug } = params;
+    const { slug } = await params;
     const article = await getArticle(slug);
 
     if (!article) {
