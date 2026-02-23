@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { GoogleTagManager } from '@next/third-parties/google'
+import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 import { LayoutWrapper } from "@/components/LayoutWrapper";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -236,6 +237,7 @@ export default async function RootLayout({
             </LayoutWrapper>
           </LanguageProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
