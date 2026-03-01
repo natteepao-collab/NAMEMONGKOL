@@ -70,15 +70,18 @@ async function getArticles() {
     // Enhance DB articles with local data (fallback for images)
     const enrichedDbArticles = dbArticles.map(dbArticle => {
         const localMatch = localArticles.find(a => a.slug === dbArticle.slug);
-        // Prioritize DB image, then local image. 
-        // Important: Ensure we have a valid path string.
         const dbImage = dbArticle.cover_image || dbArticle.coverImage;
         const localImage = localMatch?.coverImage;
 
-        // For specific articles, use local image; otherwise prioritize DB image
+        // Prefer local image paths (verified to exist) over external/Supabase URLs
+        // If DB has a local path (starts with /), trust it; if DB has an external URL
+        // (old Supabase storage link) it may be broken—use local image first.
+        const isDbLocal = dbImage && !dbImage.startsWith('http');
         const finalImage = (forceLocalImageSlugs.includes(dbArticle.slug) && localImage)
             ? localImage
-            : (dbImage || localImage || '');
+            : isDbLocal
+                ? (dbImage || localImage || '')
+                : (localImage || dbImage || '');
 
         return {
             ...dbArticle,

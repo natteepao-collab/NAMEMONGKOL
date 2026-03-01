@@ -93,7 +93,6 @@ export default function LoginClientPage() {
                 await supabase.auth.setSession(data.session);
             }
 
-            console.log('Login successful');
             router.refresh();
             router.push('/');
 

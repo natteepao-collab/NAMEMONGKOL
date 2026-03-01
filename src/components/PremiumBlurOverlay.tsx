@@ -32,7 +32,7 @@ export const PremiumBlurOverlay: React.FC<PremiumBlurOverlayProps> = ({
     const fetchUserCredits = async (userId: string) => {
         const { data, error } = await supabase
             .from('user_profiles')
-            .select('credits')
+            .select('credits, welcome_credits, welcome_credits_granted_at')
             .eq('id', userId)
             .maybeSingle();
 
@@ -40,7 +40,14 @@ export const PremiumBlurOverlay: React.FC<PremiumBlurOverlayProps> = ({
             console.error('Error fetching user credits:', error);
             return null;
         }
-        return typeof data?.credits === 'number' ? data.credits : 0;
+        let total = data?.credits ?? 0;
+        if (data?.welcome_credits && data.welcome_credits > 0 && data?.welcome_credits_granted_at) {
+            const grantedAt = new Date(data.welcome_credits_granted_at).getTime();
+            if (Date.now() < grantedAt + 30 * 24 * 60 * 60 * 1000) {
+                total += data.welcome_credits;
+            }
+        }
+        return total;
     };
 
     useEffect(() => {

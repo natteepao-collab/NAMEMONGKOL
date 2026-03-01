@@ -51,7 +51,7 @@ export async function middleware(request: NextRequest) {
     // Rate limit for auth API endpoints
     if (pathname.startsWith('/api/auth')) {
         const key = `middleware:auth:${ip}`;
-        const { allowed, remaining, resetTime } = checkMiddlewareRateLimit(key, 30, 60 * 1000); // 30 req/min
+        const { allowed, resetTime } = checkMiddlewareRateLimit(key, 30, 60 * 1000); // 30 req/min
 
         if (!allowed) {
             const retryAfter = Math.ceil((resetTime - Date.now()) / 1000);

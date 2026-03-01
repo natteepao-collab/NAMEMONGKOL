@@ -61,10 +61,20 @@ export async function GET(request: Request) {
         // RPC is better, but let's try JS sum for now (assuming < 10k users).
         const { data: usersData, error: creditError } = await supabase
             .from('user_profiles')
-            .select('credits');
+            .select('credits, welcome_credits, welcome_credits_granted_at');
 
         if (creditError) throw creditError;
-        const totalCredits = usersData?.reduce((acc, curr) => acc + (curr.credits || 0), 0) || 0;
+        const totalCredits = usersData?.reduce((acc, curr) => {
+            let total = curr.credits || 0;
+            // Include welcome_credits if not expired (30 days)
+            if (curr.welcome_credits && curr.welcome_credits > 0 && curr.welcome_credits_granted_at) {
+                const grantedAt = new Date(curr.welcome_credits_granted_at).getTime();
+                if (Date.now() < grantedAt + 30 * 24 * 60 * 60 * 1000) {
+                    total += curr.welcome_credits;
+                }
+            }
+            return acc + total;
+        }, 0) || 0;
 
         // 3. Total Slips count
         const { count: slipCount, error: slipError } = await supabase

@@ -107,10 +107,19 @@ export default function PremiumAnalysisPage() {
             if (user) {
                 const { data } = await supabase
                     .from('user_profiles')
-                    .select('credits')
+                    .select('credits, welcome_credits, welcome_credits_granted_at')
                     .eq('id', user.id)
                     .maybeSingle();
-                if (data) setUserCredits(data.credits);
+                if (data) {
+                    let total = data.credits ?? 0;
+                    if (data.welcome_credits && data.welcome_credits > 0 && data.welcome_credits_granted_at) {
+                        const grantedAt = new Date(data.welcome_credits_granted_at).getTime();
+                        if (Date.now() < grantedAt + 30 * 24 * 60 * 60 * 1000) {
+                            total += data.welcome_credits;
+                        }
+                    }
+                    setUserCredits(total);
+                }
             }
         };
         fetchCredits();

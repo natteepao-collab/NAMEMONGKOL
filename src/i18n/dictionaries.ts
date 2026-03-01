@@ -115,6 +115,7 @@ const dictionaries: Record<SupportedLanguage, TranslationDict> = {
         sidebar: {
             analyzeName: 'วิเคราะห์ชื่อ',
             phoneAnalysis: 'วิเคราะห์เบอร์โทร',
+            palmAnalysis: 'วิเคราะห์ลายมือ',
             reviews: 'รีวิวจากทางบ้าน',
             articles: 'บทความ',
             search: 'ค้นหาชื่อมงคล',
@@ -439,6 +440,7 @@ const dictionaries: Record<SupportedLanguage, TranslationDict> = {
         sidebar: {
             analyzeName: 'Name Analysis',
             phoneAnalysis: 'Phone Analysis',
+            palmAnalysis: 'Palm Analysis',
             reviews: 'Reviews',
             articles: 'Articles',
             search: 'Auspicious Name Search',
@@ -763,6 +765,7 @@ const dictionaries: Record<SupportedLanguage, TranslationDict> = {
         sidebar: {
             analyzeName: '姓名分析',
             phoneAnalysis: '手機號碼分析',
+            palmAnalysis: '手相分析',
             reviews: '用戶評價',
             articles: '文章',
             search: '吉祥姓名搜尋',

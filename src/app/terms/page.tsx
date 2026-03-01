@@ -174,7 +174,7 @@ export default function TermsPage() {
                                             </p>
                                         </div>
                                     </div>
-                                    <p className="text-xs text-slate-500 pl-1">* เครดิตไม่มีวันหมดอายุ ตราบใดที่ระบบยังให้บริการ</p>
+                                    <p className="text-xs text-slate-500 pl-1">* เครดิตที่ซื้อไม่มีวันหมดอายุ ตราบใดที่ระบบยังให้บริการ | เครดิตฟรีต้อนรับสมาชิกใหม่มีอายุ 30 วัน</p>
                                 </div>
                             </div>
                         </section>

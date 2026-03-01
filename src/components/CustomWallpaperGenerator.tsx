@@ -267,10 +267,17 @@ export const CustomWallpaperGenerator: React.FC<CustomWallpaperGeneratorProps> =
             if (user) {
                 const { data } = await supabase
                     .from('user_profiles')
-                    .select('credits')
+                    .select('credits, welcome_credits, welcome_credits_granted_at')
                     .eq('id', user.id)
                     .maybeSingle();
-                setCredits(data?.credits ?? 0);
+                let total = data?.credits ?? 0;
+                if (data?.welcome_credits && data.welcome_credits > 0 && data?.welcome_credits_granted_at) {
+                    const grantedAt = new Date(data.welcome_credits_granted_at).getTime();
+                    if (Date.now() < grantedAt + 30 * 24 * 60 * 60 * 1000) {
+                        total += data.welcome_credits;
+                    }
+                }
+                setCredits(total);
             }
             setIsLoading(false);
         };
@@ -300,7 +307,6 @@ export const CustomWallpaperGenerator: React.FC<CustomWallpaperGeneratorProps> =
                 });
             } catch {
                 // Transaction logging failed, but credit deduction succeeded
-                console.log('Transaction logging skipped');
             }
 
             setCredits(credits - CREDIT_COST);

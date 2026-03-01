@@ -9,10 +9,10 @@ import { supabase } from '@/utils/supabase';
 
 // Fallback data
 const INITIAL_WALLPAPERS = [
-    { id: 1, name: 'เสริมดวงวันอาทิตย์', image: '/wallpapers/คนเกิดวันเอาทิตย์.png', day: 'sunday', downloads: 2540 },
-    { id: 2, name: 'เสริมดวงวันจันทร์', image: '/wallpapers/คนเกิดวันจันทร์.png', day: 'monday', downloads: 3120 },
-    { id: 3, name: 'เสริมดวงวันอังคาร', image: '/wallpapers/คนเกิดวันอังคาร.png', day: 'tuesday', downloads: 1890 },
-    { id: 4, name: 'เสริมดวงวันพุธ', image: '/wallpapers/คนเกิดพุธ.png', day: 'wednesday', downloads: 2100 },
+    { id: 1, name: 'เสริมดวงวันอาทิตย์', image: '/wallpapers/sunday.png', day: 'sunday', downloads: 2540 },
+    { id: 2, name: 'เสริมดวงวันจันทร์', image: '/wallpapers/monday.png', day: 'monday', downloads: 3120 },
+    { id: 3, name: 'เสริมดวงวันอังคาร', image: '/wallpapers/tuesday.png', day: 'tuesday', downloads: 1890 },
+    { id: 4, name: 'เสริมดวงวันพุธ', image: '/wallpapers/wednesday.png', day: 'wednesday', downloads: 2100 },
 ];
 
 export const WallpaperShowcase = () => {

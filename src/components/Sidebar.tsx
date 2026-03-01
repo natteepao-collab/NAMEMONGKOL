@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, Search, Info, Sparkles, LogIn, LogOut, User as UserIcon, ClipboardList, Crown, Zap, History as HistoryIcon, Settings, Image as ImageIcon, BookOpen, Smartphone, ChevronDown, MessageCircle } from 'lucide-react';
+import { Home, Search, Info, Sparkles, LogIn, LogOut, User as UserIcon, ClipboardList, Crown, Zap, History as HistoryIcon, Settings, Image as ImageIcon, BookOpen, Smartphone, ChevronDown, MessageCircle, Hand } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';
 import { LineOAButton } from './LineOAButton';
@@ -28,12 +28,23 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     const fetchUserInfo = async (userId: string) => {
         const { data, error } = await supabase
             .from('user_profiles')
-            .select('credits, role')
+            .select('credits, role, welcome_credits, welcome_credits_granted_at')
             .eq('id', userId)
             .maybeSingle();
 
         if (data) {
-            setCredits(data.credits);
+            let totalCredits = data.credits ?? 0;
+
+            // เพิ่ม welcome_credits ถ้ายังไม่หมดอายุ (30 วัน)
+            if (data.welcome_credits && data.welcome_credits > 0 && data.welcome_credits_granted_at) {
+                const grantedAt = new Date(data.welcome_credits_granted_at).getTime();
+                const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+                if (Date.now() < grantedAt + thirtyDays) {
+                    totalCredits += data.welcome_credits;
+                }
+            }
+
+            setCredits(totalCredits);
             setRole(data.role);
         } else {
             if (error) console.error('Error fetching user info:', error);
@@ -98,6 +109,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     const baseMenuItems: MenuItem[] = [
         { key: 'analyze', nameKey: 'sidebar.analyzeName', icon: Home, path: '/' },
         { key: 'phone', nameKey: 'sidebar.phoneAnalysis', icon: Smartphone, path: '/phone-analysis' },
+        { key: 'palm-analysis', nameKey: 'sidebar.palmAnalysis', icon: Hand, path: '/palm-analysis' },
         { key: 'reviews', nameKey: 'sidebar.reviews', icon: MessageCircle, path: '/reviews' },
         { key: 'articles', nameKey: 'sidebar.articles', icon: BookOpen, path: '/articles' },
         { key: 'search', nameKey: 'sidebar.search', icon: Search, path: '/search' },

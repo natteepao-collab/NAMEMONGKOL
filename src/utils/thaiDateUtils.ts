@@ -170,7 +170,6 @@ export function getThaiLunarDate(date: Date): string {
     const zodiac = getThaiZodiac(date.getFullYear());
     const dayOfWeek = THAI_DAYS[date.getDay()];
 
-    const phaseStr = phaseDay;
     const phaseThaiNum = toThaiNumber(phaseDay);
 
     return `วัน${dayOfWeek} ${phase} ${phaseThaiNum} ค่ำ เดือน${thaiMonthThaiMap[thaiMonth]} ปี${zodiac}`;
@@ -182,7 +181,7 @@ export function formatThaiBirthDate(dateStr: string): ThaiDateResult | null {
     const date = new Date(dateStr);
     if (isNaN(date.getTime())) return null;
 
-    const { fullStr, yearBE } = getThaiSolarDate(date);
+    const { fullStr } = getThaiSolarDate(date);
     const dayOfWeek = getThaiDayOfWeek(date);
     const zodiacYear = getThaiZodiac(date.getFullYear());
     const lunarDate = getThaiLunarDate(date);

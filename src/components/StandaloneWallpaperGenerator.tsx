@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Download, Smartphone, Monitor, Loader2, Sparkles, Crown, Lock, Star, User, Calendar, Shield, Palette } from 'lucide-react';
+import { Download, Smartphone, Monitor, Loader2, Sparkles, Crown, Lock, User, Calendar, Shield, Palette } from 'lucide-react';
 import html2canvas from 'html2canvas';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { supabase } from '@/utils/supabase';
 import { User as SupabaseUser } from '@supabase/supabase-js';
 import Link from 'next/link';
-import Image from 'next/image';
+
 
 // Template Types
 type TemplateType = 'birthday' | 'vessavana';
@@ -516,10 +516,10 @@ interface VessavanaWallpaperContentProps {
 }
 
 const VessavanaWallpaperContent = React.forwardRef<HTMLDivElement, VessavanaWallpaperContentProps>(
-    ({ name, surname, vessavanaTheme, format, dimensions, isPremiumUnlocked }, ref) => {
+    ({ name, surname, vessavanaTheme: _vessavanaTheme, format, dimensions, isPremiumUnlocked }, ref) => {
+        void _vessavanaTheme; // Reserved for future theme customization
         const isMobile = format === 'mobile';
         const fullName = surname ? `${name} ${surname}` : name;
-        const goldColor = '#c9a227';
 
         return (
             <div
@@ -607,7 +607,6 @@ export default function StandaloneWallpaperGenerator() {
     const [isPremiumUnlocked, setIsPremiumUnlocked] = useState(false);
     const [user, setUser] = useState<SupabaseUser | null>(null);
     const [userCredits, setUserCredits] = useState<number>(0);
-    const [showPreview, setShowPreview] = useState(false);
 
     const wallpaperRef = useRef<HTMLDivElement>(null);
     const vessavanaWallpaperRef = useRef<HTMLDivElement>(null);
@@ -627,10 +626,19 @@ export default function StandaloneWallpaperGenerator() {
                 setUser(session.user);
                 const { data } = await supabase
                     .from('user_profiles')
-                    .select('credits')
+                    .select('credits, welcome_credits, welcome_credits_granted_at')
                     .eq('id', session.user.id)
                     .maybeSingle();
-                if (data) setUserCredits(data.credits);
+                if (data) {
+                    let total = data.credits ?? 0;
+                    if (data.welcome_credits && data.welcome_credits > 0 && data.welcome_credits_granted_at) {
+                        const grantedAt = new Date(data.welcome_credits_granted_at).getTime();
+                        if (Date.now() < grantedAt + 30 * 24 * 60 * 60 * 1000) {
+                            total += data.welcome_credits;
+                        }
+                    }
+                    setUserCredits(total);
+                }
             }
         };
         fetchUser();
@@ -737,58 +745,6 @@ export default function StandaloneWallpaperGenerator() {
                 color: '#fff'
             });
         }
-    };
-
-    // Fix for unsupported CSS color functions like lab(), oklch() etc.
-    const fixColorFunctions = (element: HTMLElement) => {
-        const unsupportedColorRegex = /lab\(|oklch\(|oklab\(|lch\(/;
-
-        const processElement = (el: Element) => {
-            if (el instanceof HTMLElement) {
-                const computedStyle = window.getComputedStyle(el);
-                const properties = ['color', 'backgroundColor', 'borderColor', 'outlineColor', 'textDecorationColor', 'fill', 'stroke', 'boxShadow', 'textShadow'];
-
-                properties.forEach(prop => {
-                    const cssProperty = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
-                    const value = computedStyle.getPropertyValue(cssProperty);
-                    if (value && unsupportedColorRegex.test(value)) {
-                        // Replace with fallback color based on property
-                        let fallback = 'rgba(255, 255, 255, 0.9)';
-                        if (prop === 'backgroundColor') {
-                            fallback = 'transparent';
-                        } else if (prop === 'boxShadow' || prop === 'textShadow') {
-                            fallback = 'none';
-                        }
-                        el.style.setProperty(cssProperty, fallback, 'important');
-                    }
-                });
-
-                // Also check inline styles
-                const inlineStyle = el.getAttribute('style');
-                if (inlineStyle && unsupportedColorRegex.test(inlineStyle)) {
-                    const fixedStyle = inlineStyle.replace(/lab\([^)]+\)/g, 'rgba(255,255,255,0.9)')
-                        .replace(/oklch\([^)]+\)/g, 'rgba(255,255,255,0.9)')
-                        .replace(/oklab\([^)]+\)/g, 'rgba(255,255,255,0.9)')
-                        .replace(/lch\([^)]+\)/g, 'rgba(255,255,255,0.9)');
-                    el.setAttribute('style', fixedStyle);
-                }
-            }
-
-            // Process SVG elements separately
-            if (el instanceof SVGElement && !(el instanceof HTMLElement)) {
-                const svgProps = ['fill', 'stroke', 'stop-color'];
-                svgProps.forEach(prop => {
-                    const value = el.getAttribute(prop);
-                    if (value && unsupportedColorRegex.test(value)) {
-                        el.setAttribute(prop, '#ffffff');
-                    }
-                });
-            }
-
-            Array.from(el.children).forEach(child => processElement(child));
-        };
-
-        processElement(element);
     };
 
     const handleDownload = async () => {

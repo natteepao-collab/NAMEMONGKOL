@@ -81,23 +81,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com').replace(/\/$/, '');
     const rawImageUrl = article.coverImage;
 
-    // Construct the OG image URL
-    let imageUrl = `${baseUrl}/api/og?variant=article&title=${encodeURIComponent(article.title)}&category=${encodeURIComponent(article.category || '')}&meta=${encodeURIComponent(article.metaDescription || article.excerpt || '')}`;
+    // Dynamic OG fallback — always available when image is missing or broken
+    const ogApiFallback = `${baseUrl}/api/og?variant=article&title=${encodeURIComponent(article.title)}&category=${encodeURIComponent(article.category || '')}&meta=${encodeURIComponent(article.metaDescription || article.excerpt || '')}`;
+
+    let imageUrl = ogApiFallback;
 
     if (rawImageUrl) {
         try {
-            // Check if it's already an absolute URL
             if (rawImageUrl.startsWith('http')) {
+                // External URL — use directly
                 imageUrl = rawImageUrl;
             } else {
-                // Combine baseUrl and relative path, using URL object to handle encoding of Thai characters automatically
-                // We ensure rawImageUrl starts with / to be safe, but URL constructor handles it relative to base
+                // Local path — build absolute URL
                 const cleanPath = rawImageUrl.startsWith('/') ? rawImageUrl : `/${rawImageUrl}`;
-                imageUrl = new URL(cleanPath, baseUrl).toString();
+
+                // Reject paths with non-ASCII chars (Thai filenames cause Facebook OG failures)
+                // eslint-disable-next-line no-control-regex
+                const hasNonAscii = /[^\x00-\x7F]/.test(cleanPath);
+                if (hasNonAscii) {
+                    console.warn(`[og] coverImage has non-ASCII chars, falling back to OG API: ${cleanPath}`);
+                    // keep ogApiFallback
+                } else {
+                    imageUrl = `${baseUrl}${cleanPath}`;
+                }
             }
         } catch (e) {
             console.error('Error constructing OG image URL:', e);
-            // Fallback to OG generator if URL construction fails
+            // keep ogApiFallback
         }
     }
 

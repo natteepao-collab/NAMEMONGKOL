@@ -23,7 +23,7 @@ export const articles: Article[] = [
     slug: 'auspicious-names-by-birthday-2026',
     title: 'ตั้งชื่อมงคลตามวันเกิด 2569: คู่มือครบจบ ตำราทักษาปกรณ์ ปีม้าไฟ พร้อมชื่อแนะนำทั้ง 7 วัน',
     excerpt: 'คู่มือตั้งชื่อมงคลตามวันเกิดฉบับสมบูรณ์ อ้างอิงตำราทักษาปกรณ์ เจาะลึกอักษรมงคล-กาลกิณีทั้ง 8 วรรค พร้อมชื่อแนะนำสำหรับเด็กเกิดปี 2569 ปีม้าไฟ แบ่งตามวันเกิดและวัตถุประสงค์',
-    coverImage: '/images/articles/cover-birthday-names.png',
+    coverImage: '/images/articles/baby-naming-2026.png',
     date: '2026-02-17',
     author: 'อาจารย์ณัฐ (NameMongkol)',
     category: 'ชื่อมงคล',
@@ -1665,7 +1665,7 @@ export const articles: Article[] = [
         slug: 'supajee-suthampun-numerology-a-plus',
         title: 'ถอดรหัสชื่อมงคล "ศุภจี สุธรรมพันธุ์" แม่ทัพหญิงแห่งดุสิตธานี กับพลังเลขศาสตร์ระดับ A+',
         excerpt: 'วิเคราะห์เลขศาสตร์ชื่อ "ศุภจี สุธรรมพันธุ์" CEO ดุสิตธานี ทำไมผลรวมชื่อ 22 นามสกุล 56 และชื่อ-นามสกุลรวม 78 ถึงเป็นชื่อเกรด A+ ที่หนุนบารมีระดับเศรษฐี',
-        coverImage: '/images/articles/supajee-suthampun-numerology-analysis.png',
+        coverImage: '/images/articles/top-20-popular-thai-names-numerology-analysis.png',
         date: '2026-02-12',
         author: 'อาจารย์ณัฐ (NameMongkol)',
         category: 'วิเคราะห์ชื่อคนดัง',
@@ -5062,7 +5062,7 @@ export const articles: Article[] = [
         slug: 'free-999-auspicious-names-2568',
         title: 'แจกฟรี! 999 ชื่อมงคลประจำปี 2568 ความหมายดี พลิกชีวิต รับปีมะเส็งและมะเมีย',
         excerpt: 'รวมสุดยอดชื่อมงคลกว่า 999 ชื่อ คัดเน้นๆ เฉพาะเกรด A+ ความหมายดี เป็นสิริมงคล เสริมดวงการเงินและการงาน แจกฟรี! ไม่มีกั๊ก',
-        coverImage: '/images/articles/free-names-999.jpg', // Placeholder
+        coverImage: '/images/articles/free-999-auspicious-names-2568.png',
         date: '2026-01-22',
         author: 'NameMongkol Editorial',
         category: 'แจกชื่อมงคล',
@@ -5150,7 +5150,7 @@ export const articles: Article[] = [
         slug: 'auspicious-phone-number-guide-2026',
         title: 'คู่มือเลือกและวิเคราะห์เบอร์มงคลด้วยตนเอง ฉบับสมบูรณ์ปี 2569: เปลี่ยนเลขรับปีมะเมียธาตุไฟ',
         excerpt: 'ปี 2569 ปีมะเมียธาตุไฟ เลือกเบอร์มงคลอย่างไรให้ปัง? เจาะลึก 4 ขั้นตอนวิเคราะห์เบอร์ด้วยตัวเอง คู่ลำดับ ผลรวม และกาลกิณีตามวันเกิด พร้อมเทรนด์เลขมหาเศรษฐีรับปีม้าทอง',
-        coverImage: '/images/articles/phone-guide-2026.jpg', // Placeholder
+        coverImage: '/images/articles/phone-guide-2026.png',
         date: '2026-01-21',
         author: 'ทีมวิเคราะห์ชื่อ NameMongkol',
         category: 'เลขศาสตร์เบอร์มงคล',
@@ -5247,7 +5247,7 @@ export const articles: Article[] = [
         slug: 'thai-naming-stats-2025-popular-initials',
         title: 'เจาะลึกสถิติชื่อไทยปี 2568: ตัวอักษรขึ้นต้นยอดนิยม และเทรนด์มหาทักษาที่คนไทยเลือกใช้มากที่สุด',
         excerpt: 'เผยสถิติชื่อมงคลปี 2568 อักษรตัวไหนมาแรง? ก, ธ, หรือ ณ? พร้อมเจาะลึกเทรนด์การตั้งชื่อปี 2569 ที่เน้น "ความหมาย" มากกว่า "ความคล้องจอง" วิเคราะห์โดยทีมงาน NameMongkol',
-        coverImage: '/images/articles/naming-stats-2025.jpg', // Placeholder, needs actual image
+        coverImage: '/images/articles/thai-naming-stats-2025-popular-initials.png',
         date: '2026-01-20',
         author: 'ทีมวิเคราะห์ชื่อ NameMongkol',
         category: 'สถิติและเทรนด์',
@@ -5485,7 +5485,7 @@ export const articles: Article[] = [
                 <p class="text-xs text-pink-300/60 mt-4 relative z-10">ปลดล็อคพลังเสน่ห์ด้วยดีไซน์เฉพาะคุณ</p>
             </div>
         `,
-        coverImage: '',
+        coverImage: '/images/articles/unfavorable-love-numbers-guide.png',
         date: '2026-01-14',
         author: 'อ.ณัฐ นามมงคล',
         category: 'ความรักและเสน่ห์',

@@ -266,7 +266,7 @@ export default function TopUpPage({ gateway, promptpayNumber }: TopUpPageProps) 
                         </div>
                         <div className="flex items-center gap-3 text-slate-400">
                             <Package className="w-6 h-6" />
-                            <span className="text-sm font-medium">No Expiry Date</span>
+                            <span className="text-sm font-medium">No Expiry (Purchased)</span>
                         </div>
                     </div>
                 </div>

@@ -56,8 +56,6 @@ export default function RegisterClientPage() {
 
             if (error) throw error;
 
-            console.log('Registration successful:', data);
-
             // Check if session is established immediately (Email Confirm disabled)
             if (data.session) {
                 setSuccessMessage('สมัครสมาชิกสำเร็จ! กำลังเข้าสู่ระบบ...');
@@ -98,7 +96,6 @@ export default function RegisterClientPage() {
 
             if (error) throw error;
 
-            console.log('OTP verified:', data);
             setSuccessMessage('ยืนยันตัวตนสำเร็จ! กำลังเข้าสู่ระบบ...');
 
             // Redirect to dashboard or home after short delay

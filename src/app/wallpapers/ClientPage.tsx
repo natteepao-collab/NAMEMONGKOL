@@ -25,15 +25,15 @@ const StandaloneWallpaperGenerator = dynamic(
 
 // Fallback constant for immediate load/SSR if needed, but we will rely on DB
 const INITIAL_WALLPAPERS: Wallpaper[] = [
-    { id: 1, name: 'มหาเทพประทานทรัพย์ (วันอาทิตย์)', image: '/wallpapers/คนเกิดวันเอาทิตย์.png', day: 'sunday', tags: ['การเงิน', 'อำนาจ'], premium: false, downloads: 2540 },
-    { id: 2, name: 'เสน่ห์เมตตามหานิยม (วันจันทร์)', image: '/wallpapers/คนเกิดวันจันทร์.png', day: 'monday', tags: ['ความรัก', 'เมตตา'], premium: false, downloads: 3120 },
-    { id: 3, name: 'นักรบกล้าหาญ (วันอังคาร)', image: '/wallpapers/คนเกิดวันอังคาร.png', day: 'tuesday', tags: ['การงาน', 'แข่งขัน'], premium: false, downloads: 1890 },
-    { id: 4, name: 'วาจาเรียกทรัพย์ (วันพุธ)', image: '/wallpapers/คนเกิดพุธ.png', day: 'wednesday', tags: ['การเจรจา', 'ค้าขาย'], premium: false, downloads: 2100 },
-    { id: 5, name: 'ปัญญาบารมี (วันพฤหัสบดี)', image: '/wallpapers/คนเกิดพฤหัส.png', day: 'thursday', tags: ['การเรียน', 'ผู้ใหญ่เมตตา'], premium: false, downloads: 2750 },
-    { id: 6, name: 'ทรัพย์สินพอกพูน (วันศุกร์)', image: '/wallpapers/คนเกิดศุกร์.png', day: 'friday', tags: ['การเงิน', 'ความสุข'], premium: false, downloads: 3420 },
-    { id: 7, name: 'อำนาจบารมี (วันเสาร์)', image: '/wallpapers/คนเกิดวันเสาร์.png', day: 'saturday', tags: ['อำนาจ', 'แคล้วคลาด'], premium: false, downloads: 1980 },
+    { id: 1, name: 'มหาเทพประทานทรัพย์ (วันอาทิตย์)', image: '/wallpapers/sunday.png', day: 'sunday', tags: ['การเงิน', 'อำนาจ'], premium: false, downloads: 2540 },
+    { id: 2, name: 'เสน่ห์เมตตามหานิยม (วันจันทร์)', image: '/wallpapers/monday.png', day: 'monday', tags: ['ความรัก', 'เมตตา'], premium: false, downloads: 3120 },
+    { id: 3, name: 'นักรบกล้าหาญ (วันอังคาร)', image: '/wallpapers/tuesday.png', day: 'tuesday', tags: ['การงาน', 'แข่งขัน'], premium: false, downloads: 1890 },
+    { id: 4, name: 'วาจาเรียกทรัพย์ (วันพุธ)', image: '/wallpapers/wednesday.png', day: 'wednesday', tags: ['การเจรจา', 'ค้าขาย'], premium: false, downloads: 2100 },
+    { id: 5, name: 'ปัญญาบารมี (วันพฤหัสบดี)', image: '/wallpapers/thursday.png', day: 'thursday', tags: ['การเรียน', 'ผู้ใหญ่เมตตา'], premium: false, downloads: 2750 },
+    { id: 6, name: 'ทรัพย์สินพอกพูน (วันศุกร์)', image: '/wallpapers/friday.png', day: 'friday', tags: ['การเงิน', 'ความสุข'], premium: false, downloads: 3420 },
+    { id: 7, name: 'อำนาจบารมี (วันเสาร์)', image: '/wallpapers/saturday.png', day: 'saturday', tags: ['อำนาจ', 'แคล้วคลาด'], premium: false, downloads: 1980 },
     { id: 8, name: 'ท้าวเวสสุวรรณ ปลดหนี้', image: '/wallpapers/thao-wessuwan-v2.png', day: 'all', tags: ['ปลดหนี้', 'กันชง'], premium: true, downloads: 4500 },
-    { id: 9, name: '4289 ท้าวเวสสุวรรณ (สีชมพู)', image: '/wallpapers/4289_ท้าวเวสสุวรรณ_สีชมพู.png', day: 'all', tags: ['การเงิน', 'โชคลาภ', '4289'], premium: false, downloads: 0, description: 'เหมาะอย่างยิ่งสำหรับ \"คนทำมาค้าขาย, เจ้าของธุรกิจ, Sales, และคนที่ต้องการเสริมดวงโชคลาภและการเงิน\" โดยเน้นที่ความราบรื่น (ปางเด็ก) และเงินทองไหลมาเทมา (4289 + ถุงเงิน) ครับ' },
+    { id: 9, name: '4289 ท้าวเวสสุวรรณ (สีชมพู)', image: '/wallpapers/4289-vessavana-pink.png', day: 'all', tags: ['การเงิน', 'โชคลาภ', '4289'], premium: false, downloads: 0, description: 'เหมาะอย่างยิ่งสำหรับ \"คนทำมาค้าขาย, เจ้าของธุรกิจ, Sales, และคนที่ต้องการเสริมดวงโชคลาภและการเงิน\" โดยเน้นที่ความราบรื่น (ปางเด็ก) และเงินทองไหลมาเทมา (4289 + ถุงเงิน) ครับ' },
 ];
 
 const DAYS = [
@@ -105,10 +105,19 @@ function WallpapersContent() {
             if (session?.user) {
                 const { data } = await supabase
                     .from('user_profiles')
-                    .select('credits')
+                    .select('credits, welcome_credits, welcome_credits_granted_at')
                     .eq('id', session.user.id)
                     .maybeSingle();
-                if (data) setUserCredits(data.credits);
+                if (data) {
+                    let total = data.credits ?? 0;
+                    if (data.welcome_credits && data.welcome_credits > 0 && data.welcome_credits_granted_at) {
+                        const grantedAt = new Date(data.welcome_credits_granted_at).getTime();
+                        if (Date.now() < grantedAt + 30 * 24 * 60 * 60 * 1000) {
+                            total += data.welcome_credits;
+                        }
+                    }
+                    setUserCredits(total);
+                }
             }
         };
         fetchCredits();

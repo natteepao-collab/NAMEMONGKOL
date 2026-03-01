@@ -177,6 +177,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const { gtmId, tiktokPixelId, facebookPixelId } = await getSettings();
+  const isProduction = process.env.NODE_ENV === 'production';
 
   return (
     <html lang="th" suppressHydrationWarning>
@@ -197,11 +198,11 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <LanguageProvider>
-            <GoogleTagManager gtmId={gtmId} />
+            {isProduction ? <GoogleTagManager gtmId={gtmId} /> : null}
             <CookieConsentWrapper />
 
             {/* Facebook Pixel */}
-            {facebookPixelId && (
+            {isProduction && facebookPixelId && (
               <Script id="facebook-pixel" strategy="afterInteractive">
                 {`
                   !function(f,b,e,v,n,t,s)
@@ -219,7 +220,7 @@ export default async function RootLayout({
             )}
 
             {/* TikTok Pixel */}
-            {tiktokPixelId && (
+            {isProduction && tiktokPixelId && (
               <Script id="tiktok-pixel" strategy="afterInteractive">
                 {`
                   !function (w, d, t) {
@@ -234,7 +235,7 @@ export default async function RootLayout({
             <LayoutWrapper>
               {children}
               <ScrollToTop />
-              <Analytics />
+              {isProduction ? <Analytics /> : null}
             </LayoutWrapper>
           </LanguageProvider>
         </ThemeProvider>

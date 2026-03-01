@@ -23,12 +23,23 @@ export const TopNav = () => {
     const fetchUserInfo = async (userId: string) => {
         const { data, error } = await supabase
             .from('user_profiles')
-            .select('credits, role')
+            .select('credits, role, welcome_credits, welcome_credits_granted_at')
             .eq('id', userId)
             .maybeSingle();
 
         if (data) {
-            setCredits(data.credits);
+            let totalCredits = data.credits ?? 0;
+
+            // เพิ่ม welcome_credits ถ้ายังไม่หมดอายุ (30 วัน)
+            if (data.welcome_credits && data.welcome_credits > 0 && data.welcome_credits_granted_at) {
+                const grantedAt = new Date(data.welcome_credits_granted_at).getTime();
+                const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+                if (Date.now() < grantedAt + thirtyDays) {
+                    totalCredits += data.welcome_credits;
+                }
+            }
+
+            setCredits(totalCredits);
             setRole(data.role);
         } else {
             if (error) console.error('Error fetching user info:', error);

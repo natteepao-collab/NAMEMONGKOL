@@ -16,7 +16,6 @@ export const calculateGrade = (totalScore: number, pairs: PairAnalysis[]): Grade
     }
 
     const hasRed = pairs.some(p => p.grade === 'bad');
-    const hasOrange = pairs.some(p => p.grade === 'neutral');
 
     if (hasRed) {
         return 'C';

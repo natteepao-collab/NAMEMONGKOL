@@ -111,7 +111,6 @@ function HomeContent() {
                 surnameScore,
                 totalScore
             });
-            console.log('Auto-saved analysis result');
         } catch (error) {
             console.error('Failed to auto-save:', error);
         }

@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { User } from '@supabase/supabase-js';
-import { X, Sparkles, Gift } from 'lucide-react';
+import { X, Sparkles, Gift, Clock } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { supabase } from '@/utils/supabase';
 
 interface WelcomeCreditModalProps {
     user: User | null;
@@ -11,52 +12,97 @@ interface WelcomeCreditModalProps {
 
 export const WelcomeCreditModal: React.FC<WelcomeCreditModalProps> = ({ user }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [welcomeCredits, setWelcomeCredits] = useState(100);
+    const [expiresAt, setExpiresAt] = useState<string | null>(null);
 
     useEffect(() => {
         if (!user) return;
 
-        // Check if user was created within the last 24 hours
-        // user.created_at is an ISO string
-        const createdAt = new Date(user.created_at).getTime();
-        const now = new Date().getTime();
-        const oneDay = 24 * 60 * 60 * 1000;
-        const isNewUser = (now - createdAt) < oneDay;
+        const checkWelcomeBonus = async () => {
+            // 1. เช็ค localStorage ก่อน (fast path)
+            const hasSeenWelcome = localStorage.getItem(`welcome_bonus_seen_${user.id}`);
+            if (hasSeenWelcome) return;
 
-        // Check localStorage to ensure we don't show it again
-        const hasSeenWelcome = localStorage.getItem(`welcome_bonus_seen_${user.id}`);
+            // 2. เช็คจาก DB ว่าเป็นสมาชิกใหม่ที่ได้รับ welcome credits หรือไม่
+            try {
+                const { data, error } = await supabase
+                    .from('user_profiles')
+                    .select('welcome_credits, welcome_credits_granted, welcome_credits_granted_at')
+                    .eq('id', user.id)
+                    .maybeSingle();
 
-        if (isNewUser && !hasSeenWelcome) {
-            // Delay slightly for better UX (wait for page load)
-            const timer = setTimeout(() => {
-                setIsOpen(true);
-                // Trigger confetti
-                const duration = 3 * 1000;
-                const end = Date.now() + duration;
+                if (error || !data) return;
 
-                (function frame() {
-                    confetti({
-                        particleCount: 3,
-                        angle: 60,
-                        spread: 55,
-                        origin: { x: 0 },
-                        colors: ['#fbbf24', '#f59e0b', '#d97706'] // Amber colors
-                    });
-                    confetti({
-                        particleCount: 3,
-                        angle: 120,
-                        spread: 55,
-                        origin: { x: 1 },
-                        colors: ['#fbbf24', '#f59e0b', '#d97706']
-                    });
+                // ถ้ายังไม่ได้รับ welcome credits หรือเคยเห็นแล้ว (จาก DB)
+                if (!data.welcome_credits_granted) return;
 
-                    if (Date.now() < end) {
-                        requestAnimationFrame(frame);
+                // ถ้า welcome credits หมดอายุแล้ว ไม่ต้องแสดง
+                if (data.welcome_credits_granted_at) {
+                    const grantedAt = new Date(data.welcome_credits_granted_at);
+                    const expiry = new Date(grantedAt.getTime() + 30 * 24 * 60 * 60 * 1000);
+
+                    if (new Date() > expiry) {
+                        // หมดอายุแล้ว ไม่ต้องแสดง
+                        localStorage.setItem(`welcome_bonus_seen_${user.id}`, 'true');
+                        return;
                     }
-                }());
-            }, 1500);
 
-            return () => clearTimeout(timer);
-        }
+                    setExpiresAt(expiry.toLocaleDateString('th-TH', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    }));
+                }
+
+                setWelcomeCredits(data.welcome_credits ?? 100);
+
+                // 3. เช็คว่าสร้างบัญชีภายใน 7 วัน (ขยายจาก 24 ชม. เพื่อให้ครอบคลุมมากขึ้น)
+                const createdAt = new Date(user.created_at).getTime();
+                const now = new Date().getTime();
+                const sevenDays = 7 * 24 * 60 * 60 * 1000;
+                const isNewUser = (now - createdAt) < sevenDays;
+
+                if (!isNewUser) {
+                    localStorage.setItem(`welcome_bonus_seen_${user.id}`, 'true');
+                    return;
+                }
+
+                // แสดง Modal พร้อม confetti
+                const timer = setTimeout(() => {
+                    setIsOpen(true);
+                    const duration = 3 * 1000;
+                    const end = Date.now() + duration;
+
+                    (function frame() {
+                        confetti({
+                            particleCount: 3,
+                            angle: 60,
+                            spread: 55,
+                            origin: { x: 0 },
+                            colors: ['#fbbf24', '#f59e0b', '#d97706']
+                        });
+                        confetti({
+                            particleCount: 3,
+                            angle: 120,
+                            spread: 55,
+                            origin: { x: 1 },
+                            colors: ['#fbbf24', '#f59e0b', '#d97706']
+                        });
+
+                        if (Date.now() < end) {
+                            requestAnimationFrame(frame);
+                        }
+                    }());
+                }, 1500);
+
+                return () => clearTimeout(timer);
+            } catch {
+                // ถ้า query ล้มเหลว ไม่แสดง modal (fail silently)
+                return;
+            }
+        };
+
+        checkWelcomeBonus();
     }, [user]);
 
     const handleClose = () => {
@@ -111,11 +157,11 @@ export const WelcomeCreditModal: React.FC<WelcomeCreditModalProps> = ({ user }) 
                     </h2>
                     <p className="text-slate-300 text-sm sm:text-base mb-6 px-4">
                         ขอบคุณที่สมัครสมาชิกกับ NameMongkol <br />
-                        รับเครดิตฟรีทันที เพื่อเริ่มต้นความเป็นมงคล
+                        คุณได้รับเครดิตฟรีแล้ว เพื่อเริ่มต้นความเป็นมงคล
                     </p>
 
                     {/* Credit Box */}
-                    <div className="w-full bg-slate-900/50 border border-amber-500/30 rounded-xl p-4 mb-6 flex items-center justify-between group">
+                    <div className="w-full bg-slate-900/50 border border-amber-500/30 rounded-xl p-4 mb-4 flex items-center justify-between group">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center">
                                 <Sparkles size={20} className="text-amber-500" />
@@ -127,22 +173,32 @@ export const WelcomeCreditModal: React.FC<WelcomeCreditModalProps> = ({ user }) 
                         </div>
                         <div className="text-right">
                             <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">
-                                +100
+                                +{welcomeCredits}
                             </span>
                             <span className="text-amber-500/70 text-xs font-bold ml-1">Credits</span>
                         </div>
                     </div>
 
+                    {/* Expiry Info */}
+                    {expiresAt && (
+                        <div className="w-full bg-amber-500/5 border border-amber-500/10 rounded-lg px-4 py-2.5 mb-6 flex items-center gap-2">
+                            <Clock size={14} className="text-amber-500/60 shrink-0" />
+                            <p className="text-xs text-amber-400/80">
+                                ใช้ได้ถึงวันที่ <span className="font-semibold text-amber-300">{expiresAt}</span>
+                            </p>
+                        </div>
+                    )}
+
                     <button
                         onClick={handleClose}
                         className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-amber-500/25 transform transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
                     >
-                        รับเครดิตฟรีทันที
+                        เริ่มใช้งานเลย!
                         <Sparkles size={18} className="animate-pulse" />
                     </button>
 
                     <p className="mt-4 text-[10px] text-slate-500">
-                        *เครดิตมีอายุการใช้งาน 30 วัน
+                        *เครดิตฟรีมีอายุการใช้งาน 30 วัน นับจากวันสมัครสมาชิก
                     </p>
                 </div>
             </div>

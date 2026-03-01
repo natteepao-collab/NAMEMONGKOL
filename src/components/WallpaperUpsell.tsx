@@ -18,13 +18,13 @@ interface WallpaperUpsellProps {
 }
 
 const WALLPAPER_MAPPING: Record<string, string> = {
-    sunday: '/wallpapers/คนเกิดวันเอาทิตย์.png',
-    monday: '/wallpapers/คนเกิดวันจันทร์.png',
-    tuesday: '/wallpapers/คนเกิดวันอังคาร.png',
-    wednesday: '/wallpapers/คนเกิดพุธ.png',
-    thursday: '/wallpapers/คนเกิดพฤหัส.png',
-    friday: '/wallpapers/คนเกิดศุกร์.png',
-    saturday: '/wallpapers/คนเกิดวันเสาร์.png',
+    sunday: '/wallpapers/sunday.png',
+    monday: '/wallpapers/monday.png',
+    tuesday: '/wallpapers/tuesday.png',
+    wednesday: '/wallpapers/wednesday.png',
+    thursday: '/wallpapers/thursday.png',
+    friday: '/wallpapers/friday.png',
+    saturday: '/wallpapers/saturday.png',
 };
 
 const DAY_LABELS: Record<string, string> = {

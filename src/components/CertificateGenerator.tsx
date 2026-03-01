@@ -64,10 +64,21 @@ export const CertificateGenerator: React.FC<CertificateGeneratorProps> = ({
             if (user) {
                 const { data } = await supabase
                     .from('user_profiles')
-                    .select('credits')
+                    .select('credits, welcome_credits, welcome_credits_granted_at')
                     .eq('id', user.id)
                     .maybeSingle();
-                setCredits(typeof data?.credits === 'number' ? data.credits : 0);
+                if (data) {
+                    let total = data.credits ?? 0;
+                    if (data.welcome_credits && data.welcome_credits > 0 && data.welcome_credits_granted_at) {
+                        const grantedAt = new Date(data.welcome_credits_granted_at).getTime();
+                        if (Date.now() < grantedAt + 30 * 24 * 60 * 60 * 1000) {
+                            total += data.welcome_credits;
+                        }
+                    }
+                    setCredits(total);
+                } else {
+                    setCredits(0);
+                }
             }
         };
         getUser();
@@ -75,8 +86,17 @@ export const CertificateGenerator: React.FC<CertificateGeneratorProps> = ({
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
             setUser(session?.user ?? null);
             if (session?.user) {
-                supabase.from('user_profiles').select('credits').eq('id', session.user.id).maybeSingle()
-                    .then(({ data }) => setCredits(typeof data?.credits === 'number' ? data.credits : 0));
+                supabase.from('user_profiles').select('credits, welcome_credits, welcome_credits_granted_at').eq('id', session.user.id).maybeSingle()
+                    .then(({ data }) => {
+                        let total = data?.credits ?? 0;
+                        if (data?.welcome_credits && data.welcome_credits > 0 && data?.welcome_credits_granted_at) {
+                            const grantedAt = new Date(data.welcome_credits_granted_at).getTime();
+                            if (Date.now() < grantedAt + 30 * 24 * 60 * 60 * 1000) {
+                                total += data.welcome_credits;
+                            }
+                        }
+                        setCredits(total);
+                    });
             } else {
                 setCredits(null);
             }
@@ -163,10 +183,16 @@ export const CertificateGenerator: React.FC<CertificateGeneratorProps> = ({
         // Fetch latest credits
         const { data } = await supabase
             .from('user_profiles')
-            .select('credits')
+            .select('credits, welcome_credits, welcome_credits_granted_at')
             .eq('id', user.id)
             .maybeSingle();
-        const latestCredits = typeof data?.credits === 'number' ? data.credits : 0;
+        let latestCredits = data?.credits ?? 0;
+        if (data?.welcome_credits && data.welcome_credits > 0 && data?.welcome_credits_granted_at) {
+            const grantedAt = new Date(data.welcome_credits_granted_at).getTime();
+            if (Date.now() < grantedAt + 30 * 24 * 60 * 60 * 1000) {
+                latestCredits += data.welcome_credits;
+            }
+        }
         setCredits(latestCredits);
 
         if (latestCredits < DOWNLOAD_CREDIT_COST) {
