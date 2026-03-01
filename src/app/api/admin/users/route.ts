@@ -54,7 +54,7 @@ export async function GET(request: Request) {
             .order('created_at', { ascending: false });
 
         if (search) {
-            query = query.or(`id.eq.${search}`);
+            query = query.or(`id.eq.${search},first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%`);
         }
 
         const { data, error, count } = await query;

@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Edit2, ChevronLeft, ChevronRight, Save, X, User, Mail, Facebook, Globe } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
+import { calculateEffectiveCredits } from '@/utils/credits';
 
 interface UserProfile {
     id: string;
@@ -12,6 +13,8 @@ interface UserProfile {
     email?: string;
     provider?: string;
     credits: number;
+    welcome_credits?: number | null;
+    welcome_credits_granted_at?: string | null;
     role: string;
     created_at?: string;
 }
@@ -250,7 +253,14 @@ export default function AdminUsersPage() {
                                                 </span>
                                             </td>
                                             <td className="px-6 py-4 text-center">
-                                                <span className="text-emerald-400 font-bold">{user.credits?.toLocaleString() || 0}</span>
+                                                <div className="flex flex-col items-center gap-0.5">
+                                                    <span className="text-emerald-400 font-bold">{calculateEffectiveCredits(user).toLocaleString()}</span>
+                                                    {(user.welcome_credits ?? 0) > 0 && (
+                                                        <span className="text-[10px] text-amber-400/70">
+                                                            (+{user.welcome_credits} welcome)
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </td>
                                             <td className="px-6 py-4 text-center">
                                                 <button
