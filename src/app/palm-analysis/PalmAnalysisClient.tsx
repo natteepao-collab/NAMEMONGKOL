@@ -204,10 +204,10 @@ export default function PalmAnalysisClient() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start justify-center w-full">
+    <div className="flex flex-col xl:flex-row gap-6 sm:gap-8 xl:gap-12 items-start justify-center w-full">
       {/* Left Column: Scanner */}
       <motion.div 
-        className={`w-full transition-all duration-700 ease-in-out ${result ? 'lg:w-1/3' : 'lg:w-1/2 mx-auto'}`}
+        className={`w-full transition-all duration-700 ease-in-out ${result ? 'xl:w-1/3' : 'xl:w-1/2 mx-auto'}`}
         layout
       >
         <PalmScanner 
@@ -248,7 +248,7 @@ export default function PalmAnalysisClient() {
       <AnimatePresence>
         {result && (
           <motion.div 
-            className="w-full lg:w-2/3"
+            className="w-full xl:w-2/3"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 50 }}

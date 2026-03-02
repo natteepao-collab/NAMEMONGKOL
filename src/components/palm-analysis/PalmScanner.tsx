@@ -309,19 +309,19 @@ export default function PalmScanner({
   }, [imageSrc]);
 
   return (
-    <div className="w-full max-w-md mx-auto bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+    <div className="w-full max-w-md mx-auto bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl relative overflow-hidden">
       {/* Aura glow effects */}
       <div className="absolute -top-24 -left-24 w-48 h-48 bg-purple-500/25 rounded-full blur-[80px] pointer-events-none animate-pulse"></div>
       <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-blue-500/25 rounded-full blur-[80px] pointer-events-none animate-pulse [animation-delay:1s]"></div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-amber-500/10 rounded-full blur-[60px] pointer-events-none animate-pulse [animation-delay:2s]"></div>
 
-      <h2 className="text-2xl font-bold text-white mb-2 text-center flex items-center justify-center gap-2">
+      <h2 className="text-xl sm:text-2xl font-bold text-white mb-2 text-center flex items-center justify-center gap-2">
         <ScanLine className="w-6 h-6 text-blue-400" />
         สแกนลายมือของคุณ
       </h2>
-      <p className="text-center text-slate-400 text-sm mb-6">ค้นพบดวงชะตาผ่านเส้นลายมือ</p>
+      <p className="text-center text-slate-400 text-sm leading-relaxed mb-5 sm:mb-6">ค้นพบดวงชะตาผ่านเส้นลายมือ</p>
 
-      <div className="relative w-full aspect-[3/4] bg-slate-950 rounded-xl overflow-hidden border border-slate-800 flex flex-col items-center justify-center mb-6">
+      <div className="relative w-full aspect-[3/4] bg-slate-950 rounded-xl overflow-hidden border border-slate-800 flex flex-col items-center justify-center mb-5 sm:mb-6">
         {/* Aura ring around camera area */}
         {isCameraOpen && (
           <div className="absolute inset-0 z-0 pointer-events-none">
@@ -331,29 +331,29 @@ export default function PalmScanner({
         )}
 
         {!imageSrc && !isCameraOpen && (
-          <div className="flex flex-col items-center justify-center p-6 text-center space-y-4">
+          <div className="flex flex-col items-center justify-center p-4 sm:p-6 text-center space-y-3 sm:space-y-4">
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-900/50 to-blue-900/50 border border-purple-500/30 flex items-center justify-center mb-2 shadow-lg shadow-purple-500/10">
               <Upload className="w-10 h-10 text-slate-300" />
             </div>
-            <p className="text-slate-300 text-sm">
+            <p className="text-slate-300 text-sm leading-relaxed">
               อัปโหลดรูปภาพลายมือของคุณ
               <br />
               หรือถ่ายรูปใหม่เพื่อวิเคราะห์
             </p>
             {/* Guide text */}
-            <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-4 py-2 text-amber-200/80 text-xs">
+            <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-4 py-2 text-amber-200/80 text-xs leading-relaxed">
               💡 กรุณาวางฝ่ามือให้ชัดเจนในกรอบ • แนะนำให้ใช้แสงธรรมชาติ
             </div>
 
-            <div className="flex gap-3 mt-4">
-              <label className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row gap-3 mt-4 w-full sm:w-auto">
+              <label className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 w-full sm:w-auto">
                 <Upload className="w-4 h-4" />
                 อัปโหลดรูป
                 <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
               </label>
               <button
                 onClick={startCamera}
-                className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 border border-slate-700"
+                className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 border border-slate-700 w-full sm:w-auto"
               >
                 <Camera className="w-4 h-4" />
                 ถ่ายรูป
@@ -457,7 +457,7 @@ export default function PalmScanner({
             </div>
           )}
 
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={reset}
               className="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 border border-slate-700"
@@ -467,7 +467,7 @@ export default function PalmScanner({
             </button>
             <button
               onClick={handleAnalyze}
-              className="flex-[2] bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 hover:from-purple-500 hover:via-blue-500 hover:to-indigo-500 text-white py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-purple-900/30 hover:shadow-purple-900/50 flex items-center justify-center gap-2 active:scale-[0.98]"
+              className="sm:flex-[2] bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 hover:from-purple-500 hover:via-blue-500 hover:to-indigo-500 text-white py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-purple-900/30 hover:shadow-purple-900/50 flex items-center justify-center gap-2 active:scale-[0.98]"
             >
               <ScanLine className="w-5 h-5" />
               เริ่มวิเคราะห์ลายมือ
