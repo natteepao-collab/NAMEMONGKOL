@@ -117,8 +117,11 @@ export default function PalmScanner({
 }: PalmScannerProps) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [cameraError, setCameraError] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const captureInputRef = useRef<HTMLInputElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
   const [liveQuality, setLiveQuality] = useState<PhotoQuality | null>(null);
@@ -150,6 +153,7 @@ export default function PalmScanner({
         const dataUrl = reader.result as string;
         setImageSrc(dataUrl);
         setIsCameraOpen(false);
+        setCameraError(null);
         setLiveQuality(null);
 
         evaluateDataUrlQuality(dataUrl)
@@ -161,28 +165,71 @@ export default function PalmScanner({
   };
 
   const startCamera = async () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setCameraError('อุปกรณ์หรือเบราว์เซอร์นี้ไม่รองรับการเปิดกล้องในหน้าเว็บ กรุณาใช้ปุ่มอัปโหลดรูปหรือถ่ายผ่านแอปกล้อง');
+      return;
+    }
+
+    if (!window.isSecureContext) {
+      setCameraError('ไม่สามารถเปิดกล้องได้ในโหมดไม่ปลอดภัย กรุณาเปิดผ่าน HTTPS หรือใช้งานจาก localhost');
+      return;
+    }
+
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        setIsCameraOpen(true);
-        setImageSrc(null);
-        setCapturedQuality(null);
+      setCameraError(null);
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
       }
+
+      let stream: MediaStream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: { ideal: 'environment' },
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+          },
+          audio: false,
+        });
+      } catch {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: false,
+        });
+      }
+
+      streamRef.current = stream;
+      setIsCameraOpen(true);
+      setImageSrc(null);
+      setCapturedQuality(null);
+      setLiveQuality(null);
     } catch (err) {
       console.error('Error accessing camera:', err);
-      alert('ไม่สามารถเข้าถึงกล้องได้ กรุณาตรวจสอบสิทธิ์การเข้าถึง');
+      const error = err as DOMException;
+      if (error?.name === 'NotAllowedError') {
+        setCameraError('เบราว์เซอร์ปฏิเสธสิทธิ์กล้อง กรุณาอนุญาต Camera ใน Site Settings แล้วลองใหม่');
+      } else if (error?.name === 'NotFoundError') {
+        setCameraError('ไม่พบอุปกรณ์กล้องในเครื่อง กรุณาตรวจสอบว่ากล้องพร้อมใช้งาน');
+      } else {
+        setCameraError('ไม่สามารถเข้าถึงกล้องได้ในขณะนี้ กรุณาลองใหม่ หรือใช้การถ่ายผ่านแอปกล้องแทน');
+      }
     }
   };
 
   const stopCamera = () => {
-    if (videoRef.current && videoRef.current.srcObject) {
-      const stream = videoRef.current.srcObject as MediaStream;
-      const tracks = stream.getTracks();
-      tracks.forEach((track) => track.stop());
-      setIsCameraOpen(false);
-      setLiveQuality(null);
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
     }
+
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.srcObject = null;
+    }
+
+    setIsCameraOpen(false);
+    setLiveQuality(null);
   };
 
   const captureImage = () => {
@@ -241,6 +288,7 @@ export default function PalmScanner({
   const reset = () => {
     setImageSrc(null);
     setIsCameraOpen(false);
+    setCameraError(null);
     setCapturedQuality(null);
     setLiveQuality(null);
     stopCamera();
@@ -268,6 +316,29 @@ export default function PalmScanner({
       window.clearInterval(timer);
     };
   }, [isCameraOpen]);
+
+  React.useEffect(() => {
+    if (!isCameraOpen || !videoRef.current || !streamRef.current) return;
+
+    const video = videoRef.current;
+    video.srcObject = streamRef.current;
+
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch((error) => {
+        console.error('Video play() failed:', error);
+      });
+    }
+  }, [isCameraOpen]);
+
+  React.useEffect(() => {
+    return () => {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
+      }
+    };
+  }, []);
 
   const handleImageLoad = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
     const img = e.currentTarget;
@@ -358,13 +429,33 @@ export default function PalmScanner({
                 <Camera className="w-4 h-4" />
                 ถ่ายรูป
               </button>
+              <input
+                ref={captureInputRef}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                className="hidden"
+                onChange={handleFileUpload}
+              />
             </div>
+
+            {cameraError && (
+              <div className="w-full mt-2 space-y-2">
+                <p className="text-xs text-rose-300 leading-relaxed">{cameraError}</p>
+                <button
+                  onClick={() => captureInputRef.current?.click()}
+                  className="w-full bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-slate-700"
+                >
+                  ใช้แอปกล้องมือถือแทน
+                </button>
+              </div>
+            )}
           </div>
         )}
 
         {isCameraOpen && (
           <div className="relative w-full h-full">
-            <video ref={videoRef} autoPlay playsInline className="w-full h-full object-cover" />
+            <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
 
             {/* Camera guide overlay */}
             <div className="absolute bottom-20 left-0 right-0 text-center z-10 pointer-events-none">
