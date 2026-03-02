@@ -18,14 +18,35 @@ export interface PalmImageQuality {
   perspective: number;
 }
 
+export interface PalmLineAnalysis {
+  title: string;
+  description: string;
+  highlights: string[];
+}
+
+export interface PalmScores {
+  love: number;
+  career: number;
+  health: number;
+  destiny: number;
+}
+
 export interface PalmAnalysisResult {
+  scores: PalmScores;
+  line_analysis: {
+    life_line: PalmLineAnalysis;
+    head_line: PalmLineAnalysis;
+    heart_line: PalmLineAnalysis;
+    fate_line: PalmLineAnalysis;
+  };
   personality_traits: {
     name: string;
     score: number;
   }[];
   strengths: string[];
-  weaknesses: string[];
-  lines: PalmLine[];
+  areas_for_growth: string[];
+  summary: string;
   spiritual_guidance: string;
+  lines: PalmLine[];
   image_quality?: PalmImageQuality;
 }

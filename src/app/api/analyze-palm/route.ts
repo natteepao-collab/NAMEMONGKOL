@@ -4,6 +4,9 @@ export const maxDuration = 60;
 
 const MIN_LINE_CONFIDENCE = 0.55;
 const MIN_POINT_CONFIDENCE = 0.45;
+const MAX_RETRIES = 2;
+
+// ────── Utility helpers ──────
 
 function toNumber(value: unknown, fallback = 0): number {
   if (typeof value === 'number' && Number.isFinite(value)) return value;
@@ -17,6 +20,8 @@ function toNumber(value: unknown, fallback = 0): number {
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
+
+// ────── Point & Line normalisation ──────
 
 type NormalizedPoint = { x: number; y: number; confidence?: number };
 
@@ -89,9 +94,37 @@ function normalizeImageQuality(imageQuality: unknown) {
   };
 }
 
+function normalizeLineAnalysis(raw: unknown): { title: string; description: string; highlights: string[] } | null {
+  if (!raw || typeof raw !== 'object') return null;
+  const item = raw as Record<string, unknown>;
+  const title = typeof item.title === 'string' ? item.title.trim() : '';
+  const description = typeof item.description === 'string' ? item.description.trim() : '';
+  const highlights = Array.isArray(item.highlights)
+    ? item.highlights.map((h) => (typeof h === 'string' ? h.trim() : '')).filter((h) => h.length > 0)
+    : [];
+  if (!title || !description) return null;
+  return { title, description, highlights };
+}
+
 function normalizeAnalysisResult(raw: unknown) {
   if (!raw || typeof raw !== 'object') return null;
   const input = raw as Record<string, unknown>;
+
+  // Scores (love / career / health)
+  const rawScores = (input.scores && typeof input.scores === 'object' ? input.scores : {}) as Record<string, unknown>;
+  const scores = {
+    love: clamp(toNumber(rawScores.love, 50), 0, 100),
+    career: clamp(toNumber(rawScores.career, 50), 0, 100),
+    health: clamp(toNumber(rawScores.health, 50), 0, 100),
+    destiny: clamp(toNumber(rawScores.destiny, 50), 0, 100),
+  };
+
+  // Line analysis
+  const rawLineAnalysis = (input.line_analysis && typeof input.line_analysis === 'object' ? input.line_analysis : {}) as Record<string, unknown>;
+  const lifeLine = normalizeLineAnalysis(rawLineAnalysis.life_line) ?? { title: 'เส้นชีวิต', description: 'ไม่สามารถวิเคราะห์ได้จากภาพ', highlights: [] };
+  const headLine = normalizeLineAnalysis(rawLineAnalysis.head_line) ?? { title: 'เส้นสมอง', description: 'ไม่สามารถวิเคราะห์ได้จากภาพ', highlights: [] };
+  const heartLine = normalizeLineAnalysis(rawLineAnalysis.heart_line) ?? { title: 'เส้นหัวใจ', description: 'ไม่สามารถวิเคราะห์ได้จากภาพ', highlights: [] };
+  const fateLine = normalizeLineAnalysis(rawLineAnalysis.fate_line) ?? { title: 'เส้นวาสนา', description: 'ไม่พบเส้นวาสนาชัดเจนจากภาพ', highlights: [] };
 
   const personalityTraits = Array.isArray(input.personality_traits)
     ? input.personality_traits
@@ -107,16 +140,17 @@ function normalizeAnalysisResult(raw: unknown) {
     : [];
 
   const strengths = Array.isArray(input.strengths)
-    ? input.strengths
-        .map((item) => (typeof item === 'string' ? item.trim() : ''))
-        .filter((item) => item.length > 0)
+    ? input.strengths.map((item) => (typeof item === 'string' ? item.trim() : '')).filter((item) => item.length > 0)
     : [];
 
-  const weaknesses = Array.isArray(input.weaknesses)
-    ? input.weaknesses
-        .map((item) => (typeof item === 'string' ? item.trim() : ''))
-        .filter((item) => item.length > 0)
+  const areasForGrowth = Array.isArray(input.areas_for_growth)
+    ? input.areas_for_growth.map((item) => (typeof item === 'string' ? item.trim() : '')).filter((item) => item.length > 0)
     : [];
+
+  const summary =
+    typeof input.summary === 'string' && input.summary.trim()
+      ? input.summary.trim()
+      : 'ไม่สามารถสรุปผลได้จากภาพที่ให้มา กรุณาลองถ่ายภาพใหม่ในที่แสงสว่าง';
 
   const spiritualGuidance =
     typeof input.spiritual_guidance === 'string' && input.spiritual_guidance.trim()
@@ -125,16 +159,24 @@ function normalizeAnalysisResult(raw: unknown) {
 
   const lines = normalizeLines(input.lines);
 
-  if (personalityTraits.length === 0 || strengths.length === 0 || weaknesses.length === 0) {
+  if (personalityTraits.length === 0 && strengths.length === 0) {
     return null;
   }
 
   return {
+    scores,
+    line_analysis: {
+      life_line: lifeLine,
+      head_line: headLine,
+      heart_line: heartLine,
+      fate_line: fateLine,
+    },
     personality_traits: personalityTraits,
     strengths,
-    weaknesses,
-    lines,
+    areas_for_growth: areasForGrowth,
+    summary,
     spiritual_guidance: spiritualGuidance,
+    lines,
     ...(normalizeImageQuality(input.image_quality) ? { image_quality: normalizeImageQuality(input.image_quality) } : {}),
   };
 }
@@ -146,7 +188,15 @@ function detectMimeType(dataUri: string): string {
 }
 
 function getGeminiTextFromResponse(data: any): string | null {
-  return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? null;
+  const parts = data?.candidates?.[0]?.content?.parts;
+  if (!Array.isArray(parts)) return null;
+
+  const text = parts
+    .map((part: any) => (typeof part?.text === 'string' ? part.text : ''))
+    .join('')
+    .trim();
+
+  return text || null;
 }
 
 function cleanMarkdownJson(text: string): string {
@@ -160,8 +210,205 @@ function cleanMarkdownJson(text: string): string {
   return trimmed;
 }
 
+function extractBalancedJsonObject(text: string): string | null {
+  const input = text.trim();
+  const start = input.indexOf('{');
+  if (start === -1) return null;
+
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+
+  for (let i = start; i < input.length; i++) {
+    const char = input[i];
+
+    if (inString) {
+      if (escaped) {
+        escaped = false;
+      } else if (char === '\\') {
+        escaped = true;
+      } else if (char === '"') {
+        inString = false;
+      }
+      continue;
+    }
+
+    if (char === '"') {
+      inString = true;
+      continue;
+    }
+
+    if (char === '{') {
+      depth++;
+      continue;
+    }
+
+    if (char === '}') {
+      depth--;
+      if (depth === 0) {
+        return input.slice(start, i + 1);
+      }
+    }
+  }
+
+  return null;
+}
+
+function parseGeminiJsonSafely(text: string): unknown | null {
+  const cleaned = cleanMarkdownJson(text);
+  const candidates = [
+    cleaned,
+    text.trim(),
+    extractBalancedJsonObject(cleaned),
+    extractBalancedJsonObject(text),
+  ].filter((value, index, arr): value is string => typeof value === 'string' && value.length > 0 && arr.indexOf(value) === index);
+
+  for (const candidate of candidates) {
+    try {
+      return JSON.parse(candidate);
+    } catch {
+      continue;
+    }
+  }
+
+  return null;
+}
+
+function parseRetryAfterToMs(retryAfterHeader: string | null): number | null {
+  if (!retryAfterHeader) return null;
+
+  const numeric = Number(retryAfterHeader);
+  if (Number.isFinite(numeric) && numeric >= 0) {
+    return numeric * 1000;
+  }
+
+  const parsedDate = Date.parse(retryAfterHeader);
+  if (!Number.isNaN(parsedDate)) {
+    const delay = parsedDate - Date.now();
+    return delay > 0 ? delay : 0;
+  }
+
+  return null;
+}
+
+// ────── The prompt (Thai Palmistry Expert — Optimised for token efficiency) ──────
+
+const SYSTEM_INSTRUCTION = `คุณคือหมอดูลายมือชั้นสูงตามหลักหัตถศาสตร์ไทย ใช้ Computer Vision วิเคราะห์ภาพฝ่ามือที่ได้รับ
+
+วิเคราะห์ 4 เส้นหลักตามหลักหัตถศาสตร์:
+• เส้นชีวิต (Life Line) — สุขภาพ พลังชีวิต การเปลี่ยนแปลงสำคัญ
+• เส้นสมอง (Head Line) — สติปัญญา ความคิด ศักยภาพด้านอาชีพ
+• เส้นหัวใจ (Heart Line) — อารมณ์ ชีวิตรัก ความสัมพันธ์
+• เส้นวาสนา (Fate Line) — โชคชะตา ความสำเร็จ เส้นทางชีวิต วาสนาบารมี (เส้นตรงกลางฝ่ามือพาดขึ้นไปหานิ้วกลาง)
+
+หลักการ:
+- ใช้ภาษาไทยสุภาพ ใช้คำว่า "คุณ" "ดวงชะตา" สไตล์โหราศาสตร์ไทย
+- วิเคราะห์เชิงบวกสร้างสรรค์ วิเคราะห์เฉพาะสิ่งที่เห็นจากภาพจริง
+- หากไม่เห็นเส้นวาสนาชัดเจน (บางคนไม่มี) ให้วิเคราะห์ตามสิ่งที่เห็นพร้อมลด confidence
+- personality_traits ให้ 4-6 ข้อ, strengths 3-5 ข้อ, areas_for_growth 2-4 ข้อ
+- highlights ให้ 2-3 ข้อต่อเส้น
+- description ของแต่ละเส้นให้สั้น กระชับ 1-2 ประโยค (ไม่เกิน ~140 ตัวอักษรต่อเส้น)
+- summary ให้สรุปภาพรวม 2-3 ประโยค (ไม่เกิน ~220 ตัวอักษร)
+- spiritual_guidance ให้สั้นและปฏิบัติได้จริง 1-2 ประโยค (ไม่เกิน ~160 ตัวอักษร)
+
+การวาดเส้น (lines):
+- วาด 4 เส้น: life_line, head_line, heart_line, fate_line
+- แต่ละเส้นใช้ 6-12 จุดเท่านั้น (พิกัด 0-100 เทียบกับขนาดภาพ) — เส้นจะถูกทำให้ลื่นด้วย curve interpolation อีกที
+- แต่ละเส้นมี confidence 0-1
+- หากภาพไม่ชัดหรือไม่เห็นเส้นวาสนา ให้ลด confidence ตามจริง หรือใส่จุดน้อยลง
+
+ตอบเป็น JSON เท่านั้น (ห้ามใส่ markdown):
+{
+  "scores": { "love": 0-100, "career": 0-100, "health": 0-100, "destiny": 0-100 },
+  "line_analysis": {
+    "life_line": { "title": "เส้นชีวิต", "description": "...", "highlights": ["..."] },
+    "head_line": { "title": "เส้นสมอง", "description": "...", "highlights": ["..."] },
+    "heart_line": { "title": "เส้นหัวใจ", "description": "...", "highlights": ["..."] },
+    "fate_line": { "title": "เส้นวาสนา", "description": "...", "highlights": ["..."] }
+  },
+  "personality_traits": [{ "name": "...", "score": 0-100 }],
+  "strengths": ["..."],
+  "areas_for_growth": ["..."],
+  "summary": "สรุปผลภาพรวม",
+  "spiritual_guidance": "คำแนะนำเสริมมงคล",
+  "lines": [
+    { "id": "life_line|head_line|heart_line|fate_line", "name": "...", "confidence": 0.85, "points": [{"x":25,"y":80},{"x":30,"y":60},...] }
+  ],
+  "image_quality": { "sharpness": 0-100, "lighting": 0-100, "occlusion": 0-100, "perspective": 0-100 }
+}`;
+
+const USER_PROMPT = 'วิเคราะห์ลายมือตามหลักหัตถศาสตร์ไทย คืน JSON ตามโครงสร้าง';
+
+// ────── Simple in-memory cache to avoid re-processing identical images ──────
+
+interface CacheEntry {
+  result: ReturnType<typeof normalizeAnalysisResult>;
+  timestamp: number;
+}
+
+const responseCache = new Map<string, CacheEntry>();
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const CACHE_MAX_SIZE = 20;
+
+function getCacheKey(base64Data: string): string {
+  // Use first 200 + last 200 chars as a fingerprint (avoids hashing megabytes)
+  const head = base64Data.slice(0, 200);
+  const tail = base64Data.slice(-200);
+  return head + '::' + base64Data.length + '::' + tail;
+}
+
+function pruneCache() {
+  const now = Date.now();
+  for (const [key, entry] of responseCache) {
+    if (now - entry.timestamp > CACHE_TTL) {
+      responseCache.delete(key);
+    }
+  }
+  // Evict oldest if still too large
+  while (responseCache.size > CACHE_MAX_SIZE) {
+    const firstKey = responseCache.keys().next().value;
+    if (firstKey !== undefined) responseCache.delete(firstKey);
+    else break;
+  }
+}
+
+// ────── Server-side rate limiter — prevent excessive calls ──────
+
+const lastRequestTimeByIp = new Map<string, number>();
+const MIN_REQUEST_INTERVAL = 12500; // 12.5 seconds between requests (Free tier: 5 RPM)
+
+function getClientIp(req: Request): string {
+  const forwarded = req.headers.get('x-forwarded-for');
+  if (!forwarded) return 'local';
+  return forwarded.split(',')[0]?.trim() || 'local';
+}
+
+// ────── POST handler ──────
+
 export async function POST(req: Request) {
   try {
+    // Server-side rate limiter
+    const clientIp = getClientIp(req);
+    const now = Date.now();
+    const lastRequestTime = lastRequestTimeByIp.get(clientIp) ?? 0;
+    if (now - lastRequestTime < MIN_REQUEST_INTERVAL) {
+      const retryAfterSeconds = Math.max(1, Math.ceil((MIN_REQUEST_INTERVAL - (now - lastRequestTime)) / 1000));
+      return NextResponse.json(
+        {
+          error: 'กรุณารอสักครู่',
+          details: 'กรุณารออย่างน้อย 12 วินาที ก่อนลองอีกครั้ง',
+          code: 'RATE_LIMITED',
+        },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(retryAfterSeconds),
+          },
+        }
+      );
+    }
+    lastRequestTimeByIp.set(clientIp, now);
+
     const body = await req.json();
     const { imageBase64 } = body;
 
@@ -175,55 +422,35 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'API key not configured' }, { status: 500 });
     }
 
-    // Detect mime type before stripping the prefix
     const mimeType = detectMimeType(imageBase64);
-
-    // Remove data:image/...;base64, prefix if present
     const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
 
-    const systemInstruction = `คุณคือผู้เชี่ยวชาญด้านจิตวิทยาและหัตถศาสตร์
-ตอบเป็นภาษาไทยสุภาพ และต้องตอบกลับเป็น JSON เท่านั้น
-ให้วิเคราะห์เฉพาะสิ่งที่เห็นจากภาพจริง ห้ามแต่งเติมเกินภาพ
-
-เงื่อนไขสำคัญสำหรับการวาดเส้นลายมือ:
-- วิเคราะห์เฉพาะ 3 เส้นหลัก: life_line, head_line, heart_line
-- แต่ละเส้นต้องมีจุด 40-120 จุด เพื่อให้เส้นละเอียด
-- จุดแต่ละจุดใช้พิกัด 0-100 เทียบกับขนาดภาพ และควรมี confidence 0-1
-- แต่ละเส้นควรมี confidence 0-1
-- หากภาพไม่ชัด ให้ลด confidence ตามจริง และให้ image_quality ตามจริง
-
-โครงสร้าง JSON:
-{
-  "personality_traits": [{ "name": "...", "score": 0-100 }],
-  "strengths": ["..."],
-  "weaknesses": ["..."],
-  "lines": [
-    {
-      "id": "life_line|head_line|heart_line",
-      "name": "...",
-      "confidence": 0.0,
-      "points": [{ "x": 0, "y": 0, "confidence": 0.0 }]
+    // Check cache first
+    pruneCache();
+    const cacheKey = getCacheKey(base64Data);
+    const cached = responseCache.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+      console.log('[analyze-palm] Returning cached result');
+      return NextResponse.json(cached.result);
     }
-  ],
-  "spiritual_guidance": "...",
-  "image_quality": { "sharpness": 0-100, "lighting": 0-100, "occlusion": 0-100, "perspective": 0-100 }
-}`;
 
-    // Try multiple model names in order of preference
-    const models = [
-      'gemini-1.5-flash',
-      'gemini-1.5-pro',
-      'gemini-2.0-flash',
-      'gemini-2.0-flash-lite',
-      'gemini-2.5-flash',
-    ];
+    // Model fallback order — Gemini 2.5 Flash primary (per project spec)
+    const models = ['gemini-2.5-flash', 'gemini-2.0-flash'];
 
     let lastError: unknown = null;
-    let isQuotaExhausted = false;
+    const failedModels = new Set<string>();
 
-    for (const model of models) {
+    for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+      // Pick model: skip models that returned non-429 errors
+      let model = models[attempt % models.length];
+      if (failedModels.has(model)) {
+        const available = models.filter((m) => !failedModels.has(m));
+        if (available.length === 0) break; // all models failed
+        model = available[attempt % available.length];
+      }
+
       try {
-        console.log(`[analyze-palm] Trying model: ${model}`);
+        console.log('[analyze-palm] Attempt ' + (attempt + 1) + '/' + MAX_RETRIES + ' model: ' + model);
 
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
@@ -232,7 +459,7 @@ export async function POST(req: Request) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             system_instruction: {
-              parts: [{ text: systemInstruction }],
+              parts: [{ text: SYSTEM_INSTRUCTION }],
             },
             contents: [
               {
@@ -243,35 +470,56 @@ export async function POST(req: Request) {
                       data: base64Data,
                     },
                   },
-                  {
-                    text: 'วิเคราะห์ลายมือนี้และคืน JSON ตามโครงสร้างที่กำหนด โดยเน้นความแม่นยำของพิกัดเส้นและระดับความเชื่อมั่น',
-                  },
+                  { text: USER_PROMPT },
                 ],
               },
             ],
             generationConfig: {
-              temperature: 0.4,
-              maxOutputTokens: 4096,
+              temperature: 0.25,
+              maxOutputTokens: 8192,
+              responseMimeType: 'application/json',
             },
           }),
         });
 
         if (!response.ok) {
           const errorText = await response.text();
-          console.error(`[analyze-palm] Model ${model} failed (${response.status}):`, errorText);
+          console.error('[analyze-palm] Model ' + model + ' failed (' + response.status + '):', errorText);
           lastError = errorText;
 
-          // Detect quota / rate-limit errors
           if (response.status === 429) {
-            isQuotaExhausted = true;
-            // Wait before trying next model (exponential-ish backoff)
-            await new Promise((r) => setTimeout(r, 3000));
+            const retryAfterMs = parseRetryAfterToMs(response.headers.get('retry-after'));
+            const retryAfterSeconds = Math.max(1, Math.ceil((retryAfterMs ?? 30000) / 1000));
+            return NextResponse.json(
+              {
+                error: 'โควต้า API หมดชั่วคราว',
+                details: 'ระบบใช้งาน Gemini API เกินโควต้าที่กำหนด กรุณารอสักครู่แล้วลองใหม่อีกครั้ง',
+                code: 'QUOTA_EXHAUSTED',
+              },
+              {
+                status: 429,
+                headers: {
+                  'Retry-After': String(retryAfterSeconds),
+                },
+              }
+            );
+          } else if (response.status === 404) {
+            // Model not found — skip it permanently
+            failedModels.add(model);
+            console.log('[analyze-palm] Model ' + model + ' not found, skipping');
           }
-          continue; // Try next model
+          continue;
         }
 
         const data = await response.json();
-        console.log('[analyze-palm] Raw response:', JSON.stringify(data).slice(0, 500));
+        const finishReason = data?.candidates?.[0]?.finishReason;
+        console.log('[analyze-palm] Raw response (finishReason=' + finishReason + '):', JSON.stringify(data).slice(0, 500));
+
+        if (finishReason === 'MAX_TOKENS') {
+          console.warn('[analyze-palm] Output truncated (MAX_TOKENS) — retrying with next model');
+          lastError = 'AI response was truncated';
+          continue;
+        }
 
         const resultText = getGeminiTextFromResponse(data);
         if (!resultText) {
@@ -280,13 +528,14 @@ export async function POST(req: Request) {
           continue;
         }
 
-        // Parse JSON from the response (handle markdown code blocks)
-        const cleanedText = cleanMarkdownJson(resultText);
-
-        const parsedResult = JSON.parse(cleanedText);
+        const parsedResult = parseGeminiJsonSafely(resultText);
+        if (!parsedResult) {
+          console.error('[analyze-palm] Failed to parse JSON from AI response:', resultText.slice(0, 500));
+          lastError = 'Invalid JSON from AI response';
+          continue;
+        }
         const normalizedResult = normalizeAnalysisResult(parsedResult);
 
-        // Validate the structure has required fields
         if (!normalizedResult) {
           console.error('[analyze-palm] Incomplete/invalid result structure:', Object.keys(parsedResult || {}));
           lastError = 'AI returned incomplete data';
@@ -294,27 +543,18 @@ export async function POST(req: Request) {
         }
 
         console.log('[analyze-palm] Successfully analyzed with model:', model);
+        // Cache the result
+        responseCache.set(cacheKey, { result: normalizedResult, timestamp: Date.now() });
         return NextResponse.json(normalizedResult);
       } catch (modelError) {
-        console.error(`[analyze-palm] Error with model ${model}:`, modelError);
+        console.error('[analyze-palm] Error with model ' + model + ':', modelError);
         lastError = modelError;
         continue;
       }
     }
 
-    // All models failed
-    console.error('[analyze-palm] All models failed. Last error:', lastError);
-
-    if (isQuotaExhausted) {
-      return NextResponse.json(
-        {
-          error: 'โควต้า API หมดชั่วคราว',
-          details: 'ระบบใช้งาน Gemini API เกินโควต้าที่กำหนด กรุณารอสักครู่แล้วลองใหม่อีกครั้ง (ประมาณ 1-2 นาที)',
-          code: 'QUOTA_EXHAUSTED',
-        },
-        { status: 429 }
-      );
-    }
+    // All retries failed
+    console.error('[analyze-palm] All retries failed. Last error:', lastError);
 
     return NextResponse.json(
       { error: 'ไม่สามารถวิเคราะห์ภาพได้', details: String(lastError) },

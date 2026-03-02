@@ -137,7 +137,7 @@ export default function PalmScanner({
         quality.lighting < 50 ||
         quality.perspective < 50 ||
         quality.occlusion < 45);
-    return avgLinePoints < 24 || lowQuality;
+    return avgLinePoints < 6 || lowQuality;
   }, [result]);
 
   const hasLowCaptureQuality = !result && !!capturedQuality && capturedQuality.overall < 60;
@@ -197,6 +197,10 @@ export default function PalmScanner({
         const dataUrl = canvas.toDataURL('image/jpeg');
         setImageSrc(dataUrl);
         setCapturedQuality(liveQuality);
+        // Haptic feedback on capture
+        if (navigator.vibrate) {
+          navigator.vibrate(50);
+        }
         stopCamera();
       }
     }
@@ -204,9 +208,35 @@ export default function PalmScanner({
 
   const handleAnalyze = () => {
     if (imageSrc) {
+      // Haptic feedback on analyze
+      if (navigator.vibrate) {
+        navigator.vibrate([50, 30, 50]);
+      }
       onAnalyze(imageSrc);
     }
   };
+
+  // Rotating mystical loading messages
+  const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
+  const loadingMessages = [
+    'กำลังเชื่อมโยงพลังงานจักรวาล...',
+    'ไตร่ตรองเส้นชีวิตของคุณ...',
+    'ค้นหาความลับในลายมือ...',
+    'ถอดรหัสเส้นหัวใจ...',
+    'วิเคราะห์เส้นสมองและสติปัญญา...',
+    'รวบรวมผลคำทำนาย...',
+  ];
+
+  React.useEffect(() => {
+    if (!isAnalyzing) {
+      setLoadingMessageIndex(0);
+      return;
+    }
+    const interval = setInterval(() => {
+      setLoadingMessageIndex((prev) => (prev + 1) % loadingMessages.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [isAnalyzing]);
 
   const reset = () => {
     setImageSrc(null);
@@ -280,25 +310,40 @@ export default function PalmScanner({
 
   return (
     <div className="w-full max-w-md mx-auto bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
-      <div className="absolute -top-20 -left-20 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      {/* Aura glow effects */}
+      <div className="absolute -top-24 -left-24 w-48 h-48 bg-purple-500/25 rounded-full blur-[80px] pointer-events-none animate-pulse"></div>
+      <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-blue-500/25 rounded-full blur-[80px] pointer-events-none animate-pulse [animation-delay:1s]"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-amber-500/10 rounded-full blur-[60px] pointer-events-none animate-pulse [animation-delay:2s]"></div>
 
-      <h2 className="text-2xl font-bold text-white mb-6 text-center flex items-center justify-center gap-2">
+      <h2 className="text-2xl font-bold text-white mb-2 text-center flex items-center justify-center gap-2">
         <ScanLine className="w-6 h-6 text-blue-400" />
         สแกนลายมือของคุณ
       </h2>
+      <p className="text-center text-slate-400 text-sm mb-6">ค้นพบดวงชะตาผ่านเส้นลายมือ</p>
 
       <div className="relative w-full aspect-[3/4] bg-slate-950 rounded-xl overflow-hidden border border-slate-800 flex flex-col items-center justify-center mb-6">
+        {/* Aura ring around camera area */}
+        {isCameraOpen && (
+          <div className="absolute inset-0 z-0 pointer-events-none">
+            <div className="absolute inset-0 rounded-xl border-2 border-purple-500/30 animate-pulse"></div>
+            <div className="absolute inset-2 rounded-lg border border-blue-400/20 animate-pulse [animation-delay:0.5s]"></div>
+          </div>
+        )}
+
         {!imageSrc && !isCameraOpen && (
           <div className="flex flex-col items-center justify-center p-6 text-center space-y-4">
-            <div className="w-20 h-20 rounded-full bg-slate-800 flex items-center justify-center mb-2">
-              <Upload className="w-10 h-10 text-slate-400" />
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-900/50 to-blue-900/50 border border-purple-500/30 flex items-center justify-center mb-2 shadow-lg shadow-purple-500/10">
+              <Upload className="w-10 h-10 text-slate-300" />
             </div>
             <p className="text-slate-300 text-sm">
               อัปโหลดรูปภาพลายมือของคุณ
               <br />
               หรือถ่ายรูปใหม่เพื่อวิเคราะห์
             </p>
+            {/* Guide text */}
+            <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-4 py-2 text-amber-200/80 text-xs">
+              💡 กรุณาวางฝ่ามือให้ชัดเจนในกรอบ • แนะนำให้ใช้แสงธรรมชาติ
+            </div>
 
             <div className="flex gap-3 mt-4">
               <label className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
@@ -320,6 +365,13 @@ export default function PalmScanner({
         {isCameraOpen && (
           <div className="relative w-full h-full">
             <video ref={videoRef} autoPlay playsInline className="w-full h-full object-cover" />
+
+            {/* Camera guide overlay */}
+            <div className="absolute bottom-20 left-0 right-0 text-center z-10 pointer-events-none">
+              <span className="bg-black/60 backdrop-blur-sm text-amber-200 text-xs px-3 py-1.5 rounded-full">
+                วางฝ่ามือให้เต็มกรอบ • ถือกล้องนิ่ง • ใช้แสงธรรมชาติ
+              </span>
+            </div>
 
             {liveQuality && (
               <div className="absolute top-3 left-3 right-3 bg-slate-950/75 backdrop-blur-sm border border-slate-700 rounded-lg p-3 text-xs text-slate-200 z-10">
@@ -345,10 +397,12 @@ export default function PalmScanner({
             <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-4">
               <button
                 onClick={captureImage}
-                className="w-16 h-16 bg-white rounded-full border-4 border-slate-300 flex items-center justify-center shadow-lg hover:scale-105 transition-transform"
+                className="w-18 h-18 bg-white rounded-full border-4 border-purple-300 flex items-center justify-center shadow-lg shadow-purple-500/30 hover:scale-105 active:scale-95 transition-transform"
                 title={liveQuality ? qualityHint(liveQuality) : 'ถ่ายภาพ'}
               >
-                <div className="w-12 h-12 bg-white rounded-full border border-slate-200"></div>
+                <div className="w-14 h-14 bg-white rounded-full border-2 border-purple-200 flex items-center justify-center">
+                  <Camera className="w-6 h-6 text-purple-600" />
+                </div>
               </button>
               <button
                 onClick={stopCamera}
@@ -366,7 +420,7 @@ export default function PalmScanner({
 
             {isAnalyzing && (
               <motion.div
-                className="absolute top-0 left-0 w-full h-1 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)] z-20"
+                className="absolute top-0 left-0 w-full h-1 bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.8)] z-20"
                 animate={{ top: ['0%', '100%', '0%'] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
               />
@@ -413,7 +467,7 @@ export default function PalmScanner({
             </button>
             <button
               onClick={handleAnalyze}
-              className="flex-[2] bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white py-3 rounded-xl font-medium transition-all shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2"
+              className="flex-[2] bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 hover:from-purple-500 hover:via-blue-500 hover:to-indigo-500 text-white py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-purple-900/30 hover:shadow-purple-900/50 flex items-center justify-center gap-2 active:scale-[0.98]"
             >
               <ScanLine className="w-5 h-5" />
               เริ่มวิเคราะห์ลายมือ
@@ -423,14 +477,24 @@ export default function PalmScanner({
       )}
 
       {isAnalyzing && (
-        <div className="w-full bg-slate-800 rounded-full h-2 mb-4 overflow-hidden">
-          <motion.div
-            className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full"
-            initial={{ width: '0%' }}
-            animate={{ width: '100%' }}
-            transition={{ duration: 15, ease: 'linear' }}
-          />
-          <p className="text-center text-slate-400 text-sm mt-3 animate-pulse">กำลังให้ AI วิเคราะห์เส้นลายมือของคุณ...</p>
+        <div className="w-full space-y-3 mb-4">
+          <div className="bg-slate-800 rounded-full h-2 overflow-hidden">
+            <motion.div
+              className="bg-gradient-to-r from-purple-500 via-blue-500 to-amber-400 h-2 rounded-full"
+              initial={{ width: '0%' }}
+              animate={{ width: '100%' }}
+              transition={{ duration: 15, ease: 'linear' }}
+            />
+          </div>
+          <motion.p
+            key={loadingMessageIndex}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="text-center text-purple-300 text-sm animate-pulse"
+          >
+            ✨ {loadingMessages[loadingMessageIndex]}
+          </motion.p>
         </div>
       )}
 
