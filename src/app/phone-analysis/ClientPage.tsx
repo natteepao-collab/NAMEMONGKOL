@@ -8,6 +8,7 @@ import { PhoneAnalysisResult } from '@/components/PhoneAnalysisResult';
 import { PhoneSeoContent } from '@/components/PhoneSeoContent';
 import { PhoneFAQSection } from '@/components/PhoneFAQSection';
 import { useLanguage } from '@/components/LanguageProvider';
+import { supabase } from '@/utils/supabase';
 
 const PhoneHeader = () => {
     const { t } = useLanguage();
@@ -153,6 +154,28 @@ function ClientPageContent() {
     const handleAnalyze = async () => {
         setError('');
         if (!phoneNumber) return;
+
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            const Swal = (await import('sweetalert2')).default;
+            const authResult = await Swal.fire({
+                title: '🔒 กรุณาเข้าสู่ระบบ',
+                html: '<p style="color:#94a3b8">คุณต้องเข้าสู่ระบบก่อนจึงจะทำนายเบอร์ได้</p>',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'เข้าสู่ระบบ',
+                cancelButtonText: 'ยกเลิก',
+                background: '#1e293b',
+                color: '#fff',
+                confirmButtonColor: '#d97706',
+                customClass: { popup: 'rounded-2xl border border-amber-500/20' },
+            });
+
+            if (authResult.isConfirmed) {
+                router.push('/login');
+            }
+            return;
+        }
 
         // Basic validation
         const clean = phoneNumber.replace(/\D/g, '');

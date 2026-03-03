@@ -4,12 +4,25 @@
 import React, { useState, useEffect } from 'react';
 import { Save, Settings, Tag } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
+import {
+    DEFAULT_PALM_SYSTEM_PROMPT,
+    DEFAULT_PALM_USER_PROMPT,
+    GEMINI_API_KEY_SECRET_KEY,
+    PALM_PROMPT_VERSION_KEY,
+    PALM_SYSTEM_PROMPT_KEY,
+    PALM_USER_PROMPT_KEY,
+} from '@/lib/palmPromptDefaults';
 
 export default function AdminSettingsPage() {
     const [gtmId, setGtmId] = useState('');
     const [tiktokPixelId, setTiktokPixelId] = useState('');
     const [facebookPixelId, setFacebookPixelId] = useState('');
     const [promptPayNumber, setPromptPayNumber] = useState('');
+    const [geminiApiKeyInput, setGeminiApiKeyInput] = useState('');
+    const [hasGeminiApiKey, setHasGeminiApiKey] = useState(false);
+    const [isAppSecretsReady, setIsAppSecretsReady] = useState(true);
+    const [palmSystemPrompt, setPalmSystemPrompt] = useState(DEFAULT_PALM_SYSTEM_PROMPT);
+    const [palmUserPrompt, setPalmUserPrompt] = useState(DEFAULT_PALM_USER_PROMPT);
     const [paymentGateway, setPaymentGateway] = useState<'stripe' | 'slip2go'>('stripe');
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -17,6 +30,13 @@ export default function AdminSettingsPage() {
     useEffect(() => {
         fetchSettings();
     }, []);
+
+    const isMissingAppSecretsTableError = (error: any) => {
+        const code = typeof error?.code === 'string' ? error.code : '';
+        const message = typeof error?.message === 'string' ? error.message.toLowerCase() : '';
+        const details = typeof error?.details === 'string' ? error.details.toLowerCase() : '';
+        return code === 'PGRST205' || message.includes('app_secrets') || details.includes('app_secrets');
+    };
 
     const fetchSettings = async () => {
         setLoading(true);
@@ -33,7 +53,10 @@ export default function AdminSettingsPage() {
                     'promptpay_id',
                     'promptpay',
                     'promptpay_phone',
-                    'promptpay_account'
+                    'promptpay_account',
+                    PALM_SYSTEM_PROMPT_KEY,
+                    PALM_USER_PROMPT_KEY,
+                    PALM_PROMPT_VERSION_KEY,
                 ]);
 
             if (data) {
@@ -53,8 +76,28 @@ export default function AdminSettingsPage() {
                     ''
                 );
                 setPaymentGateway(settingsMap['payment_gateway'] || 'stripe');
+                setPalmSystemPrompt(settingsMap[PALM_SYSTEM_PROMPT_KEY] || DEFAULT_PALM_SYSTEM_PROMPT);
+                setPalmUserPrompt(settingsMap[PALM_USER_PROMPT_KEY] || DEFAULT_PALM_USER_PROMPT);
             } else if (error) {
                 console.error('Error fetching settings:', error);
+            }
+
+            const { data: secretData, error: secretError } = await supabase
+                .from('app_secrets')
+                .select('key')
+                .eq('key', GEMINI_API_KEY_SECRET_KEY)
+                .maybeSingle();
+
+            if (secretError) {
+                if (isMissingAppSecretsTableError(secretError)) {
+                    setIsAppSecretsReady(false);
+                    setHasGeminiApiKey(false);
+                } else {
+                    console.error('Error checking Gemini API key status:', secretError);
+                }
+            } else {
+                setIsAppSecretsReady(true);
+                setHasGeminiApiKey(Boolean(secretData?.key));
             }
         } catch (error) {
             console.error('Unexpected error:', error);
@@ -77,7 +120,10 @@ export default function AdminSettingsPage() {
                 { key: 'promptpay_number', value: promptPayNumber, description: 'PromptPay ID/Phone for Manual Transfer', updated_by: user?.id },
                 { key: 'promptpay_id', value: promptPayNumber, description: 'PromptPay ID/Phone for Manual Transfer (legacy)', updated_by: user?.id },
                 { key: 'promptpay', value: promptPayNumber, description: 'PromptPay ID/Phone for Manual Transfer (legacy)', updated_by: user?.id },
-                { key: 'payment_gateway', value: paymentGateway, description: 'Active Payment Gateway (stripe/slip2go)', updated_by: user?.id }
+                { key: 'payment_gateway', value: paymentGateway, description: 'Active Payment Gateway (stripe/slip2go)', updated_by: user?.id },
+                { key: PALM_SYSTEM_PROMPT_KEY, value: palmSystemPrompt.trim(), description: 'Palm Analysis Gemini system instruction', updated_by: user?.id },
+                { key: PALM_USER_PROMPT_KEY, value: palmUserPrompt.trim(), description: 'Palm Analysis Gemini user prompt template', updated_by: user?.id },
+                { key: PALM_PROMPT_VERSION_KEY, value: String(Date.now()), description: 'Palm Analysis prompt cache-busting version', updated_by: user?.id },
             ];
 
             const { error } = await supabase
@@ -85,6 +131,28 @@ export default function AdminSettingsPage() {
                 .upsert(updates);
 
             if (error) throw error;
+
+            const newGeminiApiKey = geminiApiKeyInput.trim();
+            if (newGeminiApiKey) {
+                if (!isAppSecretsReady) {
+                    throw new Error('ยังไม่ได้สร้างตาราง app_secrets กรุณารันไฟล์ src/data/create_app_secrets.sql ก่อน');
+                }
+
+                const { error: secretUpsertError } = await supabase
+                    .from('app_secrets')
+                    .upsert([
+                        {
+                            key: GEMINI_API_KEY_SECRET_KEY,
+                            value: newGeminiApiKey,
+                            description: 'Gemini API key for palm analysis',
+                            updated_by: user?.id,
+                        }
+                    ]);
+
+                if (secretUpsertError) throw secretUpsertError;
+                setHasGeminiApiKey(true);
+                setGeminiApiKeyInput('');
+            }
 
             Swal.fire({
                 icon: 'success',
@@ -99,6 +167,65 @@ export default function AdminSettingsPage() {
             Swal.fire({
                 icon: 'error',
                 title: 'เกิดข้อผิดพลาด',
+                text: error.message,
+                background: '#1e293b',
+                color: '#fff'
+            });
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    const handleResetPalmPrompts = async () => {
+        // @ts-ignore
+        const Swal = (await import('sweetalert2')).default;
+
+        const result = await Swal.fire({
+            title: 'รีเซ็ต Prompt?',
+            text: 'ต้องการรีเซ็ต Palm System Prompt และ User Prompt กลับค่าเริ่มต้นหรือไม่',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'รีเซ็ต',
+            cancelButtonText: 'ยกเลิก',
+            confirmButtonColor: '#f59e0b',
+            background: '#1e293b',
+            color: '#fff'
+        });
+
+        if (!result.isConfirmed) return;
+
+        setSaving(true);
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+
+            const promptUpdates = [
+                { key: PALM_SYSTEM_PROMPT_KEY, value: DEFAULT_PALM_SYSTEM_PROMPT, description: 'Palm Analysis Gemini system instruction', updated_by: user?.id },
+                { key: PALM_USER_PROMPT_KEY, value: DEFAULT_PALM_USER_PROMPT, description: 'Palm Analysis Gemini user prompt template', updated_by: user?.id },
+                { key: PALM_PROMPT_VERSION_KEY, value: String(Date.now()), description: 'Palm Analysis prompt cache-busting version', updated_by: user?.id },
+            ];
+
+            const { error } = await supabase
+                .from('app_settings')
+                .upsert(promptUpdates);
+
+            if (error) throw error;
+
+            setPalmSystemPrompt(DEFAULT_PALM_SYSTEM_PROMPT);
+            setPalmUserPrompt(DEFAULT_PALM_USER_PROMPT);
+
+            Swal.fire({
+                icon: 'success',
+                title: 'รีเซ็ตสำเร็จ',
+                text: 'ระบบบันทึก Default Prompt เรียบร้อยและมีผลทันที',
+                timer: 1800,
+                showConfirmButton: false,
+                background: '#1e293b',
+                color: '#fff'
+            });
+        } catch (error: any) {
+            Swal.fire({
+                icon: 'error',
+                title: 'รีเซ็ตไม่สำเร็จ',
                 text: error.message,
                 background: '#1e293b',
                 color: '#fff'
@@ -281,6 +408,102 @@ export default function AdminSettingsPage() {
                                 disabled={loading}
                                 className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-all font-mono placeholder:text-slate-600"
                             />
+                        </div>
+                    </div>
+
+                    {/* Palm Analysis Prompt Settings */}
+                    <div className="flex flex-col md:flex-row gap-6 border-t border-slate-800 pt-8">
+                        <div className="md:w-1/3">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                                        <path d="M12 2v20" />
+                                        <path d="M5 7h14" />
+                                        <path d="M5 12h14" />
+                                        <path d="M5 17h14" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-bold text-white">Palm Analysis Prompt</h3>
+                            </div>
+                            <p className="text-sm text-slate-400">จัดการ Prompt ที่ส่งให้ Gemini สำหรับหน้า /palm-analysis (บันทึกแล้วมีผลทันที)</p>
+                        </div>
+                        <div className="md:w-2/3 space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-slate-300 mb-2">System Prompt</label>
+                                <textarea
+                                    rows={12}
+                                    value={palmSystemPrompt}
+                                    onChange={(e) => setPalmSystemPrompt(e.target.value)}
+                                    disabled={loading}
+                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-all text-sm font-mono placeholder:text-slate-600"
+                                />
+                                <p className="text-xs text-slate-500 mt-1">ขั้นต่ำแนะนำ 200 ตัวอักษร เพื่อให้ API ใช้ prompt นี้แทน fallback</p>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-slate-300 mb-2">User Prompt Template</label>
+                                <textarea
+                                    rows={4}
+                                    value={palmUserPrompt}
+                                    onChange={(e) => setPalmUserPrompt(e.target.value)}
+                                    disabled={loading}
+                                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-all text-sm font-mono placeholder:text-slate-600"
+                                />
+                                <p className="text-xs text-slate-500 mt-1">ขั้นต่ำแนะนำ 20 ตัวอักษร เพื่อให้ API ใช้ prompt นี้แทน fallback</p>
+                            </div>
+
+                            <div className="flex justify-end">
+                                <button
+                                    type="button"
+                                    onClick={handleResetPalmPrompts}
+                                    disabled={loading || saving}
+                                    className="px-4 py-2 rounded-lg border border-amber-500/40 text-amber-300 hover:bg-amber-500/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    รีเซ็ตกลับค่า Default Prompt
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Gemini API Key (Secret) */}
+                    <div className="flex flex-col md:flex-row gap-6 border-t border-slate-800 pt-8">
+                        <div className="md:w-1/3">
+                            <div className="flex items-center gap-3 mb-2">
+                                <div className="p-2 rounded-lg bg-fuchsia-500/10 text-fuchsia-400">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-lg font-bold text-white">Gemini API Key</h3>
+                            </div>
+                            <p className="text-sm text-slate-400">จัดการคีย์ Gemini จากจุดเดียว (เก็บในตาราง secret แยกจาก app_settings)</p>
+                            <p className="text-xs mt-2">
+                                {hasGeminiApiKey ? (
+                                    <span className="text-emerald-400">สถานะ: ตั้งค่าแล้ว</span>
+                                ) : (
+                                    <span className="text-amber-400">สถานะ: ยังไม่ได้ตั้งค่า</span>
+                                )}
+                            </p>
+                        </div>
+                        <div className="md:w-2/3">
+                            {!isAppSecretsReady && (
+                                <div className="mb-3 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
+                                    ยังไม่พบตาราง <span className="font-mono">app_secrets</span> — กรุณารันไฟล์ <span className="font-mono">src/data/create_app_secrets.sql</span> ก่อนใช้งานส่วนนี้
+                                </div>
+                            )}
+                            <label className="block text-sm font-medium text-slate-300 mb-2">
+                                New GEMINI_API_KEY (เว้นว่างหากไม่เปลี่ยน)
+                            </label>
+                            <input
+                                type="password"
+                                value={geminiApiKeyInput}
+                                onChange={(e) => setGeminiApiKeyInput(e.target.value)}
+                                placeholder="วาง Gemini API Key ใหม่ที่นี่"
+                                disabled={loading || !isAppSecretsReady}
+                                className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-fuchsia-500 transition-all font-mono placeholder:text-slate-600"
+                            />
+                            <p className="text-xs text-slate-500 mt-1">บันทึกพร้อมปุ่ม “บันทึกข้อมูลทั้งหมด” ด้านล่าง และจะไม่แสดงค่าเดิมบนหน้าจอ</p>
                         </div>
                     </div>
 

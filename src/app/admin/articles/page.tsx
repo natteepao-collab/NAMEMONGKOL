@@ -3,9 +3,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabase';
-import { compressImage } from '@/utils/image';
 
-import { Loader2, Plus, Edit, Trash2, Save, X, Search, Image as ImageIcon, Upload, Eye, RefreshCw } from 'lucide-react';
+import { Loader2, Plus, Edit, Trash2, Save, X, Search, Image as ImageIcon, Eye, RefreshCw } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { articles as localArticles } from '@/data/articles';
@@ -43,6 +42,9 @@ export default function AdminArticlesPage() {
 
     // Validation State
     const [formError, setFormError] = useState<string | null>(null);
+    const [availableCoverImages, setAvailableCoverImages] = useState<string[]>([]);
+    const [isLoadingCoverImages, setIsLoadingCoverImages] = useState(false);
+    const [coverImageSearchTerm, setCoverImageSearchTerm] = useState('');
 
     useEffect(() => {
         fetchArticles();
@@ -77,6 +79,35 @@ export default function AdminArticlesPage() {
         article.slug.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    const filteredCoverImages = availableCoverImages.filter((imagePath) =>
+        imagePath.toLowerCase().includes(coverImageSearchTerm.toLowerCase())
+    );
+
+    const isValidArticleCoverPath = (coverPath: string) => {
+        if (!coverPath.startsWith('/images/articles/')) return false;
+        if (coverPath.includes('..')) return false;
+        return true;
+    };
+
+    const fetchAvailableCoverImages = async () => {
+        setIsLoadingCoverImages(true);
+        try {
+            const response = await fetch('/api/admin/article-images', { cache: 'no-store' });
+            const data = await response.json();
+
+            if (!response.ok || !data?.success || !Array.isArray(data?.images)) {
+                throw new Error(data?.error || 'Failed to load image list');
+            }
+
+            setAvailableCoverImages(data.images);
+        } catch (error) {
+            console.error('Error fetching article images:', error);
+            setAvailableCoverImages([]);
+        } finally {
+            setIsLoadingCoverImages(false);
+        }
+    };
+
     const handleAdd = () => {
         setCurrentArticle({
             title: '',
@@ -92,7 +123,8 @@ export default function AdminArticlesPage() {
         });
         // setSelectedFile(null);
         // setPreviewUrl(null);
-
+        setCoverImageSearchTerm('');
+        fetchAvailableCoverImages();
         setIsEditing(false);
         setIsModalOpen(true);
     };
@@ -101,7 +133,8 @@ export default function AdminArticlesPage() {
         setCurrentArticle({ ...article });
         // setSelectedFile(null);
         // setPreviewUrl(article.cover_image);
-
+        setCoverImageSearchTerm('');
+        fetchAvailableCoverImages();
         setIsEditing(true);
         setIsModalOpen(true);
     };
@@ -174,12 +207,28 @@ export default function AdminArticlesPage() {
                 return;
             }
 
+            const coverImagePath = (currentArticle.cover_image || '').trim();
+            if (!coverImagePath) {
+                setFormError('กรุณาเลือกภาพปกจากคลังรูป /images/articles');
+                return;
+            }
+
+            if (!isValidArticleCoverPath(coverImagePath)) {
+                setFormError('ภาพปกต้องเป็น path ภายใต้ /images/articles เท่านั้น');
+                return;
+            }
+
+            if (availableCoverImages.length > 0 && !availableCoverImages.includes(coverImagePath)) {
+                setFormError('ไม่พบภาพที่เลือกในคลังรูป /images/articles กรุณาเลือกใหม่');
+                return;
+            }
+
             const payload = {
                 title: currentArticle.title,
                 slug: slugToCheck,
                 excerpt: currentArticle.excerpt || '',
                 content: currentArticle.content || '',
-                cover_image: currentArticle.cover_image || '', // Direct text input
+                cover_image: coverImagePath,
                 date: currentArticle.date || new Date().toISOString().split('T')[0],
                 author: currentArticle.author || '',
                 category: currentArticle.category || '',
@@ -688,7 +737,7 @@ export default function AdminArticlesPage() {
                                 {/* Image Path Input */}
                                 <div className="space-y-2">
 
-                                    <label className="text-sm font-medium text-slate-300">Cover Image Path (Local)</label>
+                                    <label className="text-sm font-medium text-slate-300">Cover Image (เลือกจาก /images/articles)</label>
                                     <div className="flex gap-4 items-start">
                                         <div className="relative w-40 h-24 bg-slate-800 border border-slate-700 rounded-lg overflow-hidden flex-shrink-0">
                                             {currentArticle.cover_image ? (
@@ -708,17 +757,74 @@ export default function AdminArticlesPage() {
                                                 </div>
                                             )}
                                         </div>
-                                        <div className="flex-1 space-y-2">
+
+                                        <div className="flex-1 space-y-3">
                                             <input
                                                 type="text"
                                                 value={currentArticle.cover_image || ''}
-                                                onChange={e => setCurrentArticle({ ...currentArticle, cover_image: e.target.value })}
-                                                placeholder="/images/articles/my-image.png"
-                                                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-emerald-500 text-sm font-mono"
+                                                readOnly
+                                                placeholder="เลือกรูปจากคลังด้านล่าง"
+                                                className="w-full bg-slate-800/70 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none text-sm font-mono"
                                             />
                                             <p className="text-xs text-slate-500">
-                                                Path to image in public folder. E.g., <span className="text-emerald-400">/images/articles/your-file.jpg</span>
+                                                เลือกภาพจากคลังใน <span className="text-emerald-400">/public/images/articles</span> เท่านั้น (รองรับโฟลเดอร์ย่อย)
                                             </p>
+
+                                            <div className="relative">
+                                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
+                                                <input
+                                                    type="text"
+                                                    value={coverImageSearchTerm}
+                                                    onChange={(e) => setCoverImageSearchTerm(e.target.value)}
+                                                    placeholder="ค้นหาชื่อไฟล์ภาพ..."
+                                                    className="w-full bg-slate-800 border border-slate-700 rounded-lg pl-9 pr-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500"
+                                                />
+                                            </div>
+
+                                            <div className="max-h-64 overflow-y-auto rounded-lg border border-slate-700 bg-slate-900/50 p-2">
+                                                {isLoadingCoverImages ? (
+                                                    <div className="flex items-center justify-center py-8 text-slate-400 text-sm">
+                                                        <Loader2 className="animate-spin mr-2" size={16} />
+                                                        กำลังโหลดคลังรูป...
+                                                    </div>
+                                                ) : filteredCoverImages.length === 0 ? (
+                                                    <div className="py-8 text-center text-slate-500 text-sm">
+                                                        ไม่พบภาพใน /images/articles
+                                                    </div>
+                                                ) : (
+                                                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                                                        {filteredCoverImages.map((imagePath) => {
+                                                            const isSelected = currentArticle.cover_image === imagePath;
+                                                            return (
+                                                                <button
+                                                                    key={imagePath}
+                                                                    type="button"
+                                                                    onClick={() => setCurrentArticle({ ...currentArticle, cover_image: imagePath })}
+                                                                    className={`rounded-lg border p-1 transition-colors text-left ${isSelected
+                                                                        ? 'border-emerald-500 bg-emerald-500/10'
+                                                                        : 'border-slate-700 hover:border-slate-500 bg-slate-800/40'
+                                                                        }`}
+                                                                >
+                                                                    <div className="relative w-full aspect-video rounded-md overflow-hidden bg-slate-900">
+                                                                        <Image
+                                                                            src={imagePath}
+                                                                            alt={imagePath}
+                                                                            fill
+                                                                            className="object-cover"
+                                                                            sizes="120px"
+                                                                        />
+                                                                    </div>
+                                                                    <div className="mt-1 px-1">
+                                                                        <p className="text-[10px] leading-4 text-slate-300 truncate">
+                                                                            {imagePath.split('/').pop()}
+                                                                        </p>
+                                                                    </div>
+                                                                </button>
+                                                            );
+                                                        })}
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

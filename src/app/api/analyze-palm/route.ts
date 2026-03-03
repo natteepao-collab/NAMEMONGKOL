@@ -1,10 +1,19 @@
 import { NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
+import {
+  DEFAULT_PALM_SYSTEM_PROMPT,
+  GEMINI_API_KEY_SECRET_KEY,
+  DEFAULT_PALM_USER_PROMPT,
+  PALM_PROMPT_VERSION_KEY,
+  PALM_SYSTEM_PROMPT_KEY,
+  PALM_USER_PROMPT_KEY,
+} from '@/lib/palmPromptDefaults';
 
 export const maxDuration = 60;
 
 const MIN_LINE_CONFIDENCE = 0.55;
 const MIN_POINT_CONFIDENCE = 0.45;
-const MAX_RETRIES = 2;
+const MAX_RETRIES = 3;
 
 // ────── Utility helpers ──────
 
@@ -89,26 +98,60 @@ function normalizeImageQuality(imageQuality: unknown) {
   return {
     sharpness: clamp(toNumber(quality.sharpness, 65), 0, 100),
     lighting: clamp(toNumber(quality.lighting, 65), 0, 100),
-    occlusion: clamp(toNumber(quality.occlusion, 65), 0, 100),
-    perspective: clamp(toNumber(quality.perspective, 65), 0, 100),
+    ...(quality.overall_score !== undefined ? { overall_score: clamp(toNumber(quality.overall_score, 65), 0, 100) } : {}),
+    ...(quality.occlusion !== undefined ? { occlusion: clamp(toNumber(quality.occlusion, 65), 0, 100) } : {}),
+    ...(quality.perspective !== undefined ? { perspective: clamp(toNumber(quality.perspective, 65), 0, 100) } : {}),
   };
 }
 
-function normalizeLineAnalysis(raw: unknown): { title: string; description: string; highlights: string[] } | null {
+function normalizeLineAnalysis(raw: unknown, defaultTitle = ''): { title: string; description: string; prediction?: string; highlights: string[] } | null {
   if (!raw || typeof raw !== 'object') return null;
   const item = raw as Record<string, unknown>;
-  const title = typeof item.title === 'string' ? item.title.trim() : '';
-  const description = typeof item.description === 'string' ? item.description.trim() : '';
+  const title = typeof item.title === 'string' && item.title.trim() ? item.title.trim() : defaultTitle;
+  // Accept description OR prediction — at least one must have content
+  const description = typeof item.description === 'string' && item.description.trim() ? item.description.trim() : '';
+  const prediction = typeof item.prediction === 'string' && item.prediction.trim() ? item.prediction.trim() : undefined;
   const highlights = Array.isArray(item.highlights)
     ? item.highlights.map((h) => (typeof h === 'string' ? h.trim() : '')).filter((h) => h.length > 0)
     : [];
-  if (!title || !description) return null;
-  return { title, description, highlights };
+  // At least description or prediction must exist
+  if (!description && !prediction) return null;
+  // If description is empty but prediction exists, use prediction as description
+  const finalDescription = description || prediction || '';
+  return { title: title || defaultTitle, description: finalDescription, ...(prediction && prediction !== finalDescription ? { prediction } : {}), highlights };
+}
+
+function normalizePredictionsByTopic(raw: unknown) {
+  if (!raw || typeof raw !== 'object') return undefined;
+  const input = raw as Record<string, unknown>;
+  const topics = ['work', 'money', 'love', 'family', 'health', 'luck'] as const;
+  const result: Record<string, string> = {};
+  let hasAny = false;
+  for (const topic of topics) {
+    const value = typeof input[topic] === 'string' && input[topic].trim() ? input[topic].trim() : '';
+    result[topic] = value;
+    if (value) hasAny = true;
+  }
+  return hasAny ? (result as { work: string; money: string; love: string; family: string; health: string; luck: string }) : undefined;
 }
 
 function normalizeAnalysisResult(raw: unknown) {
   if (!raw || typeof raw !== 'object') return null;
-  const input = raw as Record<string, unknown>;
+  let input = raw as Record<string, unknown>;
+
+  // Unwrap ta_thong_reading wrapper if Gemini nests data under it
+  if (input.ta_thong_reading && typeof input.ta_thong_reading === 'object') {
+    const wrapper = input.ta_thong_reading as Record<string, unknown>;
+    // Smart merge: for each wrapper key, use it only if root doesn't have a meaningful value
+    for (const [key, wrapperValue] of Object.entries(wrapper)) {
+      const rootValue = input[key];
+      const rootIsEmpty = rootValue === undefined || rootValue === null || rootValue === '' ||
+        (typeof rootValue === 'object' && rootValue !== null && Object.keys(rootValue).length === 0);
+      if (rootIsEmpty && wrapperValue !== undefined && wrapperValue !== null) {
+        input[key] = wrapperValue;
+      }
+    }
+  }
 
   // Scores (love / career / health)
   const rawScores = (input.scores && typeof input.scores === 'object' ? input.scores : {}) as Record<string, unknown>;
@@ -121,10 +164,11 @@ function normalizeAnalysisResult(raw: unknown) {
 
   // Line analysis
   const rawLineAnalysis = (input.line_analysis && typeof input.line_analysis === 'object' ? input.line_analysis : {}) as Record<string, unknown>;
-  const lifeLine = normalizeLineAnalysis(rawLineAnalysis.life_line) ?? { title: 'เส้นชีวิต', description: 'ไม่สามารถวิเคราะห์ได้จากภาพ', highlights: [] };
-  const headLine = normalizeLineAnalysis(rawLineAnalysis.head_line) ?? { title: 'เส้นสมอง', description: 'ไม่สามารถวิเคราะห์ได้จากภาพ', highlights: [] };
-  const heartLine = normalizeLineAnalysis(rawLineAnalysis.heart_line) ?? { title: 'เส้นหัวใจ', description: 'ไม่สามารถวิเคราะห์ได้จากภาพ', highlights: [] };
-  const fateLine = normalizeLineAnalysis(rawLineAnalysis.fate_line) ?? { title: 'เส้นวาสนา', description: 'ไม่พบเส้นวาสนาชัดเจนจากภาพ', highlights: [] };
+  console.log('[analyze-palm] line_analysis keys:', Object.keys(rawLineAnalysis), 'sample life_line:', JSON.stringify(rawLineAnalysis.life_line)?.slice(0, 300));
+  const lifeLine = normalizeLineAnalysis(rawLineAnalysis.life_line, 'เส้นชีวิต') ?? { title: 'เส้นชีวิต', description: 'ไม่สามารถวิเคราะห์ได้จากภาพ', highlights: [] };
+  const headLine = normalizeLineAnalysis(rawLineAnalysis.head_line, 'เส้นสมอง') ?? { title: 'เส้นสมอง', description: 'ไม่สามารถวิเคราะห์ได้จากภาพ', highlights: [] };
+  const heartLine = normalizeLineAnalysis(rawLineAnalysis.heart_line, 'เส้นหัวใจ') ?? { title: 'เส้นหัวใจ', description: 'ไม่สามารถวิเคราะห์ได้จากภาพ', highlights: [] };
+  const fateLine = normalizeLineAnalysis(rawLineAnalysis.fate_line, 'เส้นวาสนา') ?? { title: 'เส้นวาสนา', description: 'ไม่พบเส้นวาสนาชัดเจนจากภาพ', highlights: [] };
 
   const personalityTraits = Array.isArray(input.personality_traits)
     ? input.personality_traits
@@ -157,9 +201,29 @@ function normalizeAnalysisResult(raw: unknown) {
       ? input.spiritual_guidance.trim()
       : 'เสริมพลังใจด้วยการโฟกัสสิ่งที่ทำได้ดี และค่อย ๆ พัฒนาจุดที่ยังไม่มั่นใจอย่างสม่ำเสมอ';
 
-  const lines = normalizeLines(input.lines);
+  const lines = normalizeLines(input.lines || input.technical_lines);
 
-  if (personalityTraits.length === 0 && strengths.length === 0) {
+  // New "ตาทอง" fields
+  const predictionsByTopic = normalizePredictionsByTopic(input.predictions_by_topic);
+
+  const monthlyForecast =
+    typeof input.monthly_forecast === 'string' && input.monthly_forecast.trim()
+      ? input.monthly_forecast.trim()
+      : typeof input.monthly_forecast_feb_2026 === 'string' && input.monthly_forecast_feb_2026.trim()
+        ? input.monthly_forecast_feb_2026.trim()
+        : undefined;
+
+  const warnings =
+    typeof input.warnings === 'string' && input.warnings.trim()
+      ? input.warnings.trim()
+      : undefined;
+
+  const taBlessing =
+    typeof input.ta_blessing === 'string' && input.ta_blessing.trim()
+      ? input.ta_blessing.trim()
+      : undefined;
+
+  if (personalityTraits.length === 0 && strengths.length === 0 && !predictionsByTopic) {
     return null;
   }
 
@@ -178,6 +242,10 @@ function normalizeAnalysisResult(raw: unknown) {
     spiritual_guidance: spiritualGuidance,
     lines,
     ...(normalizeImageQuality(input.image_quality) ? { image_quality: normalizeImageQuality(input.image_quality) } : {}),
+    ...(predictionsByTopic ? { predictions_by_topic: predictionsByTopic } : {}),
+    ...(monthlyForecast ? { monthly_forecast: monthlyForecast } : {}),
+    ...(warnings ? { warnings } : {}),
+    ...(taBlessing ? { ta_blessing: taBlessing } : {}),
   };
 }
 
@@ -291,60 +359,96 @@ function parseRetryAfterToMs(retryAfterHeader: string | null): number | null {
   return null;
 }
 
-// ────── The prompt (Thai Palmistry Expert — Optimised for token efficiency) ──────
+type PromptConfig = {
+  systemPrompt: string;
+  userPrompt: string;
+  version: string;
+};
 
-const SYSTEM_INSTRUCTION = `คุณคือหมอดูลายมือชั้นสูงตามหลักหัตถศาสตร์ไทย ใช้ Computer Vision วิเคราะห์ภาพฝ่ามือที่ได้รับ
+function validatePromptContent(value: unknown, minimumLength: number) {
+  if (typeof value !== 'string') return false;
+  return value.trim().length >= minimumLength;
+}
 
-หลักการวิเคราะห์ภาพ (สำคัญมาก):
-- โฟกัสที่ "รอยหยัก" (creases/ridges) บนฝ่ามือเป็นหลัก — สังเกตรอยพับ รอยย่น และร่องลึกบนผิวหนัง
-- ระบุตำแหน่งเส้นแต่ละเส้นจากรอยหยักจริงในภาพ ไม่ใช่จากการคาดเดา
-- วิเคราะห์ความลึก ความชัด ความยาว และรูปแบบการโค้งงอของรอยหยักแต่ละเส้น
-- หากเส้นใดมีรอยแตกแขนง จุดขาด หรือรอยกากบาท ให้ระบุในผลวิเคราะห์
-- ใช้ลักษณะของรอยหยักเป็นฐานในการให้คะแนนและความมั่นใจ (confidence)
+async function getPalmPromptConfig(): Promise<PromptConfig> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-วิเคราะห์ 4 เส้นหลักตามหลักหัตถศาสตร์:
-• เส้นชีวิต (Life Line) — รอยหยักโค้งรอบโคนนิ้วหัวแม่มือ สะท้อนสุขภาพ พลังชีวิต การเปลี่ยนแปลงสำคัญ
-• เส้นสมอง (Head Line) — รอยหยักพาดขวางกลางฝ่ามือ สะท้อนสติปัญญา ความคิด ศักยภาพอาชีพ
-• เส้นหัวใจ (Heart Line) — รอยหยักด้านบนฝ่ามือ (ใต้โคนนิ้ว) สะท้อนอารมณ์ ชีวิตรัก ความสัมพันธ์
-• เส้นวาสนา (Fate Line) — รอยหยักตรงกลางฝ่ามือพาดขึ้นไปหานิ้วกลาง สะท้อนโชคชะตา ความสำเร็จ วาสนาบารมี
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return {
+      systemPrompt: DEFAULT_PALM_SYSTEM_PROMPT,
+      userPrompt: DEFAULT_PALM_USER_PROMPT,
+      version: 'default',
+    };
+  }
 
-หลักการ:
-- ใช้ภาษาไทยสุภาพ ใช้คำว่า "คุณ" "ดวงชะตา" สไตล์โหราศาสตร์ไทย
-- วิเคราะห์เชิงบวกสร้างสรรค์ วิเคราะห์เฉพาะรอยหยัก/เส้นที่เห็นจากภาพจริง
-- หากไม่เห็นเส้นวาสนาชัดเจน (บางคนไม่มี) ให้วิเคราะห์ตามสิ่งที่เห็นพร้อมลด confidence
-- personality_traits ให้ 4-6 ข้อ, strengths 3-5 ข้อ, areas_for_growth 2-4 ข้อ
-- highlights ให้ 2-3 ข้อต่อเส้น — อ้างอิงลักษณะรอยหยักที่เห็น (เช่น "เส้นลึกชัด" "มีรอยแตกแขนงเล็กน้อย" "โค้งยาวรอบโคนนิ้วหัวแม่มือ")
-- description ของแต่ละเส้นให้สั้น กระชับ 1-2 ประโยค (ไม่เกิน ~140 ตัวอักษรต่อเส้น)
-- summary ให้สรุปภาพรวม 2-3 ประโยค (ไม่เกิน ~220 ตัวอักษร)
-- spiritual_guidance ให้สั้นและปฏิบัติได้จริง 1-2 ประโยค (ไม่เกิน ~160 ตัวอักษร)
+  try {
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+    const keys = [PALM_SYSTEM_PROMPT_KEY, PALM_USER_PROMPT_KEY, PALM_PROMPT_VERSION_KEY];
+    const { data, error } = await supabase.from('app_settings').select('key, value').in('key', keys);
+    if (error) throw error;
 
-การวาดเส้น (lines):
-- วาด 4 เส้น: life_line, head_line, heart_line, fate_line
-- แต่ละเส้นใช้ 6-12 จุดเท่านั้น (พิกัด 0-100 เทียบกับขนาดภาพ) — เส้นจะถูกทำให้ลื่นด้วย curve interpolation อีกที
-- แต่ละเส้นมี confidence 0-1
-- หากภาพไม่ชัดหรือไม่เห็นเส้นวาสนา ให้ลด confidence ตามจริง หรือใส่จุดน้อยลง
+    const settingsMap = (data || []).reduce((acc, item) => {
+      acc[item.key] = item.value || '';
+      return acc;
+    }, {} as Record<string, string>);
 
-ตอบเป็น JSON เท่านั้น (ห้ามใส่ markdown):
-{
-  "scores": { "love": 0-100, "career": 0-100, "health": 0-100, "destiny": 0-100 },
-  "line_analysis": {
-    "life_line": { "title": "เส้นชีวิต", "description": "...", "highlights": ["..."] },
-    "head_line": { "title": "เส้นสมอง", "description": "...", "highlights": ["..."] },
-    "heart_line": { "title": "เส้นหัวใจ", "description": "...", "highlights": ["..."] },
-    "fate_line": { "title": "เส้นวาสนา", "description": "...", "highlights": ["..."] }
-  },
-  "personality_traits": [{ "name": "...", "score": 0-100 }],
-  "strengths": ["..."],
-  "areas_for_growth": ["..."],
-  "summary": "สรุปผลภาพรวม",
-  "spiritual_guidance": "คำแนะนำเสริมมงคล",
-  "lines": [
-    { "id": "life_line|head_line|heart_line|fate_line", "name": "...", "confidence": 0.85, "points": [{"x":25,"y":80},{"x":30,"y":60},...] }
-  ],
-  "image_quality": { "sharpness": 0-100, "lighting": 0-100, "occlusion": 0-100, "perspective": 0-100 }
-}`;
+    const systemPrompt = validatePromptContent(settingsMap[PALM_SYSTEM_PROMPT_KEY], 200)
+      ? settingsMap[PALM_SYSTEM_PROMPT_KEY].trim()
+      : DEFAULT_PALM_SYSTEM_PROMPT;
 
-const USER_PROMPT = 'วิเคราะห์ลายมือตามหลักหัตถศาสตร์ไทย โฟกัสรอยหยัก (creases) บนฝ่ามือให้ละเอียด สังเกตความลึก ความชัด การแตกแขนง และรูปแบบการโค้งงอของแต่ละเส้น คืน JSON ตามโครงสร้าง';
+    const userPrompt = validatePromptContent(settingsMap[PALM_USER_PROMPT_KEY], 20)
+      ? settingsMap[PALM_USER_PROMPT_KEY].trim()
+      : DEFAULT_PALM_USER_PROMPT;
+
+    const version =
+      typeof settingsMap[PALM_PROMPT_VERSION_KEY] === 'string' && settingsMap[PALM_PROMPT_VERSION_KEY].trim()
+        ? settingsMap[PALM_PROMPT_VERSION_KEY].trim()
+        : 'default';
+
+    return { systemPrompt, userPrompt, version };
+  } catch (error) {
+    console.error('[analyze-palm] Failed to load prompt settings, fallback to defaults:', error);
+    return {
+      systemPrompt: DEFAULT_PALM_SYSTEM_PROMPT,
+      userPrompt: DEFAULT_PALM_USER_PROMPT,
+      version: 'default',
+    };
+  }
+}
+
+async function getGeminiApiKeyFromSecrets(): Promise<string | null> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !supabaseServiceRoleKey) return null;
+
+  try {
+    const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
+    const { data, error } = await supabase
+      .from('app_secrets')
+      .select('value')
+      .eq('key', GEMINI_API_KEY_SECRET_KEY)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (typeof data?.value === 'string' && data.value.trim()) {
+      return data.value.trim();
+    }
+  } catch (error) {
+    const code = typeof (error as any)?.code === 'string' ? (error as any).code : '';
+    const message = typeof (error as any)?.message === 'string' ? (error as any).message.toLowerCase() : '';
+    const details = typeof (error as any)?.details === 'string' ? (error as any).details.toLowerCase() : '';
+    const isMissingTable = code === 'PGRST205' || message.includes('app_secrets') || details.includes('app_secrets');
+
+    if (!isMissingTable) {
+      console.error('[analyze-palm] Failed to load gemini_api_key from app_secrets:', error);
+    }
+  }
+
+  return null;
+}
 
 // ────── Simple in-memory cache to avoid re-processing identical images ──────
 
@@ -357,11 +461,11 @@ const responseCache = new Map<string, CacheEntry>();
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 const CACHE_MAX_SIZE = 20;
 
-function getCacheKey(base64Data: string): string {
+function getCacheKey(base64Data: string, promptVersion: string): string {
   // Use first 200 + last 200 chars as a fingerprint (avoids hashing megabytes)
   const head = base64Data.slice(0, 200);
   const tail = base64Data.slice(-200);
-  return head + '::' + base64Data.length + '::' + tail;
+  return promptVersion + '::' + head + '::' + base64Data.length + '::' + tail;
 }
 
 function pruneCache() {
@@ -423,7 +527,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'No image provided' }, { status: 400 });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = (await getGeminiApiKeyFromSecrets()) || process.env.GEMINI_API_KEY;
     if (!apiKey) {
       console.error('[analyze-palm] GEMINI_API_KEY is not set');
       return NextResponse.json({ error: 'API key not configured' }, { status: 500 });
@@ -431,10 +535,11 @@ export async function POST(req: Request) {
 
     const mimeType = detectMimeType(imageBase64);
     const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
+    const promptConfig = await getPalmPromptConfig();
 
     // Check cache first
     pruneCache();
-    const cacheKey = getCacheKey(base64Data);
+    const cacheKey = getCacheKey(base64Data, promptConfig.version);
     const cached = responseCache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
       console.log('[analyze-palm] Returning cached result');
@@ -446,6 +551,7 @@ export async function POST(req: Request) {
 
     let lastError: unknown = null;
     const failedModels = new Set<string>();
+    let last429RetryAfterSeconds: number | null = null;
 
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
       // Pick model: skip models that returned non-429 errors
@@ -466,7 +572,7 @@ export async function POST(req: Request) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             system_instruction: {
-              parts: [{ text: SYSTEM_INSTRUCTION }],
+              parts: [{ text: promptConfig.systemPrompt }],
             },
             contents: [
               {
@@ -477,13 +583,13 @@ export async function POST(req: Request) {
                       data: base64Data,
                     },
                   },
-                  { text: USER_PROMPT },
+                  { text: promptConfig.userPrompt },
                 ],
               },
             ],
             generationConfig: {
-              temperature: 0.25,
-              maxOutputTokens: 8192,
+              temperature: 0.4,
+              maxOutputTokens: 16384,
               responseMimeType: 'application/json',
             },
           }),
@@ -496,20 +602,10 @@ export async function POST(req: Request) {
 
           if (response.status === 429) {
             const retryAfterMs = parseRetryAfterToMs(response.headers.get('retry-after'));
-            const retryAfterSeconds = Math.max(1, Math.ceil((retryAfterMs ?? 30000) / 1000));
-            return NextResponse.json(
-              {
-                error: 'โควต้า API หมดชั่วคราว',
-                details: 'ระบบใช้งาน Gemini API เกินโควต้าที่กำหนด กรุณารอสักครู่แล้วลองใหม่อีกครั้ง',
-                code: 'QUOTA_EXHAUSTED',
-              },
-              {
-                status: 429,
-                headers: {
-                  'Retry-After': String(retryAfterSeconds),
-                },
-              }
-            );
+            last429RetryAfterSeconds = Math.max(1, Math.ceil((retryAfterMs ?? 30000) / 1000));
+            // Mark model as rate-limited, try fallback model instead of returning immediately
+            failedModels.add(model);
+            console.log('[analyze-palm] Model ' + model + ' rate-limited (429), trying fallback');
           } else if (response.status === 404) {
             // Model not found — skip it permanently
             failedModels.add(model);
@@ -562,6 +658,23 @@ export async function POST(req: Request) {
 
     // All retries failed
     console.error('[analyze-palm] All retries failed. Last error:', lastError);
+
+    // If all failures were 429 rate limits, return 429 to client
+    if (last429RetryAfterSeconds !== null) {
+      return NextResponse.json(
+        {
+          error: 'โควต้า API หมดชั่วคราว',
+          details: 'ระบบใช้งาน Gemini API เกินโควต้าที่กำหนด กรุณารอสักครู่แล้วลองใหม่อีกครั้ง',
+          code: 'QUOTA_EXHAUSTED',
+        },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(last429RetryAfterSeconds),
+          },
+        }
+      );
+    }
 
     return NextResponse.json(
       { error: 'ไม่สามารถวิเคราะห์ภาพได้', details: String(lastError) },

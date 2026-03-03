@@ -135,7 +135,7 @@ export default function PalmAnalysisPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
       />
 
-      <main className="min-h-screen bg-[#020617] relative overflow-hidden pt-24 md:pt-12 pb-28 md:pb-12 px-4 sm:px-6 lg:px-8">
+      <main className="min-h-screen bg-[#020617] relative overflow-hidden pt-28 md:pt-20 lg:pt-24 pb-28 md:pb-12 px-4 sm:px-6 lg:px-8">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div className="absolute top-[-10%] left-[-12%] w-[40%] h-[40%] rounded-full bg-blue-700/15 blur-[130px]" />
           <div className="absolute bottom-[-10%] right-[-12%] w-[40%] h-[40%] rounded-full bg-violet-700/15 blur-[130px]" />

@@ -128,7 +128,7 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
     const avgLinePoints =
       result.lines.length > 0 ? result.lines.reduce((sum, line) => sum + line.points.length, 0) / result.lines.length : 0;
     const quality = result.image_quality;
-    const lowQuality = !!quality && (quality.sharpness < 55 || quality.lighting < 50 || quality.perspective < 50 || quality.occlusion < 45);
+    const lowQuality = !!quality && (quality.sharpness < 55 || quality.lighting < 50 || (quality.perspective ?? 65) < 50 || (quality.occlusion ?? 65) < 45);
     return avgLinePoints < 6 || lowQuality;
   }, [result]);
 

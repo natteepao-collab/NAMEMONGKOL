@@ -17,14 +17,14 @@ function estimateDataUriBytes(dataUri: string): number {
   return Math.floor((base64.length * 3) / 4);
 }
 
-function compressImage(dataUri: string, maxWidth = 768, initialQuality = 0.68): Promise<string> {
+function compressImage(dataUri: string, maxWidth = 1280, initialQuality = 0.78): Promise<string> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => {
       const canvas = document.createElement('canvas');
-      const TARGET_MAX_BYTES = 220 * 1024; // ~220KB
-      const MIN_QUALITY = 0.45;
-      const MIN_WIDTH = 512;
+      const TARGET_MAX_BYTES = 480 * 1024; // ~480KB — higher quality for crease detection
+      const MIN_QUALITY = 0.55;
+      const MIN_WIDTH = 640;
 
       let { width: originalWidth, height: originalHeight } = img;
       let width = originalWidth;
@@ -146,11 +146,7 @@ function isPalmAnalysisResult(value: Record<string, any>): value is PalmAnalysis
       typeof value === 'object' &&
       value.scores &&
       value.line_analysis &&
-      Array.isArray(value.personality_traits) &&
-      Array.isArray(value.strengths) &&
-      Array.isArray(value.areas_for_growth) &&
-      typeof value.summary === 'string' &&
-      typeof value.spiritual_guidance === 'string'
+      typeof value.summary === 'string'
   );
 }
 
@@ -222,126 +218,160 @@ export default function PalmAnalysisClient() {
   const handleAnalyze = async (imageBase64: string) => {
     if (cooldown > 0 || inFlightRef.current) return;
 
-    const Swal = (await import('sweetalert2')).default;
-
-    // Step 1: Auth check
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      const authResult = await Swal.fire({
-        title: '🔒 กรุณาเข้าสู่ระบบ',
-        html: '<p style="color:#94a3b8">คุณต้องเข้าสู่ระบบก่อนจึงจะใช้งานวิเคราะห์ลายมือได้</p>',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'เข้าสู่ระบบ',
-        cancelButtonText: 'ยกเลิก',
-        background: '#1e293b',
-        color: '#fff',
-        confirmButtonColor: '#d97706',
-        customClass: { popup: 'rounded-2xl border border-amber-500/20' },
-      });
-      if (authResult.isConfirmed) {
-        router.push('/login?redirect=/palm-analysis');
-      }
-      return;
-    }
-
-    // Step 2: Credit check
-    const latestCredits = await getEffectiveCredits(user.id);
-    setUserCredits(latestCredits.total);
-
-    if (latestCredits.total < PALM_ANALYSIS_COST) {
-      const topupResult = await Swal.fire({
-        title: '💰 เครดิตไม่เพียงพอ',
-        html: `<p style="color:#94a3b8">การวิเคราะห์ลายมือใช้ <strong style="color:#fbbf24">${PALM_ANALYSIS_COST} เครดิต</strong></p><p style="color:#94a3b8;margin-top:4px">คุณมี <strong style="color:#ef4444">${latestCredits.total} เครดิต</strong></p>`,
-        icon: 'error',
-        showCancelButton: true,
-        confirmButtonText: 'เติมเครดิต',
-        cancelButtonText: 'ยกเลิก',
-        background: '#1e293b',
-        color: '#fff',
-        confirmButtonColor: '#d97706',
-        customClass: { popup: 'rounded-2xl border border-amber-500/20' },
-      });
-      if (topupResult.isConfirmed) {
-        router.push('/topup');
-      }
-      return;
-    }
-
-    // Step 3: Confirmation
-    const confirmResult = await Swal.fire({
-      title: '✨ ยืนยันการวิเคราะห์',
-      html: `<p style="color:#94a3b8">การวิเคราะห์ลายมือจะใช้ <strong style="color:#fbbf24">${PALM_ANALYSIS_COST} เครดิต</strong></p><p style="color:#94a3b8;margin-top:4px">คุณมี <strong style="color:#34d399">${latestCredits.total} เครดิต</strong> (คงเหลือ ${latestCredits.total - PALM_ANALYSIS_COST} เครดิต)</p>`,
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: `ยืนยัน (ใช้ ${PALM_ANALYSIS_COST} เครดิต)`,
-      cancelButtonText: 'ยกเลิก',
-      background: '#1e293b',
-      color: '#fff',
-      confirmButtonColor: '#d97706',
-      customClass: { popup: 'rounded-2xl border border-amber-500/20' },
-    });
-    if (!confirmResult.isConfirmed) return;
-
-    // Step 4: Deduct credits
-    const { error: deductError } = await supabase.rpc('deduct_credits', { amount: PALM_ANALYSIS_COST });
-    if (deductError) {
-      await Swal.fire({
-        title: 'เกิดข้อผิดพลาด',
-        text: 'ไม่สามารถหักเครดิตได้ กรุณาลองใหม่',
-        icon: 'error',
-        background: '#1e293b',
-        color: '#fff',
-        customClass: { popup: 'rounded-2xl' },
-      });
-      return;
-    }
-
-    setUserCredits((prev) => (prev !== null ? prev - PALM_ANALYSIS_COST : null));
-    window.dispatchEvent(new Event('force_credits_update'));
-
-    // Proceed with analysis
+    // ── Fix: Lock immediately to prevent double-tap race condition ──
     inFlightRef.current = true;
-    setIsAnalyzing(true);
-    setError(null);
-    setResult(null);
+    let creditDeducted = false;
 
     try {
+      const Swal = (await import('sweetalert2')).default;
+
+      // Step 1: Auth check
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        const authResult = await Swal.fire({
+          title: '🔒 กรุณาเข้าสู่ระบบ',
+          html: '<p style="color:#94a3b8">คุณต้องเข้าสู่ระบบก่อนจึงจะใช้งานวิเคราะห์ลายมือได้</p>',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'เข้าสู่ระบบ',
+          cancelButtonText: 'ยกเลิก',
+          background: '#1e293b',
+          color: '#fff',
+          confirmButtonColor: '#d97706',
+          customClass: { popup: 'rounded-2xl border border-amber-500/20' },
+        });
+        if (authResult.isConfirmed) {
+          router.push('/login?redirect=/palm-analysis');
+        }
+        return;
+      }
+
+      // Step 2: Credit check
+      const latestCredits = await getEffectiveCredits(user.id);
+      setUserCredits(latestCredits.total);
+
+      if (latestCredits.total < PALM_ANALYSIS_COST) {
+        const topupResult = await Swal.fire({
+          title: '💰 เครดิตไม่เพียงพอ',
+          html: `<p style="color:#94a3b8">การวิเคราะห์ลายมือใช้ <strong style="color:#fbbf24">${PALM_ANALYSIS_COST} เครดิต</strong></p><p style="color:#94a3b8;margin-top:4px">คุณมี <strong style="color:#ef4444">${latestCredits.total} เครดิต</strong></p>`,
+          icon: 'error',
+          showCancelButton: true,
+          confirmButtonText: 'เติมเครดิต',
+          cancelButtonText: 'ยกเลิก',
+          background: '#1e293b',
+          color: '#fff',
+          confirmButtonColor: '#d97706',
+          customClass: { popup: 'rounded-2xl border border-amber-500/20' },
+        });
+        if (topupResult.isConfirmed) {
+          router.push('/topup');
+        }
+        return;
+      }
+
+      // Step 3: Confirmation
+      const confirmResult = await Swal.fire({
+        title: '✨ ยืนยันการวิเคราะห์',
+        html: `<p style="color:#94a3b8">การวิเคราะห์ลายมือจะใช้ <strong style="color:#fbbf24">${PALM_ANALYSIS_COST} เครดิต</strong></p><p style="color:#94a3b8;margin-top:4px">คุณมี <strong style="color:#34d399">${latestCredits.total} เครดิต</strong> (คงเหลือ ${latestCredits.total - PALM_ANALYSIS_COST} เครดิต)</p>`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: `ยืนยัน (ใช้ ${PALM_ANALYSIS_COST} เครดิต)`,
+        cancelButtonText: 'ยกเลิก',
+        background: '#1e293b',
+        color: '#fff',
+        confirmButtonColor: '#d97706',
+        customClass: { popup: 'rounded-2xl border border-amber-500/20' },
+      });
+      if (!confirmResult.isConfirmed) return;
+
+      // Step 4: Deduct credits
+      const { error: deductError } = await supabase.rpc('deduct_credits', { amount: PALM_ANALYSIS_COST });
+      if (deductError) {
+        await Swal.fire({
+          title: 'เกิดข้อผิดพลาด',
+          text: 'ไม่สามารถหักเครดิตได้ กรุณาลองใหม่',
+          icon: 'error',
+          background: '#1e293b',
+          color: '#fff',
+          customClass: { popup: 'rounded-2xl' },
+        });
+        return;
+      }
+
+      creditDeducted = true;
+      setUserCredits((prev) => (prev !== null ? prev - PALM_ANALYSIS_COST : null));
+      window.dispatchEvent(new Event('force_credits_update'));
+
+      // Proceed with analysis
+      setIsAnalyzing(true);
+      setError(null);
+      setResult(null);
+
       // Compress image before sending
       const compressed = await compressImage(imageBase64);
 
-      const response = await fetch('/api/analyze-palm', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ imageBase64: compressed }),
-      });
+      // ── Fix: Add timeout to prevent infinite spinner ──
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 55_000);
 
-      const data = await safeParseResponseBody(response);
+      try {
+        const response = await fetch('/api/analyze-palm', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ imageBase64: compressed }),
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
 
-      if (!response.ok) {
-        console.error('[palm] API error:', JSON.stringify(data));
+        const data = await safeParseResponseBody(response);
 
-        // User-friendly message for quota errors
-        if (response.status === 429 || data.code === 'QUOTA_EXHAUSTED' || data.code === 'RATE_LIMITED') {
-          const retryAfterSeconds = parseRetryAfterSeconds(response.headers.get('retry-after'));
-          startCooldown(retryAfterSeconds ?? COOLDOWN_SECONDS);
-          throw new Error('QUOTA');
+        if (!response.ok) {
+          console.error('[palm] API error:', JSON.stringify(data));
+
+          // User-friendly message for quota errors
+          if (response.status === 429 || data.code === 'QUOTA_EXHAUSTED' || data.code === 'RATE_LIMITED') {
+            const retryAfterSeconds = parseRetryAfterSeconds(response.headers.get('retry-after'));
+            startCooldown(retryAfterSeconds ?? COOLDOWN_SECONDS);
+            throw new Error('QUOTA');
+          }
+
+          throw new Error(data.details || data.error || 'ไม่สามารถวิเคราะห์ภาพได้');
         }
 
-        throw new Error(data.details || data.error || 'ไม่สามารถวิเคราะห์ภาพได้');
-      }
+        if (!isPalmAnalysisResult(data)) {
+          throw new Error('รูปแบบข้อมูลผลวิเคราะห์ไม่ถูกต้อง');
+        }
 
-      if (!isPalmAnalysisResult(data)) {
-        throw new Error('รูปแบบข้อมูลผลวิเคราะห์ไม่ถูกต้อง');
+        // Success — mark credits as consumed (no refund needed)
+        creditDeducted = false;
+        setResult(data);
+      } catch (fetchErr) {
+        clearTimeout(timeoutId);
+        throw fetchErr;
       }
-
-      setResult(data);
     } catch (err) {
       console.error('Analysis error:', err);
-      const message = err instanceof Error ? err.message : 'เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ';
-      setError(message);
+
+      // ── Fix: Refund credits if deducted but analysis failed ──
+      if (creditDeducted) {
+        try {
+          await supabase.rpc('deduct_credits', { amount: -PALM_ANALYSIS_COST });
+          setUserCredits((prev) => (prev !== null ? prev + PALM_ANALYSIS_COST : null));
+          window.dispatchEvent(new Event('force_credits_update'));
+          console.log('[palm] Credits refunded after failed analysis');
+        } catch (refundErr) {
+          console.error('[palm] Failed to refund credits:', refundErr);
+        }
+      }
+
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        setError('การวิเคราะห์ใช้เวลานานเกินไป กรุณาลองใหม่อีกครั้ง');
+      } else {
+        const message = err instanceof Error ? err.message : 'เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ';
+        setError(message);
+      }
     } finally {
       inFlightRef.current = false;
       setIsAnalyzing(false);

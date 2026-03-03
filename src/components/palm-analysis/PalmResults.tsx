@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Heart, Briefcase, Activity, Star, TrendingUp, TrendingDown, Sparkles, Eye, Brain, HeartPulse, Compass } from 'lucide-react';
+import { Heart, Briefcase, Activity, Star, TrendingUp, TrendingDown, Sparkles, Eye, Brain, HeartPulse, Compass, CalendarDays, AlertTriangle, Award, Wallet, Users, Clover } from 'lucide-react';
 import { PalmAnalysisResult, PalmLineAnalysis } from '@/types/palm-analysis';
 
 interface PalmResultsProps {
@@ -106,7 +106,12 @@ function LineCard({
         <Icon className={`w-5 h-5 ${c.icon}`} />
         <h4 className="text-white font-semibold text-lg">{analysis.title}</h4>
       </div>
-      <p className="text-slate-300 text-sm leading-relaxed mb-3">{analysis.description}</p>
+      <p className="text-slate-300 text-sm leading-relaxed mb-2">{analysis.description}</p>
+      {analysis.prediction && (
+        <p className="text-amber-200/80 text-sm leading-relaxed mb-3 italic border-l-2 border-amber-500/30 pl-3">
+          {analysis.prediction}
+        </p>
+      )}
       {analysis.highlights.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {analysis.highlights.map((h, i) => (
@@ -164,6 +169,49 @@ export default function PalmResults({ result }: PalmResultsProps) {
           <LineCard analysis={result.line_analysis.fate_line} icon={Compass} accentColor="amber" />
         </div>
       </div>
+
+      {/* ── Predictions by Topic (ตาทอง) ── */}
+      {result.predictions_by_topic && (
+        <div className="rounded-2xl border border-slate-700/60 bg-slate-900/40 p-5 sm:p-6">
+          <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+            <Star className="w-5 h-5 text-amber-400" />
+            ทำนายดวงรายหัวข้อ
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {([
+              { key: 'work' as const, label: 'การงาน', icon: Briefcase, color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
+              { key: 'money' as const, label: 'การเงิน', icon: Wallet, color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+              { key: 'love' as const, label: 'ความรัก', icon: Heart, color: 'text-pink-400', bg: 'bg-pink-500/10', border: 'border-pink-500/20' },
+              { key: 'family' as const, label: 'ครอบครัว', icon: Users, color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20' },
+              { key: 'health' as const, label: 'สุขภาพ', icon: Activity, color: 'text-teal-400', bg: 'bg-teal-500/10', border: 'border-teal-500/20' },
+              { key: 'luck' as const, label: 'โชคลาภ', icon: Clover, color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20' },
+            ]).map(({ key, label, icon: TopicIcon, color, bg, border }) => {
+              const value = result.predictions_by_topic![key];
+              if (!value) return null;
+              return (
+                <div key={key} className={`rounded-xl ${bg} border ${border} p-4`}>
+                  <div className="flex items-center gap-2 mb-2">
+                    <TopicIcon className={`w-4 h-4 ${color}`} />
+                    <span className={`text-sm font-semibold ${color}`}>{label}</span>
+                  </div>
+                  <p className="text-slate-300 text-sm leading-relaxed">{value}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ── Monthly Forecast (ตาทอง) ── */}
+      {result.monthly_forecast && (
+        <div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/20 to-slate-900/40 p-5 sm:p-6">
+          <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+            <CalendarDays className="w-5 h-5 text-indigo-400" />
+            ดวงประจำเดือน
+          </h3>
+          <p className="text-slate-200 leading-relaxed text-sm">{result.monthly_forecast}</p>
+        </div>
+      )}
 
       {/* ── Personality Traits ── */}
       {result.personality_traits.length > 0 && (
@@ -228,6 +276,17 @@ export default function PalmResults({ result }: PalmResultsProps) {
         )}
       </div>
 
+      {/* ── Warnings (ตาทอง) ── */}
+      {result.warnings && (
+        <div className="rounded-2xl border border-orange-500/20 bg-gradient-to-br from-orange-950/15 to-slate-900/40 p-5 sm:p-6">
+          <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+            <AlertTriangle className="w-5 h-5 text-orange-400" />
+            สิ่งที่ตาอยากให้ระวัง
+          </h3>
+          <p className="text-orange-200/80 leading-relaxed text-sm">{result.warnings}</p>
+        </div>
+      )}
+
       {/* ── Spiritual Guidance ── */}
       <div className="bg-gradient-to-br from-amber-900/20 to-purple-900/20 backdrop-blur-xl border border-amber-500/15 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-40 h-40 bg-amber-500/8 rounded-full blur-3xl pointer-events-none"></div>
@@ -241,6 +300,20 @@ export default function PalmResults({ result }: PalmResultsProps) {
           &ldquo;{result.spiritual_guidance}&rdquo;
         </p>
       </div>
+
+      {/* ── Ta Blessing (ตาทอง) ── */}
+      {result.ta_blessing && (
+        <div className="bg-gradient-to-br from-yellow-900/25 to-amber-950/20 backdrop-blur-xl border border-yellow-500/20 rounded-2xl p-6 shadow-2xl relative overflow-hidden text-center">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-60 h-32 bg-yellow-400/5 rounded-full blur-3xl pointer-events-none"></div>
+          <Award className="w-8 h-8 text-yellow-400 mx-auto mb-3 relative z-10" />
+          <h3 className="text-lg font-semibold bg-gradient-to-r from-yellow-200 to-amber-300 bg-clip-text text-transparent mb-3 relative z-10">
+            คำอวยพรจากตาทอง
+          </h3>
+          <p className="text-yellow-100/90 leading-relaxed text-base italic relative z-10 max-w-lg mx-auto">
+            &ldquo;{result.ta_blessing}&rdquo;
+          </p>
+        </div>
+      )}
     </section>
   );
 }

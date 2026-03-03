@@ -64,24 +64,15 @@ const getCachedDbArticles = unstable_cache(
 async function getArticles() {
     const dbArticles = await getCachedDbArticles();
 
-    // Slugs where local image should override DB image
-    const forceLocalImageSlugs = ['100-auspicious-women-names-2026'];
-
     // Enhance DB articles with local data (fallback for images)
     const enrichedDbArticles = dbArticles.map(dbArticle => {
         const localMatch = localArticles.find(a => a.slug === dbArticle.slug);
         const dbImage = dbArticle.cover_image || dbArticle.coverImage;
         const localImage = localMatch?.coverImage;
 
-        // Prefer local image paths (verified to exist) over external/Supabase URLs
-        // If DB has a local path (starts with /), trust it; if DB has an external URL
-        // (old Supabase storage link) it may be broken—use local image first.
-        const isDbLocal = dbImage && !dbImage.startsWith('http');
-        const finalImage = (forceLocalImageSlugs.includes(dbArticle.slug) && localImage)
-            ? localImage
-            : isDbLocal
-                ? (dbImage || localImage || '')
-                : (localImage || dbImage || '');
+        // DB-first: always use image edited via admin when present,
+        // fallback to local static image only if DB image is empty.
+        const finalImage = dbImage || localImage || '';
 
         return {
             ...dbArticle,

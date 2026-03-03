@@ -37,5 +37,8 @@ VALUES
     ('gtm_id', 'GTM-WCW8R5BK', 'Google Tag Manager Container ID'),
     ('tiktok_pixel_id', '', 'TikTok Pixel ID'),
     ('facebook_pixel_id', '', 'Facebook Pixel ID'),
-    ('promptpay_number', '', 'PromptPay ID/Phone for Manual Transfer')
+    ('promptpay_number', '', 'PromptPay ID/Phone for Manual Transfer'),
+    ('palm_system_prompt', '', 'Palm Analysis Gemini system instruction'),
+    ('palm_user_prompt_template', '', 'Palm Analysis Gemini user prompt template'),
+    ('palm_prompt_version', 'default', 'Palm Analysis prompt cache-busting version')
 ON CONFLICT (key) DO NOTHING;

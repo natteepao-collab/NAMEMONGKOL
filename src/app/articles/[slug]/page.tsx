@@ -1,5 +1,4 @@
 
-import { cache } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -35,14 +34,44 @@ type Props = {
 
 import { supabase } from '@/utils/supabase';
 
-// Dedupe fetches between generateMetadata and page component
-const getArticle = cache(async (slug: string): Promise<Article | null> => {
-    const localMatch = localArticles.find(a => a.slug === slug);
-    const forceLocalSlugs = ['naming-tips-2026-year-of-horse', 'forbidden-letters-kalakini', 'most-accurate-phone-number-analysis-2026', 'what-is-shadow-power', 'history-of-thai-naming-tradition', '100-auspicious-women-names-2026'];
+async function getPublishedArticlesDb(): Promise<Article[]> {
+    const { data, error } = await supabase
+        .from('articles')
+        .select('*')
+        .eq('is_published', true);
 
-    if (localMatch && forceLocalSlugs.includes(slug)) {
-        return localMatch;
-    }
+    if (error || !data) return [];
+
+    return data.map((item: any) => ({
+        id: item.id,
+        slug: item.slug,
+        title: item.title,
+        excerpt: item.excerpt,
+        content: item.content,
+        coverImage: item.cover_image,
+        date: item.date,
+        author: item.author,
+        category: item.category,
+        keywords: item.keywords,
+        metaTitle: item.meta_title,
+        metaDescription: item.meta_description,
+        relatedSlugs: item.related_slugs ?? [],
+        toc: item.toc ?? [],
+        faqItems: item.faq_items ?? [],
+        dateModified: item.date_modified ?? item.date,
+    }));
+}
+
+async function getRelatedArticlePool(): Promise<Article[]> {
+    const dbArticles = await getPublishedArticlesDb();
+    const existingSlugs = new Set(dbArticles.map((article) => article.slug));
+    const localFallback = localArticles.filter((article) => !existingSlugs.has(article.slug));
+    return [...dbArticles, ...localFallback];
+}
+
+// DB-first article fetch for detail page
+const getArticle = async (slug: string): Promise<Article | null> => {
+    const localMatch = localArticles.find(a => a.slug === slug);
 
     const { data, error } = await supabase
         .from('articles')
@@ -97,7 +126,7 @@ const getArticle = cache(async (slug: string): Promise<Article | null> => {
     }
 
     return mapped;
-});
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
@@ -192,14 +221,15 @@ export default async function ArticlePage({ params }: Props) {
 
     // ── Get related articles (prioritize manual relatedSlugs, then fall back to category) ──
     let relatedArticles: Article[] = [];
+    const relatedPool = await getRelatedArticlePool();
 
     if (article.relatedSlugs && article.relatedSlugs.length > 0) {
-        relatedArticles = localArticles.filter(a => article.relatedSlugs?.includes(a.slug));
+        relatedArticles = relatedPool.filter(a => article.relatedSlugs?.includes(a.slug));
     }
 
     // Fill up with category matches if needed
     if (relatedArticles.length < 3) {
-        const categoryMatches = localArticles.filter(a =>
+        const categoryMatches = relatedPool.filter(a =>
             a.category === article.category &&
             a.slug !== slug &&
             !relatedArticles.some(r => r.slug === a.slug)
