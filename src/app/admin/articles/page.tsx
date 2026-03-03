@@ -642,6 +642,37 @@ export default function AdminArticlesPage() {
                                     />
                                 </div>
 
+                                {/* SEO Overrides */}
+                                <div className="border border-slate-700/50 rounded-xl p-4 space-y-4 bg-slate-800/20">
+                                    <div className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                                        <span>🔍</span> SEO Overrides <span className="text-slate-500 font-normal normal-case">(ถ้าว่างจะใช้ Title/Excerpt อัตโนมัติ)</span>
+                                    </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="space-y-1">
+                                            <label className="text-xs font-medium text-slate-400">Meta Title</label>
+                                            <input
+                                                type="text"
+                                                value={currentArticle.meta_title || ''}
+                                                onChange={e => setCurrentArticle({ ...currentArticle, meta_title: e.target.value })}
+                                                placeholder="จะใช้ Title ถ้าว่าง"
+                                                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-500"
+                                            />
+                                            <div className="text-xs text-slate-600">{(currentArticle.meta_title || '').length}/60 ตัวอักษร</div>
+                                        </div>
+                                        <div className="space-y-1">
+                                            <label className="text-xs font-medium text-slate-400">Meta Description</label>
+                                            <input
+                                                type="text"
+                                                value={currentArticle.meta_description || ''}
+                                                onChange={e => setCurrentArticle({ ...currentArticle, meta_description: e.target.value })}
+                                                placeholder="จะใช้ Excerpt ถ้าว่าง"
+                                                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-amber-500"
+                                            />
+                                            <div className="text-xs text-slate-600">{(currentArticle.meta_description || '').length}/160 ตัวอักษร</div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {/* Content Editor - Simple Textarea for HTML */}
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-slate-300">Content (HTML Supported)</label>

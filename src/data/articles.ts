@@ -1,5 +1,10 @@
 
 
+export interface FaqItem {
+    question: string;
+    answer: string;
+}
+
 export interface Article {
     id: string;
     slug: string;
@@ -15,6 +20,8 @@ export interface Article {
     metaDescription?: string;
     relatedSlugs?: string[]; // For manual internal linking
     toc?: { title: string; id: string; level: number }[]; // For AEO structure
+    faqItems?: FaqItem[]; // For FAQPage JSON-LD schema
+    dateModified?: string; // For Article schema dateModified
 }
 
 export const articles: Article[] = [

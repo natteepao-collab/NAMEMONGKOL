@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState, useRef, useCallback } from 'react';
-import { Upload, Camera, RefreshCw, ScanLine } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Upload, Camera, RefreshCw, ScanLine, CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
 import SvgOverlay from './SvgOverlay';
 import { PalmAnalysisResult } from '@/types/palm-analysis';
 
 interface PalmScannerProps {
   onAnalyze: (imageBase64: string) => void;
+  onReset?: () => void;
   isAnalyzing: boolean;
   result: PalmAnalysisResult | null;
 }
@@ -110,11 +110,7 @@ function qualityHint(quality: PhotoQuality): string {
   return 'คุณภาพภาพยังต่ำ แนะนำเพิ่มแสง วางฝ่ามือเต็มเฟรม และถ่ายมุมตรง';
 }
 
-export default function PalmScanner({
-  onAnalyze,
-  isAnalyzing,
-  result,
-}: PalmScannerProps) {
+export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }: PalmScannerProps) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
@@ -130,73 +126,72 @@ export default function PalmScanner({
   const hasLowLineDetail = React.useMemo(() => {
     if (!result) return false;
     const avgLinePoints =
-      result.lines.length > 0
-        ? result.lines.reduce((sum, line) => sum + line.points.length, 0) / result.lines.length
-        : 0;
+      result.lines.length > 0 ? result.lines.reduce((sum, line) => sum + line.points.length, 0) / result.lines.length : 0;
     const quality = result.image_quality;
-    const lowQuality =
-      !!quality &&
-      (quality.sharpness < 55 ||
-        quality.lighting < 50 ||
-        quality.perspective < 50 ||
-        quality.occlusion < 45);
+    const lowQuality = !!quality && (quality.sharpness < 55 || quality.lighting < 50 || quality.perspective < 50 || quality.occlusion < 45);
     return avgLinePoints < 6 || lowQuality;
   }, [result]);
 
   const hasLowCaptureQuality = !result && !!capturedQuality && capturedQuality.overall < 60;
+  const currentStep = isAnalyzing ? 3 : imageSrc ? 2 : 1;
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const dataUrl = reader.result as string;
-        setImageSrc(dataUrl);
-        setIsCameraOpen(false);
-        setCameraError(null);
-        setLiveQuality(null);
+    if (!file) return;
 
-        evaluateDataUrlQuality(dataUrl)
-          .then((quality) => setCapturedQuality(quality))
-          .catch(() => setCapturedQuality(null));
-      };
-      reader.readAsDataURL(file);
-    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const dataUrl = reader.result as string;
+      setImageSrc(dataUrl);
+      setIsCameraOpen(false);
+      setCameraError(null);
+      setLiveQuality(null);
+
+      evaluateDataUrlQuality(dataUrl)
+        .then((quality) => setCapturedQuality(quality))
+        .catch(() => setCapturedQuality(null));
+    };
+    reader.readAsDataURL(file);
   };
+
+  const stopCamera = useCallback(() => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+    }
+
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.srcObject = null;
+    }
+
+    setIsCameraOpen(false);
+    setLiveQuality(null);
+  }, []);
 
   const startCamera = async () => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      setCameraError('อุปกรณ์หรือเบราว์เซอร์นี้ไม่รองรับการเปิดกล้องในหน้าเว็บ กรุณาใช้ปุ่มอัปโหลดรูปหรือถ่ายผ่านแอปกล้อง');
+      setCameraError('อุปกรณ์หรือเบราว์เซอร์นี้ไม่รองรับการเปิดกล้อง กรุณาใช้อัปโหลดรูปแทน');
       return;
     }
 
     if (!window.isSecureContext) {
-      setCameraError('ไม่สามารถเปิดกล้องได้ในโหมดไม่ปลอดภัย กรุณาเปิดผ่าน HTTPS หรือใช้งานจาก localhost');
+      setCameraError('ไม่สามารถเปิดกล้องได้ในโหมดไม่ปลอดภัย กรุณาเปิดผ่าน HTTPS หรือ localhost');
       return;
     }
 
     try {
       setCameraError(null);
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((track) => track.stop());
-        streamRef.current = null;
-      }
+      stopCamera();
 
       let stream: MediaStream;
       try {
         stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: { ideal: 'environment' },
-            width: { ideal: 1280 },
-            height: { ideal: 720 },
-          },
+          video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } },
           audio: false,
         });
       } catch {
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-          audio: false,
-        });
+        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
       }
 
       streamRef.current = stream;
@@ -212,78 +207,34 @@ export default function PalmScanner({
       } else if (error?.name === 'NotFoundError') {
         setCameraError('ไม่พบอุปกรณ์กล้องในเครื่อง กรุณาตรวจสอบว่ากล้องพร้อมใช้งาน');
       } else {
-        setCameraError('ไม่สามารถเข้าถึงกล้องได้ในขณะนี้ กรุณาลองใหม่ หรือใช้การถ่ายผ่านแอปกล้องแทน');
+        setCameraError('ไม่สามารถเข้าถึงกล้องได้ในขณะนี้ กรุณาลองใหม่ หรือใช้แอปกล้องแทน');
       }
     }
-  };
-
-  const stopCamera = () => {
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach((track) => track.stop());
-      streamRef.current = null;
-    }
-
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.srcObject = null;
-    }
-
-    setIsCameraOpen(false);
-    setLiveQuality(null);
   };
 
   const captureImage = () => {
-    if (videoRef.current && canvasRef.current) {
-      const video = videoRef.current;
-      const canvas = canvasRef.current;
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const dataUrl = canvas.toDataURL('image/jpeg');
-        setImageSrc(dataUrl);
-        setCapturedQuality(liveQuality);
-        // Haptic feedback on capture
-        if (navigator.vibrate) {
-          navigator.vibrate(50);
-        }
-        stopCamera();
-      }
-    }
+    if (!videoRef.current || !canvasRef.current) return;
+
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const dataUrl = canvas.toDataURL('image/jpeg');
+    setImageSrc(dataUrl);
+    setCapturedQuality(liveQuality);
+    if (navigator.vibrate) navigator.vibrate(50);
+    stopCamera();
   };
 
   const handleAnalyze = () => {
-    if (imageSrc) {
-      // Haptic feedback on analyze
-      if (navigator.vibrate) {
-        navigator.vibrate([50, 30, 50]);
-      }
-      onAnalyze(imageSrc);
-    }
+    if (!imageSrc) return;
+    if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+    onAnalyze(imageSrc);
   };
-
-  // Rotating mystical loading messages
-  const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
-  const loadingMessages = [
-    'กำลังเชื่อมโยงพลังงานจักรวาล...',
-    'ไตร่ตรองเส้นชีวิตของคุณ...',
-    'ค้นหาความลับในลายมือ...',
-    'ถอดรหัสเส้นหัวใจ...',
-    'วิเคราะห์เส้นสมองและสติปัญญา...',
-    'รวบรวมผลคำทำนาย...',
-  ];
-
-  React.useEffect(() => {
-    if (!isAnalyzing) {
-      setLoadingMessageIndex(0);
-      return;
-    }
-    const interval = setInterval(() => {
-      setLoadingMessageIndex((prev) => (prev + 1) % loadingMessages.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, [isAnalyzing]);
 
   const reset = () => {
     setImageSrc(null);
@@ -292,6 +243,7 @@ export default function PalmScanner({
     setCapturedQuality(null);
     setLiveQuality(null);
     stopCamera();
+    onReset?.();
   };
 
   React.useEffect(() => {
@@ -319,7 +271,6 @@ export default function PalmScanner({
 
   React.useEffect(() => {
     if (!isCameraOpen || !videoRef.current || !streamRef.current) return;
-
     const video = videoRef.current;
     video.srcObject = streamRef.current;
 
@@ -343,23 +294,23 @@ export default function PalmScanner({
   const handleImageLoad = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
     const img = e.currentTarget;
     const updateDimensions = () => {
-      if (imageContainerRef.current) {
-        const container = imageContainerRef.current;
-        const containerRatio = container.clientWidth / container.clientHeight;
-        const imgRatio = img.naturalWidth / img.naturalHeight;
+      if (!imageContainerRef.current) return;
+      const container = imageContainerRef.current;
+      const containerRatio = container.clientWidth / container.clientHeight;
+      const imgRatio = img.naturalWidth / img.naturalHeight;
 
-        let renderWidth, renderHeight;
+      let renderWidth: number;
+      let renderHeight: number;
 
-        if (imgRatio > containerRatio) {
-          renderWidth = container.clientWidth;
-          renderHeight = container.clientWidth / imgRatio;
-        } else {
-          renderHeight = container.clientHeight;
-          renderWidth = container.clientHeight * imgRatio;
-        }
-
-        setImageDimensions({ width: renderWidth, height: renderHeight });
+      if (imgRatio > containerRatio) {
+        renderWidth = container.clientWidth;
+        renderHeight = container.clientWidth / imgRatio;
+      } else {
+        renderHeight = container.clientHeight;
+        renderWidth = container.clientHeight * imgRatio;
       }
+
+      setImageDimensions({ width: renderWidth, height: renderHeight });
     };
 
     updateDimensions();
@@ -380,40 +331,53 @@ export default function PalmScanner({
   }, [imageSrc]);
 
   return (
-    <div className="w-full max-w-md mx-auto bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl relative overflow-hidden">
-      {/* Aura glow effects */}
-      <div className="absolute -top-24 -left-24 w-48 h-48 bg-purple-500/25 rounded-full blur-[80px] pointer-events-none animate-pulse"></div>
-      <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-blue-500/25 rounded-full blur-[80px] pointer-events-none animate-pulse [animation-delay:1s]"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-amber-500/10 rounded-full blur-[60px] pointer-events-none animate-pulse [animation-delay:2s]"></div>
+    <section className="w-full max-w-2xl mx-auto bg-gradient-to-b from-slate-900/60 to-amber-950/10 backdrop-blur-md border border-amber-500/20 rounded-2xl p-4 sm:p-6 shadow-2xl shadow-amber-900/10 relative overflow-hidden" aria-label="เครื่องมือสแกนลายมือ">
+      <div className="absolute -top-24 -left-24 w-48 h-48 bg-amber-500/10 rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-amber-600/10 rounded-full blur-[90px] pointer-events-none" />
 
-      <h2 className="text-xl sm:text-2xl font-bold text-white mb-2 text-center flex items-center justify-center gap-2">
-        <ScanLine className="w-6 h-6 text-blue-400" />
-        สแกนลายมือของคุณ
-      </h2>
-      <p className="text-center text-slate-400 text-sm leading-relaxed mb-5 sm:mb-6">ค้นพบดวงชะตาผ่านเส้นลายมือ</p>
+      <header className="mb-3 sm:mb-6">
+        <div className="flex items-center justify-between gap-3 mb-3 sm:mb-4">
+          <h2 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-amber-200 to-yellow-300 bg-clip-text text-transparent flex items-center gap-2">
+            <ScanLine className="w-5 h-5 text-amber-400" />
+            Palm Scanner
+          </h2>
+          <span className="text-xs text-amber-300/60 border border-amber-500/30 bg-amber-500/10 rounded-full px-2.5 py-1 shrink-0">Step {currentStep}/3</span>
+        </div>
 
-      <div className="relative w-full aspect-[3/4] bg-slate-950 rounded-xl overflow-hidden border border-slate-800 flex flex-col items-center justify-center mb-5 sm:mb-6">
-        {/* Aura ring around camera area */}
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
+          {[1, 2, 3].map((step) => {
+            const active = currentStep >= step;
+            return (
+              <div key={step} className={`rounded-lg border px-2 py-1.5 sm:py-2 text-center text-xs ${active ? 'border-amber-500/40 bg-amber-500/10 text-amber-200' : 'border-slate-700 bg-slate-900/60 text-slate-500'}`}>
+                {step === 1 && 'เลือกภาพ'}
+                {step === 2 && 'ตรวจคุณภาพ'}
+                {step === 3 && 'วิเคราะห์'}
+              </div>
+            );
+          })}
+        </div>
+      </header>
+
+      <div className="relative w-full aspect-square sm:aspect-[3/4] bg-slate-950 rounded-xl overflow-hidden border border-amber-500/15 flex flex-col items-center justify-center mb-3 sm:mb-6">
         {isCameraOpen && (
           <div className="absolute inset-0 z-0 pointer-events-none">
-            <div className="absolute inset-0 rounded-xl border-2 border-purple-500/30 animate-pulse"></div>
-            <div className="absolute inset-2 rounded-lg border border-blue-400/20 animate-pulse [animation-delay:0.5s]"></div>
+            <div className="absolute inset-0 rounded-xl border-2 border-blue-500/30" />
+            <div className="absolute inset-2 rounded-lg border border-slate-300/20" />
           </div>
         )}
 
         {!imageSrc && !isCameraOpen && (
           <div className="flex flex-col items-center justify-center p-4 sm:p-6 text-center space-y-3 sm:space-y-4">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-900/50 to-blue-900/50 border border-purple-500/30 flex items-center justify-center mb-2 shadow-lg shadow-purple-500/10">
-              <Upload className="w-10 h-10 text-slate-300" />
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-slate-800 to-slate-700 border border-slate-600 flex items-center justify-center mb-2">
+              <Upload className="w-10 h-10 text-slate-200" />
             </div>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-slate-300 text-sm leading-relaxed max-w-xs">
               อัปโหลดรูปภาพลายมือของคุณ
               <br />
               หรือถ่ายรูปใหม่เพื่อวิเคราะห์
             </p>
-            {/* Guide text */}
-            <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-4 py-2 text-amber-200/80 text-xs leading-relaxed">
-              💡 กรุณาวางฝ่ามือให้ชัดเจนในกรอบ • แนะนำให้ใช้แสงธรรมชาติ
+            <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-2 text-blue-200/90 text-xs leading-relaxed">
+              💡 แนะนำให้ใช้แสงธรรมชาติ และวางฝ่ามือเต็มเฟรม
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 mt-4 w-full sm:w-auto">
@@ -429,19 +393,12 @@ export default function PalmScanner({
                 <Camera className="w-4 h-4" />
                 ถ่ายรูป
               </button>
-              <input
-                ref={captureInputRef}
-                type="file"
-                accept="image/*"
-                capture="environment"
-                className="hidden"
-                onChange={handleFileUpload}
-              />
+              <input ref={captureInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleFileUpload} />
             </div>
 
             {cameraError && (
               <div className="w-full mt-2 space-y-2">
-                <p className="text-xs text-rose-300 leading-relaxed">{cameraError}</p>
+                <p className="text-xs text-rose-300 leading-relaxed" role="alert">{cameraError}</p>
                 <button
                   onClick={() => captureInputRef.current?.click()}
                   className="w-full bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-slate-700"
@@ -457,11 +414,8 @@ export default function PalmScanner({
           <div className="relative w-full h-full">
             <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
 
-            {/* Camera guide overlay */}
             <div className="absolute bottom-20 left-0 right-0 text-center z-10 pointer-events-none">
-              <span className="bg-black/60 backdrop-blur-sm text-amber-200 text-xs px-3 py-1.5 rounded-full">
-                วางฝ่ามือให้เต็มกรอบ • ถือกล้องนิ่ง • ใช้แสงธรรมชาติ
-              </span>
+              <span className="bg-black/60 backdrop-blur-sm text-slate-200 text-xs px-3 py-1.5 rounded-full">วางฝ่ามือให้เต็มกรอบ • ถือกล้องนิ่ง • ใช้แสงธรรมชาติ</span>
             </div>
 
             {liveQuality && (
@@ -471,15 +425,9 @@ export default function PalmScanner({
                   <span className="font-semibold text-blue-300">{liveQuality.overall}%</span>
                 </div>
                 <div className="grid grid-cols-3 gap-2 text-[11px]">
-                  <div>
-                    ความคม: <span className="text-slate-100">{liveQuality.sharpness}</span>
-                  </div>
-                  <div>
-                    แสง: <span className="text-slate-100">{liveQuality.lighting}</span>
-                  </div>
-                  <div>
-                    คอนทราสต์: <span className="text-slate-100">{liveQuality.contrast}</span>
-                  </div>
+                  <div>ความคม: <span className="text-slate-100">{liveQuality.sharpness}</span></div>
+                  <div>แสง: <span className="text-slate-100">{liveQuality.lighting}</span></div>
+                  <div>คอนทราสต์: <span className="text-slate-100">{liveQuality.contrast}</span></div>
                 </div>
                 <p className="mt-2 text-[11px] text-amber-200">{qualityHint(liveQuality)}</p>
               </div>
@@ -488,17 +436,14 @@ export default function PalmScanner({
             <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-4">
               <button
                 onClick={captureImage}
-                className="w-18 h-18 bg-white rounded-full border-4 border-purple-300 flex items-center justify-center shadow-lg shadow-purple-500/30 hover:scale-105 active:scale-95 transition-transform"
+                className="w-18 h-18 bg-white rounded-full border-4 border-slate-300 flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-transform"
                 title={liveQuality ? qualityHint(liveQuality) : 'ถ่ายภาพ'}
               >
-                <div className="w-14 h-14 bg-white rounded-full border-2 border-purple-200 flex items-center justify-center">
-                  <Camera className="w-6 h-6 text-purple-600" />
+                <div className="w-14 h-14 bg-white rounded-full border-2 border-slate-200 flex items-center justify-center">
+                  <Camera className="w-6 h-6 text-slate-700" />
                 </div>
               </button>
-              <button
-                onClick={stopCamera}
-                className="absolute right-6 bottom-2 bg-slate-800/80 text-white p-3 rounded-full backdrop-blur-sm"
-              >
+              <button onClick={stopCamera} className="absolute right-6 bottom-2 bg-slate-800/90 text-white p-3 rounded-full backdrop-blur-sm">
                 ยกเลิก
               </button>
             </div>
@@ -507,23 +452,14 @@ export default function PalmScanner({
 
         {imageSrc && (
           <div ref={imageContainerRef} className="relative w-full h-full flex items-center justify-center bg-black">
-            <img src={imageSrc} alt="Palm" className="max-w-full max-h-full object-contain" onLoad={handleImageLoad} />
+            <img src={imageSrc} alt="ภาพฝ่ามือสำหรับการวิเคราะห์" className="max-w-full max-h-full object-contain" onLoad={handleImageLoad} />
 
-            {isAnalyzing && (
-              <motion.div
-                className="absolute top-0 left-0 w-full h-1 bg-purple-500 shadow-[0_0_15px_rgba(168,85,247,0.8)] z-20"
-                animate={{ top: ['0%', '100%', '0%'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-              />
-            )}
+            {isAnalyzing && <div className="absolute top-0 left-0 w-full h-1 bg-blue-500 z-20" />}
 
             {result && result.lines && imageDimensions.width > 0 && (
               <div
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none"
-                style={{
-                  width: `${imageDimensions.width}px`,
-                  height: `${imageDimensions.height}px`,
-                }}
+                style={{ width: `${imageDimensions.width}px`, height: `${imageDimensions.height}px` }}
               >
                 <SvgOverlay lines={result.lines} width={imageDimensions.width} height={imageDimensions.height} />
               </div>
@@ -537,14 +473,15 @@ export default function PalmScanner({
       {imageSrc && !isAnalyzing && !result && (
         <>
           {capturedQuality && (
-            <div className="mb-3 p-3 rounded-xl border border-slate-700 bg-slate-900/60 text-slate-200 text-sm">
-              <div className="flex items-center justify-between">
-                <span>คุณภาพภาพที่ใช้วิเคราะห์</span>
+            <div className="mb-3 p-3 rounded-xl border border-slate-700 bg-slate-900/60 text-slate-200 text-sm" aria-live="polite">
+              <div className="flex items-center justify-between gap-2">
+                <span className="inline-flex items-center gap-1.5">
+                  {hasLowCaptureQuality ? <AlertTriangle className="w-4 h-4 text-amber-300" /> : <CheckCircle2 className="w-4 h-4 text-emerald-300" />}
+                  คุณภาพภาพที่ใช้วิเคราะห์
+                </span>
                 <span className="font-semibold text-blue-300">{capturedQuality.overall}%</span>
               </div>
-              <p className={`mt-1 text-xs ${hasLowCaptureQuality ? 'text-amber-200' : 'text-emerald-300'}`}>
-                {qualityHint(capturedQuality)}
-              </p>
+              <p className={`mt-1 text-xs ${hasLowCaptureQuality ? 'text-amber-200' : 'text-emerald-300'}`}>{qualityHint(capturedQuality)}</p>
             </div>
           )}
 
@@ -558,34 +495,23 @@ export default function PalmScanner({
             </button>
             <button
               onClick={handleAnalyze}
-              className="sm:flex-[2] bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 hover:from-purple-500 hover:via-blue-500 hover:to-indigo-500 text-white py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-purple-900/30 hover:shadow-purple-900/50 flex items-center justify-center gap-2 active:scale-[0.98]"
+              className="sm:flex-[2] bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-600 hover:from-amber-500 hover:via-yellow-500 hover:to-amber-500 text-white py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-amber-900/30 flex items-center justify-center gap-2"
             >
               <ScanLine className="w-5 h-5" />
-              เริ่มวิเคราะห์ลายมือ
+              เริ่มวิเคราะห์ลายมือ (30 เครดิต)
             </button>
           </div>
         </>
       )}
 
       {isAnalyzing && (
-        <div className="w-full space-y-3 mb-4">
+        <div className="w-full space-y-3 mb-4" role="status" aria-live="polite">
           <div className="bg-slate-800 rounded-full h-2 overflow-hidden">
-            <motion.div
-              className="bg-gradient-to-r from-purple-500 via-blue-500 to-amber-400 h-2 rounded-full"
-              initial={{ width: '0%' }}
-              animate={{ width: '100%' }}
-              transition={{ duration: 15, ease: 'linear' }}
-            />
+            <div className="bg-gradient-to-r from-purple-500 via-blue-500 to-amber-400 h-2 rounded-full animate-pulse" style={{ width: '78%' }} />
           </div>
-          <motion.p
-            key={loadingMessageIndex}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            className="text-center text-purple-300 text-sm animate-pulse"
-          >
-            ✨ {loadingMessages[loadingMessageIndex]}
-          </motion.p>
+          <p className="text-center text-blue-300 text-sm inline-flex items-center justify-center gap-2 w-full">
+            <Sparkles className="w-4 h-4" /> กำลังประมวลผลภาพลายมือ โปรดรอสักครู่...
+          </p>
         </div>
       )}
 
@@ -606,6 +532,6 @@ export default function PalmScanner({
           </button>
         </>
       )}
-    </div>
+    </section>
   );
 }

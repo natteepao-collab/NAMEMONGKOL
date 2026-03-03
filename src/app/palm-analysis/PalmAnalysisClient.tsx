@@ -1,10 +1,14 @@
 'use client';
 
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import PalmScanner from '@/components/palm-analysis/PalmScanner';
 import PalmResults from '@/components/palm-analysis/PalmResults';
 import { PalmAnalysisResult } from '@/types/palm-analysis';
+import { supabase } from '@/utils/supabase';
+import { getEffectiveCredits } from '@/utils/credits';
+
+const PALM_ANALYSIS_COST = 30;
 
 // Compress image adaptively to reduce Gemini API token usage and speed up processing.
 // Strategy: resize first, then lower JPEG quality/width until payload is near target size.
@@ -42,15 +46,41 @@ function compressImage(dataUri: string, maxWidth = 768, initialQuality = 0.68): 
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
 
+      // Apply unsharp mask to enhance palm creases & ridges for better AI detection
+      const applyUnsharpMask = (ctx: CanvasRenderingContext2D, w: number, h: number, amount = 0.45, radius = 1) => {
+        const original = ctx.getImageData(0, 0, w, h);
+        // Create blurred version using a temporary canvas
+        const blurCanvas = document.createElement('canvas');
+        blurCanvas.width = w;
+        blurCanvas.height = h;
+        const blurCtx = blurCanvas.getContext('2d');
+        if (!blurCtx) return;
+        blurCtx.filter = `blur(${radius}px)`;
+        blurCtx.drawImage(canvas, 0, 0, w, h);
+        const blurred = blurCtx.getImageData(0, 0, w, h);
+
+        const data = original.data;
+        const blurData = blurred.data;
+        for (let i = 0; i < data.length; i += 4) {
+          for (let c = 0; c < 3; c++) {
+            const diff = data[i + c] - blurData[i + c];
+            data[i + c] = Math.min(255, Math.max(0, data[i + c] + diff * amount));
+          }
+        }
+        ctx.putImageData(original, 0, 0);
+      };
+
       const render = (targetWidth: number, targetHeight: number, quality: number) => {
         if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
           canvas.width = targetWidth;
           canvas.height = targetHeight;
         }
-        // Slightly boost contrast to keep palm lines clear after compression
-        ctx.filter = 'contrast(1.12) saturate(1.02)';
+        // Boost contrast & sharpen to make palm creases stand out
+        ctx.filter = 'contrast(1.18) saturate(1.05) brightness(1.02)';
         ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
         ctx.filter = 'none';
+        // Unsharp mask to enhance fine crease details
+        applyUnsharpMask(ctx, targetWidth, targetHeight, 0.45, 1);
         return canvas.toDataURL('image/jpeg', quality);
       };
 
@@ -125,12 +155,47 @@ function isPalmAnalysisResult(value: Record<string, any>): value is PalmAnalysis
 }
 
 export default function PalmAnalysisClient() {
+  const router = useRouter();
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<PalmAnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [cooldown, setCooldown] = useState(0);
+  const [userCredits, setUserCredits] = useState<number | null>(null);
   const cooldownRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const inFlightRef = useRef(false);
+
+  // Fetch user credits on mount + listen for auth changes
+  useEffect(() => {
+    const fetchCredits = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          const credits = await getEffectiveCredits(user.id);
+          setUserCredits(credits.total);
+        }
+      } catch {
+        // Not logged in
+      }
+    };
+    fetchCredits();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session?.user) {
+        const credits = await getEffectiveCredits(session.user.id);
+        setUserCredits(credits.total);
+      } else {
+        setUserCredits(null);
+      }
+    });
+
+    return () => { subscription.unsubscribe(); };
+  }, []);
+
+  // Called when user clicks "วิเคราะห์รูปใหม่" to clear all previous state
+  const handleReset = useCallback(() => {
+    setResult(null);
+    setError(null);
+  }, []);
 
   // Clean up interval on unmount
   useEffect(() => {
@@ -155,7 +220,87 @@ export default function PalmAnalysisClient() {
   }, []);
 
   const handleAnalyze = async (imageBase64: string) => {
-    if (cooldown > 0 || inFlightRef.current) return; // Block during cooldown or in-flight request
+    if (cooldown > 0 || inFlightRef.current) return;
+
+    const Swal = (await import('sweetalert2')).default;
+
+    // Step 1: Auth check
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      const authResult = await Swal.fire({
+        title: '🔒 กรุณาเข้าสู่ระบบ',
+        html: '<p style="color:#94a3b8">คุณต้องเข้าสู่ระบบก่อนจึงจะใช้งานวิเคราะห์ลายมือได้</p>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'เข้าสู่ระบบ',
+        cancelButtonText: 'ยกเลิก',
+        background: '#1e293b',
+        color: '#fff',
+        confirmButtonColor: '#d97706',
+        customClass: { popup: 'rounded-2xl border border-amber-500/20' },
+      });
+      if (authResult.isConfirmed) {
+        router.push('/login?redirect=/palm-analysis');
+      }
+      return;
+    }
+
+    // Step 2: Credit check
+    const latestCredits = await getEffectiveCredits(user.id);
+    setUserCredits(latestCredits.total);
+
+    if (latestCredits.total < PALM_ANALYSIS_COST) {
+      const topupResult = await Swal.fire({
+        title: '💰 เครดิตไม่เพียงพอ',
+        html: `<p style="color:#94a3b8">การวิเคราะห์ลายมือใช้ <strong style="color:#fbbf24">${PALM_ANALYSIS_COST} เครดิต</strong></p><p style="color:#94a3b8;margin-top:4px">คุณมี <strong style="color:#ef4444">${latestCredits.total} เครดิต</strong></p>`,
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonText: 'เติมเครดิต',
+        cancelButtonText: 'ยกเลิก',
+        background: '#1e293b',
+        color: '#fff',
+        confirmButtonColor: '#d97706',
+        customClass: { popup: 'rounded-2xl border border-amber-500/20' },
+      });
+      if (topupResult.isConfirmed) {
+        router.push('/topup');
+      }
+      return;
+    }
+
+    // Step 3: Confirmation
+    const confirmResult = await Swal.fire({
+      title: '✨ ยืนยันการวิเคราะห์',
+      html: `<p style="color:#94a3b8">การวิเคราะห์ลายมือจะใช้ <strong style="color:#fbbf24">${PALM_ANALYSIS_COST} เครดิต</strong></p><p style="color:#94a3b8;margin-top:4px">คุณมี <strong style="color:#34d399">${latestCredits.total} เครดิต</strong> (คงเหลือ ${latestCredits.total - PALM_ANALYSIS_COST} เครดิต)</p>`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: `ยืนยัน (ใช้ ${PALM_ANALYSIS_COST} เครดิต)`,
+      cancelButtonText: 'ยกเลิก',
+      background: '#1e293b',
+      color: '#fff',
+      confirmButtonColor: '#d97706',
+      customClass: { popup: 'rounded-2xl border border-amber-500/20' },
+    });
+    if (!confirmResult.isConfirmed) return;
+
+    // Step 4: Deduct credits
+    const { error: deductError } = await supabase.rpc('deduct_credits', { amount: PALM_ANALYSIS_COST });
+    if (deductError) {
+      await Swal.fire({
+        title: 'เกิดข้อผิดพลาด',
+        text: 'ไม่สามารถหักเครดิตได้ กรุณาลองใหม่',
+        icon: 'error',
+        background: '#1e293b',
+        color: '#fff',
+        customClass: { popup: 'rounded-2xl' },
+      });
+      return;
+    }
+
+    setUserCredits((prev) => (prev !== null ? prev - PALM_ANALYSIS_COST : null));
+    window.dispatchEvent(new Event('force_credits_update'));
+
+    // Proceed with analysis
     inFlightRef.current = true;
     setIsAnalyzing(true);
     setError(null);
@@ -204,20 +349,27 @@ export default function PalmAnalysisClient() {
   };
 
   return (
-    <div className="flex flex-col xl:flex-row gap-6 sm:gap-8 xl:gap-12 items-start justify-center w-full">
-      {/* Left Column: Scanner */}
-      <motion.div 
-        className={`w-full transition-all duration-700 ease-in-out ${result ? 'xl:w-1/3' : 'xl:w-1/2 mx-auto'}`}
-        layout
-      >
+    <section className="w-full">
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-3 lg:gap-8 items-start">
+        <div className="xl:col-span-5 space-y-3 sm:space-y-4">
+          <div className="hidden sm:block rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-950/30 to-slate-900/60 p-4 sm:p-5">
+            <h2 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-amber-200 to-yellow-300 bg-clip-text text-transparent">เริ่มวิเคราะห์ลายมือ</h2>
+            <p className="text-sm text-amber-200/50 mt-1">ระบบจะประเมินคุณภาพภาพก่อน แล้วจึงประมวลผลเพื่อให้ผลลัพธ์อ่านง่ายและนำไปใช้ต่อได้</p>
+            <div className="mt-2 flex items-center gap-2 text-xs text-amber-300">
+              <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5">💰 {PALM_ANALYSIS_COST} เครดิต / ครั้ง</span>
+              {userCredits !== null && <span className="text-amber-400/60">คงเหลือ {userCredits} เครดิต</span>}
+            </div>
+          </div>
+
         <PalmScanner 
-          onAnalyze={handleAnalyze} 
+          onAnalyze={handleAnalyze}
+          onReset={handleReset}
           isAnalyzing={isAnalyzing} 
           result={result} 
         />
         
         {error && (
-          <div className="mt-4 p-4 bg-red-900/50 border border-red-800 rounded-xl text-red-200 text-center text-sm backdrop-blur-sm">
+          <div className="mt-4 p-4 bg-red-900/40 border border-red-800 rounded-xl text-red-200 text-center text-sm backdrop-blur-sm" role="alert" aria-live="assertive">
             {error === 'QUOTA' ? (
               <div className="flex flex-col items-center gap-3">
                 <p>ระบบมีผู้ใช้งานจำนวนมากในขณะนี้ กรุณารอสักครู่แล้วลองใหม่</p>
@@ -242,22 +394,34 @@ export default function PalmAnalysisClient() {
             )}
           </div>
         )}
-      </motion.div>
 
-      {/* Right Column: Results */}
-      <AnimatePresence>
-        {result && (
-          <motion.div 
-            className="w-full xl:w-2/3"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 50 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          {!result && !isAnalyzing && !error && (
+            <div className="hidden sm:block rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-950/20 to-slate-900/50 p-4 sm:p-5">
+              <h3 className="text-sm font-semibold text-amber-200 mb-2">Checklist ก่อนวิเคราะห์</h3>
+              <ul className="space-y-1.5 text-xs text-amber-300/50">
+                <li>• ฝ่ามือเต็มเฟรม และไม่ถูกตัดขอบ</li>
+                <li>• ภาพไม่เบลอ และมีแสงเพียงพอ</li>
+                <li>• มือหงายตรงกับกล้องให้มากที่สุด</li>
+              </ul>
+            </div>
+          )}
+        </div>
+
+        <div className="xl:col-span-7">
+          {result ? (
             <PalmResults result={result} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+          ) : (
+            <div className="hidden xl:flex rounded-2xl border border-amber-500/15 bg-gradient-to-br from-amber-950/10 to-slate-900/30 p-6 sm:p-8 min-h-[320px] items-center justify-center">
+              <div className="text-center max-w-md">
+                <p className="text-amber-100 font-medium">ผลวิเคราะห์จะแสดงที่นี่</p>
+                <p className="text-sm text-amber-300/50 mt-2">
+                  อัปโหลดภาพฝ่ามือและกด “เริ่มวิเคราะห์ลายมือ” เพื่อดูคะแนนทั้ง 4 ด้าน พร้อมสรุปเชิงแนวโน้ม
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }

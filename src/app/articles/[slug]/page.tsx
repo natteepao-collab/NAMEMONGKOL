@@ -18,6 +18,13 @@ const ArticleCTA = dynamic(() => import('@/components/ArticleCTA').then(mod => m
 });
 import { articles as localArticles, Article } from '@/data/articles';
 import { shimmer, toBase64 } from '@/utils/imageUtils';
+import {
+    PALMISTRY_SLUG,
+    palmistryToc,
+    palmistryFaqItems,
+    palmistryRelatedSlugs,
+    palmistryMetaOverrides,
+} from '@/data/palmistry-seo-config';
 
 // ISR: cache 1 hour, invalidate via revalidateTag('articles') when admin updates
 export const revalidate = 3600;
@@ -49,7 +56,7 @@ const getArticle = cache(async (slug: string): Promise<Article | null> => {
     }
 
     // Map Supabase snake_case to Article camelCase
-    return {
+    const mapped: Article = {
         id: data.id,
         slug: data.slug,
         title: data.title,
@@ -62,10 +69,34 @@ const getArticle = cache(async (slug: string): Promise<Article | null> => {
         keywords: data.keywords,
         metaTitle: data.meta_title, // Map here
         metaDescription: data.meta_description, // Map here
-        // DB columns might not exist for these yet
-        relatedSlugs: [],
-        toc: []
-    } as Article;
+        // DB columns for these are nullable; fallback to empty
+        relatedSlugs: data.related_slugs ?? [],
+        toc: data.toc ?? [],
+        faqItems: data.faq_items ?? [],
+        dateModified: data.date_modified ?? data.date,
+    };
+
+    // ── Palmistry-specific SEO enrichment (single-slug gating) ──
+    if (slug === PALMISTRY_SLUG) {
+        // Use curated TOC if DB doesn't have one
+        if (!mapped.toc || mapped.toc.length === 0) {
+            mapped.toc = palmistryToc;
+        }
+        // Use curated FAQ if DB doesn't have one
+        if (!mapped.faqItems || mapped.faqItems.length === 0) {
+            mapped.faqItems = palmistryFaqItems;
+        }
+        // Use curated related slugs if DB doesn't have them
+        if (!mapped.relatedSlugs || mapped.relatedSlugs.length === 0) {
+            mapped.relatedSlugs = palmistryRelatedSlugs;
+        }
+        // Apply metadata overrides
+        if (!mapped.metaTitle) mapped.metaTitle = palmistryMetaOverrides.metaTitle;
+        if (!mapped.metaDescription) mapped.metaDescription = palmistryMetaOverrides.metaDescription;
+        mapped.dateModified = palmistryMetaOverrides.dateModified;
+    }
+
+    return mapped;
 });
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -149,7 +180,17 @@ export default async function ArticlePage({ params }: Props) {
         return notFound();
     }
 
-    // Get related articles (prioritize manual relatedSlugs, then fall back to category)
+    // ── Canonical base URL (consistent across metadata & JSON-LD) ──
+    const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com').replace(/\/$/, '');
+    const canonicalUrl = `${baseUrl}/articles/${slug}`;
+    const isPalmistryArticle = slug === PALMISTRY_SLUG;
+
+    // ── Reading time estimate ──
+    const plainText = article.content.replace(/<[^>]*>/g, '');
+    const wordCount = plainText.split(/\s+/).filter(Boolean).length;
+    const readingTimeMinutes = Math.max(1, Math.ceil(wordCount / 200)); // ~200 words/min for Thai
+
+    // ── Get related articles (prioritize manual relatedSlugs, then fall back to category) ──
     let relatedArticles: Article[] = [];
 
     if (article.relatedSlugs && article.relatedSlugs.length > 0) {
@@ -166,7 +207,7 @@ export default async function ArticlePage({ params }: Props) {
         relatedArticles = [...relatedArticles, ...categoryMatches].slice(0, 3);
     }
 
-    // Breadcrumb Schema
+    // ── Breadcrumb Schema (uses consistent baseUrl) ──
     const breadcrumbJsonLd = {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
@@ -175,22 +216,36 @@ export default async function ArticlePage({ params }: Props) {
                 '@type': 'ListItem',
                 'position': 1,
                 'name': 'หน้าหลัก',
-                'item': 'https://www.namemongkol.com'
+                'item': baseUrl
             },
             {
                 '@type': 'ListItem',
                 'position': 2,
                 'name': 'บทความชื่อมงคล',
-                'item': 'https://www.namemongkol.com/articles'
+                'item': `${baseUrl}/articles`
             },
             {
                 '@type': 'ListItem',
                 'position': 3,
                 'name': article.title,
-                'item': `https://www.namemongkol.com/articles/${slug}`
+                'item': canonicalUrl
             }
         ]
     };
+
+    // ── FAQPage JSON-LD (only when faqItems exist) ──
+    const faqJsonLd = article.faqItems && article.faqItems.length > 0 ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        'mainEntity': article.faqItems.map(item => ({
+            '@type': 'Question',
+            'name': item.question,
+            'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': item.answer,
+            },
+        })),
+    } : null;
 
     return (
         <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-purple-500 selection:text-white relative overflow-hidden pb-28">
@@ -200,6 +255,7 @@ export default async function ArticlePage({ params }: Props) {
                 <div className="absolute top-[10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px]"></div>
             </div>
 
+            {/* Article Schema — consistent baseUrl */}
             <Script
                 id="article-schema"
                 type="application/ld+json"
@@ -207,37 +263,55 @@ export default async function ArticlePage({ params }: Props) {
                     __html: JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "Article",
-                        "headline": article.title,
-                        "description": article.excerpt,
-                        "image": article.coverImage,
+                        "headline": article.metaTitle || article.title,
+                        "description": article.metaDescription || article.excerpt,
+                        "image": article.coverImage?.startsWith('http') ? article.coverImage : `${baseUrl}${article.coverImage}`,
                         "datePublished": article.date,
-                        "dateModified": article.date,
+                        "dateModified": article.dateModified || article.date,
                         "author": [{
                             "@type": "Person",
                             "name": article.author,
-                            "url": "https://www.namemongkol.com"
+                            "url": baseUrl
                         }],
                         "publisher": {
                             "@type": "Organization",
                             "name": "NameMongkol",
                             "logo": {
                                 "@type": "ImageObject",
-                                "url": "https://www.namemongkol.com/icon.png"
+                                "url": `${baseUrl}/icon.png`
                             }
                         },
                         "mainEntityOfPage": {
                             "@type": "WebPage",
-                            "@id": `https://www.namemongkol.com/articles/${article.slug}`
+                            "@id": canonicalUrl
                         },
-                        "keywords": article.keywords?.join(', ') || ''
+                        "keywords": article.keywords?.join(', ') || '',
+                        "wordCount": wordCount,
+                        "inLanguage": "th",
+                        ...(isPalmistryArticle && {
+                            "about": {
+                                "@type": "Thing",
+                                "name": "หัตถศาสตร์ (Palmistry)",
+                                "sameAs": "https://en.wikipedia.org/wiki/Palmistry"
+                            }
+                        })
                     })
                 }}
             />
+            {/* Breadcrumb Schema */}
             <Script
                 id="article-breadcrumb-json-ld"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
             />
+            {/* FAQPage Schema */}
+            {faqJsonLd && (
+                <Script
+                    id="article-faq-json-ld"
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+                />
+            )}
 
             <main className="w-full max-w-[1400px] px-4 py-8 relative z-10 pt-6 md:pt-32">
                 <div className="max-w-3xl">
@@ -272,6 +346,10 @@ export default async function ArticlePage({ params }: Props) {
                             <User size={14} />
                             <span>{article.author}</span>
                         </div>
+                        <div className="flex items-center gap-2 text-slate-500">
+                            <span>•</span>
+                            <span>อ่าน ~{readingTimeMinutes} นาที</span>
+                        </div>
                     </div>
 
                     {/* Title */}
@@ -295,19 +373,32 @@ export default async function ArticlePage({ params }: Props) {
                         />
                     </div>
 
-                    {/* Table of Contents */}
+                    {/* Table of Contents — enhanced with numbered sections for long articles */}
                     {article.toc && article.toc.length > 0 && (
-                        <nav className="bg-slate-800/50 rounded-xl p-6 mb-8 border border-slate-700/50">
-                            <h2 className="text-lg font-bold text-white mb-4">สารบัญ</h2>
-                            <ul className="space-y-2">
-                                {article.toc.map((item) => (
-                                    <li key={item.id} style={{ paddingLeft: (item.level - 2) * 16 }}>
-                                        <a href={`#${item.id}`} className="text-slate-400 hover:text-purple-400 transition-colors text-sm flex items-center gap-2">
-                                            <span className="w-1.5 h-1.5 bg-slate-600 rounded-full flex-shrink-0" />
-                                            {item.title}
-                                        </a>
-                                    </li>
-                                ))}
+                        <nav className="bg-slate-800/50 rounded-xl p-6 mb-8 border border-slate-700/50" aria-label="สารบัญบทความ">
+                            <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                                <span className="text-xl">📚</span> สารบัญ
+                                <span className="text-xs font-normal text-slate-500 ml-auto">{article.toc.filter(t => t.level === 2).length} หัวข้อหลัก</span>
+                            </h2>
+                            <ul className="space-y-1.5">
+                                {(() => {
+                                    let h2Counter = 0;
+                                    return article.toc.map((item) => {
+                                        if (item.level === 2) h2Counter++;
+                                        return (
+                                            <li key={item.id} style={{ paddingLeft: (item.level - 2) * 16 }}>
+                                                <a href={`#${item.id}`} className="text-slate-400 hover:text-purple-400 transition-colors text-sm flex items-center gap-2 py-0.5">
+                                                    {item.level === 2 ? (
+                                                        <span className="w-5 h-5 bg-purple-500/20 text-purple-400 rounded text-xs flex items-center justify-center flex-shrink-0 font-bold">{h2Counter}</span>
+                                                    ) : (
+                                                        <span className="w-1.5 h-1.5 bg-slate-600 rounded-full flex-shrink-0 ml-1.5" />
+                                                    )}
+                                                    {item.title}
+                                                </a>
+                                            </li>
+                                        );
+                                    });
+                                })()}
                             </ul>
                         </nav>
                     )}
@@ -320,16 +411,54 @@ export default async function ArticlePage({ params }: Props) {
                         <div dangerouslySetInnerHTML={{ __html: article.content }} />
                     </article>
 
+                    {/* FAQ Section — renders when article has faqItems */}
+                    {article.faqItems && article.faqItems.length > 0 && (
+                        <section id="faq-section" className="mt-12 scroll-mt-24">
+                            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                                <span className="text-3xl">❓</span> คำถามที่พบบ่อย (FAQ)
+                            </h2>
+                            <div className="space-y-4">
+                                {article.faqItems.map((item, index) => (
+                                    <details
+                                        key={index}
+                                        className="group bg-slate-800/40 border border-slate-700/50 rounded-xl overflow-hidden hover:border-purple-500/30 transition-all"
+                                        {...(index < 3 ? { open: true } : {})}
+                                    >
+                                        <summary className="flex items-start gap-3 p-5 cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden">
+                                            <span className="w-6 h-6 bg-purple-500/20 text-purple-400 rounded-lg text-xs flex items-center justify-center flex-shrink-0 font-bold mt-0.5">{index + 1}</span>
+                                            <span className="text-white font-medium leading-snug flex-1">{item.question}</span>
+                                            <span className="text-slate-500 group-open:rotate-180 transition-transform duration-200 flex-shrink-0 mt-0.5">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                                            </span>
+                                        </summary>
+                                        <div className="px-5 pb-5 pt-0 text-slate-300 text-sm leading-relaxed border-t border-slate-700/50 mt-0 pt-4">
+                                            {item.answer}
+                                        </div>
+                                    </details>
+                                ))}
+                            </div>
+                        </section>
+                    )}
+
                     {/* Tags */}
                     {article.keywords && article.keywords.length > 0 && (
                         <div className="mt-10 pt-6 border-t border-white/10">
                             <div className="flex flex-wrap gap-2">
-                                {article.keywords && article.keywords.map((keyword: string) => (
+                                {article.keywords.map((keyword: string) => (
                                     <span key={keyword} className="bg-slate-800 text-slate-400 text-xs px-2 py-1 rounded hover:bg-slate-700 transition-colors cursor-default">
                                         #{keyword}
                                     </span>
                                 ))}
                             </div>
+                        </div>
+                    )}
+
+                    {/* Palm Analysis CTA — palmistry article specific */}
+                    {isPalmistryArticle && (
+                        <div className="mt-8 p-6 bg-gradient-to-r from-purple-900/30 to-indigo-900/30 border border-purple-500/30 rounded-2xl text-center">
+                            <h3 className="text-xl font-bold text-white mb-2">อยากลองวิเคราะห์ลายมือของคุณด้วย AI?</h3>
+                            <p className="text-slate-300 text-sm mb-4">ระบบ AI ของ NameMongkol อ่านเส้นชีวิต เส้นสมอง เส้นหัวใจ และเส้นวาสนา ให้คำแนะนำเชิงสร้างสรรค์ ฟรี 100%</p>
+                            <Link href="/palm-analysis" className="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-colors shadow-lg shadow-purple-600/30">➡ วิเคราะห์ลายมือฟรีที่นี่</Link>
                         </div>
                     )}
 

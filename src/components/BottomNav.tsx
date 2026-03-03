@@ -1,12 +1,39 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Search, Crown, Sparkles, History } from 'lucide-react';
 
 export const BottomNav = () => {
     const pathname = usePathname();
+    const [visible, setVisible] = useState(true);
+    const lastScrollY = useRef(0);
+    const ticking = useRef(false);
+
+    useEffect(() => {
+        const onScroll = () => {
+            if (ticking.current) return;
+            ticking.current = true;
+
+            requestAnimationFrame(() => {
+                const currentY = window.scrollY;
+                // Show when scrolling up or near top; hide when scrolling down
+                if (currentY <= 10) {
+                    setVisible(true);
+                } else if (currentY < lastScrollY.current) {
+                    setVisible(true);
+                } else if (currentY > lastScrollY.current + 5) {
+                    setVisible(false);
+                }
+                lastScrollY.current = currentY;
+                ticking.current = false;
+            });
+        };
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
     const navItems = [
         { name: 'ค้นหา', icon: Search, path: '/search' },
@@ -17,7 +44,9 @@ export const BottomNav = () => {
 
     return (
         <div
-            className="fixed bottom-0 left-0 w-full z-[60] lg:hidden"
+            className={`fixed bottom-0 left-0 w-full z-[60] lg:hidden transition-transform duration-300 ease-in-out ${
+                visible ? 'translate-y-0' : 'translate-y-full'
+            }`}
             style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
         >
             {/* Subtle gradient top edge */}

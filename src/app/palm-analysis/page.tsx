@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import PalmAnalysisClient from './PalmAnalysisClient';
 import { PalmSeoContent } from '@/components/PalmSeoContent';
+import PalmHeroBanner from '@/components/palm-analysis/PalmHeroBanner';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 const canonicalUrl = `${siteUrl.replace(/\/$/, '')}/palm-analysis`;
@@ -83,6 +84,42 @@ export default function PalmAnalysisPage() {
     ],
   };
 
+  const howToJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'วิธีวิเคราะห์ลายมือออนไลน์ด้วย AI',
+    description: 'ขั้นตอนใช้งานเครื่องมือวิเคราะห์ลายมือออนไลน์บน NameMongkol ให้ได้ผลลัพธ์ที่ชัดเจน',
+    totalTime: 'PT2M',
+    tool: [
+      {
+        '@type': 'HowToTool',
+        name: 'กล้องมือถือหรือรูปภาพฝ่ามือที่ชัดเจน',
+      },
+    ],
+    step: [
+      {
+        '@type': 'HowToStep',
+        name: 'เตรียมภาพฝ่ามือ',
+        text: 'ถ่ายภาพฝ่ามือให้เห็นเต็มเฟรม ภาพไม่เบลอ และมีแสงเพียงพอ',
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'อัปโหลดภาพหรือถ่ายภาพในระบบ',
+        text: 'เลือกอัปโหลดรูปจากเครื่อง หรือเปิดกล้องแล้วถ่ายภาพใหม่ในหน้า Palm Scanner',
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'ตรวจคุณภาพก่อนวิเคราะห์',
+        text: 'ตรวจดูคะแนนความคม แสง และคอนทราสต์ให้เหมาะสมก่อนเริ่มวิเคราะห์',
+      },
+      {
+        '@type': 'HowToStep',
+        name: 'กดเริ่มวิเคราะห์และอ่านผลลัพธ์',
+        text: 'ระบบจะแสดงคะแนน 4 ด้าน การวิเคราะห์เส้นหลัก จุดเด่น จุดที่ควรพัฒนา และคำแนะนำเสริมมงคล',
+      },
+    ],
+  };
+
   return (
     <>
       <script
@@ -93,25 +130,19 @@ export default function PalmAnalysisPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
 
       <main className="min-h-screen bg-[#020617] relative overflow-hidden pt-24 md:pt-12 pb-28 md:pb-12 px-4 sm:px-6 lg:px-8">
-        {/* Galaxy Background Effects */}
-        <div className="fixed inset-0 z-0 pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-900/20 blur-[120px]"></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-900/20 blur-[120px]"></div>
-          <div className="absolute top-[40%] left-[60%] w-[30%] h-[30%] rounded-full bg-indigo-900/10 blur-[100px]"></div>
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute top-[-10%] left-[-12%] w-[40%] h-[40%] rounded-full bg-blue-700/15 blur-[130px]" />
+          <div className="absolute bottom-[-10%] right-[-12%] w-[40%] h-[40%] rounded-full bg-violet-700/15 blur-[130px]" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="text-center mb-8 sm:mb-12">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 mb-4 tracking-tight leading-tight">
-              AI Palmistry Analysis
-            </h1>
-            <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed px-1 sm:px-0">
-              อัปโหลดรูปภาพลายมือของคุณ เพื่อให้ AI ผู้เชี่ยวชาญด้านหัตถศาสตร์วิเคราะห์ตัวตน จุดเด่น และศักยภาพที่ซ่อนอยู่
-            </p>
-          </div>
-
+        <div className="relative z-10 max-w-7xl mx-auto space-y-3 sm:space-y-8">
+          <PalmHeroBanner />
           <PalmAnalysisClient />
           <PalmSeoContent />
         </div>
