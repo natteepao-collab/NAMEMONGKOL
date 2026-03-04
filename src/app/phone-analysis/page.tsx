@@ -1,7 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
-import Script from 'next/script';
 import ClientPage from './ClientPage';
+import { PhoneSeoContent } from '@/components/PhoneSeoContent';
+import { PhoneFAQSection } from '@/components/PhoneFAQSection';
 
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.namemongkol.com';
 const siteUrl = rawSiteUrl.includes('namemongkol.com') && !rawSiteUrl.includes('www.')
@@ -72,13 +73,7 @@ export default function PhoneAnalysisPage() {
                     'price': '0',
                     'priceCurrency': 'THB'
                 },
-                'aggregateRating': {
-                    '@type': 'AggregateRating',
-                    'ratingValue': '4.9',
-                    'ratingCount': '150000',
-                    'bestRating': '5',
-                    'worstRating': '1'
-                }
+
             },
             {
                 '@type': 'FAQPage',
@@ -177,12 +172,17 @@ export default function PhoneAnalysisPage() {
 
     return (
         <>
-            <Script
-                id="phone-analysis-jsonld"
+            <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <ClientPage />
+
+            {/* SSR SEO Content — always visible to Googlebot regardless of client state */}
+            <div className="max-w-5xl mx-auto px-4">
+                <PhoneSeoContent />
+                <PhoneFAQSection />
+            </div>
         </>
     );
 }

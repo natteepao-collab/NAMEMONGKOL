@@ -17,14 +17,14 @@ function estimateDataUriBytes(dataUri: string): number {
   return Math.floor((base64.length * 3) / 4);
 }
 
-function compressImage(dataUri: string, maxWidth = 1280, initialQuality = 0.78): Promise<string> {
+function compressImage(dataUri: string, maxWidth = 1024, initialQuality = 0.72): Promise<string> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.onload = () => {
       const canvas = document.createElement('canvas');
-      const TARGET_MAX_BYTES = 480 * 1024; // ~480KB — higher quality for crease detection
-      const MIN_QUALITY = 0.55;
-      const MIN_WIDTH = 640;
+      const TARGET_MAX_BYTES = 350 * 1024; // ~350KB — balanced: fast upload + enough detail for AI
+      const MIN_QUALITY = 0.50;
+      const MIN_WIDTH = 600;
 
       let { width: originalWidth, height: originalHeight } = img;
       let width = originalWidth;
@@ -312,7 +312,7 @@ export default function PalmAnalysisClient() {
 
       // ── Fix: Add timeout to prevent infinite spinner ──
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 55_000);
+      const timeoutId = setTimeout(() => controller.abort(), 40_000);
 
       try {
         const response = await fetch('/api/analyze-palm', {

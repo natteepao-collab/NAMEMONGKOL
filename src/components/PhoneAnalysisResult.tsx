@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { PhoneAnalysisResult as IPhoneAnalysisResult } from '@/utils/analyzePhone';
 import { Activity, Brain, Heart, Share2, Skull, Crown, TrendingUp, Clover, Eye, Facebook, Link as LinkIcon, Check, Copy, Search } from 'lucide-react';
+import type { PhoneAiAnalysis } from '@/types';
+import { PhoneAiAnalysisSection } from '@/components/PhoneAiAnalysisSection';
 
 // Custom Line Icon since Lucide doesn't include it
 const LineIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
@@ -190,9 +192,22 @@ const SimpleGradeCard = ({ grade, phoneNumber }: { grade: string; phoneNumber: s
 interface PhoneAnalysisResultProps {
     result: IPhoneAnalysisResult;
     onReset?: () => void;
+    aiAnalysis?: PhoneAiAnalysis | null;
+    aiLoading?: boolean;
+    aiProfession?: string;
+    onAiProfessionChange?: (value: string) => void;
+    onRequestAiAnalysis?: () => void;
 }
 
-export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result, onReset }) => {
+export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({
+    result,
+    onReset,
+    aiAnalysis = null,
+    aiLoading = false,
+    aiProfession = '',
+    onAiProfessionChange,
+    onRequestAiAnalysis,
+}) => {
     const [isCopied, setIsCopied] = useState(false);
 
     // Split pairs into Good/Neutral vs Bad
@@ -402,6 +417,18 @@ export const PhoneAnalysisResult: React.FC<PhoneAnalysisResultProps> = ({ result
                     ))}
                 </div>
             </div>
+
+            {/* AI Profession-based Analysis */}
+            {onRequestAiAnalysis && onAiProfessionChange && (
+                <PhoneAiAnalysisSection
+                    analysis={aiAnalysis}
+                    profession={aiProfession}
+                    isLoading={aiLoading}
+                    onProfessionChange={onAiProfessionChange}
+                    onRequestAnalysis={onRequestAiAnalysis}
+                    hasResult={true}
+                />
+            )}
 
             {/* Share Section with Hero Banner */}
             <div className="pt-8 space-y-4">

@@ -85,6 +85,14 @@ export interface Wallpaper {
 }
 
 
+// AI Profession-based Phone Analysis Result
+export interface PhoneAiAnalysis {
+    alignment: { title: string; content: string; score: number };
+    hidden_potential: { title: string; content: string };
+    strategy: { title: string; content: string };
+    verdict: string;
+}
+
 // Service types for reviews - SEO optimized with internal links
 export type ReviewServiceType =
     | 'name-analysis'      // วิเคราะห์ชื่อ

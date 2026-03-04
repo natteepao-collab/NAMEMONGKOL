@@ -9,7 +9,7 @@ import {
   PALM_USER_PROMPT_KEY,
 } from '@/lib/palmPromptDefaults';
 
-export const maxDuration = 60;
+export const maxDuration = 45;
 
 const MIN_LINE_CONFIDENCE = 0.55;
 const MIN_POINT_CONFIDENCE = 0.45;
@@ -527,15 +527,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'No image provided' }, { status: 400 });
     }
 
-    const apiKey = (await getGeminiApiKeyFromSecrets()) || process.env.GEMINI_API_KEY;
+    // ── Parallel: load API key + prompt config simultaneously ──
+    const mimeType = detectMimeType(imageBase64);
+    const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
+    const [secretKey, promptConfig] = await Promise.all([
+      getGeminiApiKeyFromSecrets(),
+      getPalmPromptConfig(),
+    ]);
+    const envKey = typeof process.env.GEMINI_API_KEY === 'string' ? process.env.GEMINI_API_KEY.trim() : '';
+    const apiKey = envKey || secretKey;
+    const apiKeySource = envKey ? 'env' : secretKey ? 'app_secrets' : 'none';
     if (!apiKey) {
       console.error('[analyze-palm] GEMINI_API_KEY is not set');
       return NextResponse.json({ error: 'API key not configured' }, { status: 500 });
     }
-
-    const mimeType = detectMimeType(imageBase64);
-    const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, '');
-    const promptConfig = await getPalmPromptConfig();
+    console.log('[analyze-palm] Gemini key source:', apiKeySource);
 
     // Check cache first
     pruneCache();
@@ -546,8 +552,10 @@ export async function POST(req: Request) {
       return NextResponse.json(cached.result);
     }
 
-    // Model fallback order — Gemini 2.5 Flash primary (per project spec)
-    const models = ['gemini-2.5-flash', 'gemini-2.0-flash'];
+    // Model fallback order — prioritize speed
+    // gemini-2.5-flash-lite = fastest with thinking disabled
+    // gemini-2.0-flash = reliable fallback
+    const models = ['gemini-2.5-flash-lite', 'gemini-2.5-flash', 'gemini-2.0-flash'];
 
     let lastError: unknown = null;
     const failedModels = new Set<string>();
@@ -588,10 +596,12 @@ export async function POST(req: Request) {
               },
             ],
             generationConfig: {
-              temperature: 0.4,
-              maxOutputTokens: 16384,
+              temperature: 0.25,
+              maxOutputTokens: 8192,
               responseMimeType: 'application/json',
             },
+            // Limit thinking on 2.5 models — budget 1024 = balanced speed + quality
+            ...(model.startsWith('gemini-2.5') ? { thinkingConfig: { thinkingBudget: 1024 } } : {}),
           }),
         });
 

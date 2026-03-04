@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { Zap, Heart, Shield, Star, Sparkles, Target, Award, Banknote, Users, AlertTriangle } from 'lucide-react';
 
