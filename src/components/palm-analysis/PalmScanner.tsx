@@ -581,52 +581,79 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
 }
 
 // ─── Palm shape guide path (SVG viewBox 300×400) ─────────────────────────────
-// Anatomically proportioned palm: long fingers (~45%) + palm body (~55%)
+// Anatomically correct: 5 distinct fingers with rounded tips & visible gaps
 const PALM_GUIDE_PATH = [
-  // Start at bottom center of palm
-  'M 150 380',
-  // Left side of palm base
-  'C 115 380, 78 365, 62 335',
-  'C 48 308, 50 278, 52 255',
-  // Thumb — extends far left & upward
-  'L 42 210',
-  'C 35 185, 25 160, 22 140',
-  'C 18 115, 28 100, 40 100',
-  'C 52 100, 58 112, 55 135',
-  'L 52 175',
-  'L 55 200',
-  // Pinky finger — leftmost
-  'L 68 155',
-  'C 66 130, 64 105, 63 85',
-  'C 62 65, 72 55, 82 55',
-  'C 92 55, 98 65, 97 85',
-  'L 95 115',
-  'L 95 140',
-  // Ring finger
-  'L 100 105',
-  'C 98 75, 97 50, 98 35',
-  'C 99 18, 110 10, 120 10',
-  'C 130 10, 138 18, 138 35',
-  'L 137 65',
-  'L 135 105',
-  // Middle finger — tallest
-  'L 138 80',
-  'C 137 50, 137 25, 140 8',
-  'C 143 -5, 155 -5, 158 8',
-  'L 162 30',
-  'L 163 65',
-  'L 165 105',
-  // Index finger
-  'L 168 70',
-  'C 170 45, 172 25, 175 15',
-  'C 178 5, 190 5, 195 15',
-  'C 200 28, 200 50, 198 75',
-  'L 195 115',
-  // Right side of palm
-  'L 205 155',
-  'L 215 190',
-  'C 228 215, 240 240, 245 270',
-  'C 248 298, 240 328, 220 350',
-  'C 200 370, 175 380, 150 380',
+  // Start at bottom-left of wrist
+  'M 100 385',
+
+  // Left wrist & palm side (going up)
+  'C 80 368, 58 335, 50 300',
+  'C 42 265, 38 235, 38 210',
+
+  // ── THUMB ── extends left and upward
+  'C 34 195, 24 170, 20 150',
+  'C 15 128, 18 112, 28 105',
+  'C 38 98, 48 105, 50 120',
+  'C 53 140, 55 160, 58 178',
+
+  // V-web between thumb and index
+  'Q 65 198, 76 185',
+
+  // ── INDEX FINGER ── left side up
+  'C 74 155, 72 120, 74 85',
+  'C 75 60, 80 42, 90 35',
+  // Rounded tip
+  'Q 98 26, 106 35',
+  // Right side down
+  'C 112 45, 114 65, 115 90',
+  'L 115 150',
+
+  // V-web between index and middle
+  'Q 120 162, 128 150',
+
+  // ── MIDDLE FINGER ── tallest, left side up
+  'C 127 115, 126 78, 128 45',
+  'C 130 22, 136 8, 146 3',
+  // Rounded tip
+  'Q 152 -2, 158 5',
+  // Right side down
+  'C 166 14, 170 32, 172 55',
+  'L 174 110',
+  'L 174 150',
+
+  // V-web between middle and ring
+  'Q 180 164, 187 150',
+
+  // ── RING FINGER ── left side up
+  'C 186 118, 185 85, 187 55',
+  'C 189 38, 195 25, 205 20',
+  // Rounded tip
+  'Q 213 15, 220 22',
+  // Right side down
+  'C 227 32, 228 52, 228 75',
+  'L 227 120',
+  'L 226 150',
+
+  // V-web between ring and pinky
+  'Q 232 163, 238 152',
+
+  // ── PINKY FINGER ── left side up
+  'C 237 130, 236 108, 238 88',
+  'C 240 72, 245 60, 252 55',
+  // Rounded tip
+  'Q 259 50, 264 57',
+  // Right side down
+  'C 269 66, 270 80, 269 100',
+  'L 267 135',
+  'L 265 168',
+
+  // Right side of palm (going down)
+  'C 263 205, 260 245, 255 278',
+  'C 248 312, 235 345, 215 368',
+  'C 200 382, 185 388, 165 390',
+
+  // Bottom of wrist
+  'C 145 392, 125 390, 110 387',
+  'L 100 385',
   'Z',
 ].join(' ');
