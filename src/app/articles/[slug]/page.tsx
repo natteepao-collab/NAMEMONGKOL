@@ -152,18 +152,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 // External URL — use directly
                 imageUrl = rawImageUrl;
             } else {
-                // Local path — build absolute URL
+                // Local path — build absolute URL, percent-encoding non-ASCII chars
+                // (e.g. Thai filenames like ศุภจี.png → %E0%B8%A8%E0%B8%B8%E0%B8%A0%E0%B8%88%E0%B8%B5.png)
+                // encodeURI preserves slashes; Facebook/Line/Twitter crawlers handle encoded URLs correctly.
                 const cleanPath = rawImageUrl.startsWith('/') ? rawImageUrl : `/${rawImageUrl}`;
-
-                // Reject paths with non-ASCII chars (Thai filenames cause Facebook OG failures)
-                // eslint-disable-next-line no-control-regex
-                const hasNonAscii = /[^\x00-\x7F]/.test(cleanPath);
-                if (hasNonAscii) {
-                    console.warn(`[og] coverImage has non-ASCII chars, falling back to OG API: ${cleanPath}`);
-                    // keep ogApiFallback
-                } else {
-                    imageUrl = `${baseUrl}${cleanPath}`;
-                }
+                imageUrl = `${baseUrl}${encodeURI(cleanPath)}`;
             }
         } catch (e) {
             console.error('Error constructing OG image URL:', e);
@@ -343,8 +336,8 @@ export default async function ArticlePage({ params }: Props) {
                 />
             )}
 
-            <main className="w-full max-w-[1400px] px-4 py-8 relative z-10 pt-6 md:pt-32">
-                <div className="max-w-3xl">
+            <main className="w-full max-w-[1400px] px-4 pb-8 relative z-10 pt-28 md:pt-32">
+                <div className="max-w-3xl mx-auto">
                     {/* Breadcrumb Navigation */}
                     <nav className="mb-6 text-sm text-slate-400" aria-label="Breadcrumb">
                         <ol className="flex items-center gap-2 flex-wrap">
@@ -435,7 +428,7 @@ export default async function ArticlePage({ params }: Props) {
 
                     {/* Content */}
                     <article className="prose prose-invert prose-lg max-w-none text-slate-300">
-                        <p className="lead text-xl text-slate-200 font-light border-l-4 border-purple-500 pl-4 italic">
+                        <p className="lead text-xl text-slate-200 font-light border-l-4 border-amber-500 pl-4 italic">
                             {article.excerpt}
                         </p>
                         <div dangerouslySetInnerHTML={{ __html: article.content }} />

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Script from 'next/script';
 import { unstable_cache } from 'next/cache';
 import { supabase } from '@/utils/supabase';
-import { Calendar, User, ArrowLeft, Search, BookOpen } from 'lucide-react';
+import { Calendar, ArrowLeft, Search, BookOpen } from 'lucide-react';
 import { articles as localArticles } from '@/data/articles';
 import { shimmer, toBase64 } from '@/utils/imageUtils';
 import { ArticleImage } from '@/components/ArticleImage';
@@ -251,7 +251,7 @@ export default async function ArticlesPage() {
                     <div className="absolute top-[10%] right-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px]"></div>
                 </div>
 
-                <main className="w-full max-w-[1400px] px-4 py-8 relative z-10 pt-24 md:pt-32">
+                <main className="w-full max-w-[1400px] px-4 pb-8 relative z-10 pt-28 md:pt-32">
                     {/* Breadcrumb */}
                     <nav className="max-w-4xl mx-auto mb-6 text-sm text-slate-400" aria-label="Breadcrumb">
                         <ol className="flex items-center gap-2">
@@ -319,49 +319,44 @@ export default async function ArticlesPage() {
                         </div>
                     </div>
 
-                    {/* Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    {/* Grid — 1 col mobile / 2 col tablet / 4 col desktop */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-[1400px] mx-auto">
                         {articles.map((article, index) => (
                             <Link
                                 key={article.slug}
                                 href={`/articles/${article.slug}`}
                                 className="group flex flex-col bg-slate-900/40 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10"
                             >
-                                <div className="h-56 w-full bg-slate-800 relative overflow-hidden group-hover:scale-105 transition-transform duration-500">
+                                <div className="aspect-video w-full bg-slate-800 relative overflow-hidden">
                                     <ArticleImage
                                         src={article.coverImage as string}
                                         alt={`ภาพหน้าปอบทความ ${article.title} - บทความชื่อมงคล NameMongkol`}
-                                        priority={index < 6}
-                                        className="group-hover:scale-100"
+                                        priority={index < 8}
+                                        className="group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent opacity-60" />
-                                    <div className="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs text-white font-medium border border-white/10 z-10">
+                                    <div className="absolute top-3 right-3 px-2.5 py-0.5 bg-black/60 backdrop-blur-md rounded-full text-[10px] text-white font-medium border border-white/10 z-10">
                                         {article.category}
                                     </div>
                                 </div>
 
-                                <div className="p-6 flex flex-col flex-grow relative bg-[#0f172a] group-hover:bg-[#131c33] transition-colors">
-                                    <div className="flex items-center gap-4 text-xs text-slate-400 mb-4">
-                                        <div className="flex items-center gap-1.5">
-                                            <Calendar size={14} />
-                                            <span>{new Date(parseThaiDate(article.date)).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-                                        </div>
-                                        <div className="flex items-center gap-1.5">
-                                            <User size={14} />
-                                            <span>{article.author}</span>
-                                        </div>
+                                <div className="p-4 flex flex-col flex-grow relative bg-[#0f172a] group-hover:bg-[#131c33] transition-colors">
+                                    <div className="flex items-center gap-2 text-[11px] text-slate-500 mb-2.5">
+                                        <Calendar size={11} />
+                                        <span>{new Date(parseThaiDate(article.date)).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
                                     </div>
 
-                                    <h2 className="text-xl font-bold text-slate-100 mb-3 leading-tight group-hover:text-purple-400 transition-colors line-clamp-2">
+                                    <h2 className="text-sm font-bold text-slate-100 mb-2 leading-snug group-hover:text-purple-400 transition-colors line-clamp-2">
                                         {article.title}
                                     </h2>
 
-                                    <p className="text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3 text-justify">
+                                    <p className="text-slate-400 text-xs leading-relaxed mb-4 line-clamp-2">
                                         {article.excerpt}
                                     </p>
 
-                                    <div className="mt-auto pt-4 border-t border-white/5 flex justify-between items-center text-sm">
-                                        <span className="text-purple-400 font-medium group-hover:underline decoration-purple-500/30 underline-offset-4">อ่านเพิ่มเติม</span>
+                                    <div className="mt-auto pt-3 border-t border-white/5 flex justify-between items-center">
+                                        <span className="text-purple-400 text-xs font-medium group-hover:underline decoration-purple-500/30 underline-offset-4">อ่านเพิ่มเติม →</span>
+                                        <span className="text-slate-600 text-[10px]">{article.author}</span>
                                     </div>
                                 </div>
                             </Link>

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search, Crown, Sparkles, History } from 'lucide-react';
+import { Search, Crown, Sparkles, History, Home } from 'lucide-react';
 
 export const BottomNav = () => {
     const pathname = usePathname();
@@ -36,9 +36,10 @@ export const BottomNav = () => {
     }, []);
 
     const navItems = [
+        { name: 'หน้าหลัก', icon: Home, path: '/' },
         { name: 'ค้นหา', icon: Search, path: '/search' },
         { name: 'ชื่อมงคล Pro', icon: Crown, path: '/premium-search' },
-        { name: 'ซื้อ Premium', icon: Sparkles, path: '/premium-analysis' },
+        { name: 'Premium', icon: Sparkles, path: '/premium-analysis' },
         { name: 'ประวัติ', icon: History, path: '/history' },
     ];
 
@@ -52,7 +53,7 @@ export const BottomNav = () => {
             {/* Subtle gradient top edge */}
             <div className="h-[1px] bg-gradient-to-r from-transparent via-[#c9933a]/30 to-transparent" />
 
-            <div className="bg-[#0c0e13]/95 backdrop-blur-xl grid grid-cols-4 h-[52px] px-2">
+            <div className="bg-[#0c0e13]/95 backdrop-blur-xl grid grid-cols-5 h-[52px] px-2">
                 {navItems.map((item) => {
                     const isActive = pathname === item.path;
                     const Icon = item.icon;

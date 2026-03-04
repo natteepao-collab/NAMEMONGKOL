@@ -17,9 +17,14 @@ function toTitleCase(text: string) {
     .join(' ');
 }
 
+// Use raw.githubusercontent.com directly — github.com/raw/* redirects to it,
+// but Edge Runtime does NOT follow redirects, so the old URL returned HTML instead of binary.
 const fontBold = fetch(
-  new URL('https://github.com/google/fonts/raw/main/ofl/notosansthai/NotoSansThai-Bold.ttf', import.meta.url)
-).then((res) => res.arrayBuffer());
+  'https://raw.githubusercontent.com/google/fonts/main/ofl/notosansthai/NotoSansThai-Bold.ttf'
+).then((res) => {
+  if (!res.ok) throw new Error(`Font fetch failed: ${res.status}`);
+  return res.arrayBuffer();
+}).catch(() => null); // graceful fallback: render image without custom font vs. hard crash
 
 export async function GET(req: Request) {
   const fontData = await fontBold;
@@ -353,14 +358,16 @@ export async function GET(req: Request) {
     ),
     {
       ...size,
-      fonts: [
-        {
-          name: 'Noto Sans Thai',
-          data: fontData,
-          style: 'normal',
-          weight: 700,
-        },
-      ],
+      fonts: fontData
+        ? [
+            {
+              name: 'Noto Sans Thai',
+              data: fontData,
+              style: 'normal' as const,
+              weight: 700,
+            },
+          ]
+        : [],
     }
   );
 }

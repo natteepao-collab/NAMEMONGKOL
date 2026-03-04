@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_Thai } from "next/font/google";
 import { GoogleTagManager } from '@next/third-parties/google';
 import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
@@ -21,6 +21,13 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: 'swap',
+});
+
+const notoSansThai = Noto_Sans_Thai({
+  variable: "--font-noto-thai",
+  subsets: ["thai"],
+  weight: ["300", "400", "500", "600", "700"],
   display: 'swap',
 });
 
@@ -189,7 +196,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${notoSansThai.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"

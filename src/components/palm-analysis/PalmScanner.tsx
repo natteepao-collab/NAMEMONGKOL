@@ -360,9 +360,45 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
 
       <div className="relative w-full aspect-square sm:aspect-[3/4] bg-slate-950 rounded-xl overflow-hidden border border-amber-500/15 flex flex-col items-center justify-center mb-3 sm:mb-6">
         {isCameraOpen && (
-          <div className="absolute inset-0 z-0 pointer-events-none">
-            <div className="absolute inset-0 rounded-xl border-2 border-blue-500/30" />
-            <div className="absolute inset-2 rounded-lg border border-slate-300/20" />
+          <div className="absolute inset-0 z-[1] pointer-events-none">
+            {/* Palm-shaped guide overlay — dims outside, amber outline inside */}
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 300 400"
+              preserveAspectRatio="xMidYMid slice"
+            >
+              <defs>
+                <mask id="palmCutout">
+                  <rect width="300" height="400" fill="white" />
+                  <path d={PALM_GUIDE_PATH} fill="black" />
+                </mask>
+              </defs>
+              {/* Dimmed area outside the palm shape */}
+              <rect
+                width="300" height="400"
+                fill="rgba(0,0,0,0.5)"
+                mask="url(#palmCutout)"
+              />
+              {/* Main palm outline — amber glow */}
+              <path
+                d={PALM_GUIDE_PATH}
+                fill="none"
+                stroke="rgba(251,191,36,0.7)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="animate-pulse"
+              />
+              {/* Subtle dashed inner guide */}
+              <path
+                d={PALM_GUIDE_PATH}
+                fill="none"
+                stroke="rgba(255,255,255,0.25)"
+                strokeWidth="1"
+                strokeDasharray="6 5"
+                strokeLinecap="round"
+              />
+            </svg>
           </div>
         )}
 
@@ -415,7 +451,9 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
             <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
 
             <div className="absolute bottom-20 left-0 right-0 text-center z-10 pointer-events-none">
-              <span className="bg-black/60 backdrop-blur-sm text-slate-200 text-xs px-3 py-1.5 rounded-full">วางฝ่ามือให้เต็มกรอบ • ถือกล้องนิ่ง • ใช้แสงธรรมชาติ</span>
+              <span className="bg-black/60 backdrop-blur-sm text-amber-300 text-xs font-medium px-4 py-2 rounded-full border border-amber-500/30">
+                🖐️ วางฝ่ามือตรงกรอบ • หงายมือขึ้น • ใช้แสงธรรมชาติ
+              </span>
             </div>
 
             {liveQuality && (
@@ -535,3 +573,35 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
     </section>
   );
 }
+
+// ─── Palm shape guide path (SVG viewBox 300×400) ─────────────────────────────
+// Realistic palm outline: 5 fingers + palm base — used as camera overlay guide
+const PALM_GUIDE_PATH = [
+  'M 150 370',
+  'C 110 370, 80 355, 65 330',
+  'C 50 305, 52 275, 55 250',
+  'L 58 190',
+  'C 58 178, 66 170, 76 170',
+  'C 86 170, 93 178, 93 190',
+  'L 93 215',
+  'L 93 155',
+  'C 93 143, 101 135, 111 135',
+  'C 121 135, 128 143, 128 155',
+  'L 128 175',
+  'L 128 140',
+  'C 128 128, 136 120, 146 120',
+  'C 156 120, 163 128, 163 140',
+  'L 163 175',
+  'L 163 155',
+  'C 163 143, 171 135, 181 135',
+  'C 191 135, 198 143, 198 155',
+  'L 198 215',
+  'L 198 190',
+  'C 198 178, 205 170, 215 170',
+  'C 222 170, 228 175, 230 183',
+  'L 238 215',
+  'C 243 235, 244 260, 240 285',
+  'C 234 315, 215 340, 190 358',
+  'C 177 366, 163 370, 150 370',
+  'Z',
+].join(' ');

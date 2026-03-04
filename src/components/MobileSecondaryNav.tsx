@@ -28,8 +28,8 @@ export const MobileSecondaryNav = () => {
                             <Link
                                 key={item.path}
                                 href={item.path}
-                                className={`flex items-center gap-1 px-2.5 py-1 rounded-full whitespace-nowrap transition-all duration-300 border backdrop-blur-md ${isActive
-                                    ? 'bg-gradient-to-r from-violet-600 to-blue-500 text-white border-white/30 shadow-[0_0_10px_rgba(139,92,246,0.5)] scale-100'
+                                className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full whitespace-nowrap transition-all duration-300 border backdrop-blur-md ${isActive
+                                    ? 'bg-amber-500/15 text-amber-400 border-amber-500/30 shadow-[0_0_10px_rgba(201,147,58,0.3)]'
                                     : 'bg-slate-800/80 border-white/20 text-slate-200 hover:bg-slate-700 hover:text-white hover:border-white/40'
                                     }`}
                             >

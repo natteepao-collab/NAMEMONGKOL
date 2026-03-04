@@ -111,7 +111,7 @@ export const TopNav = () => {
     if (pathname === '/login' || pathname === '/register') return null;
 
     return (
-        <div className="hidden lg:flex absolute top-4 right-6 z-50 items-center gap-6">
+        <div className="hidden lg:flex fixed top-4 right-6 z-50 items-center gap-6">
             <Link
                 href="/articles"
                 className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 font-medium text-sm backdrop-blur-md border ${pathname === '/articles'

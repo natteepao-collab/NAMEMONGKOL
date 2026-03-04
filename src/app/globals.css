@@ -1,8 +1,20 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-noto-thai), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
+
+  /* Brand Colors */
+  --color-brand-amber: #c9933a;
+  --color-brand-amber-light: #d4a54e;
+  --color-brand-amber-dark: #b07e2e;
+  --color-surface-dark: #0f172a;
+  --color-surface-card: rgba(30, 41, 59, 0.7);
+  --color-surface-nav: #0c0e13;
+
+  /* Custom breakpoint */
+  --breakpoint-xs: 400px;
 }
 
 :root {
@@ -126,6 +138,15 @@ body {
 
 .animate-bounce-slow {
   animation: bounceSlow 2s infinite;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 .glass-card {
