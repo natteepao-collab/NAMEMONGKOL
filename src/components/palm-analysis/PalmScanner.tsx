@@ -358,10 +358,10 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
         </div>
       </header>
 
-      <div className="relative w-full aspect-square sm:aspect-[3/4] bg-slate-950 rounded-xl overflow-hidden border border-amber-500/15 flex flex-col items-center justify-center mb-3 sm:mb-6">
+      <div className="relative w-full aspect-[3/4] bg-slate-950 rounded-xl overflow-hidden border border-amber-500/15 flex flex-col items-center justify-center mb-3 sm:mb-6">
         {isCameraOpen && (
           <div className="absolute inset-0 z-[1] pointer-events-none">
-            {/* Palm-shaped guide overlay — dims outside, amber outline inside */}
+            {/* Palm-shaped guide overlay — light dim outside, amber outline inside */}
             <svg
               className="absolute inset-0 w-full h-full"
               viewBox="0 0 300 400"
@@ -373,30 +373,21 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
                   <path d={PALM_GUIDE_PATH} fill="black" />
                 </mask>
               </defs>
-              {/* Dimmed area outside the palm shape */}
+              {/* Light dim outside the palm shape — 25% so camera feed stays visible */}
               <rect
                 width="300" height="400"
-                fill="rgba(0,0,0,0.5)"
+                fill="rgba(0,0,0,0.25)"
                 mask="url(#palmCutout)"
               />
               {/* Main palm outline — amber glow */}
               <path
                 d={PALM_GUIDE_PATH}
                 fill="none"
-                stroke="rgba(251,191,36,0.7)"
-                strokeWidth="2"
+                stroke="rgba(251,191,36,0.6)"
+                strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 className="animate-pulse"
-              />
-              {/* Subtle dashed inner guide */}
-              <path
-                d={PALM_GUIDE_PATH}
-                fill="none"
-                stroke="rgba(255,255,255,0.25)"
-                strokeWidth="1"
-                strokeDasharray="6 5"
-                strokeLinecap="round"
               />
             </svg>
           </div>
@@ -450,40 +441,55 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
           <div className="relative w-full h-full">
             <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
 
-            <div className="absolute bottom-20 left-0 right-0 text-center z-10 pointer-events-none">
-              <span className="bg-black/60 backdrop-blur-sm text-amber-300 text-xs font-medium px-4 py-2 rounded-full border border-amber-500/30">
-                🖐️ วางฝ่ามือตรงกรอบ • หงายมือขึ้น • ใช้แสงธรรมชาติ
-              </span>
-            </div>
-
+            {/* Compact quality pill — top-right, minimal space usage */}
             {liveQuality && (
-              <div className="absolute top-3 left-3 right-3 bg-slate-950/75 backdrop-blur-sm border border-slate-700 rounded-lg p-3 text-xs text-slate-200 z-10">
-                <div className="flex items-center justify-between mb-2">
-                  <span>คุณภาพภาพก่อนถ่าย</span>
-                  <span className="font-semibold text-blue-300">{liveQuality.overall}%</span>
+              <div className="absolute top-3 right-3 z-10 pointer-events-none">
+                <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full backdrop-blur-md text-xs font-medium border ${
+                  liveQuality.overall >= 75
+                    ? 'bg-emerald-950/60 border-emerald-500/30 text-emerald-300'
+                    : liveQuality.overall >= 50
+                    ? 'bg-amber-950/60 border-amber-500/30 text-amber-300'
+                    : 'bg-rose-950/60 border-rose-500/30 text-rose-300'
+                }`}>
+                  <span className="text-[10px]">📷</span>
+                  <span>{liveQuality.overall}%</span>
+                  {liveQuality.overall >= 75 && <CheckCircle2 className="w-3 h-3" />}
                 </div>
-                <div className="grid grid-cols-3 gap-2 text-[11px]">
-                  <div>ความคม: <span className="text-slate-100">{liveQuality.sharpness}</span></div>
-                  <div>แสง: <span className="text-slate-100">{liveQuality.lighting}</span></div>
-                  <div>คอนทราสต์: <span className="text-slate-100">{liveQuality.contrast}</span></div>
-                </div>
-                <p className="mt-2 text-[11px] text-amber-200">{qualityHint(liveQuality)}</p>
               </div>
             )}
 
-            <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-4">
-              <button
-                onClick={captureImage}
-                className="w-18 h-18 bg-white rounded-full border-4 border-slate-300 flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-transform"
-                title={liveQuality ? qualityHint(liveQuality) : 'ถ่ายภาพ'}
-              >
-                <div className="w-14 h-14 bg-white rounded-full border-2 border-slate-200 flex items-center justify-center">
-                  <Camera className="w-6 h-6 text-slate-700" />
-                </div>
-              </button>
-              <button onClick={stopCamera} className="absolute right-6 bottom-2 bg-slate-800/90 text-white p-3 rounded-full backdrop-blur-sm">
-                ยกเลิก
-              </button>
+            {/* Bottom controls — capture button centered, cancel on right */}
+            <div className="absolute bottom-0 left-0 right-0 z-10">
+              {/* Instruction hint — merged into bottom bar */}
+              <div className="text-center mb-3 pointer-events-none">
+                <span className="text-amber-300/80 text-[11px] font-medium">
+                  🖐️ วางฝ่ามือตรงกรอบ • หงายมือขึ้น
+                </span>
+              </div>
+
+              <div className="flex items-center justify-center gap-6 pb-4 px-4">
+                {/* Spacer for centering */}
+                <div className="w-12" />
+
+                {/* Capture button */}
+                <button
+                  onClick={captureImage}
+                  className="w-16 h-16 bg-white rounded-full border-[3px] border-amber-400/60 flex items-center justify-center shadow-lg shadow-black/30 hover:scale-105 active:scale-90 transition-transform"
+                  title={liveQuality ? qualityHint(liveQuality) : 'ถ่ายภาพ'}
+                >
+                  <div className="w-12 h-12 bg-white rounded-full border-2 border-slate-200 flex items-center justify-center">
+                    <Camera className="w-5 h-5 text-slate-700" />
+                  </div>
+                </button>
+
+                {/* Cancel button */}
+                <button
+                  onClick={stopCamera}
+                  className="w-12 h-12 bg-slate-800/80 text-white rounded-full backdrop-blur-sm flex items-center justify-center text-xs font-medium border border-slate-600/50"
+                >
+                  ยกเลิก
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -575,33 +581,52 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
 }
 
 // ─── Palm shape guide path (SVG viewBox 300×400) ─────────────────────────────
-// Realistic palm outline: 5 fingers + palm base — used as camera overlay guide
+// Anatomically proportioned palm: long fingers (~45%) + palm body (~55%)
 const PALM_GUIDE_PATH = [
-  'M 150 370',
-  'C 110 370, 80 355, 65 330',
-  'C 50 305, 52 275, 55 250',
-  'L 58 190',
-  'C 58 178, 66 170, 76 170',
-  'C 86 170, 93 178, 93 190',
-  'L 93 215',
-  'L 93 155',
-  'C 93 143, 101 135, 111 135',
-  'C 121 135, 128 143, 128 155',
-  'L 128 175',
-  'L 128 140',
-  'C 128 128, 136 120, 146 120',
-  'C 156 120, 163 128, 163 140',
-  'L 163 175',
-  'L 163 155',
-  'C 163 143, 171 135, 181 135',
-  'C 191 135, 198 143, 198 155',
-  'L 198 215',
-  'L 198 190',
-  'C 198 178, 205 170, 215 170',
-  'C 222 170, 228 175, 230 183',
-  'L 238 215',
-  'C 243 235, 244 260, 240 285',
-  'C 234 315, 215 340, 190 358',
-  'C 177 366, 163 370, 150 370',
+  // Start at bottom center of palm
+  'M 150 380',
+  // Left side of palm base
+  'C 115 380, 78 365, 62 335',
+  'C 48 308, 50 278, 52 255',
+  // Thumb — extends far left & upward
+  'L 42 210',
+  'C 35 185, 25 160, 22 140',
+  'C 18 115, 28 100, 40 100',
+  'C 52 100, 58 112, 55 135',
+  'L 52 175',
+  'L 55 200',
+  // Pinky finger — leftmost
+  'L 68 155',
+  'C 66 130, 64 105, 63 85',
+  'C 62 65, 72 55, 82 55',
+  'C 92 55, 98 65, 97 85',
+  'L 95 115',
+  'L 95 140',
+  // Ring finger
+  'L 100 105',
+  'C 98 75, 97 50, 98 35',
+  'C 99 18, 110 10, 120 10',
+  'C 130 10, 138 18, 138 35',
+  'L 137 65',
+  'L 135 105',
+  // Middle finger — tallest
+  'L 138 80',
+  'C 137 50, 137 25, 140 8',
+  'C 143 -5, 155 -5, 158 8',
+  'L 162 30',
+  'L 163 65',
+  'L 165 105',
+  // Index finger
+  'L 168 70',
+  'C 170 45, 172 25, 175 15',
+  'C 178 5, 190 5, 195 15',
+  'C 200 28, 200 50, 198 75',
+  'L 195 115',
+  // Right side of palm
+  'L 205 155',
+  'L 215 190',
+  'C 228 215, 240 240, 245 270',
+  'C 248 298, 240 328, 220 350',
+  'C 200 370, 175 380, 150 380',
   'Z',
 ].join(' ');
