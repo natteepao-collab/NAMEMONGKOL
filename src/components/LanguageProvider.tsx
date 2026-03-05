@@ -28,14 +28,8 @@ function detectInitialLanguage(): SupportedLanguage {
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-    const [language, setLanguageState] = useState<SupportedLanguage>(DEFAULT_LANG);
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        const initial = detectInitialLanguage();
-        setLanguageState(initial);
-        setMounted(true);
-    }, []);
+    const [language, setLanguageState] = useState<SupportedLanguage>(() => detectInitialLanguage());
+    const [mounted] = useState(() => typeof window !== "undefined");
 
     useEffect(() => {
         if (!mounted) return;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { PalmAnalysisResult } from '@/types/palm-analysis';
 
@@ -32,13 +32,7 @@ function toSmoothPath(points: Array<{ x: number; y: number }>): string {
 }
 
 export default function SvgOverlay({ lines, width, height }: SvgOverlayProps) {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted || !width || !height) return null;
+  if (!width || !height) return null;
 
   // Colors for different lines
   const lineColors = ['#3b82f6', '#ec4899', '#10b981', '#f59e0b', '#8b5cf6'];

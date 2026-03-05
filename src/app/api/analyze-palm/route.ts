@@ -137,7 +137,7 @@ function normalizePredictionsByTopic(raw: unknown) {
 
 function normalizeAnalysisResult(raw: unknown) {
   if (!raw || typeof raw !== 'object') return null;
-  let input = raw as Record<string, unknown>;
+  const input = raw as Record<string, unknown>;
 
   // Unwrap ta_thong_reading wrapper if Gemini nests data under it
   if (input.ta_thong_reading && typeof input.ta_thong_reading === 'object') {
@@ -552,10 +552,11 @@ export async function POST(req: Request) {
       return NextResponse.json(cached.result);
     }
 
-    // Model fallback order — prioritize speed
-    // gemini-2.5-flash-lite = fastest with thinking disabled
-    // gemini-2.0-flash = reliable fallback
-    const models = ['gemini-2.5-flash-lite', 'gemini-2.5-flash', 'gemini-2.0-flash'];
+    // Model fallback order — prioritize reliability
+    // gemini-2.5-flash = most reliable (tested working)
+    // gemini-2.5-flash-lite = fast but often has high demand
+    // gemini-2.0-flash = fallback (often rate-limited on free tier)
+    const models = ['gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-2.0-flash'];
 
     let lastError: unknown = null;
     const failedModels = new Set<string>();
@@ -600,8 +601,6 @@ export async function POST(req: Request) {
               maxOutputTokens: 8192,
               responseMimeType: 'application/json',
             },
-            // Limit thinking on 2.5 models — budget 1024 = balanced speed + quality
-            ...(model.startsWith('gemini-2.5') ? { thinkingConfig: { thinkingBudget: 1024 } } : {}),
           }),
         });
 
@@ -616,10 +615,14 @@ export async function POST(req: Request) {
             // Mark model as rate-limited, try fallback model instead of returning immediately
             failedModels.add(model);
             console.log('[analyze-palm] Model ' + model + ' rate-limited (429), trying fallback');
-          } else if (response.status === 404) {
-            // Model not found — skip it permanently
+          } else if (response.status === 404 || response.status === 400) {
+            // Model not found or invalid request — skip it permanently
             failedModels.add(model);
-            console.log('[analyze-palm] Model ' + model + ' not found, skipping');
+            console.log('[analyze-palm] Model ' + model + ' error (' + response.status + '), skipping');
+          } else if (response.status === 503) {
+            // Model unavailable (high demand) — skip it for this request
+            failedModels.add(model);
+            console.log('[analyze-palm] Model ' + model + ' unavailable (503), trying fallback');
           }
           continue;
         }

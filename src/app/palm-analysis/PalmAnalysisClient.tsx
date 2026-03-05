@@ -26,7 +26,7 @@ function compressImage(dataUri: string, maxWidth = 1024, initialQuality = 0.72):
       const MIN_QUALITY = 0.50;
       const MIN_WIDTH = 600;
 
-      let { width: originalWidth, height: originalHeight } = img;
+      const { width: originalWidth, height: originalHeight } = img;
       let width = originalWidth;
       let height = originalHeight;
 

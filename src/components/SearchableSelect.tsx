@@ -57,13 +57,6 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // Reset search term when opening
-    useEffect(() => {
-        if (isOpen) {
-            setSearchTerm('');
-        }
-    }, [isOpen]);
-
     const handleSelect = (optionValue: string) => {
         onChange(optionValue);
         setIsOpen(false);
@@ -73,7 +66,14 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
     return (
         <div ref={wrapperRef} className={`relative ${className}`}>
             <div
-                onClick={() => !disabled && setIsOpen(!isOpen)}
+                onClick={() => {
+                    if (disabled) return;
+                    const nextOpen = !isOpen;
+                    setIsOpen(nextOpen);
+                    if (nextOpen) {
+                        setSearchTerm('');
+                    }
+                }}
                 className={`w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-sm flex items-center justify-between cursor-pointer transition-all
                     ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:border-amber-500/30'}
                     ${isOpen ? 'border-amber-500/50 ring-2 ring-amber-500/10' : ''}
