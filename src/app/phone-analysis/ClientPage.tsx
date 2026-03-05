@@ -288,8 +288,16 @@ function ClientPageContent() {
             clearTimeout(timeout);
 
             if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.error || `API error ${response.status}`);
+                const errorData = await response.json().catch(() => ({})) as { error?: string; details?: string; code?: string };
+                const retryAfter = response.headers.get('Retry-After');
+                const retrySeconds = retryAfter ? Math.max(1, Math.ceil(Number(retryAfter))) : 30;
+                const baseMessage = errorData.error || `API error ${response.status}`;
+                const message = response.status === 429
+                    ? `${baseMessage} กรุณารอ ${retrySeconds} วินาทีแล้วลองใหม่`
+                    : errorData.details
+                        ? `${baseMessage} (${errorData.details})`
+                        : baseMessage;
+                throw new Error(message);
             }
 
             const data = await response.json();

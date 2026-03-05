@@ -319,7 +319,6 @@ ${statsText}
               maxOutputTokens: 2048,
               responseMimeType: 'application/json',
             },
-            ...(model.startsWith('gemini-2.5') ? { thinkingConfig: { thinkingBudget: 512 } } : {}),
           }),
         });
 

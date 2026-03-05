@@ -119,6 +119,20 @@ body {
   }
 }
 
+/* Indeterminate progress bar: sliding segment */
+@keyframes progressIndeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+.animate-progress-indeterminate {
+  animation: progressIndeterminate 1.5s ease-in-out infinite;
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-out forwards;
 }

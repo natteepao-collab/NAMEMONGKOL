@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Upload, Camera, RefreshCw, ScanLine, CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
 import SvgOverlay from './SvgOverlay';
 import { PalmAnalysisResult } from '@/types/palm-analysis';
@@ -122,6 +122,24 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
   const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
   const [liveQuality, setLiveQuality] = useState<PhotoQuality | null>(null);
   const [capturedQuality, setCapturedQuality] = useState<PhotoQuality | null>(null);
+  const [processingStep, setProcessingStep] = useState(0);
+
+  const processingStepMessages = [
+    'กำลังประมวลผลภาพลายมือ โปรดรอสักครู่...',
+    'กำลังวิเคราะห์เส้นลายมือ...',
+    'กำลังจัดรูปแบบผลวิเคราะห์...',
+  ] as const;
+
+  useEffect(() => {
+    if (!isAnalyzing) {
+      setProcessingStep(0);
+      return;
+    }
+    const interval = setInterval(() => {
+      setProcessingStep((prev) => (prev + 1) % processingStepMessages.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [isAnalyzing, processingStepMessages.length]);
 
   const hasLowLineDetail = React.useMemo(() => {
     if (!result) return false;
@@ -549,12 +567,24 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
       )}
 
       {isAnalyzing && (
-        <div className="w-full space-y-3 mb-4" role="status" aria-live="polite">
-          <div className="bg-slate-800 rounded-full h-2 overflow-hidden">
-            <div className="bg-gradient-to-r from-purple-500 via-blue-500 to-amber-400 h-2 rounded-full animate-pulse" style={{ width: '78%' }} />
+        <div
+          className="w-full max-w-md mx-auto mb-4 rounded-2xl border border-slate-700/60 bg-slate-800/80 backdrop-blur p-4 sm:p-5 space-y-4"
+          role="status"
+          aria-live="polite"
+          aria-label="กำลังประมวลผล"
+        >
+          <div
+            className="w-full h-3 sm:h-2.5 rounded-full bg-slate-700/80 overflow-hidden"
+            aria-hidden="true"
+          >
+            <div
+              className="h-full w-[40%] min-w-[80px] rounded-full bg-gradient-to-r from-purple-500 via-blue-500 to-amber-400 animate-progress-indeterminate"
+              aria-hidden="true"
+            />
           </div>
-          <p className="text-center text-blue-300 text-sm inline-flex items-center justify-center gap-2 w-full">
-            <Sparkles className="w-4 h-4" /> กำลังประมวลผลภาพลายมือ โปรดรอสักครู่...
+          <p className="text-center text-slate-200 text-sm sm:text-base inline-flex items-center justify-center gap-2 w-full">
+            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 text-amber-400/90" aria-hidden="true" />
+            {processingStepMessages[processingStep]}
           </p>
         </div>
       )}
