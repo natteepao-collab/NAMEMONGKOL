@@ -26,6 +26,393 @@ export interface Article {
 
 export const articles: Article[] = [
     {
+        id: '33',
+        slug: 'change-name-destiny-tuning-2569',
+        title: 'เปลี่ยนชื่อเปลี่ยนชีวิต: คู่มือ "ปรับจูนชะตา" (Destiny Tuning) ฉบับสมบูรณ์ ปี 2569',
+        excerpt: 'คู่มือเปลี่ยนชื่อฉบับสมบูรณ์ ครอบคลุมกฎเหล็ก "วันต้องห้าม" ตามวันเกิด การเลือกฤกษ์บน กาลโยคปี 2569 ขั้นตอนเปลี่ยนชื่อยุคดิจิทัล และพิธีกรรมเปิดพลังชื่อใหม่ เพื่อ Destiny Tuning ปรับจูนชะตาให้ตรงจุด',
+        coverImage: '/images/articles/change-name-destiny-tuning-2569.png',
+        date: '2026-03-20',
+        author: 'อาจารย์ณัฐ (NameMongkol)',
+        category: 'ชื่อมงคล',
+        keywords: [
+            'เปลี่ยนชื่อ', 'เปลี่ยนชื่อเปลี่ยนชีวิต', 'เปลี่ยนชื่อมงคล', 'Destiny Tuning',
+            'วันกาลกิณี', 'วันต้องห้ามเปลี่ยนชื่อ', 'ฤกษ์เปลี่ยนชื่อ 2569',
+            'ฤกษ์ดีเปลี่ยนชื่อ', 'มหัทธโนฤกษ์', 'ราชาฤกษ์', 'เทวีฤกษ์',
+            'กาลโยค 2569', 'วิธีเปลี่ยนชื่อ', 'ค่าธรรมเนียมเปลี่ยนชื่อ',
+            'พิธีเปลี่ยนชื่อ', 'ปรับจูนชะตา', 'เปลี่ยนชื่อ 2569'
+        ],
+        metaTitle: 'เปลี่ยนชื่อเปลี่ยนชีวิต: คู่มือปรับจูนชะตา (Destiny Tuning) ฉบับสมบูรณ์ 2569 | NameMongkol',
+        metaDescription: 'คู่มือเปลี่ยนชื่อมงคลฉบับสมบูรณ์ 2569 เช็กวันต้องห้ามตามวันเกิด เลือกฤกษ์บน กาลโยคปี 2569 ขั้นตอนเปลี่ยนชื่อยุคดิจิทัล และพิธีเปิดพลังชื่อใหม่',
+        relatedSlugs: ['auspicious-names-by-birthday-2026', 'forbidden-letters-kalakini', '4-pillars-of-naming', 'naming-tips-2026-year-of-horse'],
+        dateModified: '2026-03-20',
+        toc: [
+            { title: 'ทำไม "ชื่อ" ถึงเปลี่ยนชีวิตได้?', id: 'intro-destiny-tuning', level: 2 },
+            { title: 'กฎเหล็กข้อที่ 1: เช็กวันต้องห้ามตามวันเกิด', id: 'forbidden-days', level: 2 },
+            { title: 'กฎเหล็กข้อที่ 2: เลือกฤกษ์บนให้ตรงเป้าหมาย', id: 'upper-auspicious-times', level: 2 },
+            { title: 'กาลโยคปี 2569: จังหวะเวลาทองของการเปลี่ยนชื่อ', id: 'kalayok-2569', level: 2 },
+            { title: 'How-to เปลี่ยนชื่อยุคดิจิทัล', id: 'digital-howto', level: 2 },
+            { title: 'พิธีกรรม "เกิดใหม่": เปิดสวิตช์พลังชื่อใหม่', id: 'rebirth-ritual', level: 2 },
+            { title: 'บทสรุป: กฎ 3 ประการสู่ความสำเร็จ', id: 'triad-success', level: 2 },
+            { title: 'FAQ: คำถามที่พบบ่อย', id: 'faq', level: 2 },
+        ],
+        faqItems: [
+            {
+                question: 'วันกาลกิณีคืออะไร ทำไมถึงห้ามเปลี่ยนชื่อในวันนั้น?',
+                answer: 'วันกาลกิณีคือวันที่มีพลังงานดาวเคราะห์ขัดแย้งกับวันเกิดของคุณโดยตรง หากไปทำพิธีมงคลในวันนี้ พลังงานที่เป็นโทษจะเข้าแทรกแซงทำลายความมงคลของชื่อใหม่ทันที ต่อให้ปฏิทินบอกว่าเป็นวันธงชัย แต่ถ้าตรงกับวันกาลกิณีของคุณ ให้ข้ามไปใช้วันอื่นทันที'
+            },
+            {
+                question: 'ฤกษ์ไหนดีที่สุดสำหรับการเปลี่ยนชื่อ?',
+                answer: 'ฤกษ์ที่ดีที่สุดขึ้นอยู่กับเป้าหมายชีวิต: มหัทธโนฤกษ์เหมาะสำหรับดึงดูดโชคลาภการเงิน ภูมิปาโลฤกษ์เน้นความมั่นคงยั่งยืน ราชาฤกษ์เสริมเกียรติยศบารมี และเทวีฤกษ์เน้นเมตตามหานิยม โดยต้องตัดวันกาลกิณีและวันคู่ศัตรูออกก่อนเสมอ'
+            },
+            {
+                question: 'ค่าธรรมเนียมเปลี่ยนชื่อที่อำเภอเท่าไหร่?',
+                answer: 'ค่าธรรมเนียมเปลี่ยนชื่อ 50 บาท และค่าทำบัตรประชาชนใบใหม่ 100 บาท รวม 150 บาท ควรทำบัตรใหม่ทันทีในวันเดียวกัน สามารถจองคิวผ่านแอป BMA Q เพื่อกำหนดเวลาให้ตรงกับฤกษ์มงคลได้'
+            },
+            {
+                question: 'เปลี่ยนชื่อแล้วต้องทำพิธีอะไรเพิ่มหรือไม่?',
+                answer: 'แนะนำให้ทำ 3 สเต็ป: (1) วันเปลี่ยนชื่อ จุดธูป 16 ดอกกลางแจ้ง พนมมือกล่าวชื่อใหม่ดังๆ (2) กรวดน้ำลงดินบอกกล่าวแม่พระธรณีและเจ้ากรรมนายเวร (3) ทำบุญต่อเนื่อง 3 วัน ได้แก่ ตักบาตร ปล่อยนกปล่อยปลา และถวายสังฆทาน'
+            },
+            {
+                question: 'ช่วงเวลาไหนของปี 2569 ที่เหมาะเปลี่ยนชื่อที่สุด?',
+                answer: 'ไตรมาสแรก (ม.ค.-15 เม.ย.) วันศุกร์เป็นวันธงชัยและวันอธิบดี เหมาะที่สุด (ยกเว้นคนเกิดวันพุธกลางคืนและวันเสาร์) หลังสงกรานต์ (16 เม.ย. เป็นต้นไป) วันจันทร์กลายเป็นวันธงชัย และวันเสาร์เป็นวันอธิบดี เมื่อยื่นเอกสาร ให้ยื่นในช่วงยามสี่สูญหรือยามสองสูญ เพื่อให้ราบรื่นที่สุด'
+            },
+            {
+                question: 'เปลี่ยนชื่อแล้วกี่วันถึงจะเห็นผล?',
+                answer: 'ในทางนามศาสตร์ พลังงานของชื่อใหม่จะเริ่มทำงานทันทีหลังเปลี่ยนอย่างเป็นทางการและทำพิธีบอกกล่าว แต่การเห็นผลเปลี่ยนแปลงชัดเจนขึ้นอยู่กับ 3 ปัจจัย: ชื่อที่ถูกต้อง (Right Name) ฤกษ์ที่เหมาะสม (Right Timing) และการกระทำที่ดี (Right Action) ผลลัพธ์จะค่อยๆ ปรากฏชัดเจนขึ้นตามการใช้ชีวิตของเจ้าตัว'
+            }
+        ],
+        content: `
+<div class="space-y-10">
+
+    <!-- บทนำ -->
+    <div id="intro-destiny-tuning">
+        <p class="text-xl text-slate-300 leading-relaxed mb-6">
+            คุณเคยสงสัยหรือไม่ว่า ทำไมบางคนเปลี่ยนชื่อแล้ว<strong class="text-amber-400">ชีวิตพลิกฟื้นราวกับเกิดใหม่</strong> ในขณะที่บางคนเปลี่ยนแล้วกลับเงียบเหงาหรือแย่ลงกว่าเดิม?
+        </p>
+        <p class="text-slate-300 leading-relaxed mb-6">
+            คำตอบคือ <strong class="text-white">"ชื่อ"</strong> ไม่ใช่เพียงป้ายระบุตัวตนบนบัตรประชาชน แต่ในทางโหราศาสตร์ไทย ชื่อคือ <strong class="text-emerald-400">"รหัสพลังงาน"</strong> ที่เชื่อมโยงกับดวงดาวและจักรวาล การเปลี่ยนชื่อจึงเปรียบเสมือนการ <strong class="text-amber-300">Destiny Tuning</strong> หรือการปรับจูนคลื่นพลังงานชีวิตให้สอดรับกับสิริมงคล เพื่อแก้ไขจุดบกพร่องและเปิดรับโอกาสใหม่ๆ
+        </p>
+
+        <div class="bg-gradient-to-r from-amber-500/10 to-transparent border-l-4 border-amber-500 p-6 rounded-r-xl mb-8">
+            <p class="text-amber-200 font-medium">📌 บทความนี้รวบรวมอะไรบ้าง?</p>
+            <ul class="text-slate-300 text-sm mt-3 space-y-1">
+                <li>✅ ตารางวันต้องห้าม (กาลกิณี) ครบทุกวันเกิด พร้อมเหตุผลเชิงโหราศาสตร์</li>
+                <li>✅ วิธีเลือก "ฤกษ์บน" ให้ตรงกับเป้าหมายชีวิต</li>
+                <li>✅ กาลโยคปี 2569 — จังหวะเวลาทองก่อนและหลังสงกรานต์</li>
+                <li>✅ ขั้นตอนเปลี่ยนชื่อยุคดิจิทัล จองคิว ค่าธรรมเนียม ครบจบ</li>
+                <li>✅ พิธีกรรม "เกิดใหม่" เปิดสวิตช์พลังงานชื่อใหม่</li>
+            </ul>
+        </div>
+
+        <p class="text-slate-300 leading-relaxed">
+            ที่ <a href="/" class="text-amber-400 font-bold hover:underline">namemongkol.com</a> เราได้รวบรวมงานวิจัยเชิงลึกและคติความเชื่อดั้งเดิม มาย่อยเป็นคู่มือฉบับสมบูรณ์ เพื่อให้การเปลี่ยนชื่อของคุณในครั้งนี้... เป็น<strong class="text-amber-400">จุดเริ่มต้นของชีวิตที่ดีที่สุด</strong>
+        </p>
+    </div>
+
+    <!-- Section 1: วันต้องห้าม -->
+    <div id="forbidden-days">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">🛑</span> กฎเหล็กข้อที่ 1: เช็ก "วันต้องห้าม" ตามวันเกิด
+        </h2>
+        <div class="bg-red-900/10 border border-red-500/20 rounded-xl p-6 mb-8">
+            <h4 class="text-red-400 font-bold mb-3">⚠️ พลาดข้อนี้ ฤกษ์ดีแค่ไหนก็พัง!</h4>
+            <p class="text-slate-300 text-sm leading-relaxed">
+                ปัจจัยที่สำคัญที่สุดก่อนดูฤกษ์ยาม คือการหลีกเลี่ยง <strong class="text-red-300">"วันกาลกิณี"</strong> (ห้ามเด็ดขาด) และ <strong class="text-orange-300">"วันคู่ศัตรู"</strong> (ควรหลีกเลี่ยง) ประจำวันเกิดของคุณ เพราะหากไปทำพิธีมงคลในวันอริ พลังงานที่เป็นโทษจะเข้าแทรกแซงทำลายความมงคลของชื่อใหม่ทันที
+            </p>
+        </div>
+
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            เช็กวันต้องห้ามของคุณจากตารางวิเคราะห์ความสัมพันธ์ของดวงดาวด้านล่างนี้:
+        </p>
+
+        <div class="overflow-x-auto rounded-xl border border-slate-700 shadow-xl bg-slate-900/60 mb-8">
+            <table class="w-full text-left text-slate-300 text-sm">
+                <thead class="bg-gradient-to-r from-red-900/50 to-slate-800 text-amber-300 uppercase text-xs font-bold">
+                    <tr>
+                        <th class="px-4 py-3">วันเกิดบุคคล</th>
+                        <th class="px-4 py-3 text-red-300">วันกาลกิณี (ห้ามเด็ดขาด)</th>
+                        <th class="px-4 py-3 text-orange-300">วันคู่ศัตรู (ควรหลีกเลี่ยง)</th>
+                        <th class="px-4 py-3 text-cyan-300">เหตุผลทางโหราศาสตร์</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-red-400">☀️ วันอาทิตย์</td><td class="px-4 py-3 text-red-300 font-bold">วันศุกร์</td><td class="px-4 py-3 text-orange-300">วันอังคาร</td><td class="px-4 py-3 text-slate-400">พลังงานความร้อนของอาทิตย์ ขัดกับธาตุน้ำของศุกร์</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-yellow-400">🌙 วันจันทร์</td><td class="px-4 py-3 text-red-300 font-bold">วันอาทิตย์</td><td class="px-4 py-3 text-orange-300">วันพฤหัสบดี</td><td class="px-4 py-3 text-slate-400">อาทิตย์แผดเผาจันทร์ให้แห้งแล้ง ทำให้ชื่อใหม่ไม่ร่มเย็น</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-pink-400">🔥 วันอังคาร</td><td class="px-4 py-3 text-red-300 font-bold">วันจันทร์</td><td class="px-4 py-3 text-orange-300">วันอาทิตย์</td><td class="px-4 py-3 text-slate-400">อังคารธาตุลมปะทะจันทร์ธาตุน้ำ ก่อให้เกิดความผันผวน</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-green-400">💚 วันพุธ (กลางวัน)</td><td class="px-4 py-3 text-red-300 font-bold">วันอังคาร</td><td class="px-4 py-3 text-orange-300">วันพุธ (กลางคืน/ราหู)</td><td class="px-4 py-3 text-slate-400">อังคารเป็นดาวคู่ศัตรูที่คอยบดบังปัญญาของดาวพุธ</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-orange-400">🪐 วันพฤหัสบดี</td><td class="px-4 py-3 text-red-300 font-bold">วันเสาร์</td><td class="px-4 py-3 text-orange-300">—</td><td class="px-4 py-3 text-slate-400">เสาร์เป็นดาวบาปพระเคราะห์ที่ทำลายตบะของพฤหัสบดี</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-blue-400">💎 วันศุกร์</td><td class="px-4 py-3 text-red-300 font-bold">วันพุธ (กลางคืน)</td><td class="px-4 py-3 text-orange-300">วันเสาร์</td><td class="px-4 py-3 text-slate-400">ราหูเป็นเงามืดที่บดบังแสงสว่างและความสุขของศุกร์</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-purple-400">⚫ วันเสาร์</td><td class="px-4 py-3 text-red-300 font-bold">วันพุธ (กลางวัน)</td><td class="px-4 py-3 text-orange-300">วันศุกร์</td><td class="px-4 py-3 text-slate-400">พุธเป็นคู่ศัตรูที่ทำให้ความมั่นคงของเสาร์สั่นคลอน</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-4 py-3 font-bold text-green-600">🌑 วันพุธ (กลางคืน)</td><td class="px-4 py-3 text-red-300 font-bold">วันพฤหัสบดี</td><td class="px-4 py-3 text-orange-300">วันพุธ (กลางวัน)</td><td class="px-4 py-3 text-slate-400">พฤหัสบดีเป็นดาวศุภเคราะห์ที่ขัดกับวิถีของราหู</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="bg-gradient-to-r from-amber-500/10 to-transparent border-l-4 border-amber-500 p-6 rounded-r-xl">
+            <p class="text-amber-200 font-medium">💡 เคล็ดลับจาก namemongkol</p>
+            <p class="text-slate-300 text-sm mt-2">ต่อให้ปฏิทินจะบอกว่าวันนี้เป็น <strong class="text-white">"วันธงชัย"</strong> แต่ถ้ามันตรงกับ <strong class="text-red-300">"วันกาลกิณี"</strong> ของคุณ ให้ข้ามไปใช้วันอื่นทันที! อ่านเพิ่มเรื่องตัวอักษรกาลกิณีได้ที่ <a href="/articles/forbidden-letters-kalakini" class="text-amber-400 hover:underline">บทความอักษรกาลกิณี</a></p>
+        </div>
+    </div>
+
+    <!-- Section 2: ฤกษ์บน -->
+    <div id="upper-auspicious-times">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">🌟</span> กฎเหล็กข้อที่ 2: เลือก "ฤกษ์บน" ให้ตรงเป้าหมายชีวิต
+        </h2>
+        <p class="text-slate-300 mb-8 leading-relaxed">
+            เมื่อตัดวันกาลกิณีทิ้งไปแล้ว ลำดับถัดมาคือการเลือก <strong class="text-white">"หมวดฤกษ์"</strong> ให้สอดคล้องกับสิ่งที่คุณอยากดึงดูดเข้ามาในชีวิตใหม่ โดยกลุ่มดาวนักษัตรถูกแบ่งเป็น 9 หมวด แต่หมวดที่ได้รับความนิยมและส่งผลดีที่สุดสำหรับการเปลี่ยนชื่อ มีดังนี้:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+            <div class="bg-gradient-to-b from-amber-900/20 to-slate-900/80 p-6 rounded-2xl border border-amber-500/20">
+                <span class="text-4xl mb-4 block">💰</span>
+                <h3 class="text-lg font-bold text-amber-400 mb-2">มหัทธโนฤกษ์ (ฤกษ์เศรษฐี)</h3>
+                <p class="text-slate-300 text-sm">เน้นดึงดูดโชคลาภ การเงิน การค้าขาย ใครอยากหยิบจับอะไรก็เป็นเงินเป็นทอง ต้องฤกษ์นี้</p>
+            </div>
+            <div class="bg-gradient-to-b from-emerald-900/20 to-slate-900/80 p-6 rounded-2xl border border-emerald-500/20">
+                <span class="text-4xl mb-4 block">🏛️</span>
+                <h3 class="text-lg font-bold text-emerald-400 mb-2">ภูมิปาโลฤกษ์ (ฤกษ์ผู้รักษาแผ่นดิน)</h3>
+                <p class="text-slate-300 text-sm">เน้นความมั่นคงยั่งยืน เลื่อนขั้นเลื่อนตำแหน่ง เหมาะสำหรับคนต้องการสร้างรากฐานชีวิตและครอบครัว</p>
+            </div>
+            <div class="bg-gradient-to-b from-red-900/20 to-slate-900/80 p-6 rounded-2xl border border-red-500/20">
+                <span class="text-4xl mb-4 block">👑</span>
+                <h3 class="text-lg font-bold text-red-400 mb-2">ราชาฤกษ์ (ฤกษ์ผู้นำ)</h3>
+                <p class="text-slate-300 text-sm">เสริมเกียรติยศ บารมี เหมาะกับเจ้าของกิจการหรือข้าราชการระดับสูง</p>
+                <p class="text-xs text-slate-500 mt-2 italic">*เป็นฤกษ์ใหญ่ ผู้ใช้ต้องประพฤติตนให้อยู่ในศีลธรรมเพื่อรองรับพลังงาน</p>
+            </div>
+            <div class="bg-gradient-to-b from-pink-900/20 to-slate-900/80 p-6 rounded-2xl border border-pink-500/20">
+                <span class="text-4xl mb-4 block">👸</span>
+                <h3 class="text-lg font-bold text-pink-400 mb-2">เทวีฤกษ์ (ฤกษ์นางพญา)</h3>
+                <p class="text-slate-300 text-sm">เน้นเมตตามหานิยม คนรักคนหลง เหมาะกับสายบันเทิง ค้าขาย หรืออินฟลูเอนเซอร์</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3: กาลโยค 2569 -->
+    <div id="kalayok-2569">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">🗓️</span> กาลโยคปี 2569: จังหวะเวลาทองของการเปลี่ยนชื่อ
+        </h2>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            ปี พ.ศ. 2569 (<strong class="text-amber-300">ปีมะเมียธาตุไฟ</strong>) เป็นปีแห่งการเคลื่อนไหวและพลังงานที่พลุ่งพล่าน การเลือกฤกษ์ในปีนี้จึงมีความพิเศษตรงที่ <strong class="text-white">"กาลโยคประจำปี"</strong> จะเปลี่ยนในช่วงหลังสงกรานต์:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+            <div class="bg-gradient-to-b from-blue-900/20 to-slate-900/80 p-6 rounded-2xl border border-blue-500/20">
+                <h3 class="text-lg font-bold text-blue-400 mb-3">📅 ไตรมาสแรก (ม.ค. — 15 เม.ย.)</h3>
+                <p class="text-slate-300 text-sm mb-3">
+                    <strong class="text-blue-300">วันศุกร์</strong> คือพระเอกของช่วงนี้ เพราะควบตำแหน่งทั้ง <strong class="text-amber-300">วันธงชัย</strong> และ <strong class="text-amber-300">วันอธิบดี</strong>
+                </p>
+                <div class="bg-red-900/20 border border-red-500/20 rounded-lg p-3">
+                    <p class="text-red-300 text-xs font-medium">⛔ ยกเว้นคนเกิดวันพุธกลางคืนและวันเสาร์ ห้ามใช้วันศุกร์!</p>
+                </div>
+            </div>
+            <div class="bg-gradient-to-b from-purple-900/20 to-slate-900/80 p-6 rounded-2xl border border-purple-500/20">
+                <h3 class="text-lg font-bold text-purple-400 mb-3">📅 หลังสงกรานต์ (16 เม.ย. เป็นต้นไป)</h3>
+                <p class="text-slate-300 text-sm mb-3">
+                    กาลโยคจะสลับไพ่ <strong class="text-purple-300">วันจันทร์</strong> จะกลายเป็นวันธงชัย และ <strong class="text-purple-300">วันเสาร์</strong> จะกลายเป็นวันอธิบดี
+                </p>
+                <div class="bg-emerald-900/20 border border-emerald-500/20 rounded-lg p-3">
+                    <p class="text-emerald-300 text-xs font-medium">✅ ช่วงนี้คนเกิดวันเสาร์มีโอกาสดีมากขึ้น!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-cyan-500/10 to-transparent border-l-4 border-cyan-500 p-6 rounded-r-xl">
+            <p class="text-cyan-200 font-medium">💡 ทริคการเลือกยาม</p>
+            <p class="text-slate-300 text-sm mt-2">เพื่อความเป๊ะระดับนาที เมื่อไปถึงเขต ให้ยื่นเอกสารในช่วง <strong class="text-white">"ยามสี่สูญ"</strong> (0000) หรือ <strong class="text-white">"ยามสองสูญ"</strong> (00) ตามตำรายามอุบากอง เพื่อให้การเปลี่ยนชื่อราบรื่น ไร้อุปสรรค และรับลาภผลเต็มที่</p>
+        </div>
+    </div>
+
+    <!-- Section 4: How-to ดิจิทัล -->
+    <div id="digital-howto">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">📱</span> How-to เปลี่ยนชื่อยุคดิจิทัล: สะดวก รวดเร็ว ทันฤกษ์
+        </h2>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            เพื่อให้คุณไม่พลาด "ยามมงคล" การไปนั่งรอคิวแบบเดิมๆ อาจทำให้ฤกษ์เคลื่อนได้ ปัจจุบันคุณสามารถจัดการได้ง่ายๆ ดังนี้:
+        </p>
+
+        <div class="space-y-5 mb-8">
+            <div class="flex gap-4 items-start bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-lg">1</div>
+                <div>
+                    <h4 class="font-bold text-white mb-1">เตรียมเอกสารให้พร้อม</h4>
+                    <ul class="text-slate-300 text-sm space-y-1">
+                        <li>• บัตรประชาชนเดิม</li>
+                        <li>• ทะเบียนบ้านฉบับจริง</li>
+                        <li>• ใบสำคัญสมรส/หย่า (ถ้ามี)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex gap-4 items-start bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-lg">2</div>
+                <div>
+                    <h4 class="font-bold text-white mb-1">จองคิวผ่านแอป BMA Q</h4>
+                    <p class="text-slate-300 text-sm">โหลดแอป เลือก "นัดล่วงหน้า" &gt; "งานทะเบียน" เลือกระบุเวลาให้ตรงกับฤกษ์มงคลที่คุณคำนวณไว้</p>
+                </div>
+            </div>
+            <div class="flex gap-4 items-start bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-lg">3</div>
+                <div>
+                    <h4 class="font-bold text-white mb-1">ค่าธรรมเนียม</h4>
+                    <div class="grid grid-cols-2 gap-3 mt-2">
+                        <div class="bg-slate-900/50 p-3 rounded-lg text-center">
+                            <p class="text-amber-400 text-2xl font-bold">50</p>
+                            <p class="text-slate-400 text-xs">บาท — ค่าเปลี่ยนชื่อ</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-3 rounded-lg text-center">
+                            <p class="text-amber-400 text-2xl font-bold">100</p>
+                            <p class="text-slate-400 text-xs">บาท — ค่าบัตรประชาชนใหม่</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-xs mt-2 italic">*ควรทำบัตรประชาชนใบใหม่ทันทีในวันนั้น</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 5: พิธีกรรมเกิดใหม่ -->
+    <div id="rebirth-ritual">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">🕊️</span> พิธีกรรม "เกิดใหม่": เปิดสวิตช์พลังชื่อใหม่ให้ทำงาน
+        </h2>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            การได้ใบเปลี่ยนชื่อ (ช.1) เป็นเพียงการเปลี่ยนทางนิติกรรม แต่ในทางนามศาสตร์ คุณต้องทำการ <strong class="text-white">"บอกกล่าวสิ่งศักดิ์สิทธิ์"</strong> เพื่อล้างพลังงานลบจากชื่อเดิม และกระตุ้นชื่อใหม่ด้วย 3 สเต็ปนี้:
+        </p>
+
+        <div class="space-y-5 mb-8">
+            <div class="bg-gradient-to-r from-amber-900/20 to-slate-900/80 p-6 rounded-2xl border border-amber-500/20">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-3xl">🙏</span>
+                    <h3 class="text-lg font-bold text-amber-400">สเต็ปที่ 1: วันเปลี่ยนชื่อ</h3>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    จุดธูป <strong class="text-white">16 ดอก</strong> กลางแจ้งที่บ้าน ถือบัตรประชาชนใบใหม่ พนมมือกล่าวชื่อ-นามสกุลใหม่ดังๆ อธิษฐานขอให้ชีวิตใหม่นี้พบเจอแต่ความรุ่งเรือง
+                </p>
+            </div>
+            <div class="bg-gradient-to-r from-emerald-900/20 to-slate-900/80 p-6 rounded-2xl border border-emerald-500/20">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-3xl">💧</span>
+                    <h3 class="text-lg font-bold text-emerald-400">สเต็ปที่ 2: กรวดน้ำบอกกล่าว</h3>
+                </div>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    เวลาทำบุญ ให้กรวดน้ำลงดินโดยตรง บอกกล่าวแม่พระธรณีและเจ้ากรรมนายเวรว่า ขออุทิศบุญกุศลให้ และขอให้เทวดาประจำตัวช่วยคุ้มครอง "ชื่อใหม่" นี้
+                </p>
+            </div>
+            <div class="bg-gradient-to-r from-purple-900/20 to-slate-900/80 p-6 rounded-2xl border border-purple-500/20">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-3xl">✨</span>
+                    <h3 class="text-lg font-bold text-purple-400">สเต็ปที่ 3: ทำบุญต่อเนื่อง 3 วัน</h3>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+                    <div class="bg-slate-800/50 p-4 rounded-xl text-center">
+                        <p class="text-amber-400 font-bold mb-1">วันที่ 1</p>
+                        <p class="text-slate-300 text-sm">ตักบาตรตอนเช้า</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-xl text-center">
+                        <p class="text-amber-400 font-bold mb-1">วันที่ 2</p>
+                        <p class="text-slate-300 text-sm">ปล่อยนก ปล่อยปลา ตามกำลังวันเกิด</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-4 rounded-xl text-center">
+                        <p class="text-amber-400 font-bold mb-1">วันที่ 3</p>
+                        <p class="text-slate-300 text-sm">ถวายสังฆทาน ขอพรพระประธาน</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 6: บทสรุป -->
+    <div id="triad-success">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">🏆</span> บทสรุป: กฎ 3 ประการสู่ความสำเร็จ (The Triad of Success)
+        </h2>
+        <p class="text-slate-300 mb-8 leading-relaxed">
+            การเปลี่ยนชื่อที่จะพลิกชีวิตคุณได้อย่างแท้จริง ต้องประกอบไปด้วย <strong class="text-white">3 เสาหลัก</strong> ดังนี้:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+            <div class="bg-gradient-to-b from-amber-900/20 to-slate-900/80 p-6 rounded-2xl border border-amber-500/20 text-center">
+                <span class="text-5xl mb-4 block">📜</span>
+                <h3 class="text-lg font-bold text-amber-400 mb-2">1. ชื่อที่ถูกต้อง</h3>
+                <p class="text-xs text-amber-300 mb-2">Right Name</p>
+                <p class="text-slate-300 text-sm">ตรงตามหลักทักษาและเลขศาสตร์ ปราศจากอักษรกาลกิณี ผลรวมเป็นมงคล</p>
+            </div>
+            <div class="bg-gradient-to-b from-blue-900/20 to-slate-900/80 p-6 rounded-2xl border border-blue-500/20 text-center">
+                <span class="text-5xl mb-4 block">⏰</span>
+                <h3 class="text-lg font-bold text-blue-400 mb-2">2. ฤกษ์ที่เหมาะสม</h3>
+                <p class="text-xs text-blue-300 mb-2">Right Timing</p>
+                <p class="text-slate-300 text-sm">ไม่ชงกับดวงชะตา เลี่ยงวันกาลกิณี เลือกฤกษ์ตรงเป้าหมาย</p>
+            </div>
+            <div class="bg-gradient-to-b from-emerald-900/20 to-slate-900/80 p-6 rounded-2xl border border-emerald-500/20 text-center">
+                <span class="text-5xl mb-4 block">🙌</span>
+                <h3 class="text-lg font-bold text-emerald-400 mb-2">3. การกระทำที่ดี</h3>
+                <p class="text-xs text-emerald-300 mb-2">Right Action</p>
+                <p class="text-slate-300 text-sm">ชื่อที่ดีที่สุด คือชื่อที่อยู่กับคนที่คิดดี ทำดี และมีความพยายาม</p>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-amber-500/10 to-purple-500/10 border border-amber-500/20 rounded-2xl p-8 text-center">
+            <p class="text-xl text-white font-bold mb-4">พร้อมปลดล็อกศักยภาพชีวิตแล้วหรือยัง?</p>
+            <p class="text-slate-300 mb-6">เริ่มต้นค้นหาชื่อมงคลและฤกษ์ที่ใช่เฉพาะตัวคุณได้เลยที่</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="/" class="inline-block bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold px-6 py-3 rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all">🔮 วิเคราะห์ชื่อมงคลฟรี</a>
+                <a href="/premium-analysis" class="inline-block bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold px-6 py-3 rounded-xl hover:from-purple-400 hover:to-purple-500 transition-all">👑 ค้นหาชื่อ Premium</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div id="faq">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">❓</span> FAQ: คำถามที่พบบ่อย
+        </h2>
+        <div class="space-y-4">
+            <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+                <h4 class="font-bold text-white mb-2">วันกาลกิณีคืออะไร ทำไมถึงห้ามเปลี่ยนชื่อในวันนั้น?</h4>
+                <p class="text-slate-300 text-sm leading-relaxed">วันกาลกิณีคือวันที่มีพลังงานดาวเคราะห์ขัดแย้งกับวันเกิดของคุณโดยตรง หากไปทำพิธีมงคลในวันนี้ พลังงานที่เป็นโทษจะเข้าแทรกแซงทำลายความมงคลของชื่อใหม่ทันที</p>
+            </div>
+            <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+                <h4 class="font-bold text-white mb-2">ฤกษ์ไหนดีที่สุดสำหรับการเปลี่ยนชื่อ?</h4>
+                <p class="text-slate-300 text-sm leading-relaxed">ขึ้นอยู่กับเป้าหมาย: มหัทธโนฤกษ์เน้นโชคลาภการเงิน ภูมิปาโลฤกษ์เน้นความมั่นคง ราชาฤกษ์เสริมบารมี เทวีฤกษ์เน้นเมตตามหานิยม โดยต้องตัดวันกาลกิณีออกก่อนเสมอ</p>
+            </div>
+            <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+                <h4 class="font-bold text-white mb-2">ค่าธรรมเนียมเปลี่ยนชื่อที่อำเภอเท่าไหร่?</h4>
+                <p class="text-slate-300 text-sm leading-relaxed">ค่าเปลี่ยนชื่อ 50 บาท และค่าทำบัตรประชาชนใบใหม่ 100 บาท รวม 150 บาท สามารถจองคิวผ่านแอป BMA Q เพื่อกำหนดเวลาให้ตรงกับฤกษ์มงคลได้</p>
+            </div>
+            <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+                <h4 class="font-bold text-white mb-2">เปลี่ยนชื่อแล้วต้องทำพิธีอะไรเพิ่มหรือไม่?</h4>
+                <p class="text-slate-300 text-sm leading-relaxed">แนะนำ 3 สเต็ป: (1) จุดธูป 16 ดอกกลางแจ้ง พนมมือกล่าวชื่อใหม่ดังๆ (2) กรวดน้ำลงดินบอกกล่าวแม่พระธรณี (3) ทำบุญต่อเนื่อง 3 วัน — ตักบาตร ปล่อยนกปล่อยปลา ถวายสังฆทาน</p>
+            </div>
+            <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+                <h4 class="font-bold text-white mb-2">ช่วงเวลาไหนของปี 2569 ที่เหมาะเปลี่ยนชื่อที่สุด?</h4>
+                <p class="text-slate-300 text-sm leading-relaxed">ไตรมาสแรก (ม.ค.-15 เม.ย.) วันศุกร์เป็นวันธงชัยและอธิบดี เหมาะที่สุด (ยกเว้นคนเกิดวันพุธกลางคืน/เสาร์) หลังสงกรานต์ (16 เม.ย.+) วันจันทร์กลายเป็นวันธงชัย วันเสาร์เป็นวันอธิบดี</p>
+            </div>
+            <div class="bg-slate-800/40 p-5 rounded-xl border border-slate-700/50">
+                <h4 class="font-bold text-white mb-2">เปลี่ยนชื่อแล้วกี่วันถึงจะเห็นผล?</h4>
+                <p class="text-slate-300 text-sm leading-relaxed">พลังงานชื่อใหม่เริ่มทำงานทันทีหลังเปลี่ยนและทำพิธีบอกกล่าว แต่ผลจะชัดเจนขึ้นตามการใช้ชีวิต ขึ้นอยู่กับ 3 ปัจจัย: ชื่อที่ถูกต้อง ฤกษ์ที่เหมาะสม และการกระทำที่ดี</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Articles CTA -->
+    <div class="mt-12">
+        <div class="bg-slate-800/40 p-6 rounded-xl border border-slate-700/50">
+            <h3 class="text-lg font-bold text-white mb-4">📚 บทความที่เกี่ยวข้อง</h3>
+            <ul class="space-y-2 text-sm">
+                <li><a href="/articles/auspicious-names-by-birthday-2026" class="text-amber-400 hover:underline">ตั้งชื่อมงคลตามวันเกิด 2569: คู่มือครบจบ ตำราทักษาปกรณ์</a></li>
+                <li><a href="/articles/forbidden-letters-kalakini" class="text-amber-400 hover:underline">อักษรกาลกิณี: ตัวอักษรต้องห้ามในชื่อตามวันเกิด</a></li>
+                <li><a href="/articles/4-pillars-of-naming" class="text-amber-400 hover:underline">4 ศาสตร์การตั้งชื่อมงคลที่คุณต้องรู้</a></li>
+                <li><a href="/articles/naming-tips-2026-year-of-horse" class="text-amber-400 hover:underline">เทคนิคตั้งชื่อมงคล 2569 ปีม้าไฟ</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+        `
+    },
+    {
     id: '31',
     slug: 'auspicious-names-by-birthday-2026',
     title: 'ตั้งชื่อมงคลตามวันเกิด 2569: คู่มือครบจบ ตำราทักษาปกรณ์ ปีม้าไฟ พร้อมชื่อแนะนำทั้ง 7 วัน',
