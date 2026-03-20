@@ -7567,6 +7567,307 @@ export const articles: Article[] = [
                 </div>
             </div>
         `
+    },
+    {
+        id: '32',
+        slug: '131-grade-a-auspicious-digital-nicknames',
+        title: 'แจกฟรี! 131 ชื่อเล่นมงคลเกรด A ยุคดิจิทัล ความหมายอินเตอร์ ผลรวมปัง คู่เลขสวย 100%',
+        excerpt: 'รวม 131 ไอเดียชื่อเล่นมงคลสไตล์ Tech & Space ผลรวมดี คู่เลข🟢สวย 100% พร้อมวันเกิดที่แนะนำ คัดมาให้แล้วจาก namemongkol นำไปใช้ได้ฟรีเลย!',
+        coverImage: '/images/articles/131-grade-a-digital-nicknames-cover.svg',
+        date: '2026-03-20',
+        author: 'ทีมงาน NameMongkol',
+        category: 'ชื่อเล่นมงคล',
+        keywords: [
+            'ชื่อเล่นมงคล', 'ชื่อเล่นเกรด A', 'ชื่อเล่นลูก', 'ชื่อเล่นเสริมดวง',
+            'ชื่อเล่นอินเตอร์', 'ชื่อเล่นยุคใหม่', 'เปลี่ยนชื่อเล่น', 'ผลรวมชื่อมงคล',
+            'คู่เลขมงคล', 'ตั้งชื่อเล่น 2569', 'ชื่อเล่นสไตล์ Tech', 'namemongkol',
+            'กาลกิณี', 'ชื่อเล่นผลรวมดี', 'ไอเดียชื่อเล่น'
+        ],
+        metaTitle: 'แจกฟรี! 131 ชื่อเล่นมงคลเกรด A ยุคดิจิทัล ผลรวมปัง คู่เลขสวย | NameMongkol',
+        metaDescription: 'กำลังหาชื่อเล่นให้ลูกหรือเปลี่ยนชื่อเล่นใหม่? แจกฟรี 131 ไอเดียชื่อเล่นมงคลยุคใหม่ สไตล์อินเตอร์ ผลรวมดี คู่เลข🟢สวย 100% คัดให้แล้วจาก namemongkol เช็กวันเกิดที่ใช้ได้เลย!',
+        relatedSlugs: ['micro-analysis-lucky-number-pairs', 'lucky-numbers-2569-guide', 'naming-style-evolution-5-generations'],
+        toc: [
+            { title: 'เมื่อความอินเตอร์ผสมกับศาสตร์ตัวเลขมงคล', id: 'intro-concept', level: 2 },
+            { title: 'ไฮไลต์ชื่อสุดล้ำ คะแนนความมงคลทะลุปรอท', id: 'highlights', level: 2 },
+            { title: 'ตาราง 131 ชื่อเล่นมงคลเกรด A', id: 'nickname-table', level: 2 },
+            { title: 'ทริกเล็กๆ จาก namemongkol', id: 'tips', level: 2 },
+            { title: 'FAQ: คำถามที่พบบ่อย', id: 'faq', level: 2 },
+        ],
+        faqItems: [
+            {
+                question: 'ชื่อเล่นมงคลต้องดูวันเกิดด้วยไหม?',
+                answer: 'ต้องดูครับ เพราะแต่ละวันเกิดจะมี "อักษรกาลกิณี" ที่ห้ามมีในชื่อ ตารางในบทความนี้ระบุวันเกิดที่แนะนำให้ใช้ไว้แล้ว เพื่อให้มั่นใจว่าชื่อเล่นที่เลือกจะไม่ติดอักษรต้องห้ามของวันเกิดคุณ'
+            },
+            {
+                question: 'นำชื่อเล่นจากตารางนี้ไปใช้เป็น Username หรือ Pen Name ได้ไหม?',
+                answer: 'ได้เลยครับ! ชื่อเล่นเหล่านี้คำนวณผลรวมและคู่เลขจากตัวอักษรไทย หากนำไปใช้เป็นนามแฝง ชื่อเรียกในที่ทำงาน หรือ Username ก็สามารถดึงดูดพลังงานบวกได้เช่นกัน เพราะเป็นชื่อที่ถูกเรียกซ้ำๆ สร้างคลื่นพลังงานให้กับเจ้าของชื่อ'
+            },
+            {
+                question: 'ผลรวมดีกับคู่เลขดี ต่างกันอย่างไร?',
+                answer: 'ผลรวมคือตัวเลขรวมทั้งหมดของชื่อ บอกภาพกว้างว่าชื่อนี้โชคดีแค่ไหน ส่วนคู่เลข (Micro-Analysis) คือตัวเลขที่อยู่ติดกันในชื่อ บอกรายละเอียดเชิงลึก เช่น เสน่ห์ การเงิน สุขภาพ ชื่อที่ดีที่สุดต้องทั้งผลรวมดีและคู่เลขเป็นสีเขียว 🟢 ทั้งหมด'
+            },
+            {
+                question: 'ถ้าชื่อเล่นซ้ำกับคนอื่นยังใช้ได้ไหม?',
+                answer: 'ใช้ได้ครับ ชื่อเล่นมงคลขึ้นอยู่กับตัวอักษรและวันเกิดของผู้ใช้ ไม่ได้ขึ้นอยู่กับจำนวนคนที่ใช้ เพราะพลังของชื่อมาจากการสั่นสะเทือนของเสียงและตัวเลขที่ซ่อนอยู่ในตัวอักษร ไม่ได้ลดลงเมื่อมีคนใช้มากขึ้น'
+            },
+            {
+                question: 'ตารางนี้คัดกรองอย่างไร ทำไมถึงได้ 131 ชื่อ?',
+                answer: 'ทีมงาน namemongkol คำนวณผลรวมเลขศาสตร์ วิเคราะห์คู่เลขทุกคู่ในชื่อ และตรวจสอบอักษรกาลกิณีของทุกวันเกิด จากนั้นคัดเฉพาะชื่อที่คู่เลขเป็นพลังบวก 🟢 ทั้งหมดและเอาชื่อที่ซ้ำกันออก จึงเหลือ 131 ชื่อเล่นเกรด A ที่ผ่านเกณฑ์ทุกด้าน'
+            },
+            {
+                question: 'อยากได้ชื่อจริงที่แมตช์กับชื่อเล่นเหล่านี้ ทำอย่างไร?',
+                answer: 'สามารถเข้าไปใช้ระบบวิเคราะห์ชื่อฟรีที่ www.namemongkol.com หรือใช้ระบบค้นหาชื่อมงคล Premium เพื่อค้นหาชื่อจริงที่สอดคล้องกับชื่อเล่นทั้งด้านเลขศาสตร์ ทักษาปกรณ์ และอายตนะ 6 ได้ครับ'
+            }
+        ],
+        dateModified: '2026-03-20',
+        content: `
+<div class="space-y-10">
+
+    <!-- บทนำ -->
+    <div id="intro-concept">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">✨</span> เลิกตั้งชื่อเล่นแบบเดิมๆ! เมื่อ "ความอินเตอร์" ผสมผสานกับ "ศาสตร์ตัวเลขมงคล"
+        </h2>
+        <p class="text-xl text-slate-300 leading-relaxed mb-6">
+            ยุคนี้แค่ชื่อเพราะหรือความหมายดีอาจยังไม่พอ! สำหรับคุณพ่อคุณแม่รุ่นใหม่ หรือใครที่อยาก <strong class="text-amber-400">"เปลี่ยนชื่อเล่น"</strong> เพื่อเสริมดวงชะตาให้ปังกว่าเดิม การเลือกชื่อที่มี <strong class="text-emerald-400">ผลรวมตัวเลขตกเลขมงคล</strong> และมี <strong class="text-emerald-400">คู่เลขพลังบวก (🟢)</strong> ซ่อนอยู่ จะช่วยดึงดูดพลังงานดีๆ ทั้งเรื่องการเรียน การงาน เสน่ห์ และโชคลาภ
+        </p>
+        <div class="bg-gradient-to-r from-purple-500/10 to-transparent border-l-4 border-purple-500 p-6 rounded-r-xl mb-8">
+            <p class="text-purple-200 font-medium mb-3">🚀 แต่วันนี้ namemongkol.com ขอฉีกกฎการตั้งชื่อมงคลแบบเชยๆ!</p>
+            <p class="text-slate-300 text-sm leading-relaxed">
+                เพราะเราได้ทำการคำนวณและคัดกรอง <strong class="text-white">131 ชื่อเล่นเกรด A</strong> ที่ฟังดูทันสมัย ล้ำยุค สไตล์ <strong class="text-cyan-300">Tech & Space</strong> (เช่น ยูอาร์แอล, โอไรออน, ซิลิคอน, สไมล์) มาให้คุณเลือกแบบจุใจ
+            </p>
+        </div>
+        <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700/50 mb-8">
+            <p class="text-slate-300 leading-relaxed">
+                ไม่ต้องเสียเวลาไปนั่งบวกเลขเอง เพราะเราคำนวณ <strong class="text-amber-300">ผลรวมชื่อ</strong>, <strong class="text-red-300">วันเกิดที่ห้ามใช้ (กาลกิณี)</strong> และ <strong class="text-emerald-300">วิเคราะห์คู่เลข</strong> ให้คุณแบบเสร็จสรรพ นำไปใช้ได้ฟรีๆ เลยครับ! 👇
+            </p>
+        </div>
+
+        <p class="text-slate-400 text-sm">
+            อ่านเพิ่มเติมเกี่ยวกับหลักการวิเคราะห์คู่เลขเชิงลึกได้ที่ <a href="/articles/micro-analysis-lucky-number-pairs" class="text-amber-400 hover:underline">บทความ Micro-Analysis คู่เลขมงคล</a>
+        </p>
+    </div>
+
+    <!-- ไฮไลต์ -->
+    <div id="highlights">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">🔮</span> ไฮไลต์ชื่อสุดล้ำ ที่คะแนนความมงคลทะลุปรอท!
+        </h2>
+        <p class="text-slate-300 mb-8 leading-relaxed">
+            ก่อนไปดูตารางเต็มๆ เราขอหยิบยกชื่อสุดยูนีคที่ผลรวมเลขดีเว่อร์ๆ มาฝากเป็นน้ำจิ้ม:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+            <div class="bg-gradient-to-b from-cyan-900/30 to-slate-900/80 p-6 rounded-2xl border border-cyan-500/20 hover:border-cyan-500/40 transition-all">
+                <span class="text-3xl mb-3 block">💻</span>
+                <h3 class="text-lg font-bold text-cyan-400 mb-1">ยูอาร์แอล</h3>
+                <p class="text-amber-300 text-sm font-bold mb-2">ผลรวม 44 | คู่เลข 🟢 ทั้งหมด 8 คู่!</p>
+                <p class="text-slate-400 text-xs leading-relaxed">ชื่อสาย Tech ที่โดดเด่นด้านการสื่อสาร เสน่ห์ดึงดูด และความสำเร็จระดับโลก เหมาะมากกับคนเกิดวันอาทิตย์ อังคาร หรือพฤหัสฯ</p>
+                <div class="mt-3 text-xs text-emerald-400">82🟢 26🟢 61🟢 14🟢 49🟢 92🟢 26🟢 66🟢</div>
+            </div>
+            <div class="bg-gradient-to-b from-indigo-900/30 to-slate-900/80 p-6 rounded-2xl border border-indigo-500/20 hover:border-indigo-500/40 transition-all">
+                <span class="text-3xl mb-3 block">🌌</span>
+                <h3 class="text-lg font-bold text-indigo-400 mb-1">โอไรออน</h3>
+                <p class="text-amber-300 text-sm font-bold mb-2">ผลรวม 40 | คู่เลข 🟢 6 คู่</p>
+                <p class="text-slate-400 text-xs leading-relaxed">เท่แบบทรงพลังด้วยชื่อกลุ่มดาว เสริมสติปัญญา จินตนาการ และทรัพย์สิน</p>
+                <div class="mt-3 text-xs text-emerald-400">46🟢 69🟢 94🟢 46🟢 66🟢 65🟢</div>
+            </div>
+            <div class="bg-gradient-to-b from-pink-900/30 to-slate-900/80 p-6 rounded-2xl border border-pink-500/20 hover:border-pink-500/40 transition-all">
+                <span class="text-3xl mb-3 block">😊</span>
+                <h3 class="text-lg font-bold text-pink-400 mb-1">สไมล์</h3>
+                <p class="text-amber-300 text-sm font-bold mb-2">ผลรวม 36 | คู่เลข 🟢 4 คู่</p>
+                <p class="text-slate-400 text-xs leading-relaxed">ชื่อน่ารักๆ ที่แฝงคู่เลข 79, 95, 56, 69 ช่วยเสริมดวงอุปถัมภ์ ใครเห็นก็เอ็นดู มีคนคอยช่วยเหลือเสมอ</p>
+                <div class="mt-3 text-xs text-emerald-400">79🟢 95🟢 56🟢 69🟢</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ตาราง 131 ชื่อ -->
+    <div id="nickname-table">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">🎁</span> [แจกฟรี] ตาราง 131 ชื่อเล่นมงคลเกรด A เช็กวันเกิดที่ใช้ได้เลย!
+        </h2>
+        <div class="bg-amber-900/10 border border-amber-500/20 rounded-xl p-5 mb-8">
+            <p class="text-amber-200 font-medium mb-1">📌 วิธีใช้ตาราง:</p>
+            <p class="text-slate-300 text-sm">ค้นหาชื่อที่ชอบ → เลื่อนดู "ผลรวม" → ตรวจสอบ "วันเกิดที่แนะนำให้ใช้" เพื่อป้องกันอักษรกาลกิณี → ดูคู่เลขพลังบวก 🟢</p>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-slate-700 shadow-xl bg-slate-900/60 mb-6">
+            <table class="w-full text-left text-slate-300 text-sm">
+                <thead class="bg-gradient-to-r from-purple-900/50 to-slate-800 text-purple-300 uppercase text-xs font-bold sticky top-0">
+                    <tr>
+                        <th class="px-3 py-3 text-center w-12">#</th>
+                        <th class="px-3 py-3">ชื่อเล่นมงคล</th>
+                        <th class="px-3 py-3 text-center w-16">ผลรวม</th>
+                        <th class="px-3 py-3">วันเกิดที่แนะนำให้ใช้</th>
+                        <th class="px-3 py-3">คู่เลข (พลังบวก 🟢)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">1</td><td class="px-3 py-2 font-bold text-white">ยูอาร์แอล</td><td class="px-3 py-2 text-center text-amber-300 font-bold">44</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">82🟢 26🟢 61🟢 14🟢 49🟢 92🟢 26🟢 66🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">2</td><td class="px-3 py-2 font-bold text-white">โอไรออน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">40</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 69🟢 94🟢 46🟢 66🟢 65🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">3</td><td class="px-3 py-2 font-bold text-white">จูปิเตอร์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">38</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">62🟢 22🟢 24🟢 42🟢 23🟢 36🟢 64🟢 49🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">4</td><td class="px-3 py-2 font-bold text-white">สไมล์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">36</td><td class="px-3 py-2 text-xs">อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">79🟢 95🟢 56🟢 69🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">5</td><td class="px-3 py-2 font-bold text-white">ซิลิคอน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">36</td><td class="px-3 py-2 text-xs">อาทิตย์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">74🟢 46🟢 64🟢 44🟢 46🟢 65🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">6</td><td class="px-3 py-2 font-bold text-white">ริเวอร์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">35</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">44🟢 42🟢 26🟢 66🟢 64🟢 49🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">7</td><td class="px-3 py-2 font-bold text-white">มาร์จิน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">34</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">51🟢 14🟢 49🟢 96🟢 64🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">8</td><td class="px-3 py-2 font-bold text-white">วอเท็กซ์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">33</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 64🟢 49🟢 96🟢 61🟢 19🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">9</td><td class="px-3 py-2 font-bold text-white">อะตอม</td><td class="px-3 py-2 text-center text-amber-300 font-bold">33</td><td class="px-3 py-2 text-xs">จันทร์, อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 69🟢 96🟢 65🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">10</td><td class="px-3 py-2 font-bold text-white">มีเทียร์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">33</td><td class="px-3 py-2 text-xs">อังคาร, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 64🟢 44🟢 45🟢 56🟢 64🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">11</td><td class="px-3 py-2 font-bold text-white">เมโลดี้</td><td class="px-3 py-2 text-center text-amber-300 font-bold">33</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 65🟢 54🟢 45🟢 54🟢 49🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">12</td><td class="px-3 py-2 font-bold text-white">เพรสเซล</td><td class="px-3 py-2 text-center text-amber-300 font-bold">33</td><td class="px-3 py-2 text-xs">อาทิตย์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">54🟢 44🟢 45🟢 54🟢 49🟢 96🟢 64🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">13</td><td class="px-3 py-2 font-bold text-white">ทัฟเฟิล</td><td class="px-3 py-2 text-center text-amber-300 font-bold">33</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 64🟢 44🟢 46🟢 65🟢 54🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">14</td><td class="px-3 py-2 font-bold text-white">คอสมิก</td><td class="px-3 py-2 text-center text-amber-300 font-bold">32</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 64🟢 46🟢 65🟢 51🟢 14🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">15</td><td class="px-3 py-2 font-bold text-white">พลาสม่า</td><td class="px-3 py-2 text-center text-amber-300 font-bold">31</td><td class="px-3 py-2 text-xs">อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 64🟢 42🟢 25🟢 56🟢 61🟢 11🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">16</td><td class="px-3 py-2 font-bold text-white">ดราโก้</td><td class="px-3 py-2 text-center text-amber-300 font-bold">31</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">14🟢 41🟢 16🟢 65🟢 54🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">17</td><td class="px-3 py-2 font-bold text-white">ออทั่ม</td><td class="px-3 py-2 text-center text-amber-300 font-bold">30</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 64🟢 45🟢 56🟢 65🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">18</td><td class="px-3 py-2 font-bold text-white">ซีโร่</td><td class="px-3 py-2 text-center text-amber-300 font-bold">30</td><td class="px-3 py-2 text-xs">อาทิตย์, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 64🟢 44🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">19</td><td class="px-3 py-2 font-bold text-white">ไนโตรเจน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">29</td><td class="px-3 py-2 text-xs">อาทิตย์, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">65🟢 56🟢 64🟢 44🟢 42🟢 26🟢 65🟢 55🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">20</td><td class="px-3 py-2 font-bold text-white">พิกเซล</td><td class="px-3 py-2 text-center text-amber-300 font-bold">29</td><td class="px-3 py-2 text-xs">พุธ(กลางวัน), เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 64🟢 42🟢 26🟢 64🟢 49🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">21</td><td class="px-3 py-2 font-bold text-white">ไวเซอร์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">29</td><td class="px-3 py-2 text-xs">อาทิตย์, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">86🟢 65🟢 54🟢 46🟢 64🟢 44🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">22</td><td class="px-3 py-2 font-bold text-white">วินเทอร์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">28</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 65🟢 56🟢 64🟢 46🟢 64🟢 44🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">23</td><td class="px-3 py-2 font-bold text-white">บล็อก</td><td class="px-3 py-2 text-center text-amber-300 font-bold">28</td><td class="px-3 py-2 text-xs">พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 66🟢 61🟢 14🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">24</td><td class="px-3 py-2 font-bold text-white">ฮีเลียม</td><td class="px-3 py-2 text-center text-amber-300 font-bold">28</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 65🟢 56🟢 65🟢 51🟢 15🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">25</td><td class="px-3 py-2 font-bold text-white">แคนยอน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">28</td><td class="px-3 py-2 text-xs">อาทิตย์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">84🟢 46🟢 65🟢 55🟢 56🟢 64🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">26</td><td class="px-3 py-2 font-bold text-white">ไซเบอร์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">28</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">86🟢 69🟢 92🟢 26🟢 65🟢 54🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">27</td><td class="px-3 py-2 font-bold text-white">ซอฟต์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">28</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 61🟢 16🟢 69🟢 95🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">28</td><td class="px-3 py-2 font-bold text-white">ฟรอนต์เอนด์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">28</td><td class="px-3 py-2 text-xs">อาทิตย์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">14🟢 44🟢 46🟢 65🟢 54🟢 49🟢 96🟢 65🟢 51🟢 14🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">29</td><td class="px-3 py-2 font-bold text-white">ลอจิก</td><td class="px-3 py-2 text-center text-amber-300 font-bold">26</td><td class="px-3 py-2 text-xs">อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">66🟢 69🟢 94🟢 41🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">30</td><td class="px-3 py-2 font-bold text-white">คีย์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">26</td><td class="px-3 py-2 text-xs">พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 64🟢 45🟢 55🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">31</td><td class="px-3 py-2 font-bold text-white">เลนส์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">26</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">66🟢 65🟢 56🟢 69🟢 95🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">32</td><td class="px-3 py-2 font-bold text-white">เมาเทน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">26</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 65🟢 51🟢 14🟢 46🟢 65🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">33</td><td class="px-3 py-2 font-bold text-white">แชมเปญ</td><td class="px-3 py-2 text-center text-amber-300 font-bold">25</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">84🟢 45🟢 52🟢 26🟢 61🟢 15🟢 56🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">34</td><td class="px-3 py-2 font-bold text-white">มาสก์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">25</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 62🟢 26🟢 64🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">35</td><td class="px-3 py-2 font-bold text-white">อัลฟ่า</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 66🟢 61🟢 14🟢 41🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">36</td><td class="px-3 py-2 font-bold text-white">ควอนตัม</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">44🟢 46🟢 65🟢 56🟢 64🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">37</td><td class="px-3 py-2 font-bold text-white">ฟิวชั่น</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อังคาร, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">16🟢 64🟢 45🟢 54🟢 46🟢 65🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">38</td><td class="px-3 py-2 font-bold text-white">เนปจูน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 65🟢 54🟢 49🟢 94🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">39</td><td class="px-3 py-2 font-bold text-white">โฟกัส</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">64🟢 41🟢 14🟢 45🟢 59🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">40</td><td class="px-3 py-2 font-bold text-white">สล็อต</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 66🟢 65🟢 54🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">41</td><td class="px-3 py-2 font-bold text-white">เลมอน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 65🟢 56🟢 65🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">42</td><td class="px-3 py-2 font-bold text-white">คอร์ด</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 64🟢 49🟢 91🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">43</td><td class="px-3 py-2 font-bold text-white">เอดจ์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 61🟢 16🟢 69🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">44</td><td class="px-3 py-2 font-bold text-white">ไนท์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">85🟢 54🟢 45🟢 59🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">45</td><td class="px-3 py-2 font-bold text-white">คลาวด์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 66🟢 66🟢 64🟢 49🟢 94🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">46</td><td class="px-3 py-2 font-bold text-white">พาร์ค</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 66🟢 64🟢 44🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">47</td><td class="px-3 py-2 font-bold text-white">สตอรี่</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">49🟢 96🟢 64🟢 44🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">48</td><td class="px-3 py-2 font-bold text-white">เวกเตอร์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 64🟢 44🟢 46🟢 64🟢 44🟢 44🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">49</td><td class="px-3 py-2 font-bold text-white">แพดดิ้ง</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">84🟢 45🟢 54🟢 44🟢 46🟢 65🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">50</td><td class="px-3 py-2 font-bold text-white">โนอาห์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อังคาร, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 65🟢 56🟢 65🟢 55🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">51</td><td class="px-3 py-2 font-bold text-white">เซาท์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 66🟢 66🟢 64🟢 49🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">52</td><td class="px-3 py-2 font-bold text-white">เทรนด์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 64🟢 44🟢 45🟢 54🟢 49🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">53</td><td class="px-3 py-2 font-bold text-white">สคีมา</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">44🟢 44🟢 46🟢 65🟢 56🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">54</td><td class="px-3 py-2 font-bold text-white">สเคป</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">44🟢 46🟢 64🟢 45🟢 54🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">55</td><td class="px-3 py-2 font-bold text-white">เวสต์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 64🟢 44🟢 49🟢 94🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">56</td><td class="px-3 py-2 font-bold text-white">โซลาร์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">86🟢 65🟢 56🟢 66🟢 64🟢 44🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">57</td><td class="px-3 py-2 font-bold text-white">วินเนอร์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">24</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 64🟢 45🟢 56🟢 64🟢 44🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">58</td><td class="px-3 py-2 font-bold text-white">เลวี่</td><td class="px-3 py-2 text-center text-amber-300 font-bold">23</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 66🟢 64🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">59</td><td class="px-3 py-2 font-bold text-white">ช็อต</td><td class="px-3 py-2 text-center text-amber-300 font-bold">23</td><td class="px-3 py-2 text-xs">อังคาร, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 64🟢 49🟢 95🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">60</td><td class="px-3 py-2 font-bold text-white">ดรอป</td><td class="px-3 py-2 text-center text-amber-300 font-bold">22</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">14🟢 44🟢 46🟢 64🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">61</td><td class="px-3 py-2 font-bold text-white">บอร์ด</td><td class="px-3 py-2 text-center text-amber-300 font-bold">22</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 66🟢 64🟢 49🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">62</td><td class="px-3 py-2 font-bold text-white">แอดมิน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">22</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">84🟢 45🟢 54🟢 45🟢 56🟢 65🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">63</td><td class="px-3 py-2 font-bold text-white">บอส</td><td class="px-3 py-2 text-center text-amber-300 font-bold">21</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 66🟢 69🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">64</td><td class="px-3 py-2 font-bold text-white">เกรน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">21</td><td class="px-3 py-2 text-xs">อาทิตย์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 64🟢 44🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">65</td><td class="px-3 py-2 font-bold text-white">เซฟ</td><td class="px-3 py-2 text-center text-amber-300 font-bold">20</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 65🟢 51🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">66</td><td class="px-3 py-2 font-bold text-white">เบลซ</td><td class="px-3 py-2 text-center text-amber-300 font-bold">20</td><td class="px-3 py-2 text-xs">อังคาร, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 65🟢 56🟢 69🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">67</td><td class="px-3 py-2 font-bold text-white">ไพก์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">20</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">85🟢 51🟢 14🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">68</td><td class="px-3 py-2 font-bold text-white">เพน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">19</td><td class="px-3 py-2 text-xs">พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 65🟢 55🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">69</td><td class="px-3 py-2 font-bold text-white">ครอป</td><td class="px-3 py-2 text-center text-amber-300 font-bold">19</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">44🟢 44🟢 46🟢 64🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">70</td><td class="px-3 py-2 font-bold text-white">โอ๊ค</td><td class="px-3 py-2 text-center text-amber-300 font-bold">18</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 65🟢 54🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">71</td><td class="px-3 py-2 font-bold text-white">วูล์ฟ</td><td class="px-3 py-2 text-center text-amber-300 font-bold">18</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 66🟢 64🟢 41🟢 16🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">72</td><td class="px-3 py-2 font-bold text-white">อีส</td><td class="px-3 py-2 text-center text-amber-300 font-bold">18</td><td class="px-3 py-2 text-xs">อังคาร, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 65🟢 54🟢 49🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">73</td><td class="px-3 py-2 font-bold text-white">แอร์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">18</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">86🟢 65🟢 54🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">74</td><td class="px-3 py-2 font-bold text-white">รูท</td><td class="px-3 py-2 text-center text-amber-300 font-bold">18</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 66🟢 61🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">75</td><td class="px-3 py-2 font-bold text-white">ทูล</td><td class="px-3 py-2 text-center text-amber-300 font-bold">17</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">16🟢 66🟢 66🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">76</td><td class="px-3 py-2 font-bold text-white">เคน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">16</td><td class="px-3 py-2 text-xs">พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 64🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">77</td><td class="px-3 py-2 font-bold text-white">ฮอว์ก</td><td class="px-3 py-2 text-center text-amber-300 font-bold">16</td><td class="px-3 py-2 text-xs">อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 65🟢 54🟢 44🟢 49🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">78</td><td class="px-3 py-2 font-bold text-white">แฟลช</td><td class="px-3 py-2 text-center text-amber-300 font-bold">16</td><td class="px-3 py-2 text-xs">อาทิตย์, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">86🟢 61🟢 16🟢 69🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">79</td><td class="px-3 py-2 font-bold text-white">แอล</td><td class="px-3 py-2 text-center text-amber-300 font-bold">16</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">86🟢 65🟢 56🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">80</td><td class="px-3 py-2 font-bold text-white">คลิก</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 66🟢 64🟢 44🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">81</td><td class="px-3 py-2 font-bold text-white">พอร์ต</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 65🟢 54🟢 49🟢 94🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">82</td><td class="px-3 py-2 font-bold text-white">พีค</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 64🟢 44🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">83</td><td class="px-3 py-2 font-bold text-white">คิม</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">44🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">84</td><td class="px-3 py-2 font-bold text-white">พล็อต</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 66🟢 65🟢 54🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">85</td><td class="px-3 py-2 font-bold text-white">พรีม</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">54🟢 44🟢 46🟢 65🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">86</td><td class="px-3 py-2 font-bold text-white">นอยซ์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 65🟢 52🟢 26🟢 69🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">87</td><td class="px-3 py-2 font-bold text-white">คอร์ท</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">46🟢 65🟢 54🟢 41🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">88</td><td class="px-3 py-2 font-bold text-white">เจซ</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 69🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">89</td><td class="px-3 py-2 font-bold text-white">มิน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">54🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">90</td><td class="px-3 py-2 font-bold text-white">สกาย</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">44🟢 44🟢 41🟢 12🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">91</td><td class="px-3 py-2 font-bold text-white">มิวส์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">54🟢 46🟢 69🟢 95🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">92</td><td class="px-3 py-2 font-bold text-white">ลีด</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">66🟢 64🟢 41🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">93</td><td class="px-3 py-2 font-bold text-white">ทอย</td><td class="px-3 py-2 text-center text-amber-300 font-bold">15</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">16🟢 65🟢 52🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">94</td><td class="px-3 py-2 font-bold text-white">โหมด</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">45🟢 55🟢 51🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">95</td><td class="px-3 py-2 font-bold text-white">บิว</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">54🟢 46🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">96</td><td class="px-3 py-2 font-bold text-white">พรอมต์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">54🟢 45🟢 56🟢 65🟢 54🟢 49🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">97</td><td class="px-3 py-2 font-bold text-white">เพจ</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 65🟢 52🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">98</td><td class="px-3 py-2 font-bold text-white">แมทซ์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">85🟢 54🟢 41🟢 16🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">99</td><td class="px-3 py-2 font-bold text-white">โคล</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">44🟢 46🟢 66🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">100</td><td class="px-3 py-2 font-bold text-white">ชิป</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">24🟢 41🟢 14🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">101</td><td class="px-3 py-2 font-bold text-white">แดน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">81🟢 14🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">102</td><td class="px-3 py-2 font-bold text-white">ซูม</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢 65🟢 55🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">103</td><td class="px-3 py-2 font-bold text-white">ไท</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">84🟢 41🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">104</td><td class="px-3 py-2 font-bold text-white">เทมโป</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">44🟢 45🟢 55🟢 54🟢 44🟢 44🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">105</td><td class="px-3 py-2 font-bold text-white">แท็ก</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">84🟢 41🟢 14🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">106</td><td class="px-3 py-2 font-bold text-white">ทีม</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">84🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">107</td><td class="px-3 py-2 font-bold text-white">วู้ด</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">66🟢 61🟢 14🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">108</td><td class="px-3 py-2 font-bold text-white">ลุค</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">64🟢 44🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">109</td><td class="px-3 py-2 font-bold text-white">มูน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 66🟢 65🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">110</td><td class="px-3 py-2 font-bold text-white">เคส</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">24🟢 49🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">111</td><td class="px-3 py-2 font-bold text-white">ฟินน์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">พุธ(กลางวัน), พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">44🟢 45🟢 55🟢 55🟢 59🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">112</td><td class="px-3 py-2 font-bold text-white">พอยท์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 65🟢 52🟢 29🟢 94🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">113</td><td class="px-3 py-2 font-bold text-white">มู้ด</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">56🟢 66🟢 61🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">114</td><td class="px-3 py-2 font-bold text-white">เรท</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">24🟢 41🟢 14🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">115</td><td class="px-3 py-2 font-bold text-white">ซินธ์</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">24🟢 45🟢 54🟢 49🟢 94🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">116</td><td class="px-3 py-2 font-bold text-white">แฮช</td><td class="px-3 py-2 text-center text-amber-300 font-bold">14</td><td class="px-3 py-2 text-xs">อาทิตย์, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">86🟢 65🟢 52🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">117</td><td class="px-3 py-2 font-bold text-white">ปิ๊ก</td><td class="px-3 py-2 text-center text-amber-300 font-bold">12</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">24🟢 45🟢 51🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">118</td><td class="px-3 py-2 font-bold text-white">ขิม</td><td class="px-3 py-2 text-center text-amber-300 font-bold">11</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">24🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">119</td><td class="px-3 py-2 font-bold text-white">แรม</td><td class="px-3 py-2 text-center text-amber-300 font-bold">11</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">24🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">120</td><td class="px-3 py-2 font-bold text-white">ฮับ</td><td class="px-3 py-2 text-center text-amber-300 font-bold">11</td><td class="px-3 py-2 text-xs">อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">54🟢 42🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">121</td><td class="px-3 py-2 font-bold text-white">โปรด</td><td class="px-3 py-2 text-center text-amber-300 font-bold">11</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">42🟢 24🟢 41🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">122</td><td class="px-3 py-2 font-bold text-white">ปรม</td><td class="px-3 py-2 text-center text-amber-300 font-bold">11</td><td class="px-3 py-2 text-xs">อาทิตย์, จันทร์, อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี</td><td class="px-3 py-2 text-xs text-emerald-400">24🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">123</td><td class="px-3 py-2 font-bold text-white">ปัน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">11</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">24🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">124</td><td class="px-3 py-2 font-bold text-white">ฮารุ</td><td class="px-3 py-2 text-center text-amber-300 font-bold">11</td><td class="px-3 py-2 text-xs">อังคาร, พุธ(กลางวัน), เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">51🟢 14🟢 41🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">125</td><td class="px-3 py-2 font-bold text-white">เรน</td><td class="px-3 py-2 text-center text-amber-300 font-bold">10</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">24🟢 45🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">126</td><td class="px-3 py-2 font-bold text-white">เชล</td><td class="px-3 py-2 text-center text-amber-300 font-bold">10</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน)</td><td class="px-3 py-2 text-xs text-emerald-400">22🟢 26🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">127</td><td class="px-3 py-2 font-bold text-white">ปิง</td><td class="px-3 py-2 text-center text-amber-300 font-bold">8</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), เสาร์, พฤหัสบดี, ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">24🟢 42🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">128</td><td class="px-3 py-2 font-bold text-white">เจ</td><td class="px-3 py-2 text-center text-amber-300 font-bold">8</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">26🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">129</td><td class="px-3 py-2 font-bold text-white">ทัช</td><td class="px-3 py-2 text-center text-amber-300 font-bold">7</td><td class="px-3 py-2 text-xs">อาทิตย์, อังคาร, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">14🟢 42🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">130</td><td class="px-3 py-2 font-bold text-white">เคด</td><td class="px-3 py-2 text-center text-amber-300 font-bold">7</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">24🟢 41🟢</td></tr>
+                    <tr class="hover:bg-slate-800/50"><td class="px-3 py-2 text-center text-slate-500">131</td><td class="px-3 py-2 font-bold text-white">โก</td><td class="px-3 py-2 text-center text-amber-300 font-bold">5</td><td class="px-3 py-2 text-xs">อาทิตย์, พุธ(กลางวัน), เสาร์, พฤหัสบดี, พุธ(กลางคืน), ศุกร์</td><td class="px-3 py-2 text-xs text-emerald-400">41🟢</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700/50 text-sm text-slate-400">
+            <p>📝 <strong class="text-slate-300">หมายเหตุ:</strong> ชื่อที่ปรากฏในตารางคัดกรองเฉพาะรายชื่อที่ซ้ำกันออกแล้ว ทำให้ได้ 131 สุดยอดไอเดียชื่อเล่น ตัวเลขผลรวมยิ่งสูงยิ่งมีพลังมงคลมาก คู่เลข 🟢 หมายถึงคู่เลขที่ส่งผลเชิงบวกทั้งหมด</p>
+        </div>
+    </div>
+
+    <!-- ทริก -->
+    <div id="tips">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">🔮</span> ทริกเล็กๆ จาก namemongkol
+        </h2>
+        <div class="space-y-4 mb-8">
+            <div class="bg-purple-900/20 p-5 rounded-xl border border-purple-500/20">
+                <p class="text-slate-300 leading-relaxed">
+                    การเลือกชื่อเล่นจากตารางนี้ หากคุณนำไปใช้ในวงการทำงาน หรือตั้งเป็น <strong class="text-purple-300">นามแฝง (Pen Name/Username)</strong> ก็สามารถดึงดูดพลังงานบวกได้เช่นเดียวกัน!
+                </p>
+            </div>
+            <div class="bg-amber-900/20 p-5 rounded-xl border border-amber-500/20">
+                <p class="text-slate-300 leading-relaxed">
+                    ถูกใจชื่อไหน หรืออยากให้เราช่วยตั้ง <strong class="text-amber-300">ชื่อจริง</strong> ให้แมตช์กับชื่อเล่นเหล่านี้? เข้าไปใช้งานระบบวิเคราะห์ชื่อฟรีและเต็มรูปแบบได้ที่ <a href="/" class="text-amber-400 font-bold hover:underline">ระบบวิเคราะห์ชื่อมงคล</a> หรือ <a href="/premium-analysis" class="text-amber-400 font-bold hover:underline">ค้นหาชื่อมงคล Premium</a> ได้เลยครับ!
+                </p>
+            </div>
+        </div>
+        <p class="text-slate-400 text-sm">
+            อย่าลืมแชร์บทความนี้ไปให้เพื่อนๆ หรือคุณแม่มือใหม่ที่กำลังหาชื่อลูกด้วยนะครับ ❤️
+        </p>
+    </div>
+
+</div>
+        `
     }
 ];
 
