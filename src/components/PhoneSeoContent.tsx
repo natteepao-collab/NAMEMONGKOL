@@ -324,6 +324,115 @@ export const PhoneSeoContent = () => {
                 </div>
             </div>
 
+            {/* Methodology Section — EEAT */}
+            <div className="mb-16 md:mb-20">
+                <div className="text-center mb-10">
+                    <span className="px-3 py-1 rounded-full bg-violet-500/10 text-violet-400 text-sm font-semibold border border-violet-500/20 mb-4 inline-block">
+                        🔬 หลักการวิเคราะห์
+                    </span>
+                    <h2 className="text-3xl font-bold text-white mb-4">ระบบวิเคราะห์เบอร์คำนวณอย่างไร?</h2>
+                    <p className="phone-analysis-soft-text max-w-2xl mx-auto leading-relaxed">
+                        NameMongkol ใช้ 4 องค์ประกอบหลักในการวิเคราะห์เบอร์โทรศัพท์อย่างครบถ้วน
+                    </p>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+                    <div className="phone-analysis-surface-card p-5 rounded-2xl text-center">
+                        <div className="w-12 h-12 rounded-xl bg-amber-500/15 flex items-center justify-center text-amber-400 mx-auto mb-3">
+                            <span className="text-2xl">🔗</span>
+                        </div>
+                        <h3 className="font-bold text-white mb-2">วิเคราะห์คู่เลข</h3>
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">แยกคู่เลข 7 ตัวท้าย (XX-XYZ-ABCD) หาคู่มงคล-อัปมงคล พร้อมความหมายแต่ละคู่</p>
+                    </div>
+                    <div className="phone-analysis-surface-card p-5 rounded-2xl text-center">
+                        <div className="w-12 h-12 rounded-xl bg-emerald-500/15 flex items-center justify-center text-emerald-400 mx-auto mb-3">
+                            <span className="text-2xl">➕</span>
+                        </div>
+                        <h3 className="font-bold text-white mb-2">คำนวณผลรวม</h3>
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">รวมตัวเลขทั้งหมดเพื่อหาผลรวมมงคล เช่น 24, 32, 41, 46, 51 ที่ส่งผลดีต่อชีวิต</p>
+                    </div>
+                    <div className="phone-analysis-surface-card p-5 rounded-2xl text-center">
+                        <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center text-blue-400 mx-auto mb-3">
+                            <span className="text-2xl">📊</span>
+                        </div>
+                        <h3 className="font-bold text-white mb-2">กราฟพลังงาน 6 ด้าน</h3>
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">วิเคราะห์พลังงานครบ 6 มิติ: การเงิน, โชคลาภ, เสน่ห์, สุขภาพ, สติปัญญา, เซนส์</p>
+                    </div>
+                    <div className="phone-analysis-surface-card p-5 rounded-2xl text-center">
+                        <div className="w-12 h-12 rounded-xl bg-rose-500/15 flex items-center justify-center text-rose-400 mx-auto mb-3">
+                            <span className="text-2xl">🏅</span>
+                        </div>
+                        <h3 className="font-bold text-white mb-2">เกรดเบอร์ A-F</h3>
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">ให้เกรดรวม A-F โดยพิจารณาคู่เลข + ผลรวม + กราฟ เพื่อตัดสินใจได้ง่าย</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* Comparison Table — Cannibalization Differentiator */}
+            <div className="mb-16 md:mb-20">
+                <div className="text-center mb-10">
+                    <span className="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-sm font-semibold border border-cyan-500/20 mb-4 inline-block">
+                        ⚖️ เปรียบเทียบ
+                    </span>
+                    <h2 className="text-3xl font-bold text-white mb-4">NameMongkol vs เว็บวิเคราะห์เบอร์อื่น</h2>
+                    <p className="phone-analysis-soft-text max-w-2xl mx-auto leading-relaxed">
+                        ดูความแตกต่างที่ทำให้เราเป็นตัวเลือกอันดับ 1 ของคนหาเบอร์มงคล
+                    </p>
+                </div>
+                <div className="overflow-x-auto">
+                    <table className="w-full text-sm border-collapse">
+                        <thead>
+                            <tr className="border-b border-slate-700">
+                                <th className="text-left py-3 px-4 text-slate-400 font-semibold">ฟีเจอร์</th>
+                                <th className="text-center py-3 px-4 text-amber-400 font-bold">NameMongkol</th>
+                                <th className="text-center py-3 px-4 text-slate-400 font-semibold">เว็บทั่วไป</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-800">
+                            <tr><td className="py-3 px-4 text-slate-300">กราฟพลังงาน 6 ด้าน</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">✅</td><td className="py-3 px-4 text-center text-slate-500">❌</td></tr>
+                            <tr><td className="py-3 px-4 text-slate-300">เกรดเบอร์ A-F</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">✅</td><td className="py-3 px-4 text-center text-slate-500">❌</td></tr>
+                            <tr><td className="py-3 px-4 text-slate-300">วิเคราะห์คู่เลขพร้อมความหมาย</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">✅</td><td className="py-3 px-4 text-center text-slate-500">บางส่วน</td></tr>
+                            <tr><td className="py-3 px-4 text-slate-300">ผลรวมเบอร์มงคล</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">✅</td><td className="py-3 px-4 text-center text-emerald-400">✅</td></tr>
+                            <tr><td className="py-3 px-4 text-slate-300">AI วิเคราะห์เชิงลึก (พรีเมียม)</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">✅</td><td className="py-3 px-4 text-center text-slate-500">❌</td></tr>
+                            <tr><td className="py-3 px-4 text-slate-300">วิเคราะห์ฟรีไม่จำกัด</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">✅</td><td className="py-3 px-4 text-center text-slate-500">จำกัด/มีโฆษณา</td></tr>
+                            <tr><td className="py-3 px-4 text-slate-300">แชร์-บันทึกผลลัพธ์</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">✅</td><td className="py-3 px-4 text-center text-slate-500">❌</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {/* Auspicious Sum Section — AEO */}
+            <div className="mb-16 md:mb-20">
+                <div className="text-center mb-10">
+                    <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-semibold border border-emerald-500/20 mb-4 inline-block">
+                        🎯 ผลรวมมงคล
+                    </span>
+                    <h2 className="text-3xl font-bold text-white mb-4">ผลรวมเบอร์เท่าไหร่ถือว่ามงคล?</h2>
+                    <p className="phone-analysis-soft-text max-w-2xl mx-auto leading-relaxed">
+                        รวมผลรวมเบอร์มงคลยอดนิยมที่คนส่วนใหญ่ต้องการ และผลรวมที่ควรระวัง
+                    </p>
+                </div>
+                <div className="phone-analysis-surface-card p-6 md:p-8 rounded-2xl mb-5">
+                    <h3 className="text-lg font-bold text-emerald-400 mb-4">✨ ผลรวมมงคล (แนะนำ)</h3>
+                    <div className="flex flex-wrap gap-3">
+                        {[{n:24,l:'มหาลาภ'},{n:32,l:'มีเสน่ห์'},{n:36,l:'ผู้นำ'},{n:41,l:'อำนาจดี'},{n:45,l:'ปัญญาเลิศ'},{n:46,l:'เมตตามหานิยม'},{n:50,l:'มีวาสนา'},{n:51,l:'อำนาจเงิน'},{n:54,l:'มหาเศรษฐี'},{n:59,l:'โชคลาภ'},{n:63,l:'เมตตา'},{n:65,l:'คู่ทรัพย์'}].map(s=>
+                            <span key={s.n} className="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-semibold">
+                                {s.n} <span className="text-emerald-400/60 font-normal">— {s.l}</span>
+                            </span>
+                        )}
+                    </div>
+                </div>
+                <div className="phone-analysis-surface-card p-6 md:p-8 rounded-2xl">
+                    <h3 className="text-lg font-bold text-rose-400 mb-4">⚠️ ผลรวมที่ควรระวัง</h3>
+                    <div className="flex flex-wrap gap-3">
+                        {[{n:26,l:'ขัดแย้ง'},{n:35,l:'สูญเสีย'},{n:44,l:'วนซ้ำ'},{n:47,l:'อุปสรรค'}].map(s=>
+                            <span key={s.n} className="px-3 py-1.5 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm font-semibold">
+                                {s.n} <span className="text-rose-400/60 font-normal">— {s.l}</span>
+                            </span>
+                        )}
+                    </div>
+                </div>
+            </div>
+
             {/* Trust Indicators */}
             <div className="text-center">
                 <div className="inline-flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm phone-analysis-soft-text">

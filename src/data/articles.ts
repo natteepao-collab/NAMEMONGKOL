@@ -357,7 +357,7 @@ export const articles: Article[] = [
             <p class="text-xl text-white font-bold mb-4">พร้อมปลดล็อกศักยภาพชีวิตแล้วหรือยัง?</p>
             <p class="text-slate-300 mb-6">เริ่มต้นค้นหาชื่อมงคลและฤกษ์ที่ใช่เฉพาะตัวคุณได้เลยที่</p>
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="/" class="inline-block bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold px-6 py-3 rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all">🔮 วิเคราะห์ชื่อมงคลฟรี</a>
+                <a href="/name-analysis" class="inline-block bg-gradient-to-r from-amber-500 to-amber-600 text-slate-900 font-bold px-6 py-3 rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all">🔮 เช็คชื่อมงคลหลายชื่อพร้อมกัน</a>
                 <a href="/premium-analysis" class="inline-block bg-gradient-to-r from-purple-500 to-purple-600 text-white font-bold px-6 py-3 rounded-xl hover:from-purple-400 hover:to-purple-500 transition-all">👑 ค้นหาชื่อ Premium</a>
             </div>
         </div>
@@ -1808,8 +1808,8 @@ export const articles: Article[] = [
     <p class="text-white/90 mb-6">ให้เราช่วยวิเคราะห์ชื่อมงคลเฉพาะบุคคล ตรวจสอบว่าชื่อที่คุณเลือก
         "เหมาะกับดวงชะตาหรือไม่"</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/"
-            class="px-8 py-3 bg-white text-orange-600 font-bold rounded-xl hover:bg-slate-100 transition-colors shadow-md">วิเคราะห์ชื่อฟรี</a>
+        <a href="/name-analysis"
+            class="px-8 py-3 bg-white text-orange-600 font-bold rounded-xl hover:bg-slate-100 transition-colors shadow-md">เช็คชื่อมงคลหลายชื่อพร้อมกัน</a>
         <a href="/premium-search"
             class="px-8 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors shadow-md border border-white/20">ค้นหาชื่อมงคล
             Premium</a>
@@ -2033,7 +2033,7 @@ export const articles: Article[] = [
                             <li><strong class="text-white">เลี่ยงกาลกิณี:</strong> เพื่อสุขภาพที่ดีและนิสัยน่ารักของน้องแมว</li>
                         </ul>
                         <div class="mt-6 text-center">
-                            <a href="/" class="inline-block px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-full shadow-lg hover:shadow-amber-500/50 transition-all transform hover:-translate-y-1">
+                            <a href="/name-analysis" class="inline-block px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-full shadow-lg hover:shadow-amber-500/50 transition-all transform hover:-translate-y-1">
                                 🔢 คำนวณชื่อมงคลให้น้องแมว คลิกเลย
                             </a>
                         </div>
@@ -2362,8 +2362,8 @@ export const articles: Article[] = [
                     <h3 class="text-2xl font-bold text-white mb-2">🔍 อยากรู้ไหมว่าชื่อของคุณอยู่เกรดไหน?</h3>
                     <p class="text-white/90 mb-6">ตรวจสอบผลรวมชื่อ-นามสกุลของคุณด้วยระบบ AI ที่แม่นยำที่สุด</p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="/" class="px-8 py-3 bg-white text-orange-600 font-bold rounded-xl hover:bg-slate-100 transition-colors shadow-md">
-                            วิเคราะห์ชื่อฟรี
+                        <a href="/name-analysis" class="px-8 py-3 bg-white text-orange-600 font-bold rounded-xl hover:bg-slate-100 transition-colors shadow-md">
+                            เช็คชื่อมงคลหลายชื่อพร้อมกัน
                         </a>
                         <a href="/premium-search" class="px-8 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors shadow-md border border-white/20">
                             ค้นหาชื่อมงคล Premium
@@ -2384,8 +2384,8 @@ export const articles: Article[] = [
                         <a href="/articles/numerology-0-9-power-guide" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-sm transition-colors">
                             🔢 คู่มือพลังเลข 0-9
                         </a>
-                        <a href="/" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-sm transition-colors font-bold">
-                            🏠 วิเคราะห์ชื่อของคุณฟรี
+                        <a href="/name-analysis" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-sm transition-colors font-bold">
+                            🏠 เช็คชื่อมงคลหลายชื่อพร้อมกัน
                         </a>
                     </div>
                 </div>
@@ -2864,8 +2864,8 @@ export const articles: Article[] = [
                 <h3 class="text-2xl font-bold text-white mb-2">ยังไม่จุใจ? ค้นหาชื่อมงคลเฉพาะบุคคลแบบละเอียด</h3>
                 <p class="text-white/90 mb-6">วิเคราะห์ลึกถึง "วันเดือนปีเกิดและเวลาตกฟาก" เพื่อหาชื่อที่ Perfect ที่สุดสำหรับคุณ</p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="/" class="px-8 py-3 bg-white text-orange-600 font-bold rounded-xl hover:bg-slate-100 transition-colors shadow-md">
-                        วิเคราะห์ชื่อฟรี
+                    <a href="/name-analysis" class="px-8 py-3 bg-white text-orange-600 font-bold rounded-xl hover:bg-slate-100 transition-colors shadow-md">
+                        เช็คชื่อมงคลหลายชื่อพร้อมกัน
                     </a>
                     <a href="/premium-search" class="px-8 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition-colors shadow-md border border-white/20">
                         ค้นหาชื่อมงคล Premium
@@ -3425,9 +3425,9 @@ export const articles: Article[] = [
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                    <a href="/" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-xl shadow-lg shadow-amber-500/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-500/40 transition-all">
+                    <a href="/name-analysis" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-xl shadow-lg shadow-amber-500/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-500/40 transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
-                        วิเคราะห์ชื่อฟรี
+                        เช็คชื่อมงคลหลายชื่อพร้อมกัน
                     </a>
                     <a href="/premium-search" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl border border-slate-600 hover:-translate-y-1 transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
@@ -3440,16 +3440,16 @@ export const articles: Article[] = [
             <div class="mt-8 pt-6 border-t border-slate-800">
                 <h3 class="text-slate-400 text-sm font-bold mb-3">🔍 คำค้นหาที่เกี่ยวข้อง:</h3>
                 <div class="flex flex-wrap gap-2">
-                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">ตั้งชื่อมงคล</a>
-                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">เปลี่ยนชื่อ</a>
-                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">วิเคราะห์ชื่อ</a>
-                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">เลขศาสตร์</a>
-                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">ทักษาปกรณ์</a>
-                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">ชื่อมงคลตามวันเกิด</a>
-                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">กาลกิณี</a>
-                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">นามสกุลพระราชทาน</a>
-                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">เปลี่ยนชื่อเปลี่ยนดวง</a>
-                    <a href="/" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">ชื่อลูก</a>
+                    <a href="/name-analysis" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">ตั้งชื่อมงคล</a>
+                    <a href="/name-analysis" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">เปลี่ยนชื่อ</a>
+                    <a href="/name-analysis" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">วิเคราะห์ชื่อ</a>
+                    <a href="/name-analysis" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">เลขศาสตร์</a>
+                    <a href="/name-analysis" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">ทักษาปกรณ์</a>
+                    <a href="/name-analysis" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">ชื่อมงคลตามวันเกิด</a>
+                    <a href="/name-analysis" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">กาลกิณี</a>
+                    <a href="/name-analysis" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">นามสกุลพระราชทาน</a>
+                    <a href="/name-analysis" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">เปลี่ยนชื่อเปลี่ยนดวง</a>
+                    <a href="/name-analysis" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-amber-400 text-xs rounded-full transition-colors">ชื่อลูก</a>
                 </div>
             </div>
             
@@ -3525,8 +3525,8 @@ export const articles: Article[] = [
             <div class="bg-gradient-to-r from-amber-600/20 to-orange-600/20 p-8 rounded-2xl border border-amber-500/30 text-center my-12">
                 <h3 class="text-2xl font-bold text-white mb-4">อยากมีชื่อเกรด A+ แบบนี้ไหม?</h3>
                 <p class="text-slate-300 mb-6">เช็คชื่อของคุณฟรีๆ ได้ทันที ด้วยระบบเดียวกับที่เราใช้วิเคราะห์ดารา</p>
-                <a href="/" class="inline-block px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-full hover:scale-105 transition-transform shadow-lg shadow-orange-500/30">
-                    วิเคราะห์ชื่อของคุณฟรี
+                <a href="/name-analysis" class="inline-block px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold rounded-full hover:scale-105 transition-transform shadow-lg shadow-orange-500/30">
+                    เช็คชื่อมงคลหลายชื่อ
                 </a>
             </div>
         `
@@ -3659,7 +3659,7 @@ export const articles: Article[] = [
             </p>
 
             <p class="mb-8 text-slate-300">
-                หากคุณกำลังมองหาชื่อดีๆ ที่เหมาะกับยุคสมัยและดวงชะตา ลองใช้เครื่องมือ <a href="/name-analysis" class="text-amber-400 font-bold hover:underline">วิเคราะห์ชื่อมงคล ฟรี</a> ของเราได้เลยครับ หรือถ้าต้องการชื่อที่คัดสรรมาอย่างดีที่สุด แนะนำ <a href="/premium-search" class="text-amber-400 font-bold hover:underline">ค้นหาชื่อมงคล Premium</a>
+                หากคุณกำลังมองหาชื่อดีๆ ที่เหมาะกับยุคสมัยและดวงชะตา ลองใช้เครื่องมือ <a href="/name-analysis" class="text-amber-400 font-bold hover:underline">เช็คชื่อมงคลหลายชื่อพร้อมกัน</a> ของเราได้เลยครับ หรือถ้าต้องการชื่อที่คัดสรรมาอย่างดีที่สุด แนะนำ <a href="/premium-search" class="text-amber-400 font-bold hover:underline">ค้นหาชื่อมงคล Premium</a>
             </p>
 
             <!-- Quick Navigation -->
@@ -4366,7 +4366,7 @@ export const articles: Article[] = [
                 <div class="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
                     <a href="/name-analysis" class="group relative px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-lg rounded-full shadow-lg shadow-orange-900/30 hover:shadow-orange-700/50 hover:-translate-y-1 transition-all overflow-hidden">
                         <span class="relative z-10 flex items-center gap-2">
-                            วิเคราะห์ชื่อฟรี
+                            เช็คชื่อมงคลหลายชื่อ
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                         </span>
                     </a>
@@ -4949,8 +4949,8 @@ export const articles: Article[] = [
                         หากคุณพ่อคุณแม่ได้ชื่อที่ถูกใจจากรายการด้านบนแล้ว แต่ยังไม่แน่ใจว่าชื่อนั้นเหมาะกับลูกน้อยจริงหรือไม่? หรือชื่อจะไปขัดกับดวงวันเกิดหรือเปล่า? ให้ระบบอัจฉริยะของ NameMongkol ช่วยตรวจสอบความสมพงศ์ ทั้งทักษา เลขศาสตร์ และอายตนะ 6
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="/" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold py-4 px-10 rounded-full transition-all hover:scale-105 shadow-lg shadow-amber-900/40 text-lg group">
-                            <span>วิเคราะห์ชื่อฟรี คลิกเลย</span>
+                        <a href="/name-analysis" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold py-4 px-10 rounded-full transition-all hover:scale-105 shadow-lg shadow-amber-900/40 text-lg group">
+                            <span>เช็คชื่อมงคลหลายชื่อ คลิกเลย</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                         </a>
                     </div>
@@ -5396,8 +5396,8 @@ export const articles: Article[] = [
                         ลองใช้ระบบวิเคราะห์ชื่อของ NameMongkol ฟรี! เราจะบอกผลรวมเลขศาสตร์ ความหมาย และตรวจสอบกาลกิณีตามวันเกิดให้ครบถ้วน
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="/" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold py-4 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-amber-900/40 text-lg group">
-                            <span>วิเคราะห์ชื่อฟรี</span>
+                        <a href="/name-analysis" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold py-4 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-amber-900/40 text-lg group">
+                            <span>เช็คชื่อมงคลหลายชื่อ</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                         </a>
                         <a href="/search" class="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 px-8 rounded-full transition-all hover:scale-105">
@@ -5628,10 +5628,10 @@ export const articles: Article[] = [
                     การเลือกเบอร์มงคลด้วยตัวเองเป็นจุดเริ่มต้นที่ดี แต่ศาสตร์แห่งตัวเลขมีความซับซ้อนมากกว่าแค่การบวกลบเลข เพราะยังมีเรื่องของ "ตำแหน่งการวางเลข" ที่ต้องเหมาะสมกับอาชีพและฐานดวงเดิมของคุณด้วย
                 </p>
                 <p class="text-slate-300 mb-8 relative z-10">
-                    ที่ <strong>namemongkol.com</strong> เราได้พัฒนาระบบ <a href="/phone-analysis" class="text-amber-400 font-bold hover:underline">วิเคราะห์เบอร์โทรศัพท์</a> ที่ใช้ฐานข้อมูลเชิงลึกและอัลกอริทึมที่แม่นยำ เพื่อให้คุณตรวจสอบได้ทันทีว่าเบอร์ที่คุณใช้อยู่ หรือเบอร์ที่กำลังจะเลือกซื้อนั้น "ส่งเสริม" หรือ "ฉุดรั้ง" ชีวิตคุณกันแน่
+                    ที่ <strong>namemongkol.com</strong> เราได้พัฒนาระบบ <a href="/phone-analysis" class="text-amber-400 font-bold hover:underline">เช็คเบอร์มงคลกราฟพลังงาน 6 ด้าน</a> ที่ใช้ฐานข้อมูลเชิงลึกและอัลกอริทึมที่แม่นยำ เพื่อให้คุณตรวจสอบได้ทันทีว่าเบอร์ที่คุณใช้อยู่ หรือเบอร์ที่กำลังจะเลือกซื้อนั้น "ส่งเสริม" หรือ "ฉุดรั้ง" ชีวิตคุณกันแน่
                 </p>
                 <a href="/phone-analysis" class="relative z-10 inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold py-3 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-amber-500/20">
-                    เช็คเบอร์ของคุณฟรี
+                    เช็คเบอร์มงคล 6 ด้านฟรี
                 </a>
             </div>
         `
@@ -5718,8 +5718,8 @@ export const articles: Article[] = [
                 <p class="text-slate-300 mb-8">
                     ลองใช้ระบบ <a href="/search" class="text-amber-400 hover:text-amber-300 underline decoration-dotted">คัดสรรชื่อมงคล Pro</a> ของเรา เพื่อวิเคราะห์ว่าตัวอักษรที่คุณชอบนั้น สอดคล้องกับวันเกิดและดวงชะตาของคุณหรือไม่ เพราะชื่อที่ดีที่สุด ไม่ใช่ชื่อที่ยอดนิยมที่สุด แต่คือชื่อที่ "ส่งเสริม" คุณได้มากที่สุดนั่นเอง
                 </p>
-                <a href="/" class="inline-block bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-amber-500/20">
-                    วิเคราะห์ชื่อของคุณฟรี
+                <a href="/name-analysis" class="inline-block bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-amber-500/20">
+                    เช็คชื่อมงคลหลายชื่อ
                 </a>
             </div>
 
@@ -5907,7 +5907,7 @@ export const articles: Article[] = [
                 <h3 class="text-xl font-bold text-purple-300 mb-2">ลองเช็คพลังชื่อของคุณตอนนี้</h3>
                 <p class="mb-4 text-slate-300">ชื่อที่คุณใช้อยู่ส่งผลดีหรือร้าย? ตรวจสอบวิเคราะห์ชื่อเบื้องต้นได้ทันที พร้อมคำทำนายแม่นยำ</p>
                 <a href="/name-analysis" class="inline-block px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors font-medium">
-                    วิเคราะห์ชื่อฟรี
+                    เช็คชื่อมงคลหลายชื่อ
                 </a>
             </div>
 
@@ -6061,7 +6061,7 @@ export const articles: Article[] = [
                     <p class="text-slate-400 text-sm">อย่าปล่อยให้ความสงสัยค้างคาใจ! ตรวจสอบชื่อของคุณหรือลูกน้อยด้วยระบบวิเคราะห์ชื่อที่แม่นยำที่สุด</p>
                 </div>
                 <a href="/name-analysis" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg shadow-lg hover:-translate-y-1 transition-all whitespace-nowrap">
-                    วิเคราะห์ชื่อฟรี คลิกเลย!
+                    เช็คชื่อมงคลหลายชื่อ คลิกเลย!
                 </a>
             </div>
 
@@ -6223,7 +6223,7 @@ export const articles: Article[] = [
             <div class="my-8 text-center">
                 <p class="text-lg mb-4">ไม่แน่ใจว่าชื่อของคุณมีกาลกิณีหรือไม่?</p>
                 <a href="/name-analysis" class="inline-flex items-center gap-2 px-8 py-3 bg-red-600 hover:bg-red-500 text-white rounded-full transition-transform hover:scale-105 shadow-lg shadow-red-900/20 font-bold">
-                    ตรวจสอบชื่อฟรี
+                    เช็คชื่อมงคลและกาลกิณี
                 </a>
             </div>
 
@@ -6840,7 +6840,7 @@ export const articles: Article[] = [
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <a href="/name-analysis" class="flex items-center justify-center gap-2 px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-all font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        วิเคราะห์ชื่อฟรี
+                        คัดกรองชื่อมงคลแบบกลุ่ม
                     </a>
                     <a href="/search" class="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white rounded-lg shadow-lg shadow-purple-900/40 transition-all font-bold">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
@@ -7147,7 +7147,7 @@ export const articles: Article[] = [
                         <strong>เคล็ดลับจาก NameMongkol:</strong> หากคุณไม่แน่ใจว่าชื่อปัจจุบันของคุณส่งผลอย่างไร หรือต้องการหาชื่อใหม่ที่ไม่มีอักษรกาลกิณี และถูกโฉลกตามหลักเลขศาสตร์
                     </p>
                     <a href="/name-analysis" class="shrink-0 px-6 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg font-bold text-sm transition-all shadow-lg shadow-purple-900/40">
-                        ตรวจสอบชื่อฟรี
+                        เช็คชื่อมงคลและกาลกิณี
                     </a>
                 </div>
             </div>
@@ -7294,7 +7294,7 @@ export const articles: Article[] = [
                 <div class="flex justify-center relative z-10">
                     <a href="/phone-analysis" class="group relative px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-lg rounded-full shadow-lg shadow-orange-900/30 hover:shadow-orange-700/50 hover:-translate-y-1 transition-all overflow-hidden">
                         <span class="relative z-10 flex items-center gap-2">
-                            เริ่มวิเคราะห์เบอร์ฟรี
+                            เริ่มเช็คเบอร์มงคล 6 ด้าน
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                         </span>
                         <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
@@ -8244,7 +8244,7 @@ export const articles: Article[] = [
             </div>
             <div class="bg-amber-900/20 p-5 rounded-xl border border-amber-500/20">
                 <p class="text-slate-300 leading-relaxed">
-                    ถูกใจชื่อไหน หรืออยากให้เราช่วยตั้ง <strong class="text-amber-300">ชื่อจริง</strong> ให้แมตช์กับชื่อเล่นเหล่านี้? เข้าไปใช้งานระบบวิเคราะห์ชื่อฟรีและเต็มรูปแบบได้ที่ <a href="/" class="text-amber-400 font-bold hover:underline">ระบบวิเคราะห์ชื่อมงคล</a> หรือ <a href="/premium-analysis" class="text-amber-400 font-bold hover:underline">ค้นหาชื่อมงคล Premium</a> ได้เลยครับ!
+                    ถูกใจชื่อไหน หรืออยากให้เราช่วยตั้ง <strong class="text-amber-300">ชื่อจริง</strong> ให้แมตช์กับชื่อเล่นเหล่านี้? เข้าไปใช้งานระบบเช็คชื่อแบบเต็มรูปแบบได้ที่ <a href="/name-analysis" class="text-amber-400 font-bold hover:underline">เช็คชื่อมงคลหลายชื่อพร้อมกัน</a> หรือ <a href="/premium-analysis" class="text-amber-400 font-bold hover:underline">ค้นหาชื่อมงคล Premium</a> ได้เลยครับ!
                 </p>
             </div>
         </div>

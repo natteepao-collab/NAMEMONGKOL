@@ -357,10 +357,10 @@ export default function NameAnalysisPage() {
                             </div>
                             <div>
                                 <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 via-purple-200 to-indigo-200">
-                                    ระบบวิเคราะห์เลขศาสตร์
+                                    เช็คชื่อมงคล วิเคราะห์หลายชื่อพร้อมกัน
                                 </h1>
                                 <p className="text-indigo-300/80 font-medium text-sm flex items-center gap-2 mt-2">
-                                    <CheckCircle2 className="w-4 h-4" /> ปรับปรุงฐานข้อมูลตามตำราภาพ
+                                    <CheckCircle2 className="w-4 h-4" /> จัดเกรด A+ ตรวจคู่เลข กาลกิณี สูงสุด 1,000 ชื่อ
                                 </p>
                             </div>
                         </div>
@@ -898,6 +898,123 @@ export default function NameAnalysisPage() {
                         </div>
                     </section>
 
+                    {/* Methodology Section — EEAT + AEO */}
+                    <section className="mt-16 mb-12 max-w-4xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 to-teal-300 mb-4">
+                            หลักการคำนวณเลขศาสตร์ในชื่อ
+                        </h2>
+                        <p className="text-center text-slate-400 mb-10 max-w-2xl mx-auto text-sm">
+                            NameMongkol ใช้ตำราเลขศาสตร์ไทยโบราณ แบ่งอักษรไทย 44 ตัวเป็น 9 กลุ่มค่า (1-9)
+                            แล้วนำค่าแต่ละตัวอักษรมาวิเคราะห์ 3 มิติ เพื่อให้ได้ผลลัพธ์ที่ครบถ้วนและน่าเชื่อถือ
+                        </p>
+                        <div className="grid md:grid-cols-3 gap-6">
+                            <article className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-emerald-500/30 transition-all">
+                                <div className="text-3xl mb-3">🔢</div>
+                                <h3 className="font-semibold text-slate-200 mb-2">1. ผลรวมเลขศาสตร์</h3>
+                                <p className="text-slate-400 text-sm">
+                                    รวมค่าตัวเลขของทุกอักษรในชื่อ แล้วเทียบกับ
+                                    <strong className="text-emerald-400"> ตัวเลขมงคล 27 ค่า</strong>
+                                    {' '}(เช่น 9, 14, 15, 24, 36, 45, 99)
+                                    ชื่อที่ผลรวมตรงถือว่าเป็นมงคลตามตำรา
+                                </p>
+                            </article>
+                            <article className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-emerald-500/30 transition-all">
+                                <div className="text-3xl mb-3">🔗</div>
+                                <h3 className="font-semibold text-slate-200 mb-2">2. คู่ตัวเลข (Pair Analysis)</h3>
+                                <p className="text-slate-400 text-sm">
+                                    จับคู่ค่าอักษรที่อยู่ติดกันเป็นเลข 2 หลัก
+                                    เทียบกับ <strong className="text-emerald-400">48 คู่มงคล (🟢)</strong>,
+                                    {' '}3 คู่กลาง (🟠) และคู่เตือน (🔴)
+                                    — ชื่อเกรด A+ ต้องไม่มีคู่แดงเลย
+                                </p>
+                            </article>
+                            <article className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-emerald-500/30 transition-all">
+                                <div className="text-3xl mb-3">📅</div>
+                                <h3 className="font-semibold text-slate-200 mb-2">3. กาลกิณี (วันเกิด)</h3>
+                                <p className="text-slate-400 text-sm">
+                                    ตรวจว่าชื่อมีอักษร <strong className="text-rose-400">กาลกิณี</strong> ของวันเกิดใดบ้าง
+                                    เช่น คนเกิดวันอาทิตย์ ห้ามมี ศ ษ ส ฬ ฮ ห
+                                    — ระบบจะบอกว่าชื่อนี้ <strong className="text-emerald-400">ใช้ได้กับวันอะไร</strong>
+                                </p>
+                            </article>
+                        </div>
+                    </section>
+
+                    {/* Comparison Section — Competitor Differentiation */}
+                    <section className="mt-16 mb-12 max-w-4xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-yellow-300 mb-8">
+                            NameMongkol vs เว็บวิเคราะห์ชื่ออื่น
+                        </h2>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-sm text-left border-collapse">
+                                <thead>
+                                    <tr className="text-xs font-bold text-slate-400 uppercase border-b border-white/10">
+                                        <th className="px-4 py-3">ฟีเจอร์</th>
+                                        <th className="px-4 py-3 text-center text-amber-400">NameMongkol</th>
+                                        <th className="px-4 py-3 text-center text-slate-500">เว็บทั่วไป</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/5">
+                                    <tr className="hover:bg-white/[0.03] transition-colors">
+                                        <td className="px-4 py-3 text-slate-300">วิเคราะห์หลายชื่อพร้อมกัน (สูงสุด 1,000)</td>
+                                        <td className="px-4 py-3 text-center text-emerald-400 font-bold">✅</td>
+                                        <td className="px-4 py-3 text-center text-rose-400">❌</td>
+                                    </tr>
+                                    <tr className="hover:bg-white/[0.03] transition-colors">
+                                        <td className="px-4 py-3 text-slate-300">จัดเกรดอัตโนมัติ (A+/A/B/C)</td>
+                                        <td className="px-4 py-3 text-center text-emerald-400 font-bold">✅</td>
+                                        <td className="px-4 py-3 text-center text-rose-400">❌</td>
+                                    </tr>
+                                    <tr className="hover:bg-white/[0.03] transition-colors">
+                                        <td className="px-4 py-3 text-slate-300">วิเคราะห์คู่เลข 🟢🟠🔴</td>
+                                        <td className="px-4 py-3 text-center text-emerald-400 font-bold">✅</td>
+                                        <td className="px-4 py-3 text-center text-rose-400">❌</td>
+                                    </tr>
+                                    <tr className="hover:bg-white/[0.03] transition-colors">
+                                        <td className="px-4 py-3 text-slate-300">ตรวจกาลกิณี 7 วัน</td>
+                                        <td className="px-4 py-3 text-center text-emerald-400 font-bold">✅</td>
+                                        <td className="px-4 py-3 text-center text-slate-500">บางเว็บ</td>
+                                    </tr>
+                                    <tr className="hover:bg-white/[0.03] transition-colors">
+                                        <td className="px-4 py-3 text-slate-300">Export CSV / PDF</td>
+                                        <td className="px-4 py-3 text-center text-emerald-400 font-bold">✅</td>
+                                        <td className="px-4 py-3 text-center text-rose-400">❌</td>
+                                    </tr>
+                                    <tr className="hover:bg-white/[0.03] transition-colors">
+                                        <td className="px-4 py-3 text-slate-300">เรียงลำดับตามความมงคล</td>
+                                        <td className="px-4 py-3 text-center text-emerald-400 font-bold">✅</td>
+                                        <td className="px-4 py-3 text-center text-rose-400">❌</td>
+                                    </tr>
+                                    <tr className="hover:bg-white/[0.03] transition-colors">
+                                        <td className="px-4 py-3 text-slate-300">วิเคราะห์เชิงลึก 4 ศาสตร์ (Premium)</td>
+                                        <td className="px-4 py-3 text-center text-emerald-400 font-bold">✅</td>
+                                        <td className="px-4 py-3 text-center text-rose-400">❌</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    {/* Auspicious Numbers Section — AEO Direct Answer */}
+                    <section className="mt-16 mb-12 max-w-3xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-fuchsia-300 mb-4">
+                            ผลรวมเลขศาสตร์ชื่อเท่าไหร่ถือว่ามงคล?
+                        </h2>
+                        <p className="text-center text-slate-400 mb-8 max-w-2xl mx-auto text-sm">
+                            ตามตำราเลขศาสตร์ไทยโบราณ ผลรวมตัวเลขของชื่อที่ถือว่าเป็นมงคล มีทั้งหมด 27 ค่า ดังนี้
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-2 mb-6">
+                            {[9, 14, 15, 19, 24, 36, 40, 41, 42, 44, 45, 46, 50, 51, 54, 55, 56, 59, 60, 63, 64, 65, 90, 91, 92, 95, 99].map(num => (
+                                <span key={num} className="px-3 py-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-lg text-sm font-bold">
+                                    {num}
+                                </span>
+                            ))}
+                        </div>
+                        <p className="text-center text-slate-500 text-xs">
+                            ชื่อที่มีผลรวมตรงกับเลขมงคลด้านบน + ไม่มีคู่เลขแดง (🔴) = ได้เกรด A ขึ้นไป
+                        </p>
+                    </section>
+
                     {/* Internal Links */}
                     <section className="mt-16 mb-12 max-w-4xl mx-auto">
                         <h2 className="text-2xl font-bold text-center text-slate-300 mb-8">
@@ -942,10 +1059,10 @@ export default function NameAnalysisPage() {
                                 className="group block bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:border-indigo-500/30 hover:bg-white/[0.05] transition-all"
                             >
                                 <h3 className="font-semibold text-slate-200 mb-2 group-hover:text-indigo-400 transition-colors">
-                                    📱 วิเคราะห์เบอร์มือถือมงคล
+                                    📱 เช็คเบอร์มงคลกราฟพลังงาน 6 ด้าน
                                 </h3>
                                 <p className="text-slate-400 text-sm">
-                                    ตรวจสอบความมงคลของเบอร์มือถือตามหลักเลขศาสตร์ไทย พร้อมคำทำนาย
+                                    วิเคราะห์คู่เลข ผลรวม และเกรด A-F เพื่อเช็คว่าเบอร์นี้ส่งเสริมหรือควรเปลี่ยน
                                 </p>
                             </Link>
                         </div>

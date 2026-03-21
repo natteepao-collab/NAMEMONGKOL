@@ -9,7 +9,7 @@ export const ArticleCTA = () => {
             <p className="text-slate-300 mb-4">
                 อยากรู้ว่าชื่อของคุณดีแค่ไหน?{' '}
                 <Link href="/name-analysis" className="text-amber-400 hover:text-amber-300 font-semibold underline underline-offset-2">
-                    คลิกวิเคราะห์ฟรีที่นี่
+                    เช็คชื่อมงคลหลายชื่อพร้อมกัน
                 </Link>
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in-up">
@@ -19,7 +19,7 @@ export const ArticleCTA = () => {
                 <div className="flex items-start justify-between">
                     <div>
                         <span className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2 block">แนะนำ</span>
-                        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-amber-300 transition-colors">วิเคราะห์ชื่อฟรี</h3>
+                        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-amber-300 transition-colors">เช็คชื่อมงคลหลายชื่อ</h3>
                         <p className="text-slate-400 text-xs mb-0 line-clamp-2">
                             เช็คชื่อมงคล ตรวจสอบหลายชื่อพร้อมกัน สูงสุด 1,000 ชื่อ
                         </p>
@@ -67,9 +67,9 @@ export const ArticleCTA = () => {
                         <div className="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center mb-3 text-emerald-400">
                             <Phone className="w-4 h-4" />
                         </div>
-                        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-emerald-300 transition-colors">วิเคราะห์เบอร์มือถือ</h3>
+                        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-emerald-300 transition-colors">เช็คเบอร์มงคล 6 ด้าน</h3>
                         <p className="text-slate-400 text-xs mb-0 line-clamp-2">
-                            เช็คเบอร์มงคล ผลรวมดี ความหมายรุ่งเรือง
+                            เช็คกราฟพลังงาน 6 ด้าน เกรด A-F และคู่เลข
                         </p>
                     </div>
                     <ArrowRight className="w-5 h-5 text-slate-600 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
@@ -83,7 +83,7 @@ export const ArticleCTA = () => {
                         <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center mb-3 text-blue-400">
                             <Users className="w-4 h-4" />
                         </div>
-                        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">วิเคราะห์ชื่อกลุ่ม (Bulk)</h3>
+                        <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-300 transition-colors">คัดกรองชื่อมงคลแบบกลุ่ม</h3>
                         <p className="text-slate-400 text-xs mb-0 line-clamp-2">
                             ตรวจสอบหลายชื่อพร้อมกัน เหมาะสำหรับตั้งชื่อลูก
                         </p>

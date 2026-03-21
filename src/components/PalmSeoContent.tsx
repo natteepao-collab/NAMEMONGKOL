@@ -120,6 +120,105 @@ export const PalmSeoContent = () => {
         </div>
       </div>
 
+      <div className="mb-10 sm:mb-12">
+        <div className="text-center mb-6 sm:mb-8">
+          <span className="px-3 py-1 rounded-full bg-violet-500/10 text-violet-300 text-sm font-semibold border border-violet-500/20 inline-block mb-3">
+            🔬 หลักการวิเคราะห์
+          </span>
+          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">ระบบวิเคราะห์ลายมือคำนวณอย่างไร?</h3>
+          <p className="text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            NameMongkol วิเคราะห์ภาพลายมือด้วยขั้นตอนที่ชัดเจน 4 ส่วน เพื่อให้ผลลัพธ์อ่านง่ายและนำไปใช้วางแผนชีวิตได้จริง
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-slate-900/40 border border-violet-500/15 rounded-2xl p-5">
+            <div className="text-2xl mb-2">📷</div>
+            <h4 className="font-bold text-white mb-2">ตรวจคุณภาพภาพ</h4>
+            <p className="text-sm text-slate-300 leading-relaxed">ประเมินความคมชัด แสง และคอนทราสต์ก่อนเริ่ม เพื่อลดความคลาดเคลื่อนจากภาพมืดหรือเบลอ</p>
+          </div>
+          <div className="bg-slate-900/40 border border-violet-500/15 rounded-2xl p-5">
+            <div className="text-2xl mb-2">🖐️</div>
+            <h4 className="font-bold text-white mb-2">ตรวจจับเส้นหลัก</h4>
+            <p className="text-sm text-slate-300 leading-relaxed">ระบบแยกตำแหน่งเส้นชีวิต เส้นสมอง เส้นหัวใจ และเส้นวาสนา จากภาพฝ่ามือที่อัปโหลด</p>
+          </div>
+          <div className="bg-slate-900/40 border border-violet-500/15 rounded-2xl p-5">
+            <div className="text-2xl mb-2">🧭</div>
+            <h4 className="font-bold text-white mb-2">แปลผลเชิงแนวโน้ม</h4>
+            <p className="text-sm text-slate-300 leading-relaxed">สรุปจุดเด่น จุดที่ควรพัฒนา และมุมมองการใช้ชีวิตจากความสัมพันธ์ของเส้นหลักทั้ง 4 ด้าน</p>
+          </div>
+          <div className="bg-slate-900/40 border border-violet-500/15 rounded-2xl p-5">
+            <div className="text-2xl mb-2">✨</div>
+            <h4 className="font-bold text-white mb-2">สรุปและคำแนะนำ</h4>
+            <p className="text-sm text-slate-300 leading-relaxed">แสดงผลแบบอ่านง่ายทันที เพื่อช่วยใช้เป็นข้อมูลประกอบการวางแผนชีวิตในเชิงบวก</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-10 sm:mb-12">
+        <div className="text-center mb-6 sm:mb-8">
+          <span className="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300 text-sm font-semibold border border-cyan-500/20 inline-block mb-3">
+            ⚖️ เปรียบเทียบ
+          </span>
+          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">NameMongkol vs เว็บดูลายมือออนไลน์ทั่วไป</h3>
+          <p className="text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            เปรียบเทียบแบบเป็นกลางเพื่อช่วยเลือกเครื่องมือที่เหมาะกับการใช้งานจริงของคุณ
+          </p>
+        </div>
+
+        <div className="overflow-x-auto rounded-2xl border border-amber-500/15 bg-slate-900/35">
+          <table className="w-full text-sm border-collapse min-w-[640px]">
+            <thead>
+              <tr className="border-b border-slate-700">
+                <th className="text-left py-3 px-4 text-slate-300 font-semibold">ฟีเจอร์</th>
+                <th className="text-center py-3 px-4 text-amber-300 font-bold">NameMongkol</th>
+                <th className="text-center py-3 px-4 text-slate-400 font-semibold">เว็บทั่วไป</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-800">
+              <tr><td className="py-3 px-4 text-slate-300">AI วิเคราะห์จากภาพฝ่ามือจริง</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">มี</td><td className="py-3 px-4 text-center text-slate-400">บางแพลตฟอร์ม</td></tr>
+              <tr><td className="py-3 px-4 text-slate-300">ตรวจคุณภาพภาพก่อนวิเคราะห์</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">มี</td><td className="py-3 px-4 text-center text-slate-400">มักไม่มี</td></tr>
+              <tr><td className="py-3 px-4 text-slate-300">อ่านเส้นหลัก 4 เส้นครบ</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">ครบ</td><td className="py-3 px-4 text-center text-slate-400">แล้วแต่บริการ</td></tr>
+              <tr><td className="py-3 px-4 text-slate-300">สรุปผลแบบเข้าใจง่าย</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">ชัดเจน</td><td className="py-3 px-4 text-center text-slate-400">ระดับพื้นฐาน</td></tr>
+              <tr><td className="py-3 px-4 text-slate-300">ใช้งานผ่านมือถือทันที</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">รองรับ</td><td className="py-3 px-4 text-center text-slate-400">ส่วนใหญ่รองรับ</td></tr>
+              <tr><td className="py-3 px-4 text-slate-300">วิเคราะห์ได้ทันทีออนไลน์</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">ได้ทันที</td><td className="py-3 px-4 text-center text-slate-400">ขึ้นกับระบบ</td></tr>
+              <tr><td className="py-3 px-4 text-slate-300">เชื่อมโยงบริการมงคลอื่นในที่เดียว</td><td className="py-3 px-4 text-center text-emerald-400 font-bold">เชื่อมโยงครบ</td><td className="py-3 px-4 text-center text-slate-400">มักแยกบริการ</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="mb-10 sm:mb-12">
+        <div className="text-center mb-6 sm:mb-8">
+          <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-300 text-sm font-semibold border border-emerald-500/20 inline-block mb-3">
+            🎯 คำตอบสั้นแบบตรงคำถาม
+          </span>
+          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">เส้นลายมือ 4 เส้นหลักบอกอะไรบ้าง?</h3>
+          <p className="text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            คำตอบสั้น: เส้นชีวิตดูพลังชีวิตและจังหวะการเปลี่ยนแปลง, เส้นสมองดูวิธีคิดและการตัดสินใจ, เส้นหัวใจดูรูปแบบอารมณ์และความสัมพันธ์, เส้นวาสนาดูทิศทางชีวิตและความมั่นคงระยะยาว
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 gap-4">
+          <div className="rounded-xl border border-emerald-500/20 bg-emerald-950/20 p-4">
+            <h4 className="text-emerald-300 font-semibold mb-2">เส้นชีวิต (Life Line)</h4>
+            <p className="text-sm text-slate-300 leading-relaxed">เน้นภาพรวมพลังชีวิตและการรับมือกับการเปลี่ยนแปลง ไม่ได้หมายถึงอายุขัยแบบตายตัว</p>
+          </div>
+          <div className="rounded-xl border border-blue-500/20 bg-blue-950/20 p-4">
+            <h4 className="text-blue-300 font-semibold mb-2">เส้นสมอง (Head Line)</h4>
+            <p className="text-sm text-slate-300 leading-relaxed">สะท้อนแนวคิด ความเป็นเหตุผล การวิเคราะห์ และรูปแบบการตัดสินใจในงานและชีวิต</p>
+          </div>
+          <div className="rounded-xl border border-pink-500/20 bg-pink-950/20 p-4">
+            <h4 className="text-pink-300 font-semibold mb-2">เส้นหัวใจ (Heart Line)</h4>
+            <p className="text-sm text-slate-300 leading-relaxed">บอกแนวโน้มด้านอารมณ์ การเปิดใจ ความสัมพันธ์ และวิธีสื่อสารความรู้สึกกับคนรอบตัว</p>
+          </div>
+          <div className="rounded-xl border border-amber-500/20 bg-amber-950/20 p-4">
+            <h4 className="text-amber-300 font-semibold mb-2">เส้นวาสนา (Fate Line)</h4>
+            <p className="text-sm text-slate-300 leading-relaxed">สะท้อนทิศทางการเติบโต ความมั่นคง และจังหวะโอกาสสำคัญจากการลงมือทำอย่างต่อเนื่อง</p>
+          </div>
+        </div>
+      </div>
+
       <div className="mb-12">
         <h3 className="text-2xl font-bold text-white mb-5">คำถามที่พบบ่อยเกี่ยวกับการดูลายมือออนไลน์</h3>
         <div className="space-y-3">
@@ -134,8 +233,8 @@ export const PalmSeoContent = () => {
 
       <div className="text-sm text-slate-400 leading-relaxed border-t border-amber-500/15 pt-6">
         ดูเพิ่มเติม: <Link href="/articles" className="text-amber-300 hover:text-amber-200">บทความความรู้เสริมดวง</Link> •{' '}
-        <Link href="/name-analysis" className="text-amber-300 hover:text-amber-200">วิเคราะห์ชื่อ</Link> •{' '}
-        <Link href="/phone-analysis" className="text-amber-300 hover:text-amber-200">วิเคราะห์เบอร์</Link>
+        <Link href="/name-analysis" className="text-amber-300 hover:text-amber-200">เช็คชื่อมงคลหลายชื่อพร้อมกัน</Link> •{' '}
+        <Link href="/phone-analysis" className="text-amber-300 hover:text-amber-200">เช็คเบอร์มงคลกราฟพลังงาน 6 ด้าน</Link>
       </div>
     </section>
   );

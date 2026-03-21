@@ -249,7 +249,7 @@ const AboutSection = () => {
                                 </div>
                                 <div className="ml-auto">
                                     <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 group-hover:bg-emerald-600 group-hover:text-white group-hover:border-emerald-500 transition-all font-medium">
-                                        วิเคราะห์เบอร์ฟรี <ChevronLeft className="rotate-180" size={18} />
+                                        เช็คเบอร์มงคล 6 ด้าน <ChevronLeft className="rotate-180" size={18} />
                                     </span>
                                 </div>
                             </div>
@@ -280,7 +280,7 @@ const AboutSection = () => {
                                 </div>
                                 <div className="ml-auto">
                                     <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 group-hover:bg-amber-600 group-hover:text-white group-hover:border-amber-500 transition-all font-medium">
-                                        วิเคราะห์ลายมือ <ChevronLeft className="rotate-180" size={18} />
+                                        อ่านลายมือ 4 เส้นหลัก <ChevronLeft className="rotate-180" size={18} />
                                     </span>
                                 </div>
                             </div>

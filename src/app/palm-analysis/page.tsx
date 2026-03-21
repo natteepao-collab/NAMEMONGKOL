@@ -8,114 +8,183 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com
 const canonicalUrl = `${siteUrl.replace(/\/$/, '')}/palm-analysis`;
 
 export const metadata: Metadata = {
-  title: 'วิเคราะห์ลายมือออนไลน์ด้วย AI ฟรี | ดูดวงลายมือ 4 เส้นหลัก | NameMongkol',
+  title: 'อ่านลายมือจากภาพมือ เช็ค 4 เส้นหลักออนไลน์ | NameMongkol',
   description:
-    'วิเคราะห์ลายมือออนไลน์ฟรีด้วย AI อ่านเส้นชีวิต เส้นสมอง เส้นหัวใจ และเส้นวาสนา พร้อมคำทำนายเชิงแนวโน้มและคำแนะนำพัฒนาตัวเอง',
+    'อ่านลายมือออนไลน์จากภาพฝ่ามือ วิเคราะห์เส้นชีวิต เส้นสมอง เส้นหัวใจ เส้นวาสนา พร้อมเช็กคุณภาพภาพก่อนวิเคราะห์และสรุปผลแบบเข้าใจง่าย',
   keywords: [
-    'วิเคราะห์ลายมือ',
-    'วิเคราะห์ลายมือออนไลน์',
+    'อ่านลายมือจากภาพมือ',
     'ดูลายมือออนไลน์',
-    'ดูดวงลายมือ',
+    'ถ่ายรูปลายมือวิเคราะห์',
+    'เช็คลายมือ 4 เส้นหลัก',
+    'เส้นลายมือแต่ละเส้นหมายถึงอะไร',
     'วิเคราะห์ลายมือ AI',
     'เส้นชีวิต เส้นสมอง เส้นหัวใจ เส้นวาสนา',
-    'Palmistry AI',
+    'ภาพฝ่ามือชัดสำหรับวิเคราะห์',
   ],
   alternates: { canonical: canonicalUrl },
   openGraph: {
-    title: 'วิเคราะห์ลายมือออนไลน์ด้วย AI ฟรี | NameMongkol',
-    description: 'อ่านลายมือ 4 เส้นหลักด้วย AI พร้อมคำทำนายเชิงแนวโน้มและคำแนะนำที่เข้าใจง่าย',
+    title: 'อ่านลายมือจากภาพมือ เช็ค 4 เส้นหลักออนไลน์ | NameMongkol',
+    description: 'อ่านลายมือออนไลน์จากภาพฝ่ามือ วิเคราะห์ 4 เส้นหลัก พร้อมเช็กคุณภาพภาพและสรุปผลเข้าใจง่าย',
     url: canonicalUrl,
     siteName: 'NameMongkol',
     locale: 'th_TH',
     type: 'website',
+    images: [`${siteUrl}/api/og?variant=palm`],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'วิเคราะห์ลายมือออนไลน์ด้วย AI ฟรี | NameMongkol',
-    description: 'ดูดวงลายมือจากเส้นชีวิต เส้นสมอง เส้นหัวใจ และเส้นวาสนา แบบออนไลน์',
+    title: 'อ่านลายมือจากภาพมือ เช็ค 4 เส้นหลักออนไลน์ | NameMongkol',
+    description: 'อ่านลายมือออนไลน์จากภาพฝ่ามือ วิเคราะห์ 4 เส้นหลัก พร้อมสรุปผลเข้าใจง่าย',
+    images: [`${siteUrl}/api/og?variant=palm`],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
 export default function PalmAnalysisPage() {
-  const softwareJsonLd = {
+  const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: 'Palm Analysis AI - NameMongkol',
-    applicationCategory: 'LifestyleApplication',
-    operatingSystem: 'Web',
-    url: canonicalUrl,
-    description:
-      'เครื่องมือวิเคราะห์ลายมือออนไลน์ด้วย AI อ่านเส้นชีวิต เส้นสมอง เส้นหัวใจ และเส้นวาสนา พร้อมสรุปผลเชิงแนวโน้ม',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'THB',
-    },
-  };
-
-  const faqJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
+    '@graph': [
       {
-        '@type': 'Question',
-        name: 'วิเคราะห์ลายมือ AI แม่นยำแค่ไหน?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'ความแม่นยำขึ้นกับคุณภาพภาพมือ มุมกล้อง และความชัดของเส้นลายมือ ผลลัพธ์จึงควรใช้เป็นแนวโน้มเบื้องต้น ไม่ใช่ข้อสรุปตายตัว 100 เปอร์เซ็นต์',
+        '@type': 'WebPage',
+        '@id': canonicalUrl,
+        url: canonicalUrl,
+        name: 'อ่านลายมือจากภาพมือ เช็ค 4 เส้นหลักออนไลน์ | NameMongkol',
+        description:
+          'อ่านลายมือออนไลน์จากภาพฝ่ามือ วิเคราะห์เส้นชีวิต เส้นสมอง เส้นหัวใจ เส้นวาสนา พร้อมเช็กคุณภาพภาพก่อนวิเคราะห์และสรุปผลแบบเข้าใจง่าย',
+        inLanguage: 'th-TH',
+        isPartOf: {
+          '@type': 'WebSite',
+          name: 'NameMongkol',
+          url: siteUrl,
         },
       },
       {
-        '@type': 'Question',
-        name: 'เส้นชีวิต เส้นสมอง เส้นหัวใจ และเส้นวาสนา บอกอนาคตได้แน่นอนหรือไม่?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'ลายมือมักใช้สะท้อนแนวโน้มและบุคลิกในมุมหนึ่ง มากกว่าการฟันธงอนาคตแบบแน่นอน โดยผลลัพธ์ควรใช้ร่วมกับวิจารณญาณของผู้ใช้งาน',
+        '@type': 'SoftwareApplication',
+        name: 'Palm Analysis AI - NameMongkol',
+        applicationCategory: 'LifestyleApplication',
+        operatingSystem: 'Web',
+        url: canonicalUrl,
+        description:
+          'เครื่องมือวิเคราะห์ลายมือออนไลน์ด้วย AI อ่านเส้นชีวิต เส้นสมอง เส้นหัวใจ และเส้นวาสนา พร้อมสรุปผลเชิงแนวโน้ม',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'THB',
+          description: 'วิเคราะห์ลายมือพื้นฐานฟรี และมีโหมดเชิงลึกในระบบเครดิต',
         },
+        featureList: [
+          'วิเคราะห์เส้นลายมือ 4 เส้นหลัก (เส้นชีวิต เส้นสมอง เส้นหัวใจ เส้นวาสนา)',
+          'ตรวจคุณภาพภาพก่อนเริ่มวิเคราะห์',
+          'อ่านผลลัพธ์เชิงแนวโน้มแบบเข้าใจง่าย',
+          'สรุปจุดเด่นและจุดที่ควรพัฒนา',
+          'แนะนำการใช้งานผลวิเคราะห์เชิงบวกในชีวิตประจำวัน',
+          'ใช้งานได้ทันทีผ่านมือถือและเว็บเบราว์เซอร์',
+        ],
       },
       {
-        '@type': 'Question',
-        name: 'ต้องเตรียมรูปมืออย่างไรให้วิเคราะห์ได้ละเอียดขึ้น?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'ควรถ่ายภาพในแสงเพียงพอ เห็นฝ่ามือเต็มเฟรม ภาพไม่เบลอ และกล้องตั้งตรง เพื่อให้ระบบตรวจจับเส้นลายมือได้ชัดเจนขึ้น',
-        },
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'วิเคราะห์ลายมือ AI แม่นยำแค่ไหน?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'ความแม่นยำขึ้นกับคุณภาพภาพมือ มุมกล้อง และความชัดของเส้นลายมือ ผลลัพธ์จึงควรใช้เป็นแนวโน้มเบื้องต้น ไม่ใช่ข้อสรุปตายตัว 100 เปอร์เซ็นต์',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'เส้นชีวิต เส้นสมอง เส้นหัวใจ และเส้นวาสนา บอกอนาคตได้แน่นอนหรือไม่?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'ลายมือมักใช้สะท้อนแนวโน้มและบุคลิกในมุมหนึ่ง มากกว่าการฟันธงอนาคตแบบแน่นอน โดยผลลัพธ์ควรใช้ร่วมกับวิจารณญาณของผู้ใช้งาน',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'ต้องเตรียมรูปมืออย่างไรให้วิเคราะห์ได้ละเอียดขึ้น?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'ควรถ่ายภาพในแสงเพียงพอ เห็นฝ่ามือเต็มเฟรม ภาพไม่เบลอ และกล้องตั้งตรง เพื่อให้ระบบตรวจจับเส้นลายมือได้ชัดเจนขึ้น',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'ควรใช้รูปมือซ้ายหรือมือขวาในการวิเคราะห์?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'สามารถวิเคราะห์ได้ทั้งสองมือ แต่ควรถ่ายให้ชัดในสภาพแสงใกล้เคียงกัน หากต้องการเปรียบเทียบแนวโน้ม แนะนำให้วิเคราะห์ทั้งมือซ้ายและมือขวาแยกกัน',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'ถ้ารูปมือมืดหรือเบลอจะกระทบผลวิเคราะห์ไหม?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'มีผลโดยตรงครับ หากภาพมืด เบลอ หรือมีเงาบัง เส้นหลักจะถูกตรวจจับได้ไม่ครบ ทำให้ผลสรุปคลาดเคลื่อนได้ จึงควรตรวจคุณภาพภาพก่อนกดวิเคราะห์ทุกครั้ง',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'ลายมือเปลี่ยนแปลงได้ตามช่วงชีวิตหรือไม่?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'ลายมือและวิธีแปลผลมักถูกมองว่าเป็นแนวโน้มที่เปลี่ยนได้ตามประสบการณ์ สุขภาพ และพฤติกรรม จึงควรวิเคราะห์เป็นระยะเพื่อดูภาพรวมการเปลี่ยนแปลงของตนเอง',
+            },
+          },
+        ],
       },
-    ],
-  };
-
-  const howToJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'HowTo',
-    name: 'วิธีวิเคราะห์ลายมือออนไลน์ด้วย AI',
-    description: 'ขั้นตอนใช้งานเครื่องมือวิเคราะห์ลายมือออนไลน์บน NameMongkol ให้ได้ผลลัพธ์ที่ชัดเจน',
-    totalTime: 'PT2M',
-    tool: [
       {
-        '@type': 'HowToTool',
-        name: 'กล้องมือถือหรือรูปภาพฝ่ามือที่ชัดเจน',
-      },
-    ],
-    step: [
-      {
-        '@type': 'HowToStep',
-        name: 'เตรียมภาพฝ่ามือ',
-        text: 'ถ่ายภาพฝ่ามือให้เห็นเต็มเฟรม ภาพไม่เบลอ และมีแสงเพียงพอ',
-      },
-      {
-        '@type': 'HowToStep',
-        name: 'อัปโหลดภาพหรือถ่ายภาพในระบบ',
-        text: 'เลือกอัปโหลดรูปจากเครื่อง หรือเปิดกล้องแล้วถ่ายภาพใหม่ในหน้า Palm Scanner',
-      },
-      {
-        '@type': 'HowToStep',
-        name: 'ตรวจคุณภาพก่อนวิเคราะห์',
-        text: 'ตรวจดูคะแนนความคม แสง และคอนทราสต์ให้เหมาะสมก่อนเริ่มวิเคราะห์',
-      },
-      {
-        '@type': 'HowToStep',
-        name: 'กดเริ่มวิเคราะห์และอ่านผลลัพธ์',
-        text: 'ระบบจะแสดงคะแนน 4 ด้าน การวิเคราะห์เส้นหลัก จุดเด่น จุดที่ควรพัฒนา และคำแนะนำเสริมมงคล',
+        '@type': 'HowTo',
+        name: 'วิธีวิเคราะห์ลายมือออนไลน์ด้วย AI',
+        description: 'ขั้นตอนใช้งานเครื่องมือวิเคราะห์ลายมือออนไลน์บน NameMongkol ให้ได้ผลลัพธ์ที่ชัดเจน',
+        totalTime: 'PT3M',
+        tool: [
+          {
+            '@type': 'HowToTool',
+            name: 'กล้องมือถือหรือรูปภาพฝ่ามือที่ชัดเจน',
+          },
+          {
+            '@type': 'HowToTool',
+            name: 'แสงธรรมชาติหรือแสงสีขาวที่เพียงพอ',
+          },
+        ],
+        step: [
+          {
+            '@type': 'HowToStep',
+            position: 1,
+            name: 'เตรียมแสงและจัดฝ่ามือ',
+            text: 'ถ่ายภาพในแสงเพียงพอ วางฝ่ามือให้เต็มเฟรม และหลีกเลี่ยงเงาทับเส้นหลัก',
+          },
+          {
+            '@type': 'HowToStep',
+            position: 2,
+            name: 'อัปโหลดภาพหรือถ่ายภาพใหม่',
+            text: 'เลือกอัปโหลดรูปจากเครื่อง หรือเปิดกล้องแล้วถ่ายภาพใหม่ในหน้า Palm Scanner',
+          },
+          {
+            '@type': 'HowToStep',
+            position: 3,
+            name: 'ตรวจคุณภาพภาพก่อนวิเคราะห์',
+            text: 'ตรวจคะแนนความคม แสง และคอนทราสต์ให้เหมาะสมก่อนเริ่มวิเคราะห์',
+          },
+          {
+            '@type': 'HowToStep',
+            position: 4,
+            name: 'กดเริ่มวิเคราะห์และอ่านผลสรุป',
+            text: 'ระบบจะแสดงผลอ่านเส้นหลัก 4 ด้าน จุดเด่น จุดที่ควรพัฒนา และคำแนะนำใช้งานผลลัพธ์',
+          },
+        ],
       },
     ],
   };
@@ -124,15 +193,7 @@ export default function PalmAnalysisPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       <main className="min-h-screen bg-[#020617] relative overflow-hidden pt-28 md:pt-20 lg:pt-24 pb-28 md:pb-12 px-4 sm:px-6 lg:px-8">
