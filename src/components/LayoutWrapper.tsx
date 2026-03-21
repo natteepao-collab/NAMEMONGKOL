@@ -27,6 +27,7 @@ export const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname();
     const backgroundExcludedPaths = ['/phone-analysis'];
     const shouldShowSacredBackground = !backgroundExcludedPaths.includes(pathname);
+    const isAdminPage = pathname.startsWith('/admin');
 
     useEffect(() => {
         const getUser = async () => {
@@ -43,6 +44,11 @@ export const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
             subscription.unsubscribe();
         };
     }, []);
+
+    // Admin pages use their own layout (AdminSidebar) — skip the main site shell
+    if (isAdminPage) {
+        return <>{children}</>;
+    }
 
     return (
         <div className="cosmic-app-shell flex min-h-screen overflow-x-hidden">
