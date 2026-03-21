@@ -380,17 +380,22 @@ export default function PalmAnalysisClient() {
 
   return (
     <section className="w-full">
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-3 lg:gap-8 items-start">
-        <div className="xl:col-span-5 space-y-3 sm:space-y-4">
-          <div className="hidden sm:block rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-950/30 to-slate-900/60 p-4 sm:p-5">
-            <h2 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-amber-200 to-yellow-300 bg-clip-text text-transparent">เริ่มวิเคราะห์ลายมือ</h2>
-            <p className="text-sm text-amber-200/50 mt-1">ระบบจะประเมินคุณภาพภาพก่อน แล้วจึงประมวลผลเพื่อให้ผลลัพธ์อ่านง่ายและนำไปใช้ต่อได้</p>
-            <div className="mt-2 flex items-center gap-2 text-xs text-amber-300">
-              <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/30 bg-amber-500/10 px-2 py-0.5">💰 {PALM_ANALYSIS_COST} เครดิต / ครั้ง</span>
-              {userCredits !== null && <span className="text-amber-400/60">คงเหลือ {userCredits} เครดิต</span>}
-            </div>
+      {result ? (
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-3 lg:gap-8 items-start">
+          <div className="xl:col-span-5 space-y-3 sm:space-y-4">
+            <PalmScanner 
+              onAnalyze={handleAnalyze}
+              onReset={handleReset}
+              isAnalyzing={isAnalyzing} 
+              result={result} 
+            />
           </div>
-
+          <div className="xl:col-span-7">
+            <PalmResults result={result} />
+          </div>
+        </div>
+      ) : (
+        <div className="max-w-xl mx-auto space-y-3 sm:space-y-4">
         <PalmScanner 
           onAnalyze={handleAnalyze}
           onReset={handleReset}
@@ -406,7 +411,7 @@ export default function PalmAnalysisClient() {
                 <button
                   onClick={() => setError(null)}
                   disabled={cooldown > 0}
-                  className="px-4 py-2 bg-purple-600 hover:bg-purple-500 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition-colors"
+                  className="px-4 py-2 bg-amber-600 hover:bg-amber-500 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition-colors"
                 >
                   {cooldown > 0 ? `รอสักครู่... (${cooldown}วินาที)` : 'ลองอีกครั้ง'}
                 </button>
@@ -416,7 +421,7 @@ export default function PalmAnalysisClient() {
                 <p>{error}</p>
                 <button
                   onClick={() => setError(null)}
-                  className="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-sm font-medium transition-colors"
+                  className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-sm font-medium transition-colors"
                 >
                   ลองอีกครั้ง
                 </button>
@@ -425,33 +430,8 @@ export default function PalmAnalysisClient() {
           </div>
         )}
 
-          {!result && !isAnalyzing && !error && (
-            <div className="hidden sm:block rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-950/20 to-slate-900/50 p-4 sm:p-5">
-              <h3 className="text-sm font-semibold text-amber-200 mb-2">Checklist ก่อนวิเคราะห์</h3>
-              <ul className="space-y-1.5 text-xs text-amber-300/50">
-                <li>• ฝ่ามือเต็มเฟรม และไม่ถูกตัดขอบ</li>
-                <li>• ภาพไม่เบลอ และมีแสงเพียงพอ</li>
-                <li>• มือหงายตรงกับกล้องให้มากที่สุด</li>
-              </ul>
-            </div>
-          )}
         </div>
-
-        <div className="xl:col-span-7">
-          {result ? (
-            <PalmResults result={result} />
-          ) : (
-            <div className="hidden xl:flex rounded-2xl border border-amber-500/15 bg-gradient-to-br from-amber-950/10 to-slate-900/30 p-6 sm:p-8 min-h-[320px] items-center justify-center">
-              <div className="text-center max-w-md">
-                <p className="text-amber-100 font-medium">ผลวิเคราะห์จะแสดงที่นี่</p>
-                <p className="text-sm text-amber-300/50 mt-2">
-                  อัปโหลดภาพฝ่ามือและกด “เริ่มวิเคราะห์ลายมือ” เพื่อดูคะแนนทั้ง 4 ด้าน พร้อมสรุปเชิงแนวโน้ม
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+      )}
     </section>
   );
 }

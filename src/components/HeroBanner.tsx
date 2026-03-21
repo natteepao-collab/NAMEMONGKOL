@@ -9,47 +9,38 @@ export const HeroBanner = () => {
 
     return (
         <div className="relative mb-3 sm:mb-6">
-            <div className="relative bg-[#0F172A] rounded-2xl p-4 sm:p-6 border border-slate-700/50 shadow-2xl overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 group">
+            <div className="cosmic-panel ancient-frame relative rounded-[1.75rem] p-5 sm:p-7 overflow-hidden group">
 
-                {/* Decorative Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-[#0F172A] to-slate-900 z-0" />
-                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                <div className="absolute inset-0 z-0 bg-[linear-gradient(145deg,rgba(11,14,25,0.82),rgba(18,22,37,0.54))]" />
+                <div className="absolute inset-y-0 right-[-5%] w-[16rem] rounded-full bg-[radial-gradient(circle,rgba(255,211,128,0.14)_0%,rgba(93,63,168,0.10)_42%,transparent_72%)] blur-3xl" />
+                <div className="absolute inset-y-0 left-[-5%] w-[16rem] rounded-full bg-[radial-gradient(circle,rgba(104,67,177,0.14)_0%,transparent_70%)] blur-3xl" />
 
-                {/* Gold Accent Line */}
-                <div className="absolute left-0 top-4 bottom-4 w-1 rounded-r-full bg-gradient-to-b from-amber-300 via-amber-500 to-amber-600 shadow-[0_0_15px_rgba(245,158,11,0.5)] z-10" />
-
-                {/* Left Content */}
-                <div className="text-center sm:text-left z-10 flex-1 pl-2 relative">
-
-
-                    {/* Title */}
-                    <h1 className="text-xl sm:text-3xl font-bold text-white leading-tight mb-2 sm:mb-3 tracking-tight">
-                        {t('home.hero.titlePrefix')}<span className="text-emerald-400">{t('home.hero.titleHighlight')}</span>: <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 drop-shadow-[0_2px_10px_rgba(251,191,36,0.2)]">{t('home.hero.titleSuffix')}</span>
-                    </h1>
-
-                    {/* Description */}
-                    <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-lg mb-0 sm:mb-2 line-clamp-2 sm:line-clamp-none">
-                        {t('home.hero.description')}
-                    </p>
-                </div>
-
-                {/* Right Content / Stats Cards */}
-                <div className="flex gap-3 z-10 shrink-0">
-                    {/* Accuracy Card */}
-                    <div className="flex flex-col items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-800/60 border border-slate-700/50 backdrop-blur-md shadow-lg group-hover:border-emerald-500/30 transition-colors relative overflow-hidden">
-                        <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <Target className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 mb-1" />
-                        <span className="block text-base sm:text-lg font-bold text-white leading-none">99%</span>
-                        <span className="text-[8px] sm:text-[9px] text-slate-400 uppercase font-medium tracking-wide">{t('home.hero.statAccuracy')}</span>
+                <div className="text-center z-10 relative">
+                    <div className="mb-3 inline-flex items-center rounded-full border border-amber-200/20 bg-black/25 px-4 py-1.5 text-[11px] uppercase tracking-[0.35em] text-amber-50/88 backdrop-blur-md shadow-[0_0_18px_rgba(245,158,11,0.08)]">
+                        ✦ วิเคราะห์ชื่อมงคล
                     </div>
 
-                    {/* AI / Speed Card */}
-                    <div className="flex flex-col items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-800/60 border border-slate-700/50 backdrop-blur-md shadow-lg group-hover:border-amber-500/30 transition-colors relative overflow-hidden">
-                        <div className="absolute inset-0 bg-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 mb-1" />
-                        <span className="block text-base sm:text-lg font-bold text-white leading-none">AI</span>
-                        <span className="text-[8px] sm:text-[9px] text-slate-400 uppercase font-medium tracking-wide">{t('home.hero.statSpeed')}</span>
+                    <h1 className="cosmic-text-crisp text-[1.4rem] sm:text-[2rem] font-bold leading-tight mb-2 sm:mb-3 tracking-tight">
+                        {t('home.hero.titlePrefix')}<span className="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent drop-shadow-[0_0_18px_rgba(245,158,11,0.30)]">{t('home.hero.titleHighlight')}</span><span className="text-amber-400">:</span>{' '}
+                        <span className="bg-gradient-to-r from-[#fde047] via-[#fbbf24] to-[#fde047] bg-clip-text text-transparent drop-shadow-[0_0_16px_rgba(253,224,71,0.28)]">{t('home.hero.titleSuffix')}</span>
+                    </h1>
+
+                    <p className="cosmic-text-soft max-w-lg mx-auto text-xs leading-relaxed sm:text-sm line-clamp-2 sm:line-clamp-none mb-4">
+                        {t('home.hero.description')}
+                    </p>
+
+                    {/* Stats inline */}
+                    <div className="flex items-center justify-center gap-3">
+                        <div className="cosmic-chip flex items-center gap-2 px-4 py-2 rounded-xl backdrop-blur-md">
+                            <Target className="w-4 h-4 text-emerald-300" />
+                            <span className="text-sm font-bold text-white">99%</span>
+                            <span className="text-[10px] uppercase tracking-wide text-slate-300/80">{t('home.hero.statAccuracy')}</span>
+                        </div>
+                        <div className="cosmic-chip flex items-center gap-2 px-4 py-2 rounded-xl backdrop-blur-md">
+                            <Zap className="w-4 h-4 text-amber-400" />
+                            <span className="text-sm font-bold text-white">AI</span>
+                            <span className="text-[10px] uppercase tracking-wide text-slate-300/80">{t('home.hero.statSpeed')}</span>
+                        </div>
                     </div>
                 </div>
 

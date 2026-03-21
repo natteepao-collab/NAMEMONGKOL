@@ -349,7 +349,7 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
   }, [imageSrc]);
 
   return (
-    <section className="w-full max-w-2xl mx-auto bg-gradient-to-b from-slate-900/60 to-amber-950/10 backdrop-blur-md border border-amber-500/20 rounded-2xl p-4 sm:p-6 shadow-2xl shadow-amber-900/10 relative overflow-hidden" aria-label="เครื่องมือสแกนลายมือ">
+    <section className="w-full max-w-2xl mx-auto bg-gradient-to-b from-slate-900/60 to-amber-950/10 backdrop-blur-md border border-amber-500/30 rounded-2xl p-4 sm:p-6 shadow-2xl shadow-amber-900/20 relative overflow-hidden" aria-label="เครื่องมือสแกนลายมือ">
       <div className="absolute -top-24 -left-24 w-48 h-48 bg-amber-500/10 rounded-full blur-[90px] pointer-events-none" />
       <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-amber-600/10 rounded-full blur-[90px] pointer-events-none" />
 
@@ -376,7 +376,7 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
         </div>
       </header>
 
-      <div className="relative w-full aspect-[3/4] bg-slate-950 rounded-xl overflow-hidden border border-amber-500/15 flex flex-col items-center justify-center mb-3 sm:mb-6">
+      <div className="relative w-full aspect-square sm:aspect-[3/4] bg-slate-950 rounded-xl overflow-hidden border border-amber-500/15 flex flex-col items-center justify-center mb-3 sm:mb-6">
         {isCameraOpen && (
           <div className="absolute inset-0 z-[1] pointer-events-none">
             {/* Palm-shaped guide overlay — light dim outside, amber outline inside */}
@@ -421,12 +421,14 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
               <br />
               หรือถ่ายรูปใหม่เพื่อวิเคราะห์
             </p>
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-2 text-blue-200/90 text-xs leading-relaxed">
-              💡 แนะนำให้ใช้แสงธรรมชาติ และวางฝ่ามือเต็มเฟรม
-            </div>
+            <ul className="text-amber-300/60 text-xs leading-relaxed space-y-1 text-left max-w-xs">
+              <li>• ฝ่ามือเต็มเฟรม ไม่ถูกตัดขอบ</li>
+              <li>• ภาพไม่เบลอ และมีแสงเพียงพอ</li>
+              <li>• มือหงายตรงกับกล้องให้มากที่สุด</li>
+            </ul>
 
             <div className="flex flex-col sm:flex-row gap-3 mt-4 w-full sm:w-auto">
-              <label className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 w-full sm:w-auto">
+              <label className="cursor-pointer bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 w-full sm:w-auto">
                 <Upload className="w-4 h-4" />
                 อัปโหลดรูป
                 <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />

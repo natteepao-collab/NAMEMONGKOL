@@ -3,16 +3,16 @@ import { Zap, Heart, Shield, Star, Sparkles, Target, Award, Banknote, Users, Ale
 
 export const PhoneSeoContent = () => {
     return (
-        <section className="w-full max-w-5xl mx-auto mt-16 mb-12 px-4">
+        <section className="w-full max-w-5xl mx-auto mt-20 md:mt-24 mb-12 md:mb-16 px-4 relative z-10">
             {/* Hero Content Section */}
-            <div className="text-center mb-16">
+            <div className="text-center mb-12 md:mb-16">
                 <span className="px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-sm font-semibold border border-amber-500/20 mb-6 inline-block">
                     🔢 ศาสตร์แห่งตัวเลข
                 </span>
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
                     ปลดล็อกพลังซ่อนเร้นใน<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">เบอร์โทรศัพท์</span>ของคุณ
                 </h2>
-                <p className="text-slate-300 max-w-3xl mx-auto text-lg leading-relaxed">
+                <p className="phone-analysis-soft-text max-w-3xl mx-auto text-base md:text-lg leading-[1.95]">
                     คุณทราบหรือไม่? ตัวเลขที่คุณใช้โทรทุกวัน กำลังส่งพลังงานสั่นสะเทือนมาถึงคุณตลอดเวลา
                     เบอร์โทรศัพท์ไม่ใช่แค่ตัวเลขสุ่ม แต่คือ <strong>&quot;คลื่นพลังงาน&quot;</strong> ที่มีผลต่อ
                     <strong className="text-amber-400"> ความสำเร็จ การเงิน ความรัก และสุขภาพ</strong> ของคุณโดยตรง!
@@ -20,33 +20,33 @@ export const PhoneSeoContent = () => {
             </div>
 
             {/* Why Phone Number Matters */}
-            <div className="grid md:grid-cols-2 gap-8 mb-16">
-                <div className="bg-slate-900/40 p-6 rounded-2xl border border-white/5 backdrop-blur-sm hover:border-amber-500/30 transition-colors">
+            <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-12 md:mb-16">
+                <div className="phone-analysis-surface-card p-6 md:p-7 rounded-2xl hover:border-amber-500/30 transition-colors">
                     <h3 className="text-2xl font-bold text-amber-400 mb-4 flex items-center gap-2">
                         <Zap className="w-6 h-6" />
                         ทำไมต้องเช็คเบอร์มงคล?
                     </h3>
-                    <p className="text-slate-300 leading-relaxed mb-4">
+                    <p className="leading-[1.95] mb-4">
                         ตามหลัก <strong>เลขศาสตร์</strong> และ <strong>โหราศาสตร์ไทย</strong> ตัวเลขแต่ละตัวมีความถี่พลังงานเฉพาะตัว
                         เบอร์โทรศัพท์ที่คุณใช้ทุกวัน จะส่งคลื่นพลังงานมากระทบชีวิตคุณตลอดเวลา ไม่ว่าจะรู้ตัวหรือไม่ก็ตาม
                     </p>
-                    <p className="text-slate-300 leading-relaxed">
+                    <p className="leading-[1.95]">
                         <strong>เบอร์มงคล</strong> จะช่วยดึงดูดโอกาสดีๆ ความเจริญก้าวหน้า และความราบรื่นเข้ามา
                         ในขณะที่ <strong className="text-rose-400">เบอร์อัปมงคล</strong> อาจเป็นอุปสรรคขัดขวางที่มองไม่เห็น
                         ทำให้ต้องเหนื่อยมากกว่าปกติ หรือพลาดโอกาสดีๆ ไปอย่างน่าเสียดาย
                     </p>
                 </div>
 
-                <div className="bg-slate-900/40 p-6 rounded-2xl border border-white/5 backdrop-blur-sm hover:border-emerald-500/30 transition-colors">
+                <div className="phone-analysis-surface-card p-6 md:p-7 rounded-2xl hover:border-emerald-500/30 transition-colors">
                     <h3 className="text-2xl font-bold text-emerald-400 mb-4 flex items-center gap-2">
                         <Target className="w-6 h-6" />
                         วิเคราะห์เบอร์ลึกถึงแก่นแท้
                     </h3>
-                    <p className="text-slate-300 leading-relaxed mb-4">
+                    <p className="leading-[1.95] mb-4">
                         ระบบของ <strong>NameMongkol</strong> ไม่ได้แค่ดูผลรวม แต่วิเคราะห์ลึกถึง <strong>คู่เลข 7 ตัวหลัง</strong>
                         (XX-XYZ-ABCD) ซึ่งเป็นหัวใจสำคัญของเบอร์โทรศัพท์ไทย
                     </p>
-                    <ul className="space-y-2 text-slate-300">
+                    <ul className="space-y-3">
                         <li className="flex items-start gap-2">
                             <span className="text-emerald-400 shrink-0">✓</span>
                             <span>วิเคราะห์ <strong>คู่เลข</strong> ทั้งหมดและความหมาย</span>
@@ -68,18 +68,18 @@ export const PhoneSeoContent = () => {
             </div>
 
             {/* Number Pair Meanings */}
-            <div className="mb-16">
+            <div className="mb-16 md:mb-20">
                 <div className="text-center mb-10">
                     <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm font-semibold border border-blue-500/20 mb-4 inline-block">
                         📚 ความรู้เรื่องคู่เลข
                     </span>
                     <h2 className="text-3xl font-bold text-white mb-4">คู่เลขมงคล vs คู่เลขอัปมงคล</h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto">
+                    <p className="phone-analysis-soft-text max-w-2xl mx-auto leading-relaxed">
                         เรียนรู้ความหมายของคู่เลขสำคัญ เพื่อเข้าใจพลังงานที่ซ่อนอยู่ในเบอร์โทรศัพท์ของคุณ
                     </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
                     {/* Good Number Pairs */}
                     <div className="p-5 rounded-xl bg-emerald-950/30 border border-emerald-500/20 hover:border-emerald-500/40 transition-colors">
                         <div className="flex items-center gap-3 mb-3">
@@ -193,73 +193,73 @@ export const PhoneSeoContent = () => {
             </div>
 
             {/* Benefits Section */}
-            <div className="mb-16">
+            <div className="mb-16 md:mb-20">
                 <div className="text-center mb-10">
                     <h2 className="text-3xl font-bold text-white mb-4">
                         เบอร์มงคลช่วยเสริมดวงด้านไหนบ้าง?
                     </h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto">
+                    <p className="phone-analysis-soft-text max-w-2xl mx-auto leading-relaxed">
                         เบอร์โทรศัพท์ที่ดีจะส่งพลังงานบวกให้กับชีวิตคุณใน 6 ด้านสำคัญ
                     </p>
                 </div>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/5 hover:border-amber-500/20 transition-all group">
+                    <div className="phone-analysis-surface-card p-6 rounded-2xl hover:border-amber-500/20 transition-all group">
                         <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/20 flex items-center justify-center text-amber-400 mb-4 group-hover:scale-110 transition-transform">
                             <Banknote className="w-7 h-7" />
                         </div>
                         <h3 className="font-bold text-lg text-white mb-2">💰 การเงิน/การงาน</h3>
-                        <p className="text-sm text-slate-400 leading-relaxed">
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">
                             ดึงดูดโอกาสทางการเงิน เลื่อนตำแหน่ง ธุรกิจเจริญรุ่งเรือง การค้าขายราบรื่น มีรายได้เข้ามาสม่ำเสมอ
                         </p>
                     </div>
 
-                    <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/5 hover:border-emerald-500/20 transition-all group">
-                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 flex items-center justify-center text-emerald-400 mb-4 group-hover:scale-110 transition-transform">
+                    <div className="phone-analysis-surface-card p-6 rounded-2xl hover:border-amber-500/20 transition-all group">
+                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/20 flex items-center justify-center text-amber-400 mb-4 group-hover:scale-110 transition-transform">
                             <Star className="w-7 h-7" />
                         </div>
                         <h3 className="font-bold text-lg text-white mb-2">🍀 โชคลาภ</h3>
-                        <p className="text-sm text-slate-400 leading-relaxed">
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">
                             เพิ่มโอกาสในการได้รับโชค ลาภลอย สิ่งดีๆ เข้ามาโดยไม่คาดคิด มีคนอุปถัมภ์ช่วยเหลือ
                         </p>
                     </div>
 
-                    <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/5 hover:border-rose-500/20 transition-all group">
-                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-rose-500/20 to-rose-600/20 flex items-center justify-center text-rose-400 mb-4 group-hover:scale-110 transition-transform">
+                    <div className="phone-analysis-surface-card p-6 rounded-2xl hover:border-amber-500/20 transition-all group">
+                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/20 flex items-center justify-center text-amber-400 mb-4 group-hover:scale-110 transition-transform">
                             <Heart className="w-7 h-7" />
                         </div>
                         <h3 className="font-bold text-lg text-white mb-2">💕 เสน่ห์/ความรัก</h3>
-                        <p className="text-sm text-slate-400 leading-relaxed">
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">
                             เพิ่มเสน่ห์ดึงดูด เนื้อคู่เข้ามาหา ความรักราบรื่น ครอบครัวอบอุ่น มนุษยสัมพันธ์ดี
                         </p>
                     </div>
 
-                    <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/5 hover:border-blue-500/20 transition-all group">
-                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center text-blue-400 mb-4 group-hover:scale-110 transition-transform">
+                    <div className="phone-analysis-surface-card p-6 rounded-2xl hover:border-amber-500/20 transition-all group">
+                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/20 flex items-center justify-center text-amber-400 mb-4 group-hover:scale-110 transition-transform">
                             <Shield className="w-7 h-7" />
                         </div>
                         <h3 className="font-bold text-lg text-white mb-2">🏥 สุขภาพ</h3>
-                        <p className="text-sm text-slate-400 leading-relaxed">
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">
                             เสริมพลังด้านสุขภาพ ลดความเสี่ยงจากอุบัติเหตุ ความเจ็บป่วย ร่างกายแข็งแรง
                         </p>
                     </div>
 
-                    <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/5 hover:border-purple-500/20 transition-all group">
-                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center text-purple-400 mb-4 group-hover:scale-110 transition-transform">
+                    <div className="phone-analysis-surface-card p-6 rounded-2xl hover:border-amber-500/20 transition-all group">
+                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/20 flex items-center justify-center text-amber-400 mb-4 group-hover:scale-110 transition-transform">
                             <Sparkles className="w-7 h-7" />
                         </div>
                         <h3 className="font-bold text-lg text-white mb-2">🧠 สติปัญญา</h3>
-                        <p className="text-sm text-slate-400 leading-relaxed">
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">
                             เพิ่มความคิดสร้างสรรค์ การตัดสินใจแม่นยำ เรียนรู้เร็ว ความจำดี
                         </p>
                     </div>
 
-                    <div className="bg-slate-800/50 p-6 rounded-2xl border border-white/5 hover:border-indigo-500/20 transition-all group">
-                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500/20 to-indigo-600/20 flex items-center justify-center text-indigo-400 mb-4 group-hover:scale-110 transition-transform">
+                    <div className="phone-analysis-surface-card p-6 rounded-2xl hover:border-amber-500/20 transition-all group">
+                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/20 flex items-center justify-center text-amber-400 mb-4 group-hover:scale-110 transition-transform">
                             <Users className="w-7 h-7" />
                         </div>
                         <h3 className="font-bold text-lg text-white mb-2">👁️ เซนส์/สัมผัสที่ 6</h3>
-                        <p className="text-sm text-slate-400 leading-relaxed">
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">
                             เสริมสัญชาตญาณ หลีกเลี่ยงอันตราย มองคนออก ตัดสินใจได้ถูกต้อง
                         </p>
                     </div>
@@ -267,50 +267,53 @@ export const PhoneSeoContent = () => {
             </div>
 
             {/* How It Works */}
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 border border-white/10 relative overflow-hidden mb-16">
+            <div className="phone-analysis-process-panel rounded-3xl p-7 md:p-8 border relative overflow-hidden mb-12 md:mb-16">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl" />
                 <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-500/5 rounded-full blur-3xl" />
 
-                <h2 className="text-2xl font-bold text-white mb-8 text-center relative z-10">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 md:mb-10 text-center relative z-10 leading-tight">
                     ระบบวิเคราะห์เบอร์มงคลของเราทำงานอย่างไร?
                 </h2>
 
-                <div className="grid md:grid-cols-4 gap-6 relative z-10">
-                    <div className="text-center">
-                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg shadow-amber-500/20">1</div>
+                <div className="grid md:grid-cols-4 gap-4 md:gap-6 relative z-10">
+                    {/* Timeline connector (desktop only) */}
+                    <div className="hidden md:block absolute top-[2.5rem] left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-amber-500/10 via-amber-500/30 to-amber-500/10 z-0" />
+
+                    <div className="phone-analysis-process-step text-center rounded-2xl p-5 relative">
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white text-xl font-bold mx-auto mb-4 shadow-lg shadow-amber-500/25 relative z-10 ring-4 ring-[#0d1a2a]">1</div>
                         <h3 className="font-bold text-white mb-2">กรอกเบอร์</h3>
-                        <p className="text-sm text-slate-400">ใส่เบอร์โทรศัพท์ 10 หลักที่ต้องการวิเคราะห์</p>
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">ใส่เบอร์โทรศัพท์ 10 หลักที่ต้องการวิเคราะห์</p>
                     </div>
 
-                    <div className="text-center">
-                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg shadow-blue-500/20">2</div>
+                    <div className="phone-analysis-process-step text-center rounded-2xl p-5 relative">
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white text-xl font-bold mx-auto mb-4 shadow-lg shadow-amber-500/25 relative z-10 ring-4 ring-[#0d1a2a]">2</div>
                         <h3 className="font-bold text-white mb-2">AI ประมวลผล</h3>
-                        <p className="text-sm text-slate-400">ระบบวิเคราะห์คู่เลข ผลรวม และพลังงานทุกด้าน</p>
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">ระบบวิเคราะห์คู่เลข ผลรวม และพลังงานทุกด้าน</p>
                     </div>
 
-                    <div className="text-center">
-                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg shadow-emerald-500/20">3</div>
+                    <div className="phone-analysis-process-step text-center rounded-2xl p-5 relative">
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white text-xl font-bold mx-auto mb-4 shadow-lg shadow-amber-500/25 relative z-10 ring-4 ring-[#0d1a2a]">3</div>
                         <h3 className="font-bold text-white mb-2">ดูผลลัพธ์</h3>
-                        <p className="text-sm text-slate-400">รับเกรดเบอร์ กราฟพลังงาน และความหมายคู่เลข</p>
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">รับเกรดเบอร์ กราฟพลังงาน และความหมายคู่เลข</p>
                     </div>
 
-                    <div className="text-center">
-                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-lg shadow-purple-500/20">4</div>
+                    <div className="phone-analysis-process-step text-center rounded-2xl p-5 relative">
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white text-xl font-bold mx-auto mb-4 shadow-lg shadow-amber-500/25 relative z-10 ring-4 ring-[#0d1a2a]">4</div>
                         <h3 className="font-bold text-white mb-2">ตัดสินใจ</h3>
-                        <p className="text-sm text-slate-400">เก็บเบอร์ดี หรือเปลี่ยนเบอร์ใหม่ที่มงคลกว่า</p>
+                        <p className="text-sm phone-analysis-soft-text leading-relaxed">เก็บเบอร์ดี หรือเปลี่ยนเบอร์ใหม่ที่มงคลกว่า</p>
                     </div>
                 </div>
             </div>
 
             {/* Warning Section */}
-            <div className="bg-rose-950/20 border border-rose-500/30 rounded-2xl p-6 mb-16">
+            <div className="phone-analysis-surface-card border-rose-500/28 rounded-2xl p-6 md:p-7 mb-16 md:mb-20">
                 <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-xl bg-rose-500/20 flex items-center justify-center text-rose-400 shrink-0">
                         <AlertTriangle className="w-6 h-6" />
                     </div>
                     <div>
                         <h3 className="text-xl font-bold text-rose-400 mb-2">⚠️ อย่าปล่อยให้เลขร้ายทำลายโอกาสของคุณ!</h3>
-                        <p className="text-slate-300 leading-relaxed mb-4">
+                        <p className="leading-[1.9] mb-4">
                             หลายคนใช้เบอร์โทรศัพท์ที่มีพลังงานลบมานานหลายปีโดยไม่รู้ตัว ทำให้เหนื่อยเปล่า พลาดโอกาส
                             หรือมีอุปสรรคติดขัดตลอด การเปลี่ยนเบอร์เป็นเบอร์มงคลอาจเป็นจุดเปลี่ยนชีวิตที่คุณรอคอย!
                         </p>
@@ -323,7 +326,7 @@ export const PhoneSeoContent = () => {
 
             {/* Trust Indicators */}
             <div className="text-center">
-                <div className="inline-flex flex-wrap items-center justify-center gap-6 text-slate-400 text-sm">
+                <div className="inline-flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm phone-analysis-soft-text">
                     <div className="flex items-center gap-2">
                         <Award className="w-5 h-5 text-amber-500" />
                         <span>วิเคราะห์แล้วกว่า <strong className="text-white">150,000+</strong> เบอร์</span>

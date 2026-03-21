@@ -179,7 +179,7 @@ export default function PhoneAnalysisPage() {
             <ClientPage />
 
             {/* SSR SEO Content — always visible to Googlebot regardless of client state */}
-            <div className="max-w-5xl mx-auto px-4">
+            <div className="w-full">
                 <PhoneSeoContent />
                 <PhoneFAQSection />
             </div>

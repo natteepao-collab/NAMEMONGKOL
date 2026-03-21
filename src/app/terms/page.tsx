@@ -7,14 +7,14 @@ import { Metadata } from 'next';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 
 export const metadata: Metadata = {
-    title: 'ข้อตกลงและเงื่อนไขการใช้งาน | NameMongkol',
-    description: 'ข้อตกลงและเงื่อนไขการใช้งานเว็บไซต์ NameMongkol รวมถึงการใช้บริการวิเคราะห์ชื่อมงคล เบอร์มงคล และบริการอื่นๆ ตามกฎหมายไทย',
-    keywords: ['ข้อตกลง', 'เงื่อนไขการใช้งาน', 'Terms of Service', 'NameMongkol', 'กฎหมาย'],
+    title: 'ข้อตกลงและเงื่อนไข | NameMongkol',
+    description: 'ข้อตกลงและเงื่อนไขการใช้งาน NameMongkol ครอบคลุมบริการวิเคราะห์ชื่อมงคล เช็คเบอร์มงคล วิเคราะห์ลายมือด้วย AI ระบบเครดิต และนโยบายคืนเงิน ตามกฎหมายไทย',
+    keywords: ['ข้อตกลง', 'เงื่อนไขการใช้งาน', 'Terms of Service', 'NameMongkol', 'กฎหมาย', 'วิเคราะห์ลายมือ', 'Palm Analysis', 'เบอร์มงคล', 'ระบบเครดิต'],
 
     alternates: { canonical: `${siteUrl.replace(/\/$/, '')}/terms` },
     openGraph: {
         title: 'ข้อตกลงและเงื่อนไขการใช้งาน | NameMongkol',
-        description: 'ข้อตกลงและเงื่อนไขการใช้งานเว็บไซต์ NameMongkol',
+        description: 'ข้อตกลงและเงื่อนไขการใช้งาน NameMongkol ครอบคลุมบริการวิเคราะห์ชื่อมงคล เช็คเบอร์มงคล วิเคราะห์ลายมือด้วย AI ระบบเครดิต และนโยบายคืนเงิน ตามกฎหมายไทย',
         url: `${siteUrl}/terms`,
         siteName: 'NameMongkol',
         locale: 'th_TH',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'ข้อตกลงและเงื่อนไขการใช้งาน | NameMongkol',
-        description: 'ข้อตกลงและเงื่อนไขการใช้งานเว็บไซต์ NameMongkol',
+        description: 'ข้อตกลงและเงื่อนไขการใช้งาน NameMongkol ครอบคลุมบริการวิเคราะห์ชื่อมงคล เช็คเบอร์มงคล วิเคราะห์ลายมือด้วย AI ระบบเครดิต และนโยบายคืนเงิน ตามกฎหมายไทย',
         images: [`${siteUrl}/api/og?variant=default&title=ข้อตกลงและเงื่อนไข`],
     },
     robots: {
@@ -49,7 +49,7 @@ const jsonLd = {
     about: {
         '@type': 'Thing',
         name: 'ข้อตกลงการใช้บริการ',
-        description: 'Terms of Service สำหรับเว็บไซต์วิเคราะห์ชื่อมงคล',
+        description: 'Terms of Service สำหรับเว็บไซต์วิเคราะห์ชื่อมงคล เช็คเบอร์มงคล และวิเคราะห์ลายมือด้วย AI',
     },
     breadcrumb: {
         '@type': 'BreadcrumbList',
@@ -137,7 +137,7 @@ export default function TermsPage() {
                                         1. ลักษณะของบริการ
                                     </h2>
                                     <p className="text-slate-300">
-                                        ให้บริการวิเคราะห์ข้อมูลทางภาษาศาสตร์ (Onomastics) และสถิติเชิงตัวเลข เพื่อใช้เป็นแนวทางในการตั้งชื่อและสร้างสรรค์ผลงานดิจิทัล (Digital Assets) โดยใช้เทคโนโลยีประมวลผลข้อมูลระดับสูง
+                                        ให้บริการวิเคราะห์ข้อมูลทางภาษาศาสตร์ (Onomastics) และสถิติเชิงตัวเลข เพื่อใช้เป็นแนวทางในการตั้งชื่อและสร้างสรรค์ผลงานดิจิทัล รวมถึงบริการเช็คเบอร์มงคลตามหลักเลขศาสตร์ และวิเคราะห์ลายมือออนไลน์ด้วยเทคโนโลยี AI ขั้นสูง (Gemini) ครอบคลุมเส้นชีวิต เส้นสมอง เส้นหัวใจ และเส้นวาสนา
                                     </p>
                                     <div className="mt-4 p-4 md:p-5 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-sm md:text-base text-amber-100 flex gap-4 items-start">
                                         <AlertCircle className="shrink-0 mt-0.5 text-amber-400" size={20} />
@@ -165,7 +165,7 @@ export default function TermsPage() {
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div className="bg-black/20 p-4 rounded-xl border border-white/5">
                                             <h3 className="font-semibold text-white mb-2">💎 การใช้งานเครดิต</h3>
-                                            <p className="text-sm text-slate-400">ใช้แลกบริการ Premium เช่น ค้นหาชื่อระดับสูง หรือดาวน์โหลดวอลเปเปอร์พิเศษ</p>
+                                            <p className="text-sm text-slate-400">ใช้แลกบริการ Premium เช่น ค้นหาชื่อระดับสูง ดาวน์โหลดวอลเปเปอร์พิเศษ หรือวิเคราะห์ลายมือด้วย AI (30 เครดิต/ครั้ง)</p>
                                         </div>
                                         <div className="bg-black/20 p-4 rounded-xl border border-white/5">
                                             <h3 className="font-semibold text-white mb-2">🚫 นโยบายการคืนเงิน</h3>
@@ -250,7 +250,7 @@ export default function TermsPage() {
 
                     <div className="mt-16 text-center border-t border-white/5 pt-8">
                         <p className="text-slate-500 text-sm">
-                            © 2024 NameMongkol.com - สงวนลิขสิทธิ์ตามกฎหมาย
+                            © 2024–2026 NameMongkol.com - สงวนลิขสิทธิ์ตามกฎหมาย
                         </p>
                     </div>
                 </div>

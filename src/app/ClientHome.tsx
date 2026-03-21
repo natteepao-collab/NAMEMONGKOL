@@ -143,27 +143,13 @@ function HomeContent() {
     const { t } = useLanguage();
 
     return (
-        <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-amber-500 selection:text-white relative overflow-hidden">
-
-            {/* Background Decor */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px]"></div>
-                <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-amber-600/10 rounded-full blur-[120px]"></div>
-                <div className="absolute top-[20%] right-[20%] w-[2px] h-[2px] bg-white rounded-full animate-pulse"></div>
-                <div className="absolute top-[40%] left-[10%] w-[3px] h-[3px] bg-amber-200 rounded-full animate-pulse delay-75"></div>
-            </div>
-
-
-
-            <main className="relative z-10 w-full max-w-[1400px] px-4 sm:px-6 lg:px-12 xl:px-16 pt-28 md:pt-32 pb-6 md:pb-28 flex flex-col items-center min-h-[80vh]">
+        <div className="relative min-h-screen overflow-hidden font-sans text-slate-100 selection:bg-amber-500 selection:text-white">
+            <main className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 pt-24 md:pt-28 pb-6 md:pb-28 flex flex-col items-center min-h-[80vh]">
 
                 {!result ? (
-                    <div className="w-full max-w-lg flex flex-col items-center">
+                    <div className="w-full max-w-2xl flex flex-col items-center">
                         {/* HeroBanner decoupled for LCP - No fade-in delay */}
                         <div className="w-full animate-fade-in">
-                            <h2 className="text-center text-amber-200/60 font-medium tracking-widest uppercase text-xs mb-2 sm:mb-4">
-                                {t('home.hero.badge')}
-                            </h2>
                             <HeroBanner />
                         </div>
                         <InputForm
@@ -245,7 +231,7 @@ function HomeContent() {
             )}
 
             {/* Footer */}
-            <footer className="w-full py-6 text-center text-slate-600 text-sm relative z-10 px-4">
+            <footer className="relative z-10 w-full px-4 py-6 text-center text-sm text-amber-100/45">
                 <p>{t('home.footer')}</p>
             </footer>
         </div>

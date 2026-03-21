@@ -7,14 +7,14 @@ import { Metadata } from 'next';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 
 export const metadata: Metadata = {
-    title: 'นโยบายความเป็นส่วนตัว | NameMongkol - การคุ้มครองข้อมูลส่วนบุคคล',
-    description: 'นโยบายความเป็นส่วนตัวและการคุ้มครองข้อมูลส่วนบุคคลของ NameMongkol อธิบายวิธีการเก็บรวบรวม ใช้ และปกป้องข้อมูลของผู้ใช้งานตามกฎหมาย PDPA',
-    keywords: ['นโยบายความเป็นส่วนตัว', 'PDPA', 'การคุ้มครองข้อมูล', 'NameMongkol', 'ข้อมูลส่วนบุคคล'],
+    title: 'นโยบายความเป็นส่วนตัว | NameMongkol - PDPA',
+    description: 'นโยบายความเป็นส่วนตัว NameMongkol อธิบายการเก็บรวบรวม ใช้ และปกป้องข้อมูลส่วนบุคคล รวมถึงข้อมูลภาพลายมือสำหรับวิเคราะห์ด้วย AI ตามกฎหมาย PDPA',
+    keywords: ['นโยบายความเป็นส่วนตัว', 'PDPA', 'การคุ้มครองข้อมูล', 'NameMongkol', 'ข้อมูลส่วนบุคคล', 'วิเคราะห์ลายมือ', 'ภาพฝ่ามือ', 'AI Palm Analysis', 'เบอร์มงคล'],
 
     alternates: { canonical: `${siteUrl.replace(/\/$/, '')}/privacy` },
     openGraph: {
         title: 'นโยบายความเป็นส่วนตัว | NameMongkol',
-        description: 'นโยบายการคุ้มครองข้อมูลส่วนบุคคลตามมาตรฐาน PDPA',
+        description: 'นโยบายความเป็นส่วนตัว NameMongkol อธิบายการเก็บรวบรวม ใช้ และปกป้องข้อมูลส่วนบุคคล รวมถึงข้อมูลภาพลายมือสำหรับวิเคราะห์ด้วย AI ตามกฎหมาย PDPA',
         url: `${siteUrl}/privacy`,
         siteName: 'NameMongkol',
         locale: 'th_TH',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'นโยบายความเป็นส่วนตัว | NameMongkol',
-        description: 'นโยบายการคุ้มครองข้อมูลส่วนบุคคลตามมาตรฐาน PDPA',
+        description: 'นโยบายความเป็นส่วนตัว NameMongkol อธิบายการเก็บรวบรวม ใช้ และปกป้องข้อมูลส่วนบุคคล รวมถึงข้อมูลภาพลายมือสำหรับวิเคราะห์ด้วย AI ตามกฎหมาย PDPA',
         images: [`${siteUrl}/api/og?variant=default&title=นโยบายความเป็นส่วนตัว`],
     },
     robots: {
@@ -38,7 +38,7 @@ const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: 'นโยบายความเป็นส่วนตัว NameMongkol',
-    description: 'นโยบายความเป็นส่วนตัวและการคุ้มครองข้อมูลส่วนบุคคลของ NameMongkol ตามกฎหมาย PDPA',
+    description: 'นโยบายความเป็นส่วนตัวและการคุ้มครองข้อมูลส่วนบุคคลของ NameMongkol ครอบคลุมบริการวิเคราะห์ชื่อมงคล เช็คเบอร์มงคล และวิเคราะห์ลายมือด้วย AI ตามกฎหมาย PDPA',
     url: `${siteUrl}/privacy`,
     inLanguage: 'th-TH',
     isPartOf: {
@@ -140,7 +140,8 @@ export default function PrivacyPage() {
                                         {[
                                             { title: 'ข้อมูลบัญชีผู้ใช้', desc: 'เมื่อท่านลงชื่อเข้าใช้ด้วย Google เราได้รับข้อมูลพื้นฐาน เช่น ชื่อ, อีเมล และรูปภาพโปรไฟล์' },
                                             { title: 'ข้อมูลการวิเคราะห์', desc: 'ชื่อ, นามสกุล, วันเกิด และเบอร์โทรศัพท์ที่ท่านระบุเพื่อทำการวิเคราะห์' },
-                                            { title: 'ข้อมูลธุรกรรม', desc: 'ประวัติการเติมเครดิตและการใช้เครดิต (ไม่เก็บข้อมูลบัตรเครดิต)' }
+                                            { title: 'ข้อมูลธุรกรรม', desc: 'ประวัติการเติมเครดิตและการใช้เครดิต (ไม่เก็บข้อมูลบัตรเครดิต)' },
+                                            { title: 'ข้อมูลภาพลายมือ', desc: 'ภาพฝ่ามือที่ท่านอัปโหลดเพื่อวิเคราะห์ลายมือด้วย AI จะถูกส่งไปประมวลผลและไม่ถูกจัดเก็บถาวรในระบบ' }
                                         ].map((item, idx) => (
                                             <div key={idx} className="flex items-start gap-3 text-slate-300">
                                                 <CheckCircle2 size={18} className="shrink-0 mt-0.5 text-blue-500/50" />
@@ -165,7 +166,9 @@ export default function PrivacyPage() {
                                     <p className="text-slate-300">เรานำข้อมูลไปใช้เพื่อพัฒนาประสบการณ์ที่ดีที่สุดสำหรับคุณ:</p>
                                     <ul className="grid md:grid-cols-2 gap-3">
                                         {[
-                                            'ให้บริการวิเคราะห์ชื่อตามหลักโหราศาสตร์',
+                                            'ให้บริการวิเคราะห์ชื่อตามหลักโหราศาสตร์ 4 ศาสตร์',
+                                            'วิเคราะห์เบอร์โทรศัพท์มงคลตามหลักเลขศาสตร์',
+                                            'วิเคราะห์ลายมือด้วย AI จากภาพฝ่ามือ',
                                             'จัดการสิทธิ์ Premium และการดาวน์โหลด',
                                             'บันทึกประวัติการใช้งานเพื่อดูย้อนหลัง',
                                             'พัฒนาฟีเจอร์ใหม่ๆ ให้ตรงใจคุณ'
@@ -222,7 +225,7 @@ export default function PrivacyPage() {
                     {/* Footer */}
                     <div className="mt-16 text-center border-t border-white/5 pt-8">
                         <p className="text-slate-500 text-sm">
-                            © 2024 NameMongkol.com - ศาสตร์แห่งตัวเลขเพื่อชีวิตที่ดีกว่า
+                            © 2024–2026 NameMongkol.com - ศาสตร์แห่งตัวเลขเพื่อชีวิตที่ดีกว่า
                         </p>
                     </div>
                 </div>

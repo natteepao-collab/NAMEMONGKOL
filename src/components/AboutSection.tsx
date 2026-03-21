@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Sparkles, Sun, Heart, UserCheck, Star, Users, Target, LayoutDashboard, Search, Layers, ChevronLeft, Calendar, Infinity as InfinityIcon, Cpu, ShieldCheck, Zap, Lock, Quote } from 'lucide-react';
+import { Sparkles, Sun, Heart, UserCheck, Star, Users, Target, LayoutDashboard, Search, Layers, ChevronLeft, Calendar, Infinity as InfinityIcon, Cpu, ShieldCheck, Zap, Lock, Quote, ScanLine } from 'lucide-react';
 
 const AboutSection = () => {
     return (
@@ -255,6 +255,37 @@ const AboutSection = () => {
                             </div>
                         </Link>
                     </div>
+
+                    {/* Feature 6: Palm Analysis (New) */}
+                    <div className="mt-8">
+                        <Link href="/palm-analysis" className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-amber-500/30 group relative overflow-hidden block">
+                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform rotate-0">
+                                <ScanLine size={120} />
+                            </div>
+                            <div className="flex flex-col md:flex-row items-center gap-8">
+                                <div className="shrink-0 w-20 h-20 rounded-2xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-amber-900/20">
+                                    <ScanLine className="text-amber-400" size={40} />
+                                </div>
+                                <div className="text-center md:text-left space-y-2">
+                                    <div className="flex items-center justify-center md:justify-start gap-3">
+                                        <h3 className="text-2xl font-bold text-white">6. วิเคราะห์ลายมือด้วย AI (Palm Analysis)</h3>
+                                        <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-xs font-bold text-amber-400 animate-pulse">
+                                            NEW
+                                        </span>
+                                    </div>
+                                    <p className="text-slate-400 max-w-2xl leading-relaxed">
+                                        อัปโหลดภาพฝ่ามือ ระบบ AI จะวิเคราะห์เส้นชีวิต เส้นสมอง เส้นหัวใจ และเส้นวาสนา
+                                        พร้อมสรุปผลคะแนน 4 ด้าน และคำแนะนำเชิงบวกที่เข้าใจง่าย
+                                    </p>
+                                </div>
+                                <div className="ml-auto">
+                                    <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 group-hover:bg-amber-600 group-hover:text-white group-hover:border-amber-500 transition-all font-medium">
+                                        วิเคราะห์ลายมือ <ChevronLeft className="rotate-180" size={18} />
+                                    </span>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
                 </section>
 
                 {/* 5.5 How It Works (GEO Optimized - Procedures) */}
@@ -311,8 +342,8 @@ const AboutSection = () => {
                             </div>
                             <h3 className="text-xl font-bold text-white mt-4">ครบจบในที่เดียว</h3>
                             <p className="text-slate-400 text-sm leading-relaxed px-2">
-                                วิเคราะห์พร้อมกันทั้ง 4 ศาสตร์ ไม่ซับซ้อน เข้าใจง่าย
-                                ประหยัดเวลาของคุณ
+                                วิเคราะห์ชื่อ เช็คเบอร์มงคล วิเคราะห์ลายมือ ครบทุกบริการ
+                                ในแพลตฟอร์มเดียว ไม่ซับซ้อน เข้าใจง่าย
                             </p>
                         </div>
 
@@ -409,13 +440,17 @@ const AboutSection = () => {
 
                 {/* SEO Hidden Content */}
                 <div className="sr-only">
-                    <h2>คำถามที่พบบ่อยเกี่ยวกับ ชื่อมงคล</h2>
+                    <h2>คำถามที่พบบ่อยเกี่ยวกับ ชื่อมงคล เช็คเบอร์มงคล วิเคราะห์ลายมือ</h2>
                     <p>
                         ต้องการ ดูดวงชื่อ หรือหา นามสกุลมงคล ใช่ไหม?
                         เรามีบริการ วิเคราะห์ชื่อ ฟรี ด้วยโปรแกรมอัจฉริยะ
                         ช่วย ตั้งชื่อลูก เปลี่ยนชื่อ ให้ถูกโฉลก
                         เสริมดวงด้วย เลขศาสตร์ และ ทักษาปกรณ์
                         ป้องกันอักษร กาลกิณี
+                        เช็คเบอร์มงคล วิเคราะห์เบอร์โทรศัพท์ เบอร์มงคล
+                        วิเคราะห์ลายมือ ดูดวงลายมือ ดูลายมือออนไลน์
+                        เส้นชีวิต เส้นสมอง เส้นหัวใจ เส้นวาสนา
+                        AI Palmistry หัตถศาสตร์
                     </p>
                 </div>
 
