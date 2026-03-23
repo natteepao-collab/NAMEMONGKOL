@@ -1,0 +1,25 @@
+import type { Metadata } from 'next';
+import UpdatePasswordClientPage from './ClientPage';
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
+
+export const metadata: Metadata = {
+    title: 'ตั้งรหัสผ่านใหม่ | NameMongkol',
+    description: 'ตั้งรหัสผ่านใหม่สำหรับบัญชี NameMongkol ของคุณอย่างปลอดภัย',
+    robots: {
+        index: false,
+        follow: false,
+    },
+    openGraph: {
+        title: 'ตั้งรหัสผ่านใหม่ | NameMongkol',
+        description: 'ตั้งรหัสผ่านใหม่สำหรับบัญชี NameMongkol ของคุณอย่างปลอดภัย',
+        url: `${siteUrl}/auth/update-password`,
+        siteName: 'NameMongkol',
+        locale: 'th_TH',
+        type: 'website',
+    },
+};
+
+export default function UpdatePasswordPage() {
+    return <UpdatePasswordClientPage />;
+}

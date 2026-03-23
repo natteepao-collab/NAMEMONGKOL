@@ -87,7 +87,7 @@ export async function middleware(request: NextRequest) {
     }
 
     // Skip Supabase auth for public paths (faster response)
-    const publicPaths = ['/', '/articles', '/search', '/about', '/terms', '/privacy', '/phone-analysis', '/name-analysis', '/premium-search', '/wallpapers', '/reviews', '/meaning', '/login', '/register'];
+    const publicPaths = ['/', '/articles', '/search', '/about', '/terms', '/privacy', '/phone-analysis', '/name-analysis', '/premium-search', '/wallpapers', '/reviews', '/meaning', '/login', '/register', '/auth/update-password'];
     const isPublicPath = publicPaths.some(p => pathname === p || (p !== '/' && pathname.startsWith(p + '/')));
     const needsAuth = pathname.startsWith('/admin') || pathname.startsWith('/api/admin') || ['/topup', '/history', '/profile'].some(p => pathname.startsWith(p));
     if (isPublicPath && !needsAuth) {

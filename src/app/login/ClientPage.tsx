@@ -2,8 +2,8 @@
 
 import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Mail, Lock, ArrowRight, Facebook, Eye, EyeOff, Loader2, AlertCircle, Clock } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Mail, Lock, ArrowRight, Facebook, Eye, EyeOff, Loader2, AlertCircle, Clock, CheckCircle } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 
 // Rate limit error interface
@@ -16,6 +16,7 @@ interface RateLimitError {
 
 export default function LoginClientPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +28,7 @@ export default function LoginClientPage() {
     const [retryAfter, setRetryAfter] = useState<number | null>(null);
 
     const [showForgotPassword, setShowForgotPassword] = useState(false);
+    const isPasswordResetSuccess = searchParams.get('reset') === 'success';
 
     // Format retry time for display
     const formatRetryTime = useCallback((seconds: number): string => {
@@ -178,6 +180,13 @@ export default function LoginClientPage() {
                                     </div>
                                 )}
                             </div>
+                        </div>
+                    )}
+
+                    {isPasswordResetSuccess && (
+                        <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-200 text-sm flex items-start gap-2">
+                            <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0" />
+                            <span>ตั้งรหัสผ่านใหม่สำเร็จแล้ว กรุณาเข้าสู่ระบบด้วยรหัสผ่านใหม่</span>
                         </div>
                     )}
 

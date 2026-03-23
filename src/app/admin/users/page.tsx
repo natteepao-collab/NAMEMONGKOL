@@ -100,7 +100,7 @@ export default function AdminUsersPage() {
 
     const handleEdit = (user: UserProfile) => {
         setEditingUser(user);
-        setEditCredits(user.credits || 0);
+        setEditCredits(user.credits ?? 0);
         setEditRole(user.role || 'user');
     };
 
@@ -319,14 +319,35 @@ export default function AdminUsersPage() {
                                 <p className="text-slate-200 font-mono text-xs mt-1 break-all">{editingUser.id}</p>
                             </div>
 
+                            {/* Credit Summary (read-only) */}
+                            <div className="bg-slate-800/50 p-4 rounded-xl space-y-2">
+                                <div className="flex justify-between items-center text-sm">
+                                    <span className="text-slate-400">เครดิตรวม (ใช้งานได้)</span>
+                                    <span className="text-emerald-400 font-bold text-lg">
+                                        {calculateEffectiveCredits(editingUser).toLocaleString()}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between items-center text-sm border-t border-slate-700/50 pt-2">
+                                    <span className="text-slate-500">เครดิตที่ซื้อ/เติม</span>
+                                    <span className="text-slate-300">{(editingUser.credits ?? 0).toLocaleString()}</span>
+                                </div>
+                                {(editingUser.welcome_credits ?? 0) > 0 && (
+                                    <div className="flex justify-between items-center text-sm">
+                                        <span className="text-slate-500">Welcome เครดิต</span>
+                                        <span className="text-amber-400">{(editingUser.welcome_credits ?? 0).toLocaleString()}</span>
+                                    </div>
+                                )}
+                            </div>
+
                             <div>
-                                <label className="block text-sm font-medium text-slate-300 mb-2">เครดิต (Credits)</label>
+                                <label className="block text-sm font-medium text-slate-300 mb-2">เครดิตที่ซื้อ/เติม (Purchased Credits)</label>
                                 <input
                                     type="number"
                                     value={editCredits}
                                     onChange={(e) => setEditCredits(Number(e.target.value))}
                                     className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500"
                                 />
+                                <p className="text-xs text-slate-500 mt-1">Welcome เครดิตจะคำนวณอัตโนมัติ ไม่ต้องรวมในช่องนี้</p>
                             </div>
 
                             <div>
