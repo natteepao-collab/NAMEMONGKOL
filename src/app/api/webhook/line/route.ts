@@ -18,6 +18,49 @@ const config = {
 };
 const client = new Client(config);
 
+function writeWebhookLog(level: 'INFO' | 'ERROR', message: string, details?: Record<string, unknown>) {
+    const payload = {
+        scope: 'line-webhook',
+        level,
+        message,
+        ...(details ? { details } : {}),
+        timestamp: new Date().toISOString(),
+    };
+    const line = `${JSON.stringify(payload)}\n`;
+
+    if (level === 'ERROR') {
+        process.stderr.write(line);
+        return;
+    }
+
+    process.stdout.write(line);
+}
+
+function maskToken(token: string) {
+    if (token.length <= 8) return token;
+    return `${token.slice(0, 8)}...`;
+}
+
+async function replyWithDiagnostics(
+    replyToken: string,
+    message: string,
+    context: Record<string, unknown>
+) {
+    try {
+        await client.replyMessage(replyToken, {
+            type: 'text',
+            text: message,
+        });
+        writeWebhookLog('INFO', 'LINE replyMessage succeeded', context);
+    } catch (error) {
+        writeWebhookLog('ERROR', 'LINE replyMessage failed', {
+            ...context,
+            error: error instanceof Error ? error.message : String(error),
+        });
+        throw error;
+    }
+}
+
 // Pricing Tiers (Synced with TopUpPage)
 const PRICING_TIERS = [
     { credits: 500, price: 399, name: 'Fortune Seeker' },
@@ -37,27 +80,46 @@ export async function POST(req: NextRequest) {
     const body = await req.text();
     const signature = req.headers.get('x-line-signature') as string;
 
+    writeWebhookLog('INFO', 'Received webhook request', {
+        hasSignature: Boolean(signature),
+        userAgent: req.headers.get('user-agent') || 'unknown',
+    });
+
     if (!config.channelSecret || !signature) {
+        writeWebhookLog('ERROR', 'Missing channel secret or signature', {
+            hasChannelSecret: Boolean(config.channelSecret),
+            hasSignature: Boolean(signature),
+        });
         return NextResponse.json({ message: 'Missing channel secret or signature' }, { status: 400 });
     }
 
     try {
         if (!validateSignature(body, config.channelSecret, signature)) {
+            writeWebhookLog('ERROR', 'Invalid LINE signature');
             return NextResponse.json({ message: 'Invalid signature' }, { status: 403 });
         }
     } catch (e) {
-        console.error('Signature validation error', e);
+        writeWebhookLog('ERROR', 'Signature validation exception', {
+            error: e instanceof Error ? e.message : String(e),
+        });
         return NextResponse.json({ message: 'Signature validation failed' }, { status: 403 });
     }
 
     const data = JSON.parse(body);
     const events: WebhookEvent[] = data.events;
 
+    writeWebhookLog('INFO', 'Validated webhook request', {
+        eventCount: Array.isArray(events) ? events.length : 0,
+        eventTypes: Array.isArray(events) ? events.map((event) => event.type) : [],
+    });
+
     try {
         await Promise.all(events.map(handleEvent));
         return NextResponse.json({ message: 'OK' });
     } catch (err) {
-        console.error('Error processing events:', err);
+        writeWebhookLog('ERROR', 'Unhandled error processing events', {
+            error: err instanceof Error ? err.message : String(err),
+        });
         return NextResponse.json({ message: 'Error processing events' }, { status: 500 });
     }
 }
@@ -69,6 +131,134 @@ async function handleEvent(event: WebhookEvent) {
         message: string;
     }
 
+    // Handle Follow event — auto-verify LINE bonus if a pending token exists
+    if (event.type === 'follow') {
+        const lineUserId = event.source.userId;
+        writeWebhookLog('INFO', 'Handling follow event', {
+            lineUserId: lineUserId || 'missing',
+        });
+        if (!lineUserId) return;
+
+        try {
+            const supabaseAdmin = createClient(
+                process.env.NEXT_PUBLIC_SUPABASE_URL!,
+                process.env.SUPABASE_SERVICE_ROLE_KEY!
+            );
+
+            // Check if this LINE user is already linked to any account
+            const { data: existingProfile } = await supabaseAdmin
+                .from('user_profiles')
+                .select('id')
+                .eq('line_user_id', lineUserId)
+                .maybeSingle();
+
+            if (existingProfile) {
+                writeWebhookLog('INFO', 'Follow event for already linked LINE account', {
+                    lineUserId,
+                });
+                await replyWithDiagnostics(
+                    event.replyToken,
+                    'ยินดีต้อนรับกลับมา! 🎉\nบัญชี LINE ของคุณเชื่อมต่อกับระบบแล้วครับ',
+                    { eventType: 'follow', lineUserId, replyType: 'already-linked' }
+                );
+                return;
+            }
+
+            // Look for the most recent pending verification token (unused, not expired)
+            const { data: pendingToken } = await supabaseAdmin
+                .from('line_verification_tokens')
+                .select('token, user_id, expires_at')
+                .is('used_at', null)
+                .gt('expires_at', new Date().toISOString())
+                .order('created_at', { ascending: false })
+                .limit(1)
+                .maybeSingle();
+
+            if (pendingToken) {
+                writeWebhookLog('INFO', 'Found pending token for follow auto-verify', {
+                    lineUserId,
+                    token: maskToken(pendingToken.token),
+                });
+                // Auto-verify with this token
+                const { data: bonusResult, error: bonusError } = await supabaseAdmin.rpc('grant_line_bonus', {
+                    p_token: pendingToken.token,
+                    p_line_user_id: lineUserId
+                });
+                const result = bonusResult as { success: boolean; code: string } | null;
+
+                if (bonusError) {
+                    writeWebhookLog('ERROR', 'Auto-verify grant_line_bonus error', {
+                        lineUserId,
+                        token: maskToken(pendingToken.token),
+                        error: bonusError.message,
+                    });
+                    await replyWithDiagnostics(
+                        event.replyToken,
+                        'ขอบคุณที่เพิ่มเพื่อน! 🎉\n❌ ระบบยืนยันอัตโนมัติมีปัญหา กรุณากลับไปที่หน้าโปรไฟล์แล้วกดปุ่มยืนยันอีกครั้งครับ',
+                        { eventType: 'follow', lineUserId, replyType: 'auto-verify-error' }
+                    );
+                } else if (result?.code === 'ok') {
+                    writeWebhookLog('INFO', 'Auto-verify succeeded on follow event', {
+                        lineUserId,
+                        token: maskToken(pendingToken.token),
+                    });
+                    await replyWithDiagnostics(
+                        event.replyToken,
+                        '🎉 ยินดีต้อนรับ & ยืนยัน LINE สำเร็จ!\n\nคุณได้รับ 80 เครดิตโบนัสแล้วครับ ✅\nพร้อมใช้งานได้ทันที!',
+                        { eventType: 'follow', lineUserId, replyType: 'auto-verify-success' }
+                    );
+                } else if (result?.code === 'already_claimed') {
+                    writeWebhookLog('INFO', 'Follow auto-verify skipped because bonus already claimed', {
+                        lineUserId,
+                        token: maskToken(pendingToken.token),
+                    });
+                    await replyWithDiagnostics(
+                        event.replyToken,
+                        'ยินดีต้อนรับ! 🎉\nบัญชีของคุณได้รับโบนัส LINE ไปแล้วครับ',
+                        { eventType: 'follow', lineUserId, replyType: 'already-claimed' }
+                    );
+                } else if (result?.code === 'line_already_used') {
+                    writeWebhookLog('INFO', 'Follow auto-verify rejected because LINE account is already linked elsewhere', {
+                        lineUserId,
+                        token: maskToken(pendingToken.token),
+                    });
+                    await replyWithDiagnostics(
+                        event.replyToken,
+                        'ยินดีต้อนรับ! 🎉\n❌ LINE บัญชีนี้เคยผูกกับบัญชีอื่นแล้ว\nไม่สามารถรับโบนัสซ้ำได้ครับ',
+                        { eventType: 'follow', lineUserId, replyType: 'line-already-used' }
+                    );
+                } else {
+                    writeWebhookLog('INFO', 'Follow auto-verify returned non-ok result', {
+                        lineUserId,
+                        token: maskToken(pendingToken.token),
+                        code: result?.code || 'unknown',
+                    });
+                    await replyWithDiagnostics(
+                        event.replyToken,
+                        'ขอบคุณที่เพิ่มเพื่อน! 🎉\n\nหากต้องการรับโบนัส 80 เครดิต กรุณากลับไปที่หน้าโปรไฟล์แล้วกดปุ่มยืนยันครับ',
+                        { eventType: 'follow', lineUserId, replyType: 'non-ok-result', code: result?.code || 'unknown' }
+                    );
+                }
+            } else {
+                writeWebhookLog('INFO', 'No pending token found for follow event', {
+                    lineUserId,
+                });
+                // No pending token — just welcome
+                await replyWithDiagnostics(
+                    event.replyToken,
+                    'ขอบคุณที่เพิ่มเพื่อน NameMongkol! 🎉\n\nหากต้องการรับโบนัส 80 เครดิต กรุณาไปที่:\n🔗 หน้าโปรไฟล์ > เชื่อมต่อ LINE\nแล้วกดปุ่มเพิ่มเพื่อนอีกครั้งครับ',
+                    { eventType: 'follow', lineUserId, replyType: 'no-pending-token' }
+                );
+            }
+        } catch (err) {
+            writeWebhookLog('ERROR', 'Error handling follow event', {
+                lineUserId,
+                error: err instanceof Error ? err.message : String(err),
+            });
+        }
+        return;
+    }
+
     // Handle Text Message (for Email Linking)
     if (event.type === 'message' && event.message.type === 'text') {
         const text = event.message.text.trim();
@@ -78,6 +268,10 @@ async function handleEvent(event: WebhookEvent) {
         // Handle verify: token (LINE bonus flow) — must check before email regex
         if (text.startsWith('verify:') && lineUserId) {
             const verifyToken = text.slice(7).trim();
+            writeWebhookLog('INFO', 'Received verify message', {
+                lineUserId,
+                token: maskToken(verifyToken),
+            });
             if (verifyToken) {
                 try {
                     const supabaseAdmin = createClient(
@@ -90,34 +284,64 @@ async function handleEvent(event: WebhookEvent) {
                     });
                     const result = bonusResult as { success: boolean; code: string } | null;
                     if (bonusError) {
-                        console.error('grant_line_bonus error:', bonusError);
-                        await client.replyMessage(replyToken, {
-                            type: 'text',
-                            text: '❌ เกิดข้อผิดพลาดในการยืนยัน โปรดลองใหม่อีกครั้ง'
+                        writeWebhookLog('ERROR', 'grant_line_bonus error in verify handler', {
+                            lineUserId,
+                            token: maskToken(verifyToken),
+                            error: bonusError.message,
                         });
+                        await replyWithDiagnostics(
+                            replyToken,
+                            '❌ เกิดข้อผิดพลาดในการยืนยัน โปรดลองใหม่อีกครั้ง',
+                            { eventType: 'verify-message', lineUserId, token: maskToken(verifyToken), replyType: 'grant-line-bonus-error' }
+                        );
                     } else if (result?.code === 'ok') {
-                        await client.replyMessage(replyToken, {
-                            type: 'text',
-                            text: '✅ ยืนยัน LINE สำเร็จ!\nคุณได้รับ 80 เครดิตโบนัสแล้วครับ 🎉\n\nขอบคุณที่ยืนยันตัวตน พร้อมใช้งานได้ทันที!'
+                        writeWebhookLog('INFO', 'Verify handler granted bonus successfully', {
+                            lineUserId,
+                            token: maskToken(verifyToken),
                         });
+                        await replyWithDiagnostics(
+                            replyToken,
+                            '✅ ยืนยัน LINE สำเร็จ!\nคุณได้รับ 80 เครดิตโบนัสแล้วครับ 🎉\n\nขอบคุณที่ยืนยันตัวตน พร้อมใช้งานได้ทันที!',
+                            { eventType: 'verify-message', lineUserId, token: maskToken(verifyToken), replyType: 'verify-success' }
+                        );
                     } else if (result?.code === 'already_claimed') {
-                        await client.replyMessage(replyToken, {
-                            type: 'text',
-                            text: 'ℹ️ บัญชีของคุณได้รับโบนัส LINE ไปแล้วครับ'
+                        writeWebhookLog('INFO', 'Verify handler found bonus already claimed', {
+                            lineUserId,
+                            token: maskToken(verifyToken),
                         });
+                        await replyWithDiagnostics(
+                            replyToken,
+                            'ℹ️ บัญชีของคุณได้รับโบนัส LINE ไปแล้วครับ',
+                            { eventType: 'verify-message', lineUserId, token: maskToken(verifyToken), replyType: 'already-claimed' }
+                        );
                     } else if (result?.code === 'line_already_used') {
-                        await client.replyMessage(replyToken, {
-                            type: 'text',
-                            text: '❌ LINE บัญชีนี้เคยผูกกับบัญชีอื่นแล้ว\nไม่สามารถรับโบนัสซ้ำได้ครับ'
+                        writeWebhookLog('INFO', 'Verify handler rejected because LINE account is already linked elsewhere', {
+                            lineUserId,
+                            token: maskToken(verifyToken),
                         });
+                        await replyWithDiagnostics(
+                            replyToken,
+                            '❌ LINE บัญชีนี้เคยผูกกับบัญชีอื่นแล้ว\nไม่สามารถรับโบนัสซ้ำได้ครับ',
+                            { eventType: 'verify-message', lineUserId, token: maskToken(verifyToken), replyType: 'line-already-used' }
+                        );
                     } else {
-                        await client.replyMessage(replyToken, {
-                            type: 'text',
-                            text: '❌ รหัสยืนยันหมดอายุหรือไม่ถูกต้อง\nกรุณาขอลิงก์ยืนยันใหม่จากหน้าโปรไฟล์บนเว็บไซต์'
+                        writeWebhookLog('INFO', 'Verify handler returned invalid or expired token result', {
+                            lineUserId,
+                            token: maskToken(verifyToken),
+                            code: result?.code || 'unknown',
                         });
+                        await replyWithDiagnostics(
+                            replyToken,
+                            '❌ รหัสยืนยันหมดอายุหรือไม่ถูกต้อง\nกรุณาขอลิงก์ยืนยันใหม่จากหน้าโปรไฟล์บนเว็บไซต์',
+                            { eventType: 'verify-message', lineUserId, token: maskToken(verifyToken), replyType: 'invalid-or-expired', code: result?.code || 'unknown' }
+                        );
                     }
                 } catch (err) {
-                    console.error('Error in verify: handler:', err);
+                    writeWebhookLog('ERROR', 'Unhandled exception in verify handler', {
+                        lineUserId,
+                        token: maskToken(verifyToken),
+                        error: err instanceof Error ? err.message : String(err),
+                    });
                     await client.replyMessage(replyToken, {
                         type: 'text',
                         text: '❌ เกิดข้อผิดพลาดในระบบ'

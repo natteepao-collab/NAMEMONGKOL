@@ -37,6 +37,13 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ status: 'already_claimed' });
     }
 
+    // Delete old pending (unused) tokens for this user before creating a new one
+    await supabaseAdmin
+        .from('line_verification_tokens')
+        .delete()
+        .eq('user_id', user.id)
+        .is('used_at', null);
+
     // Create a new one-time token (10-minute expiry set by DB default)
     const { data: tokenRecord, error: tokenError } = await supabaseAdmin
         .from('line_verification_tokens')
@@ -52,11 +59,18 @@ export async function POST(req: NextRequest) {
     // Build LINE OA deep link — user opens LINE and it pre-fills the verify message
     const lineOaId = process.env.LINE_OA_ID || 'namemongkol';
     const message = `verify:${tokenRecord.token}`;
-    const lineUrl = `https://line.me/R/oaMessage/@${lineOaId}/?text=${encodeURIComponent(message)}`;
+    const verifyUrl = `https://line.me/R/oaMessage/@${lineOaId}/?text=${encodeURIComponent(message)}`;
+
+    // Add Friend URL (step 1 of 2-step flow)
+    const addFriendUrl = process.env.NEXT_PUBLIC_LINE_ADD_FRIEND_URL
+        || 'https://line.me/R/ti/p/@419lfoka?ts=01080039&oat_content=url';
 
     return NextResponse.json({
         status: 'pending',
-        lineUrl,
+        addFriendUrl,
+        verifyUrl,
+        verifyMessage: message,
+        lineUrl: verifyUrl, // backward compat
         expiresAt: tokenRecord.expires_at,
     });
 }

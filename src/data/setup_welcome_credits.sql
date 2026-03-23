@@ -1,5 +1,5 @@
 -- ============================================================================
--- WELCOME CREDITS SYSTEM: 20+80 เครดิตฟรีสำหรับสมาชิกใหม่ (20 ทันที + 80 หลังยืนยัน LINE)
+-- WELCOME CREDITS SYSTEM: 30+80 เครดิตฟรีสำหรับสมาชิกใหม่ (30 ทันที + 80 หลังยืนยัน LINE)
 -- ============================================================================
 -- วิธีใช้: รัน SQL นี้ใน Supabase SQL Editor ตามลำดับ Step 1-6
 -- ============================================================================
@@ -23,13 +23,13 @@ ADD COLUMN IF NOT EXISTS welcome_credits_granted_at TIMESTAMPTZ DEFAULT NULL;
 
 
 -- ============================================================================
--- STEP 2: อัพเดต handle_new_user() trigger ให้เพิ่ม 100 เครดิตฟรีอัตโนมัติ
+-- STEP 2: อัพเดต handle_new_user() trigger ให้เพิ่ม 30 เครดิตฟรีอัตโนมัติ
 -- ============================================================================
 
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  -- สร้าง user profile พร้อมเครดิตฟรี 100 เครดิต
+  -- สร้าง user profile พร้อมเครดิตฟรี 30 เครดิต
   INSERT INTO public.user_profiles (
     id, email, first_name, last_name, provider, created_at,
     credits, welcome_credits, welcome_credits_granted, welcome_credits_granted_at
@@ -54,7 +54,7 @@ BEGIN
     COALESCE((NEW.raw_app_meta_data->>'provider')::text, 'email'),
     NOW(),
     0,             -- credits (เครดิตซื้อ) เริ่มที่ 0
-    20,            -- welcome_credits: 20 เครดิตฟรีทันที (+ 80 หลังยืนยัน LINE)
+    30,            -- welcome_credits: 30 เครดิตฟรีทันที (+ 80 หลังยืนยัน LINE)
     TRUE,          -- welcome_credits_granted: ให้แล้ว
     NOW()          -- welcome_credits_granted_at: เริ่มนับหมดอายุ
   )
@@ -62,7 +62,7 @@ BEGIN
 
   -- บันทึก transaction log
   INSERT INTO public.credit_transactions (user_id, amount, type, description)
-  VALUES (NEW.id, 20, 'earn', 'Welcome Bonus: สมาชิกใหม่ 20 เครดิต (หมดอายุ 30 วัน)')
+  VALUES (NEW.id, 30, 'earn', 'Welcome Bonus: สมาชิกใหม่ 30 เครดิต (หมดอายุ 30 วัน)')
   ON CONFLICT DO NOTHING;
 
   RETURN NEW;
@@ -338,13 +338,13 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 --       AND created_at > (NOW() - INTERVAL '30 days')
 --   LOOP
 --     UPDATE public.user_profiles
---     SET welcome_credits = 100,
+--     SET welcome_credits = 30,
 --         welcome_credits_granted = TRUE,
 --         welcome_credits_granted_at = created_at
 --     WHERE id = v_record.id;
 --
 --     INSERT INTO public.credit_transactions (user_id, amount, type, description)
---     VALUES (v_record.id, 100, 'earn', 'Welcome Bonus: สมาชิกใหม่ 100 เครดิต (Retroactive)');
+--     VALUES (v_record.id, 30, 'earn', 'Welcome Bonus: สมาชิกใหม่ 30 เครดิต (Retroactive)');
 --   END LOOP;
 --
 --   PERFORM set_config('app.bypass_credit_check', '', true);

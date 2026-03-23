@@ -13,7 +13,7 @@ interface WelcomeCreditModalProps {
 
 export const WelcomeCreditModal: React.FC<WelcomeCreditModalProps> = ({ user }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [welcomeCredits, setWelcomeCredits] = useState(20);
+    const [welcomeCredits, setWelcomeCredits] = useState(30);
     const [expiresAt, setExpiresAt] = useState<string | null>(null);
 
     useEffect(() => {
@@ -55,7 +55,7 @@ export const WelcomeCreditModal: React.FC<WelcomeCreditModalProps> = ({ user }) 
                     }));
                 }
 
-                setWelcomeCredits(data.welcome_credits ?? 20);
+                setWelcomeCredits(data.welcome_credits ?? 30);
 
                 // 3. เช็คว่าสร้างบัญชีภายใน 7 วัน (ขยายจาก 24 ชม. เพื่อให้ครอบคลุมมากขึ้น)
                 const createdAt = new Date(user.created_at).getTime();

@@ -55,7 +55,7 @@ export const WelcomeOffer = () => {
                     <div className="flex-1 min-w-0">
                         <div className="flex justify-between items-start">
                             <h3 className="font-bold text-base sm:text-lg text-white leading-tight">
-                                รับฟรี <span className="text-amber-400">100 เครดิต!</span>
+                                รับฟรี <span className="text-amber-400">30 เครดิต!</span>
                             </h3>
                             <button
                                 onClick={handleClose}
