@@ -35,7 +35,5 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Grant permissions
-GRANT EXECUTE ON FUNCTION link_line_id_by_email(text, text) TO anon;
-GRANT EXECUTE ON FUNCTION link_line_id_by_email(text, text) TO authenticated;
+-- Grant permissions (anon access removed — only webhook uses this via service_role)
 GRANT EXECUTE ON FUNCTION link_line_id_by_email(text, text) TO service_role;

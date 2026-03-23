@@ -75,6 +75,58 @@ async function handleEvent(event: WebhookEvent) {
         const lineUserId = event.source.userId;
         const replyToken = event.replyToken;
 
+        // Handle verify: token (LINE bonus flow) — must check before email regex
+        if (text.startsWith('verify:') && lineUserId) {
+            const verifyToken = text.slice(7).trim();
+            if (verifyToken) {
+                try {
+                    const supabaseAdmin = createClient(
+                        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+                        process.env.SUPABASE_SERVICE_ROLE_KEY!
+                    );
+                    const { data: bonusResult, error: bonusError } = await supabaseAdmin.rpc('grant_line_bonus', {
+                        p_token: verifyToken,
+                        p_line_user_id: lineUserId
+                    });
+                    const result = bonusResult as { success: boolean; code: string } | null;
+                    if (bonusError) {
+                        console.error('grant_line_bonus error:', bonusError);
+                        await client.replyMessage(replyToken, {
+                            type: 'text',
+                            text: '❌ เกิดข้อผิดพลาดในการยืนยัน โปรดลองใหม่อีกครั้ง'
+                        });
+                    } else if (result?.code === 'ok') {
+                        await client.replyMessage(replyToken, {
+                            type: 'text',
+                            text: '✅ ยืนยัน LINE สำเร็จ!\nคุณได้รับ 80 เครดิตโบนัสแล้วครับ 🎉\n\nขอบคุณที่ยืนยันตัวตน พร้อมใช้งานได้ทันที!'
+                        });
+                    } else if (result?.code === 'already_claimed') {
+                        await client.replyMessage(replyToken, {
+                            type: 'text',
+                            text: 'ℹ️ บัญชีของคุณได้รับโบนัส LINE ไปแล้วครับ'
+                        });
+                    } else if (result?.code === 'line_already_used') {
+                        await client.replyMessage(replyToken, {
+                            type: 'text',
+                            text: '❌ LINE บัญชีนี้เคยผูกกับบัญชีอื่นแล้ว\nไม่สามารถรับโบนัสซ้ำได้ครับ'
+                        });
+                    } else {
+                        await client.replyMessage(replyToken, {
+                            type: 'text',
+                            text: '❌ รหัสยืนยันหมดอายุหรือไม่ถูกต้อง\nกรุณาขอลิงก์ยืนยันใหม่จากหน้าโปรไฟล์บนเว็บไซต์'
+                        });
+                    }
+                } catch (err) {
+                    console.error('Error in verify: handler:', err);
+                    await client.replyMessage(replyToken, {
+                        type: 'text',
+                        text: '❌ เกิดข้อผิดพลาดในระบบ'
+                    });
+                }
+            }
+            return;
+        }
+
         // Simple Email Regex
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

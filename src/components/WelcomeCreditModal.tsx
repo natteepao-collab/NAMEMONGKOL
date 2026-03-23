@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User } from '@supabase/supabase-js';
-import { X, Sparkles, Gift, Clock } from 'lucide-react';
+import { X, Sparkles, Gift, Clock, Smartphone } from 'lucide-react';
+import Link from 'next/link';
 import confetti from 'canvas-confetti';
 import { supabase } from '@/utils/supabase';
 
@@ -12,7 +13,7 @@ interface WelcomeCreditModalProps {
 
 export const WelcomeCreditModal: React.FC<WelcomeCreditModalProps> = ({ user }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [welcomeCredits, setWelcomeCredits] = useState(100);
+    const [welcomeCredits, setWelcomeCredits] = useState(20);
     const [expiresAt, setExpiresAt] = useState<string | null>(null);
 
     useEffect(() => {
@@ -54,7 +55,7 @@ export const WelcomeCreditModal: React.FC<WelcomeCreditModalProps> = ({ user }) 
                     }));
                 }
 
-                setWelcomeCredits(data.welcome_credits ?? 100);
+                setWelcomeCredits(data.welcome_credits ?? 20);
 
                 // 3. เช็คว่าสร้างบัญชีภายใน 7 วัน (ขยายจาก 24 ชม. เพื่อให้ครอบคลุมมากขึ้น)
                 const createdAt = new Date(user.created_at).getTime();
@@ -160,8 +161,8 @@ export const WelcomeCreditModal: React.FC<WelcomeCreditModalProps> = ({ user }) 
                         คุณได้รับเครดิตฟรีแล้ว เพื่อเริ่มต้นความเป็นมงคล
                     </p>
 
-                    {/* Credit Box */}
-                    <div className="w-full bg-slate-900/50 border border-amber-500/30 rounded-xl p-4 mb-4 flex items-center justify-between group">
+                    {/* Credit Box — signup bonus */}
+                    <div className="w-full bg-slate-900/50 border border-amber-500/30 rounded-xl p-4 mb-3 flex items-center justify-between group">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center">
                                 <Sparkles size={20} className="text-amber-500" />
@@ -179,9 +180,26 @@ export const WelcomeCreditModal: React.FC<WelcomeCreditModalProps> = ({ user }) 
                         </div>
                     </div>
 
+                    {/* LINE Bonus Row */}
+                    <div className="w-full bg-slate-900/30 border border-green-500/20 rounded-xl p-4 mb-3 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center">
+                                <Smartphone size={20} className="text-green-400" />
+                            </div>
+                            <div className="text-left">
+                                <p className="text-xs text-slate-400 uppercase font-semibold tracking-wider">ยืนยัน LINE</p>
+                                <p className="text-slate-300 text-sm font-medium">เชื่อมต่อ LINE OA</p>
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <span className="text-2xl font-black text-green-400">+80</span>
+                            <span className="text-green-500/70 text-xs font-bold ml-1">Credits</span>
+                        </div>
+                    </div>
+
                     {/* Expiry Info */}
                     {expiresAt && (
-                        <div className="w-full bg-amber-500/5 border border-amber-500/10 rounded-lg px-4 py-2.5 mb-6 flex items-center gap-2">
+                        <div className="w-full bg-amber-500/5 border border-amber-500/10 rounded-lg px-4 py-2.5 mb-4 flex items-center gap-2">
                             <Clock size={14} className="text-amber-500/60 shrink-0" />
                             <p className="text-xs text-amber-400/80">
                                 ใช้ได้ถึงวันที่ <span className="font-semibold text-amber-300">{expiresAt}</span>
@@ -191,11 +209,20 @@ export const WelcomeCreditModal: React.FC<WelcomeCreditModalProps> = ({ user }) 
 
                     <button
                         onClick={handleClose}
-                        className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-amber-500/25 transform transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
+                        className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-amber-500/25 transform transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 mb-3"
                     >
                         เริ่มใช้งานเลย!
                         <Sparkles size={18} className="animate-pulse" />
                     </button>
+
+                    <Link
+                        href="/profile"
+                        onClick={handleClose}
+                        className="w-full border border-green-500/30 hover:border-green-500/60 text-green-400 hover:text-green-300 font-semibold py-3 rounded-xl transition-all flex items-center justify-center gap-2 text-sm"
+                    >
+                        <Smartphone size={16} />
+                        รับเพิ่ม 80 เครดิต ยืนยัน LINE →
+                    </Link>
 
                     <p className="mt-4 text-[10px] text-slate-500">
                         *เครดิตฟรีมีอายุการใช้งาน 30 วัน นับจากวันสมัครสมาชิก

@@ -5933,7 +5933,7 @@ export const articles: Article[] = [
         id: '2',
         slug: 'naming-tips-2026-year-of-horse',
         title: 'รวม 100 ชื่อมงคลลูกชายปีมะเมีย 2569 ตั้งแล้วรวย เสริมบารมี พร้อมความหมาย (อัปเดตล่าสุด)',
-        excerpt: 'อัปเดตล่าสุด! คู่มือตั้งชื่อลูกชายเกิดปีมะเมีย 2569 (2026) ครบจบในที่เดียว รวมชื่อมงคล 100 ชื่อ แยกตามวันเกิด พร้อมเทคนิคเสริมดวงเศรษฐีและอักษรกาลกิณีต้องห้าม',
+        excerpt: 'คู่มือตั้งชื่อลูกชายปีมะเมีย 2569 แบบครบจบในหน้าเดียว รวมแนวชื่อมงคลตามวันเกิดทั้ง 7 วัน ตารางอักษรกาลกิณีต้องห้าม ชื่อยอดนิยมความหมายดี และทางลัดเช็กชื่อเฉพาะตัวให้เหมาะกับดวงจริง',
         content: `
             <p class="lead text-lg text-slate-300 mb-6">ปี 2569 (2026) ที่จะถึงนี้ ตรงกับ <strong>"ปีมะเมีย" (ปีม้า)</strong> ซึ่งถือเป็นปีแห่งพลังอำนาจ ความว่องไว และความเป็นผู้นำ โดยเฉพาะลูกชายที่เกิดในปีนี้ มักจะมีบุคลิกโดดเด่น กระตือรือร้น และมีความคิดสร้างสรรค์</p>
             
@@ -6140,6 +6140,45 @@ export const articles: Article[] = [
 
 
 
+            <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500 mt-10 mb-6">4. เทคนิคเลือกชื่อให้เฮงจริง ไม่ใช่แค่เพราะ</h2>
+            <p class="mb-4 text-slate-300">นอกจากตัวอักษรมงคลและกาลกิณีแล้ว ยังมีอีกหลายปัจจัยที่ช่วยให้ชื่อ "ส่งเสริม" ชีวิตลูกได้ดียิ่งขึ้น:</p>
+            <div class="space-y-4 mb-8">
+                <div class="bg-slate-800/30 p-5 rounded-xl border border-slate-700/50">
+                    <h4 class="text-amber-400 font-bold mb-2">✅ ผลรวมเลขศาสตร์ของชื่อ</h4>
+                    <p class="text-sm text-slate-300">ชื่อแต่ละตัวมี "ค่าเลข" ผลรวมที่ได้ควรเป็นเลขมงคลที่สอดคล้องกับวันเกิด เช่น เลข 9, 19, 24, 32, 36 ถือว่าเฮงรอบด้าน</p>
+                </div>
+                <div class="bg-slate-800/30 p-5 rounded-xl border border-slate-700/50">
+                    <h4 class="text-amber-400 font-bold mb-2">✅ จำนวนพยางค์ที่เหมาะสม</h4>
+                    <p class="text-sm text-slate-300">ชื่อ 2-3 พยางค์ เรียกง่าย จำง่าย ลดปัญหาชื่อเล่นแทนที่ชื่อจริง ถ้าชื่อยาวเกินคนมักเรียกสั้นจนพลังชื่อหายไป</p>
+                </div>
+                <div class="bg-slate-800/30 p-5 rounded-xl border border-slate-700/50">
+                    <h4 class="text-amber-400 font-bold mb-2">✅ ความหมายเชิงบวกที่ชัดเจน</h4>
+                    <p class="text-sm text-slate-300">ชื่อที่ดีควรมีความหมายชัดเจนในทางที่ดี หลีกเลี่ยงชื่อที่แปลได้สองแง่หรืออาจถูกล้อเลียน เพราะส่งผลต่อความมั่นใจของลูกโดยตรง</p>
+                </div>
+                <div class="bg-slate-800/30 p-5 rounded-xl border border-slate-700/50">
+                    <h4 class="text-amber-400 font-bold mb-2">✅ เช็กกับนามสกุลว่า "ลื่นไหล" หรือไม่</h4>
+                    <p class="text-sm text-slate-300">ลองเรียกชื่อ + นามสกุลรวดเดียว ถ้าติดขัด สะดุด หรือออกเสียงยาก อาจไม่เหมาะ เพราะชื่อที่ดีต้อง "ไหล" ได้ธรรมชาติ</p>
+                </div>
+            </div>
+
+            <div class="my-10 p-8 rounded-2xl bg-gradient-to-r from-indigo-900/40 to-purple-900/40 border border-indigo-500/20 text-center relative overflow-hidden">
+                <h3 class="text-2xl font-bold text-indigo-100 mb-3">🔮 บริการพิเศษจาก NameMongkol.com</h3>
+                <p class="text-indigo-200/70 mb-6 max-w-2xl mx-auto">อยากรู้ว่าชื่อที่คิดไว้ <strong class="text-white">เหมาะกับดวงลูกจริงหรือไม่?</strong> ระบบ AI วิเคราะห์ชื่อเฉพาะตัว ดูครบทั้งเลขศาสตร์ อักษรศาสตร์ ทักษา และความเข้ากันกับปีเกิด</p>
+                <a href="/name-analysis" class="inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg shadow-lg transition-colors">
+                    วิเคราะห์ชื่อลูกฟรี →
+                </a>
+                <p class="text-xs text-indigo-300/50 mt-3">ใช้เวลาไม่ถึง 30 วินาที • ไม่ต้องสมัครสมาชิก</p>
+            </div>
+
+            <div class="my-10 p-8 rounded-2xl bg-gradient-to-r from-emerald-900/40 to-teal-900/40 border border-emerald-500/20 text-center relative overflow-hidden">
+                <h3 class="text-2xl font-bold text-emerald-100 mb-3">🖼️ เสริมมงคลรับขวัญลูกน้อยด้วยวอลเปเปอร์</h3>
+                <p class="text-emerald-200/70 mb-6 max-w-2xl mx-auto">เปลี่ยนหน้าจอมือถือให้เป็น <strong class="text-white">เครื่องรางดิจิทัล</strong> ด้วยวอลเปเปอร์ลายมงคลที่ออกแบบตามหลักฮวงจุ้ยและโหราศาสตร์ พร้อมสีประจำวันเกิดที่เสริมดวง</p>
+                <a href="/wallpapers" class="inline-block px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg shadow-lg transition-colors">
+                    ดูวอลเปเปอร์มงคล →
+                </a>
+                <p class="text-xs text-emerald-300/50 mt-3">มีให้เลือกหลายร้อยแบบ • อัปเดตทุกเดือน</p>
+            </div>
+
             <div class="mt-12 p-8 rounded-2xl bg-gradient-to-r from-amber-900/40 to-yellow-900/40 border border-amber-500/20 text-center relative overflow-hidden group">
                 <div class="absolute inset-0 bg-[url('/images/noise.png')] opacity-10"></div>
                 <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl -translate-y-16 translate-x-16"></div>
@@ -6174,7 +6213,7 @@ export const articles: Article[] = [
         category: 'แม่และเด็ก',
         keywords: ['ตั้งชื่อลูกชาย 2569', 'ชื่อมงคลปีมะเมีย', 'ตั้งชื่อลูกปีม้า', 'ชื่อลูกชายวันเสาร์', 'ชื่อลูกชายวันอาทิตย์', 'ชื่อลูกชายวันจันทร์', 'อักษรกาลกิณี 2569', 'namemongkol'],
         metaTitle: 'รวม 100 ชื่อมงคลลูกชายปีมะเมีย 2569 ตั้งแล้วรวย เสริมบารมี (อัปเดตล่าสุด) - NAMEMONGKOL',
-        metaDescription: 'อัปเดตล่าสุด! รวมชื่อมงคลลูกชายเกิดปีมะเมีย 2569 (2026) ครบ 7 วันเกิด พร้อมตารางอักษรกาลกิณีต้องห้าม และเทคนิคตั้งชื่อเสริมดวงเศรษฐี'
+        metaDescription: 'คู่มือตั้งชื่อลูกชายปีมะเมีย 2569 รวมชื่อมงคลตามวันเกิด ตารางอักษรกาลกิณีต้องห้าม เทคนิคเลือกชื่อให้ความหมายดี และทางลัดเช็กชื่อเฉพาะดวงที่ NameMongkol'
     },
     {
         id: '3',

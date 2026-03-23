@@ -1,5 +1,5 @@
 -- ============================================================================
--- WELCOME CREDITS SYSTEM: 100 เครดิตฟรีสำหรับสมาชิกใหม่ (หมดอายุ 30 วัน)
+-- WELCOME CREDITS SYSTEM: 20+80 เครดิตฟรีสำหรับสมาชิกใหม่ (20 ทันที + 80 หลังยืนยัน LINE)
 -- ============================================================================
 -- วิธีใช้: รัน SQL นี้ใน Supabase SQL Editor ตามลำดับ Step 1-6
 -- ============================================================================
@@ -54,7 +54,7 @@ BEGIN
     COALESCE((NEW.raw_app_meta_data->>'provider')::text, 'email'),
     NOW(),
     0,             -- credits (เครดิตซื้อ) เริ่มที่ 0
-    100,           -- welcome_credits: 100 เครดิตฟรี
+    20,            -- welcome_credits: 20 เครดิตฟรีทันที (+ 80 หลังยืนยัน LINE)
     TRUE,          -- welcome_credits_granted: ให้แล้ว
     NOW()          -- welcome_credits_granted_at: เริ่มนับหมดอายุ
   )
@@ -62,7 +62,7 @@ BEGIN
 
   -- บันทึก transaction log
   INSERT INTO public.credit_transactions (user_id, amount, type, description)
-  VALUES (NEW.id, 100, 'earn', 'Welcome Bonus: สมาชิกใหม่ 100 เครดิต (หมดอายุ 30 วัน)')
+  VALUES (NEW.id, 20, 'earn', 'Welcome Bonus: สมาชิกใหม่ 20 เครดิต (หมดอายุ 30 วัน)')
   ON CONFLICT DO NOTHING;
 
   RETURN NEW;

@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Script from 'next/script';
+import { Suspense } from 'react';
 import ClientPage from './ClientPage';
 import { createClient } from '@/utils/supabaseServer';
 
@@ -91,7 +92,9 @@ export default async function TopUpPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            <ClientPage gateway={gateway} promptpayNumber={promptpayNumber} />
+            <Suspense>
+                <ClientPage gateway={gateway} promptpayNumber={promptpayNumber} />
+            </Suspense>
         </>
     );
 }

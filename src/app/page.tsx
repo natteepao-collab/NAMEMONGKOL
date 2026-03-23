@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { Suspense } from 'react';
 import ClientHome from './ClientHome';
 import { calculateScore } from '@/utils/calculateScore';
 import { getPrediction } from '@/utils/getPrediction';
@@ -173,7 +174,9 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ClientHome />
+      <Suspense>
+        <ClientHome />
+      </Suspense>
     </>
   );
 }

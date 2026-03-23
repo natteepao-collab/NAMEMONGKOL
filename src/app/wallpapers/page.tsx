@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Script from 'next/script';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import ClientPage from './ClientPage';
 import { Sparkles, Sun, Moon, Flame, MessageCircle, BookOpen, Heart, Shield, Crown, Star, Zap, Download, ChevronRight, HelpCircle } from 'lucide-react';
 
@@ -129,7 +130,9 @@ export default function WallpapersPage() {
             />
 
             {/* ===== Interactive Client Gallery ===== */}
-            <ClientPage />
+            <Suspense>
+                <ClientPage />
+            </Suspense>
 
             {/* ===== SEO Content Sections (Server-Rendered) ===== */}
             <div className="w-full max-w-[1400px] px-4 pb-28 bg-[#0f172a] text-slate-200">

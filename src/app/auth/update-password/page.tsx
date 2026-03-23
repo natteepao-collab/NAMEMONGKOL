@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import UpdatePasswordClientPage from './ClientPage';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
@@ -21,5 +22,9 @@ export const metadata: Metadata = {
 };
 
 export default function UpdatePasswordPage() {
-    return <UpdatePasswordClientPage />;
+    return (
+        <Suspense>
+            <UpdatePasswordClientPage />
+        </Suspense>
+    );
 }

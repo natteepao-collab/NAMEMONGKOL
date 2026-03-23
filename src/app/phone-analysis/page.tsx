@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import ClientPage from './ClientPage';
 import { PhoneSeoContent } from '@/components/PhoneSeoContent';
@@ -200,7 +200,9 @@ export default function PhoneAnalysisPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            <ClientPage />
+            <Suspense>
+                <ClientPage />
+            </Suspense>
 
             {/* SSR SEO Content — always visible to Googlebot regardless of client state */}
             <div className="w-full">

@@ -1,19 +1,21 @@
 'use client';
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/utils/supabase';
 import { User } from '@supabase/supabase-js';
-import { User as UserIcon, Save, ArrowLeft, ShieldCheck, Mail, Smartphone } from 'lucide-react';
+import { User as UserIcon, ArrowLeft, ShieldCheck, Mail, Smartphone, ExternalLink, Gift } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ProfileClientPage() {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [lineUserId, setLineUserId] = useState('');
-    const [isSaving, setIsSaving] = useState(false);
-    const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+    const [lineBonusGranted, setLineBonusGranted] = useState(false);
+    const [lineVerifiedAt, setLineVerifiedAt] = useState<string | null>(null);
+    const [isConnecting, setIsConnecting] = useState(false);
+    const [lineConnectUrl, setLineConnectUrl] = useState<string | null>(null);
+    const [connectError, setConnectError] = useState<string | null>(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -25,15 +27,21 @@ export default function ProfileClientPage() {
             }
             setUser(user);
 
-            // Fetch current profile data including line_user_id
+            // Fetch current profile data including LINE verification fields
             const { data: profile } = await supabase
                 .from('user_profiles')
-                .select('line_user_id')
+                .select('line_user_id, line_bonus_granted, line_verified_at')
                 .eq('id', user.id)
                 .maybeSingle();
 
             if (profile?.line_user_id) {
                 setLineUserId(profile.line_user_id);
+            }
+            if (profile?.line_bonus_granted) {
+                setLineBonusGranted(true);
+            }
+            if (profile?.line_verified_at) {
+                setLineVerifiedAt(profile.line_verified_at as string);
             }
             setLoading(false);
         };
@@ -41,26 +49,33 @@ export default function ProfileClientPage() {
         getUser();
     }, [router]);
 
-    const handleSaveLineId = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleConnectLine = async () => {
         if (!user) return;
-        setIsSaving(true);
-        setMessage(null);
-
+        setIsConnecting(true);
+        setConnectError(null);
         try {
-            const { error } = await supabase
-                .from('user_profiles') // Ensuring we update the public users table which should be synced or linked
-                .update({ line_user_id: lineUserId.trim() })
-                .eq('id', user.id);
+            const { data: { session } } = await supabase.auth.getSession();
+            const accessToken = session?.access_token;
+            if (!accessToken) throw new Error('No session');
 
-            if (error) throw error;
+            const res = await fetch('/api/line/connect', {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${accessToken}` },
+            });
+            const json = await res.json();
 
-            setMessage({ type: 'success', text: 'บันทึกข้อมูลเรียบร้อยแล้ว' });
-        } catch (error: any) {
-            console.error('Error updating profile:', error);
-            setMessage({ type: 'error', text: 'เกิดข้อผิดพลาดในการบันทึก: ' + error.message });
+            if (json.status === 'already_claimed') {
+                setLineBonusGranted(true);
+            } else if (json.status === 'pending' && json.lineUrl) {
+                setLineConnectUrl(json.lineUrl);
+                window.open(json.lineUrl, '_blank');
+            } else {
+                setConnectError(json.error || 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
+            }
+        } catch {
+            setConnectError('เกิดข้อผิดพลาดในการเชื่อมต่อ');
         } finally {
-            setIsSaving(false);
+            setIsConnecting(false);
         }
     };
 
@@ -123,56 +138,92 @@ export default function ProfileClientPage() {
                             เชื่อมต่อบัญชี LINE
                         </h3>
 
-                        <div className="bg-gradient-to-br from-green-500/10 to-transparent border border-green-500/20 rounded-3xl p-6">
-                            <p className="text-slate-300 text-sm mb-6 leading-relaxed">
-                                กรุณากรอก <strong>LINE User ID</strong> ของคุณ เพื่อให้ระบบสามารถตรวจสอบสลิปโอนเงินและเติมเครดิตให้อัตโนมัติ
-                                <br />
-                                <span className="text-xs text-slate-500 mt-2 block">
-                                    * คุณสามารถดู LINE ID ได้จากข้อความที่บอทตอบกลับมาเมื่อส่งรูปสลิป
-                                </span>
-                            </p>
-
-                            <form onSubmit={handleSaveLineId} className="space-y-4">
-                                <div className="space-y-2">
-                                    <label htmlFor="lineId" className="text-sm font-medium text-white ml-1">
-                                        LINE User ID
-                                    </label>
-                                    <input
-                                        id="lineId"
-                                        type="text"
-                                        value={lineUserId}
-                                        onChange={(e) => setLineUserId(e.target.value)}
-                                        placeholder="เช่น U1234567890abcdef..."
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 transition-all font-mono text-sm"
-                                    />
+                        {lineBonusGranted ? (
+                            /* Already verified */
+                            <div className="bg-gradient-to-br from-green-500/10 to-transparent border border-green-500/20 rounded-3xl p-6">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                                        <ShieldCheck size={20} className="text-green-400" />
+                                    </div>
+                                    <div>
+                                        <p className="text-green-400 font-bold text-sm">LINE เชื่อมต่อแล้ว ✅</p>
+                                        <p className="text-slate-400 text-xs">
+                                            {lineVerifiedAt
+                                                ? `ยืนยันเมื่อ ${new Date(lineVerifiedAt).toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' })}`
+                                                : 'ยืนยันแล้ว'}
+                                        </p>
+                                    </div>
+                                </div>
+                                {lineUserId && (
+                                    <div className="bg-black/20 rounded-xl p-3 border border-white/5 mb-3">
+                                        <label className="text-[11px] uppercase tracking-wider text-slate-500 font-bold mb-1 block">LINE User ID</label>
+                                        <code className="text-xs text-slate-300 font-mono">
+                                            {lineUserId.slice(0, 8)}{'\u2022'.repeat(Math.max(0, lineUserId.length - 8))}
+                                        </code>
+                                    </div>
+                                )}
+                                <p className="text-slate-500 text-xs">คุณได้รับโบนัส 80 เครดิตจากการยืนยัน LINE แล้วครับ</p>
+                            </div>
+                        ) : (
+                            /* Not yet verified */
+                            <div className="bg-gradient-to-br from-green-500/10 to-transparent border border-green-500/20 rounded-3xl p-6">
+                                <div className="flex items-start gap-3 mb-6">
+                                    <div className="w-10 h-10 shrink-0 rounded-full bg-amber-500/20 flex items-center justify-center mt-0.5">
+                                        <Gift size={18} className="text-amber-400" />
+                                    </div>
+                                    <div>
+                                        <p className="text-white font-bold text-sm mb-1">รับโบนัสเพิ่ม 80 เครดิต!</p>
+                                        <p className="text-slate-300 text-sm leading-relaxed">
+                                            ยืนยันตัวตนผ่าน LINE OA เพื่อรับ 80 เครดิตฟรีทันที เครดิตนี้ไม่หมดอายุและนับ 30 วันใหม่นับจากวันยืนยัน
+                                        </p>
+                                    </div>
                                 </div>
 
-                                {message && (
-                                    <div className={`px-4 py-3 rounded-xl text-sm flex items-center gap-2 ${message.type === 'success'
-                                        ? 'bg-green-500/10 text-green-400 border border-green-500/20'
-                                        : 'bg-red-500/10 text-red-400 border border-red-500/20'
-                                        }`}>
-                                        {message.type === 'success' && <ShieldCheck size={16} />}
-                                        {message.text}
+                                <div className="bg-black/20 rounded-xl p-4 border border-white/5 mb-4">
+                                    <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">วิธีรับโบนัส</p>
+                                    <ol className="text-slate-300 text-sm space-y-1 list-decimal list-inside">
+                                        <li>กดปุ่มด้านล่างเพื่อเปิด LINE OA</li>
+                                        <li>ส่งข้อความที่ระบบสร้างไว้ให้ใน LINE OA</li>
+                                        <li>รอรับการยืนยันและโบนัสทันที</li>
+                                    </ol>
+                                </div>
+
+                                {connectError && (
+                                    <div className="px-4 py-3 rounded-xl text-sm flex items-center gap-2 bg-red-500/10 text-red-400 border border-red-500/20 mb-3">
+                                        {connectError}
                                     </div>
                                 )}
 
-                                <button
-                                    type="submit"
-                                    disabled={isSaving}
-                                    className="w-full bg-green-500 hover:bg-green-400 disabled:opacity-50 disabled:cursor-not-allowed text-black font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-green-500/20 flex items-center justify-center gap-2 hover:-translate-y-0.5 active:translate-y-0"
-                                >
-                                    {isSaving ? (
-                                        <span className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                                    ) : (
-                                        <>
-                                            <Save size={18} />
-                                            บันทึกข้อมูล
-                                        </>
-                                    )}
-                                </button>
-                            </form>
-                        </div>
+                                {lineConnectUrl ? (
+                                    <a
+                                        href={lineConnectUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-full bg-green-500 hover:bg-green-400 text-black font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-green-500/20 flex items-center justify-center gap-2 hover:-translate-y-0.5 active:translate-y-0"
+                                    >
+                                        <ExternalLink size={18} />
+                                        เปิด LINE เพื่อยืนยัน
+                                    </a>
+                                ) : (
+                                    <button
+                                        type="button"
+                                        onClick={handleConnectLine}
+                                        disabled={isConnecting}
+                                        className="w-full bg-green-500 hover:bg-green-400 disabled:opacity-50 disabled:cursor-not-allowed text-black font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-green-500/20 flex items-center justify-center gap-2 hover:-translate-y-0.5 active:translate-y-0"
+                                    >
+                                        {isConnecting ? (
+                                            <span className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                                        ) : (
+                                            <>
+                                                <Smartphone size={18} />
+                                                เชื่อมต่อ LINE รับ 80 เครดิต
+                                            </>
+                                        )}
+                                    </button>
+                                )}
+                                <p className="text-slate-500 text-xs text-center mt-3">รหัสยืนยันมีอายุ 10 นาที</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </main>
