@@ -541,7 +541,7 @@ export default function AdminArticlesPage() {
                                             {article.cover_image ? (
                                                 <Image
                                                     src={article.cover_image}
-                                                    alt={`ภาพหน้าปอบทความ ${article.title} - บทความชื่อมงคล NameMongkol`}
+                                                    alt={`ภาพหน้าปกบทความ ${article.title} - บทความชื่อมงคล NameMongkol`}
                                                     fill
                                                     className="object-cover"
                                                     sizes="64px"
@@ -743,7 +743,7 @@ export default function AdminArticlesPage() {
                                             {currentArticle.cover_image ? (
                                                 <Image
                                                     src={currentArticle.cover_image}
-                                                    alt="ตัวอย่างภาพหน้าปอบทความ"
+                                                    alt="ตัวอย่างภาพหน้าปกบทความ"
                                                     fill
                                                     className="object-cover"
                                                     onError={(e) => {

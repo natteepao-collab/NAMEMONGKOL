@@ -49,6 +49,7 @@ async function getPublishedArticlesDb(): Promise<Article[]> {
         excerpt: item.excerpt,
         content: item.content,
         coverImage: item.cover_image,
+        coverImageAlt: item.cover_image_alt,
         date: item.date,
         author: item.author,
         category: item.category,
@@ -92,6 +93,7 @@ const getArticle = async (slug: string): Promise<Article | null> => {
         excerpt: data.excerpt,
         content: data.content,
         coverImage: data.cover_image, // Map here
+        coverImageAlt: data.cover_image_alt,
         date: data.date,
         author: data.author,
         category: data.category,
@@ -390,7 +392,7 @@ export default async function ArticlePage({ params }: Props) {
                         */}
                         <ArticleImage
                             src={article.coverImage}
-                            alt={`ภาพหน้าปอบทความ ${article.title} - บทความชื่อมงคล NameMongkol`}
+                            alt={article.coverImageAlt || `ภาพหน้าปกบทความ ${article.title} - บทความชื่อมงคล NameMongkol`}
                             priority
                             className="group-hover:scale-100" // Disable zoom effect if not needed, or keep standard
                         />
@@ -514,7 +516,7 @@ export default async function ArticlePage({ params }: Props) {
                                         <div className="h-32 w-full bg-slate-700 relative overflow-hidden">
                                             <ArticleImage
                                                 src={related.coverImage}
-                                                alt={`ภาพหน้าปอบทความ ${related.title} - บทความชื่อมงคล NameMongkol`}
+                                                alt={related.coverImageAlt || `ภาพหน้าปกบทความ ${related.title} - บทความชื่อมงคล NameMongkol`}
                                                 priority={false}
                                                 className="group-hover:scale-105 transition-transform duration-300"
                                             />

@@ -12,6 +12,7 @@ export interface Article {
     excerpt: string;
     content: string; // HTML or Markdown
     coverImage: string;
+    coverImageAlt?: string; // Custom alt text for cover image (SEO)
     date: string;
     author: string;
     category: string;
@@ -31,6 +32,7 @@ export const articles: Article[] = [
         title: 'เปลี่ยนชื่อเปลี่ยนชีวิต: คู่มือ "ปรับจูนชะตา" (Destiny Tuning) ฉบับสมบูรณ์ ปี 2569',
         excerpt: 'คู่มือเปลี่ยนชื่อฉบับสมบูรณ์ ครอบคลุมกฎเหล็ก "วันต้องห้าม" ตามวันเกิด การเลือกฤกษ์บน กาลโยคปี 2569 ขั้นตอนเปลี่ยนชื่อยุคดิจิทัล และพิธีกรรมเปิดพลังชื่อใหม่ เพื่อ Destiny Tuning ปรับจูนชะตาให้ตรงจุด',
         coverImage: '/images/articles/change-name-destiny-tuning-2569.png',
+        coverImageAlt: 'เปลี่ยนชื่อเปลี่ยนชีวิต คู่มือปรับจูนชะตาด้วยชื่อมงคล ปี 2569',
         date: '2026-03-20',
         author: 'อาจารย์ณัฐ (NameMongkol)',
         category: 'ชื่อมงคล',
@@ -43,7 +45,7 @@ export const articles: Article[] = [
         ],
         metaTitle: 'เปลี่ยนชื่อเปลี่ยนชีวิต: คู่มือปรับจูนชะตา (Destiny Tuning) ฉบับสมบูรณ์ 2569 | NameMongkol',
         metaDescription: 'คู่มือเปลี่ยนชื่อมงคลฉบับสมบูรณ์ 2569 เช็กวันต้องห้ามตามวันเกิด เลือกฤกษ์บน กาลโยคปี 2569 ขั้นตอนเปลี่ยนชื่อยุคดิจิทัล และพิธีเปิดพลังชื่อใหม่',
-        relatedSlugs: ['auspicious-names-by-birthday-2026', 'forbidden-letters-kalakini', '4-pillars-of-naming', 'naming-tips-2026-year-of-horse'],
+        relatedSlugs: ['auspicious-names-by-birthday-2026', 'forbidden-letters-kalakini', '4-pillars-of-naming', 'naming-tips-2026-year-of-horse', 'naming-baby-year-of-horse-2569'],
         dateModified: '2026-03-20',
         toc: [
             { title: 'ทำไม "ชื่อ" ถึงเปลี่ยนชีวิตได้?', id: 'intro-destiny-tuning', level: 2 },
@@ -195,6 +197,9 @@ export const articles: Article[] = [
         </h2>
         <p class="text-slate-300 mb-6 leading-relaxed">
             ปี พ.ศ. 2569 (<strong class="text-amber-300">ปีมะเมียธาตุไฟ</strong>) เป็นปีแห่งการเคลื่อนไหวและพลังงานที่พลุ่งพล่าน การเลือกฤกษ์ในปีนี้จึงมีความพิเศษตรงที่ <strong class="text-white">"กาลโยคประจำปี"</strong> จะเปลี่ยนในช่วงหลังสงกรานต์:
+        </p>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            หากคุณกำลังวางแผนตั้งชื่อลูกที่เกิดปีม้าไฟ แนะนำให้อ่านต่อที่ <a href="/articles/naming-baby-year-of-horse-2569" class="text-amber-400 hover:underline">ตั้งชื่อลูกปีมะเมีย 2569 รวมไอเดียชื่อมงคล</a> ซึ่งสรุปแนวทางแบบแยกวันเกิดและมีตัวอย่างชื่อพร้อมใช้งานทันที
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
@@ -418,6 +423,7 @@ export const articles: Article[] = [
     title: 'ตั้งชื่อมงคลตามวันเกิด 2569: คู่มือครบจบ ตำราทักษาปกรณ์ ปีม้าไฟ พร้อมชื่อแนะนำทั้ง 7 วัน',
     excerpt: 'คู่มือตั้งชื่อมงคลตามวันเกิดฉบับสมบูรณ์ อ้างอิงตำราทักษาปกรณ์ เจาะลึกอักษรมงคล-กาลกิณีทั้ง 8 วรรค พร้อมชื่อแนะนำสำหรับเด็กเกิดปี 2569 ปีม้าไฟ แบ่งตามวันเกิดและวัตถุประสงค์',
     coverImage: '/images/articles/baby-naming-2026.png',
+    coverImageAlt: 'ตั้งชื่อมงคลตามวันเกิด 2569 ตำราทักษาปกรณ์ ปีม้าไฟ',
     date: '2026-02-17',
     author: 'อาจารย์ณัฐ (NameMongkol)',
     category: 'ชื่อมงคล',
@@ -429,7 +435,7 @@ export const articles: Article[] = [
     ],
     metaTitle: 'ตั้งชื่อมงคลตามวันเกิด 2569 คู่มือทักษาปกรณ์ ปีม้าไฟ | NameMongkol',
     metaDescription: 'คู่มือตั้งชื่อมงคลตามวันเกิดฉบับสมบูรณ์ 2569 อ้างอิงตำราทักษาปกรณ์ เจาะลึกอักษรมงคล-กาลกิณี 8 วรรค พร้อมชื่อแนะนำปีม้าไฟ แบ่งตามวัน',
-    relatedSlugs: ['100-auspicious-women-names-2026', 'lucky-names-for-2026-grade-a-plus', 'forbidden-letters-kalakini'],
+    relatedSlugs: ['100-auspicious-women-names-2026', 'lucky-names-for-2026-grade-a-plus', 'forbidden-letters-kalakini', 'naming-baby-year-of-horse-2569'],
     toc: [
         { title: 'รู้จักตำราทักษาปกรณ์: ศาสตร์แห่งการตั้งชื่อ', id: 'intro-taksapakorn', level: 2 },
         { title: 'ปี 2569 ปีม้าไฟ: ชื่อแบบไหนเสริมดวง?', id: 'year-2569', level: 2 },
@@ -447,6 +453,9 @@ export const articles: Article[] = [
     <div>
         <p class="text-xl text-slate-300 leading-relaxed mb-6">
             การ<strong class="text-amber-400">ตั้งชื่อมงคลตามวันเกิด</strong>ไม่ใช่แค่ความเชื่อ แต่คือ <strong>ศาสตร์โบราณที่สืบทอดมากว่า 700 ปี</strong> ผ่านตำรา<strong class="text-emerald-400">ทักษาปกรณ์</strong> ซึ่งจัดระบบความสัมพันธ์ระหว่างตัวอักษรกับวันเกิดอย่างเป็นวิทยาศาสตร์ บทความนี้จะพาคุณเจาะลึกตั้งแต่หลักการ ไปจนถึงรายชื่อที่คัดมาแล้วว่าเหมาะกับเด็กเกิดปี 2569 (ปีม้าไฟ)
+        </p>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            สำหรับคุณพ่อคุณแม่ที่อยากได้ตัวอย่างชื่อแบบลงลึกเฉพาะปีมะเมีย อ่านต่อได้ที่ <a href="/articles/naming-baby-year-of-horse-2569" class="text-amber-400 hover:underline">ตั้งชื่อลูกปีมะเมีย 2569</a> และถ้าต้องการดูภาพรวมการเปลี่ยนชื่อทั้งระบบฤกษ์-พิธี-เอกสาร แนะนำ <a href="/articles/change-name-destiny-tuning-2569" class="text-amber-400 hover:underline">คู่มือเปลี่ยนชื่อ Destiny Tuning 2569</a>
         </p>
         <div class="bg-gradient-to-r from-amber-500/10 to-transparent border-l-4 border-amber-500 p-6 rounded-r-xl mb-8">
             <p class="text-amber-200 font-medium">📌 บทความนี้แตกต่างจากเว็บอื่นอย่างไร?</p>
@@ -843,7 +852,8 @@ export const articles: Article[] = [
         slug: '100-auspicious-women-names-2026',
         title: '100 ชื่อมงคลผู้หญิง 2569: ทันสมัย ความหมายดี เสริมดวงและบุคลิกให้ดูอินเตอร์',
         excerpt: 'คัดสรร 100 ชื่อมงคลผู้หญิงที่ทั้งทันสมัย ออกเสียงเป็นสากลได้ง่าย ความหมายดี เสริมดวงชะตาตามหลักเลขศาสตร์และทักษา พร้อมจัดกลุ่มตามบุคลิกและดวงชะตา',
-        coverImage: '/images/articles/cover2569.png',
+        coverImage: '/images/articles/100-auspicious-women-names-2026.png',
+        coverImageAlt: '100 ชื่อมงคลผู้หญิง 2569 ชื่อทันสมัย ความหมายดี เสริมดวง',
         date: '2026-02-16',
         author: 'อาจารย์ณัฐ (NameMongkol)',
         category: 'ชื่อมงคล',
@@ -1843,6 +1853,7 @@ export const articles: Article[] = [
         title: '17 แมวมงคลไทย 2569: เปิดตำราสมุดข่อยโบราณ เลี้ยงเสริมดวงตามความเชื่อ',
         excerpt: 'เจาะลึกตำราแมวไทยโบราณ 17 สายพันธุ์มงคล และ 5 สายพันธุ์เอกลักษณ์ชาติปี 2569 เลือกเลี้ยงแมวเสริมโชคลาภ บารมี และความรัก ให้สอดคล้องกับชื่อมงคลของคุณ',
         coverImage: '/images/articles/แมวไทยสายพันธ์มงคล.png',
+        coverImageAlt: '17 แมวมงคลไทย 2569 ตำราสมุดข่อยโบราณ เลี้ยงเสริมดวง',
         date: '2026-02-16',
         author: 'อาจารย์ณัฐ (NameMongkol)',
         category: 'ไลฟ์สไตล์มงคล',
@@ -2060,6 +2071,7 @@ export const articles: Article[] = [
         title: 'ถอดรหัสชื่อมงคล "ศุภจี สุธรรมพันธุ์" แม่ทัพหญิงแห่งดุสิตธานี กับพลังเลขศาสตร์ระดับ A+',
         excerpt: 'วิเคราะห์เลขศาสตร์ชื่อ "ศุภจี สุธรรมพันธุ์" CEO ดุสิตธานี ทำไมผลรวมชื่อ 22 นามสกุล 56 และชื่อ-นามสกุลรวม 78 ถึงเป็นชื่อเกรด A+ ที่หนุนบารมีระดับเศรษฐี',
         coverImage: '/images/articles/top-20-popular-thai-names-numerology-analysis.png',
+        coverImageAlt: 'วิเคราะห์ชื่อ ศุภจี สุธรรมพันธุ์ ตัวอย่างชื่อเกรด A+ ตามหลักเลขศาสตร์',
         date: '2026-02-12',
         author: 'อาจารย์ณัฐ (NameMongkol)',
         category: 'วิเคราะห์ชื่อคนดัง',
@@ -2398,6 +2410,7 @@ export const articles: Article[] = [
         title: 'ชื่อมงคล 2569: 20 ชื่อเกรด A+ เสริมดวงชะตาให้ปังตลอดปี',
         excerpt: 'เปิดโผ 20 ชื่อมงคลระดับ Grade A+ ที่วิเคราะห์มาแล้วว่าดีที่สุดสำหรับปี 2569 พร้อมถอดรหัสเลขศาสตร์และคู่เลขมงคลแบบละเอียดยิบ เพื่อความปังในทุกด้านของชีวิต',
         coverImage: '/images/articles/grade-a-names-cover.png',
+        coverImageAlt: '20 ชื่อมงคลเกรด A+ ปี 2569 เสริมดวงชะตาให้ปัง',
         date: '2026-01-01',
         author: 'อาจารย์ณัฐ (NameMongkol)',
         category: 'วิเคราะห์ชื่อมงคล',
@@ -2880,6 +2893,7 @@ export const articles: Article[] = [
         title: 'ย้อนรอยศาสตร์แห่งนาม: ทำไมคนไทยถึงเชื่อว่า "ชื่อดี มีชัยไปกว่าครึ่ง"?',
         excerpt: 'ไทม์ไลน์ประวัติศาสตร์การตั้งชื่อของไทยกว่า 700 ปี จากยุคทักษาปกรณ์ ยุครัชกาลที่ 6 สู่ยุคเลขศาสตร์ พร้อมเจาะลึกหลักการตั้งชื่อมงคลที่คนไทยสืบทอด',
         coverImage: '/images/articles/history-of-thai-naming-tradition.png',
+        coverImageAlt: 'ประวัติศาสตร์การตั้งชื่อไทย ย้อนรอยศาสตร์แห่งนาม',
         date: '2026-02-03',
         author: 'อาจารย์ณัฐ (NameMongkol)',
         category: 'ความรู้ศาสตร์มงคล',
@@ -3483,6 +3497,7 @@ export const articles: Article[] = [
         title: 'Case Study: วิเคราะห์ชื่อคนดัง "เขมนิจ จามิกรณ์" ทำไมถึงได้เกรด A+?',
         excerpt: 'เจาะลึกชื่อ "เขมนิจ" ด้วยศาสตร์คู่เลขมงคลและพลังเงา พบความลับของความสำเร็จระดับซุปตาร์ที่ซ่อนอยู่ในชื่อ',
         coverImage: '/images/articles/khemanit-analysis.png',
+        coverImageAlt: 'วิเคราะห์ชื่อเขมนิจ จามิกรณ์ กรณีศึกษาชื่อคนดัง',
         date: '2026-01-31',
         author: 'ทีมงาน NameMongkol',
         category: 'วิเคราะห์ชื่อคนดัง',
@@ -3537,6 +3552,7 @@ export const articles: Article[] = [
         title: 'พลังเงาและอายตนะ 6: ศาสตร์ลับที่คนอยากเปลี่ยนชื่อต้องรู้ (ก่อนจะสายเกินไป)',
         excerpt: 'ทำไมชื่อดีแต่ชีวิตยังติดขัด? รู้จักกับ "พลังเงา" และ "อายตนะ 6" แรงสั่นสะเทือนที่มองไม่เห็นแต่กำหนดชะตาชีวิตคุณมากกว่าที่คุณคิด',
         coverImage: '/images/articles/shadow-power-ayatana-6-meaning.png',
+        coverImageAlt: 'พลังเงาและอายตนะ 6 ศาสตร์ลับการตั้งชื่อมงคล',
         date: '2026-01-31',
         author: 'อาจารย์ณัฐ (NameMongkol)',
         category: 'ความรู้ศาสตร์มงคล',
@@ -3599,6 +3615,7 @@ export const articles: Article[] = [
         title: 'เจาะลึก "คู่เลขมงคล" (Micro-Analysis) สำคัญกว่าผลรวมอย่างไร?',
         excerpt: 'ทำไมผลรวมดีแต่อาจตกม้าตายเพราะ "คู่เลขเสีย"? มารู้จักการวิเคราะห์คู่เลข 00-99 ที่ละเอียดที่สุด เพื่อปิดรูรั่วดวงชะตา',
         coverImage: '/images/articles/micro-analysis-lucky-number-pairs.png',
+        coverImageAlt: 'คู่เลขมงคล Micro-Analysis วิเคราะห์เลขศาสตร์เจาะลึก',
         date: '2026-01-31',
         author: 'ทีมงาน NameMongkol',
         category: 'เลขศาสตร์เชิงลึก',
@@ -3647,6 +3664,7 @@ export const articles: Article[] = [
         title: 'สไตล์การตั้งชื่อเปลี่ยนไปอย่างไร? เจาะลึกรสนิยม 5 Generation กับ "ชื่อมงคล"',
         excerpt: 'เจาะลึกวิวัฒนาการการตั้งชื่อมงคลจาก Baby Boomer สู่ Gen Alpha แต่ละยุคมีสไตล์และความเชื่อต่างกันอย่างไร พร้อมตัวอย่างชื่อมงคลที่เหมาะกับแต่ละรสนิยม',
         coverImage: '/images/articles/naming-style-evolution-5-generations.png',
+        coverImageAlt: 'วิวัฒนาการสไตล์การตั้งชื่อไทย 5 เจเนอเรชัน',
         date: '2026-01-30',
         author: 'ทีมงาน NameMongkol',
         category: 'วิเคราะห์ชื่อ',
@@ -4016,7 +4034,8 @@ export const articles: Article[] = [
         slug: 'thai-chinese-naming-bazi-five-elements',
         title: 'ตั้งชื่อมงคลสไตล์จีน 2569: หลักปาจื้อ (Bazi) และธาตุทั้ง 5 สำหรับคนไทยเชื้อสายจีน',
         excerpt: 'เจาะลึกศาสตร์การตั้งชื่อแบบจีนที่ใช้หลักสมดุลธาตุทั้ง 5 (ดิน น้ำ ไม้ ไฟ ทอง) การนับขีดอักษรมงคล และเคล็ดลับตั้งชื่อตามปีนักษัตร ปีมะเมีย 2569',
-        coverImage: '/images/articles/thai-chinese-naming-bazi-five-elements.png',
+        coverImage: '/images/articles/thai-chinese-naming-bazi-five-elements-1771008331932.png',
+        coverImageAlt: 'ตั้งชื่อมงคลสไตล์จีน หลักปาจื้อและธาตุทั้ง 5 ปี 2569',
         date: '2026-01-27',
         author: 'ทีมงาน NameMongkol',
         category: 'ตั้งชื่อลูก',
@@ -4389,12 +4408,14 @@ export const articles: Article[] = [
         title: '100 ชื่อจริงลูกชาย ชื่อมงคล 2569 ความหมายดี เสริมบารมี งานรุ่ง เงินพุ่ง (อัปเดตล่าสุด)',
         excerpt: 'รวม 100 ชื่อจริงลูกชายมงคล ประจำปี 2569 คัดมาแล้วเน้นความหมายดี ไพเราะ ทันสมัย เสริมดวงการเงิน การงาน และบารมี พร้อมเทคนิคตั้งชื่อลูกชายให้เฮง',
         coverImage: '/images/articles/100-auspicious-boy-names-2569.png',
+        coverImageAlt: '100 ชื่อมงคลลูกชาย 2569 ชื่อจริงความหมายดี เสริมดวง',
         date: '2026-01-27',
         author: 'ทีมงาน NameMongkol',
         category: 'ตั้งชื่อลูก',
         keywords: ['ชื่อจริงลูกชาย', 'ชื่อมงคล 2569', 'ชื่อมงคลผู้ชาย', 'ตั้งชื่อลูกชาย'],
         metaTitle: '100 ชื่อจริงลูกชาย ชื่อมงคล 2569 ความหมายดี เสริมบารมี งานรุ่ง เงินพุ่ง',
         metaDescription: 'รวม 100 ชื่อจริงลูกชายมงคล ประจำปี 2569 คัดมาแล้วเน้นความหมายดี ไพเราะ ทันสมัย เสริมดวงการเงิน การงาน และบารมี พร้อมเทคนิคตั้งชื่อลูกชายให้เฮง',
+        relatedSlugs: ['naming-baby-year-of-horse-2569', 'auspicious-names-by-birthday-2026', 'naming-tips-2026-year-of-horse'],
         content: `
             <p class="lead text-xl text-slate-300 mb-6">การต้อนรับสมาชิกใหม่ในปี 2569 (ปีมะเมีย) ถือเป็นเรื่องมงคลอย่างยิ่งสำหรับทุกครอบครัว สิ่งแรกที่พ่อแม่จะมอบให้เป็นของขวัญติดตัวลูกไปตลอดชีวิตก็คือ <strong>"ชื่อจริง"</strong> ครับ การตั้งชื่อลูกชายให้มีความหมายดี ถูกโฉลกตามหลักทักษาและเลขศาสตร์ ไม่เพียงแต่ช่วยเสริมสร้างความมั่นใจ แต่ยังเปรียบเสมือนการปูพื้นฐานดวงชะตาที่ดี ทั้งเรื่องวาสนา บารมี และโชคลาภ</p>
             <p class="mb-6">ทีมงาน <strong>NameMongkol</strong> ได้รวบรวม <strong>100 ชื่อจริงลูกชาย</strong> ที่มีความไพเราะ ความหมายเป็นมงคล และมีความทันสมัย เหมาะสำหรับเด็กยุคใหม่ มาแบ่งหมวดหมู่ให้คุณพ่อคุณแม่เลือกได้ง่ายๆ ดังนี้ครับ</p>
@@ -4964,6 +4985,7 @@ export const articles: Article[] = [
         title: 'ผ่าดวง 20 ชื่อยอดฮิตตลอดกาลของไทย! ชื่อโหลหรือชื่อเฮง? วิเคราะห์ด้วยหลักเลขศาสตร์',
         excerpt: 'เผยสถิติ 20 ชื่อจริงคนไทยที่ใช้ซ้ำกันมากที่สุด พร้อมวิเคราะห์เลขศาสตร์ว่าชื่อเหล่านี้ "ดี" จริงหรือแค่นิยม? และถ้าชอบความหมายแบบ "สมชาย" แต่อยากได้ชื่อที่เลขดีกว่า ควรตั้งว่าอะไร?',
         coverImage: '/images/articles/top-20-popular-thai-names-numerology-analysis.png',
+        coverImageAlt: 'วิเคราะห์ 20 ชื่อยอดฮิตตลอดกาล ด้วยหลักเลขศาสตร์',
         date: '2026-01-24',
         author: 'ทีมวิเคราะห์ชื่อ NameMongkol',
         category: 'วิเคราะห์ชื่อ',
@@ -5457,6 +5479,7 @@ export const articles: Article[] = [
         title: 'แจกฟรี! 999 ชื่อมงคลประจำปี 2568 ความหมายดี พลิกชีวิต รับปีมะเส็งและมะเมีย',
         excerpt: 'รวมสุดยอดชื่อมงคลกว่า 999 ชื่อ คัดเน้นๆ เฉพาะเกรด A+ ความหมายดี เป็นสิริมงคล เสริมดวงการเงินและการงาน แจกฟรี! ไม่มีกั๊ก',
         coverImage: '/images/articles/free-999-auspicious-names-2568.png',
+        coverImageAlt: 'แจกฟรี 999 ชื่อมงคลประจำปี 2568 ความหมายดี',
         date: '2026-01-22',
         author: 'NameMongkol Editorial',
         category: 'แจกชื่อมงคล',
@@ -5545,6 +5568,7 @@ export const articles: Article[] = [
         title: 'คู่มือเลือกและวิเคราะห์เบอร์มงคลด้วยตนเอง ฉบับสมบูรณ์ปี 2569: เปลี่ยนเลขรับปีมะเมียธาตุไฟ',
         excerpt: 'ปี 2569 ปีมะเมียธาตุไฟ เลือกเบอร์มงคลอย่างไรให้ปัง? เจาะลึก 4 ขั้นตอนวิเคราะห์เบอร์ด้วยตัวเอง คู่ลำดับ ผลรวม และกาลกิณีตามวันเกิด พร้อมเทรนด์เลขมหาเศรษฐีรับปีม้าทอง',
         coverImage: '/images/articles/phone-guide-2026.png',
+        coverImageAlt: 'คู่มือเลือกและวิเคราะห์เบอร์มงคล 2026 เบอร์มือถือเสริมดวง',
         date: '2026-01-21',
         author: 'ทีมวิเคราะห์ชื่อ NameMongkol',
         category: 'เลขศาสตร์เบอร์มงคล',
@@ -5642,6 +5666,7 @@ export const articles: Article[] = [
         title: 'เจาะลึกสถิติชื่อไทยปี 2568: ตัวอักษรขึ้นต้นยอดนิยม และเทรนด์มหาทักษาที่คนไทยเลือกใช้มากที่สุด',
         excerpt: 'เผยสถิติชื่อมงคลปี 2568 อักษรตัวไหนมาแรง? ก, ธ, หรือ ณ? พร้อมเจาะลึกเทรนด์การตั้งชื่อปี 2569 ที่เน้น "ความหมาย" มากกว่า "ความคล้องจอง" วิเคราะห์โดยทีมงาน NameMongkol',
         coverImage: '/images/articles/thai-naming-stats-2025-popular-initials.png',
+        coverImageAlt: 'สถิติชื่อไทยปี 2568 ตัวอักษรยอดนิยม เทรนด์การตั้งชื่อ',
         date: '2026-01-20',
         author: 'ทีมวิเคราะห์ชื่อ NameMongkol',
         category: 'สถิติและเทรนด์',
@@ -5880,6 +5905,7 @@ export const articles: Article[] = [
             </div>
         `,
         coverImage: '/images/articles/unfavorable-love-numbers-guide.png',
+        coverImageAlt: 'คู่เลขอุปสรรคด้านความรัก เช็กเบอร์มือถือเสริมดวงความรัก',
         date: '2026-01-14',
         author: 'อ.ณัฐ นามมงคล',
         category: 'ความรักและเสน่ห์',
@@ -5922,6 +5948,7 @@ export const articles: Article[] = [
             <p>หากคุณเคย <a href="/history" class="text-purple-400 hover:underline">ตรวจสอบประวัติการวิเคราะห์</a> แล้วพบว่าชื่อเดิมยังมีจุดบกพร่อง การพิจารณาเปลี่ยนชื่อใหม่หรือปรับแก้ให้ถูกต้องตามหลักทักษาปกรณ์อาจเป็นทางออกที่ช่วยพลิกฟื้นดวงชะตาของคุณได้</p>
         `,
         coverImage: '/images/articles/naming-power-cover.png',
+        coverImageAlt: 'พลังแห่งการตั้งชื่อ ชื่อมงคลเปลี่ยนชีวิต',
         date: '2026-01-05',
         author: 'อ.ณัฐ นามมงคล',
         category: 'ศาสตร์ตั้งชื่อ',
@@ -6208,6 +6235,7 @@ export const articles: Article[] = [
             </div>
         `,
         coverImage: '/images/articles/baby-naming-2026.png',
+        coverImageAlt: '100 ชื่อมงคลลูกชายปีมะเมีย 2569 เสริมดวงปีม้า',
         date: '2026-01-19',
         author: 'NameMongkol Editorial',
         category: 'แม่และเด็ก',
@@ -6282,6 +6310,7 @@ export const articles: Article[] = [
             </div>
         `,
         coverImage: '/images/articles/kalakini-warning.png',
+        coverImageAlt: 'อักษรกาลกิณี สิ่งต้องห้ามที่ควรรู้ก่อนตั้งชื่อ',
         date: '2026-01-08',
         author: 'อ.วิเคราะห์ชื่อ',
         category: 'เกร็ดความรู้',
@@ -6344,6 +6373,7 @@ export const articles: Article[] = [
             </div>
         `,
         coverImage: '/images/articles/what-is-ayatana-6.png',
+        coverImageAlt: 'อายตนะ 6 คืออะไร ความหมายและความสำคัญในการตั้งชื่อ',
         date: '2026-01-11',
         author: 'อ.ณัฐ นามมงคล',
         category: 'ความรู้ขั้นสูง',
@@ -6561,6 +6591,7 @@ export const articles: Article[] = [
             </div>
         `,
         coverImage: '/images/articles/lucky-numbers-2569-guide.png',
+        coverImageAlt: 'เลขมงคลตามวันเกิดปี 2569 คู่มือเลือกเลขเสริมดวง',
         date: '2026-01-12',
         author: 'NameMongkol Editorial',
         category: 'เลขศาสตร์',
@@ -6774,6 +6805,7 @@ export const articles: Article[] = [
             </div>
         `,
         coverImage: '/images/articles/auspicious-colors-2569.png',
+        coverImageAlt: 'สีมงคลตามวันเกิดปี 2569 ตารางสีเสริมดวง',
         date: '2026-01-12',
         author: 'NameMongkol Editorial',
         category: 'สีมงคล',
@@ -6896,6 +6928,7 @@ export const articles: Article[] = [
             </div>
         `,
         coverImage: '/images/articles/4-pillars-naming.png',
+        coverImageAlt: '4 ศาสตร์การตั้งชื่อมงคล เลขศาสตร์ ทักษา อายตนะ พลังเงา',
         date: '2026-01-13', // Future date to stay on top
         author: 'NameMongkol Editorial',
         category: 'ความรู้ขั้นสูง',
@@ -7088,6 +7121,7 @@ export const articles: Article[] = [
             </div>
         `,
         coverImage: '/images/articles/numerology-0-9-power-guide.png',
+        coverImageAlt: 'เลขศาสตร์ 0-9 ความหมายและพลังของตัวเลข',
         date: '2026-01-14',
         author: 'NameMongkol Editorial',
         category: 'ความรู้ขั้นสูง',
@@ -7195,6 +7229,7 @@ export const articles: Article[] = [
             <p>การรู้จักอักษรกาลกิณีเป็นเพียงก้าวแรกของการมีชื่อที่มงคล การตั้งชื่อที่ดีควรพิจารณาทั้ง <strong>หลักทักษา</strong> (อักษรตามวันเกิด) และ <strong>หลักเลขศาสตร์</strong> (ผลรวมของชื่อ) ควบคู่กันไปเพื่อให้ได้ชื่อที่ส่งเสริมชีวิตคุณในทุกด้าน</p>
         `,
         coverImage: '/images/articles/check-kalakini-letters-7-days.png',
+        coverImageAlt: 'เช็คอักษรกาลกิณีตามวันเกิด 7 วัน',
         date: '2026-01-18',
         author: 'NameMongkol Editorial',
         category: 'เกร็ดความรู้',
@@ -7345,6 +7380,7 @@ export const articles: Article[] = [
             <p class="italic text-slate-500 text-sm">*บทความนี้เรียบเรียงจากสถิติและการเก็บข้อมูลจริงของผู้ใช้เบอร์มงคลกว่า 50,000 ราย โดยทีมงาน NameMongkol</p>
         `,
         coverImage: '/images/articles/most-accurate-phone-number-analysis-2026.png',
+        coverImageAlt: 'วิเคราะห์เบอร์มงคลแม่นยำที่สุด 2026 เบอร์มือถือเสริมดวง',
         date: '2026-01-20',
         author: 'NameMongkol Data Team',
         category: 'ความรู้ขั้นสูง',
@@ -7505,6 +7541,7 @@ export const articles: Article[] = [
             </div>
         `,
         coverImage: '/images/articles/what-is-shadow-power.png',
+        coverImageAlt: 'พลังเงา Shadow Power คืออะไร ศาสตร์การตั้งชื่อ',
         date: '2026-01-21',
         author: 'Grandmaster NameMongkol',
         category: 'ความรู้ขั้นสูง',
@@ -7518,6 +7555,7 @@ export const articles: Article[] = [
         title: 'แจกฟรี! วอลเปเปอร์มือถือ "เทพเจ้าไฉ่ซิงเอี๊ย" เสริมดวงการเงิน โชคลาภ จัดเต็มทุกปาง',
         excerpt: 'ดาวน์โหลดวอลเปเปอร์เทพเจ้าไฉ่ซิงเอี๊ย 4 สีมงคล ขนาด 9:16 สำหรับมือถือ เสริมดวงการเงิน โชคลาภ การค้า เฉพาะสมาชิก Namemongkol เท่านั้น',
         coverImage: '/images/articles/caishen-wallpaper-free-download.png',
+        coverImageAlt: 'แจกฟรีวอลเปเปอร์มือถือเทพเจ้าไฉ่ซิงเอี้ย เสริมดวงการเงิน',
         relatedSlugs: ['lucky-numbers-2569-guide', 'auspicious-colors-2569-guide'],
         date: '2026-02-05',
         author: 'อาจารย์ณัฐ (NameMongkol)',
@@ -8000,6 +8038,7 @@ export const articles: Article[] = [
         title: 'แจกฟรี! 131 ชื่อเล่นมงคลเกรด A ยุคดิจิทัล ความหมายอินเตอร์ ผลรวมปัง คู่เลขสวย 100%',
         excerpt: 'รวม 131 ไอเดียชื่อเล่นมงคลสไตล์ Tech & Space ผลรวมดี คู่เลข🟢สวย 100% พร้อมวันเกิดที่แนะนำ คัดมาให้แล้วจาก namemongkol นำไปใช้ได้ฟรีเลย!',
         coverImage: '/images/articles/131-grade-a-digital-nicknames-cover.svg',
+        coverImageAlt: '131 ชื่อเล่นมงคลเกรด A ยุคดิจิทัล ชื่อเล่นเสริมดวง',
         date: '2026-03-20',
         author: 'ทีมงาน NameMongkol',
         category: 'ชื่อเล่นมงคล',
@@ -8290,6 +8329,485 @@ export const articles: Article[] = [
         <p class="text-slate-400 text-sm">
             อย่าลืมแชร์บทความนี้ไปให้เพื่อนๆ หรือคุณแม่มือใหม่ที่กำลังหาชื่อลูกด้วยนะครับ ❤️
         </p>
+    </div>
+
+</div>
+        `
+    },
+    {
+        id: '35',
+        slug: 'naming-baby-year-of-horse-2569',
+        title: 'ตั้งชื่อลูกปีมะเมีย 2569 รวมไอเดียชื่อมงคล ความหมายดี เสริมชะตาลูกรักให้รุ่งโรจน์ (อัปเดตล่าสุด)',
+        excerpt: 'คัมภีร์ตั้งชื่อลูกปีมะเมีย 2569 ครบทุกวันเกิด ทั้งลูกชายและลูกสาว อ้างอิงหลักทักษาปกรณ์ พร้อมไอเดียชื่อมงคลแยกตามหมวด เสริมดวงตรงจุด ให้ลูกน้อยเติบโตสง่างามดั่งม้าแสนรู้',
+        coverImage: '/images/articles/ตั้งชื่อลูกปีมะเมีย 2569 ชื่อมงคล.png',
+        coverImageAlt: 'ตั้งชื่อลูกปีมะเมีย 2569 ชื่อมงคลตามหลักทักษาปกรณ์',
+        date: '2026-03-24',
+        dateModified: '2026-03-24',
+        author: 'อาจารย์ณัฐ (NameMongkol)',
+        category: 'ชื่อมงคล',
+        keywords: [
+            'ตั้งชื่อลูกปีมะเมีย 2569', 'ชื่อมงคลปีมะเมีย', 'ตั้งชื่อลูกปีม้า 2569',
+            'ชื่อลูกสาวปีมะเมีย', 'ชื่อลูกชายปีมะเมีย', 'ตั้งชื่อลูกตามวันเกิด 2569',
+            'ชื่อมงคลลูกชาย 2569', 'ชื่อมงคลลูกสาว 2569', 'อักษรกาลกิณี',
+            'ทักษาปกรณ์', 'ชื่อเสริมดวงปีม้า', 'ตั้งชื่อลูก 2569',
+            'ชื่อมงคลเสริมความมั่งคั่ง', 'ชื่อมงคลเสริมปัญญา', 'ชื่อมงคลเสริมเสน่ห์',
+            'nameMongkol', 'NameMongkol'
+        ],
+        metaTitle: 'ตั้งชื่อลูกปีมะเมีย 2569 รวมชื่อมงคล ลูกชาย-ลูกสาว เสริมดวงทุกวันเกิด | NameMongkol',
+        metaDescription: 'รวมไอเดียตั้งชื่อลูกปีมะเมีย (ปีม้า) 2569 ทั้งลูกชายและลูกสาว แยกตามวันเกิดทั้ง 7 วัน พร้อมหลักทักษาปกรณ์ อักษรกาลกิณี และหมวดชื่อเสริมดวงเฉพาะด้าน โดย NameMongkol',
+        relatedSlugs: [
+            'auspicious-names-by-birthday-2026',
+            'naming-tips-2026-year-of-horse',
+            'change-name-destiny-tuning-2569',
+            '100-auspicious-boy-names-2569'
+        ],
+        toc: [
+            { title: 'คัมภีร์ตั้งชื่อลูกปีมะเมีย 2569: หลักทักษาปกรณ์ที่พ่อแม่ควรรู้', id: 'taksa-rules', level: 2 },
+            { title: 'ไอเดียตั้งชื่อลูกสาว-ลูกชาย แยกตามวันเกิด', id: 'names-by-day', level: 2 },
+            { title: 'เด็กเกิดวันอาทิตย์', id: 'day-sunday', level: 3 },
+            { title: 'เด็กเกิดวันจันทร์', id: 'day-monday', level: 3 },
+            { title: 'เด็กเกิดวันอังคาร', id: 'day-tuesday', level: 3 },
+            { title: 'เด็กเกิดวันพุธ (กลางวัน)', id: 'day-wednesday-day', level: 3 },
+            { title: 'เด็กเกิดวันพุธ (กลางคืน)', id: 'day-wednesday-night', level: 3 },
+            { title: 'เด็กเกิดวันพฤหัสบดี', id: 'day-thursday', level: 3 },
+            { title: 'เด็กเกิดวันศุกร์', id: 'day-friday', level: 3 },
+            { title: 'เด็กเกิดวันเสาร์', id: 'day-saturday', level: 3 },
+            { title: 'หมวดหมู่ชื่อมงคล เสริมจุดเด่นเฉพาะด้าน', id: 'special-categories', level: 2 },
+            { title: 'บทสรุปเคล็ดลับจาก nameMongkol.com', id: 'conclusion', level: 2 },
+            { title: 'FAQ: คำถามที่พบบ่อย', id: 'faq', level: 2 },
+        ],
+        faqItems: [
+            {
+                question: 'ปี 2569 เป็นปีนักษัตรอะไร?',
+                answer: 'ปี พ.ศ. 2569 ตรงกับปีมะเมีย (ปีม้า) ซึ่งเป็นสัญลักษณ์แห่งความสง่างาม พลังงานที่เปี่ยมล้น และความก้าวหน้า การตั้งชื่อให้ลูกที่เกิดปีนี้จึงควรเสริมจุดแข็งและสร้างสมดุลของพลังม้า'
+            },
+            {
+                question: 'หลักทักษาปกรณ์คืออะไร และสำคัญอย่างไรกับการตั้งชื่อ?',
+                answer: 'ทักษาปกรณ์คือตำราโบราณที่แบ่งตัวอักษรออกเป็น 8 หมวด (วรรค) เพื่อจับคู่กับวันเกิด หลักสำคัญคือต้องหลีกเลี่ยง "อักษรกาลกิณี" ซึ่งเป็นอักษรที่เป็นอุปสรรคตามวันเกิดนั้นๆ เพื่อให้ชื่อเป็นมงคลสูงสุด'
+            },
+            {
+                question: 'อักษรกาลกิณีตามวันเกิดมีอะไรบ้าง?',
+                answer: 'แต่ละวันมีอักษรกาลกิณีต่างกัน เช่น วันอาทิตย์ห้ามใช้ ศ ษ ส ห ฬ ฮ, วันจันทร์ห้ามใช้สระทั้งหมด, วันอังคารห้ามใช้ ก ข ค ฆ ง, วันพุธกลางวันห้ามใช้ จ ฉ ช ซ ฌ ญ, วันพุธกลางคืนห้ามใช้ บ ป ผ ฝ พ ฟ ภ ม, วันพฤหัสบดีห้ามใช้ ด ต ถ ท ธ น, วันศุกร์ห้ามใช้ ย ร ล ว, วันเสาร์ห้ามใช้ ฎ ฏ ฐ ฑ ฒ ณ'
+            },
+            {
+                question: 'เด็กเกิดวันพุธกลางวันกับกลางคืน แบ่งเวลาอย่างไร?',
+                answer: 'เด็กเกิดวันพุธกลางวัน นับตั้งแต่เวลา 06:00 น. ถึง 17:59 น. ส่วนวันพุธกลางคืน นับตั้งแต่เวลา 18:00 น. ถึง 05:59 น. ของเช้าวันพฤหัสบดี ทั้งสองช่วงมีอักษรกาลกิณีต่างกัน จึงต้องแยกดูให้ถูกต้อง'
+            },
+            {
+                question: 'ตั้งชื่อลูกปีมะเมียควรเน้นเสริมด้านใด?',
+                answer: 'เด็กปีม้ามีพลังสูง กระตือรือร้น จึงควรเสริมชื่อที่ช่วยสร้างสมดุล เช่น ชื่อที่เสริมความใจเย็น สติปัญญา หรือคนอุปถัมภ์ค้ำชู ทั้งนี้ขึ้นอยู่กับวันเกิดที่จะมีจุดเด่นและจุดควรเสริมแตกต่างกัน'
+            },
+            {
+                question: 'จะเช็กว่าชื่อที่คิดไว้ดีจริงหรือไม่ ทำอย่างไร?',
+                answer: 'สามารถนำชื่อที่เล็งไว้มาวิเคราะห์ผลรวมเลขศาสตร์ เช็กอักษรมงคล-กาลกิณี และดูความหมายเชิงลึกได้ฟรีที่ระบบวิเคราะห์ชื่อมงคลของ nameMongkol.com ซึ่งจะตรวจสอบให้ครบทุกหลักศาสตร์'
+            },
+        ],
+        content: `
+<div class="space-y-10">
+
+    <!-- บทนำ -->
+    <div>
+        <p class="text-xl text-slate-300 leading-relaxed mb-6">
+            เตรียมต้อนรับสมาชิกใหม่ของครอบครัว! สำหรับคุณพ่อคุณแม่ที่มีกำหนดคลอดลูกน้อยในปี 2569 ซึ่งตรงกับ <strong class="text-amber-400">ปีมะเมีย (ปีม้า)</strong> สัญลักษณ์แห่งความสง่างาม พลังงานที่เปี่ยมล้น และความก้าวหน้า การเลือก <strong class="text-white">"ชื่อมงคล"</strong> ให้กับลูกน้อยจึงเป็นของขวัญชิ้นแรกที่สำคัญยิ่ง เพราะชื่อที่ดีจะช่วยเสริมทั้งความมั่นใจและสิริมงคลไปตลอดชีวิต
+        </p>
+        <p class="text-lg text-slate-400 leading-relaxed mb-8">
+            ในบทความนี้ <strong class="text-purple-400">nameMongkol.com</strong> ได้รวบรวมคัมภีร์การ<strong class="text-amber-300">ตั้งชื่อเด็กปีมะเมีย</strong>ที่ถูกต้องตามหลักโหราศาสตร์ไทย (ทักษาปกรณ์) เจาะลึกให้ครบทุกวันเกิด พร้อมไอเดียชื่อความหมายดีๆ ที่คัดมาแล้วว่าเพราะ ทันสมัย และถูกโฉลกกับเด็กปีม้าอย่างแน่นอนครับ
+        </p>
+        <div class="bg-gradient-to-r from-amber-500/10 to-transparent border-l-4 border-amber-500 p-6 rounded-r-xl mb-8">
+            <p class="text-amber-200 font-medium">📌 บทความนี้เหมาะสำหรับ</p>
+            <ul class="text-slate-300 text-sm mt-3 space-y-1">
+                <li>✅ คุณพ่อคุณแม่ที่มีกำหนดคลอดลูกน้อยปี 2569</li>
+                <li>✅ ผู้ที่ต้องการชื่อมงคลถูกหลักทักษาทั้งลูกชายและลูกสาว</li>
+                <li>✅ ผู้ที่อยากเข้าใจหลักอักษรกาลกิณีและทักษาปกรณ์</li>
+                <li>✅ ผู้ที่ต้องการไอเดียชื่อที่เสริมจุดเด่นเฉพาะด้านให้ลูก</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section 1: คัมภีร์ทักษาปกรณ์ -->
+    <div id="taksa-rules">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">🌟</span> คัมภีร์ตั้งชื่อลูกปีมะเมีย 2569: หลักทักษาปกรณ์ที่พ่อแม่ควรรู้
+        </h2>
+        <p class="text-slate-300 mb-6 leading-relaxed">
+            เพื่อให้ชื่อของลูกน้อยเป็นมงคลสูงสุด หลักโหราศาสตร์ไทยมักนิยมใช้ <strong class="text-amber-300">"ทักษาปกรณ์"</strong> หรือการหลีกเลี่ยง <strong class="text-red-400">อักษรกาลกิณี</strong> (อักษรที่เป็นอุปสรรค) ประจำวันเกิด เพื่อไม่ให้มีสิ่งขัดขวางความก้าวหน้าของลูกน้อยปีม้าที่เปี่ยมไปด้วยพลังงาน ดังนี้ครับ:
+        </p>
+
+        <figure class="mb-10 overflow-hidden rounded-2xl border border-slate-700/60 bg-slate-900/60 shadow-xl">
+            <img
+                src="/images/articles/ภาพเนื้อหา.png"
+                alt="ตารางอักษรกาลกิณีต้องห้ามตั้งชื่อลูกปีมะเมีย 2569 แยกตามวันเกิด"
+                class="w-full h-auto object-cover"
+                loading="lazy"
+            />
+            <figcaption class="px-4 py-3 text-sm text-slate-400 bg-slate-950/50 border-t border-slate-700/50">
+                ตารางสรุปอักษรกาลกิณีต้องห้ามตั้งชื่อลูกปีมะเมีย 2569 แยกตามวันเกิดทั้ง 7 วัน
+            </figcaption>
+        </figure>
+
+        <div class="bg-red-900/10 border border-red-500/20 rounded-xl p-6 mb-8">
+            <h4 class="text-red-400 font-bold mb-3">⚠️ ข้อควรระวังสำคัญ</h4>
+            <ul class="text-slate-300 text-sm space-y-2">
+                <li>❌ ต้องดู<strong>ทุกตัวอักษร</strong> ทุกสระ และไม้การันต์ในชื่อ ไม่ใช่แค่พยัญชนะตัวแรก</li>
+                <li>❌ คนเกิดวันจันทร์ สระทั้งหมดเป็นกาลกิณี</li>
+                <li>❌ วันพุธมี <strong>2 แบบ</strong> (กลางวัน/กลางคืน) มีอักษรกาลกิณีต่างกัน</li>
+                <li>📖 อ่านหลักทักษาปกรณ์แบบเจาะลึกเพิ่มเติมได้ที่ → <a href="/articles/auspicious-names-by-birthday-2026" class="text-amber-400 hover:underline">คู่มือตั้งชื่อมงคลตามวันเกิด 2569 ฉบับสมบูรณ์</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Section 2: ไอเดียชื่อตามวันเกิด -->
+    <div id="names-by-day">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">📅</span> เจาะลึก! ไอเดียตั้งชื่อลูกสาว-ลูกชาย ปีมะเมีย 2569 แยกตามวันเกิด เสริมดวงตรงจุด
+        </h2>
+        <p class="text-slate-300 mb-8 leading-relaxed">
+            มาดูกันครับว่าแต่ละวันเกิด มีจุดเด่นอย่างไร และมีชื่อมงคลใดที่สอดคล้องกับเด็กปีม้าบ้าง
+        </p>
+
+        <!-- วันอาทิตย์ -->
+        <div id="day-sunday" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-red-500/30 shadow-lg mb-8">
+            <h3 class="text-2xl font-bold text-red-400 flex items-center gap-2 mb-3">
+                <span class="text-3xl">☀️</span> เด็กเกิดวันอาทิตย์
+            </h3>
+            <p class="text-slate-400 mb-4 text-sm">
+                <strong class="text-white">จุดเด่นเด็กปีม้าวันอาทิตย์:</strong> มีความเป็นผู้นำสูง กระตือรือร้น ชื่อควรเสริมเรื่องความใจเย็นและคนอุปถัมภ์
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h4 class="text-pink-400 font-bold mb-3">👧 ไอเดียชื่อลูกสาว</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ชัญญา</strong> <span class="text-xs text-slate-400">(ชัน-ยา)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้ประเสริฐ ผู้รู้</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ธัญชนก</strong> <span class="text-xs text-slate-400">(ทัน-ชะ-นก)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้บังเกิดสิริมงคล</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">มนัสนันท์</strong> <span class="text-xs text-slate-400">(มะ-นัด-สะ-นัน)</span> <span class="text-emerald-400 text-xs">แปลว่า มีใจอันเป็นสุข</span></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-blue-400 font-bold mb-3">👦 ไอเดียชื่อลูกชาย</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ภูริช</strong> <span class="text-xs text-slate-400">(พู-ริด)</span> <span class="text-emerald-400 text-xs">แปลว่า แผ่นดิน, ผู้มีปัญญา</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">รณภูมิ</strong> <span class="text-xs text-slate-400">(รน-นะ-พูม)</span> <span class="text-emerald-400 text-xs">แปลว่า สนามรบ (สื่อถึงความกล้าหาญ)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- วันจันทร์ -->
+        <div id="day-monday" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-yellow-400/30 shadow-lg mb-8">
+            <h3 class="text-2xl font-bold text-yellow-400 flex items-center gap-2 mb-3">
+                <span class="text-3xl">🌙</span> เด็กเกิดวันจันทร์
+            </h3>
+            <p class="text-slate-400 mb-4 text-sm">
+                <strong class="text-white">จุดเด่นเด็กปีม้าวันจันทร์:</strong> มีเสน่ห์ อ่อนโยนแฝงความเข้มแข็ง ชื่อควรเสริมเรื่องอำนาจและบารมี
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h4 class="text-pink-400 font-bold mb-3">👧 ไอเดียชื่อลูกสาว</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">กมลชนก</strong> <span class="text-xs text-slate-400">(กะ-มน-ชะ-นก)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้เป็นดั่งดวงใจของพ่อ</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">พรพรรณ</strong> <span class="text-xs text-slate-400">(พอน-พัน)</span> <span class="text-emerald-400 text-xs">แปลว่า มีผิวพรรณอันประเสริฐ งดงาม</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">วรรณพร</strong> <span class="text-xs text-slate-400">(วัน-นะ-พอน)</span> <span class="text-emerald-400 text-xs">แปลว่า มีผิวพรรณงดงามเป็นเลิศ</span></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-blue-400 font-bold mb-3">👦 ไอเดียชื่อลูกชาย</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ชวกร</strong> <span class="text-xs text-slate-400">(ชะ-วะ-กอน)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้สร้างเชาวน์ปัญญา</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ธนพล</strong> <span class="text-xs text-slate-400">(ทะ-นะ-พน)</span> <span class="text-emerald-400 text-xs">แปลว่า มีกำลังคือทรัพย์</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- วันอังคาร -->
+        <div id="day-tuesday" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-pink-500/30 shadow-lg mb-8">
+            <h3 class="text-2xl font-bold text-pink-400 flex items-center gap-2 mb-3">
+                <span class="text-3xl">🌸</span> เด็กเกิดวันอังคาร
+            </h3>
+            <p class="text-slate-400 mb-4 text-sm">
+                <strong class="text-white">จุดเด่นเด็กปีม้าวันอังคาร:</strong> กล้าหาญ เด็ดเดี่ยว ลุยทุกสถานการณ์ ชื่อควรเสริมเรื่องความอ่อนโยนและสติปัญญา
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h4 class="text-pink-400 font-bold mb-3">👧 ไอเดียชื่อลูกสาว</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ชนิตา</strong> <span class="text-xs text-slate-400">(ชะ-นิ-ตา)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้ให้กำเนิด</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ญาณิศา</strong> <span class="text-xs text-slate-400">(ยา-นิ-สา)</span> <span class="text-emerald-400 text-xs">แปลว่า เป็นใหญ่ด้วยความรู้</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">รมิดา</strong> <span class="text-xs text-slate-400">(ระ-มิ-ดา)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้รื่นรมย์ ผู้มีความสุข</span></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-blue-400 font-bold mb-3">👦 ไอเดียชื่อลูกชาย</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ฐิติพล</strong> <span class="text-xs text-slate-400">(ทิ-ติ-พน)</span> <span class="text-emerald-400 text-xs">แปลว่า มีกำลังความมั่นคง</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ชยพล</strong> <span class="text-xs text-slate-400">(ชะ-ยะ-พน)</span> <span class="text-emerald-400 text-xs">แปลว่า มีพลังแห่งชัยชนะ</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- วันพุธ (กลางวัน) -->
+        <div id="day-wednesday-day" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-green-500/30 shadow-lg mb-8">
+            <h3 class="text-2xl font-bold text-green-400 flex items-center gap-2 mb-3">
+                <span class="text-3xl">🍃</span> เด็กเกิดวันพุธ (กลางวัน - เวลา 06:00 น. ถึง 17:59 น.)
+            </h3>
+            <p class="text-slate-400 mb-4 text-sm">
+                <strong class="text-white">จุดเด่นเด็กปีม้าวันพุธกลางวัน:</strong> เจรจาเก่ง หัวไว ปรับตัวเก่ง ชื่อควรเสริมเรื่องทรัพย์สินและความมั่นคง
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h4 class="text-pink-400 font-bold mb-3">👧 ไอเดียชื่อลูกสาว</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">นภัสวรรณ</strong> <span class="text-xs text-slate-400">(นะ-พัด-สะ-วัน)</span> <span class="text-emerald-400 text-xs">แปลว่า มีผิวพรรณดั่งฟ้า</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ปารมี</strong> <span class="text-xs text-slate-400">(ปา-ระ-มี)</span> <span class="text-emerald-400 text-xs">แปลว่า บารมี, ความดีที่สะสมไว้</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">วิมลสิริ</strong> <span class="text-xs text-slate-400">(วิ-มน-สิ-ริ)</span> <span class="text-emerald-400 text-xs">แปลว่า ศรีอันงดงามและบริสุทธิ์</span></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-blue-400 font-bold mb-3">👦 ไอเดียชื่อลูกชาย</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">กฤตเมธ</strong> <span class="text-xs text-slate-400">(กฺริด-ตะ-เมด)</span> <span class="text-emerald-400 text-xs">แปลว่า นักปราชญ์ผู้สร้างสรรค์</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ภูวดล</strong> <span class="text-xs text-slate-400">(พู-วะ-ดน)</span> <span class="text-emerald-400 text-xs">แปลว่า แผ่นดิน</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- วันพุธ (กลางคืน) -->
+        <div id="day-wednesday-night" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-green-700/30 shadow-lg mb-8">
+            <h3 class="text-2xl font-bold text-green-600 flex items-center gap-2 mb-3">
+                <span class="text-3xl">🦉</span> เด็กเกิดวันพุธ (กลางคืน - เวลา 18:00 น. ถึง 05:59 น. ของเช้าวันพฤหัสฯ)
+            </h3>
+            <p class="text-slate-400 mb-4 text-sm">
+                <strong class="text-white">จุดเด่นเด็กปีม้าวันพุธกลางคืน:</strong> ฉลาดหลักแหลม มีไหวพริบยอดเยี่ยม ชื่อควรเสริมเรื่องคนอุปถัมภ์ค้ำชู
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h4 class="text-pink-400 font-bold mb-3">👧 ไอเดียชื่อลูกสาว</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">รดา</strong> <span class="text-xs text-slate-400">(ระ-ดา)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้ยินดีแล้ว</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ลลิตา</strong> <span class="text-xs text-slate-400">(ละ-ลิ-ตา)</span> <span class="text-emerald-400 text-xs">แปลว่า หญิงที่สวยงาม มีเสน่ห์</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">อริสรา</strong> <span class="text-xs text-slate-400">(อะ-ริด-สะ-รา)</span> <span class="text-emerald-400 text-xs">แปลว่า เป็นใหญ่เหนือศัตรู</span></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-blue-400 font-bold mb-3">👦 ไอเดียชื่อลูกชาย</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ศิรชัช</strong> <span class="text-xs text-slate-400">(สิ-ระ-ชัด)</span> <span class="text-emerald-400 text-xs">แปลว่า เกิดจากยอด, สูงสุด</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">อชิตะ</strong> <span class="text-xs text-slate-400">(อะ-ชิ-ตะ)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้ที่ไม่พ่ายแพ้</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- วันพฤหัสบดี -->
+        <div id="day-thursday" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-orange-500/30 shadow-lg mb-8">
+            <h3 class="text-2xl font-bold text-orange-400 flex items-center gap-2 mb-3">
+                <span class="text-3xl">🟠</span> เด็กเกิดวันพฤหัสบดี
+            </h3>
+            <p class="text-slate-400 mb-4 text-sm">
+                <strong class="text-white">จุดเด่นเด็กปีม้าวันพฤหัสบดี:</strong> ใฝ่รู้ มีคุณธรรม ใจบุญ ชื่อควรเสริมเรื่องอำนาจบารมีและความกล้าแสดงออก
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h4 class="text-pink-400 font-bold mb-3">👧 ไอเดียชื่อลูกสาว</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ภิรญา</strong> <span class="text-xs text-slate-400">(พิ-ระ-ยา)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้มีปัญญาอันยิ่งใหญ่</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">พิชชา</strong> <span class="text-xs text-slate-400">(พิด-ชา)</span> <span class="text-emerald-400 text-xs">แปลว่า ความรู้</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ศุภิสรา</strong> <span class="text-xs text-slate-400">(สุ-พิด-สะ-รา)</span> <span class="text-emerald-400 text-xs">แปลว่า หญิงผู้เป็นใหญ่และดีงาม</span></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-blue-400 font-bold mb-3">👦 ไอเดียชื่อลูกชาย</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ปราชญ์</strong> <span class="text-xs text-slate-400">(ปฺราด)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้มีปัญญา, ผู้รู้</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ศุภกร</strong> <span class="text-xs text-slate-400">(สุ-พะ-กอน)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้สร้างสิริมงคล</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- วันศุกร์ -->
+        <div id="day-friday" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-sky-400/30 shadow-lg mb-8">
+            <h3 class="text-2xl font-bold text-sky-400 flex items-center gap-2 mb-3">
+                <span class="text-3xl">💧</span> เด็กเกิดวันศุกร์
+            </h3>
+            <p class="text-slate-400 mb-4 text-sm">
+                <strong class="text-white">จุดเด่นเด็กปีม้าวันศุกร์:</strong> รักสวยรักงาม มีศิลปะในหัวใจ อารมณ์ดี ชื่อควรเสริมเรื่องความมุ่งมั่นและความสำเร็จ
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h4 class="text-pink-400 font-bold mb-3">👧 ไอเดียชื่อลูกสาว</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">กชกร</strong> <span class="text-xs text-slate-400">(กช-ชะ-กอน)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้มีมือประดุจดอกบัว (ไหว้สวย อ่อนน้อม)</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">นภัส</strong> <span class="text-xs text-slate-400">(นะ-พัด)</span> <span class="text-emerald-400 text-xs">แปลว่า ฟ้า</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">พิชญา</strong> <span class="text-xs text-slate-400">(พิด-ชะ-ยา)</span> <span class="text-emerald-400 text-xs">แปลว่า นักปราชญ์</span></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-blue-400 font-bold mb-3">👦 ไอเดียชื่อลูกชาย</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">กิตติพงษ์</strong> <span class="text-xs text-slate-400">(กิด-ติ-พง)</span> <span class="text-emerald-400 text-xs">แปลว่า ตระกูลที่มีชื่อเสียง</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ณัฐดนัย</strong> <span class="text-xs text-slate-400">(นัด-ดะ-ไน)</span> <span class="text-emerald-400 text-xs">แปลว่า ลูกชายของนักปราชญ์</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- วันเสาร์ -->
+        <div id="day-saturday" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-purple-500/30 shadow-lg mb-8">
+            <h3 class="text-2xl font-bold text-purple-400 flex items-center gap-2 mb-3">
+                <span class="text-3xl">🪐</span> เด็กเกิดวันเสาร์
+            </h3>
+            <p class="text-slate-400 mb-4 text-sm">
+                <strong class="text-white">จุดเด่นเด็กปีม้าวันเสาร์:</strong> อดทนสูง หนักแน่น จริงจัง ชื่อควรเสริมเรื่องความรื่นรมย์ มีเสน่ห์ เมตตามหานิยม
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h4 class="text-pink-400 font-bold mb-3">👧 ไอเดียชื่อลูกสาว</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">สุชัญญา</strong> <span class="text-xs text-slate-400">(สุ-ชัน-ยา)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้ประเสริฐอย่างยิ่ง</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">พิมพ์มาดา</strong> <span class="text-xs text-slate-400">(พิม-มา-ดา)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้เป็นแบบอย่างของมารดา</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">รวิสรา</strong> <span class="text-xs text-slate-400">(ระ-วิ-สะ-รา)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้เป็นใหญ่ดุจพระอาทิตย์</span></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-blue-400 font-bold mb-3">👦 ไอเดียชื่อลูกชาย</h4>
+                    <div class="space-y-2">
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ธนกฤต</strong> <span class="text-xs text-slate-400">(ทะ-นะ-กฺริด)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้สร้างทรัพย์</span></div>
+                        <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-white">ภควัต</strong> <span class="text-xs text-slate-400">(พะ-คะ-วัด)</span> <span class="text-emerald-400 text-xs">แปลว่า ผู้มีโชค</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 3: หมวดหมู่ชื่อมงคลเฉพาะด้าน -->
+    <div id="special-categories">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">💎</span> หมวดหมู่ชื่อมงคลปี 2569 คัดมาให้แล้ว เสริมจุดเด่นเฉพาะด้าน
+        </h2>
+        <p class="text-slate-300 mb-8 leading-relaxed">
+            หากคุณพ่อคุณแม่ต้องการเน้นเสริมพรสวรรค์เฉพาะด้านให้กับลูกน้อย เราได้จัดหมวดหมู่พิเศษมาให้เลือกสรรดังนี้ครับ:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <!-- หมวด 1: ร่ำรวย -->
+            <div class="bg-gradient-to-b from-amber-900/20 to-slate-900/80 p-6 rounded-2xl border border-amber-500/20">
+                <span class="text-4xl mb-4 block">💰</span>
+                <h3 class="text-lg font-bold text-amber-400 mb-4">หมวดที่ 1: เสริมความมั่งคั่ง ร่ำรวย วาสนาดี</h3>
+                <div class="space-y-3">
+                    <div>
+                        <h4 class="text-blue-400 font-bold text-sm mb-1">👦 ลูกชาย</h4>
+                        <ul class="text-slate-300 text-sm space-y-1">
+                            <li><strong class="text-white">ธนภัทร</strong> — ดีงามด้วยทรัพย์</li>
+                            <li><strong class="text-white">โภคิน</strong> — ผู้มีทรัพย์สมบัติ</li>
+                            <li><strong class="text-white">เศรษฐสิริ</strong> — ผู้มั่งมีและเป็นมงคล</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-pink-400 font-bold text-sm mb-1">👧 ลูกสาว</h4>
+                        <ul class="text-slate-300 text-sm space-y-1">
+                            <li><strong class="text-white">ชนัญญา</strong> — ผู้รู้เรื่องทรัพย์</li>
+                            <li><strong class="text-white">ธัญรดี</strong> — ยินดีในสิริมงคลและทรัพย์สิน</li>
+                            <li><strong class="text-white">อริสรา</strong> — เป็นใหญ่ด้วยทรัพย์</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- หมวด 2: ปัญญา -->
+            <div class="bg-gradient-to-b from-cyan-900/20 to-slate-900/80 p-6 rounded-2xl border border-cyan-500/20">
+                <span class="text-4xl mb-4 block">🧠</span>
+                <h3 class="text-lg font-bold text-cyan-400 mb-4">หมวดที่ 2: เสริมสติปัญญา ความสำเร็จ และความเป็นผู้นำ</h3>
+                <div class="space-y-3">
+                    <div>
+                        <h4 class="text-blue-400 font-bold text-sm mb-1">👦 ลูกชาย</h4>
+                        <ul class="text-slate-300 text-sm space-y-1">
+                            <li><strong class="text-white">ปราชญา</strong> — ผู้มีปัญญาอันประเสริฐ</li>
+                            <li><strong class="text-white">ชวิน</strong> — ผู้มีความไว เชาวน์ปัญญา</li>
+                            <li><strong class="text-white">วิชญ์</strong> — ผู้รู้ นักปราชญ์</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-pink-400 font-bold text-sm mb-1">👧 ลูกสาว</h4>
+                        <ul class="text-slate-300 text-sm space-y-1">
+                            <li><strong class="text-white">เมธาวี</strong> — หญิงผู้มีปัญญา</li>
+                            <li><strong class="text-white">ญาณิศา</strong> — เป็นใหญ่ด้วยความรู้</li>
+                            <li><strong class="text-white">วิมลิน</strong> — ฉลาดหลักแหลม ปราศจากมลทิน</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- หมวด 3: เสน่ห์ -->
+            <div class="bg-gradient-to-b from-pink-900/20 to-slate-900/80 p-6 rounded-2xl border border-pink-500/20">
+                <span class="text-4xl mb-4 block">💕</span>
+                <h3 class="text-lg font-bold text-pink-400 mb-4">หมวดที่ 3: เสริมเสน่ห์ ความรัก และความเมตตามหานิยม</h3>
+                <div class="space-y-3">
+                    <div>
+                        <h4 class="text-blue-400 font-bold text-sm mb-1">👦 ลูกชาย</h4>
+                        <ul class="text-slate-300 text-sm space-y-1">
+                            <li><strong class="text-white">ณัฐนันท์</strong> — ผู้เป็นที่ชื่นชมของนักปราชญ์</li>
+                            <li><strong class="text-white">รณกร</strong> — ผู้สร้างความรื่นเริง</li>
+                            <li><strong class="text-white">กิตติพศ</strong> — มีชื่อเสียงและอำนาจ</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-pink-400 font-bold text-sm mb-1">👧 ลูกสาว</h4>
+                        <ul class="text-slate-300 text-sm space-y-1">
+                            <li><strong class="text-white">ลลิตา</strong> — หญิงที่สวยงาม มีเสน่ห์</li>
+                            <li><strong class="text-white">รมิดา</strong> — ผู้มีความสุข รื่นรมย์</li>
+                            <li><strong class="text-white">ชญานิษฐ์</strong> — เป็นที่รักเพราะความรู้</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 4: บทสรุป -->
+    <div id="conclusion">
+        <h2 class="text-3xl font-bold text-amber-500 mt-16 mb-8 flex items-center gap-3">
+            <span class="text-4xl">✨</span> บทสรุปเคล็ดลับจาก nameMongkol.com
+        </h2>
+        <div class="bg-gradient-to-r from-amber-500/10 to-transparent border-l-4 border-amber-500 p-6 rounded-r-xl mb-8">
+            <p class="text-slate-300 leading-relaxed mb-4">
+                การ<strong class="text-amber-300">ตั้งชื่อลูกปีมะเมีย 2569</strong> ให้เป็นมงคลนั้น สิ่งที่สำคัญที่สุดคือการผสมผสานระหว่าง <strong class="text-white">"ความหมายที่เป็นดั่งคำอวยพรจากพ่อแม่"</strong> และ <strong class="text-white">"หลักทักษาที่ถูกต้องตามวันเกิด"</strong> เพื่อเป็นเข็มทิศนำทางชีวิตลูกน้อยให้เติบโตอย่างเข้มแข็งและสง่างามดั่งม้าแสนรู้
+            </p>
+            <p class="text-slate-300 leading-relaxed">
+                หากคุณพ่อคุณแม่เล็งชื่อไหนไว้ในใจแล้ว แต่ยังอยากเช็กให้ชัวร์ว่าชื่อนี้ผลรวมตัวเลข (เลขศาสตร์) ดีเยี่ยม 100% หรือไม่?
+            </p>
+        </div>
+
+        <div class="bg-gradient-to-r from-indigo-900/40 to-purple-900/40 border border-indigo-500/20 rounded-2xl p-8 text-center relative overflow-hidden">
+            <h3 class="text-2xl font-bold text-indigo-100 mb-3">👉 วิเคราะห์ชื่อมงคลฟรี</h3>
+            <p class="text-indigo-200/70 mb-6 max-w-2xl mx-auto">
+                สามารถนำชื่อมาคำนวณฟรี พร้อมเช็กความหมายเชิงลึกได้ทันทีที่ <strong class="text-white">ระบบวิเคราะห์ชื่อมงคล</strong> ของ nameMongkol.com รับรองว่าได้ชื่อที่ดีที่สุดสำหรับแก้วตาดวงใจของคุณแน่นอน!
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/name-analysis" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg shadow-lg transition-colors">
+                    เช็คชื่อมงคล ฟรี →
+                </a>
+                <a href="/premium-analysis" class="px-8 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg shadow-lg transition-colors">
+                    วิเคราะห์แบบ Premium
+                </a>
+            </div>
+            <p class="text-xs text-indigo-300/50 mt-3">ใช้เวลาไม่ถึง 30 วินาที • ไม่ต้องสมัครสมาชิก</p>
+        </div>
+
+        <!-- Related Articles CTA -->
+        <div class="mt-12">
+            <div class="bg-slate-800/40 p-6 rounded-xl border border-slate-700/50">
+                <h3 class="text-lg font-bold text-white mb-4">📚 บทความที่เกี่ยวข้อง</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="/articles/auspicious-names-by-birthday-2026" class="text-amber-400 hover:underline">ตั้งชื่อมงคลตามวันเกิด 2569: คู่มือครบจบ ตำราทักษาปกรณ์</a></li>
+                    <li><a href="/articles/naming-tips-2026-year-of-horse" class="text-amber-400 hover:underline">รวม 100 ชื่อมงคลลูกชายปีมะเมีย 2569</a></li>
+                    <li><a href="/articles/change-name-destiny-tuning-2569" class="text-amber-400 hover:underline">เปลี่ยนชื่อเปลี่ยนชีวิต: คู่มือ Destiny Tuning ฉบับสมบูรณ์ 2569</a></li>
+                    <li><a href="/articles/100-auspicious-boy-names-2569" class="text-amber-400 hover:underline">100 ชื่อมงคลลูกชาย ปีมะเมีย 2569 ตั้งแล้วรวย</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 
 </div>

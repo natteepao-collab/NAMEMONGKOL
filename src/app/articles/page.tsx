@@ -77,6 +77,7 @@ async function getArticles() {
         return {
             ...dbArticle,
             coverImage: finalImage,
+            coverImageAlt: dbArticle.cover_image_alt || localMatch?.coverImageAlt || '',
             // Keep cover_image for backward compatibility if needed, but we'll use coverImage primarily
             cover_image: finalImage
         };
@@ -330,7 +331,7 @@ export default async function ArticlesPage() {
                                 <div className="aspect-video w-full bg-slate-800 relative overflow-hidden">
                                     <ArticleImage
                                         src={article.coverImage as string}
-                                        alt={`ภาพหน้าปอบทความ ${article.title} - บทความชื่อมงคล NameMongkol`}
+                                        alt={(article as any).coverImageAlt || `ภาพหน้าปกบทความ ${article.title} - บทความชื่อมงคล NameMongkol`}
                                         priority={index < 8}
                                         className="group-hover:scale-105"
                                     />

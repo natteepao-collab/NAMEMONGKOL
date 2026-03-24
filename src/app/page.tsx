@@ -28,7 +28,13 @@ export async function generateMetadata(
       openGraph: {
         title: 'วิเคราะห์ชื่อมงคล ฟรี! ตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง | NameMongkol',
         description: 'วิเคราะห์ชื่อมงคลฟรี ด้วยระบบ AI ผสาน 4 ศาสตร์ เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 นิรันดร์ศาสตร์ เช็คพลังเงา ผลรวมชื่อ อักษรกาลกิณี',
-        images: [`${siteUrl}/api/og?variant=default&title=NameMongkol%20-%20วิเคราะห์ชื่อมงคล&subtitle=เช็คพลังเงา%20ผลรวมเลขศาสตร์%20และความหมายชื่อของคุณ`],
+        images: [{
+          url: `${siteUrl}/api/og?variant=default&title=NameMongkol%20-%20วิเคราะห์ชื่อมงคล&subtitle=เช็คพลังเงา%20ผลรวมเลขศาสตร์%20และความหมายชื่อของคุณ`,
+          width: 1200,
+          height: 630,
+          alt: 'วิเคราะห์ชื่อมงคลฟรี ด้วย AI ผสาน 4 ศาสตร์ - NameMongkol',
+          type: 'image/png',
+        }],
         url: 'https://www.namemongkol.com',
         siteName: 'NameMongkol',
         locale: 'th_TH',
@@ -38,7 +44,12 @@ export async function generateMetadata(
         card: 'summary_large_image',
         title: 'วิเคราะห์ชื่อมงคล ฟรี! ตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง | NameMongkol',
         description: 'วิเคราะห์ชื่อมงคลฟรี ด้วยระบบ AI ผสาน 4 ศาสตร์ เช็คพลังเงา ผลรวมชื่อ อักษรกาลกิณี',
-        images: [`${siteUrl}/api/og?variant=default`],
+        images: [{
+          url: `${siteUrl}/api/og?variant=default`,
+          width: 1200,
+          height: 630,
+          alt: 'วิเคราะห์ชื่อมงคลฟรี - NameMongkol',
+        }],
       },
 
     }
@@ -90,7 +101,14 @@ export default function Page() {
         'name': 'วิเคราะห์ชื่อมงคล ฟรี! ตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง | NameMongkol',
         'isPartOf': { '@id': 'https://www.namemongkol.com/#website' },
         'description': 'วิเคราะห์ชื่อมงคลฟรี ตั้งชื่อลูก เปลี่ยนชื่อใหม่ ด้วยระบบ AI อัจฉริยะ ผสาน 4 ศาสตร์',
-        'inLanguage': 'th-TH'
+        'inLanguage': 'th-TH',
+        'primaryImageOfPage': {
+          '@type': 'ImageObject',
+          'url': 'https://www.namemongkol.com/api/og?variant=default&title=NameMongkol%20-%20วิเคราะห์ชื่อมงคล&subtitle=เช็คพลังเงา%20ผลรวมเลขศาสตร์%20และความหมายชื่อของคุณ',
+          'width': 1200,
+          'height': 630,
+          'caption': 'วิเคราะห์ชื่อมงคลฟรี ด้วย AI ผสาน 4 ศาสตร์ เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 นิรันดร์ศาสตร์ - NameMongkol'
+        }
       },
       {
         '@type': 'SoftwareApplication',

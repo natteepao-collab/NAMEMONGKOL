@@ -48,29 +48,29 @@ export const HomeSeoContent = () => {
                     </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div className="p-5 rounded-xl bg-slate-800/50 border border-white/5 hover:border-amber-500/30 transition-colors group">
+                <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-2 px-1 md:grid md:grid-cols-2 md:gap-4 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-4">
+                    <div className="w-[86%] sm:w-[68%] md:w-auto shrink-0 md:shrink snap-start md:snap-none p-5 rounded-xl bg-slate-800/50 border border-white/5 hover:border-amber-500/30 transition-colors group">
                         <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 mb-4 group-hover:scale-110 transition-transform">1</div>
                         <h3 className="font-bold text-lg text-white mb-2">{t('sections.knowledge.tabs.numerology')}</h3>
                         <p className="text-sm text-slate-400">
                             แปลงค่าอักษรเป็นตัวเลข เพื่อดูอิทธิพลดาวเคราะห์ที่ส่งผลต่อเจ้าชะตา (ผลรวมที่ดี เช่น 14, 15, 24, 45, 59)
                         </p>
                     </div>
-                    <div className="p-5 rounded-xl bg-slate-800/50 border border-white/5 hover:border-emerald-500/30 transition-colors group">
+                    <div className="w-[86%] sm:w-[68%] md:w-auto shrink-0 md:shrink snap-start md:snap-none p-5 rounded-xl bg-slate-800/50 border border-white/5 hover:border-emerald-500/30 transition-colors group">
                         <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-4 group-hover:scale-110 transition-transform">2</div>
                         <h3 className="font-bold text-lg text-white mb-2">{t('sections.knowledge.tabs.thaksa')}</h3>
                         <p className="text-sm text-slate-400">
                             ภูมิพยากรณ์ประจำวันเกิด หาอักษรที่เป็น &quot;เดช&quot; &quot;ศรี&quot; &quot;มนตรี&quot; และหลีกเลี่ยง &quot;กาลกิณี&quot; อย่างเด็ดขาด
                         </p>
                     </div>
-                    <div className="p-5 rounded-xl bg-slate-800/50 border border-white/5 hover:border-rose-500/30 transition-colors group">
+                    <div className="w-[86%] sm:w-[68%] md:w-auto shrink-0 md:shrink snap-start md:snap-none p-5 rounded-xl bg-slate-800/50 border border-white/5 hover:border-rose-500/30 transition-colors group">
                         <div className="w-10 h-10 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-500 mb-4 group-hover:scale-110 transition-transform">3</div>
                         <h3 className="font-bold text-lg text-white mb-2">{t('sections.knowledge.tabs.ayatana')}</h3>
                         <p className="text-sm text-slate-400">
                             ศาสตร์แห่งการยอมรับทางสังคม สะท้อนว่าคนรอบข้างมองเราอย่างไร (เปรียบเทียบกับคน 9 ประเภท เช่น ราชินี, เศรษฐี)
                         </p>
                     </div>
-                    <div className="p-5 rounded-xl bg-slate-800/50 border border-white/5 hover:border-blue-500/30 transition-colors group">
+                    <div className="w-[86%] sm:w-[68%] md:w-auto shrink-0 md:shrink snap-start md:snap-none p-5 rounded-xl bg-slate-800/50 border border-white/5 hover:border-blue-500/30 transition-colors group">
                         <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500 mb-4 group-hover:scale-110 transition-transform">4</div>
                         <h3 className="font-bold text-lg text-white mb-2">{t('sections.knowledge.tabs.nirun')}</h3>
                         <p className="text-sm text-slate-400">

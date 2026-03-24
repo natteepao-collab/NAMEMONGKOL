@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { thaksaConfig } from '@/data/thaksaConfig';
 import { DayKey } from '@/types';
 import { useLanguage } from './LanguageProvider';
+import { ImageEnlargeModal } from './ImageEnlargeModal';
 
 type ScienceType = 'numerology' | 'thaksa' | 'ayatana' | 'nirun';
 
@@ -16,6 +17,7 @@ export const KnowledgeSection: React.FC = () => {
     const initialTab = searchParams.get('tab') as ScienceType | null;
     const [activeTab, setActiveTab] = useState<ScienceType>(initialTab || 'numerology');
     const [selectedThaksaDay, setSelectedThaksaDay] = useState<DayKey>('sunday');
+    const [enlargedImageSrc, setEnlargedImageSrc] = useState<string | null>(null);
     const { t } = useLanguage();
 
     // Update active tab if URL param changes (optional, but good for navigation)
@@ -124,7 +126,12 @@ export const KnowledgeSection: React.FC = () => {
                                     <Table size={20} /> ตารางเทียบค่าตัวเลขอักษรไทย-อังกฤษ
                                 </h4>
 
-                                <div className="rounded-xl overflow-hidden shadow-lg border border-white/10">
+                                <button
+                                    type="button"
+                                    onClick={() => setEnlargedImageSrc('/images/thai-numerology-decoding-chart.png')}
+                                    className="block w-full cursor-zoom-in rounded-xl overflow-hidden shadow-lg border border-white/10"
+                                    aria-label="คลิกเพื่อดูตารางถอดรหัสเลขศาสตร์แบบขยาย"
+                                >
                                     <Image
                                         src="/images/thai-numerology-decoding-chart.png"
                                         alt="ตารางถอดรหัสเลขศาสตร์ อักษรไทย-อังกฤษ สำหรับวิเคราะห์ชื่อมงคล (Thai Numerology Decoding Chart)"
@@ -133,7 +140,7 @@ export const KnowledgeSection: React.FC = () => {
                                         className="w-full h-auto object-cover"
                                         title="ตารางเทียบค่าตัวเลขอักษรไทย-อังกฤษ เพื่อวิเคราะห์ชื่อมงคล"
                                     />
-                                </div>
+                                </button>
                             </div>
 
                             <div className="bg-gradient-to-r from-amber-900/20 to-transparent p-6 rounded-2xl border-l-4 border-amber-500">
@@ -340,6 +347,12 @@ export const KnowledgeSection: React.FC = () => {
 
                 </div>
             </div>
+            <ImageEnlargeModal
+                isOpen={Boolean(enlargedImageSrc)}
+                src={enlargedImageSrc}
+                alt="ตารางถอดรหัสเลขศาสตร์ อักษรไทย-อังกฤษ สำหรับวิเคราะห์ชื่อมงคล"
+                onClose={() => setEnlargedImageSrc(null)}
+            />
         </section>
     );
 };
