@@ -2,22 +2,40 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabaseServer';
 
-export async function GET() {
-    try {
-        const supabase = await createClient();
+const PAGE_SIZE = 1000;
 
-        // Fetch names from Supabase
+async function fetchAllAuspiciousNames() {
+    const supabase = await createClient();
+    const names: string[] = [];
+    let from = 0;
+
+    while (true) {
         const { data, error } = await supabase
             .from('auspicious_names')
             .select('name')
-            .order('name', { ascending: true });
+            .order('name', { ascending: true })
+            .range(from, from + PAGE_SIZE - 1);
 
         if (error) {
-            console.error('Supabase fetch error:', error);
             throw error;
         }
 
-        const names = data?.map((d: { name: string }) => d.name) || [];
+        const batch = data?.map((row: { name: string }) => row.name) ?? [];
+        names.push(...batch);
+
+        if (batch.length < PAGE_SIZE) {
+            break;
+        }
+
+        from += PAGE_SIZE;
+    }
+
+    return names;
+}
+
+export async function GET() {
+    try {
+        const names = await fetchAllAuspiciousNames();
 
         return NextResponse.json({
             success: true,
@@ -65,18 +83,18 @@ export async function POST(req: Request) {
         const insertData = uniqueNames.map((name: string) => ({ name }));
 
         // Strategy: Replace all names. 
-        // 1. Delete all existing names
+        // 1. Delete all existing names (using always-true condition)
         const { error: deleteError } = await supabase
             .from('auspicious_names')
             .delete()
-            .neq('id', '00000000-0000-0000-0000-000000000000'); // Delete all (hacky way if no WHERE condition allowed usually, but Supabase allows .neq id 0)
-        // Better: .gt('created_at', '1900-01-01') or similar always-true condition if .delete() requires a filter.
-        // Supabase/Postgrest often requires a WHERE clause for delete to prevent accidents.
+            .gte('created_at', '1900-01-01'); // This will delete all rows (created_at is always >= 1900-01-01)
 
         if (deleteError) {
             console.error('Delete error:', deleteError);
             throw deleteError;
         }
+        
+        console.log('[Admin Names] Deleted all existing names, preparing to insert new batch...');
 
         // 2. Insert new names
         // Insert in chunks if necessary, but for ~600 names it should be fine in one go or batches of 100.

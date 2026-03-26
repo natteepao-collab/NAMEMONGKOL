@@ -34,6 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { path: '/name-analysis', priority: 1.0, changeFreq: 'daily' as const }, // High priority tool
         { path: '/phone-analysis', priority: 1.0, changeFreq: 'daily' as const },
         { path: '/premium-analysis', priority: 0.9, changeFreq: 'weekly' as const },
+        { path: '/aura-analysis', priority: 0.9, changeFreq: 'daily' as const },
         { path: '/premium-search', priority: 0.8, changeFreq: 'weekly' as const },
         { path: '/privacy', priority: 0.2, changeFreq: 'yearly' as const },
         { path: '/reviews', priority: 0.8, changeFreq: 'weekly' as const },

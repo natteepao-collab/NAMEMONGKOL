@@ -118,6 +118,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         { key: 'wallpapers', nameKey: 'sidebar.wallpapers', icon: ImageIcon, path: '/wallpapers' },
         { key: 'history', nameKey: 'sidebar.history', icon: HistoryIcon, path: '/history' },
         { key: 'name-analysis', nameKey: 'sidebar.bulkNameFilter', icon: ClipboardList, path: '/name-analysis' },
+        { key: 'aura-analysis', nameKey: 'sidebar.auraAnalysis', icon: Sparkles, path: '/aura-analysis' },
         { key: 'about', nameKey: 'sidebar.about', icon: Info, path: '/about', mobileOnly: true },
     ];
 

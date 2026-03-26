@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1040"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <circle cx="200" cy="200" r="140" fill="url(#glow)"/>
+  <circle cx="200" cy="160" r="50" fill="#D4AF37" opacity="0.2" stroke="#D4AF37" stroke-width="1.5" stroke-opacity="0.4"/>
+  <path d="M130 300 Q130 240 200 230 Q270 240 270 300" fill="#D4AF37" opacity="0.15" stroke="#D4AF37" stroke-width="1.5" stroke-opacity="0.3"/>
+  <text x="200" y="360" text-anchor="middle" fill="#D4AF37" font-size="14" font-family="system-ui" opacity="0.6">Self · Male</text>
+</svg>

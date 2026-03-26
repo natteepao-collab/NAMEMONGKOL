@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Smartphone, BookOpen, Info, Hand } from 'lucide-react';
+import { Home, Smartphone, BookOpen, Info, Hand, Sparkles } from 'lucide-react';
 
 export const MobileSecondaryNav = () => {
     const pathname = usePathname();
@@ -12,6 +12,7 @@ export const MobileSecondaryNav = () => {
         { name: 'วิเคราะห์ชื่อ', icon: Home, path: '/' },
         { name: 'วิเคราะห์เบอร์', icon: Smartphone, path: '/phone-analysis' },
         { name: 'วิเคราะห์ลายมือ', icon: Hand, path: '/palm-analysis' },
+        { name: 'วิเคราะห์ออร่า', icon: Sparkles, path: '/aura-analysis' },
         { name: 'บทความ', icon: BookOpen, path: '/articles' },
         { name: 'เกี่ยวกับเรา', icon: Info, path: '/about' },
     ];
