@@ -381,7 +381,7 @@ export default function ClientPage() {
         <div className="min-h-screen relative aura-page-shell">
             <AuraCosmicBackground />
 
-            <div className="max-w-4xl mx-auto px-4 pt-16 pb-8 sm:pt-20 sm:pb-12">
+            <div className="max-w-4xl mx-auto px-4 pt-24 pb-8 sm:pt-28 sm:pb-12">
                 {/* Page Header */}
                 <div className="text-center mb-12 sm:mb-14 md:mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4">
