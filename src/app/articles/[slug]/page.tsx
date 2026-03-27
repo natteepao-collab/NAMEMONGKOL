@@ -15,6 +15,10 @@ const ArticleShareButtons = dynamic(() => import('@/components/ArticleShareButto
 const ArticleCTA = dynamic(() => import('@/components/ArticleCTA').then(mod => mod.ArticleCTA), {
     loading: () => <div className="h-64 bg-slate-800/50 rounded-2xl animate-pulse" />
 });
+
+const AuraVibeWidget = dynamic(() => import('@/components/AuraVibeWidget'), {
+    loading: () => <div className="h-48 bg-slate-800/50 rounded-2xl animate-pulse my-10 max-w-xl mx-auto" />
+});
 import { articles as localArticles, Article } from '@/data/articles';
 import { shimmer, toBase64 } from '@/utils/imageUtils';
 import {
@@ -436,6 +440,9 @@ export default async function ArticlePage({ params }: Props) {
                         <div dangerouslySetInnerHTML={{ __html: article.content }} />
                     </article>
 
+                    {/* Aura Vibe Widget — Mid-Article (คั่นระหว่างเนื้อหากับ FAQ) */}
+                    <AuraVibeWidget />
+
                     {/* FAQ Section — renders when article has faqItems */}
                     {article.faqItems && article.faqItems.length > 0 && (
                         <section id="faq-section" className="mt-12 scroll-mt-24">
@@ -486,6 +493,9 @@ export default async function ArticlePage({ params }: Props) {
                             <Link href="/palm-analysis" className="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-colors shadow-lg shadow-purple-600/30">➡ วิเคราะห์ลายมือฟรีที่นี่</Link>
                         </div>
                     )}
+
+                    {/* Aura Vibe Widget — End-of-Article (ก่อน CTA section) */}
+                    <AuraVibeWidget />
 
                     {/* CTA Section */}
                     <div className="mt-8 pt-8 border-t border-white/10">

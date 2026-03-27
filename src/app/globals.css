@@ -645,3 +645,507 @@ body {
 .time-picker-light::-webkit-datetime-edit-text {
   color: inherit;
 }
+
+@keyframes auraNebulaFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(0, -16px, 0) scale(1.04);
+  }
+}
+
+@keyframes auraNebulaPulse {
+  0%, 100% {
+    opacity: 0.48;
+  }
+
+  50% {
+    opacity: 0.74;
+  }
+}
+
+@keyframes auraRingWave {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.62;
+  }
+
+  50% {
+    transform: scale(1.035);
+    opacity: 0.92;
+  }
+}
+
+@keyframes auraTwinkle {
+  0%, 100% {
+    opacity: 0.4;
+  }
+
+  40% {
+    opacity: 0.92;
+  }
+
+  70% {
+    opacity: 0.58;
+  }
+}
+
+.aura-page-shell {
+  isolation: isolate;
+}
+
+.aura-space-base {
+  background:
+    radial-gradient(110% 90% at 8% 18%, rgba(90, 72, 160, 0.28) 0%, rgba(16, 24, 50, 0) 52%),
+    radial-gradient(100% 80% at 20% 35%, rgba(140, 100, 200, 0.18) 0%, rgba(16, 24, 50, 0) 46%),
+    radial-gradient(120% 95% at 85% 20%, rgba(60, 40, 120, 0.16) 0%, rgba(13, 17, 44, 0) 42%),
+    linear-gradient(160deg, #101830 0%, #0c1528 26%, #091122 58%, #060c1c 100%);
+}
+
+.aura-stargrain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.72;
+  background-image:
+    radial-gradient(circle at 8% 10%, rgba(255, 255, 255, 0.92) 0 1px, transparent 1.2px),
+    radial-gradient(circle at 18% 24%, rgba(255, 250, 236, 0.82) 0 1.1px, transparent 1.4px),
+    radial-gradient(circle at 26% 16%, rgba(220, 232, 255, 0.7) 0 1.2px, transparent 1.5px),
+    radial-gradient(circle at 42% 34%, rgba(255, 255, 255, 0.56) 0 0.9px, transparent 1.2px),
+    radial-gradient(circle at 64% 22%, rgba(255, 246, 214, 0.58) 0 0.8px, transparent 1.1px),
+    radial-gradient(circle at 76% 46%, rgba(210, 229, 255, 0.6) 0 1px, transparent 1.3px),
+    radial-gradient(circle at 88% 72%, rgba(255, 255, 255, 0.52) 0 0.9px, transparent 1.2px),
+    radial-gradient(circle at 30% 78%, rgba(224, 236, 255, 0.48) 0 0.9px, transparent 1.2px),
+    radial-gradient(circle at 52% 58%, rgba(255, 255, 255, 0.44) 0 0.8px, transparent 1px),
+    radial-gradient(circle at 14% 66%, rgba(230, 240, 255, 0.5) 0 0.9px, transparent 1.1px),
+    radial-gradient(circle at 82% 38%, rgba(255, 248, 220, 0.46) 0 0.8px, transparent 1px),
+    radial-gradient(circle at 68% 84%, rgba(255, 255, 255, 0.38) 0 0.7px, transparent 1px);
+  background-size: 220px 220px, 300px 300px, 360px 360px, 260px 260px, 380px 380px, 440px 440px, 320px 320px, 400px 400px, 280px 280px, 340px 340px, 460px 460px, 500px 500px;
+}
+
+.aura-milky-cloud {
+  position: absolute;
+  width: min(62vw, 920px);
+  height: min(58vw, 820px);
+  left: clamp(-200px, -8vw, -60px);
+  top: clamp(-80px, -2vh, 10px);
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 34% 34%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 16%),
+    radial-gradient(circle at 38% 40%, rgba(220, 200, 255, 0.44), rgba(220, 200, 255, 0) 22%),
+    radial-gradient(circle at 44% 46%, rgba(190, 170, 240, 0.38), rgba(190, 170, 240, 0) 28%),
+    radial-gradient(circle at 30% 38%, rgba(170, 140, 220, 0.34), rgba(170, 140, 220, 0) 34%),
+    radial-gradient(circle at 50% 36%, rgba(240, 220, 255, 0.26), rgba(240, 220, 255, 0) 36%),
+    radial-gradient(circle at 26% 50%, rgba(200, 150, 230, 0.24), rgba(200, 150, 230, 0) 40%),
+    radial-gradient(circle at 40% 30%, rgba(180, 160, 240, 0.2), rgba(180, 160, 240, 0) 46%);
+  filter: blur(22px);
+  opacity: 1;
+  mix-blend-mode: screen;
+}
+
+.aura-warm-nebula {
+  position: absolute;
+  width: min(50vw, 720px);
+  height: min(46vw, 600px);
+  left: clamp(-120px, -4vw, 0px);
+  bottom: clamp(-140px, -6vh, -30px);
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 36% 38%, rgba(180, 80, 140, 0.36), rgba(180, 80, 140, 0) 30%),
+    radial-gradient(circle at 50% 44%, rgba(140, 70, 180, 0.3), rgba(140, 70, 180, 0) 34%),
+    radial-gradient(circle at 30% 52%, rgba(200, 100, 160, 0.26), rgba(200, 100, 160, 0) 32%),
+    radial-gradient(circle at 44% 56%, rgba(160, 90, 200, 0.2), rgba(160, 90, 200, 0) 40%);
+  filter: blur(30px);
+  opacity: 0.88;
+  mix-blend-mode: screen;
+}
+
+.aura-starfield {
+  opacity: 0.78;
+  background-image:
+    radial-gradient(circle at 18% 26%, rgba(255, 255, 255, 0.88) 0 1.6px, transparent 2px),
+    radial-gradient(circle at 72% 14%, rgba(255, 241, 208, 0.78) 0 1.8px, transparent 2.2px),
+    radial-gradient(circle at 86% 70%, rgba(218, 235, 255, 0.74) 0 1.4px, transparent 1.8px),
+    radial-gradient(circle at 30% 82%, rgba(238, 245, 255, 0.6) 0 1.2px, transparent 1.6px),
+    radial-gradient(circle at 56% 44%, rgba(219, 221, 255, 0.46) 0 1.1px, transparent 1.5px),
+    radial-gradient(circle at 44% 12%, rgba(255, 255, 255, 0.68) 0 1.3px, transparent 1.7px),
+    radial-gradient(circle at 92% 42%, rgba(240, 248, 255, 0.56) 0 1.2px, transparent 1.6px);
+  animation: auraTwinkle 8s ease-in-out infinite;
+}
+
+.aura-nebula {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(38px);
+  animation: auraNebulaFloat 19s ease-in-out infinite, auraNebulaPulse 9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.aura-nebula-1 {
+  width: min(46vw, 620px);
+  height: min(42vw, 540px);
+  left: clamp(-80px, 6vw, 100px);
+  top: clamp(110px, 26vh, 300px);
+  background: radial-gradient(circle at 38% 44%, rgba(120, 80, 200, 0.56), rgba(120, 80, 200, 0) 60%);
+}
+
+.aura-nebula-2 {
+  width: min(42vw, 520px);
+  height: min(38vw, 480px);
+  left: clamp(60px, 18vw, 340px);
+  top: clamp(80px, 20vh, 260px);
+  background: radial-gradient(circle at 48% 46%, rgba(100, 60, 190, 0.46), rgba(100, 60, 190, 0) 62%);
+  animation-delay: -5s;
+}
+
+.aura-nebula-3 {
+  width: min(38vw, 480px);
+  height: min(32vw, 420px);
+  left: clamp(-40px, 4vw, 80px);
+  top: clamp(200px, 42vh, 480px);
+  background: radial-gradient(circle at 45% 48%, rgba(80, 140, 220, 0.36), rgba(80, 140, 220, 0) 62%);
+  animation-delay: -2.5s;
+}
+
+.aura-nebula-4 {
+  width: min(24vw, 300px);
+  height: min(22vw, 280px);
+  right: clamp(30px, 8vw, 140px);
+  top: clamp(140px, 22vh, 260px);
+  background: radial-gradient(circle at 50% 46%, rgba(60, 50, 140, 0.28), rgba(60, 50, 140, 0) 62%);
+  animation-delay: -7s;
+}
+
+.aura-nebula-5 {
+  width: min(36vw, 460px);
+  height: min(30vw, 380px);
+  left: clamp(-20px, 6vw, 120px);
+  bottom: clamp(-56px, 4vh, 24px);
+  background: radial-gradient(circle at 44% 42%, rgba(200, 100, 180, 0.38), rgba(200, 100, 180, 0) 60%);
+  animation-delay: -10s;
+}
+
+.aura-focus-glow {
+  position: absolute;
+  width: min(58vw, 800px);
+  height: min(42vw, 540px);
+  left: 40%;
+  top: clamp(180px, 36vh, 380px);
+  transform: translateX(-50%);
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 28% 46%, rgba(100, 200, 255, 0.48), rgba(100, 200, 255, 0) 38%),
+    radial-gradient(circle at 72% 36%, rgba(160, 90, 255, 0.46), rgba(160, 90, 255, 0) 40%),
+    radial-gradient(circle at 50% 72%, rgba(80, 220, 180, 0.34), rgba(80, 220, 180, 0) 42%),
+    radial-gradient(circle at 30% 68%, rgba(240, 100, 200, 0.32), rgba(240, 100, 200, 0) 34%);
+  filter: blur(36px);
+  opacity: 0.88;
+  animation: auraNebulaPulse 8s ease-in-out infinite;
+}
+
+.aura-constellation {
+  position: absolute;
+  width: min(24vw, 280px);
+  height: min(24vw, 280px);
+  opacity: 0.22;
+}
+
+.aura-constellation-left {
+  left: clamp(-120px, -6vw, -30px);
+  bottom: clamp(24px, 9vh, 120px);
+  transform: rotate(-8deg);
+}
+
+.aura-constellation-right {
+  right: clamp(-128px, -6vw, -28px);
+  top: clamp(42px, 10vh, 150px);
+  transform: scaleX(-1) rotate(16deg);
+}
+
+.aura-orbital-sigil {
+  position: absolute;
+  width: min(44vw, 600px);
+  height: min(44vw, 600px);
+  top: clamp(-60px, 0vh, 40px);
+  right: clamp(-180px, -10vw, -50px);
+  opacity: 0.62;
+}
+
+.aura-astral-grid {
+  position: absolute;
+  width: min(58vw, 750px);
+  height: min(58vw, 750px);
+  right: clamp(-240px, -16vw, -70px);
+  bottom: clamp(-280px, -22vh, -90px);
+  opacity: 0.48;
+}
+
+.aura-constellation-lower-left {
+  position: absolute;
+  width: min(28vw, 300px);
+  height: auto;
+  left: clamp(-54px, -1vw, 24px);
+  bottom: clamp(28px, 7vh, 86px);
+  opacity: 0.42;
+}
+
+.aura-vignette {
+  background:
+    radial-gradient(72% 55% at 50% 42%, rgba(5, 12, 24, 0) 0%, rgba(4, 10, 22, 0.34) 72%, rgba(2, 6, 16, 0.7) 100%),
+    linear-gradient(180deg, rgba(5, 10, 20, 0.04) 0%, rgba(4, 9, 18, 0.42) 100%);
+}
+
+.aura-card-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  background:
+    linear-gradient(145deg, rgba(17, 24, 45, 0.84), rgba(9, 15, 31, 0.82)),
+    radial-gradient(circle at 10% 6%, rgba(255, 233, 194, 0.1), transparent 42%),
+    radial-gradient(circle at 100% 100%, rgba(85, 181, 255, 0.06), transparent 32%);
+  border: 1px solid rgba(230, 201, 136, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 220, 0.18),
+    inset 0 0 0 1px rgba(255, 225, 160, 0.08),
+    0 0 0 1px rgba(108, 205, 255, 0.08),
+    0 26px 72px rgba(2, 9, 20, 0.6),
+    0 0 54px rgba(122, 106, 255, 0.2),
+    0 0 26px rgba(247, 194, 98, 0.1);
+}
+
+.aura-card-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+.aura-card-shell::before,
+.aura-card-shell::after {
+  content: '';
+  position: absolute;
+  inset: -12%;
+  border-radius: 30px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.aura-card-shell::before {
+  background:
+    radial-gradient(circle at 14% 52%, rgba(99, 230, 255, 0.42), rgba(99, 230, 255, 0) 44%),
+    radial-gradient(circle at 86% 38%, rgba(173, 107, 255, 0.42), rgba(173, 107, 255, 0) 46%),
+    radial-gradient(circle at 54% 88%, rgba(112, 255, 188, 0.28), rgba(112, 255, 188, 0) 48%),
+    radial-gradient(circle at 34% 78%, rgba(248, 124, 255, 0.24), rgba(248, 124, 255, 0) 36%);
+  filter: blur(28px);
+  opacity: 0.92;
+  animation: auraRingWave 7s ease-in-out infinite;
+}
+
+.aura-card-shell::after {
+  border: 1px solid rgba(255, 226, 169, 0.28);
+  box-shadow:
+    0 0 34px rgba(246, 197, 105, 0.34),
+    0 0 46px rgba(96, 183, 255, 0.3),
+    0 0 58px rgba(154, 94, 255, 0.26);
+  opacity: 0.78;
+}
+
+.aura-form-label {
+  color: rgba(241, 230, 208, 0.92);
+  text-shadow: 0 1px 10px rgba(3, 7, 18, 0.26);
+}
+
+.aura-input {
+  background:
+    linear-gradient(145deg, rgba(28, 31, 46, 0.96), rgba(34, 37, 52, 0.92));
+  border: 1px solid rgba(233, 198, 116, 0.2);
+  color: rgba(255, 251, 242, 0.98);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 220, 0.06),
+    inset 0 0 0 1px rgba(255, 211, 118, 0.04),
+    0 8px 22px rgba(3, 8, 18, 0.26);
+}
+
+.aura-input::placeholder {
+  color: rgba(180, 172, 157, 0.56);
+}
+
+.aura-input:focus {
+  border-color: rgba(241, 194, 93, 0.62);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 245, 220, 0.08),
+    0 0 0 3px rgba(241, 194, 93, 0.12),
+    0 0 24px rgba(241, 194, 93, 0.18),
+    0 0 34px rgba(86, 193, 255, 0.1);
+}
+
+.aura-segment-button {
+  background:
+    linear-gradient(145deg, rgba(21, 25, 41, 0.84), rgba(17, 20, 34, 0.8));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(182, 193, 213, 0.86);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 10px 22px rgba(2, 6, 16, 0.18);
+}
+
+.aura-segment-button:hover {
+  background:
+    linear-gradient(145deg, rgba(24, 28, 46, 0.9), rgba(19, 23, 39, 0.86));
+  border-color: rgba(255, 233, 183, 0.14);
+  color: rgba(223, 229, 239, 0.94);
+}
+
+.aura-segment-button-active {
+  background:
+    linear-gradient(145deg, rgba(58, 41, 22, 0.78), rgba(37, 29, 24, 0.86));
+  border-color: rgba(240, 194, 97, 0.56);
+  color: rgba(245, 208, 125, 0.98);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 241, 211, 0.12),
+    0 0 0 1px rgba(240, 194, 97, 0.08),
+    0 0 18px rgba(240, 194, 97, 0.14);
+}
+
+.aura-segment-icon {
+  color: rgba(137, 153, 180, 0.82);
+}
+
+.aura-segment-button-active .aura-segment-icon {
+  color: rgba(241, 194, 93, 0.98);
+}
+
+.aura-pricing-row {
+  color: rgba(183, 193, 210, 0.82);
+}
+
+.aura-submit-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(90deg, #bd8220 0%, #e7b041 46%, #cf8f25 72%, #9f6615 100%);
+  color: #fffdf7;
+  border: 1px solid rgba(255, 220, 147, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 226, 0.28),
+    0 18px 34px rgba(105, 56, 8, 0.28),
+    0 0 22px rgba(243, 185, 74, 0.22);
+  text-shadow: 0 1px 2px rgba(57, 29, 3, 0.28);
+}
+
+.aura-submit-button::before,
+.aura-submit-button::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+
+.aura-submit-button::before {
+  width: 180px;
+  height: 58px;
+  left: 22%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 247, 214, 0.88), rgba(255, 247, 214, 0.14) 28%, rgba(98, 191, 255, 0.28) 48%, rgba(98, 191, 255, 0) 68%),
+    radial-gradient(circle at 50% 50%, rgba(255, 205, 110, 0.18), rgba(255, 205, 110, 0) 70%);
+  filter: blur(4px);
+  opacity: 0.9;
+}
+
+.aura-submit-button::after {
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 34%, transparent 72%, rgba(122, 65, 8, 0.12));
+  z-index: 0;
+}
+
+.aura-submit-button > * {
+  position: relative;
+  z-index: 1;
+}
+
+.aura-submit-button:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 226, 0.34),
+    0 20px 40px rgba(105, 56, 8, 0.34),
+    0 0 28px rgba(243, 185, 74, 0.28);
+}
+
+.aura-submit-button:disabled {
+  background: linear-gradient(145deg, rgba(95, 81, 60, 0.64), rgba(71, 61, 50, 0.64));
+  border-color: rgba(255, 228, 167, 0.1);
+  color: rgba(255, 244, 219, 0.48);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 768px) {
+  .aura-milky-cloud {
+    width: min(90vw, 580px);
+    height: min(84vw, 540px);
+    left: clamp(-150px, -12vw, -50px);
+    top: clamp(-30px, 0vh, 20px);
+    opacity: 0.85;
+  }
+
+  .aura-warm-nebula {
+    width: min(78vw, 480px);
+    height: min(62vw, 400px);
+    left: clamp(-90px, -8vw, -20px);
+    opacity: 0.68;
+  }
+
+  .aura-nebula {
+    filter: blur(28px);
+    opacity: 0.82;
+  }
+
+  .aura-focus-glow {
+    width: min(90vw, 580px);
+    height: min(60vw, 400px);
+    top: clamp(250px, 44vh, 400px);
+    opacity: 0.72;
+  }
+
+  .aura-constellation {
+    opacity: 0.16;
+  }
+
+  .aura-constellation-lower-left {
+    width: min(34vw, 210px);
+    left: clamp(-34px, -4vw, 6px);
+    bottom: clamp(20px, 5vh, 42px);
+    opacity: 0.28;
+  }
+
+  .aura-orbital-sigil {
+    width: min(52vw, 320px);
+    height: min(52vw, 320px);
+    top: clamp(-30px, 0vh, 30px);
+    right: clamp(-130px, -16vw, -50px);
+    opacity: 0.4;
+  }
+
+  .aura-astral-grid {
+    width: min(70vw, 420px);
+    height: min(70vw, 420px);
+    right: clamp(-170px, -20vw, -70px);
+    bottom: clamp(-170px, -18vh, -60px);
+    opacity: 0.32;
+  }
+
+  .aura-card-shell::before,
+  .aura-card-shell::after {
+    inset: -8%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aura-starfield,
+  .aura-stargrain,
+  .aura-nebula,
+  .aura-focus-glow,
+  .aura-card-shell::before {
+    animation: none;
+  }
+}

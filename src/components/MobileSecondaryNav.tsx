@@ -10,9 +10,9 @@ export const MobileSecondaryNav = () => {
 
     const navItems = [
         { name: 'วิเคราะห์ชื่อ', icon: Home, path: '/' },
+        { name: 'วิเคราะห์ออร่า', icon: Sparkles, path: '/aura-analysis' },
         { name: 'วิเคราะห์เบอร์', icon: Smartphone, path: '/phone-analysis' },
         { name: 'วิเคราะห์ลายมือ', icon: Hand, path: '/palm-analysis' },
-        { name: 'วิเคราะห์ออร่า', icon: Sparkles, path: '/aura-analysis' },
         { name: 'บทความ', icon: BookOpen, path: '/articles' },
         { name: 'เกี่ยวกับเรา', icon: Info, path: '/about' },
     ];

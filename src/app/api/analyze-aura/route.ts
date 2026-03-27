@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { generateAuraResult } from '@/utils/auraAnalysis';
 import { generateAuraImage } from '@/services/auraService';
 
-export const maxDuration = 30;
+export const maxDuration = 60;
 
 // ---------------------------------------------------------------------------
 // Rate limiter — 10-second minimum between requests per IP
@@ -29,7 +29,6 @@ function isRateLimited(ip: string): boolean {
 
 const VALID_PURPOSES = ['self', 'baby', 'brand'] as const;
 const VALID_GENDERS = ['male', 'female'] as const;
-const VALID_STYLES = ['auto', 'corporate', 'luxury', 'minimal', 'mystical'] as const;
 
 export async function POST(req: Request) {
     try {
@@ -44,12 +43,10 @@ export async function POST(req: Request) {
 
         // 2. Parse & validate body
         const body = await req.json();
-        const { name, purpose, gender, context, style } = body as {
+        const { name, purpose, gender } = body as {
             name?: string;
             purpose?: string;
             gender?: string;
-            context?: string;
-            style?: string;
         };
 
         if (!name || typeof name !== 'string' || name.trim().length === 0) {
@@ -73,20 +70,6 @@ export async function POST(req: Request) {
             );
         }
 
-        if (typeof context !== 'undefined') {
-            if (typeof context !== 'string') {
-                return NextResponse.json(
-                    { success: false, error: 'บริบทต้องเป็นข้อความ' },
-                    { status: 400 },
-                );
-            }
-            if (context.trim().length > 140) {
-                return NextResponse.json(
-                    { success: false, error: 'บริบทไม่ควรยาวเกิน 140 ตัวอักษร' },
-                    { status: 400 },
-                );
-            }
-        }
 
         // Gender required for non-brand purposes
         if (purpose !== 'brand') {
@@ -98,21 +81,16 @@ export async function POST(req: Request) {
             }
         }
 
-        // 3. Generate deterministic text result
-        const result = generateAuraResult(
+        // 3. Generate AI text result (async — calls Gemini, falls back to hash)
+        const result = await generateAuraResult(
             name.trim(),
             purpose as 'self' | 'baby' | 'brand',
             gender as 'male' | 'female' | undefined,
         );
 
         // 4. Generate AI image (non-blocking — falls back to placeholder on failure)
-        const validStyle = style && VALID_STYLES.includes(style as typeof VALID_STYLES[number])
-            ? (style as typeof VALID_STYLES[number])
-            : 'auto';
         const { imageUrl, imageSource, imagePrompt } = await generateAuraImage(
             result,
-            typeof context === 'string' ? context.trim() : undefined,
-            validStyle,
         );
         result.imageUrl = imageUrl;
         result.imageSource = imageSource;

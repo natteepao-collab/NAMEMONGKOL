@@ -20,11 +20,19 @@ import {
     Eye,
     ChevronDown,
     Code,
+    Heart,
+    Hash,
 } from 'lucide-react';
 import { toPng } from 'html-to-image';
+import { useRouter } from 'next/navigation';
+import { supabase } from '@/utils/supabase';
+import { getEffectiveCredits } from '@/utils/credits';
 import type { AuraResult } from '@/data/auraAnalysis';
-import { LOADING_MESSAGES, IMAGE_STYLE_OPTIONS } from '@/data/auraAnalysis';
-import type { ImageStyle } from '@/data/auraAnalysis';
+import { LOADING_MESSAGES } from '@/data/auraAnalysis';
+import { AuraCosmicBackground } from '@/components/AuraCosmicBackground';
+
+const AURA_ANALYSIS_COST = 10;
+const COOLDOWN_SECONDS = 30;
 
 // ---------------------------------------------------------------------------
 // Types
@@ -48,8 +56,6 @@ export default function ClientPage() {
     // State
     const [step, setStep] = useState<Step>('input');
     const [name, setName] = useState('');
-    const [context, setContext] = useState('');
-    const [style, setStyle] = useState<ImageStyle>('auto');
     const [purpose, setPurpose] = useState<Purpose>('self');
     const [gender, setGender] = useState<Gender>('male');
     const [result, setResult] = useState<AuraResult | null>(null);
@@ -57,8 +63,64 @@ export default function ClientPage() {
     const [loadingIdx, setLoadingIdx] = useState(0);
     const [imagePrompt, setImagePrompt] = useState('');
     const [showPrompt, setShowPrompt] = useState(false);
+    const [userCredits, setUserCredits] = useState<number | null>(null);
+    const [cooldown, setCooldown] = useState(0);
+    const cooldownRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const inFlightRef = useRef(false);
+    const router = useRouter();
 
     const resultRef = useRef<HTMLDivElement>(null);
+
+    // -----------------------------------------------------------------------
+    // Fetch and watch credits
+    // -----------------------------------------------------------------------
+    useEffect(() => {
+        const fetchCredits = async () => {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    const credits = await getEffectiveCredits(user.id);
+                    setUserCredits(credits.total);
+                }
+            } catch {
+                // Not logged in
+            }
+        };
+        fetchCredits();
+
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+            if (session?.user) {
+                const credits = await getEffectiveCredits(session.user.id);
+                setUserCredits(credits.total);
+            } else {
+                setUserCredits(null);
+            }
+        });
+
+        return () => { subscription.unsubscribe(); };
+    }, []);
+
+    // Clean up interval on unmount
+    useEffect(() => {
+        return () => {
+            if (cooldownRef.current) clearInterval(cooldownRef.current);
+        };
+    }, []);
+
+    const startCooldown = useCallback((seconds = COOLDOWN_SECONDS) => {
+        const safeSeconds = Math.max(1, Math.ceil(seconds));
+        setCooldown(safeSeconds);
+        if (cooldownRef.current) clearInterval(cooldownRef.current);
+        cooldownRef.current = setInterval(() => {
+            setCooldown((prev) => {
+                if (prev <= 1) {
+                    if (cooldownRef.current) clearInterval(cooldownRef.current);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+    }, []);
 
     // -----------------------------------------------------------------------
     // Loading animation — cycle through messages
@@ -80,6 +142,7 @@ export default function ClientPage() {
     // Submit handler
     // -----------------------------------------------------------------------
     const handleSubmit = useCallback(async () => {
+        if (cooldown > 0 || inFlightRef.current) return;
         setError('');
         const trimmed = name.trim();
 
@@ -88,42 +151,173 @@ export default function ClientPage() {
             return;
         }
 
-        // Transition to loading
-        setLoadingIdx(0);
-        setStep('loading');
+        // Prevent double submits
+        inFlightRef.current = true;
+        let creditDeducted = false;
 
         try {
-            const res = await fetch('/api/analyze-aura', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: trimmed,
-                    context: context.trim() || undefined,
-                    style,
-                    purpose,
-                    gender: purpose === 'brand' ? undefined : gender,
-                }),
-            });
+            const Swal = (await import('sweetalert2')).default;
 
-            const json = await res.json();
-
-            if (!res.ok || !json.success) {
-                throw new Error(json.error || 'เกิดข้อผิดพลาด');
+            // 1. Check Auth
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                const authResult = await Swal.fire({
+                    title: '🔒 กรุณาเข้าสู่ระบบ',
+                    html: '<p style="color:#94a3b8">คุณต้องเข้าสู่ระบบก่อนจึงจะวิเคราะห์ออร่าได้</p>',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'เข้าสู่ระบบ',
+                    cancelButtonText: 'ยกเลิก',
+                    background: '#1e293b',
+                    color: '#fff',
+                    confirmButtonColor: '#d97706',
+                    customClass: { popup: 'rounded-2xl border border-amber-500/20' },
+                });
+                if (authResult.isConfirmed) {
+                    router.push('/login?redirect=/aura-analysis');
+                }
+                inFlightRef.current = false;
+                return;
             }
 
-            // Wait for loading animation to finish (minimum display time)
-            const minDelay = LOADING_MESSAGES.length * 1200;
-            await new Promise((r) => setTimeout(r, minDelay));
+            // 2. Check Credits
+            const latestCredits = await getEffectiveCredits(user.id);
+            setUserCredits(latestCredits.total);
 
-            setResult(json.data as AuraResult);
-            setImagePrompt(json.imagePrompt ?? '');
-            setStep('result');
+            if (latestCredits.total < AURA_ANALYSIS_COST) {
+                const topupResult = await Swal.fire({
+                    title: '💰 เครดิตไม่เพียงพอ',
+                    html: `<p style="color:#94a3b8">การวิเคราะห์ออร่าใช้ <strong style="color:#fbbf24">${AURA_ANALYSIS_COST} เครดิต</strong></p><p style="color:#94a3b8;margin-top:4px">คุณมี <strong style="color:#ef4444">${latestCredits.total} เครดิต</strong></p>`,
+                    icon: 'error',
+                    showCancelButton: true,
+                    confirmButtonText: 'เติมเครดิต',
+                    cancelButtonText: 'ยกเลิก',
+                    background: '#1e293b',
+                    color: '#fff',
+                    confirmButtonColor: '#d97706',
+                    customClass: { popup: 'rounded-2xl border border-amber-500/20' },
+                });
+                if (topupResult.isConfirmed) {
+                    router.push('/topup');
+                }
+                inFlightRef.current = false;
+                return;
+            }
+
+            // 3. Confirmation
+            const confirmResult = await Swal.fire({
+                title: '✨ ยืนยันการวิเคราะห์ออร่าด้วย AI',
+                html: `<p style="color:#94a3b8">การวิเคราะห์จะใช้ <strong style="color:#fbbf24">${AURA_ANALYSIS_COST} เครดิต</strong></p><p style="color:#94a3b8;margin-top:4px">คุณมี <strong style="color:#34d399">${latestCredits.total} เครดิต</strong> (คงเหลือ ${latestCredits.total - AURA_ANALYSIS_COST} เครดิต)</p>`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: `ยืนยัน (ใช้ ${AURA_ANALYSIS_COST} เครดิต)`,
+                cancelButtonText: 'ยกเลิก',
+                background: '#1e293b',
+                color: '#fff',
+                confirmButtonColor: '#d97706',
+                customClass: { popup: 'rounded-2xl border border-amber-500/20' },
+            });
+
+            if (!confirmResult.isConfirmed) {
+                inFlightRef.current = false;
+                return;
+            }
+
+            // 4. Deduct credits
+            const { error: deductError } = await supabase.rpc('deduct_credits', { amount: AURA_ANALYSIS_COST });
+            if (deductError) {
+                await Swal.fire({
+                    title: 'เกิดข้อผิดพลาด',
+                    text: 'ไม่สามารถหักเครดิตได้ กรุณาลองใหม่',
+                    icon: 'error',
+                    background: '#1e293b',
+                    color: '#fff',
+                    customClass: { popup: 'rounded-2xl' },
+                });
+                inFlightRef.current = false;
+                return;
+            }
+
+            creditDeducted = true;
+            setUserCredits((prev) => (prev !== null ? prev - AURA_ANALYSIS_COST : null));
+            window.dispatchEvent(new Event('force_credits_update'));
+
+            // 5. Transition to loading state
+            setLoadingIdx(0);
+            setStep('loading');
+
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 65_000); // Route is maxDuration 60s
+
+            try {
+                const res = await fetch('/api/analyze-aura', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: trimmed,
+                        purpose,
+                        gender: purpose === 'brand' ? undefined : gender,
+                    }),
+                    signal: controller.signal,
+                });
+                
+                clearTimeout(timeoutId);
+
+                const json = await res.json();
+
+                if (!res.ok || !json.success) {
+                    // Check quota/rate limiting
+                    if (res.status === 429 || json.code === 'QUOTA_EXHAUSTED' || json.code === 'RATE_LIMITED') {
+                        startCooldown(COOLDOWN_SECONDS);
+                        throw new Error('QUOTA');
+                    }
+                    throw new Error(json.error || 'เกิดข้อผิดพลาด');
+                }
+
+                // API success, mark deduction as finalized
+                creditDeducted = false;
+
+                // Wait for loading animation to finish (minimum display time)
+                const minDelay = LOADING_MESSAGES.length * 1200;
+                await new Promise((r) => setTimeout(r, minDelay));
+
+                setResult(json.data as AuraResult);
+                setImagePrompt(json.imagePrompt ?? '');
+                setStep('result');
+            } catch (fetchErr) {
+                clearTimeout(timeoutId);
+                throw fetchErr;
+            }
         } catch (err: unknown) {
-            const message = err instanceof Error ? err.message : 'เกิดข้อผิดพลาด กรุณาลองใหม่';
+            // Refund credits if deducted but API failed
+            if (creditDeducted) {
+                try {
+                    await supabase.rpc('deduct_credits', { amount: -AURA_ANALYSIS_COST });
+                    setUserCredits((prev) => (prev !== null ? prev + AURA_ANALYSIS_COST : null));
+                    window.dispatchEvent(new Event('force_credits_update'));
+                    console.log('[aura] Credits refunded after failed analysis');
+                } catch (refundErr) {
+                    console.error('[aura] Failed to refund credits:', refundErr);
+                }
+            }
+
+            let message = 'เกิดข้อผิดพลาด กรุณาลองใหม่';
+            if (err instanceof DOMException && err.name === 'AbortError') {
+                message = 'การวิเคราะห์ใช้เวลานานเกินไป กรุณาลองใหม่อีกครั้ง';
+            } else if (err instanceof Error) {
+                if (err.message === 'QUOTA') {
+                    message = 'ระบบมีผู้ใช้งานจำนวนมากในขณะนี้ กรุณารอสักครู่แล้วลองใหม่';
+                } else {
+                    message = err.message;
+                }
+            }
+            
             setError(message);
             setStep('input');
+        } finally {
+            inFlightRef.current = false;
         }
-    }, [name, context, style, purpose, gender]);
+    }, [name, purpose, gender, cooldown, router, startCooldown]);
 
     // -----------------------------------------------------------------------
     // Download as image
@@ -174,8 +368,6 @@ export default function ClientPage() {
         setResult(null);
         setError('');
         setName('');
-        setContext('');
-        setStyle('auto');
         setLoadingIdx(0);
         setImagePrompt('');
         setShowPrompt(false);
@@ -186,14 +378,12 @@ export default function ClientPage() {
     // =======================================================================
 
     return (
-        <div className="min-h-screen relative">
-            {/* Background gradient */}
-            <div className="fixed inset-0 bg-gradient-to-br from-[#0a0e1a] via-[#0f172a] to-[#1a1040] -z-10" />
-            <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(201,147,58,0.08)_0%,_transparent_60%)] -z-10" />
+        <div className="min-h-screen relative aura-page-shell">
+            <AuraCosmicBackground />
 
-            <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
+            <div className="max-w-4xl mx-auto px-4 pt-16 pb-8 sm:pt-20 sm:pb-12">
                 {/* Page Header */}
-                <div className="text-center mb-8">
+                <div className="text-center mb-12 sm:mb-14 md:mb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4">
                         <Sparkles size={14} className="text-amber-400" />
                         <span className="text-xs font-medium text-amber-300 tracking-wide">AI Personality Analysis</span>
@@ -210,10 +400,10 @@ export default function ClientPage() {
                 {/* STEP 1: INPUT FORM                                            */}
                 {/* ============================================================= */}
                 {step === 'input' && (
-                    <div className="max-w-lg mx-auto animate-fade-in-up">
-                        <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 sm:p-8 shadow-2xl">
+                    <div className="max-w-lg mx-auto mt-2 sm:mt-3 animate-fade-in-up">
+                        <div className="aura-card-shell rounded-2xl backdrop-blur-xl p-6 sm:p-8 shadow-2xl">
                             {/* Name Input */}
-                            <label className="block mb-1.5 text-sm font-medium text-slate-300">
+                            <label className="aura-form-label block mb-1.5 text-sm font-medium">
                                 ชื่อที่ต้องการวิเคราะห์
                             </label>
                             <input
@@ -223,49 +413,12 @@ export default function ClientPage() {
                                 onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
                                 placeholder="พิมพ์ชื่อที่นี่..."
                                 maxLength={100}
-                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500/50 transition-all text-base"
+                                className="aura-input w-full px-4 py-3 rounded-xl focus:outline-none transition-all text-base"
                             />
 
-                            {/* Optional Context */}
-                            <label className="block mt-4 mb-1.5 text-sm font-medium text-slate-300">
-                                บริบทเพิ่มเติม (ไม่บังคับ)
-                            </label>
-                            <textarea
-                                value={context}
-                                onChange={(e) => setContext(e.target.value)}
-                                placeholder="เช่น ใช้สำหรับนักธุรกิจ, ใช้ในสายงานครีเอทีฟ, ต้องการภาพลักษณ์มืออาชีพ"
-                                maxLength={140}
-                                rows={2}
-                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500/50 transition-all text-sm resize-none"
-                            />
-                            <p className="mt-1 text-[11px] text-slate-500 text-right">{context.length}/140</p>
-
-                            {/* Image Style Selector */}
-                            <label className="block mt-5 mb-2 text-sm font-medium text-slate-300">
-                                สไตล์ภาพ AI
-                            </label>
-                            <div className="grid grid-cols-5 gap-1.5">
-                                {IMAGE_STYLE_OPTIONS.map((opt) => {
-                                    const active = style === opt.value;
-                                    return (
-                                        <button
-                                            key={opt.value}
-                                            type="button"
-                                            onClick={() => setStyle(opt.value)}
-                                            className={`flex flex-col items-center gap-1 py-2.5 px-1 rounded-xl border transition-all duration-200 text-[11px] sm:text-xs font-medium ${active
-                                                ? 'border-amber-500/60 bg-amber-500/10 text-amber-300 shadow-[0_0_12px_rgba(201,147,58,0.15)]'
-                                                : 'border-white/10 bg-white/[0.02] text-slate-400 hover:bg-white/5 hover:border-white/20'
-                                                }`}
-                                        >
-                                            <span className="text-base">{opt.emoji}</span>
-                                            {opt.label}
-                                        </button>
-                                    );
-                                })}
-                            </div>
 
                             {/* Purpose Selector */}
-                            <label className="block mt-5 mb-2 text-sm font-medium text-slate-300">
+                            <label className="aura-form-label block mt-5 mb-2 text-sm font-medium">
                                 จุดประสงค์
                             </label>
                             <div className="grid grid-cols-3 gap-2">
@@ -277,12 +430,12 @@ export default function ClientPage() {
                                             key={opt.value}
                                             type="button"
                                             onClick={() => setPurpose(opt.value)}
-                                            className={`flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl border transition-all duration-200 text-xs sm:text-sm font-medium ${active
-                                                ? 'border-amber-500/60 bg-amber-500/10 text-amber-300 shadow-[0_0_12px_rgba(201,147,58,0.15)]'
-                                                : 'border-white/10 bg-white/[0.02] text-slate-400 hover:bg-white/5 hover:border-white/20'
+                                            className={`aura-segment-button flex flex-col items-center gap-1.5 py-3 px-2 rounded-xl transition-all duration-200 text-xs sm:text-sm font-medium ${active
+                                                ? 'aura-segment-button-active'
+                                                : ''
                                                 }`}
                                         >
-                                            <Icon size={20} className={active ? 'text-amber-400' : 'text-slate-500'} />
+                                            <Icon size={20} className="aura-segment-icon" />
                                             {opt.label}
                                         </button>
                                     );
@@ -292,14 +445,14 @@ export default function ClientPage() {
                             {/* Gender Selector — hidden for brand */}
                             {purpose !== 'brand' && (
                                 <div className="mt-5">
-                                    <label className="block mb-2 text-sm font-medium text-slate-300">เพศ</label>
+                                    <label className="aura-form-label block mb-2 text-sm font-medium">เพศ</label>
                                     <div className="flex gap-3">
                                         {(['male', 'female'] as const).map((g) => (
                                             <label
                                                 key={g}
-                                                className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl border cursor-pointer transition-all duration-200 text-sm font-medium ${gender === g
-                                                    ? 'border-amber-500/60 bg-amber-500/10 text-amber-300'
-                                                    : 'border-white/10 bg-white/[0.02] text-slate-400 hover:bg-white/5'
+                                                className={`aura-segment-button flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl cursor-pointer transition-all duration-200 text-sm font-medium ${gender === g
+                                                    ? 'aura-segment-button-active'
+                                                    : ''
                                                     }`}
                                             >
                                                 <input
@@ -319,14 +472,44 @@ export default function ClientPage() {
 
                             {/* Error */}
                             {error && (
-                                <p className="mt-3 text-sm text-red-400 text-center">{error}</p>
+                                <div className="mt-4 p-4 bg-red-900/40 border border-red-800 rounded-xl text-red-200 text-center text-sm backdrop-blur-sm">
+                                    {error === 'QUOTA' ? (
+                                        <div className="flex flex-col items-center gap-3">
+                                            <p>ระบบมีผู้ใช้งานจำนวนมากในขณะนี้ กรุณารอสักครู่แล้วลองใหม่</p>
+                                            <button
+                                                onClick={() => setError('')}
+                                                disabled={cooldown > 0}
+                                                className="px-4 py-2 bg-amber-600 hover:bg-amber-500 disabled:bg-slate-600 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition-colors"
+                                            >
+                                                {cooldown > 0 ? `รอสักครู่... (${cooldown}วิ)` : 'ลองอีกครั้ง'}
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className="flex flex-col items-center gap-2">
+                                            <p>{error}</p>
+                                        </div>
+                                    )}
+                                </div>
                             )}
+
+                            {/* Credits Info */}
+                            <div className="aura-pricing-row mt-6 flex items-center justify-between text-sm px-1">
+                                <span>ค่าบริการวิเคราะห์</span>
+                                <div className="text-right">
+                                    <span className="font-semibold text-amber-400">{AURA_ANALYSIS_COST} เครดิต</span>
+                                    {userCredits !== null && (
+                                        <span className="text-slate-500 text-[11px] block mt-0.5">
+                                            (คงเหลือ {userCredits} เครดิต)
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
 
                             {/* Submit */}
                             <button
                                 onClick={handleSubmit}
-                                disabled={!name.trim()}
-                                className="mt-6 w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-base transition-all duration-200 bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+                                disabled={!name.trim() || cooldown > 0}
+                                className="aura-submit-button mt-3 w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-base transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] disabled:cursor-not-allowed disabled:hover:scale-100"
                             >
                                 <Sparkles size={18} />
                                 เริ่มวิเคราะห์ออร่าด้วย AI
@@ -561,6 +744,90 @@ export default function ClientPage() {
                                         </div>
                                         <p className="text-sm text-slate-200 leading-relaxed">{result.socialPerception}</p>
                                     </div>
+
+                                    {/* ── NEW: Deep Analysis Sections ── */}
+
+                                    {/* 📖 Meaning Breakdown */}
+                                    {result.meaning && (
+                                        <div className="rounded-xl border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-transparent p-4">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <BookOpen size={16} className="text-amber-400" />
+                                                <span className="text-xs text-slate-400 uppercase tracking-wider">📖 ถอดรหัสความหมายของชื่อ</span>
+                                            </div>
+                                            <p className="text-base font-semibold text-amber-200 mb-2">{result.meaning}</p>
+                                            {result.meaningBreakdown && (
+                                                <p className="text-sm text-slate-300 leading-relaxed">{result.meaningBreakdown}</p>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {/* 👤 Identity Analysis */}
+                                    {result.identity && result.identity.length > 0 && (
+                                        <div className="rounded-xl border border-purple-500/20 bg-gradient-to-br from-purple-500/5 to-transparent p-4">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <User size={16} className="text-purple-400" />
+                                                <span className="text-xs text-slate-400 uppercase tracking-wider">👤 การวิเคราะห์ตัวตน (Identity)</span>
+                                            </div>
+                                            <ul className="space-y-1.5">
+                                                {result.identity.map((item, idx) => (
+                                                    <li key={idx} className="flex items-start gap-2 text-sm text-slate-200">
+                                                        <span className="text-purple-400 mt-1 flex-shrink-0">•</span>
+                                                        <span>{item}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+
+                                    {/* ✨ Aura Colors */}
+                                    {result.auraColors && result.auraColors.length > 0 && (
+                                        <div className="rounded-xl border border-violet-500/20 bg-gradient-to-br from-violet-500/5 to-transparent p-4">
+                                            <div className="flex items-center gap-2 mb-3">
+                                                <Sparkles size={16} className="text-violet-400" />
+                                                <span className="text-xs text-slate-400 uppercase tracking-wider">✨ การวิเคราะห์ออร่า (Aura & Energy)</span>
+                                            </div>
+                                            <div className="space-y-3">
+                                                {result.auraColors.map((aura, idx) => (
+                                                    <div key={idx} className="flex items-start gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/5">
+                                                        <span className="text-2xl flex-shrink-0">{aura.emoji}</span>
+                                                        <div>
+                                                            <p className="text-sm font-semibold text-violet-200">
+                                                                {idx === 0 ? 'ออร่าหลัก' : 'ออร่ารอง'}: {aura.color}
+                                                            </p>
+                                                            <p className="text-xs text-slate-400 mt-0.5">{aura.meaning}</p>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* 🤝 Relationship */}
+                                    {result.relationship && (
+                                        <div className="rounded-xl border border-rose-500/20 bg-gradient-to-br from-rose-500/5 to-transparent p-4">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <Heart size={16} className="text-rose-400" />
+                                                <span className="text-xs text-slate-400 uppercase tracking-wider">🤝 ด้านความรักและความสัมพันธ์</span>
+                                            </div>
+                                            <p className="text-sm text-slate-200 leading-relaxed">{result.relationship}</p>
+                                        </div>
+                                    )}
+
+                                    {/* 🔢 Numerology */}
+                                    {result.numerologyTotal > 0 && (
+                                        <div className="rounded-xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-transparent p-4">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <div className="flex items-center gap-2">
+                                                    <Hash size={16} className="text-emerald-400" />
+                                                    <span className="text-xs text-slate-400 uppercase tracking-wider">🔢 พลังงานตัวเลข (Numerology)</span>
+                                                </div>
+                                                <span className="text-lg font-bold text-emerald-300">{result.numerologyTotal}</span>
+                                            </div>
+                                            {result.numerologyMeaning && (
+                                                <p className="text-sm text-slate-200 leading-relaxed">{result.numerologyMeaning}</p>
+                                            )}
+                                        </div>
+                                    )}
 
                                     {/* Visual Mood Keywords */}
                                     <div>

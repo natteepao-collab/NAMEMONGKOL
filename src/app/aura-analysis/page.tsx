@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 import ClientPage from './ClientPage';
+import { AuraSeoContent } from '@/components/AuraSeoContent';
 
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://www.namemongkol.com';
 const siteUrl = rawSiteUrl.includes('namemongkol.com') && !rawSiteUrl.includes('www.')
@@ -80,6 +81,59 @@ export default function AuraAnalysisPage() {
                     'รองรับชื่อตัวเอง ชื่อลูก และชื่อแบรนด์',
                 ],
             },
+            {
+                '@type': 'FAQPage',
+                mainEntity: [
+                    {
+                        '@type': 'Question',
+                        name: 'วิเคราะห์ออร่าจากชื่อ แม่นยำแค่ไหน?',
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: 'ระบบของเราใช้หลักทฤษฎี 12 Archetype ของ Carl Jung ผสมกับ Numerology และสัทศาสตร์ ผ่านการประมวลผลด้วย AI จึงให้ผลลัพธ์ที่แม่นยำและเฉพาะเจาะจง อย่างไรก็ตาม ผลวิเคราะห์เป็นการสะท้อนพลังงานจากชื่อ ควรใช้เป็นแนวทางประกอบการตัดสินใจ',
+                        },
+                    },
+                    {
+                        '@type': 'Question',
+                        name: 'วิเคราะห์ออร่าจากชื่อฟรีไหม?',
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: 'ใช่ครับ สามารถวิเคราะห์ได้ฟรีโดยใช้เครดิตในระบบ ผู้ใช้ใหม่จะได้รับเครดิตต้อนรับฟรีเมื่อสมัครสมาชิก และสามารถเติมเครดิตเพิ่มได้เมื่อต้องการ',
+                        },
+                    },
+                    {
+                        '@type': 'Question',
+                        name: 'Archetype คืออะไร?',
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: 'Archetype คือแนวคิดทางจิตวิทยาของ Carl Jung ที่แบ่งบุคลิกภาพมนุษย์ออกเป็น 12 แบบหลัก เช่น The Hero (นักรบ), The Sage (นักปราชญ์), The Creator (ผู้สร้างสรรค์) แต่ละคนจะมี Archetype หลักที่กำหนดวิธีคิด วิธีสื่อสาร และเส้นทางชีวิต',
+                        },
+                    },
+                    {
+                        '@type': 'Question',
+                        name: 'สีมงคลจากชื่อ ใช้ยังไง?',
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: 'สีมงคลที่ได้จากการวิเคราะห์สามารถนำไปใช้ได้หลายทาง เช่น เลือกเสื้อผ้าสีที่เสริมดวง ใช้เป็นสีวอลเปเปอร์มือถือ ตกแต่งโต๊ะทำงาน หรือใช้เป็นสีหลักของแบรนด์และโลโก้ เพื่อดึงดูดพลังงานที่ดีมาถึงตัวคุณ',
+                        },
+                    },
+                    {
+                        '@type': 'Question',
+                        name: 'วิเคราะห์ชื่อภาษาอังกฤษได้ไหม?',
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: 'ได้ครับ ระบบรองรับทั้งชื่อภาษาไทยและภาษาอังกฤษ AI จะวิเคราะห์พลังงานจากตัวอักษร เสียง และความหมายที่แฝงอยู่ในชื่อ',
+                        },
+                    },
+                    {
+                        '@type': 'Question',
+                        name: 'Spirit Animal คืออะไร?',
+                        acceptedAnswer: {
+                            '@type': 'Answer',
+                            text: 'Spirit Animal (สัตว์สัญลักษณ์ประจำตัว) คือสัตว์ที่สะท้อนพลังงานและบุคลิกภาพของชื่อคุณ เช่น ถ้าชื่อมีพลังงานแบบผู้นำ อาจได้สิงโต ถ้ามีพลังงานแบบปัญญา อาจเป็นนกฮูก',
+                        },
+                    },
+                ],
+            },
         ],
     };
 
@@ -96,6 +150,7 @@ export default function AuraAnalysisPage() {
             }>
                 <ClientPage />
             </Suspense>
+            <AuraSeoContent />
         </>
     );
 }

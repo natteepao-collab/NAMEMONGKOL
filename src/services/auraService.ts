@@ -4,7 +4,7 @@
 
 import { createHash } from 'crypto';
 import { generateAuraResult } from '@/utils/auraAnalysis';
-import type { AuraResult, ImageStyle } from '@/data/auraAnalysis';
+import type { AuraResult } from '@/data/auraAnalysis';
 import { AURA_AI_SYSTEM_PROMPT } from '@/data/auraAnalysis';
 import { GEMINI_API_KEY_SECRET_KEY } from '@/lib/palmPromptDefaults';
 import { createClient } from '@supabase/supabase-js';
@@ -39,13 +39,6 @@ const IMAGE_MODELS = [
 const STORAGE_BUCKET = 'aura-images';
 const IMAGE_GEN_TIMEOUT_MS = 25_000;
 
-const STYLE_DIRECTIONS: Record<ImageStyle, string> = {
-    auto: '',
-    corporate: 'Art direction override: clean corporate headshot, modern office background, tailored navy suit, Bloomberg/Fortune magazine editorial aesthetic, confident executive posture.',
-    luxury: 'Art direction override: opulent high-fashion editorial, rich textures, Vogue-level styling, dramatic chiaroscuro lighting, jewel tone accents, gold and velvet details.',
-    minimal: 'Art direction override: Scandinavian minimalist aesthetic, white/cream clean background, soft diffused natural lighting, muted earth tones, negative space, Kinfolk magazine style.',
-    mystical: 'Art direction override: cosmic fantasy atmosphere, deep nebula background, magical aura particles, ethereal purple/teal/gold color grading, volumetric god-rays, celestial energy.',
-};
 
 // ---------------------------------------------------------------------------
 // Text prompt builder (for future Gemini text analysis)
@@ -68,26 +61,16 @@ export { AURA_AI_SYSTEM_PROMPT };
 // Image prompt builder
 // ---------------------------------------------------------------------------
 
-function sanitizePromptContext(rawContext?: string): string {
-    if (!rawContext) return '';
-    return rawContext
-        .replace(/[\r\n]+/g, ' ')
-        .replace(/["'`]/g, '')
-        .trim()
-        .slice(0, 140);
-}
-
 function extractArchetypeEnglish(archetype: string): string {
     const english = archetype.split('(')[0]?.trim();
     return english || archetype;
 }
 
-export function buildAuraImagePrompt(result: AuraResult, userContext?: string, style: ImageStyle = 'auto'): string {
+export function buildAuraImagePrompt(result: AuraResult): string {
     const colors = result.moodboard.map((c) => c.name).join(', ');
     const keywords = result.visualMoodKeywords.join(', ');
     const traits = result.personalityTraits.slice(0, 4).join(', ');
     const archetypeEnglish = extractArchetypeEnglish(result.archetype);
-    const promptContext = sanitizePromptContext(userContext);
     const purposeContext = PURPOSE_IMAGE_CONTEXT[result.purpose];
 
     const baseDirection = [
@@ -96,9 +79,8 @@ export function buildAuraImagePrompt(result: AuraResult, userContext?: string, s
         `Name shown in metadata only: ${result.name}. Never place any text inside the image.`,
         `Mood keywords: ${keywords}. Color palette cues: ${colors}.`,
         `Key personality signals: ${traits}.`,
-        promptContext ? `Use-case context: ${promptContext}.` : '',
-        'Image quality target: cinematic, high-end, sharp details, natural skin texture, realistic lighting.',
-        STYLE_DIRECTIONS[style] || '',
+        'Image quality target: cinematic, ultra-realistic, sharp details, natural skin texture, professional studio lighting.',
+        'Style: photorealistic editorial portrait, magazine-quality, high-end production value.',
     ].filter(Boolean);
 
     if (result.purpose === 'brand') {
@@ -118,14 +100,15 @@ export function buildAuraImagePrompt(result: AuraResult, userContext?: string, s
 
     return [
         ...baseDirection,
-        `Create a detailed cinematic portrait of a Thai ${genderWord} ${ageContext}.`,
-        `Wardrobe and styling should reflect: ${careerHint}.`,
+        `Create a photorealistic portrait of a Thai ${genderWord} ${ageContext}.`,
+        `Wardrobe and styling should reflect: ${careerHint}. The outfit should be realistic and professional.`,
         `Expression: trustworthy, composed, aspirational, with subtle power and warmth.`,
         `Portrait framing: chest-up, direct eye contact, centered composition, square 1:1 format.`,
-        `Scene background: dark premium modern interior with cosmic aura accents and controlled bokeh.`,
+        `Scene background: dark premium modern interior with soft ambient lighting and controlled bokeh.`,
         `Lighting: soft key light + rim light, premium studio look, photorealistic skin and hair texture.`,
+        `The image must look like a real professional photograph — not illustrated, not AI-looking, not cartoon.`,
         `Do not generate text overlays or logos.`,
-        `Negative prompt: watermark, typography, duplicated face, deformed hands, extra limbs, blur, low detail.`,
+        `Negative prompt: watermark, typography, duplicated face, deformed hands, extra limbs, blur, low detail, cartoon, anime, illustration, painting.`,
     ].join(' ');
 }
 
@@ -161,9 +144,8 @@ async function getGeminiApiKey(): Promise<string | null> {
 // Deterministic cache key
 // ---------------------------------------------------------------------------
 
-function buildCacheKey(name: string, purpose: string, gender: string | undefined, archetype: string, userContext?: string, style: ImageStyle = 'auto'): string {
-    const normalizedContext = sanitizePromptContext(userContext).toLowerCase();
-    const seed = `${name}:${purpose}:${gender ?? 'neutral'}:${archetype}:${normalizedContext}:${style}`;
+function buildCacheKey(name: string, purpose: string, gender: string | undefined, archetype: string): string {
+    const seed = `${name}:${purpose}:${gender ?? 'neutral'}:${archetype}:realistic`;
     return createHash('sha256').update(seed).digest('hex').slice(0, 24);
 }
 
@@ -283,13 +265,11 @@ async function generateImageWithGemini(prompt: string, apiKey: string): Promise<
 
 export async function generateAuraImage(
     result: AuraResult,
-    userContext?: string,
-    style: ImageStyle = 'auto',
 ): Promise<{ imageUrl: string; imageSource: 'generated' | 'placeholder'; imagePrompt: string }> {
-    const prompt = buildAuraImagePrompt(result, userContext, style);
+    const prompt = buildAuraImagePrompt(result);
 
     try {
-        const cacheKey = buildCacheKey(result.name, result.purpose, result.gender, result.archetype, userContext, style);
+        const cacheKey = buildCacheKey(result.name, result.purpose, result.gender, result.archetype);
 
         // 1. Check cache first
         const cached = await checkCachedImage(cacheKey);
@@ -335,5 +315,5 @@ export async function analyzeAura(
     purpose: 'self' | 'baby' | 'brand',
     gender?: 'male' | 'female',
 ): Promise<AuraResult> {
-    return generateAuraResult(name, purpose, gender);
+    return await generateAuraResult(name, purpose, gender);
 }

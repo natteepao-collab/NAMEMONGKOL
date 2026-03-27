@@ -25,7 +25,7 @@ export const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const pathname = usePathname();
-    const backgroundExcludedPaths = ['/phone-analysis'];
+    const backgroundExcludedPaths = ['/phone-analysis', '/aura-analysis'];
     const shouldShowSacredBackground = !backgroundExcludedPaths.includes(pathname);
     const isAdminPage = pathname.startsWith('/admin');
 

@@ -108,17 +108,16 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
     const baseMenuItems: MenuItem[] = [
         { key: 'analyze', nameKey: 'sidebar.analyzeName', icon: Home, path: '/' },
+        { key: 'aura-analysis', nameKey: 'sidebar.auraAnalysis', icon: Sparkles, path: '/aura-analysis' },
         { key: 'phone', nameKey: 'sidebar.phoneAnalysis', icon: Smartphone, path: '/phone-analysis' },
         { key: 'palm-analysis', nameKey: 'sidebar.palmAnalysis', icon: Hand, path: '/palm-analysis' },
-        { key: 'reviews', nameKey: 'sidebar.reviews', icon: MessageCircle, path: '/reviews' },
-        { key: 'articles', nameKey: 'sidebar.articles', icon: BookOpen, path: '/articles' },
         { key: 'search', nameKey: 'sidebar.search', icon: Search, path: '/search' },
         { key: 'premium-search', nameKey: 'sidebar.premiumSearch', icon: Sparkles, path: '/premium-search' },
         { key: 'premium-analysis', nameKey: 'sidebar.premiumAnalysis', icon: Crown, path: '/premium-analysis' },
         { key: 'wallpapers', nameKey: 'sidebar.wallpapers', icon: ImageIcon, path: '/wallpapers' },
-        { key: 'history', nameKey: 'sidebar.history', icon: HistoryIcon, path: '/history' },
+        { key: 'reviews', nameKey: 'sidebar.reviews', icon: MessageCircle, path: '/reviews' },
         { key: 'name-analysis', nameKey: 'sidebar.bulkNameFilter', icon: ClipboardList, path: '/name-analysis' },
-        { key: 'aura-analysis', nameKey: 'sidebar.auraAnalysis', icon: Sparkles, path: '/aura-analysis' },
+        { key: 'history', nameKey: 'sidebar.history', icon: HistoryIcon, path: '/history' },
         { key: 'about', nameKey: 'sidebar.about', icon: Info, path: '/about', mobileOnly: true },
     ];
 
@@ -134,6 +133,109 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
 
     const toggleSubMenu = (menuName: string) => {
         setExpandedMenu(expandedMenu === menuName ? null : menuName);
+    };
+
+    // โทนสีมนต์ขลัง: ทอง/อำพัน, ม่วงจักรวาล, น้ำเงินลึก, ชมพูทองแดง, เขียวมรกตศักดิ์สิทธิ์
+    const getIconThemeClasses = (itemKey: string) => {
+        const themeMap: Record<string, { wrapper: string; icon: string; activeWrapper: string; activeIcon: string }> = {
+            'analyze': {
+                wrapper: 'bg-amber-500/10 border-amber-400/20 shadow-amber-500/8 group-hover:bg-amber-500/16 group-hover:border-amber-400/35',
+                icon: 'text-amber-400 group-hover:text-amber-300 drop-shadow-[0_0_4px_rgba(251,191,36,0.3)]',
+                activeWrapper: 'bg-amber-500/16 border-amber-400/30 shadow-amber-500/18',
+                activeIcon: 'text-amber-300 drop-shadow-[0_0_6px_rgba(251,191,36,0.5)]'
+            },
+            'aura-analysis': {
+                wrapper: 'bg-purple-500/10 border-purple-400/20 shadow-purple-500/8 group-hover:bg-purple-500/16 group-hover:border-purple-400/35',
+                icon: 'text-purple-400 group-hover:text-purple-300 drop-shadow-[0_0_4px_rgba(168,85,247,0.3)]',
+                activeWrapper: 'bg-purple-500/16 border-purple-400/30 shadow-purple-500/18',
+                activeIcon: 'text-purple-300 drop-shadow-[0_0_6px_rgba(168,85,247,0.5)]'
+            },
+            'phone': {
+                wrapper: 'bg-sky-500/10 border-sky-400/20 shadow-sky-500/8 group-hover:bg-sky-500/16 group-hover:border-sky-400/35',
+                icon: 'text-sky-400 group-hover:text-sky-300 drop-shadow-[0_0_4px_rgba(56,189,248,0.3)]',
+                activeWrapper: 'bg-sky-500/16 border-sky-400/30 shadow-sky-500/18',
+                activeIcon: 'text-sky-300 drop-shadow-[0_0_6px_rgba(56,189,248,0.5)]'
+            },
+            'palm-analysis': {
+                wrapper: 'bg-rose-500/10 border-rose-400/20 shadow-rose-500/8 group-hover:bg-rose-500/16 group-hover:border-rose-400/35',
+                icon: 'text-rose-400 group-hover:text-rose-300 drop-shadow-[0_0_4px_rgba(251,113,133,0.3)]',
+                activeWrapper: 'bg-rose-500/16 border-rose-400/30 shadow-rose-500/18',
+                activeIcon: 'text-rose-300 drop-shadow-[0_0_6px_rgba(251,113,133,0.5)]'
+            },
+            'search': {
+                wrapper: 'bg-emerald-500/10 border-emerald-400/20 shadow-emerald-500/8 group-hover:bg-emerald-500/16 group-hover:border-emerald-400/35',
+                icon: 'text-emerald-400 group-hover:text-emerald-300 drop-shadow-[0_0_4px_rgba(52,211,153,0.3)]',
+                activeWrapper: 'bg-emerald-500/16 border-emerald-400/30 shadow-emerald-500/18',
+                activeIcon: 'text-emerald-300 drop-shadow-[0_0_6px_rgba(52,211,153,0.5)]'
+            },
+            'premium-search': {
+                wrapper: 'bg-amber-500/12 border-amber-500/22 shadow-amber-500/10 group-hover:bg-amber-500/18 group-hover:border-amber-500/38',
+                icon: 'text-amber-500 group-hover:text-amber-400 drop-shadow-[0_0_4px_rgba(245,158,11,0.35)]',
+                activeWrapper: 'bg-amber-500/18 border-amber-400/32 shadow-amber-500/20',
+                activeIcon: 'text-amber-400 drop-shadow-[0_0_6px_rgba(245,158,11,0.55)]'
+            },
+            'premium-analysis': {
+                wrapper: 'bg-yellow-500/12 border-yellow-400/22 shadow-yellow-500/12 group-hover:bg-yellow-500/18 group-hover:border-yellow-400/40',
+                icon: 'text-yellow-400 group-hover:text-yellow-300 drop-shadow-[0_0_5px_rgba(250,204,21,0.4)]',
+                activeWrapper: 'bg-yellow-500/18 border-yellow-400/35 shadow-yellow-500/24',
+                activeIcon: 'text-yellow-300 drop-shadow-[0_0_8px_rgba(250,204,21,0.6)]'
+            },
+            'wallpapers': {
+                wrapper: 'bg-fuchsia-500/10 border-fuchsia-400/20 shadow-fuchsia-500/8 group-hover:bg-fuchsia-500/16 group-hover:border-fuchsia-400/35',
+                icon: 'text-fuchsia-400 group-hover:text-fuchsia-300 drop-shadow-[0_0_4px_rgba(217,70,239,0.3)]',
+                activeWrapper: 'bg-fuchsia-500/16 border-fuchsia-400/30 shadow-fuchsia-500/18',
+                activeIcon: 'text-fuchsia-300 drop-shadow-[0_0_6px_rgba(217,70,239,0.5)]'
+            },
+            'reviews': {
+                wrapper: 'bg-teal-500/10 border-teal-400/20 shadow-teal-500/8 group-hover:bg-teal-500/16 group-hover:border-teal-400/35',
+                icon: 'text-teal-400 group-hover:text-teal-300 drop-shadow-[0_0_4px_rgba(45,212,191,0.3)]',
+                activeWrapper: 'bg-teal-500/16 border-teal-400/30 shadow-teal-500/18',
+                activeIcon: 'text-teal-300 drop-shadow-[0_0_6px_rgba(45,212,191,0.5)]'
+            },
+            'name-analysis': {
+                wrapper: 'bg-indigo-500/10 border-indigo-400/20 shadow-indigo-500/8 group-hover:bg-indigo-500/16 group-hover:border-indigo-400/35',
+                icon: 'text-indigo-400 group-hover:text-indigo-300 drop-shadow-[0_0_4px_rgba(129,140,248,0.3)]',
+                activeWrapper: 'bg-indigo-500/16 border-indigo-400/30 shadow-indigo-500/18',
+                activeIcon: 'text-indigo-300 drop-shadow-[0_0_6px_rgba(129,140,248,0.5)]'
+            },
+            'history': {
+                wrapper: 'bg-violet-500/10 border-violet-400/20 shadow-violet-500/8 group-hover:bg-violet-500/16 group-hover:border-violet-400/35',
+                icon: 'text-violet-400 group-hover:text-violet-300 drop-shadow-[0_0_4px_rgba(167,139,250,0.3)]',
+                activeWrapper: 'bg-violet-500/16 border-violet-400/30 shadow-violet-500/18',
+                activeIcon: 'text-violet-300 drop-shadow-[0_0_6px_rgba(167,139,250,0.5)]'
+            },
+            'about': {
+                wrapper: 'bg-cyan-500/10 border-cyan-400/20 shadow-cyan-500/8 group-hover:bg-cyan-500/16 group-hover:border-cyan-400/35',
+                icon: 'text-cyan-400 group-hover:text-cyan-300 drop-shadow-[0_0_4px_rgba(34,211,238,0.3)]',
+                activeWrapper: 'bg-cyan-500/16 border-cyan-400/30 shadow-cyan-500/18',
+                activeIcon: 'text-cyan-300 drop-shadow-[0_0_6px_rgba(34,211,238,0.5)]'
+            },
+            'admin-articles': {
+                wrapper: 'bg-blue-500/10 border-blue-400/20 shadow-blue-500/8 group-hover:bg-blue-500/16 group-hover:border-blue-400/35',
+                icon: 'text-blue-400 group-hover:text-blue-300 drop-shadow-[0_0_4px_rgba(96,165,250,0.3)]',
+                activeWrapper: 'bg-blue-500/16 border-blue-400/30 shadow-blue-500/18',
+                activeIcon: 'text-blue-300 drop-shadow-[0_0_6px_rgba(96,165,250,0.5)]'
+            },
+            'admin-users': {
+                wrapper: 'bg-purple-500/10 border-purple-400/20 shadow-purple-500/8 group-hover:bg-purple-500/16 group-hover:border-purple-400/35',
+                icon: 'text-purple-400 group-hover:text-purple-300 drop-shadow-[0_0_4px_rgba(192,132,252,0.3)]',
+                activeWrapper: 'bg-purple-500/16 border-purple-400/30 shadow-purple-500/18',
+                activeIcon: 'text-purple-300 drop-shadow-[0_0_6px_rgba(192,132,252,0.5)]'
+            },
+            'admin-settings': {
+                wrapper: 'bg-slate-400/10 border-slate-400/20 shadow-slate-400/8 group-hover:bg-slate-400/16 group-hover:border-slate-400/35',
+                icon: 'text-slate-400 group-hover:text-slate-300 drop-shadow-[0_0_4px_rgba(148,163,184,0.25)]',
+                activeWrapper: 'bg-slate-400/16 border-slate-400/30 shadow-slate-400/18',
+                activeIcon: 'text-slate-300 drop-shadow-[0_0_6px_rgba(148,163,184,0.4)]'
+            }
+        };
+
+        return themeMap[itemKey] ?? {
+            wrapper: 'bg-slate-400/10 border-slate-400/20 shadow-slate-400/8 group-hover:bg-slate-400/16 group-hover:border-slate-400/35',
+            icon: 'text-slate-400 group-hover:text-slate-300',
+            activeWrapper: 'bg-slate-400/16 border-slate-400/30 shadow-slate-400/18',
+            activeIcon: 'text-slate-300'
+        };
     };
 
     return (
@@ -294,6 +396,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                             const premiumBadge = t('sidebar.premiumBadge', 'Premium');
                             const premiumFeature = t('sidebar.premiumFeature', 'Premium Feature');
                             const newBadge = t('sidebar.newBadge', 'New');
+                            const iconTheme = getIconThemeClasses(item.key);
                             return (
                                 <Link
                                     key={item.path}
@@ -307,12 +410,19 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                                     {isActive && (
                                         <div className="absolute left-0 top-0 w-1 h-full bg-amber-400 rounded-r-full shadow-[0_0_10px_rgba(251,191,36,0.5)]" />
                                     )}
-                                    <item.icon
-                                        className={`w-[22px] h-[22px] transition-colors ${isActive || item.path === '/premium-search' || item.path === '/premium-analysis'
-                                            ? 'text-amber-400'
-                                            : 'text-slate-500 group-hover:text-slate-300'
+                                    <div
+                                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border shadow-lg transition-all duration-200 ${isActive
+                                            ? iconTheme.activeWrapper
+                                            : iconTheme.wrapper
                                             } ${item.path === '/premium-analysis' ? 'animate-pulse' : ''}`}
-                                    />
+                                    >
+                                        <item.icon
+                                            className={`h-[18px] w-[18px] transition-colors duration-200 ${isActive
+                                                ? iconTheme.activeIcon
+                                                : iconTheme.icon
+                                                }`}
+                                        />
+                                    </div>
                                     <span className="font-medium text-[16px] tracking-wide w-full">
                                         {item.path === '/premium-search' ? (
                                             <span className="flex items-center gap-2">
