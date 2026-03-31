@@ -40,6 +40,7 @@ const TestimonialSection = dynamic(() => import('@/components/TestimonialSection
 const WelcomeOffer = dynamic(() => import('@/components/WelcomeOffer').then(mod => mod.WelcomeOffer), { ssr: false });
 const UspSection = dynamic(() => import('@/components/UspSection').then(mod => mod.UspSection));
 const ComparisonSection = dynamic(() => import('@/components/ComparisonSection').then(mod => mod.ComparisonSection));
+const BirthdayThaksaSection = dynamic(() => import('@/components/BirthdayThaksaSection').then(mod => mod.BirthdayThaksaSection));
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -186,7 +187,7 @@ function HomeContent() {
                         {/* Premium Section */}
                         <PremiumBlurOverlay
                             isLocked={!isPremiumUnlocked}
-                            creditCost={19}
+                            creditCost={10}
                             featureName="พลังเงา & คำทำนายเชิงลึก"
                             onUnlock={() => setIsPremiumUnlocked(true)}
                         >
@@ -223,6 +224,7 @@ function HomeContent() {
                     <UspSection />
                     <ComparisonSection />
                     <HomeSeoContent />
+                    <BirthdayThaksaSection />
                     <KnowledgeSection />
                     <TestimonialSection />
                     <FAQSection />

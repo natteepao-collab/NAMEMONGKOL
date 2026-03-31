@@ -8,7 +8,7 @@ import { PalmAnalysisResult } from '@/types/palm-analysis';
 import { supabase } from '@/utils/supabase';
 import { getEffectiveCredits } from '@/utils/credits';
 
-const PALM_ANALYSIS_COST = 30;
+const PALM_ANALYSIS_COST = 20;
 
 // Compress image adaptively to reduce Gemini API token usage and speed up processing.
 // Strategy: resize first, then lower JPEG quality/width until payload is near target size.
@@ -156,7 +156,7 @@ export default function PalmAnalysisClient() {
   const [result, setResult] = useState<PalmAnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [cooldown, setCooldown] = useState(0);
-  const [userCredits, setUserCredits] = useState<number | null>(null);
+  const [, setUserCredits] = useState<number | null>(null);
   const cooldownRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const inFlightRef = useRef(false);
 

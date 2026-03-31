@@ -18,7 +18,7 @@ interface PremiumBlurOverlayProps {
 export const PremiumBlurOverlay: React.FC<PremiumBlurOverlayProps> = ({
     children,
     isLocked = true,
-    creditCost = 19,
+    creditCost = 10,
     onUnlock,
     featureName = 'คำทำนายเชิงลึก',
 }) => {
@@ -99,8 +99,7 @@ export const PremiumBlurOverlay: React.FC<PremiumBlurOverlayProps> = ({
 
         setIsUnlocking(true);
         try {
-            // @ts-ignore
-            const Swal = (await import('sweetalert2')).default;
+            const { default: Swal } = await import('sweetalert2');
 
             const latestCredits = credits ?? (await fetchUserCredits(user.id));
             setCredits(latestCredits);

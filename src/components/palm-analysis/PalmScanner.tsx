@@ -132,7 +132,6 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
 
   useEffect(() => {
     if (!isAnalyzing) {
-      setProcessingStep(0);
       return;
     }
     const interval = setInterval(() => {
@@ -562,7 +561,7 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
               className="sm:flex-[2] bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-600 hover:from-amber-500 hover:via-yellow-500 hover:to-amber-500 text-white py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-amber-900/30 flex items-center justify-center gap-2"
             >
               <ScanLine className="w-5 h-5" />
-              เริ่มวิเคราะห์ลายมือ (30 เครดิต)
+              เริ่มวิเคราะห์ลายมือ (20 เครดิต)
             </button>
           </div>
         </>

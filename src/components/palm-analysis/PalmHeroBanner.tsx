@@ -25,7 +25,7 @@ export default function PalmHeroBanner() {
 
           <div className="mt-4 sm:mt-6 flex items-center justify-center md:justify-start gap-2 sm:gap-3 flex-wrap">
             <span className="rounded-full border border-amber-500/20 bg-amber-950/30 px-3 py-1.5 text-xs text-amber-200">4 เส้นหลัก</span>
-            <span className="rounded-full border border-amber-500/20 bg-amber-950/30 px-3 py-1.5 text-xs text-amber-200">30 เครดิต / ครั้ง</span>
+            <span className="rounded-full border border-amber-500/20 bg-amber-950/30 px-3 py-1.5 text-xs text-amber-200">20 เครดิต / ครั้ง</span>
             <span className="rounded-full border border-amber-500/20 bg-amber-950/30 px-3 py-1.5 text-xs text-amber-200">ผลลัพธ์ทันที</span>
           </div>
         </div>

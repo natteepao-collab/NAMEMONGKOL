@@ -37,9 +37,9 @@ const jsonLd = {
             'operatingSystem': 'Web',
             'offers': {
                 '@type': 'Offer',
-                'price': '50',
+                'price': '30',
                 'priceCurrency': 'THB',
-                'description': '50 เครดิตต่อการวิเคราะห์ 1 ครั้ง'
+                'description': '30 เครดิตต่อการวิเคราะห์ 1 ครั้ง'
             },
             'aggregateRating': {
                 '@type': 'AggregateRating',
@@ -63,9 +63,9 @@ const jsonLd = {
             'url': `${siteUrl}/premium-analysis`,
             'offers': {
                 '@type': 'Offer',
-                'price': '50',
+                'price': '30',
                 'priceCurrency': 'THB',
-                'description': '50 เครดิตต่อการวิเคราะห์ 1 ครั้ง',
+                'description': '30 เครดิตต่อการวิเคราะห์ 1 ครั้ง',
                 'availability': 'https://schema.org/InStock'
             },
             'hasOfferCatalog': {
@@ -125,7 +125,7 @@ const faqJsonLd = {
             'name': 'วิเคราะห์ชื่อมงคลขั้นสูงใช้กี่เครดิต?',
             'acceptedAnswer': {
                 '@type': 'Answer',
-                'text': 'การวิเคราะห์ชื่อมงคลขั้นสูงใช้ 50 เครดิตต่อ 1 ครั้ง โดยระบบจะแสดงรายชื่อมงคล 20 ชื่อที่ถูกคัดสรรตามเกณฑ์ทักษาปกรณ์และเลขศาสตร์ชั้นสูง พร้อมคำอธิบายละเอียดและคะแนนของแต่ละชื่อ'
+                'text': 'การวิเคราะห์ชื่อมงคลขั้นสูงใช้ 30 เครดิตต่อ 1 ครั้ง โดยระบบจะแสดงรายชื่อมงคล 20 ชื่อที่ถูกคัดสรรตามเกณฑ์ทักษาปกรณ์และเลขศาสตร์ชั้นสูง พร้อมคำอธิบายละเอียดและคะแนนของแต่ละชื่อ'
             }
         }
     ]

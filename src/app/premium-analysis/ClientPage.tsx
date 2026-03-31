@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {
-    Sparkles, Calendar, Clock, User, Target,
+    Sparkles, Clock, User, Target,
     ChevronRight, ArrowLeft, Star, Crown,
     Lock, CheckCircle2, AlertCircle, RefreshCw,
     Coins, Briefcase, Activity, Heart, HelpingHand, Check,
-    Search, ShieldCheck, Gem, Info, XCircle, Zap, TrendingUp, MessageSquareQuote
+    ShieldCheck, Info, XCircle, TrendingUp, MessageSquareQuote
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -29,6 +29,7 @@ const MINUTES = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, '0
 // Years range: B.E. 2450 - 2590 (A.D. 1907 - 2047)
 const START_BE = 2450;
 const END_BE = 2590;
+const PREMIUM_ANALYSIS_COST = 30;
 const YEARS = Array.from({ length: END_BE - START_BE + 1 }, (_, i) => {
     const be = START_BE + i;
     const ad = be - 543;
@@ -126,8 +127,7 @@ export default function PremiumAnalysisPage() {
     }, []);
 
     const handleAnalyze = async (isNewBatch = false) => {
-        // @ts-ignore
-        const Swal = (await import('sweetalert2')).default;
+        const { default: Swal } = await import('sweetalert2');
 
         if (!surname || !birthDate || (!birthTime && !isUnknownTime)) {
             Swal.fire({
@@ -162,10 +162,10 @@ export default function PremiumAnalysisPage() {
             return;
         }
 
-        if (userCredits !== null && userCredits < 50) {
+        if (userCredits !== null && userCredits < PREMIUM_ANALYSIS_COST) {
             const result = await Swal.fire({
                 title: 'เครดิตไม่เพียงพอ',
-                text: 'การวิเคราะห์ต้องใช้ 50 เครดิต ต้องการเติมเครดิตเลยหรือไม่?',
+            text: `การวิเคราะห์ต้องใช้ ${PREMIUM_ANALYSIS_COST} เครดิต ต้องการเติมเครดิตเลยหรือไม่?`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'เติมเครดิต',
@@ -185,10 +185,12 @@ export default function PremiumAnalysisPage() {
 
         const result = await Swal.fire({
             title: isNewBatch ? 'ยืนยันการขอรายชื่อใหม่' : 'ยืนยันการวิเคราะห์',
-            text: isNewBatch ? 'ระบบจะหัก 50 เครดิตเพื่อสุ่มชื่อชุดใหม่ที่ไม่ซ้ำเดิม' : 'ระบบจะหัก 50 เครดิตเพื่อเริ่มการวิเคราะห์',
+            text: isNewBatch
+                ? `ระบบจะหัก ${PREMIUM_ANALYSIS_COST} เครดิตเพื่อสุ่มชื่อชุดใหม่ที่ไม่ซ้ำเดิม`
+                : `ระบบจะหัก ${PREMIUM_ANALYSIS_COST} เครดิตเพื่อเริ่มการวิเคราะห์`,
             icon: 'question',
             showCancelButton: true,
-            confirmButtonText: 'ยืนยัน (ใช้ 50 เครดิต)',
+            confirmButtonText: `ยืนยัน (ใช้ ${PREMIUM_ANALYSIS_COST} เครดิต)`,
             cancelButtonText: 'ยกเลิก',
             confirmButtonColor: '#f59e0b',
             cancelButtonColor: '#ef4444',
@@ -202,10 +204,10 @@ export default function PremiumAnalysisPage() {
         setIsLoading(true);
 
         try {
-            const { error: deductError } = await supabase.rpc('deduct_credits', { amount: 50 });
+            const { error: deductError } = await supabase.rpc('deduct_credits', { amount: PREMIUM_ANALYSIS_COST });
             if (deductError) throw deductError;
 
-            setUserCredits(prev => (prev !== null ? prev - 50 : null));
+            setUserCredits(prev => (prev !== null ? prev - PREMIUM_ANALYSIS_COST : null));
             window.dispatchEvent(new Event('force_credits_update'));
 
             const dateObj = new Date(birthDate);
@@ -693,7 +695,7 @@ export default function PremiumAnalysisPage() {
                                 </div>
                             </div>
                             <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-xl border border-white/5">
-                                <span className="text-sm font-bold text-amber-500">ใช้ 50 เครดิต</span>
+                                <span className="text-sm font-bold text-amber-500">ใช้ 30 เครดิต</span>
                                 <Coins size={16} className="text-amber-500" />
                             </div>
                         </div>
@@ -993,7 +995,7 @@ export default function PremiumAnalysisPage() {
                                             Q: วิเคราะห์ชื่อมงคลขั้นสูงใช้กี่เครดิต?
                                         </h3>
                                         <p className="text-slate-300 leading-relaxed">
-                                            A: การวิเคราะห์ใช้ <strong className="text-white">50 เครดิต</strong> ต่อ 1 ครั้ง โดยระบบจะแสดงรายชื่อมงคล 20 ชื่อ พร้อมคำอธิบายละเอียดและคะแนน หากต้องการเติมเครดิต สามารถไปที่หน้า <Link href="/topup" className="text-amber-400 hover:text-amber-300 underline">เติมเครดิต</Link> ได้ทันที
+                                            A: การวิเคราะห์ใช้ <strong className="text-white">30 เครดิต</strong> ต่อ 1 ครั้ง โดยระบบจะแสดงรายชื่อมงคล 20 ชื่อ พร้อมคำอธิบายละเอียดและคะแนน หากต้องการเติมเครดิต สามารถไปที่หน้า <Link href="/topup" className="text-amber-400 hover:text-amber-300 underline">เติมเครดิต</Link> ได้ทันที
                                         </p>
                                     </div>
                                 </div>
