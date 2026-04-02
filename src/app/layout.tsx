@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 import { LayoutWrapper } from "@/components/LayoutWrapper";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { FloatingContactFAB } from "@/components/FloatingContactFAB";
 import { createClient } from '@supabase/supabase-js';
 import CookieConsentWrapper from '@/components/CookieConsentWrapper';
 import Script from 'next/script';
@@ -244,6 +245,7 @@ export default async function RootLayout({
               <ScrollToTop />
               {isProduction ? <Analytics /> : null}
             </LayoutWrapper>
+            <FloatingContactFAB />
           </LanguageProvider>
         </ThemeProvider>
       </body>
