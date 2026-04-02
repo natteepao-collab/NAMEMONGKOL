@@ -113,7 +113,6 @@ export default function ClientPage() {
     };
 
     const handleDelete = async (reviewId: string) => {
-        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
 
         Swal.fire({

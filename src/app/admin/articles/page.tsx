@@ -51,7 +51,6 @@ export default function AdminArticlesPage() {
     }, []);
 
     const fetchArticles = async () => {
-        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
@@ -140,7 +139,6 @@ export default function AdminArticlesPage() {
     };
 
     const handleDelete = async (id: string) => {
-        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
@@ -185,7 +183,6 @@ export default function AdminArticlesPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
         // setUploading(true);
         setFormError(null);
@@ -288,7 +285,6 @@ export default function AdminArticlesPage() {
     };
 
     const handleSync = async () => {
-        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Sync Local Articles?',
@@ -409,7 +405,6 @@ export default function AdminArticlesPage() {
     };
 
     const handleRestoreCoverImages = async () => {
-        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
 
         const result = await Swal.fire({

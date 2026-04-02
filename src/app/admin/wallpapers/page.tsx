@@ -36,7 +36,6 @@ export default function AdminWallpapersPage() {
             setWallpapers(data || []);
         } catch (error) {
             console.error('Error fetching wallpapers:', error);
-            // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
             const Swal = (await import('sweetalert2')).default;
             Swal.fire('Error', 'Failed to fetch wallpapers', 'error');
         } finally {
@@ -78,7 +77,6 @@ export default function AdminWallpapersPage() {
     };
 
     const handleDelete = async (id: number) => {
-        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
@@ -143,7 +141,6 @@ export default function AdminWallpapersPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setUploading(true);
-        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
 
         try {
