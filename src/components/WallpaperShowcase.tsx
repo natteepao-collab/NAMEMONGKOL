@@ -66,7 +66,7 @@ export const WallpaperShowcase = () => {
                     <Link href="/wallpapers" key={wp.id} className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-white/5 border border-white/10 hover:border-amber-500/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.15)] hover:-translate-y-1">
                         <Image
                             src={wp.image}
-                            alt={`วอลเปเปอร์มงคล ${wp.name} - ภาพเสริมดวงตามวันเกิด | NameMongkol`}
+                            alt={`วอลเปเปอร์มงคล ${wp.name} ภาพเสริมดวงตามวันเกิด`}
                             fill
                             sizes="(max-width: 768px) 50vw, 25vw"
                             className="object-cover transition-transform duration-500 group-hover:scale-110"

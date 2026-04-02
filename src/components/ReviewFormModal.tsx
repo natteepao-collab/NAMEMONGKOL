@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { X, Star, Send, Sparkles, MessageCircle, Gift, Briefcase, Image as ImageIcon, Trash2, Loader2, UploadCloud } from 'lucide-react';
+import { X, Star, Send, Sparkles, MessageCircle, Gift, Briefcase, Image as ImageIcon, Loader2, UploadCloud } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { supabase } from '@/utils/supabase'; // Import supabase
 import { compressImage } from '@/utils/image';
@@ -223,7 +223,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
 
         // Validation: Content Length
         if (formData.content.length < 50) {
-            // @ts-ignore
+            // -expect-error Temporary type mismatch with external/runtime data.
             const Swal = (await import('sweetalert2')).default;
             Swal.fire({
                 icon: 'warning',
@@ -272,8 +272,8 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                 if (error) throw error;
 
                 // Show simple success for edit
-                // @ts-ignore
-                const Swal = (await import('sweetalert2')).default;
+                // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
                 Swal.fire({
                     icon: 'success',
                     title: 'บันทึกการแก้ไขสำเร็จ',
@@ -316,8 +316,8 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                     });
                 } else {
                     console.error('Submission failed logic:', data);
-                    // @ts-ignore
-                    const Swal = (await import('sweetalert2')).default;
+                    // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
                     Swal.fire({
                         icon: 'error',
                         title: 'บันทึกไม่สำเร็จ',
@@ -330,7 +330,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
 
         } catch (err: unknown) {
             console.error('Error submitting review (Full):', err);
-            // @ts-ignore
+            // -expect-error Temporary type mismatch with external/runtime data.
             const Swal = (await import('sweetalert2')).default;
             Swal.fire({
                 icon: 'error',

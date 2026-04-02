@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Search, Trash2, ClipboardList, CheckCircle2, Download, XCircle, Info, Hash, Save, ArrowDownWideNarrow, Printer, Coins, PlayCircle, LogIn, Sparkles, Users, FileSpreadsheet, Zap, HelpCircle } from 'lucide-react';
+import { Search, Trash2, ClipboardList, CheckCircle2, Download, XCircle, Info, Hash, Save, ArrowDownWideNarrow, Printer, Coins, PlayCircle, LogIn, Users, FileSpreadsheet, Zap, HelpCircle } from 'lucide-react';
 import { analyzeName } from '@/utils/nameAnalysis';
 import { NameAnalysisDetailCard } from '@/components/NameAnalysisDetailCard';
 // import { toPng } from 'html-to-image';
@@ -73,8 +73,8 @@ export default function NameAnalysisPage() {
     };
 
     const handleAnalyzeClick = async () => {
-        // @ts-ignore
-        const Swal = (await import('sweetalert2')).default;
+        // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
         const count = countNames(inputText);
 
         if (count === 0) {
@@ -231,8 +231,8 @@ export default function NameAnalysisPage() {
     };
 
     const handleSaveHistory = async () => {
-        // @ts-ignore
-        const Swal = (await import('sweetalert2')).default;
+        // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
             Swal.fire('แจ้งเตือน', 'กรุณาเข้าสู่ระบบเพื่อบันทึกประวัติ', 'warning');
@@ -280,8 +280,8 @@ export default function NameAnalysisPage() {
     const handleExportPDF = async () => {
         const { toPng } = await import('html-to-image');
         const jsPDF = (await import('jspdf')).default;
-        // @ts-ignore
-        const Swal = (await import('sweetalert2')).default;
+        // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
 
         if (!printRef.current) return;
         const scrollContainer = printRef.current.querySelector('.custom-scrollbar');

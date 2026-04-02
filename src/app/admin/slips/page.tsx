@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Receipt, Search, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
-import Link from 'next/link';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Receipt, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 
 interface Slip {
@@ -20,8 +19,7 @@ export default function AdminSlipsPage() {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
-    const fetchSlips = async () => {
-        // @ts-ignore
+    const fetchSlips = useCallback(async () => {
         const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
@@ -46,11 +44,11 @@ export default function AdminSlipsPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [page]);
 
     useEffect(() => {
         fetchSlips();
-    }, [page]);
+    }, [fetchSlips]);
 
     return (
         <div className="p-4 md:p-8">

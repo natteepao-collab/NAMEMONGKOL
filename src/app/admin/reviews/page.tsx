@@ -1,8 +1,8 @@
 'use client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useState, useEffect } from 'react';
-import { Search, Check, X, Trash2, MessageCircle, AlertCircle, Filter, Star } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Search, Check, X, Trash2, MessageCircle, Star } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 import { Review } from '@/types';
 
@@ -12,11 +12,8 @@ export default function AdminReviewsPage() {
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState('all');
     const [page, setPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [stats, setStats] = useState({ total: 0, pending: 0, approved: 0, rejected: 0 });
 
-    const fetchReviews = async () => {
-        // @ts-ignore
+    const fetchReviews = useCallback(async () => {
         const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
@@ -37,7 +34,6 @@ export default function AdminReviewsPage() {
 
             if (data.success) {
                 setReviews(data.reviews);
-                setTotalPages(data.totalPages);
                 // Note: Real stats count might need a separate API call or return from same API
                 // For now we might just use total from API if status is all
             }
@@ -47,17 +43,16 @@ export default function AdminReviewsPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [page, search, statusFilter]);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
             fetchReviews();
         }, 300);
         return () => clearTimeout(timeout);
-    }, [page, search, statusFilter]);
+    }, [fetchReviews]);
 
     const handleUpdateStatus = async (id: string, newStatus: string) => {
-        // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
         try {
             const { data: { session } } = await supabase.auth.getSession();
@@ -88,14 +83,12 @@ export default function AdminReviewsPage() {
             } else {
                 throw new Error(data.error);
             }
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             Swal.fire('Error', error.message, 'error');
         }
     };
 
     const handleDelete = async (id: string) => {
-        // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
@@ -131,7 +124,6 @@ export default function AdminReviewsPage() {
                 } else {
                     throw new Error(data.error);
                 }
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 Swal.fire('Error', error.message, 'error');
             }

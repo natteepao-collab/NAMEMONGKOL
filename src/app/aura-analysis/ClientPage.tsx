@@ -560,7 +560,7 @@ export default function ClientPage() {
                                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                                 <img
                                                     src={result.imageUrl}
-                                                    alt={`AI-generated aura portrait for ${result.name}`}
+                                                    alt={`ภาพออร่า AI สำหรับ ${result.name}`}
                                                     className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl object-cover border-2 border-amber-500/30 shadow-[0_0_40px_rgba(201,147,58,0.2)]"
                                                 />
                                                 <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/30 backdrop-blur-sm">

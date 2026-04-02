@@ -378,7 +378,7 @@ export default function SearchPage() {
             await fetchLatestCredits();
         } catch (err) {
             console.error('unlock error:', err);
-            // @ts-ignore
+            // -expect-error Temporary type mismatch with external/runtime data.
             const Swal = (await import('sweetalert2')).default;
             await Swal.fire({
                 title: 'เกิดข้อผิดพลาด',

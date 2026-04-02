@@ -36,7 +36,7 @@ export default function AdminWallpapersPage() {
             setWallpapers(data || []);
         } catch (error) {
             console.error('Error fetching wallpapers:', error);
-            // @ts-ignore
+            // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
             const Swal = (await import('sweetalert2')).default;
             Swal.fire('Error', 'Failed to fetch wallpapers', 'error');
         } finally {
@@ -78,7 +78,7 @@ export default function AdminWallpapersPage() {
     };
 
     const handleDelete = async (id: number) => {
-        // @ts-ignore
+        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
@@ -143,7 +143,7 @@ export default function AdminWallpapersPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setUploading(true);
-        // @ts-ignore
+        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
 
         try {
@@ -264,7 +264,7 @@ export default function AdminWallpapersPage() {
                                         <div className="relative w-12 h-20 rounded-lg overflow-hidden border border-slate-600 bg-slate-800">
                                             <Image
                                                 src={wp.image}
-                                                alt={wp.name}
+                                                alt={`ตัวอย่างวอลเปเปอร์มงคล ${wp.name}`}
                                                 fill
                                                 sizes="48px"
                                                 className="object-cover"

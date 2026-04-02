@@ -159,8 +159,8 @@ export const CertificateGenerator: React.FC<CertificateGeneratorProps> = ({
     };
 
     const handleDownloadWithCredit = async (downloadFn: () => Promise<void>, type: string) => {
-        // @ts-ignore
-        const Swal = (await import('sweetalert2')).default;
+        // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
 
         if (!user) {
             const result = await Swal.fire({

@@ -31,8 +31,8 @@ export default function SlipUploader({ amount, credits, tierId }: SlipUploaderPr
         if (!selectedFile) return;
 
         // Dynamic import SweetAlert2 (available for both try/catch)
-        // @ts-ignore
-        const Swal = (await import('sweetalert2')).default;
+        // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
 
         setIsLoading(true);
         setResult(null);

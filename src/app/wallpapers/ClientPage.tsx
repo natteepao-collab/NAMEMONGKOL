@@ -129,8 +129,8 @@ function WallpapersContent() {
 
     const handleDownload = async (wallpaper: Wallpaper) => {
         // Dynamic import SweetAlert2
-        // @ts-ignore
-        const Swal = (await import('sweetalert2')).default;
+        // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
 
         // 1. Check Auth (Skip if not premium? No, require auth for tracking usually, but for now lets require auth for all as per previous logic)
         const { data: { session } } = await supabase.auth.getSession();
@@ -332,7 +332,7 @@ function WallpapersContent() {
                                     >
                                         <Image
                                             src={wp.image}
-                                            alt={`วอลเปเปอร์มงคล ${wp.name} - เสริมดวง${wp.tags.join(' ')} | NameMongkol`}
+                                            alt={`วอลเปเปอร์มงคล ${wp.name} สำหรับ${wp.tags.join(' ')}`}
                                             fill
                                             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 20vw, 16vw"
                                             className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -397,6 +397,8 @@ function WallpapersContent() {
                                     <Image
                                         src={selectedWallpaper.image}
                                         alt=""
+                                        role="presentation"
+                                        aria-hidden="true"
                                         fill
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                         className="object-cover"
@@ -407,7 +409,7 @@ function WallpapersContent() {
                                 <div className="relative w-full h-full p-4 md:p-6 transition-transform duration-500 group-hover:scale-105">
                                     <Image
                                         src={selectedWallpaper.image}
-                                        alt={`วอลเปเปอร์มงคล ${selectedWallpaper.name} - เสริมดวง${selectedWallpaper.tags.join(' ')} | NameMongkol`}
+                                        alt={`วอลเปเปอร์มงคล ${selectedWallpaper.name} สำหรับ${selectedWallpaper.tags.join(' ')}`}
                                         fill
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                         className="object-contain drop-shadow-2xl"

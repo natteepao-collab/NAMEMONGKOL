@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 // import { Sidebar } from '@/components/Sidebar';
-import { Save, RefreshCw, FileText, CheckCircle, AlertTriangle, Copy } from 'lucide-react';
+import { Save, RefreshCw, FileText, AlertTriangle, Copy } from 'lucide-react';
 
 
 export default function AdminNamesPage() {
@@ -13,7 +13,6 @@ export default function AdminNamesPage() {
 
     // Fetch initial data
     const fetchNames = async () => {
-        // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
         setIsLoading(true);
         try {
@@ -41,7 +40,6 @@ export default function AdminNamesPage() {
     }, []);
 
     const handleSave = async () => {
-        // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
         setIsSaving(true);
         try {
@@ -73,11 +71,11 @@ export default function AdminNamesPage() {
                 throw new Error(data.error);
             }
 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
+        } catch (error: unknown) {
+            const message = error instanceof Error ? error.message : 'ไม่สามารถบันทึกข้อมูลได้';
             Swal.fire({
                 title: 'เกิดข้อผิดพลาด',
-                text: error.message || 'ไม่สามารถบันทึกข้อมูลได้',
+                text: message,
                 icon: 'error',
                 background: '#1e293b',
                 color: '#fff'
@@ -88,7 +86,6 @@ export default function AdminNamesPage() {
     };
 
     const copyToClipboard = async () => {
-        // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
         navigator.clipboard.writeText(rawInput);
         const Toast = Swal.mixin({

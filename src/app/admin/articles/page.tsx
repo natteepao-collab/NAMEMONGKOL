@@ -51,7 +51,7 @@ export default function AdminArticlesPage() {
     }, []);
 
     const fetchArticles = async () => {
-        // @ts-ignore
+        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
@@ -140,7 +140,7 @@ export default function AdminArticlesPage() {
     };
 
     const handleDelete = async (id: string) => {
-        // @ts-ignore
+        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
@@ -185,7 +185,7 @@ export default function AdminArticlesPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // @ts-ignore
+        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
         // setUploading(true);
         setFormError(null);
@@ -288,7 +288,7 @@ export default function AdminArticlesPage() {
     };
 
     const handleSync = async () => {
-        // @ts-ignore
+        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Sync Local Articles?',
@@ -368,7 +368,6 @@ export default function AdminArticlesPage() {
                 await fetchArticles(); // Refresh list
                 Swal.fire('Sync Complete', `Imported: ${addedCount}, Updated: ${updatedCount}`, 'success');
 
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 console.error('Sync Error:', error);
                 Swal.fire('Sync Failed', error.message || 'Unknown error occurred', 'error');
@@ -410,7 +409,7 @@ export default function AdminArticlesPage() {
     };
 
     const handleRestoreCoverImages = async () => {
-        // @ts-ignore
+        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
 
         const result = await Swal.fire({
@@ -808,7 +807,11 @@ export default function AdminArticlesPage() {
                                                                     <div className="relative w-full aspect-video rounded-md overflow-hidden bg-slate-900">
                                                                         <Image
                                                                             src={imagePath}
-                                                                            alt={imagePath}
+                                                                            alt={`ตัวอย่างภาพประกอบบทความ ${imagePath
+                                                                                .split('/')
+                                                                                .pop()
+                                                                                ?.replace(/\.[^/.]+$/, '')
+                                                                                .replace(/[-_]+/g, ' ') || 'จากคลังรูปภาพ'}`}
                                                                             fill
                                                                             className="object-cover"
                                                                             sizes="120px"

@@ -1,7 +1,7 @@
 'use client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Save, Settings, Tag } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 import {
@@ -27,10 +27,6 @@ export default function AdminSettingsPage() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
 
-    useEffect(() => {
-        fetchSettings();
-    }, []);
-
     const isMissingAppSecretsTableError = (error: any) => {
         const code = typeof error?.code === 'string' ? error.code : '';
         const message = typeof error?.message === 'string' ? error.message.toLowerCase() : '';
@@ -38,7 +34,7 @@ export default function AdminSettingsPage() {
         return code === 'PGRST205' || message.includes('app_secrets') || details.includes('app_secrets');
     };
 
-    const fetchSettings = async () => {
+    const fetchSettings = useCallback(async () => {
         setLoading(true);
         try {
             const { data, error } = await supabase
@@ -104,10 +100,13 @@ export default function AdminSettingsPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        fetchSettings();
+    }, [fetchSettings]);
 
     const handleSave = async () => {
-        // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
         setSaving(true);
         try {
@@ -177,8 +176,8 @@ export default function AdminSettingsPage() {
     };
 
     const handleResetPalmPrompts = async () => {
-        // @ts-ignore
-        const Swal = (await import('sweetalert2')).default;
+        // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
 
         const result = await Swal.fire({
             title: 'รีเซ็ต Prompt?',

@@ -3,7 +3,6 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { BookOpen, ArrowRight, Calendar, User } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 import { ArticleImage } from './ArticleImage';
@@ -99,7 +98,7 @@ export const ArticleSection: React.FC = () => {
                             <div className="h-48 w-full bg-slate-800 relative overflow-hidden">
                                 <ArticleImage
                                     src={article.cover_image || article.coverImage}
-                                    alt={`ภาพหน้าปกบทความ ${article.title} - บทความชื่อมงคล NameMongkol`}
+                                    alt={`ภาพหน้าปกบทความ ${article.title}`}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-60" />
                                 <div className="absolute bottom-3 left-3 px-2 py-1 bg-black/60 backdrop-blur-md rounded text-[10px] text-white font-medium uppercase tracking-wider border border-white/10">

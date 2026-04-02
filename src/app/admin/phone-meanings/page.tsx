@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/utils/supabase';
-import { Loader2, Edit, Save, X, Search, RefreshCw, AlertCircle, Grid, List, CheckCircle, Tag, Zap, Heart, Sparkles, Brain, Stethoscope, Briefcase } from 'lucide-react';
+import { Loader2, Edit, Save, X, Search, RefreshCw, AlertCircle, Grid, List, CheckCircle, Zap, Heart, Sparkles, Brain, Stethoscope, Briefcase } from 'lucide-react';
 import { pairDefinitions as localPairs } from '@/data/pairDefinitions';
 import { standardPhoneGrades, getGradeColorClass } from '@/data/standardPhoneGrades';
 
@@ -45,7 +45,6 @@ export default function AdminPhoneMeaningsPage() {
 
         const tags = currentMeaning.tags || [];
         const pair = currentMeaning.pair;
-        const isGood = currentMeaning.grade === 'good';
         const isFriendPair = FRIEND_PAIRS.includes(pair);
 
         // Score Calculation (Simplified logic from analyzePhone.ts)
@@ -127,8 +126,8 @@ export default function AdminPhoneMeaningsPage() {
     };
 
     const handleApplyStandardGrades = async () => {
-        // @ts-ignore
-        const Swal = (await import('sweetalert2')).default;
+        // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Apply Standard Grades?',
             text: "This will update the GRADE (Good/Bad/Neutral) of all pairs in the database to match the Standard Table (Red/Green/Orange). Titles and descriptions will NOT be changed.",
@@ -166,7 +165,7 @@ export default function AdminPhoneMeaningsPage() {
 
 
     const handleSync = async () => {
-        // @ts-ignore
+        // -expect-error Temporary type mismatch with external/runtime data.
             const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Sync Local Data?',
@@ -209,8 +208,8 @@ export default function AdminPhoneMeaningsPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // @ts-ignore
-        const Swal = (await import('sweetalert2')).default;
+        // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
         setSaving(true);
         try {
             if (!currentMeaning.pair || !currentMeaning.title) {

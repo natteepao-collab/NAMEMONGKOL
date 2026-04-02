@@ -3,7 +3,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import {
     Client,
-    middleware,
     validateSignature,
     WebhookEvent,
 } from '@line/bot-sdk';

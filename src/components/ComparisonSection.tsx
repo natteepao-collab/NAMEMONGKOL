@@ -5,7 +5,10 @@ import Image from 'next/image';
 import { ImageEnlargeModal } from './ImageEnlargeModal';
 
 export const ComparisonSection = () => {
-    const [isOpen, setIsOpen] = React.useState(false);
+    const desktopImageSrc = '/images/articles/comparison-mobile.png';
+    const mobileImageSrc = '/images/articles/comparison-mobile.png';
+    const imageAlt = 'ตารางเปรียบเทียบฟีเจอร์การวิเคราะห์ชื่อมงคล ระหว่างเว็บไซต์ทั่วไปกับ NameMongkol';
+    const [modalImageSrc, setModalImageSrc] = React.useState<string | null>(null);
 
     return (
         <section className="w-full max-w-5xl mx-auto px-4 py-16 relative z-10">
@@ -16,13 +19,28 @@ export const ComparisonSection = () => {
             <figure className="overflow-hidden rounded-2xl border border-slate-700 shadow-2xl bg-slate-900/60 backdrop-blur-sm">
                 <button
                     type="button"
-                    onClick={() => setIsOpen(true)}
-                    className="block w-full cursor-zoom-in"
+                    onClick={() => setModalImageSrc(mobileImageSrc)}
+                    className="block w-full cursor-zoom-in md:hidden"
                     aria-label="คลิกเพื่อดูภาพตารางเปรียบเทียบแบบขยาย"
                 >
                     <Image
-                        src="/images/articles/ฟีเจอร์การวิเคราะห์.png"
-                        alt="ตารางเปรียบเทียบฟีเจอร์การวิเคราะห์ชื่อมงคล ระหว่างเว็บไซต์ทั่วไปกับ NameMongkol"
+                        src={mobileImageSrc}
+                        alt={imageAlt}
+                        width={880}
+                        height={1200}
+                        className="h-auto w-full object-contain"
+                        priority
+                    />
+                </button>
+                <button
+                    type="button"
+                    onClick={() => setModalImageSrc(desktopImageSrc)}
+                    className="hidden w-full cursor-zoom-in md:block"
+                    aria-label="คลิกเพื่อดูภาพตารางเปรียบเทียบแบบขยาย"
+                >
+                    <Image
+                        src={desktopImageSrc}
+                        alt={imageAlt}
                         width={998}
                         height={484}
                         className="h-auto w-full object-cover"
@@ -35,10 +53,10 @@ export const ComparisonSection = () => {
             </figure>
 
             <ImageEnlargeModal
-                isOpen={isOpen}
-                src="/images/articles/ฟีเจอร์การวิเคราะห์.png"
-                alt="ตารางเปรียบเทียบฟีเจอร์การวิเคราะห์ชื่อมงคล ระหว่างเว็บไซต์ทั่วไปกับ NameMongkol"
-                onClose={() => setIsOpen(false)}
+                isOpen={Boolean(modalImageSrc)}
+                src={modalImageSrc}
+                alt={imageAlt}
+                onClose={() => setModalImageSrc(null)}
             />
         </section>
     );

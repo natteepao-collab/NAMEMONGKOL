@@ -1,10 +1,10 @@
 'use client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, MessageCircle, Filter, Quote, Plus, Trash2, Edit, Search, Sparkles, ThumbsUp, BadgeCheck, Share2, Image as ImageIcon } from 'lucide-react';
+import { Star, MessageCircle, Filter, Quote, Plus, Trash2, Edit, Search, Sparkles, ThumbsUp, BadgeCheck, Share2 } from 'lucide-react';
 import Image from 'next/image';
 import { Review, ReviewServiceType } from '@/types';
 import { ReviewFormModal } from '@/components/ReviewFormModal';
@@ -29,6 +29,13 @@ const TAG_URLS: Record<string, string> = {
     'ความรัก': '/reviews?category=ความรัก',
     'สุขภาพ': '/reviews?category=สุขภาพ',
     'โชคลาภ': '/reviews?category=โชคลาภ'
+};
+
+const inferServiceType = (tags: string[]): ReviewServiceType => {
+    if (tags.some(t => t.includes('เบอร์') || t.includes('โทร'))) return 'phone-analysis';
+    if (tags.some(t => t.includes('ชื่อ'))) return 'name-analysis';
+    if (tags.some(t => t.includes('วอลเปเปอร์'))) return 'wallpapers';
+    return 'general';
 };
 
 export default function ClientPage() {
@@ -106,7 +113,7 @@ export default function ClientPage() {
     };
 
     const handleDelete = async (reviewId: string) => {
-        // @ts-ignore
+        // @ts-expect-error SweetAlert2 default export typing is not inferred correctly in this dynamic import path.
         const Swal = (await import('sweetalert2')).default;
 
         Swal.fire({
@@ -211,7 +218,7 @@ export default function ClientPage() {
                     text: shareText,
                     url: shareUrl
                 });
-            } catch (error) {
+            } catch {
                 // User cancelled or error
             }
         } else {
@@ -235,12 +242,17 @@ export default function ClientPage() {
         setUserVotedReviews(new Set(storedVotes));
     }, []);
 
-    const fetchReviews = async () => {
+    const fetchReviews = useCallback(async () => {
         const { data, error } = await supabase
             .from('reviews')
             .select('*')
             .eq('status', 'approved')
             .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error('Error fetching reviews:', error);
+            return;
+        }
 
         if (data) {
             // Map Supabase data to Review interface if needed, or use directly
@@ -264,19 +276,11 @@ export default function ClientPage() {
             });
             setHelpfulVotes(votesMap);
         }
-    };
-
-    // Infer service type from tags for backward compatibility
-    const inferServiceType = (tags: string[]): ReviewServiceType => {
-        if (tags.some(t => t.includes('เบอร์') || t.includes('โทร'))) return 'phone-analysis';
-        if (tags.some(t => t.includes('ชื่อ'))) return 'name-analysis';
-        if (tags.some(t => t.includes('วอลเปเปอร์'))) return 'wallpapers';
-        return 'general';
-    };
+    }, []);
 
     useEffect(() => {
         fetchReviews();
-    }, []);
+    }, [fetchReviews]);
 
     const filteredReviews = useMemo(() => {
         const target = dbReviews;
@@ -418,9 +422,16 @@ export default function ClientPage() {
                                 )}
 
                                 <div className="flex items-center gap-3 mb-4 relative z-10">
-                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                                    <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white font-bold text-lg shadow-lg overflow-hidden">
                                         {review.avatar ? (
-                                            <img src={review.avatar} alt={review.nickname} className="w-full h-full object-cover rounded-xl" />
+                                            <Image
+                                                src={review.avatar}
+                                                alt={`รูปโปรไฟล์ของ ${review.nickname} ผู้เขียนรีวิว`}
+                                                fill
+                                                sizes="48px"
+                                                className="object-cover"
+                                                unoptimized
+                                            />
                                         ) : (
                                             review.nickname.charAt(0)
                                         )}

@@ -53,8 +53,8 @@ export default function TopUpPage({ gateway, promptpayNumber }: TopUpPageProps) 
             const verifyPayment = async () => {
                 const status = searchParams.get('payment_status');
                 const sessionId = searchParams.get('session_id');
-                // @ts-ignore
-                const Swal = (await import('sweetalert2')).default;
+                // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
 
                 if (status === 'success' && sessionId) {
                     // Remove params immediately to prevent double-firing (though idempotency handles it)
@@ -133,11 +133,11 @@ export default function TopUpPage({ gateway, promptpayNumber }: TopUpPageProps) 
         try {
             const result = await createPromptPayCheckoutSession(tier.price, tier.credits, tier.name);
             if (result && result.url) {
-                window.location.href = result.url;
+                window.location.assign(result.url);
             }
         } catch (error: any) {
             console.error('Checkout error:', error);
-            // @ts-ignore
+            // -expect-error Temporary type mismatch with external/runtime data.
             const Swal = (await import('sweetalert2')).default;
             Swal.fire({
                 title: 'เกิดข้อผิดพลาด',

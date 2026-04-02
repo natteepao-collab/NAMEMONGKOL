@@ -4,7 +4,6 @@
 import Stripe from 'stripe';
 import { createClient } from '@/utils/supabaseServer';
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
-import { redirect } from 'next/navigation';
 
 if (!process.env.STRIPE_SECRET_KEY) {
     throw new Error('STRIPE_SECRET_KEY is missing');
@@ -152,7 +151,6 @@ export async function verifyPromptPayTransaction(sessionId: string) {
 
         return { success: true, credits };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         console.error('Verification Error:', error);
         return { success: false, message: error.message };

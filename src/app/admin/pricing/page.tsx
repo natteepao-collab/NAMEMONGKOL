@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useEffect } from 'react';
-import { CreditCard, Edit2, Plus, Trash2, X, Save, DollarSign, Sparkles } from 'lucide-react';
+import { CreditCard, Edit2, Plus, Trash2, X, Save, Sparkles } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 
 interface PricingTier {
@@ -34,7 +34,6 @@ export default function AdminPricingPage() {
     });
 
     const fetchTiers = async () => {
-        // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
@@ -80,7 +79,6 @@ export default function AdminPricingPage() {
     };
 
     const handleDelete = async (id: string) => {
-        // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
         const result = await Swal.fire({
             title: 'Are you sure?',
@@ -108,14 +106,13 @@ export default function AdminPricingPage() {
                 } else {
                     throw new Error('Failed to delete');
                 }
-            } catch (error) {
+            } catch {
                 Swal.fire('Error', 'Failed to delete tier', 'error');
             }
         }
     };
 
     const handleSave = async () => {
-        // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
         setSaving(true);
         try {

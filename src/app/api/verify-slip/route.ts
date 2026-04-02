@@ -15,7 +15,6 @@ export async function POST(request: Request) {
         const file = formData.get('image') || formData.get('file');
         const creditAmount = Number(formData.get('credit_amount') || 0);
         const paymentAmount = Number(formData.get('payment_amount') || 0);
-        const orderId = (formData.get('order_id') || '').toString() || undefined;
         const tierId = (formData.get('tier_id') || '').toString() || undefined;
         const transId = (formData.get('trans_id') || '').toString().trim();
         const senderName = (formData.get('sender_name') || '').toString().trim() || null;

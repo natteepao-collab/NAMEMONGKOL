@@ -1,6 +1,5 @@
 
 import Link from 'next/link';
-import Image from 'next/image';
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
@@ -20,7 +19,6 @@ const AuraVibeWidget = dynamic(() => import('@/components/AuraVibeWidget'), {
     loading: () => <div className="h-48 bg-slate-800/50 rounded-2xl animate-pulse my-10 max-w-xl mx-auto" />
 });
 import { articles as localArticles, Article } from '@/data/articles';
-import { shimmer, toBase64 } from '@/utils/imageUtils';
 import {
     PALMISTRY_SLUG,
     palmistryToc,
@@ -36,6 +34,26 @@ type Props = {
     params: Promise<{ slug: string }>;
 };
 
+type DbArticleRow = {
+    id: string;
+    slug: string;
+    title: string;
+    excerpt: string;
+    content: string;
+    cover_image: string;
+    cover_image_alt: string | null;
+    date: string;
+    author: string;
+    category: string;
+    keywords: string[];
+    meta_title: string | null;
+    meta_description: string | null;
+    related_slugs: string[] | null;
+    toc: Article['toc'] | null;
+    faq_items: Article['faqItems'] | null;
+    date_modified: string | null;
+};
+
 import { supabase } from '@/utils/supabase';
 
 async function getPublishedArticlesDb(): Promise<Article[]> {
@@ -46,7 +64,9 @@ async function getPublishedArticlesDb(): Promise<Article[]> {
 
     if (error || !data) return [];
 
-    return data.map((item: any) => ({
+    const rows = data as DbArticleRow[];
+
+    return rows.map((item) => ({
         id: item.id,
         slug: item.slug,
         title: item.title,
@@ -396,7 +416,7 @@ export default async function ArticlePage({ params }: Props) {
                         */}
                         <ArticleImage
                             src={article.coverImage}
-                            alt={article.coverImageAlt || `ภาพหน้าปกบทความ ${article.title} - บทความชื่อมงคล NameMongkol`}
+                            alt={article.coverImageAlt || `ภาพหน้าปกบทความ ${article.title}`}
                             priority
                             className="group-hover:scale-100" // Disable zoom effect if not needed, or keep standard
                         />
@@ -526,7 +546,7 @@ export default async function ArticlePage({ params }: Props) {
                                         <div className="h-32 w-full bg-slate-700 relative overflow-hidden">
                                             <ArticleImage
                                                 src={related.coverImage}
-                                                alt={related.coverImageAlt || `ภาพหน้าปกบทความ ${related.title} - บทความชื่อมงคล NameMongkol`}
+                                                alt={related.coverImageAlt || `ภาพหน้าปกบทความ ${related.title}`}
                                                 priority={false}
                                                 className="group-hover:scale-105 transition-transform duration-300"
                                             />

@@ -211,8 +211,8 @@ export default function PremiumSearchPage() {
     }, []);
 
     const handleSearch = async () => {
-        // @ts-ignore
-        const Swal = (await import('sweetalert2')).default;
+        // -expect-error Temporary type mismatch with external/runtime data.
+            const Swal = (await import('sweetalert2')).default;
         // Check Authentication
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {

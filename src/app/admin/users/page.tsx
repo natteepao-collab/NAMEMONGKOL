@@ -1,8 +1,8 @@
 'use client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useState, useEffect } from 'react';
-import { Search, Edit2, ChevronLeft, ChevronRight, Save, X, User, Mail, Facebook, Globe } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Search, Edit2, ChevronLeft, ChevronRight, Save, X, User, Mail, Facebook } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 import { calculateEffectiveCredits } from '@/utils/credits';
 
@@ -62,8 +62,7 @@ export default function AdminUsersPage() {
     const [editRole, setEditRole] = useState('user');
     const [saving, setSaving] = useState(false);
 
-    const fetchUsers = async () => {
-        // @ts-ignore
+    const fetchUsers = useCallback(async () => {
         const Swal = (await import('sweetalert2')).default;
         setLoading(true);
         try {
@@ -89,14 +88,14 @@ export default function AdminUsersPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [page, search]);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
             fetchUsers();
         }, 300); // Debounce search
         return () => clearTimeout(timeout);
-    }, [page, search]);
+    }, [fetchUsers]);
 
     const handleEdit = (user: UserProfile) => {
         setEditingUser(user);
@@ -106,7 +105,6 @@ export default function AdminUsersPage() {
 
     const handleSave = async () => {
         if (!editingUser) return;
-        // @ts-ignore
         const Swal = (await import('sweetalert2')).default;
         setSaving(true);
         try {

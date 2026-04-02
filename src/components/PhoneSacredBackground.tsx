@@ -55,6 +55,8 @@ export const PhoneSacredBackground = () => {
                     <Image
                         src={ASSET_PATH}
                         alt=""
+                        role="presentation"
+                        aria-hidden="true"
                         fill
                         priority
                         sizes="100vw"
