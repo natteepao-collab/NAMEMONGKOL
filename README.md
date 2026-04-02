@@ -28,6 +28,52 @@ Use the project guideline for writing alt text:
 
 - [docs/seo-alt-guideline.md](docs/seo-alt-guideline.md)
 
+## Push to GitHub
+
+Use this standard flow:
+
+```bash
+git status
+git add .
+git commit -m "chore: update CI/CD and SEO alt improvements"
+git push origin main
+```
+
+If you prefer PR flow:
+
+```bash
+git checkout -b feat/cicd-vercel
+git add .
+git commit -m "ci: add github actions and vercel deploy workflow"
+git push -u origin feat/cicd-vercel
+```
+
+## Deploy to Vercel (via GitHub Actions)
+
+Workflows:
+
+- [.github/workflows/ci.yml](.github/workflows/ci.yml)
+- [.github/workflows/deploy-vercel.yml](.github/workflows/deploy-vercel.yml)
+
+Required GitHub repository secrets:
+
+- `VERCEL_TOKEN`
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
+
+How to get them:
+
+1. Run `vercel login`
+2. Run `vercel link` in this project once
+3. Read values from `.vercel/project.json` (`orgId` and `projectId`)
+4. Create token at Vercel dashboard: Settings > Tokens
+
+Deploy behavior:
+
+1. `CI` runs on push and pull request to `main`
+2. `Deploy to Vercel` runs on push to `main` (and manual dispatch)
+3. Deployment uses `vercel pull`, `vercel build`, and `vercel deploy --prebuilt`
+
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
