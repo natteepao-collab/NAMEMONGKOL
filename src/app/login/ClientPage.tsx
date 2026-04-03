@@ -163,6 +163,21 @@ export default function LoginClientPage() {
                         </p>
                     </div>
 
+                    {/* Value Proposition */}
+                    <div className="mb-6 grid grid-cols-2 gap-2">
+                        {[
+                            { emoji: '🎁', text: 'รับฟรี 30 เครดิต' },
+                            { emoji: '💾', text: 'บันทึกผลย้อนหลัง' },
+                            { emoji: '🔮', text: 'ปลดล็อกคำทำนายเชิงลึก' },
+                            { emoji: '🖼️', text: 'แลกวอลเปเปอร์มงคล' },
+                        ].map((item, i) => (
+                            <div key={i} className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                <span className="text-sm">{item.emoji}</span>
+                                <span className="text-[11px] text-slate-300 font-medium">{item.text}</span>
+                            </div>
+                        ))}
+                    </div>
+
                     {error && (
                         <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-200 text-sm flex items-start gap-2">
                             <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
@@ -280,6 +295,7 @@ export default function LoginClientPage() {
                         <button
                             type="submit"
                             disabled={isLoading || !isAgreed}
+                            data-track="login.form.submit"
                             className="w-full py-3 px-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-semibold rounded-xl shadow-lg shadow-amber-500/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed disabled:active:scale-100"
                         >
                             {isLoading ? (
@@ -309,6 +325,7 @@ export default function LoginClientPage() {
                         <button
                             type="button"
                             onClick={handleFacebookLogin}
+                            data-track="login.social.facebook"
                             className="w-full py-3 px-4 bg-[#1877F2] hover:bg-[#166fe5] text-white font-medium rounded-xl active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed"
                             disabled={isLoading || !isAgreed}
                         >
@@ -320,6 +337,7 @@ export default function LoginClientPage() {
                         <button
                             type="button"
                             onClick={handleGoogleLogin}
+                            data-track="login.social.google"
                             className="w-full py-3 px-4 bg-white text-slate-900 font-medium rounded-xl hover:bg-slate-100 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed"
                             disabled={isLoading || !isAgreed}
                         >

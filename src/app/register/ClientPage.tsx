@@ -189,6 +189,23 @@ export default function RegisterClientPage() {
                         </p>
                     </div>
 
+                    {/* Benefits Strip */}
+                    {!otpSent && (
+                        <div className="mb-6 grid grid-cols-2 gap-2">
+                            {[
+                                { emoji: '🎁', text: 'รับฟรี 30 เครดิต ทันที' },
+                                { emoji: '💾', text: 'บันทึกผลวิเคราะห์ทุกครั้ง' },
+                                { emoji: '🔮', text: 'คำทำนาย + พลังเงาเชิงลึก' },
+                                { emoji: '🖼️', text: 'แลกวอลเปเปอร์มงคล' },
+                            ].map((item, i) => (
+                                <div key={i} className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5">
+                                    <span className="text-sm">{item.emoji}</span>
+                                    <span className="text-[11px] text-slate-300 font-medium">{item.text}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
                     {/* Alerts */}
                     {error && (
                         <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-200 text-sm flex items-start gap-2">

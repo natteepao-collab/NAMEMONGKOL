@@ -105,8 +105,26 @@ export const TestimonialSection = () => {
                                     {review.nickname.charAt(0)}
                                 </div>
                                 <div>
-                                    <div className="text-white font-medium text-sm">{review.nickname}</div>
-                                    <div className="text-slate-500 text-xs">{review.role}</div>
+                                    <div className="text-white font-medium text-sm flex items-center gap-1.5">
+                                        {review.nickname}
+                                        {review.is_verified && (
+                                            <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 text-[9px] font-bold">
+                                                ✓ ยืนยันแล้ว
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div className="text-slate-500 text-xs flex items-center gap-2">
+                                        <span>{review.role}</span>
+                                        {review.service_type && (
+                                            <span className="px-1.5 py-0.5 rounded bg-white/5 text-[9px] text-slate-400">
+                                                {review.service_type === 'name-analysis' ? 'วิเคราะห์ชื่อ'
+                                                    : review.service_type === 'phone-analysis' ? 'วิเคราะห์เบอร์'
+                                                    : review.service_type === 'premium-search' ? 'ค้นหาชื่อมงคล'
+                                                    : review.service_type === 'premium-analysis' ? 'วิเคราะห์ชื่อพรีเมียม'
+                                                    : review.service_type}
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 

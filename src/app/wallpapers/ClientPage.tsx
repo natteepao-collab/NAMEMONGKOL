@@ -482,6 +482,7 @@ function WallpapersContent() {
 
                                     <button
                                         onClick={() => handleDownload(selectedWallpaper)}
+                                        data-track="wallpapers.detail.download"
                                         className={`w-full py-3.5 md:py-4 rounded-xl font-bold text-base md:text-lg flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${selectedWallpaper.premium
                                             ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black shadow-lg shadow-amber-500/20 ring-4 ring-amber-500/10'
                                             : 'bg-white text-black hover:bg-slate-100 shadow-lg shadow-white/10'

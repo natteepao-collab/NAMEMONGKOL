@@ -359,6 +359,7 @@ function ClientPageContent() {
                                 <button
                                     onClick={handleAnalyze}
                                     disabled={loading || phoneNumber.length !== 10}
+                                    data-track="phone.hero.analyze"
                                     className={`
                                         px-8 py-4 rounded-2xl font-bold text-white transition-all transform hover:scale-[1.03] active:scale-[0.98] flex items-center justify-center gap-2 min-w-[160px]
                                         ${phoneNumber.length === 10

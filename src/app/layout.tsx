@@ -8,6 +8,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { FloatingContactFAB } from "@/components/FloatingContactFAB";
 import { createClient } from '@supabase/supabase-js';
 import CookieConsentWrapper from '@/components/CookieConsentWrapper';
+import { AnalyticsProvider } from '@/components/AnalyticsProvider';
 import Script from 'next/script';
 
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -244,6 +245,7 @@ export default async function RootLayout({
               {children}
               <ScrollToTop />
               {isProduction ? <Analytics /> : null}
+              <AnalyticsProvider />
             </LayoutWrapper>
             <FloatingContactFAB />
           </LanguageProvider>

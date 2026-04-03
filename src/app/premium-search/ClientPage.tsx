@@ -559,6 +559,7 @@ export default function PremiumSearchPage() {
                             <button
                                 onClick={handleSearch}
                                 disabled={isLoading}
+                                data-track="premiumSearch.form.search"
                                 className="group relative inline-flex items-center gap-3 px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl shadow-lg shadow-emerald-500/20 transition-all hover:-translate-y-1 disabled:opacity-50 disabled:translate-y-0 disabled:cursor-not-allowed flex-1 justify-center max-w-md"
                             >
                                 {isLoading ? <span className="animate-spin">⏳</span> : <Search size={20} />}

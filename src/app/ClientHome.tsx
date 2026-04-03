@@ -41,6 +41,11 @@ const WelcomeOffer = dynamic(() => import('@/components/WelcomeOffer').then(mod 
 const UspSection = dynamic(() => import('@/components/UspSection').then(mod => mod.UspSection));
 const ComparisonSection = dynamic(() => import('@/components/ComparisonSection').then(mod => mod.ComparisonSection));
 const BirthdayThaksaSection = dynamic(() => import('@/components/BirthdayThaksaSection').then(mod => mod.BirthdayThaksaSection));
+const TrustStrip = dynamic(() => import('@/components/TrustStrip').then(mod => mod.TrustStrip));
+const PrivacyStrip = dynamic(() => import('@/components/PrivacyStrip').then(mod => mod.PrivacyStrip));
+const HowItWorksSection = dynamic(() => import('@/components/HowItWorksSection').then(mod => mod.HowItWorksSection));
+const InlineSignupCTA = dynamic(() => import('@/components/InlineSignupCTA').then(mod => mod.InlineSignupCTA), { ssr: false });
+const SaveResultCTA = dynamic(() => import('@/components/SaveResultCTA').then(mod => mod.SaveResultCTA), { ssr: false });
 
 function HomeContent() {
     const searchParams = useSearchParams();
@@ -163,6 +168,9 @@ function HomeContent() {
                             onAnalyze={handleAnalyzeClick}
                             loading={loading}
                         />
+                        <PrivacyStrip />
+                        <TrustStrip />
+                        <InlineSignupCTA />
                     </div>
                 ) : (
                     <div className="w-full max-w-5xl animate-fade-in flex flex-col gap-6">
@@ -214,6 +222,8 @@ function HomeContent() {
                         <div className="mt-4">
                             <ShareButton result={result} day={day} />
                         </div>
+
+                        <SaveResultCTA />
                     </div>
                 )}
             </main>
@@ -222,6 +232,7 @@ function HomeContent() {
                 <>
                     <WallpaperShowcase />
                     <UspSection />
+                    <HowItWorksSection />
                     <ComparisonSection />
                     <HomeSeoContent />
                     <BirthdayThaksaSection />

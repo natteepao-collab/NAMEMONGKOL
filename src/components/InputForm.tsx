@@ -73,6 +73,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                     <button
                         onClick={onAnalyze}
                         disabled={!name || loading}
+                        data-track="home.hero.analyze"
                         className={`w-full group relative overflow-hidden rounded-xl py-4 font-semibold text-base transition-all transform hover:scale-[1.02] active:scale-[0.98] sm:text-lg ${!name ? 'cosmic-button-disabled cursor-not-allowed' : 'cosmic-primary-button'
                             }`}
                     >

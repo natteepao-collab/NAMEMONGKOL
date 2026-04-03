@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Users, FileText, Receipt, Menu, X, LogOut, ArrowLeft, CreditCard, Image, BookOpen, Smartphone, MessageCircle } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, Receipt, Menu, X, LogOut, ArrowLeft, CreditCard, Image, BookOpen, Smartphone, MessageCircle, BarChart3 } from 'lucide-react';
 import { supabase } from '@/utils/supabase';
 
 export const AdminSidebar = () => {
@@ -28,6 +28,7 @@ export const AdminSidebar = () => {
         { name: 'จัดการความหมายคู่เลข', icon: Smartphone, path: '/admin/phone-meanings' },
         { name: 'จัดการรีวิว', icon: MessageCircle, path: '/admin/reviews' },
         { name: 'รายการแจ้งโอน', icon: Receipt, path: '/admin/slips' },
+        { name: 'Analytics', icon: BarChart3, path: '/admin/analytics' },
     ];
 
     return (

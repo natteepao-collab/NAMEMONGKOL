@@ -418,6 +418,7 @@ export default function NameAnalysisPage() {
                                         <button
                                             onClick={handleAnalyzeClick}
                                             disabled={isAnalyzing || currentCount === 0 || currentCount > 1000}
+                                            data-track="nameAnalysis.form.analyze"
                                             className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white rounded-xl shadow-lg shadow-indigo-500/25 transition-all font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed group relative overflow-hidden"
                                         >
                                             {isAnalyzing ? (

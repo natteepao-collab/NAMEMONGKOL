@@ -42,6 +42,10 @@ export const HeroBanner = () => {
                             <span className="text-[10px] uppercase tracking-wide text-slate-300/80">{t('home.hero.statSpeed')}</span>
                         </div>
                     </div>
+
+                    <p className="mt-3 text-[11px] text-emerald-300/80 font-medium tracking-wide">
+                        ✨ ลองฟรีทันที ไม่ต้องสมัครสมาชิก
+                    </p>
                 </div>
 
             </div>

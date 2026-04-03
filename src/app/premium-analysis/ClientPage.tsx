@@ -436,6 +436,7 @@ export default function PremiumAnalysisPage() {
                         <button
                             onClick={() => handleAnalyze(true)}
                             disabled={isLoading}
+                            data-track="premiumAnalysis.results.reroll"
                             className="group relative inline-flex items-center gap-4 px-10 py-5 bg-gradient-to-b from-slate-800 to-slate-900 rounded-2xl border border-amber-500/20 hover:border-amber-500/50 shadow-lg shadow-black/40 transition-all hover:-translate-y-1 hover:shadow-amber-500/10 overflow-hidden"
                         >
                             <div className="absolute inset-0 bg-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -682,6 +683,7 @@ export default function PremiumAnalysisPage() {
                     <button
                         onClick={() => handleAnalyze(false)}
                         disabled={isLoading}
+                        data-track="premiumAnalysis.form.analyze"
                         className="group relative w-full md:max-w-2xl mx-auto overflow-hidden rounded-2xl bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 p-[1px] shadow-2xl transition-all hover:scale-[1.02] hover:shadow-amber-500/40 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 disabled:grayscale"
                     >
                         <div className="relative flex items-center justify-between rounded-2xl bg-[#0f172a] px-10 py-6 transition-all group-hover:bg-[#0f172a]/90">
