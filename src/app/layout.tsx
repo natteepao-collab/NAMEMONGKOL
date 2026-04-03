@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     creator: '@namemongkol',
   },
   alternates: {
-    canonical: './',
+    canonical: siteUrl,
   },
   robots: {
     index: true,

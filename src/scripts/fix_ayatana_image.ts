@@ -14,7 +14,7 @@ async function fixAyatana() {
 
     const { error } = await supabase
         .from('articles')
-        .update({ cover_image: '/images/articles/what-is-ayatana-6.png' })
+        .update({ cover_image: '/images/articles/what-is-ayatana-6.webp' })
         .eq('slug', 'what-is-ayatana-6');
 
     if (error) {

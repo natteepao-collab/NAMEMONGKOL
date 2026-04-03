@@ -20,10 +20,10 @@ const PhoneHeader = () => {
             <span className="phone-analysis-label inline-block mb-4 md:mb-5">
                 ✦ เช็คเบอร์มงคลฟรี
             </span>
-            <h1 className="phone-analysis-title text-3xl md:text-5xl font-bold text-white mb-3 md:mb-4 tracking-tight leading-[1.12]">
+            <div role="heading" aria-hidden="true" className="phone-analysis-title text-3xl md:text-5xl font-bold text-white mb-3 md:mb-4 tracking-tight leading-[1.12]">
                 {t('pages.phoneAnalysis.heroTitle')}{' '}
                 <span className="phone-analysis-title-highlight text-transparent bg-clip-text">{t('pages.phoneAnalysis.heroHighlight')}</span>
-            </h1>
+            </div>
             <p className="phone-analysis-subtitle text-base sm:text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
                 {t('pages.phoneAnalysis.heroSubtitle')}
             </p>

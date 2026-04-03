@@ -200,6 +200,9 @@ export default function PhoneAnalysisPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
+            {/* Server-rendered H1 for SEO — always Thai for Googlebot */}
+            <h1 className="sr-only">วิเคราะห์เบอร์มงคล แม่นยำที่สุด! เช็คเกรดเบอร์โทรศัพท์ พร้อมกราฟเจาะลึกรอบด้าน</h1>
+
             <Suspense fallback={
                 <div className="min-h-screen flex items-center justify-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-400" />

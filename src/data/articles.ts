@@ -31,7 +31,7 @@ export const articles: Article[] = [
         slug: 'change-name-destiny-tuning-2569',
         title: 'เปลี่ยนชื่อเปลี่ยนชีวิต: คู่มือ "ปรับจูนชะตา" (Destiny Tuning) ฉบับสมบูรณ์ ปี 2569',
         excerpt: 'คู่มือเปลี่ยนชื่อฉบับสมบูรณ์ ครอบคลุมกฎเหล็ก "วันต้องห้าม" ตามวันเกิด การเลือกฤกษ์บน กาลโยคปี 2569 ขั้นตอนเปลี่ยนชื่อยุคดิจิทัล และพิธีกรรมเปิดพลังชื่อใหม่ เพื่อ Destiny Tuning ปรับจูนชะตาให้ตรงจุด',
-        coverImage: '/images/articles/change-name-destiny-tuning-2569.png',
+        coverImage: '/images/articles/change-name-destiny-tuning-2569.webp',
         coverImageAlt: 'เปลี่ยนชื่อเปลี่ยนชีวิต คู่มือปรับจูนชะตาด้วยชื่อมงคล ปี 2569',
         date: '2026-03-20',
         author: 'อาจารย์ณัฐ (NameMongkol)',
@@ -422,7 +422,7 @@ export const articles: Article[] = [
     slug: 'auspicious-names-by-birthday-2026',
     title: 'ตั้งชื่อมงคลตามวันเกิด 2569: คู่มือครบจบ ตำราทักษาปกรณ์ ปีม้าไฟ พร้อมชื่อแนะนำทั้ง 7 วัน',
     excerpt: 'คู่มือตั้งชื่อมงคลตามวันเกิดฉบับสมบูรณ์ อ้างอิงตำราทักษาปกรณ์ เจาะลึกอักษรมงคล-กาลกิณีทั้ง 8 วรรค พร้อมชื่อแนะนำสำหรับเด็กเกิดปี 2569 ปีม้าไฟ แบ่งตามวันเกิดและวัตถุประสงค์',
-    coverImage: '/images/articles/baby-naming-2026.png',
+    coverImage: '/images/articles/baby-naming-2026.webp',
     coverImageAlt: 'ตั้งชื่อมงคลตามวันเกิด 2569 ตำราทักษาปกรณ์ ปีม้าไฟ',
     date: '2026-02-17',
     author: 'อาจารย์ณัฐ (NameMongkol)',
@@ -852,7 +852,7 @@ export const articles: Article[] = [
         slug: '100-auspicious-women-names-2026',
         title: '100 ชื่อมงคลผู้หญิง 2569: ทันสมัย ความหมายดี เสริมดวงและบุคลิกให้ดูอินเตอร์',
         excerpt: 'คัดสรร 100 ชื่อมงคลผู้หญิงที่ทั้งทันสมัย ออกเสียงเป็นสากลได้ง่าย ความหมายดี เสริมดวงชะตาตามหลักเลขศาสตร์และทักษา พร้อมจัดกลุ่มตามบุคลิกและดวงชะตา',
-        coverImage: '/images/articles/100-auspicious-women-names-2026.png',
+        coverImage: '/images/articles/100-auspicious-women-names-2026.webp',
         coverImageAlt: '100 ชื่อมงคลผู้หญิง 2569 ชื่อทันสมัย ความหมายดี เสริมดวง',
         date: '2026-02-16',
         author: 'อาจารย์ณัฐ (NameMongkol)',
@@ -1852,7 +1852,7 @@ export const articles: Article[] = [
         slug: '17-auspicious-thai-cats-2569',
         title: '17 แมวมงคลไทย 2569: เปิดตำราสมุดข่อยโบราณ เลี้ยงเสริมดวงตามความเชื่อ',
         excerpt: 'เจาะลึกตำราแมวไทยโบราณ 17 สายพันธุ์มงคล และ 5 สายพันธุ์เอกลักษณ์ชาติปี 2569 เลือกเลี้ยงแมวเสริมโชคลาภ บารมี และความรัก ให้สอดคล้องกับชื่อมงคลของคุณ',
-        coverImage: '/images/articles/แมวไทยสายพันธ์มงคล.png',
+        coverImage: '/images/articles/แมวไทยสายพันธ์มงคล.webp',
         coverImageAlt: '17 แมวมงคลไทย 2569 ตำราสมุดข่อยโบราณ เลี้ยงเสริมดวง',
         date: '2026-02-16',
         author: 'อาจารย์ณัฐ (NameMongkol)',
@@ -1882,7 +1882,7 @@ export const articles: Article[] = [
                     </p>
                     
                     <div class="my-8 rounded-xl overflow-hidden shadow-2xl border border-amber-900/30">
-                         <img src="/images/articles/samut-khoi-book.png" alt="ตำราสมุดข่อยโบราณ แมวไทยมงคล" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700" />
+                         <img src="/images/articles/samut-khoi-book.webp" alt="ตำราสมุดข่อยโบราณ แมวไทยมงคล" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700" />
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -1912,7 +1912,7 @@ export const articles: Article[] = [
                     </p>
 
                     <div class="my-8 rounded-xl overflow-hidden shadow-2xl border border-amber-500/20">
-                         <img src="/images/articles/thai-cats-big-5.png" alt="5 แมวมงคลไทย เอกลักษณ์ประจำชาติ" class="w-full h-auto object-cover" />
+                         <img src="/images/articles/thai-cats-big-5.webp" alt="5 แมวมงคลไทย เอกลักษณ์ประจำชาติ" class="w-full h-auto object-cover" />
                     </div>
 
                     <div class="overflow-x-auto rounded-xl border border-slate-700 shadow-xl bg-slate-900/60">
@@ -1997,7 +1997,7 @@ export const articles: Article[] = [
                     </div>
                     
                     <div class="mt-8 rounded-xl overflow-hidden shadow-lg border border-slate-700">
-                         <img src="/images/articles/modern-thai-business-cat.png" alt="นักธุรกิจไทยกับแมวมงคล" class="w-full h-auto object-cover opacity-80 hover:opacity-100 transition-opacity" />
+                         <img src="/images/articles/modern-thai-business-cat.webp" alt="นักธุรกิจไทยกับแมวมงคล" class="w-full h-auto object-cover opacity-80 hover:opacity-100 transition-opacity" />
                     </div>
                 </div>
 
@@ -2070,7 +2070,7 @@ export const articles: Article[] = [
         slug: 'supajee-suthampun-numerology-a-plus',
         title: 'ถอดรหัสชื่อมงคล "ศุภจี สุธรรมพันธุ์" แม่ทัพหญิงแห่งดุสิตธานี กับพลังเลขศาสตร์ระดับ A+',
         excerpt: 'วิเคราะห์เลขศาสตร์ชื่อ "ศุภจี สุธรรมพันธุ์" CEO ดุสิตธานี ทำไมผลรวมชื่อ 22 นามสกุล 56 และชื่อ-นามสกุลรวม 78 ถึงเป็นชื่อเกรด A+ ที่หนุนบารมีระดับเศรษฐี',
-        coverImage: '/images/articles/top-20-popular-thai-names-numerology-analysis.png',
+        coverImage: '/images/articles/top-20-popular-thai-names-numerology-analysis.webp',
         coverImageAlt: 'วิเคราะห์ชื่อ ศุภจี สุธรรมพันธุ์ ตัวอย่างชื่อเกรด A+ ตามหลักเลขศาสตร์',
         date: '2026-02-12',
         author: 'อาจารย์ณัฐ (NameMongkol)',
@@ -2409,7 +2409,7 @@ export const articles: Article[] = [
         slug: 'lucky-names-for-2026-grade-a-plus',
         title: 'ชื่อมงคล 2569: 20 ชื่อเกรด A+ เสริมดวงชะตาให้ปังตลอดปี',
         excerpt: 'เปิดโผ 20 ชื่อมงคลระดับ Grade A+ ที่วิเคราะห์มาแล้วว่าดีที่สุดสำหรับปี 2569 พร้อมถอดรหัสเลขศาสตร์และคู่เลขมงคลแบบละเอียดยิบ เพื่อความปังในทุกด้านของชีวิต',
-        coverImage: '/images/articles/grade-a-names-cover.png',
+        coverImage: '/images/articles/grade-a-names-cover.webp',
         coverImageAlt: '20 ชื่อมงคลเกรด A+ ปี 2569 เสริมดวงชะตาให้ปัง',
         date: '2026-01-01',
         author: 'อาจารย์ณัฐ (NameMongkol)',
@@ -2892,7 +2892,7 @@ export const articles: Article[] = [
         slug: 'history-of-thai-naming-tradition',
         title: 'ย้อนรอยศาสตร์แห่งนาม: ทำไมคนไทยถึงเชื่อว่า "ชื่อดี มีชัยไปกว่าครึ่ง"?',
         excerpt: 'ไทม์ไลน์ประวัติศาสตร์การตั้งชื่อของไทยกว่า 700 ปี จากยุคทักษาปกรณ์ ยุครัชกาลที่ 6 สู่ยุคเลขศาสตร์ พร้อมเจาะลึกหลักการตั้งชื่อมงคลที่คนไทยสืบทอด',
-        coverImage: '/images/articles/history-of-thai-naming-tradition.png',
+        coverImage: '/images/articles/history-of-thai-naming-tradition.webp',
         coverImageAlt: 'ประวัติศาสตร์การตั้งชื่อไทย ย้อนรอยศาสตร์แห่งนาม',
         date: '2026-02-03',
         author: 'อาจารย์ณัฐ (NameMongkol)',
@@ -3496,7 +3496,7 @@ export const articles: Article[] = [
         slug: 'case-study-khemanit-name-analysis',
         title: 'Case Study: วิเคราะห์ชื่อคนดัง "เขมนิจ จามิกรณ์" ทำไมถึงได้เกรด A+?',
         excerpt: 'เจาะลึกชื่อ "เขมนิจ" ด้วยศาสตร์คู่เลขมงคลและพลังเงา พบความลับของความสำเร็จระดับซุปตาร์ที่ซ่อนอยู่ในชื่อ',
-        coverImage: '/images/articles/khemanit-analysis.png',
+        coverImage: '/images/articles/khemanit-analysis.webp',
         coverImageAlt: 'วิเคราะห์ชื่อเขมนิจ จามิกรณ์ กรณีศึกษาชื่อคนดัง',
         date: '2026-01-31',
         author: 'ทีมงาน NameMongkol',
@@ -3510,7 +3510,7 @@ export const articles: Article[] = [
             </p>
 
             <div class="my-8 p-6 bg-slate-900/50 rounded-xl border border-slate-700 shadow-lg text-center">
-                <img src="/images/articles/khemanit-analysis.png" alt="ผลการวิเคราะห์ชื่อ เขมนิจ จามิกรณ์" class="rounded-lg max-w-full mx-auto shadow-2xl border border-slate-600 mb-4" />
+                <img src="/images/articles/khemanit-analysis.webp" alt="ผลการวิเคราะห์ชื่อ เขมนิจ จามิกรณ์" class="rounded-lg max-w-full mx-auto shadow-2xl border border-slate-600 mb-4" />
                 <p class="text-sm text-slate-400 italic">ภาพรายงานการวิเคราะห์จากระบบ NameMongkol</p>
             </div>
 
@@ -3551,7 +3551,7 @@ export const articles: Article[] = [
         slug: 'shadow-power-ayatana-6-meaning',
         title: 'พลังเงาและอายตนะ 6: ศาสตร์ลับที่คนอยากเปลี่ยนชื่อต้องรู้ (ก่อนจะสายเกินไป)',
         excerpt: 'ทำไมชื่อดีแต่ชีวิตยังติดขัด? รู้จักกับ "พลังเงา" และ "อายตนะ 6" แรงสั่นสะเทือนที่มองไม่เห็นแต่กำหนดชะตาชีวิตคุณมากกว่าที่คุณคิด',
-        coverImage: '/images/articles/shadow-power-ayatana-6-meaning.png',
+        coverImage: '/images/articles/shadow-power-ayatana-6-meaning.webp',
         coverImageAlt: 'พลังเงาและอายตนะ 6 ศาสตร์ลับการตั้งชื่อมงคล',
         date: '2026-01-31',
         author: 'อาจารย์ณัฐ (NameMongkol)',
@@ -3614,7 +3614,7 @@ export const articles: Article[] = [
         slug: 'micro-analysis-lucky-number-pairs',
         title: 'เจาะลึก "คู่เลขมงคล" (Micro-Analysis) สำคัญกว่าผลรวมอย่างไร?',
         excerpt: 'ทำไมผลรวมดีแต่อาจตกม้าตายเพราะ "คู่เลขเสีย"? มารู้จักการวิเคราะห์คู่เลข 00-99 ที่ละเอียดที่สุด เพื่อปิดรูรั่วดวงชะตา',
-        coverImage: '/images/articles/micro-analysis-lucky-number-pairs.png',
+        coverImage: '/images/articles/micro-analysis-lucky-number-pairs.webp',
         coverImageAlt: 'คู่เลขมงคล Micro-Analysis วิเคราะห์เลขศาสตร์เจาะลึก',
         date: '2026-01-31',
         author: 'ทีมงาน NameMongkol',
@@ -3663,7 +3663,7 @@ export const articles: Article[] = [
         slug: 'naming-style-evolution-5-generations',
         title: 'สไตล์การตั้งชื่อเปลี่ยนไปอย่างไร? เจาะลึกรสนิยม 5 Generation กับ "ชื่อมงคล"',
         excerpt: 'เจาะลึกวิวัฒนาการการตั้งชื่อมงคลจาก Baby Boomer สู่ Gen Alpha แต่ละยุคมีสไตล์และความเชื่อต่างกันอย่างไร พร้อมตัวอย่างชื่อมงคลที่เหมาะกับแต่ละรสนิยม',
-        coverImage: '/images/articles/naming-style-evolution-5-generations.png',
+        coverImage: '/images/articles/naming-style-evolution-5-generations.webp',
         coverImageAlt: 'วิวัฒนาการสไตล์การตั้งชื่อไทย 5 เจเนอเรชัน',
         date: '2026-01-30',
         author: 'ทีมงาน NameMongkol',
@@ -4034,7 +4034,7 @@ export const articles: Article[] = [
         slug: 'thai-chinese-naming-bazi-five-elements',
         title: 'ตั้งชื่อมงคลสไตล์จีน 2569: หลักปาจื้อ (Bazi) และธาตุทั้ง 5 สำหรับคนไทยเชื้อสายจีน',
         excerpt: 'เจาะลึกศาสตร์การตั้งชื่อแบบจีนที่ใช้หลักสมดุลธาตุทั้ง 5 (ดิน น้ำ ไม้ ไฟ ทอง) การนับขีดอักษรมงคล และเคล็ดลับตั้งชื่อตามปีนักษัตร ปีมะเมีย 2569',
-        coverImage: '/images/articles/thai-chinese-naming-bazi-five-elements-1771008331932.png',
+        coverImage: '/images/articles/thai-chinese-naming-bazi-five-elements-1771008331932.webp',
         coverImageAlt: 'ตั้งชื่อมงคลสไตล์จีน หลักปาจื้อและธาตุทั้ง 5 ปี 2569',
         date: '2026-01-27',
         author: 'ทีมงาน NameMongkol',
@@ -4407,7 +4407,7 @@ export const articles: Article[] = [
         slug: '100-auspicious-boy-names-2569',
         title: '100 ชื่อจริงลูกชาย ชื่อมงคล 2569 ความหมายดี เสริมบารมี งานรุ่ง เงินพุ่ง (อัปเดตล่าสุด)',
         excerpt: 'รวม 100 ชื่อจริงลูกชายมงคล ประจำปี 2569 คัดมาแล้วเน้นความหมายดี ไพเราะ ทันสมัย เสริมดวงการเงิน การงาน และบารมี พร้อมเทคนิคตั้งชื่อลูกชายให้เฮง',
-        coverImage: '/images/articles/100-auspicious-boy-names-2569.png',
+        coverImage: '/images/articles/100-auspicious-boy-names-2569.webp',
         coverImageAlt: '100 ชื่อมงคลลูกชาย 2569 ชื่อจริงความหมายดี เสริมดวง',
         date: '2026-01-27',
         author: 'ทีมงาน NameMongkol',
@@ -4984,7 +4984,7 @@ export const articles: Article[] = [
         slug: 'top-20-popular-thai-names-numerology-analysis',
         title: 'ผ่าดวง 20 ชื่อยอดฮิตตลอดกาลของไทย! ชื่อโหลหรือชื่อเฮง? วิเคราะห์ด้วยหลักเลขศาสตร์',
         excerpt: 'เผยสถิติ 20 ชื่อจริงคนไทยที่ใช้ซ้ำกันมากที่สุด พร้อมวิเคราะห์เลขศาสตร์ว่าชื่อเหล่านี้ "ดี" จริงหรือแค่นิยม? และถ้าชอบความหมายแบบ "สมชาย" แต่อยากได้ชื่อที่เลขดีกว่า ควรตั้งว่าอะไร?',
-        coverImage: '/images/articles/top-20-popular-thai-names-numerology-analysis.png',
+        coverImage: '/images/articles/top-20-popular-thai-names-numerology-analysis.webp',
         coverImageAlt: 'วิเคราะห์ 20 ชื่อยอดฮิตตลอดกาล ด้วยหลักเลขศาสตร์',
         date: '2026-01-24',
         author: 'ทีมวิเคราะห์ชื่อ NameMongkol',
@@ -5478,7 +5478,7 @@ export const articles: Article[] = [
         slug: 'free-999-auspicious-names-2568',
         title: 'แจกฟรี! 999 ชื่อมงคลประจำปี 2568 ความหมายดี พลิกชีวิต รับปีมะเส็งและมะเมีย',
         excerpt: 'รวมสุดยอดชื่อมงคลกว่า 999 ชื่อ คัดเน้นๆ เฉพาะเกรด A+ ความหมายดี เป็นสิริมงคล เสริมดวงการเงินและการงาน แจกฟรี! ไม่มีกั๊ก',
-        coverImage: '/images/articles/free-999-auspicious-names-2568.png',
+        coverImage: '/images/articles/free-999-auspicious-names-2568.webp',
         coverImageAlt: 'แจกฟรี 999 ชื่อมงคลประจำปี 2568 ความหมายดี',
         date: '2026-01-22',
         author: 'NameMongkol Editorial',
@@ -5567,7 +5567,7 @@ export const articles: Article[] = [
         slug: 'auspicious-phone-number-guide-2026',
         title: 'คู่มือเลือกและวิเคราะห์เบอร์มงคลด้วยตนเอง ฉบับสมบูรณ์ปี 2569: เปลี่ยนเลขรับปีมะเมียธาตุไฟ',
         excerpt: 'ปี 2569 ปีมะเมียธาตุไฟ เลือกเบอร์มงคลอย่างไรให้ปัง? เจาะลึก 4 ขั้นตอนวิเคราะห์เบอร์ด้วยตัวเอง คู่ลำดับ ผลรวม และกาลกิณีตามวันเกิด พร้อมเทรนด์เลขมหาเศรษฐีรับปีม้าทอง',
-        coverImage: '/images/articles/phone-guide-2026.png',
+        coverImage: '/images/articles/phone-guide-2026.webp',
         coverImageAlt: 'คู่มือเลือกและวิเคราะห์เบอร์มงคล 2026 เบอร์มือถือเสริมดวง',
         date: '2026-01-21',
         author: 'ทีมวิเคราะห์ชื่อ NameMongkol',
@@ -5665,7 +5665,7 @@ export const articles: Article[] = [
         slug: 'thai-naming-stats-2025-popular-initials',
         title: 'เจาะลึกสถิติชื่อไทยปี 2568: ตัวอักษรขึ้นต้นยอดนิยม และเทรนด์มหาทักษาที่คนไทยเลือกใช้มากที่สุด',
         excerpt: 'เผยสถิติชื่อมงคลปี 2568 อักษรตัวไหนมาแรง? ก, ธ, หรือ ณ? พร้อมเจาะลึกเทรนด์การตั้งชื่อปี 2569 ที่เน้น "ความหมาย" มากกว่า "ความคล้องจอง" วิเคราะห์โดยทีมงาน NameMongkol',
-        coverImage: '/images/articles/thai-naming-stats-2025-popular-initials.png',
+        coverImage: '/images/articles/thai-naming-stats-2025-popular-initials.webp',
         coverImageAlt: 'สถิติชื่อไทยปี 2568 ตัวอักษรยอดนิยม เทรนด์การตั้งชื่อ',
         date: '2026-01-20',
         author: 'ทีมวิเคราะห์ชื่อ NameMongkol',
@@ -5904,7 +5904,7 @@ export const articles: Article[] = [
                 <p class="text-xs text-pink-300/60 mt-4 relative z-10">ปลดล็อคพลังเสน่ห์ด้วยดีไซน์เฉพาะคุณ</p>
             </div>
         `,
-        coverImage: '/images/articles/unfavorable-love-numbers-guide.png',
+        coverImage: '/images/articles/unfavorable-love-numbers-guide.webp',
         coverImageAlt: 'คู่เลขอุปสรรคด้านความรัก เช็กเบอร์มือถือเสริมดวงความรัก',
         date: '2026-01-14',
         author: 'อ.ณัฐ นามมงคล',
@@ -5947,7 +5947,7 @@ export const articles: Article[] = [
 
             <p>หากคุณเคย <a href="/history" class="text-purple-400 hover:underline">ตรวจสอบประวัติการวิเคราะห์</a> แล้วพบว่าชื่อเดิมยังมีจุดบกพร่อง การพิจารณาเปลี่ยนชื่อใหม่หรือปรับแก้ให้ถูกต้องตามหลักทักษาปกรณ์อาจเป็นทางออกที่ช่วยพลิกฟื้นดวงชะตาของคุณได้</p>
         `,
-        coverImage: '/images/articles/naming-power-cover.png',
+        coverImage: '/images/articles/naming-power-cover.webp',
         coverImageAlt: 'พลังแห่งการตั้งชื่อ ชื่อมงคลเปลี่ยนชีวิต',
         date: '2026-01-05',
         author: 'อ.ณัฐ นามมงคล',
@@ -6234,7 +6234,7 @@ export const articles: Article[] = [
                 <a href="/articles/most-accurate-phone-number-analysis-2026" class="text-xs text-slate-400 hover:text-amber-400 underline">วิเคราะห์เบอร์แม่นยำที่สุด</a>
             </div>
         `,
-        coverImage: '/images/articles/baby-naming-2026.png',
+        coverImage: '/images/articles/baby-naming-2026.webp',
         coverImageAlt: '100 ชื่อมงคลลูกชายปีมะเมีย 2569 เสริมดวงปีม้า',
         date: '2026-01-19',
         author: 'NameMongkol Editorial',
@@ -6309,7 +6309,7 @@ export const articles: Article[] = [
                 </a>
             </div>
         `,
-        coverImage: '/images/articles/kalakini-warning.png',
+        coverImage: '/images/articles/kalakini-warning.webp',
         coverImageAlt: 'อักษรกาลกิณี สิ่งต้องห้ามที่ควรรู้ก่อนตั้งชื่อ',
         date: '2026-01-08',
         author: 'อ.วิเคราะห์ชื่อ',
@@ -6372,7 +6372,7 @@ export const articles: Article[] = [
                 </div>
             </div>
         `,
-        coverImage: '/images/articles/what-is-ayatana-6.png',
+        coverImage: '/images/articles/what-is-ayatana-6.webp',
         coverImageAlt: 'อายตนะ 6 คืออะไร ความหมายและความสำคัญในการตั้งชื่อ',
         date: '2026-01-11',
         author: 'อ.ณัฐ นามมงคล',
@@ -6590,7 +6590,7 @@ export const articles: Article[] = [
                 <p class="text-xs text-amber-500/60 mt-4 relative z-10">ออกแบบเฉพาะคุณตามศาสตร์ตัวเลขและสีมงคล (เริ่มต้นเพียง 29 บาท)</p>
             </div>
         `,
-        coverImage: '/images/articles/lucky-numbers-2569-guide.png',
+        coverImage: '/images/articles/lucky-numbers-2569-guide.webp',
         coverImageAlt: 'เลขมงคลตามวันเกิดปี 2569 คู่มือเลือกเลขเสริมดวง',
         date: '2026-01-12',
         author: 'NameMongkol Editorial',
@@ -6804,7 +6804,7 @@ export const articles: Article[] = [
                 <p class="text-xs text-slate-400 mt-4 relative z-10">ราคาพิเศษเพียงรูปละไม่กี่เครดิต! รองรับทุกหน้าจอ</p>
             </div>
         `,
-        coverImage: '/images/articles/auspicious-colors-2569.png',
+        coverImage: '/images/articles/auspicious-colors-2569.webp',
         coverImageAlt: 'สีมงคลตามวันเกิดปี 2569 ตารางสีเสริมดวง',
         date: '2026-01-12',
         author: 'NameMongkol Editorial',
@@ -6927,7 +6927,7 @@ export const articles: Article[] = [
                 </div>
             </div>
         `,
-        coverImage: '/images/articles/4-pillars-naming.png',
+        coverImage: '/images/articles/4-pillars-naming.webp',
         coverImageAlt: '4 ศาสตร์การตั้งชื่อมงคล เลขศาสตร์ ทักษา อายตนะ พลังเงา',
         date: '2026-01-13', // Future date to stay on top
         author: 'NameMongkol Editorial',
@@ -7120,7 +7120,7 @@ export const articles: Article[] = [
                  </div>
             </div>
         `,
-        coverImage: '/images/articles/numerology-0-9-power-guide.png',
+        coverImage: '/images/articles/numerology-0-9-power-guide.webp',
         coverImageAlt: 'เลขศาสตร์ 0-9 ความหมายและพลังของตัวเลข',
         date: '2026-01-14',
         author: 'NameMongkol Editorial',
@@ -7228,7 +7228,7 @@ export const articles: Article[] = [
             <h2 class="text-2xl font-bold text-white mt-10 mb-4">สรุป</h2>
             <p>การรู้จักอักษรกาลกิณีเป็นเพียงก้าวแรกของการมีชื่อที่มงคล การตั้งชื่อที่ดีควรพิจารณาทั้ง <strong>หลักทักษา</strong> (อักษรตามวันเกิด) และ <strong>หลักเลขศาสตร์</strong> (ผลรวมของชื่อ) ควบคู่กันไปเพื่อให้ได้ชื่อที่ส่งเสริมชีวิตคุณในทุกด้าน</p>
         `,
-        coverImage: '/images/articles/check-kalakini-letters-7-days.png',
+        coverImage: '/images/articles/check-kalakini-letters-7-days.webp',
         coverImageAlt: 'เช็คอักษรกาลกิณีตามวันเกิด 7 วัน',
         date: '2026-01-18',
         author: 'NameMongkol Editorial',
@@ -7379,7 +7379,7 @@ export const articles: Article[] = [
 
             <p class="italic text-slate-500 text-sm">*บทความนี้เรียบเรียงจากสถิติและการเก็บข้อมูลจริงของผู้ใช้เบอร์มงคลกว่า 50,000 ราย โดยทีมงาน NameMongkol</p>
         `,
-        coverImage: '/images/articles/most-accurate-phone-number-analysis-2026.png',
+        coverImage: '/images/articles/most-accurate-phone-number-analysis-2026.webp',
         coverImageAlt: 'วิเคราะห์เบอร์มงคลแม่นยำที่สุด 2026 เบอร์มือถือเสริมดวง',
         date: '2026-01-20',
         author: 'NameMongkol Data Team',
@@ -7540,7 +7540,7 @@ export const articles: Article[] = [
                 </a>
             </div>
         `,
-        coverImage: '/images/articles/what-is-shadow-power.png',
+        coverImage: '/images/articles/what-is-shadow-power.webp',
         coverImageAlt: 'พลังเงา Shadow Power คืออะไร ศาสตร์การตั้งชื่อ',
         date: '2026-01-21',
         author: 'Grandmaster NameMongkol',
@@ -7554,7 +7554,7 @@ export const articles: Article[] = [
         slug: 'caishen-wallpaper-free-download',
         title: 'แจกฟรี! วอลเปเปอร์มือถือ "เทพเจ้าไฉ่ซิงเอี๊ย" เสริมดวงการเงิน โชคลาภ จัดเต็มทุกปาง',
         excerpt: 'ดาวน์โหลดวอลเปเปอร์เทพเจ้าไฉ่ซิงเอี๊ย 4 สีมงคล ขนาด 9:16 สำหรับมือถือ เสริมดวงการเงิน โชคลาภ การค้า เฉพาะสมาชิก Namemongkol เท่านั้น',
-        coverImage: '/images/articles/caishen-wallpaper-free-download.png',
+        coverImage: '/images/articles/caishen-wallpaper-free-download.webp',
         coverImageAlt: 'แจกฟรีวอลเปเปอร์มือถือเทพเจ้าไฉ่ซิงเอี้ย เสริมดวงการเงิน',
         relatedSlugs: ['lucky-numbers-2569-guide', 'auspicious-colors-2569-guide'],
         date: '2026-02-05',
@@ -8339,7 +8339,7 @@ export const articles: Article[] = [
         slug: 'naming-baby-year-of-horse-2569',
         title: 'ตั้งชื่อลูกปีมะเมีย 2569 รวมไอเดียชื่อมงคล ความหมายดี เสริมชะตาลูกรักให้รุ่งโรจน์ (อัปเดตล่าสุด)',
         excerpt: 'คัมภีร์ตั้งชื่อลูกปีมะเมีย 2569 ครบทุกวันเกิด ทั้งลูกชายและลูกสาว อ้างอิงหลักทักษาปกรณ์ พร้อมไอเดียชื่อมงคลแยกตามหมวด เสริมดวงตรงจุด ให้ลูกน้อยเติบโตสง่างามดั่งม้าแสนรู้',
-        coverImage: '/images/articles/ตั้งชื่อลูกปีมะเมีย 2569 ชื่อมงคล.png',
+        coverImage: '/images/articles/ตั้งชื่อลูกปีมะเมีย 2569 ชื่อมงคล.webp',
         coverImageAlt: 'ตั้งชื่อลูกปีมะเมีย 2569 ชื่อมงคลตามหลักทักษาปกรณ์',
         date: '2026-03-24',
         dateModified: '2026-03-24',
@@ -8435,7 +8435,7 @@ export const articles: Article[] = [
 
         <figure class="mb-10 overflow-hidden rounded-2xl border border-slate-700/60 bg-slate-900/60 shadow-xl">
             <img
-                src="/images/articles/ภาพเนื้อหา.png"
+                src="/images/articles/ภาพเนื้อหา.webp"
                 alt="ตารางอักษรกาลกิณีต้องห้ามตั้งชื่อลูกปีมะเมีย 2569 แยกตามวันเกิด"
                 class="w-full h-auto object-cover"
                 loading="lazy"
@@ -8810,6 +8810,425 @@ export const articles: Article[] = [
         </div>
     </div>
 
+</div>
+        `
+    },
+    {
+        id: '36',
+        slug: 'lucky-cat-names-by-birthday-2026',
+        title: 'เคล็ดลับตั้งชื่อแมวมงคลตามวันเกิดเจ้าของ ปี 2569 (เสริมทรัพย์ รับโชค)',
+        excerpt: 'เปิดคัมภีร์ทักษาปกรณ์ตั้งชื่อแมวมงคลตามวันเกิดเจ้าของ ครบทั้ง 7 วัน+พุธกลางคืน พร้อมอักษรกาลกิณีที่ต้องเลี่ยง และ 80+ ไอเดียชื่อแมวเรียกทรัพย์ เสริมดวง ปี 2569',
+        coverImage: '/images/articles/lucky-cat-names-2026.webp',
+        coverImageAlt: 'เคล็ดลับตั้งชื่อแมวมงคลตามวันเกิดเจ้าของ ปี 2569 เสริมทรัพย์ รับโชค',
+        date: '2026-04-03',
+        author: 'อาจารย์ณัฐ (NameMongkol)',
+        category: 'ไลฟ์สไตล์มงคล',
+        keywords: [
+            'ตั้งชื่อแมวมงคล', 'ชื่อแมวมงคล 2569', 'ชื่อแมวเสริมดวง',
+            'ตั้งชื่อแมวตามวันเกิดเจ้าของ', 'ชื่อแมวเรียกทรัพย์',
+            'ชื่อแมวกวักเงินกวักทอง', 'อักษรกาลกิณี', 'ทักษาปกรณ์',
+            'ชื่อแมวนำโชค', 'ชื่อสัตว์เลี้ยงมงคล', 'Pet Humanization 2569',
+            'ชื่อแมวมงคลวันอาทิตย์', 'ชื่อแมวมงคลวันจันทร์',
+            'ชื่อแมวมงคลวันอังคาร', 'ชื่อแมวมงคลวันพุธ',
+            'ชื่อแมวมงคลวันพฤหัสบดี', 'ชื่อแมวมงคลวันศุกร์',
+            'ชื่อแมวมงคลวันเสาร์'
+        ],
+        metaTitle: 'ชื่อแมวมงคลตามวันเกิดเจ้าของ 2569 | 80+ ชื่อเสริมดวง NameMongkol',
+        metaDescription: 'เปิดคัมภีร์ทักษาปกรณ์ ตั้งชื่อแมวมงคลตามวันเกิดเจ้าของ 2569 ครบทั้ง 7 วัน พร้อมอักษรกาลกิณีที่ต้องเลี่ยง และ 80+ ไอเดียชื่อแมวเรียกทรัพย์ เสริมดวง',
+        relatedSlugs: ['17-auspicious-thai-cats-2569', 'forbidden-letters-kalakini', 'auspicious-names-by-birthday-2026', 'change-name-destiny-tuning-2569'],
+        dateModified: '2026-04-03',
+        toc: [
+            { title: 'ทำไม "ชื่อแมว" ถึงส่งผลต่อดวงเจ้าของ?', id: 'why-cat-names-matter', level: 2 },
+            { title: 'หลักการตั้งชื่อแมวตามทักษาปกรณ์', id: 'taksaprakorn-principles', level: 2 },
+            { title: 'ชื่อแมวมงคล — เจ้าของเกิดวันอาทิตย์', id: 'sunday', level: 2 },
+            { title: 'ชื่อแมวมงคล — เจ้าของเกิดวันจันทร์', id: 'monday', level: 2 },
+            { title: 'ชื่อแมวมงคล — เจ้าของเกิดวันอังคาร', id: 'tuesday', level: 2 },
+            { title: 'ชื่อแมวมงคล — เจ้าของเกิดวันพุธ (กลางวัน)', id: 'wednesday-day', level: 2 },
+            { title: 'ชื่อแมวมงคล — เจ้าของเกิดวันพุธ (กลางคืน)', id: 'wednesday-night', level: 2 },
+            { title: 'ชื่อแมวมงคล — เจ้าของเกิดวันพฤหัสบดี', id: 'thursday', level: 2 },
+            { title: 'ชื่อแมวมงคล — เจ้าของเกิดวันศุกร์', id: 'friday', level: 2 },
+            { title: 'ชื่อแมวมงคล — เจ้าของเกิดวันเสาร์', id: 'saturday', level: 2 },
+            { title: 'ตารางสรุป: อักษรกาลกิณีทั้ง 8 วัน', id: 'kalakini-summary-table', level: 2 },
+            { title: 'เคล็ดลับเพิ่มเติมจากอาจารย์ณัฐ', id: 'bonus-tips', level: 2 },
+            { title: 'สรุป', id: 'conclusion', level: 2 },
+            { title: 'FAQ: คำถามที่พบบ่อย', id: 'faq', level: 2 }
+        ],
+        faqItems: [
+            {
+                question: 'ตั้งชื่อแมวมงคลตามวันเกิดเจ้าของ มีหลักการอย่างไร?',
+                answer: 'ใช้หลัก "ทักษาปกรณ์" เดียวกับการตั้งชื่อคน โดยดูวันเกิดเจ้าของเป็นหลัก เลือกอักษรที่อยู่ในหมวดมงคล และหลีกเลี่ยงอักษรกาลกิณีประจำวันเกิด เพราะทุกครั้งที่เราเรียกชื่อน้องแมว พลังงานเสียงจะสะท้อนกลับมาหาเจ้าของโดยตรง'
+            },
+            {
+                question: 'ชื่อแมวที่ไม่ได้ตั้งตามหลักมงคล มีผลเสียหรือไม่?',
+                answer: 'ไม่ถึงขั้นเป็นผลร้ายแรง แต่ถ้าชื่อนั้นบังเอิญมีอักษรกาลกิณีตรงกับวันเกิดเจ้าของ อาจทำให้พลังงานเสียงที่เรียกทุกวันไม่ส่งเสริมดวงชะตาเท่าที่ควร การเปลี่ยนมาใช้ชื่อที่เป็นมงคลจึงเป็นกุศโลบายที่ดีในการเสริมพลังบวกให้ชีวิตประจำวัน'
+            },
+            {
+                question: 'ถ้าแมวมีชื่อเดิมอยู่แล้ว เปลี่ยนได้ไหม?',
+                answer: 'เปลี่ยนได้ครับ แมวจดจำเสียงและน้ำเสียง ไม่ได้ยึดตัวอักษร วิธีปรับคือ ค่อยๆ เรียกชื่อใหม่คู่กับชื่อเดิมสัก 1-2 สัปดาห์ แล้วค่อยๆ ตัดชื่อเก่าออก น้องจะปรับตัวได้เร็วมาก โดยเฉพาะถ้าใช้ชื่อใหม่คู่กับของกินที่ชอบ'
+            },
+            {
+                question: 'ชื่อแมวภาษาอังกฤษใช้หลักนี้ได้ไหม?',
+                answer: 'ได้ครับ! หลักสำคัญคือ "เสียง" ที่เราเรียก ไม่ใช่ตัวสะกดภาษาไทยอย่างเดียว ชื่อภาษาอังกฤษก็ใช้ได้ แต่ให้เน้นความหมายเชิงบวก เช่น Lucky, Money, Happy และหลีกเลี่ยงชื่อที่เมื่อถอดเสียงไทยแล้วไปตรงกับอักษรกาลกิณีของวันเกิดเจ้าของ'
+            },
+            {
+                question: 'ควรวิเคราะห์ชื่อแมวกี่ชื่อก่อนตัดสินใจ?',
+                answer: 'แนะนำ 3-5 ชื่อครับ นำมาเช็กผ่านระบบวิเคราะห์ชื่อที่ namemongkol.com เพื่อดูคะแนนรวมและความหมายเชิงลึก แล้วเลือกชื่อที่ได้คะแนนสูงสุดและถูกใจทั้งเจ้าของและน้องแมว'
+            },
+            {
+                question: 'คนเกิดวันพุธต้องดูเวลาเกิดด้วยหรือไม่?',
+                answer: 'ใช่ครับ คนเกิดวันพุธแบ่งเป็น 2 กลุ่มชัดเจน คือ พุธกลางวัน (06.00-17.59 น.) กับ พุธกลางคืน (18.00-05.59 น.) ทั้งสองกลุ่มมีอักษรกาลกิณีต่างกันโดยสิ้นเชิง จึงต้องเช็กเวลาเกิดให้แน่ใจก่อนตั้งชื่อ'
+            }
+        ],
+        content: `
+<div class="space-y-10">
+
+    <!-- Hero / บทนำ -->
+    <div id="why-cat-names-matter">
+        <p class="text-xl text-slate-300 leading-relaxed mb-6">
+            ในปี 2569 ที่เทรนด์ <strong class="text-amber-400">"Pet Humanization"</strong> กำลังมาแรง ทาสแมวอย่างเราไม่ได้มองน้องเป็นแค่สัตว์เลี้ยง แต่น้องคือ<strong class="text-white">สมาชิกคนสำคัญในครอบครัว!</strong> ไม่ว่าคุณจะเพิ่งได้น้องแมวมาจากฟาร์มชื่อดัง หรือไปรับอุปการะจากเว็บไซต์หาบ้านให้สัตว์จรจัด การเริ่มต้นชีวิตใหม่ด้วย <strong class="text-emerald-400">"ชื่อที่เป็นมงคล"</strong> คือสิ่งสำคัญที่สุด
+        </p>
+
+        <div class="bg-gradient-to-r from-amber-500/10 to-transparent border-l-4 border-amber-500 p-6 rounded-r-xl mb-8">
+            <p class="text-amber-200 font-medium mb-3">🐱 ทำไมชื่อแมวถึงส่งผลต่อดวงเจ้าของ?</p>
+            <p class="text-slate-300 text-sm leading-relaxed">
+                ในทาง<strong class="text-white">นามศาสตร์</strong> ทุกครั้งที่เราเรียกชื่อน้องแมว เสียงที่เปล่งออกมาจะสร้าง<strong class="text-amber-300">คลื่นพลังงาน</strong>ที่สะท้อนกลับมาหาตัวผู้เรียก หากชื่อนั้นประกอบด้วยอักษรมงคลตรงกับวันเกิดเจ้าของ ทุกครั้งที่เรียก "น้องนำโชค" หรือ "น้องถุงเงิน" ก็เท่ากับเรากำลัง<strong class="text-emerald-400">เสกคาถาเรียกทรัพย์ให้ตัวเอง</strong>วันละหลายสิบรอบ! ในทางกลับกัน หากชื่อมีอักษรกาลกิณี ก็อาจส่งพลังงานลบกลับมาโดยไม่รู้ตัว
+            </p>
+        </div>
+
+        <p class="text-slate-300 leading-relaxed mb-6">
+            ที่ <a href="/" class="text-amber-400 hover:underline font-semibold">namemongkol.com</a> เราขอเปิดคัมภีร์ <strong class="text-white">"ทักษาปกรณ์"</strong> เคล็ดลับการตั้งชื่อแมวให้เสริมดวงเจ้าของ ช่วย<strong class="text-amber-300">กวักเงิน กวักทอง</strong> และเลี่ยงอักษรกาลกิณีตามวันเกิด มาดูกันว่าคนเกิดวันไหน ควรตั้งชื่อเจ้านายสี่ขาว่าอะไรบ้าง!
+        </p>
+    </div>
+
+    <!-- หลักการตั้งชื่อ -->
+    <div id="taksaprakorn-principles" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 md:p-8 rounded-2xl border border-amber-500/20 shadow-lg">
+        <h2 class="text-2xl font-bold text-amber-400 flex items-center gap-2 mb-4">
+            <span class="text-3xl">📖</span> หลักการตั้งชื่อแมวตามทักษาปกรณ์
+        </h2>
+        <p class="text-slate-300 leading-relaxed mb-4">
+            <strong class="text-white">ทักษาปกรณ์</strong> คือระบบจัดหมวดหมู่อักษรไทยตามวันเกิด แบ่งเป็น 8 หมวด ได้แก่ <strong class="text-emerald-400">บริวาร อายุ เดช ศรี มูละ อุตสาหะ มนตรี</strong> และ <strong class="text-red-400">กาลกิณี</strong> โดยหลักการสำคัญคือ:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-emerald-900/30 p-4 rounded-xl border border-emerald-500/20">
+                <p class="text-emerald-400 font-bold mb-2">✅ สิ่งที่ควรทำ</p>
+                <ul class="text-slate-300 text-sm space-y-1">
+                    <li>• เลือกอักษรในหมวด <strong class="text-white">ศรี</strong> (เสริมทรัพย์) หรือ <strong class="text-white">เดช</strong> (เสริมอำนาจ)</li>
+                    <li>• เน้นชื่อที่มี<strong class="text-white">ความหมายเชิงบวก</strong> เรียกแล้วรู้สึกดี</li>
+                    <li>• ชื่อสั้น 2-3 พยางค์ เรียกง่าย น้องแมวจำได้เร็ว</li>
+                </ul>
+            </div>
+            <div class="bg-red-900/30 p-4 rounded-xl border border-red-500/20">
+                <p class="text-red-400 font-bold mb-2">❌ สิ่งที่ต้องเลี่ยง</p>
+                <ul class="text-slate-300 text-sm space-y-1">
+                    <li>• หลีกเลี่ยง<strong class="text-white">อักษรกาลกิณี</strong>ประจำวันเกิดเจ้าของ</li>
+                    <li>• ไม่ตั้งชื่อที่มีความหมายเชิงลบ เช่น อาถรรพ์ โศก</li>
+                    <li>• ไม่ใช้ชื่อเลียนแบบคำสั่ง เช่น "ไม่" "หยุด" (น้องสับสน)</li>
+                </ul>
+            </div>
+        </div>
+        <p class="text-slate-400 text-sm italic">💡 ทั้งชื่อไทยและชื่ออังกฤษใช้ได้ หลักสำคัญคือ "เสียง" ที่เราเรียกและ "ความหมาย" ที่ส่งพลังบวกกลับมาหาผู้เรียก</p>
+    </div>
+
+    <!-- ============ วันอาทิตย์ ============ -->
+    <div id="sunday" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-orange-500/30 shadow-lg">
+        <h2 class="text-2xl font-bold text-orange-400 flex items-center gap-2 mb-3">
+            <span class="text-3xl">☀️</span> ชื่อแมวมงคล สำหรับเจ้าของเกิดวันอาทิตย์
+        </h2>
+        <p class="text-slate-300 leading-relaxed mb-2">
+            คนเกิดวันอาทิตย์เป็นคน<strong class="text-white">ธาตุไฟ</strong> มีความเป็นผู้นำสูง เป้าหมายชัดเจน ชื่อแมวควรเน้นเสริมเรื่อง<strong class="text-amber-300">โชคลาภและความมั่นคง</strong>
+        </p>
+        <div class="bg-red-900/30 p-3 rounded-lg border border-red-500/20 mb-4">
+            <p class="text-red-400 font-semibold text-sm">❌ อักษรกาลกิณี: ศ ษ ส ห ฬ</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">นำโชค</strong> <span class="text-slate-400 text-sm">— ดึงดูดสิ่งดีๆ เข้ามาในบ้าน</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">ถุงเงิน</strong> <span class="text-slate-400 text-sm">— เก็บทรัพย์ให้อยู่หมัด</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">มั่งมี</strong> <span class="text-slate-400 text-sm">— เสริมความมั่งคั่งให้เจ้าของ</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">จินเจอร์</strong> <span class="text-slate-400 text-sm">— ความสดใส พลังงานบวก</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">ทองหยิบ</strong> <span class="text-slate-400 text-sm">— หยิบจับอะไรก็เป็นเงินเป็นทอง</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">ปันปัน</strong> <span class="text-slate-400 text-sm">— มีกินมีใช้จนเผื่อแผ่ได้</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">มันนี่</strong> <span class="text-slate-400 text-sm">— Money ตรงตัว เรียกทรัพย์</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">ตังตัง</strong> <span class="text-slate-400 text-sm">— เรียกเงินเข้ากระเป๋าทุกวัน</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">บารมี</strong> <span class="text-slate-400 text-sm">— เสริมอำนาจให้ผู้เลี้ยง</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">รวยรวย</strong> <span class="text-slate-400 text-sm">— ชื่อตรงไปตรงมา ได้ผลดีเยี่ยม!</span></div>
+        </div>
+    </div>
+
+    <!-- ============ วันจันทร์ ============ -->
+    <div id="monday" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-yellow-500/30 shadow-lg">
+        <h2 class="text-2xl font-bold text-yellow-300 flex items-center gap-2 mb-3">
+            <span class="text-3xl">🌙</span> ชื่อแมวมงคล สำหรับเจ้าของเกิดวันจันทร์
+        </h2>
+        <p class="text-slate-300 leading-relaxed mb-2">
+            คนวันจันทร์มีเสน่ห์ อ่อนโยน ตามหลักแล้วตัวอักษรกาลกิณีคือ <strong class="text-white">"สระทั้งหมด"</strong> ดังนั้นทริคในการตั้งชื่อคือ <strong class="text-amber-300">"การใช้คำที่สะกดด้วยพยัญชนะล้วน"</strong> จะเป็นมงคลสูงสุด
+        </p>
+        <div class="bg-red-900/30 p-3 rounded-lg border border-red-500/20 mb-4">
+            <p class="text-red-400 font-semibold text-sm">❌ อักษรกาลกิณี: อ และ สระทั้งหมด (ะ า ิ ี ุ ู เ แ โ ฯลฯ)</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-yellow-300">มงคล</strong> <span class="text-slate-400 text-sm">— ชื่อคลาสสิก เป็นสิริมงคลสูงสุด</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-yellow-300">พลอย</strong> <span class="text-slate-400 text-sm">— เสริมความงามและทรัพย์</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-yellow-300">ทรัพย์</strong> <span class="text-slate-400 text-sm">— ดึงดูดความมั่งคั่ง</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-yellow-300">พรรณ</strong> <span class="text-slate-400 text-sm">— ความสวยงาม เสน่ห์เมตตา</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-yellow-300">ธรรม</strong> <span class="text-slate-400 text-sm">— ความสงบร่มเย็นในบ้าน</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-yellow-300">ชล</strong> <span class="text-slate-400 text-sm">— ความร่มเย็นดั่งสายน้ำ</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-yellow-300">นพ</strong> <span class="text-slate-400 text-sm">— สิ่งประเสริฐทั้งเก้า</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-yellow-300">ตรัย</strong> <span class="text-slate-400 text-sm">— ความมั่นคง</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-yellow-300">พล</strong> <span class="text-slate-400 text-sm">— เสริมพลังกายและใจ</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-yellow-300">สรรพ</strong> <span class="text-slate-400 text-sm">— ความสมบูรณ์พูนสุข</span></div>
+        </div>
+    </div>
+
+    <!-- ============ วันอังคาร ============ -->
+    <div id="tuesday" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-pink-500/30 shadow-lg">
+        <h2 class="text-2xl font-bold text-pink-400 flex items-center gap-2 mb-3">
+            <span class="text-3xl">🔥</span> ชื่อแมวมงคล สำหรับเจ้าของเกิดวันอังคาร
+        </h2>
+        <p class="text-slate-300 leading-relaxed mb-2">
+            คนวันอังคารเป็น<strong class="text-white">นักสู้ ใจกล้า</strong> ควรตั้งชื่อน้องแมวที่เสริมเรื่องความน่าเอ็นดู ลดทอนอุปสรรค และดึงดูดโชคลาภ
+        </p>
+        <div class="bg-red-900/30 p-3 rounded-lg border border-red-500/20 mb-4">
+            <p class="text-red-400 font-semibold text-sm">❌ อักษรกาลกิณี: ก ข ค ฆ ง</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-pink-300">เศรษฐี</strong> <span class="text-slate-400 text-sm">— ยกระดับฐานะเจ้าของ</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-pink-300">น้ำชา</strong> <span class="text-slate-400 text-sm">— เสริมความใจเย็น ร่มรื่น</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-pink-300">อั่งเปา</strong> <span class="text-slate-400 text-sm">— ของขวัญและโชคลาภ</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-pink-300">โมจิ</strong> <span class="text-slate-400 text-sm">— ความน่ารักน่าเอ็นดู</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-pink-300">มายด์</strong> <span class="text-slate-400 text-sm">— ความสุขทางใจ</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-pink-300">ส้มจี๊ด</strong> <span class="text-slate-400 text-sm">— ความร่าเริง สดใส</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-pink-300">เปปเปอร์</strong> <span class="text-slate-400 text-sm">— เสริมความกระตือรือร้น</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-pink-300">ชาบู</strong> <span class="text-slate-400 text-sm">— ความอุดมสมบูรณ์ มีกินมีใช้</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-pink-300">ลาเต้</strong> <span class="text-slate-400 text-sm">— ความกลมกล่อมในชีวิต</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-pink-300">ทรัพย์มณี</strong> <span class="text-slate-400 text-sm">— แก้วแหวนเงินทอง</span></div>
+        </div>
+    </div>
+
+    <!-- ============ วันพุธ (กลางวัน) ============ -->
+    <div id="wednesday-day" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-green-500/30 shadow-lg">
+        <h2 class="text-2xl font-bold text-green-400 flex items-center gap-2 mb-3">
+            <span class="text-3xl">🍃</span> ชื่อแมวมงคล สำหรับเจ้าของเกิดวันพุธ (กลางวัน)
+        </h2>
+        <p class="text-slate-300 leading-relaxed mb-2">
+            คนเกิดพุธกลางวัน (06.00 - 17.59 น.) มี<strong class="text-white">วาทศิลป์เป็นเลิศ</strong> ชื่อแมวควรส่งเสริมเรื่อง<strong class="text-amber-300">การเจรจาและการค้าขาย</strong>
+        </p>
+        <div class="bg-red-900/30 p-3 rounded-lg border border-red-500/20 mb-4">
+            <p class="text-red-400 font-semibold text-sm">❌ อักษรกาลกิณี: จ ฉ ช ซ ฌ ญ</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-300">ถุงเงิน</strong> <span class="text-slate-400 text-sm">— เก็บเงินทองไม่ให้รั่วไหล</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-300">นับตังค์</strong> <span class="text-slate-400 text-sm">— มีรายรับเข้ามาให้ได้นับตลอด</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-300">มั่งคั่ง</strong> <span class="text-slate-400 text-sm">— เสริมฐานะให้เติบโต</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-300">พารวย</strong> <span class="text-slate-400 text-sm">— เลี้ยงแล้วพากันรวย</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-300">สมหวัง</strong> <span class="text-slate-400 text-sm">— คิดสิ่งใดก็ราบรื่น</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-300">ข้าวหอม</strong> <span class="text-slate-400 text-sm">— ความอุดมสมบูรณ์ ดึงดูดคนรักใคร่</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-300">ลาภลอย</strong> <span class="text-slate-400 text-sm">— ได้โชคลาภแบบไม่คาดฝัน</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-300">สกาย</strong> <span class="text-slate-400 text-sm">— ความก้าวหน้า ไร้ขีดจำกัด</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-300">มีตัง</strong> <span class="text-slate-400 text-sm">— ชื่อสั้นๆ แต่นัยยะดีมาก</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-300">ถังทอง</strong> <span class="text-slate-400 text-sm">— เก็บทรัพย์ก้อนใหญ่</span></div>
+        </div>
+    </div>
+
+    <!-- ============ วันพุธ (กลางคืน) ============ -->
+    <div id="wednesday-night" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-green-700/30 shadow-lg">
+        <h2 class="text-2xl font-bold text-green-600 flex items-center gap-2 mb-3">
+            <span class="text-3xl">🌑</span> ชื่อแมวมงคล สำหรับเจ้าของเกิดวันพุธ (กลางคืน)
+        </h2>
+        <p class="text-slate-300 leading-relaxed mb-2">
+            คนเกิดพุธกลางคืน (18.00 - 05.59 น.) มี<strong class="text-white">ไหวพริบยอดเยี่ยม</strong> ควรตั้งชื่อแมวที่เสริมเรื่อง<strong class="text-amber-300">ผู้อุปถัมภ์และบารมี</strong>
+        </p>
+        <div class="bg-red-900/30 p-3 rounded-lg border border-red-500/20 mb-4">
+            <p class="text-red-400 font-semibold text-sm">❌ อักษรกาลกิณี: บ ป ผ ฝ พ ฟ ม</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-400">นำโชค</strong> <span class="text-slate-400 text-sm">— ดึงดูดโชคลาภเข้าหาตัว</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-400">สตางค์</strong> <span class="text-slate-400 text-sm">— เงินทองไม่ขาดมือ</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-400">เฮงเฮง</strong> <span class="text-slate-400 text-sm">— ความโชคดีทวีคูณ</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-400">จินเจอร์</strong> <span class="text-slate-400 text-sm">— ความมีชีวิตชีวา</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-400">โชคดี</strong> <span class="text-slate-400 text-sm">— เสริมดวงชะตาให้ราบรื่น</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-400">ออเจ้า</strong> <span class="text-slate-400 text-sm">— เป็นที่รัก ที่เอ็นดูของผู้ใหญ่</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-400">สิงโต</strong> <span class="text-slate-400 text-sm">— เสริมอำนาจและบารมี</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-400">ถังเงิน</strong> <span class="text-slate-400 text-sm">— ทรัพย์สินพอกพูน</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-400">ชาญ</strong> <span class="text-slate-400 text-sm">— ความฉลาดหลักแหลม</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-green-400">รวยรวย</strong> <span class="text-slate-400 text-sm">— เสริมฐานะโดยตรง</span></div>
+        </div>
+    </div>
+
+    <!-- ============ วันพฤหัสบดี ============ -->
+    <div id="thursday" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-amber-500/30 shadow-lg">
+        <h2 class="text-2xl font-bold text-amber-400 flex items-center gap-2 mb-3">
+            <span class="text-3xl">🎓</span> ชื่อแมวมงคล สำหรับเจ้าของเกิดวันพฤหัสบดี
+        </h2>
+        <p class="text-slate-300 leading-relaxed mb-2">
+            คนวันพฤหัสบดีมี<strong class="text-white">เหตุผลและสติปัญญาดี</strong> ควรใช้ชื่อแมวที่ฟังดูอบอุ่น เป็นมิตร และเสริมทรัพย์
+        </p>
+        <div class="bg-red-900/30 p-3 rounded-lg border border-red-500/20 mb-4">
+            <p class="text-red-400 font-semibold text-sm">❌ อักษรกาลกิณี: ด ต ถ ท ธ น</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">ร่ำรวย</strong> <span class="text-slate-400 text-sm">— เสริมความมั่งคั่ง</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">มั่งมี</strong> <span class="text-slate-400 text-sm">— มีพร้อมทุกสิ่ง</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">สมพงษ์</strong> <span class="text-slate-400 text-sm">— ความเข้ากันได้ดี เสริมดวงคู่กัน</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">โชค</strong> <span class="text-slate-400 text-sm">— ดึงดูดโชคลาภ</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">หอม</strong> <span class="text-slate-400 text-sm">— ชื่อเสียงดี มีคนรัก</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">บารมี</strong> <span class="text-slate-400 text-sm">— คนเกรงใจ ให้ความเคารพ</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">เป๋าเป้</strong> <span class="text-slate-400 text-sm">— ทรัพย์สินเต็มกระเป๋า</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">ชูใจ</strong> <span class="text-slate-400 text-sm">— เป็นกำลังใจให้เจ้าของ</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">มูมู่</strong> <span class="text-slate-400 text-sm">— ความน่ารักน่าเอ็นดู</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-amber-300">แชมป์</strong> <span class="text-slate-400 text-sm">— ความสำเร็จ เป็นที่หนึ่ง</span></div>
+        </div>
+    </div>
+
+    <!-- ============ วันศุกร์ ============ -->
+    <div id="friday" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-cyan-500/30 shadow-lg">
+        <h2 class="text-2xl font-bold text-cyan-400 flex items-center gap-2 mb-3">
+            <span class="text-3xl">✨</span> ชื่อแมวมงคล สำหรับเจ้าของเกิดวันศุกร์
+        </h2>
+        <p class="text-slate-300 leading-relaxed mb-2">
+            คนวันศุกร์<strong class="text-white">รักสวยรักงาม มีศิลปะในหัวใจ</strong> ควรเน้นชื่อแมวที่เสริม<strong class="text-amber-300">เสน่ห์และบริวารที่ดี</strong>
+        </p>
+        <div class="bg-red-900/30 p-3 rounded-lg border border-red-500/20 mb-4">
+            <p class="text-red-400 font-semibold text-sm">❌ อักษรกาลกิณี: ย ร ล ว</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-cyan-300">ปังปัง</strong> <span class="text-slate-400 text-sm">— ทำอะไรก็สำเร็จ โด่งดัง</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-cyan-300">กะทิ</strong> <span class="text-slate-400 text-sm">— ความหอมหวาน ราบรื่น</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-cyan-300">แฮปปี้</strong> <span class="text-slate-400 text-sm">— นำพาความสุขมาให้ครอบครัว</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-cyan-300">โดนัท</strong> <span class="text-slate-400 text-sm">— ความสมบูรณ์ ไม่มีจุดสิ้นสุด</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-cyan-300">ข้าวต้ม</strong> <span class="text-slate-400 text-sm">— กินอิ่มนอนหลับ สุขภาพดี</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-cyan-300">ถุงเงิน</strong> <span class="text-slate-400 text-sm">— เก็บทรัพย์ให้อยู่</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-cyan-300">มั่งมี</strong> <span class="text-slate-400 text-sm">— พรั่งพร้อมไปด้วยเงินทอง</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-cyan-300">นำโชค</strong> <span class="text-slate-400 text-sm">— เป็นแมวกวักประจำบ้าน</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-cyan-300">ชาบู</strong> <span class="text-slate-400 text-sm">— ความอุดมสมบูรณ์</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-cyan-300">ส้มจี๊ด</strong> <span class="text-slate-400 text-sm">— สร้างสีสันและพลังบวก</span></div>
+        </div>
+    </div>
+
+    <!-- ============ วันเสาร์ ============ -->
+    <div id="saturday" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-purple-500/30 shadow-lg">
+        <h2 class="text-2xl font-bold text-purple-400 flex items-center gap-2 mb-3">
+            <span class="text-3xl">⚓</span> ชื่อแมวมงคล สำหรับเจ้าของเกิดวันเสาร์
+        </h2>
+        <p class="text-slate-300 leading-relaxed mb-2">
+            คนวันเสาร์มี<strong class="text-white">ความหนักแน่น อดทนสูง</strong> ชื่อแมวควรเสริมเรื่องความสำเร็จที่ได้มาโดยง่าย และเสริมบารมี (กลุ่มอักษรกาลกิณีมีน้อย จึงตั้งชื่อได้หลากหลายมาก!)
+        </p>
+        <div class="bg-red-900/30 p-3 rounded-lg border border-red-500/20 mb-4">
+            <p class="text-red-400 font-semibold text-sm">❌ อักษรกาลกิณี: ฎ ฏ ฐ ฑ ฒ ณ (อักษรเหล่านี้ใช้น้อยอยู่แล้ว จึงตั้งชื่อได้สะดวก)</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-purple-300">เจ้าสัว</strong> <span class="text-slate-400 text-sm">— เสริมฐานะให้เป็นเศรษฐี</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-purple-300">เฮงเฮง</strong> <span class="text-slate-400 text-sm">— รับโชค รับทรัพย์ต่อเนื่อง</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-purple-300">สมบัติ</strong> <span class="text-slate-400 text-sm">— แมวคือขุมทรัพย์ของบ้าน</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-purple-300">เพชร</strong> <span class="text-slate-400 text-sm">— สูงค่า แข็งแกร่ง</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-purple-300">ร่ำรวย</strong> <span class="text-slate-400 text-sm">— เรียกเงินเรียกทอง</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-purple-300">นำโชค</strong> <span class="text-slate-400 text-sm">— เสริมดวงเรื่องการเสี่ยงทาย</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-purple-300">ถุงทอง</strong> <span class="text-slate-400 text-sm">— ความมั่งคั่งบริบูรณ์</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-purple-300">มั่งคั่ง</strong> <span class="text-slate-400 text-sm">— ธุรกิจการค้าเจริญก้าวหน้า</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-purple-300">บารมี</strong> <span class="text-slate-400 text-sm">— เสริมความน่าเกรงขาม</span></div>
+            <div class="bg-slate-950/50 p-3 rounded-lg"><strong class="text-purple-300">พารวย</strong> <span class="text-slate-400 text-sm">— เลี้ยงแล้วชีวิตพุ่งกระฉูด</span></div>
+        </div>
+    </div>
+
+    <!-- ============ ตารางสรุป ============ -->
+    <div id="kalakini-summary-table" class="bg-gradient-to-br from-slate-800 to-slate-900 p-6 md:p-8 rounded-2xl border border-slate-600/30 shadow-lg">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2 mb-4">
+            <span class="text-3xl">📊</span> ตารางสรุป: อักษรกาลกิณีทั้ง 8 วันเกิด
+        </h2>
+        <p class="text-slate-400 text-sm mb-4">ก่อนตั้งชื่อน้องแมว ให้เช็กตารางนี้ก่อนเสมอ เพื่อให้แน่ใจว่าไม่มีอักษรต้องห้ามปนอยู่ในชื่อ</p>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-slate-600">
+                        <th class="p-3 text-amber-400 font-bold">วันเกิด</th>
+                        <th class="p-3 text-red-400 font-bold">อักษรกาลกิณี (ห้ามใช้)</th>
+                        <th class="p-3 text-emerald-400 font-bold">แนวทางตั้งชื่อ</th>
+                    </tr>
+                </thead>
+                <tbody class="text-slate-300">
+                    <tr class="border-b border-slate-700/50"><td class="p-3 text-orange-400 font-semibold">☀️ อาทิตย์</td><td class="p-3"><code class="text-red-300">ศ ษ ส ห ฬ</code></td><td class="p-3">เน้นโชคลาภ ความมั่นคง</td></tr>
+                    <tr class="border-b border-slate-700/50"><td class="p-3 text-yellow-300 font-semibold">🌙 จันทร์</td><td class="p-3"><code class="text-red-300">อ + สระทั้งหมด</code></td><td class="p-3">พยัญชนะล้วน (ทริคสำคัญ!)</td></tr>
+                    <tr class="border-b border-slate-700/50"><td class="p-3 text-pink-400 font-semibold">🔥 อังคาร</td><td class="p-3"><code class="text-red-300">ก ข ค ฆ ง</code></td><td class="p-3">เน้นน่าเอ็นดู ลดอุปสรรค</td></tr>
+                    <tr class="border-b border-slate-700/50"><td class="p-3 text-green-400 font-semibold">🍃 พุธ (กลางวัน)</td><td class="p-3"><code class="text-red-300">จ ฉ ช ซ ฌ ญ</code></td><td class="p-3">เน้นการเจรจา การค้าขาย</td></tr>
+                    <tr class="border-b border-slate-700/50"><td class="p-3 text-green-600 font-semibold">🌑 พุธ (กลางคืน)</td><td class="p-3"><code class="text-red-300">บ ป ผ ฝ พ ฟ ม</code></td><td class="p-3">เน้นผู้อุปถัมภ์ บารมี</td></tr>
+                    <tr class="border-b border-slate-700/50"><td class="p-3 text-amber-400 font-semibold">🎓 พฤหัสบดี</td><td class="p-3"><code class="text-red-300">ด ต ถ ท ธ น</code></td><td class="p-3">เน้นอบอุ่น เป็นมิตร เสริมทรัพย์</td></tr>
+                    <tr class="border-b border-slate-700/50"><td class="p-3 text-cyan-400 font-semibold">✨ ศุกร์</td><td class="p-3"><code class="text-red-300">ย ร ล ว</code></td><td class="p-3">เน้นเสน่ห์ บริวารที่ดี</td></tr>
+                    <tr><td class="p-3 text-purple-400 font-semibold">⚓ เสาร์</td><td class="p-3"><code class="text-red-300">ฎ ฏ ฐ ฑ ฒ ณ</code></td><td class="p-3">ตั้งชื่อได้หลากหลาย เสริมบารมี</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ============ เคล็ดลับเพิ่มเติม ============ -->
+    <div id="bonus-tips" class="bg-gradient-to-br from-amber-900/20 to-slate-900 p-6 md:p-8 rounded-2xl border border-amber-500/30 shadow-lg">
+        <h2 class="text-2xl font-bold text-amber-400 flex items-center gap-2 mb-4">
+            <span class="text-3xl">💎</span> เคล็ดลับเพิ่มเติมจากอาจารย์ณัฐ
+        </h2>
+        <div class="space-y-4">
+            <div class="bg-slate-800/60 p-4 rounded-xl">
+                <p class="text-white font-bold mb-1">1. ชื่อสั้น 2-3 พยางค์ ดีที่สุด</p>
+                <p class="text-slate-400 text-sm">แมวตอบสนองต่อเสียงสั้นๆ ได้ดีกว่าชื่อยาว ชื่อที่ลงท้ายด้วยเสียงสูงจะดึงดูดความสนใจน้องได้ดีเป็นพิเศษ เช่น "มันนี่" "โมจิ" "กะทิ"</p>
+            </div>
+            <div class="bg-slate-800/60 p-4 rounded-xl">
+                <p class="text-white font-bold mb-1">2. เรียกชื่อพร้อมขอพร</p>
+                <p class="text-slate-400 text-sm">ทุกครั้งที่เรียก "น้องนำโชค มากินข้าว" ให้ตั้งจิตน้อมนำพลังบวก ราวกับกำลังท่องมนต์ ยิ่งเรียกบ่อย ยิ่งเสริมพลัง!</p>
+            </div>
+            <div class="bg-slate-800/60 p-4 rounded-xl">
+                <p class="text-white font-bold mb-1">3. ตั้งชื่อคู่ก็ได้!</p>
+                <p class="text-slate-400 text-sm">ถ้ามีแมว 2 ตัว ลองตั้งชื่อคู่มงคล เช่น "ถุงเงิน + ถุงทอง" หรือ "เฮง + โชค" เรียกแล้วรู้สึกเหมือนอัญเชิญโชคลาภเข้าบ้านเป็นคู่!</p>
+            </div>
+            <div class="bg-slate-800/60 p-4 rounded-xl">
+                <p class="text-white font-bold mb-1">4. ใช้ระบบวิเคราะห์ชื่อช่วยตัดสินใจ</p>
+                <p class="text-slate-400 text-sm">นำชื่อที่คิดไว้มาเช็กผ่าน <a href="/" class="text-amber-400 hover:underline">ระบบวิเคราะห์ชื่อ NameMongkol</a> เพื่อดูคะแนนลึกๆ ทั้งเลขศาสตร์ อายตนะ 6 และพลังเงา จะช่วยคัดกรองชื่อที่ดีที่สุดได้อย่างมั่นใจ</p>
+            </div>
+            <div class="bg-slate-800/60 p-4 rounded-xl">
+                <p class="text-white font-bold mb-1">5. สีตัวแมว + ชื่อ = เสริมดวงทวีคูณ</p>
+                <p class="text-slate-400 text-sm">ตามตำราโบราณ แมวสีส้มเสริมเรื่องเงินทอง แมวสีขาวเสริมเมตตา แมวสีดำกันสิ่งชั่วร้าย การจับคู่ "สี + ชื่อมงคล" จะยิ่งเพิ่มพลังงานบวกได้มากขึ้นอีก</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ สรุป ============ -->
+    <div id="conclusion" class="bg-gradient-to-r from-emerald-900/30 to-slate-900 p-6 md:p-8 rounded-2xl border border-emerald-500/20 shadow-lg">
+        <h2 class="text-2xl font-bold text-emerald-400 flex items-center gap-2 mb-4">
+            <span class="text-3xl">📌</span> สรุป
+        </h2>
+        <p class="text-slate-300 leading-relaxed mb-4">
+            การตั้งชื่อสัตว์เลี้ยงตามหลัก<strong class="text-white">ทักษาปกรณ์</strong> นอกจากจะช่วยให้สบายใจแล้ว ยังเป็น<strong class="text-amber-300">กุศโลบาย</strong>ที่ทำให้เราเรียกชื่อเขาด้วยพลังงานบวกและถ้อยคำที่เป็นมงคลทุกวัน ลองนึกภาพว่าคุณเรียก "น้องรวยรวย" วันละ 20 ครั้ง เท่ากับว่าคุณกำลังส่งพลังงานแห่งความมั่งคั่งเข้าสู่จักรวาลวันละ 20 ครั้ง!
+        </p>
+        <p class="text-slate-300 leading-relaxed">
+            หากคุณอยากรู้ว่าชื่อที่คุณคิดไว้ตกเลขศาสตร์ที่ดีหรือไม่ สามารถเข้ามาใช้<strong class="text-white">เครื่องมือวิเคราะห์ชื่อฟรีๆ</strong> ได้ที่ <a href="/" class="text-amber-400 hover:underline font-bold">namemongkol.com</a> ตลอด 24 ชั่วโมงครับ!
+        </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="bg-gradient-to-r from-indigo-900/40 to-purple-900/40 border border-indigo-500/20 rounded-2xl p-8 text-center relative overflow-hidden">
+        <h3 class="text-2xl font-bold text-indigo-100 mb-3">🐱 เช็กชื่อแมวของคุณเลย!</h3>
+        <p class="text-indigo-200/70 mb-6 max-w-2xl mx-auto">
+            นำชื่อน้องแมวที่คิดไว้มาวิเคราะห์ฟรี ดูคะแนนเลขศาสตร์ พลังเงา และความหมายเชิงลึกได้ทันที
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/name-analysis" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg shadow-lg transition-colors">
+                วิเคราะห์ชื่อฟรี →
+            </a>
+            <a href="/articles/17-auspicious-thai-cats-2569" class="px-8 py-3 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg shadow-lg transition-colors">
+                📖 อ่านต่อ: 17 แมวมงคลไทย
+            </a>
+        </div>
+        <p class="text-xs text-indigo-300/50 mt-3">ใช้เวลาไม่ถึง 30 วินาที • ไม่ต้องสมัครสมาชิก</p>
+    </div>
+
+    <!-- Related Articles -->
+    <div class="mt-12">
+        <div class="bg-slate-800/40 p-6 rounded-xl border border-slate-700/50">
+            <h3 class="text-lg font-bold text-white mb-4">📚 บทความที่เกี่ยวข้อง</h3>
+            <ul class="space-y-2 text-sm">
+                <li><a href="/articles/17-auspicious-thai-cats-2569" class="text-amber-400 hover:underline">17 แมวมงคลไทย 2569: เปิดตำราสมุดข่อยโบราณ เลี้ยงเสริมดวง</a></li>
+                <li><a href="/articles/forbidden-letters-kalakini" class="text-amber-400 hover:underline">เช็กอักษรกาลกิณี 7 วัน ห้ามมีในชื่อ!</a></li>
+                <li><a href="/articles/auspicious-names-by-birthday-2026" class="text-amber-400 hover:underline">ตั้งชื่อมงคลตามวันเกิด 2569: คู่มือครบจบ ตำราทักษาปกรณ์</a></li>
+                <li><a href="/articles/change-name-destiny-tuning-2569" class="text-amber-400 hover:underline">เปลี่ยนชื่อเปลี่ยนชีวิต: คู่มือ Destiny Tuning ฉบับสมบูรณ์ 2569</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
         `
     }

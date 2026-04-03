@@ -12,13 +12,13 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: '*',
                 allow: ['/', '/api/og/*'],
-                disallow: ['/admin/', '/profile/', '/history/', '/api/', '/slip-verification/'],
+                disallow: ['/admin/', '/profile/', '/history/', '/api/', '/slip-verification/', '/login/', '/register/', '/topup/'],
             },
             // Allow AI crawlers for GEO (Generative Engine Optimization)
             {
                 userAgent: 'GPTBot',
                 allow: '/',
-                disallow: ['/admin/', '/profile/', '/api/'],
+                disallow: ['/admin/', '/profile/', '/api/', '/login/', '/register/', '/topup/'],
             },
             {
                 userAgent: 'ChatGPT-User',

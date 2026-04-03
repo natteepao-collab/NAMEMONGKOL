@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { ImageEnlargeModal } from './ImageEnlargeModal';
 
 export const ComparisonSection = () => {
-    const desktopImageSrc = '/images/articles/comparison-mobile.png';
-    const mobileImageSrc = '/images/articles/comparison-mobile.png';
+    const desktopImageSrc = '/images/articles/comparison-mobile.webp';
+    const mobileImageSrc = '/images/articles/comparison-mobile.webp';
     const imageAlt = 'ตารางเปรียบเทียบฟีเจอร์การวิเคราะห์ชื่อมงคล ระหว่างเว็บไซต์ทั่วไปกับ NameMongkol';
     const [modalImageSrc, setModalImageSrc] = React.useState<string | null>(null);
 
