@@ -46,6 +46,17 @@ function compressImage(dataUri: string, maxWidth = 1024, initialQuality = 0.72):
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
 
+      // Measure average brightness to adapt enhancement for dark images
+      const measureBrightness = (ctx: CanvasRenderingContext2D, w: number, h: number): number => {
+        const imgData = ctx.getImageData(0, 0, w, h);
+        const d = imgData.data;
+        let sum = 0;
+        for (let i = 0; i < d.length; i += 16) { // sample every 4th pixel
+          sum += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+        }
+        return sum / (d.length / 16);
+      };
+
       // Apply unsharp mask to enhance palm creases & ridges for better AI detection
       const applyUnsharpMask = (ctx: CanvasRenderingContext2D, w: number, h: number, amount = 0.45, radius = 1) => {
         const original = ctx.getImageData(0, 0, w, h);
@@ -70,17 +81,68 @@ function compressImage(dataUri: string, maxWidth = 1024, initialQuality = 0.72):
         ctx.putImageData(original, 0, 0);
       };
 
+      // Adaptive CLAHE-like local contrast enhancement for dark/low-contrast images
+      const applyLocalContrastEnhancement = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
+        const imgData = ctx.getImageData(0, 0, w, h);
+        const d = imgData.data;
+        // Build luminance histogram
+        const hist = new Uint32Array(256);
+        for (let i = 0; i < d.length; i += 4) {
+          const lum = Math.round(0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]);
+          hist[lum]++;
+        }
+        // Build CDF for histogram equalization
+        const cdf = new Float32Array(256);
+        const totalPixels = d.length / 4;
+        cdf[0] = hist[0] / totalPixels;
+        for (let i = 1; i < 256; i++) {
+          cdf[i] = cdf[i - 1] + hist[i] / totalPixels;
+        }
+        // Blend original with equalized (partial — 35% equalized to avoid over-processing)
+        const blendFactor = 0.35;
+        for (let i = 0; i < d.length; i += 4) {
+          const lum = Math.round(0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]);
+          const equalized = Math.round(cdf[lum] * 255);
+          const ratio = lum > 0 ? equalized / lum : 1;
+          for (let c = 0; c < 3; c++) {
+            const orig = d[i + c];
+            const mapped = Math.round(orig * ratio);
+            d[i + c] = Math.min(255, Math.max(0, Math.round(orig * (1 - blendFactor) + mapped * blendFactor)));
+          }
+        }
+        ctx.putImageData(imgData, 0, 0);
+      };
+
       const render = (targetWidth: number, targetHeight: number, quality: number) => {
         if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
           canvas.width = targetWidth;
           canvas.height = targetHeight;
         }
-        // Boost contrast & sharpen to make palm creases stand out
-        ctx.filter = 'contrast(1.18) saturate(1.05) brightness(1.02)';
+
+        // First pass: draw raw image to measure brightness
+        ctx.filter = 'none';
+        ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+        const avgBrightness = measureBrightness(ctx, targetWidth, targetHeight);
+
+        // Adaptive enhancement based on image brightness
+        const isDark = avgBrightness < 90;
+        const isVeryDark = avgBrightness < 60;
+        const brightnessBoost = isVeryDark ? 1.35 : isDark ? 1.18 : 1.02;
+        const contrastBoost = isVeryDark ? 1.45 : isDark ? 1.30 : 1.18;
+        const unsharpAmount = isVeryDark ? 0.70 : isDark ? 0.55 : 0.45;
+
+        // Re-draw with adaptive filter
+        ctx.filter = `contrast(${contrastBoost}) saturate(1.05) brightness(${brightnessBoost})`;
         ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
         ctx.filter = 'none';
-        // Unsharp mask to enhance fine crease details
-        applyUnsharpMask(ctx, targetWidth, targetHeight, 0.45, 1);
+
+        // Apply local contrast enhancement for dark images to reveal hidden creases
+        if (isDark) {
+          applyLocalContrastEnhancement(ctx, targetWidth, targetHeight);
+        }
+
+        // Unsharp mask to enhance fine crease details (stronger for dark images)
+        applyUnsharpMask(ctx, targetWidth, targetHeight, unsharpAmount, isDark ? 1.5 : 1);
         return canvas.toDataURL('image/jpeg', quality);
       };
 

@@ -11,8 +11,8 @@ import {
 
 export const maxDuration = 45;
 
-const MIN_LINE_CONFIDENCE = 0.55;
-const MIN_POINT_CONFIDENCE = 0.45;
+const MIN_LINE_CONFIDENCE = 0.35;
+const MIN_POINT_CONFIDENCE = 0.25;
 const MAX_RETRIES = 3;
 
 // ────── Utility helpers ──────

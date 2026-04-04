@@ -231,6 +231,67 @@ function generateFallbackResult(
 }
 
 // ---------------------------------------------------------------------------
+// Type-safe coercion helpers — Gemini AI may return objects instead of strings
+// ---------------------------------------------------------------------------
+
+function safeString(value: unknown, fallback: string = ''): string {
+    if (typeof value === 'string') return value;
+    if (value && typeof value === 'object') {
+        const obj = value as Record<string, unknown>;
+        if (typeof obj.text === 'string') return obj.text;
+        if (typeof obj.value === 'string') return obj.value;
+        if (typeof obj.name === 'string') return obj.name;
+        try { return JSON.stringify(value); } catch { /* ignore */ }
+    }
+    return fallback;
+}
+
+function safeStringArray(value: unknown, fallback: string[] = []): string[] {
+    if (!Array.isArray(value)) return fallback;
+    return value
+        .map(item => {
+            if (typeof item === 'string') return item;
+            if (item && typeof item === 'object') {
+                const obj = item as Record<string, unknown>;
+                if (typeof obj.text === 'string') return obj.text;
+                if (typeof obj.name === 'string') return obj.name;
+                if (typeof obj.meaning === 'string') return obj.meaning;
+                try { return JSON.stringify(item); } catch { return String(item); }
+            }
+            return String(item);
+        })
+        .filter((s): s is string => typeof s === 'string' && s.length > 0);
+}
+
+function safeMoodboard(value: unknown): { hex: string; name: string }[] {
+    const defaults = [
+        { hex: '#D4AF37', name: 'Gold' },
+        { hex: '#1B1464', name: 'Navy' },
+        { hex: '#8B0000', name: 'Crimson' },
+        { hex: '#F5F5DC', name: 'Ivory' },
+    ];
+    if (!Array.isArray(value)) return defaults;
+    const result = value.slice(0, 6).map(item => ({
+        hex: typeof (item as Record<string, unknown>)?.hex === 'string' ? (item as Record<string, unknown>).hex as string : '#D4AF37',
+        name: typeof (item as Record<string, unknown>)?.name === 'string' ? (item as Record<string, unknown>).name as string : 'Color',
+    }));
+    return result.length > 0 ? result : defaults;
+}
+
+function safeAuraColors(value: unknown): AuraColor[] {
+    const defaults: AuraColor[] = [
+        { emoji: '🟡', color: 'Gold', meaning: 'พลังงานหลัก' },
+        { emoji: '🔵', color: 'Blue', meaning: 'พลังงานรอง' },
+    ];
+    if (!Array.isArray(value) || value.length < 2) return defaults;
+    return value.slice(0, 4).map(item => ({
+        emoji: safeString((item as Record<string, unknown>)?.emoji, '✨'),
+        color: safeString((item as Record<string, unknown>)?.color, 'Unknown'),
+        meaning: safeString((item as Record<string, unknown>)?.meaning, ''),
+    }));
+}
+
+// ---------------------------------------------------------------------------
 // Public API: Generate aura result (async — AI first, fallback to hash)
 // ---------------------------------------------------------------------------
 
@@ -255,49 +316,38 @@ export async function generateAuraResult(
         const hash = hashName(seed);
         const imageUrl = selectImage(purpose, gender, hash >> 3);
 
-        // Safely parse auraColors
-        let auraColors: AuraColor[] = [
-            { emoji: '🟡', color: 'Gold', meaning: 'พลังงานหลัก' },
-            { emoji: '🔵', color: 'Blue', meaning: 'พลังงานรอง' },
-        ];
-        if (Array.isArray(aiResult.auraColors) && aiResult.auraColors.length >= 2) {
-            auraColors = aiResult.auraColors.map(c => ({
-                emoji: c.emoji ?? '✨',
-                color: c.color ?? 'Unknown',
-                meaning: c.meaning ?? '',
-            }));
-        }
+        // Coerce all AI fields to correct types (Gemini may return objects)
+        const personalityTraits = safeStringArray(aiResult.personalityTraits, ['มุ่งมั่น', 'มีเสน่ห์', 'เด็ดขาด']);
+        const vmk = safeStringArray(aiResult.visualMoodKeywords, ['Grand', 'Luxurious', 'Authoritative']);
+        const visualMoodKeywords: [string, string, string] = vmk.length >= 3
+            ? [vmk[0], vmk[1], vmk[2]]
+            : ['Grand', 'Luxurious', 'Authoritative'];
 
         return {
             name: trimmed,
             purpose,
             gender,
-            score: typeof aiResult.score === 'string' ? aiResult.score : 'A',
-            archetype: aiResult.archetype ?? 'The Visionary (นักฝันผู้สร้างสรรค์)',
-            personalityTraits: Array.isArray(aiResult.personalityTraits) ? aiResult.personalityTraits : [],
-            vibeAnalysis: aiResult.vibeAnalysis ?? '',
-            careerFit: aiResult.careerFit ?? '',
-            voiceTone: aiResult.voiceTone ?? '',
-            spiritIdentity: aiResult.spiritIdentity ?? '✨ พลังงานแห่งจักรวาล',
-            moodboard: Array.isArray(aiResult.moodboard)
-                ? aiResult.moodboard.map(c => ({ hex: c.hex ?? '#D4AF37', name: c.name ?? 'Gold' }))
-                : [{ hex: '#D4AF37', name: 'Gold' }, { hex: '#1B1464', name: 'Navy' }, { hex: '#8B0000', name: 'Crimson' }, { hex: '#F5F5DC', name: 'Ivory' }],
+            score: safeString(aiResult.score, 'A'),
+            archetype: safeString(aiResult.archetype, 'The Visionary (นักฝันผู้สร้างสรรค์)'),
+            personalityTraits,
+            vibeAnalysis: safeString(aiResult.vibeAnalysis, ''),
+            careerFit: safeString(aiResult.careerFit, ''),
+            voiceTone: safeString(aiResult.voiceTone, ''),
+            spiritIdentity: safeString(aiResult.spiritIdentity, '✨ พลังงานแห่งจักรวาล'),
+            moodboard: safeMoodboard(aiResult.moodboard),
             imageUrl,
             imageSource: 'placeholder',
-            visualMoodKeywords: Array.isArray(aiResult.visualMoodKeywords) && aiResult.visualMoodKeywords.length >= 3
-                ? [aiResult.visualMoodKeywords[0], aiResult.visualMoodKeywords[1], aiResult.visualMoodKeywords[2]]
-                : ['Grand', 'Luxurious', 'Authoritative'],
-            phoneticAnalysis: aiResult.phoneticAnalysis ?? '',
-            semanticAnalysis: aiResult.semanticAnalysis ?? '',
-            nameEnergyBreakdown: aiResult.nameEnergyBreakdown ?? '',
+            visualMoodKeywords,
+            phoneticAnalysis: safeString(aiResult.phoneticAnalysis, ''),
+            semanticAnalysis: safeString(aiResult.semanticAnalysis, ''),
+            nameEnergyBreakdown: safeString(aiResult.nameEnergyBreakdown, ''),
             firstImpressionScore: typeof aiResult.firstImpressionScore === 'number' ? aiResult.firstImpressionScore : 85,
-            socialPerception: aiResult.socialPerception ?? '',
-            // New deep-analysis fields
-            meaning: aiResult.meaning ?? `ชื่อ "${trimmed}" มีพลังงานที่โดดเด่น`,
-            meaningBreakdown: aiResult.meaningBreakdown ?? aiResult.semanticAnalysis ?? '',
-            identity: Array.isArray(aiResult.identity) ? aiResult.identity : [],
-            auraColors,
-            relationship: aiResult.relationship ?? '',
+            socialPerception: safeString(aiResult.socialPerception, ''),
+            meaning: safeString(aiResult.meaning, `ชื่อ "${trimmed}" มีพลังงานที่โดดเด่น`),
+            meaningBreakdown: safeString(aiResult.meaningBreakdown, safeString(aiResult.semanticAnalysis, '')),
+            identity: safeStringArray(aiResult.identity, []),
+            auraColors: safeAuraColors(aiResult.auraColors),
+            relationship: safeString(aiResult.relationship, ''),
             // Numerology — ALWAYS computed server-side (same as /name-analysis)
             numerologyTotal: computedNumerologyTotal,
             numerologyMeaning: computedNumerologyPrediction.desc,
