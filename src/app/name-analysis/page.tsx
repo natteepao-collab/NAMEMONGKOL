@@ -5,13 +5,13 @@ import ClientPage from './ClientPage';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 
 export const metadata: Metadata = {
-    title: 'เช็คชื่อมงคล 2569 เปรียบเทียบหลายชื่อพร้อมกัน | NameMongkol',
+    title: 'เช็คชื่อมงคลหลายชื่อพร้อมกัน 2569 | Bulk Name Analysis | NameMongkol',
     alternates: { canonical: `${siteUrl.replace(/\/$/, '')}/name-analysis` },
-    description: 'เครื่องมือเช็คชื่อมงคลแบบกลุ่ม วิเคราะห์สูงสุด 1,000 ชื่อ จัดเกรด A+ ตรวจคู่เลข กาลกิณี ส่งออก CSV/PDF เหมาะตั้งชื่อลูก เปลี่ยนชื่อ HR',
-    keywords: 'เช็คชื่อมงคล, เปรียบเทียบชื่อมงคล, จัดเกรดชื่อ A+, คู่เลขชื่อมงคล, กาลกิณีชื่อ, วิเคราะห์ชื่อหลายชื่อ, คัดกรองชื่อมงคล, ตั้งชื่อลูก 2569, เปลี่ยนชื่อเสริมดวง, Export วิเคราะห์ชื่อ PDF, วิเคราะห์ชื่อพนักงาน HR, ผลรวมเลขศาสตร์ชื่อ',
+    description: 'เครื่องมือเช็คชื่อมงคลแบบกลุ่ม (Bulk Analysis) วิเคราะห์สูงสุด 1,000 ชื่อพร้อมกัน จัดเกรด A+ ตรวจคู่เลข กาลกิณี ส่งออก CSV/PDF เหมาะตั้งชื่อลูก เปลี่ยนชื่อ HR',
+    keywords: 'เช็คชื่อมงคลหลายชื่อ, เปรียบเทียบชื่อมงคล, จัดเกรดชื่อ A+, คู่เลขชื่อมงคล, กาลกิณีชื่อ, วิเคราะห์ชื่อหลายชื่อ, คัดกรองชื่อมงคล, Bulk Name Analysis, Export วิเคราะห์ชื่อ PDF, วิเคราะห์ชื่อพนักงาน HR, ผลรวมเลขศาสตร์ชื่อ',
 
     openGraph: {
-        title: 'เช็คชื่อมงคล 2569 เปรียบเทียบหลายชื่อพร้อมกัน',
+        title: 'เช็คชื่อมงคลหลายชื่อพร้อมกัน 2569 | Bulk Analysis',
         description: 'วิเคราะห์ชื่อสูงสุด 1,000 ชื่อพร้อมกัน จัดเกรด A+ ตรวจคู่เลข กาลกิณี ส่งออก CSV/PDF',
         url: `${siteUrl}/name-analysis`,
         siteName: 'NameMongkol',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'เช็คชื่อมงคล 2569 เปรียบเทียบหลายชื่อพร้อมกัน',
+        title: 'เช็คชื่อมงคลหลายชื่อพร้อมกัน 2569 | Bulk Analysis',
         description: 'วิเคราะห์ชื่อสูงสุด 1,000 ชื่อพร้อมกัน จัดเกรด A+ ตรวจคู่เลข กาลกิณี ส่งออก CSV/PDF',
         images: [`${siteUrl}/api/og?variant=default&title=Bulk%20Name%20Analysis`],
     },

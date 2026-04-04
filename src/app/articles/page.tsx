@@ -495,11 +495,11 @@ export default async function ArticlesPage() {
                             อยากรู้ว่าชื่อของคุณเป็นมงคลไหม?
                         </h2>
                         <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
-                            ใช้ระบบ AI วิเคราะห์ชื่อฟรี! ตรวจสอบเลขศาสตร์ ทักษา อายตนะ 6 และอักษรกาลกิณี ภายในไม่กี่วินาที
+                            ใช้ระบบ AI วิเคราะห์ชื่อมงคลฟรี! ตรวจสอบเลขศาสตร์ ทักษา อายตนะ 6 และอักษรกาลกิณี ภายในไม่กี่วินาที
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link href="/" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold py-4 px-8 rounded-full transition-all hover:scale-105 shadow-lg shadow-amber-900/40">
-                                <span>วิเคราะห์ชื่อฟรี</span>
+                                <span>วิเคราะห์ชื่อมงคลฟรี</span>
                                 <ArrowLeft size={18} className="rotate-180" />
                             </Link>
                             <Link href="/premium-analysis" className="inline-flex items-center justify-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 px-8 rounded-full transition-all">

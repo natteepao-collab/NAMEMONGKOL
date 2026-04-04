@@ -432,7 +432,7 @@ const AboutSection = () => {
                         <div className="pt-8">
                             <Link href="/" className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-900 text-xl font-bold rounded-full transition-all hover:scale-105 shadow-2xl shadow-amber-900/40 ring-4 ring-amber-500/20">
                                 <Search size={26} />
-                                วิเคราะห์ชื่อของคุณฟรี
+                                วิเคราะห์ชื่อมงคลฟรี
                             </Link>
                         </div>
                     </div>
@@ -443,7 +443,7 @@ const AboutSection = () => {
                     <h2>คำถามที่พบบ่อยเกี่ยวกับ ชื่อมงคล เช็คเบอร์มงคล วิเคราะห์ลายมือ</h2>
                     <p>
                         ต้องการ ดูดวงชื่อ หรือหา นามสกุลมงคล ใช่ไหม?
-                        เรามีบริการ วิเคราะห์ชื่อ ฟรี ด้วยโปรแกรมอัจฉริยะ
+                        เรามีบริการ วิเคราะห์ชื่อมงคล ฟรี ด้วยโปรแกรมอัจฉริยะ
                         ช่วย ตั้งชื่อลูก เปลี่ยนชื่อ ให้ถูกโฉลก
                         เสริมดวงด้วย เลขศาสตร์ และ ทักษาปกรณ์
                         ป้องกันอักษร กาลกิณี

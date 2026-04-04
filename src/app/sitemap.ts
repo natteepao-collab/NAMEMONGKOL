@@ -4,11 +4,14 @@ import { articles as localArticles } from '@/data/articles'
 
 export const dynamic = 'force-dynamic'
 
-// Popular names for meaning pages (SEO-important pages)
+// Popular names for meaning pages (SEO-important pages — topical cluster for "วิเคราะห์ชื่อมงคล")
 const popularNames = [
     'ภูมิพัฒน์', 'ธนกร', 'ปภาวรินทร์', 'ณัฐชา', 'พิชญา', 'กันต์พงษ์', 'สิรภพ',
     'อภิชญา', 'พิมพ์ชนก', 'ชนิดาภา', 'กิตติภัทร', 'วรินทร', 'ภัคพล', 'ธนัช',
-    'นภัสสร', 'ปุณยวีร์', 'ณิชา', 'ชนมน', 'กฤษณ์', 'ศุภกร', 'ธีรภัทร', 'ปัณณวิชญ์'
+    'นภัสสร', 'ปุณยวีร์', 'ณิชา', 'ชนมน', 'กฤษณ์', 'ศุภกร', 'ธีรภัทร', 'ปัณณวิชญ์',
+    'พิชญธิดา', 'กรวิชญ์', 'ณัฐกฤตา', 'ปวริศา', 'จิรัชญา', 'วีรภัทร', 'ธัญชนก',
+    'พิมพ์มาดา', 'ณฐพร', 'กัญญาณัฐ', 'ภูริพัฒน์', 'ชญาดา', 'ปัณฑิตา', 'กมลลักษณ์',
+    'อัครวินท์', 'พัชรพร', 'ธนภูมิ', 'สุพิชฌาย์', 'นันท์นภัส',
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -29,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { path: '', priority: 1.0, changeFreq: 'daily' as const },
         { path: '/about', priority: 0.7, changeFreq: 'monthly' as const },
         { path: '/articles', priority: 0.9, changeFreq: 'daily' as const },
-        { path: '/name-analysis', priority: 1.0, changeFreq: 'daily' as const }, // High priority tool
+        { path: '/name-analysis', priority: 0.9, changeFreq: 'daily' as const }, // Bulk tool (differentiated from homepage)
         { path: '/phone-analysis', priority: 1.0, changeFreq: 'daily' as const },
         { path: '/premium-analysis', priority: 0.9, changeFreq: 'weekly' as const },
         { path: '/aura-analysis', priority: 0.9, changeFreq: 'daily' as const },
@@ -54,7 +57,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${baseUrl}/meaning/${encodeURIComponent(name)}`,
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
-        priority: 0.6,
+        priority: 0.7,
     }));
 
     // Fetch dynamic wallpapers

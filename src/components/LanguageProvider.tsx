@@ -24,7 +24,7 @@ function detectInitialLanguage(): SupportedLanguage {
     const browserLang = navigator.language?.toLowerCase() ?? "";
     if (browserLang.startsWith("th")) return "th";
     if (browserLang.startsWith("zh")) return "zh";
-    return "en";
+    return "th";
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {

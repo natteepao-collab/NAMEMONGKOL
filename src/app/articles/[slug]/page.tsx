@@ -575,7 +575,7 @@ export default async function ArticlePage({ params }: Props) {
                         </p>
                         <div className="flex flex-wrap gap-2">
                             <Link href="/" className="text-xs bg-slate-700/50 hover:bg-purple-600/30 px-3 py-1.5 rounded-full text-slate-300 hover:text-white transition-colors">
-                                วิเคราะห์ชื่อฟรี
+                                วิเคราะห์ชื่อมงคล
                             </Link>
                             <Link href="/premium-search" className="text-xs bg-slate-700/50 hover:bg-purple-600/30 px-3 py-1.5 rounded-full text-slate-300 hover:text-white transition-colors">
                                 ค้นหาชื่อมงคล Premium

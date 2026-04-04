@@ -17,7 +17,8 @@ const dictionaries: Record<SupportedLanguage, TranslationDict> = {
             hero: {
                 badge: 'Professional Naming Analysis',
                 titlePrefix: 'วิเคราะห์',
-                titleHighlight: 'ชื่อมงคลฟรี',
+                titleHighlight: 'ชื่อมงคล',
+                titleFree: 'ฟรี!',
                 titleSuffix: 'พลิกชีวิต ปลดล็อคดวงชะตาเศรษฐี',
                 description: '"เปลี่ยนชื่อ เปลี่ยนชีวิต" ตรวจสอบดวงชะตาที่ซ่อนอยู่ในชื่อของคุณด้วย 4 ศาสตร์ศักดิ์สิทธิ์: เลขศาสตร์, ทักษาปกรณ์, อายตนะ 6 และนิรันดร์ศาสตร์ แม่นยำที่สุดด้วยระบบ AI',
                 statAccuracy: 'แม่นยำ',
@@ -194,7 +195,7 @@ const dictionaries: Record<SupportedLanguage, TranslationDict> = {
             homeSeo: {
                 whyTitle: 'ทำไมต้องวิเคราะห์ชื่อมงคล?',
                 whyDesc1: '"ชื่อ" ไม่ใช่แค่คำเรียกขาน แต่คือ "พลังงาน" ที่สั่นสะเทือนอยู่ตลอดเวลา ช่วยไขประตูสู่โอกาสใหม่ๆ',
-                whyDesc2: 'การวิเคราะห์ชื่อฟรีที่ NameMongkol ช่วยให้คุณรู้ทันดวงชะตา จุดอ่อน-จุดแข็ง และโอกาสซ่อนเร้น เพื่อดึงดูดความสำเร็จ',
+                whyDesc2: 'การวิเคราะห์ชื่อมงคล ฟรีที่ NameMongkol ช่วยให้คุณรู้ทันดวงชะตา จุดอ่อน-จุดแข็ง และโอกาสซ่อนเร้น เพื่อดึงดูดความสำเร็จ',
                 changeTitle: 'เปลี่ยนชื่อ = เปลี่ยนชีวิตจริงไหม?',
                 changeDesc1: 'ชื่อดีเป็นศรีแก่ตัว เปรียบเสมือนการปรับจูนคลื่นความถี่ชีวิตใหม่ เสริมความมั่นใจและโอกาสทางการงาน',
                 changeDesc2: 'ชื่อที่ดีเป็นแรงลมใต้ปีก ช่วยให้คุณบินได้สูงขึ้น เหนื่อยน้อยลง แต่สำเร็จมากขึ้น',
@@ -321,7 +322,7 @@ const dictionaries: Record<SupportedLanguage, TranslationDict> = {
                 },
                 linksTitle: 'บริการอื่นๆ ที่เกี่ยวข้อง',
                 links: {
-                    l1Title: 'วิเคราะห์ชื่อ-นามสกุล (ฟรี)',
+                    l1Title: 'วิเคราะห์ชื่อมงคล (ฟรี)',
                     l1Desc: 'ใส่ชื่อและนามสกุลเพื่อดูคะแนนรวม เกรด และคำทำนายฟรี',
                     l2Title: 'ค้นหาชื่อมงคล Pro',
                     l2Desc: 'ใส่นามสกุลให้ระบบจับคู่ชื่อ+นามสกุลและแสดงเกรดทันที',
@@ -429,7 +430,8 @@ const dictionaries: Record<SupportedLanguage, TranslationDict> = {
             hero: {
                 badge: 'Professional Naming Analysis',
                 titlePrefix: 'Analyze',
-                titleHighlight: 'Auspicious Names Free',
+                titleHighlight: 'Auspicious Names',
+                titleFree: 'Free!',
                 titleSuffix: 'Transform your life, unlock prosperity',
                 description: '“Change your name, change your life.” Check the hidden destiny in your name with four sacred sciences: numerology, Thaksa, Ayatana 6, and Nirun — powered by AI for precision.',
                 statAccuracy: 'Accuracy',
@@ -756,6 +758,7 @@ const dictionaries: Record<SupportedLanguage, TranslationDict> = {
                 badge: '專業姓名分析',
                 titlePrefix: '免費',
                 titleHighlight: '吉祥姓名分析',
+                titleFree: '',
                 titleSuffix: '改名改運，開啟財運',
                 description: '「改名，改變人生」以 AI 結合四大命理：數字能量、泰國八字（Thaksa）、六根（Ayatana 6）、Nirun，精準檢視姓名中的隱藏能量。',
                 statAccuracy: '準確度',
