@@ -29,20 +29,30 @@ export const PalmSeoContent = () => {
       answer:
         'ควรถ่ายภาพในแสงสว่างเพียงพอ ฝ่ามือเต็มเฟรม กล้องตั้งตรง และภาพไม่เบลอ เพื่อให้ระบบมองเห็นเส้นหลักได้ครบและสรุปผลได้ชัดเจนขึ้น.',
     },
+    {
+      question: 'วิเคราะห์ลายมือออนไลน์ กับไปดูกับหมอดู ต่างกันอย่างไร?',
+      answer:
+        'การวิเคราะห์ลายมือออนไลน์ด้วย AI ใช้การประมวลผลภาพเพื่อตรวจจับเส้นหลัก ให้ผลลัพธ์รวดเร็ว สะดวก ใช้ได้ทุกที่ทุกเวลา แต่ไม่ได้ทดแทนประสบการณ์เฉพาะทางของผู้เชี่ยวชาญ จึงเหมาะใช้เป็นข้อมูลเบื้องต้นก่อนปรึกษาเพิ่มเติม.',
+    },
+    {
+      question: 'วิเคราะห์ลายมือด้วย AI บน NameMongkol ต้องเสียเงินไหม?',
+      answer:
+        'สามารถเริ่มวิเคราะห์ลายมือด้วย AI ได้ฟรี โดยอัปโหลดภาพฝ่ามือ ระบบจะตรวจคุณภาพภาพและวิเคราะห์เส้นหลัก 4 เส้นให้ทันที สำหรับผลวิเคราะห์เชิงลึกจะใช้ระบบเครดิต.',
+    },
   ];
 
   return (
     <section className="w-full max-w-5xl mx-auto mt-16 mb-10 px-1 sm:px-4">
       <div className="text-center mb-10 sm:mb-12">
         <span className="px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-200 text-sm font-semibold border border-amber-500/20 inline-block mb-5">
-          ดูลายมือออนไลน์ • วิเคราะห์ลายมือ AI
+          วิเคราะห์ลายมือออนไลน์ • วิเคราะห์ลายมือด้วย AI
         </span>
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
           วิเคราะห์ลายมือออนไลน์ด้วย AI: ดูดวงลายมือเบื้องต้นแบบเข้าใจง่าย
         </h2>
         <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto">
-          หากคุณกำลังค้นหา <strong>วิเคราะห์ลายมือ</strong> หรือ <strong>ดูดวงลายมือ</strong> หน้านี้ช่วยให้เริ่มต้นได้ทันที
-          ด้วยการอ่านเส้นหลักจากภาพมือ พร้อมคำอธิบายที่ชัดเจนและนำไปใช้วางแผนชีวิตได้จริง
+          หากคุณกำลังค้นหา <strong>วิเคราะห์ลายมือ</strong> หรือ <strong>วิเคราะห์ลายมือด้วย AI</strong> หน้านี้ช่วยให้เริ่มต้น
+          <strong>วิเคราะห์ลายมือออนไลน์</strong> ได้ทันที ด้วยการอ่านเส้นหลัก 4 เส้นจากภาพฝ่ามือ พร้อมคำอธิบายชัดเจนและนำไปใช้วางแผนชีวิตได้จริง
         </p>
       </div>
 
@@ -160,7 +170,7 @@ export const PalmSeoContent = () => {
           <span className="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300 text-sm font-semibold border border-cyan-500/20 inline-block mb-3">
             ⚖️ เปรียบเทียบ
           </span>
-          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">NameMongkol vs เว็บดูลายมือออนไลน์ทั่วไป</h3>
+          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">NameMongkol vs เว็บวิเคราะห์ลายมือออนไลน์ทั่วไป</h3>
           <p className="text-slate-300 max-w-2xl mx-auto leading-relaxed">
             เปรียบเทียบแบบเป็นกลางเพื่อช่วยเลือกเครื่องมือที่เหมาะกับการใช้งานจริงของคุณ
           </p>
@@ -220,7 +230,7 @@ export const PalmSeoContent = () => {
       </div>
 
       <div className="mb-12">
-        <h3 className="text-2xl font-bold text-white mb-5">คำถามที่พบบ่อยเกี่ยวกับการดูลายมือออนไลน์</h3>
+        <h3 className="text-2xl font-bold text-white mb-5">คำถามที่พบบ่อยเกี่ยวกับการวิเคราะห์ลายมือออนไลน์</h3>
         <div className="space-y-3">
           {faqItems.map((item) => (
             <div key={item.question} className="rounded-xl border border-amber-500/15 bg-slate-900/40 p-4 sm:p-5">

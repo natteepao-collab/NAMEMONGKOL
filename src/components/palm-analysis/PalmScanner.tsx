@@ -348,24 +348,24 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
   }, [imageSrc]);
 
   return (
-    <section className="w-full max-w-2xl mx-auto bg-gradient-to-b from-slate-900/60 to-amber-950/10 backdrop-blur-md border border-amber-500/30 rounded-2xl p-4 sm:p-6 shadow-2xl shadow-amber-900/20 relative overflow-hidden" aria-label="เครื่องมือสแกนลายมือ">
-      <div className="absolute -top-24 -left-24 w-48 h-48 bg-amber-500/10 rounded-full blur-[90px] pointer-events-none" />
-      <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-amber-600/10 rounded-full blur-[90px] pointer-events-none" />
+    <section className="w-full max-w-2xl mx-auto bg-gradient-to-b from-[#0a3d2a]/95 via-[#0d4a33]/90 to-[#0a3528]/95 backdrop-blur-md border border-emerald-600/30 rounded-2xl p-3 sm:p-4 shadow-2xl shadow-emerald-900/30 relative overflow-hidden" aria-label="เครื่องมือสแกนลายมือ">
+      <div className="absolute -top-24 -left-24 w-48 h-48 bg-emerald-500/8 rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-amber-500/8 rounded-full blur-[90px] pointer-events-none" />
 
-      <header className="mb-3 sm:mb-6">
-        <div className="flex items-center justify-between gap-3 mb-3 sm:mb-4">
-          <h2 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-amber-200 to-yellow-300 bg-clip-text text-transparent flex items-center gap-2">
-            <ScanLine className="w-5 h-5 text-amber-400" />
+      <header className="mb-2 sm:mb-3">
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <h2 className="text-base sm:text-lg font-bold bg-gradient-to-r from-amber-200 via-yellow-200 to-amber-300 bg-clip-text text-transparent flex items-center gap-1.5">
+            <ScanLine className="w-4 h-4 text-amber-300" />
             Palm Scanner
           </h2>
-          <span className="text-xs text-amber-300/60 border border-amber-500/30 bg-amber-500/10 rounded-full px-2.5 py-1 shrink-0">Step {currentStep}/3</span>
+          <span className="text-[11px] text-amber-200/70 border border-amber-500/30 bg-amber-500/10 rounded-full px-2 py-0.5 shrink-0">Step {currentStep}/3</span>
         </div>
 
-        <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
+        <div className="grid grid-cols-3 gap-1 sm:gap-1.5">
           {[1, 2, 3].map((step) => {
             const active = currentStep >= step;
             return (
-              <div key={step} className={`rounded-lg border px-2 py-1.5 sm:py-2 text-center text-xs ${active ? 'border-amber-500/40 bg-amber-500/10 text-amber-200' : 'border-slate-700 bg-slate-900/60 text-slate-500'}`}>
+              <div key={step} className={`rounded-md border px-1.5 py-1 text-center text-[11px] font-medium transition-colors ${active ? 'border-amber-500/40 bg-gradient-to-r from-amber-600/20 to-amber-500/10 text-amber-200' : 'border-emerald-700/40 bg-emerald-950/40 text-emerald-600'}`}>
                 {step === 1 && 'เลือกภาพ'}
                 {step === 2 && 'ตรวจคุณภาพ'}
                 {step === 3 && 'วิเคราะห์'}
@@ -375,7 +375,7 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
         </div>
       </header>
 
-      <div className="relative w-full aspect-square sm:aspect-[3/4] bg-slate-950 rounded-xl overflow-hidden border border-amber-500/15 flex flex-col items-center justify-center mb-3 sm:mb-6">
+      <div className="relative w-full aspect-[5/4] sm:aspect-[4/5] bg-[#061f16] rounded-xl overflow-hidden border border-emerald-700/30 flex flex-col items-center justify-center mb-2 sm:mb-3">
         {isCameraOpen && (
           <div className="absolute inset-0 z-[1] pointer-events-none">
             {/* Palm-shaped guide overlay — light dim outside, amber outline inside */}
@@ -411,30 +411,28 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
         )}
 
         {!imageSrc && !isCameraOpen && (
-          <div className="flex flex-col items-center justify-center p-4 sm:p-6 text-center space-y-3 sm:space-y-4">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-slate-800 to-slate-700 border border-slate-600 flex items-center justify-center mb-2">
-              <Upload className="w-10 h-10 text-slate-200" />
+          <div className="flex flex-col items-center justify-center p-3 sm:p-4 text-center space-y-2 sm:space-y-2.5">
+            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-800/60 to-emerald-900/40 border border-emerald-600/30 flex items-center justify-center">
+              <Upload className="w-7 h-7 text-amber-300/80" />
             </div>
-            <p className="text-slate-300 text-sm leading-relaxed max-w-xs">
-              อัปโหลดรูปภาพลายมือของคุณ
-              <br />
-              หรือถ่ายรูปใหม่เพื่อวิเคราะห์
+            <p className="text-emerald-100/90 text-sm leading-snug max-w-xs">
+              อัปโหลดรูปภาพลายมือของคุณ หรือถ่ายรูปใหม่
             </p>
-            <ul className="text-amber-300/60 text-xs leading-relaxed space-y-1 text-left max-w-xs">
+            <ul className="text-amber-300/60 text-[11px] leading-relaxed space-y-0.5 text-left max-w-xs">
               <li>• ฝ่ามือเต็มเฟรม ไม่ถูกตัดขอบ</li>
               <li>• ภาพไม่เบลอ และมีแสงเพียงพอ</li>
               <li>• มือหงายตรงกับกล้องให้มากที่สุด</li>
             </ul>
 
-            <div className="flex flex-col sm:flex-row gap-3 mt-4 w-full sm:w-auto">
-              <label className="cursor-pointer bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-2 mt-2 w-full sm:w-auto">
+              <label className="cursor-pointer bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-900 px-3 py-2 rounded-lg text-sm font-bold transition-colors flex items-center justify-center gap-1.5 w-full sm:w-auto shadow-lg shadow-amber-500/20">
                 <Upload className="w-4 h-4" />
                 อัปโหลดรูป
                 <input type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
               </label>
               <button
                 onClick={startCamera}
-                className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2 border border-slate-700 w-full sm:w-auto"
+                className="bg-emerald-800/50 hover:bg-emerald-700/50 text-emerald-100 px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-1.5 border border-emerald-600/30 w-full sm:w-auto"
               >
                 <Camera className="w-4 h-4" />
                 ถ่ายรูป
@@ -447,7 +445,7 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
                 <p className="text-xs text-rose-300 leading-relaxed" role="alert">{cameraError}</p>
                 <button
                   onClick={() => captureInputRef.current?.click()}
-                  className="w-full bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-slate-700"
+                  className="w-full bg-emerald-800/50 hover:bg-emerald-700/50 text-emerald-100 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors border border-emerald-600/30"
                 >
                   ใช้แอปกล้องมือถือแทน
                 </button>
@@ -536,31 +534,31 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
       {imageSrc && !isAnalyzing && !result && (
         <>
           {capturedQuality && (
-            <div className="mb-3 p-3 rounded-xl border border-slate-700 bg-slate-900/60 text-slate-200 text-sm" aria-live="polite">
+            <div className="mb-2 p-2.5 rounded-lg border border-emerald-700/40 bg-emerald-950/40 text-emerald-100 text-xs sm:text-sm" aria-live="polite">
               <div className="flex items-center justify-between gap-2">
                 <span className="inline-flex items-center gap-1.5">
-                  {hasLowCaptureQuality ? <AlertTriangle className="w-4 h-4 text-amber-300" /> : <CheckCircle2 className="w-4 h-4 text-emerald-300" />}
+                  {hasLowCaptureQuality ? <AlertTriangle className="w-3.5 h-3.5 text-amber-300" /> : <CheckCircle2 className="w-3.5 h-3.5 text-emerald-300" />}
                   คุณภาพภาพที่ใช้วิเคราะห์
                 </span>
-                <span className="font-semibold text-blue-300">{capturedQuality.overall}%</span>
+                <span className="font-semibold text-amber-200">{capturedQuality.overall}%</span>
               </div>
-              <p className={`mt-1 text-xs ${hasLowCaptureQuality ? 'text-amber-200' : 'text-emerald-300'}`}>{qualityHint(capturedQuality)}</p>
+              <p className={`mt-0.5 text-[11px] ${hasLowCaptureQuality ? 'text-amber-200' : 'text-emerald-300'}`}>{qualityHint(capturedQuality)}</p>
             </div>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex gap-2">
             <button
               onClick={reset}
-              className="flex-1 bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 border border-slate-700"
+              className="flex-1 bg-emerald-800/40 hover:bg-emerald-700/40 text-emerald-100 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-1.5 border border-emerald-600/30"
             >
-              <RefreshCw className="w-5 h-5" />
+              <RefreshCw className="w-4 h-4" />
               เปลี่ยนรูป
             </button>
             <button
               onClick={handleAnalyze}
-              className="sm:flex-[2] bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-600 hover:from-amber-500 hover:via-yellow-500 hover:to-amber-500 text-white py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-amber-900/30 flex items-center justify-center gap-2"
+              className="flex-[2] bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500 hover:from-amber-400 hover:via-yellow-400 hover:to-amber-400 text-slate-900 py-2.5 rounded-lg text-sm font-bold transition-all shadow-lg shadow-amber-500/25 flex items-center justify-center gap-1.5"
             >
-              <ScanLine className="w-5 h-5" />
+              <ScanLine className="w-4 h-4" />
               เริ่มวิเคราะห์ลายมือ (20 เครดิต)
             </button>
           </div>
@@ -569,22 +567,22 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
 
       {isAnalyzing && (
         <div
-          className="w-full max-w-md mx-auto mb-4 rounded-2xl border border-slate-700/60 bg-slate-800/80 backdrop-blur p-4 sm:p-5 space-y-4"
+          className="w-full max-w-md mx-auto mb-2 rounded-xl border border-emerald-700/40 bg-emerald-950/50 backdrop-blur p-3 space-y-2.5"
           role="status"
           aria-live="polite"
           aria-label="กำลังประมวลผล"
         >
           <div
-            className="w-full h-3 sm:h-2.5 rounded-full bg-slate-700/80 overflow-hidden"
+            className="w-full h-2 rounded-full bg-emerald-900/60 overflow-hidden"
             aria-hidden="true"
           >
             <div
-              className="h-full w-[40%] min-w-[80px] rounded-full bg-gradient-to-r from-purple-500 via-blue-500 to-amber-400 animate-progress-indeterminate"
+              className="h-full w-[40%] min-w-[80px] rounded-full bg-gradient-to-r from-emerald-400 via-amber-400 to-yellow-300 animate-progress-indeterminate"
               aria-hidden="true"
             />
           </div>
-          <p className="text-center text-slate-200 text-sm sm:text-base inline-flex items-center justify-center gap-2 w-full">
-            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 text-amber-400/90" aria-hidden="true" />
+          <p className="text-center text-emerald-100 text-xs sm:text-sm inline-flex items-center justify-center gap-1.5 w-full">
+            <Sparkles className="w-4 h-4 flex-shrink-0 text-amber-300" aria-hidden="true" />
             {processingStepMessages[processingStep]}
           </p>
         </div>
@@ -593,16 +591,16 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
       {result && (
         <>
           {hasLowLineDetail && (
-            <div className="w-full mt-4 p-3 rounded-xl border border-amber-700/60 bg-amber-900/20 text-amber-200 text-sm text-center">
+            <div className="w-full mt-2 p-2.5 rounded-lg border border-amber-600/40 bg-amber-900/15 text-amber-200 text-xs sm:text-sm text-center">
               ระบบพบว่ารายละเอียดเส้นลายมือยังไม่ชัดพอ แนะนำถ่ายใหม่ในที่แสงสว่างมากขึ้น ให้ฝ่ามือเต็มเฟรม และถือกล้องตรงกับฝ่ามือ
             </div>
           )}
 
           <button
             onClick={reset}
-            className="w-full bg-slate-800 hover:bg-slate-700 text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 border border-slate-700 mt-4"
+            className="w-full bg-emerald-800/40 hover:bg-emerald-700/40 text-emerald-100 py-2.5 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-1.5 border border-emerald-600/30 mt-2"
           >
-            <RefreshCw className="w-5 h-5" />
+            <RefreshCw className="w-4 h-4" />
             วิเคราะห์รูปใหม่
           </button>
         </>
