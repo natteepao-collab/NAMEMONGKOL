@@ -18,13 +18,13 @@ interface WallpaperUpsellProps {
 }
 
 const WALLPAPER_MAPPING: Record<string, string> = {
-    sunday: '/wallpapers/sunday.png',
-    monday: '/wallpapers/monday.png',
-    tuesday: '/wallpapers/tuesday.png',
-    wednesday: '/wallpapers/wednesday.png',
-    thursday: '/wallpapers/thursday.png',
-    friday: '/wallpapers/friday.png',
-    saturday: '/wallpapers/saturday.png',
+    sunday: '/wallpapers/sunday.webp',
+    monday: '/wallpapers/monday.webp',
+    tuesday: '/wallpapers/tuesday.webp',
+    wednesday: '/wallpapers/wednesday.webp',
+    thursday: '/wallpapers/thursday.webp',
+    friday: '/wallpapers/friday.webp',
+    saturday: '/wallpapers/saturday.webp',
 };
 
 const DAY_LABELS: Record<string, string> = {
@@ -38,7 +38,7 @@ const DAY_LABELS: Record<string, string> = {
 };
 
 // Default mapping if day isn't found or strictly English day names are used
-const DEFAULT_WALLPAPER = '/wallpapers/thao-wessuwan-v2.png';
+const DEFAULT_WALLPAPER = '/wallpapers/thao-wessuwan-v2.webp';
 
 export const WallpaperUpsell = ({ result, day = 'sunday' }: WallpaperUpsellProps) => {
     const [showCustomGenerator, setShowCustomGenerator] = useState(false);

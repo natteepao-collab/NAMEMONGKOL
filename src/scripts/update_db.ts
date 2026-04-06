@@ -18,10 +18,10 @@ async function update() {
     console.log('Applying database updates...');
 
     const updates = [
-        { id: 10, image: '/wallpapers/wallpaper-10.png' },
-        { id: 12, image: '/wallpapers/wallpaper-12.png' },
-        { id: 13, image: '/wallpapers/wallpaper-13.png' },
-        { id: 11, image: '/wallpapers/wallpaper-11.png' }
+        { id: 10, image: '/wallpapers/wallpaper-10.webp' },
+        { id: 12, image: '/wallpapers/wallpaper-12.webp' },
+        { id: 13, image: '/wallpapers/wallpaper-13.webp' },
+        { id: 11, image: '/wallpapers/wallpaper-11.webp' }
     ];
 
     for (const up of updates) {

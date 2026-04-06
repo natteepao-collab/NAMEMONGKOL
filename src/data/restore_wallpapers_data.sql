@@ -4,15 +4,15 @@
 -- Insert defaults (Upsert to avoid duplicates if any partial data exists)
 INSERT INTO public.wallpapers (id, name, image, day, tags, premium, downloads, description)
 VALUES
-(1, 'มหาเทพประทานทรัพย์ (วันอาทิตย์)', '/wallpapers/sunday.png', 'sunday', ARRAY['การเงิน', 'อำนาจ'], false, 2540, NULL),
-(2, 'เสน่ห์เมตตามหานิยม (วันจันทร์)', '/wallpapers/monday.png', 'monday', ARRAY['ความรัก', 'เมตตา'], false, 3120, NULL),
-(3, 'นักรบกล้าหาญ (วันอังคาร)', '/wallpapers/tuesday.png', 'tuesday', ARRAY['การงาน', 'แข่งขัน'], false, 1890, NULL),
-(4, 'วาจาเรียกทรัพย์ (วันพุธ)', '/wallpapers/wednesday.png', 'wednesday', ARRAY['การเจรจา', 'ค้าขาย'], false, 2100, NULL),
-(5, 'ปัญญาบารมี (วันพฤหัสบดี)', '/wallpapers/thursday.png', 'thursday', ARRAY['การเรียน', 'ผู้ใหญ่เมตตา'], false, 2750, NULL),
-(6, 'ทรัพย์สินพอกพูน (วันศุกร์)', '/wallpapers/friday.png', 'friday', ARRAY['การเงิน', 'ความสุข'], false, 3420, NULL),
-(7, 'อำนาจบารมี (วันเสาร์)', '/wallpapers/saturday.png', 'saturday', ARRAY['อำนาจ', 'แคล้วคลาด'], false, 1980, NULL),
-(8, 'ท้าวเวสสุวรรณ ปลดหนี้', '/wallpapers/thao-wessuwan-v2.png', 'all', ARRAY['ปลดหนี้', 'กันชง'], true, 4500, NULL),
-(9, '4289 ท้าวเวสสุวรรณ (สีชมพู)', '/wallpapers/4289-vessavana-pink.png', 'all', ARRAY['การเงิน', 'โชคลาภ', '4289'], false, 0, 'เหมาะอย่างยิ่งสำหรับ "คนทำมาค้าขาย, เจ้าของธุรกิจ, Sales, และคนที่ต้องการเสริมดวงโชคลาภและการเงิน" โดยเน้นที่ความราบรื่น (ปางเด็ก) และเงินทองไหลมาเทมา (4289 + ถุงเงิน) ครับ')
+(1, 'มหาเทพประทานทรัพย์ (วันอาทิตย์)', '/wallpapers/sunday.webp', 'sunday', ARRAY['การเงิน', 'อำนาจ'], false, 2540, NULL),
+(2, 'เสน่ห์เมตตามหานิยม (วันจันทร์)', '/wallpapers/monday.webp', 'monday', ARRAY['ความรัก', 'เมตตา'], false, 3120, NULL),
+(3, 'นักรบกล้าหาญ (วันอังคาร)', '/wallpapers/tuesday.webp', 'tuesday', ARRAY['การงาน', 'แข่งขัน'], false, 1890, NULL),
+(4, 'วาจาเรียกทรัพย์ (วันพุธ)', '/wallpapers/wednesday.webp', 'wednesday', ARRAY['การเจรจา', 'ค้าขาย'], false, 2100, NULL),
+(5, 'ปัญญาบารมี (วันพฤหัสบดี)', '/wallpapers/thursday.webp', 'thursday', ARRAY['การเรียน', 'ผู้ใหญ่เมตตา'], false, 2750, NULL),
+(6, 'ทรัพย์สินพอกพูน (วันศุกร์)', '/wallpapers/friday.webp', 'friday', ARRAY['การเงิน', 'ความสุข'], false, 3420, NULL),
+(7, 'อำนาจบารมี (วันเสาร์)', '/wallpapers/saturday.webp', 'saturday', ARRAY['อำนาจ', 'แคล้วคลาด'], false, 1980, NULL),
+(8, 'ท้าวเวสสุวรรณ ปลดหนี้', '/wallpapers/thao-wessuwan-v2.webp', 'all', ARRAY['ปลดหนี้', 'กันชง'], true, 4500, NULL),
+(9, '4289 ท้าวเวสสุวรรณ (สีชมพู)', '/wallpapers/4289-vessavana-pink.webp', 'all', ARRAY['การเงิน', 'โชคลาภ', '4289'], false, 0, 'เหมาะอย่างยิ่งสำหรับ "คนทำมาค้าขาย, เจ้าของธุรกิจ, Sales, และคนที่ต้องการเสริมดวงโชคลาภและการเงิน" โดยเน้นที่ความราบรื่น (ปางเด็ก) และเงินทองไหลมาเทมา (4289 + ถุงเงิน) ครับ')
 ON CONFLICT (id) DO UPDATE 
 SET name = excluded.name, 
     image = excluded.image, 

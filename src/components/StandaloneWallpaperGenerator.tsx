@@ -535,7 +535,7 @@ const VessavanaWallpaperContent = React.forwardRef<HTMLDivElement, VessavanaWall
             >
                 {/* Background Image - ท้าวเวสสุวรรณ (มีพรและมนตราในรูปอยู่แล้ว) */}
                 <img
-                    src="/wallpapers/vessavana-main.png"
+                    src="/wallpapers/vessavana-main.webp"
                     alt="ท้าวเวสสุวรรณ"
                     style={{
                         position: 'absolute',

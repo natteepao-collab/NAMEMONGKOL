@@ -4,7 +4,7 @@ import path from "node:path";
 import fs from "node:fs";
 
 const QUALITY = 82;
-const TARGET_DIR = "public/images/articles";
+const TARGET_DIR = process.argv[2] || "public/images/articles";
 const pattern = `${TARGET_DIR}/**/*.png`;
 
 const files = await glob(pattern, { nodir: true });

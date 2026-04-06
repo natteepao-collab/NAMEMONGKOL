@@ -3,7 +3,7 @@
 import React, { useState, Suspense, useEffect } from 'react';
 import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Download, Share2, Sparkles, Filter, Lock, LogIn, Palette, ImageIcon, Crown } from 'lucide-react';
+import { Download, Sparkles, Lock, Palette, ImageIcon, Crown, Sun, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/utils/supabase';
 import dynamic from 'next/dynamic';
@@ -25,15 +25,15 @@ const StandaloneWallpaperGenerator = dynamic(
 
 // Fallback constant for immediate load/SSR if needed, but we will rely on DB
 const INITIAL_WALLPAPERS: Wallpaper[] = [
-    { id: 1, name: 'มหาเทพประทานทรัพย์ (วันอาทิตย์)', image: '/wallpapers/sunday.png', day: 'sunday', tags: ['การเงิน', 'อำนาจ'], premium: false, downloads: 2540 },
-    { id: 2, name: 'เสน่ห์เมตตามหานิยม (วันจันทร์)', image: '/wallpapers/monday.png', day: 'monday', tags: ['ความรัก', 'เมตตา'], premium: false, downloads: 3120 },
-    { id: 3, name: 'นักรบกล้าหาญ (วันอังคาร)', image: '/wallpapers/tuesday.png', day: 'tuesday', tags: ['การงาน', 'แข่งขัน'], premium: false, downloads: 1890 },
-    { id: 4, name: 'วาจาเรียกทรัพย์ (วันพุธ)', image: '/wallpapers/wednesday.png', day: 'wednesday', tags: ['การเจรจา', 'ค้าขาย'], premium: false, downloads: 2100 },
-    { id: 5, name: 'ปัญญาบารมี (วันพฤหัสบดี)', image: '/wallpapers/thursday.png', day: 'thursday', tags: ['การเรียน', 'ผู้ใหญ่เมตตา'], premium: false, downloads: 2750 },
-    { id: 6, name: 'ทรัพย์สินพอกพูน (วันศุกร์)', image: '/wallpapers/friday.png', day: 'friday', tags: ['การเงิน', 'ความสุข'], premium: false, downloads: 3420 },
-    { id: 7, name: 'อำนาจบารมี (วันเสาร์)', image: '/wallpapers/saturday.png', day: 'saturday', tags: ['อำนาจ', 'แคล้วคลาด'], premium: false, downloads: 1980 },
-    { id: 8, name: 'ท้าวเวสสุวรรณ ปลดหนี้', image: '/wallpapers/thao-wessuwan-v2.png', day: 'all', tags: ['ปลดหนี้', 'กันชง'], premium: true, downloads: 4500 },
-    { id: 9, name: '4289 ท้าวเวสสุวรรณ (สีชมพู)', image: '/wallpapers/4289-vessavana-pink.png', day: 'all', tags: ['การเงิน', 'โชคลาภ', '4289'], premium: false, downloads: 0, description: 'เหมาะอย่างยิ่งสำหรับ \"คนทำมาค้าขาย, เจ้าของธุรกิจ, Sales, และคนที่ต้องการเสริมดวงโชคลาภและการเงิน\" โดยเน้นที่ความราบรื่น (ปางเด็ก) และเงินทองไหลมาเทมา (4289 + ถุงเงิน) ครับ' },
+    { id: 1, name: 'มหาเทพประทานทรัพย์ (วันอาทิตย์)', image: '/wallpapers/sunday.webp', day: 'sunday', tags: ['การเงิน', 'อำนาจ'], premium: false, downloads: 2540 },
+    { id: 2, name: 'เสน่ห์เมตตามหานิยม (วันจันทร์)', image: '/wallpapers/monday.webp', day: 'monday', tags: ['ความรัก', 'เมตตา'], premium: false, downloads: 3120 },
+    { id: 3, name: 'นักรบกล้าหาญ (วันอังคาร)', image: '/wallpapers/tuesday.webp', day: 'tuesday', tags: ['การงาน', 'แข่งขัน'], premium: false, downloads: 1890 },
+    { id: 4, name: 'วาจาเรียกทรัพย์ (วันพุธ)', image: '/wallpapers/wednesday.webp', day: 'wednesday', tags: ['การเจรจา', 'ค้าขาย'], premium: false, downloads: 2100 },
+    { id: 5, name: 'ปัญญาบารมี (วันพฤหัสบดี)', image: '/wallpapers/thursday.webp', day: 'thursday', tags: ['การเรียน', 'ผู้ใหญ่เมตตา'], premium: false, downloads: 2750 },
+    { id: 6, name: 'ทรัพย์สินพอกพูน (วันศุกร์)', image: '/wallpapers/friday.webp', day: 'friday', tags: ['การเงิน', 'ความสุข'], premium: false, downloads: 3420 },
+    { id: 7, name: 'อำนาจบารมี (วันเสาร์)', image: '/wallpapers/saturday.webp', day: 'saturday', tags: ['อำนาจ', 'แคล้วคลาด'], premium: false, downloads: 1980 },
+    { id: 8, name: 'ท้าวเวสสุวรรณ ปลดหนี้', image: '/wallpapers/thao-wessuwan-v2.webp', day: 'all', tags: ['ปลดหนี้', 'กันชง'], premium: true, downloads: 4500 },
+    { id: 9, name: '4289 ท้าวเวสสุวรรณ (สีชมพู)', image: '/wallpapers/4289-vessavana-pink.webp', day: 'all', tags: ['การเงิน', 'โชคลาภ', '4289'], premium: false, downloads: 0, description: 'เหมาะอย่างยิ่งสำหรับ \"คนทำมาค้าขาย, เจ้าของธุรกิจ, Sales, และคนที่ต้องการเสริมดวงโชคลาภและการเงิน\" โดยเน้นที่ความราบรื่น (ปางเด็ก) และเงินทองไหลมาเทมา (4289 + ถุงเงิน) ครับ' },
 ];
 
 const DAYS = [
@@ -46,6 +46,44 @@ const DAYS = [
     { value: 'friday', label: 'วันศุกร์' },
     { value: 'saturday', label: 'วันเสาร์' },
 ];
+
+// Zodiac categories
+type CategoryType = 'day' | 'zodiac';
+
+const ZODIAC_SIGNS = [
+    { value: 'all', label: 'ทั้งหมด', emoji: '✨' },
+    { value: 'aries', label: 'เมษ', emoji: '♈', date: '13 เม.ย. - 14 พ.ค.' },
+    { value: 'taurus', label: 'พฤษภ', emoji: '♉', date: '14 พ.ค. - 14 มิ.ย.' },
+    { value: 'gemini', label: 'เมถุน', emoji: '♊', date: '14 มิ.ย. - 14 ก.ค.' },
+    { value: 'cancer', label: 'กรกฎ', emoji: '♋', date: '14 ก.ค. - 16 ส.ค.' },
+    { value: 'leo', label: 'สิงห์', emoji: '♌', date: '16 ส.ค. - 16 ก.ย.' },
+    { value: 'virgo', label: 'กันย์', emoji: '♍', date: '16 ก.ย. - 16 ต.ค.' },
+    { value: 'libra', label: 'ตุลย์', emoji: '♎', date: '16 ต.ค. - 15 พ.ย.' },
+    { value: 'scorpio', label: 'พิจิก', emoji: '♏', date: '15 พ.ย. - 15 ธ.ค.' },
+    { value: 'sagittarius', label: 'ธนู', emoji: '♐', date: '15 ธ.ค. - 14 ม.ค.' },
+    { value: 'capricorn', label: 'มังกร', emoji: '♑', date: '14 ม.ค. - 12 ก.พ.' },
+    { value: 'aquarius', label: 'กุมภ์', emoji: '♒', date: '12 ก.พ. - 14 มี.ค.' },
+    { value: 'pisces', label: 'มีน', emoji: '♓', date: '14 มี.ค. - 13 เม.ย.' },
+];
+
+const ZODIAC_WALLPAPERS: Wallpaper[] = [
+    { id: 1001, name: 'ราศีเมษ', image: '/wallpapers/ราศีเมษ.webp', day: 'aries', tags: ['ราศีเมษ', 'ผู้นำ', 'กล้าหาญ'], premium: true, downloads: 0, description: 'วอลเปเปอร์มงคลราศีเมษ เสริมความเป็นผู้นำ กล้าตัดสินใจ พลังขับเคลื่อนชีวิตไปข้างหน้า' },
+    { id: 1002, name: 'ราศีพฤษภ', image: '/wallpapers/ราศีพฤษภ.webp', day: 'taurus', tags: ['ราศีพฤษภ', 'มั่นคง', 'ร่ำรวย'], premium: true, downloads: 0, description: 'วอลเปเปอร์มงคลราศีพฤษภ เสริมความมั่นคง ร่ำรวย อดทนสู่ความสำเร็จ' },
+    { id: 1003, name: 'ราศีเมถุน', image: '/wallpapers/ราศีเมถุน.webp', day: 'gemini', tags: ['ราศีเมถุน', 'สื่อสาร', 'เฉลียวฉลาด'], premium: true, downloads: 0, description: 'วอลเปเปอร์มงคลราศีเมถุน เสริมทักษะการสื่อสาร ความเฉลียวฉลาด และไหวพริบ' },
+    { id: 1004, name: 'ราศีกรกฎ', image: '/wallpapers/ราศีกรกฎ .webp', day: 'cancer', tags: ['ราศีกรกฎ', 'ครอบครัว', 'อ่อนโยน'], premium: true, downloads: 0, description: 'วอลเปเปอร์มงคลราศีกรกฎ เสริมพลังรัก ครอบครัว และความอบอุ่น' },
+    { id: 1005, name: 'ราศีสิงห์', image: '/wallpapers/ราศีสิงห์.webp', day: 'leo', tags: ['ราศีสิงห์', 'บารมี', 'เกียรติยศ'], premium: true, downloads: 0, description: 'วอลเปเปอร์มงคลราศีสิงห์ เสริมบารมี เกียรติยศ ความโดดเด่น' },
+    { id: 1006, name: 'ราศีกันย์', image: '/wallpapers/ราศีกันย์.webp', day: 'virgo', tags: ['ราศีกันย์', 'รอบคอบ', 'สติปัญญา'], premium: true, downloads: 0, description: 'วอลเปเปอร์มงคลราศีกันย์ เสริมสติปัญญา ความรอบคอบ และวิจารณญาณ' },
+    { id: 1007, name: 'ราศีตุลย์', image: '/wallpapers/ราศีตุลย์ .webp', day: 'libra', tags: ['ราศีตุลย์', 'ความรัก', 'สมดุล'], premium: true, downloads: 0, description: 'วอลเปเปอร์มงคลราศีตุลย์ เสริมความรัก ความสมดุลในชีวิต และเสน่ห์' },
+    { id: 1008, name: 'ราศีพิจิก', image: '/wallpapers/ราศีพิจิก.webp', day: 'scorpio', tags: ['ราศีพิจิก', 'พลัง', 'ลึกซึ้ง'], premium: true, downloads: 0, description: 'วอลเปเปอร์มงคลราศีพิจิก เสริมพลังภายใน ความมุ่งมั่น และความลึกซึ้ง' },
+    { id: 1009, name: 'ราศีธนู', image: '/wallpapers/ราศีธนู.webp', day: 'sagittarius', tags: ['ราศีธนู', 'โชคลาภ', 'อิสระ'], premium: true, downloads: 0, description: 'วอลเปเปอร์มงคลราศีธนู เสริมโชคลาภ ความอิสรเสรี และการเดินทาง' },
+    { id: 1010, name: 'ราศีมังกร', image: '/wallpapers/ราศีมังกร .webp', day: 'capricorn', tags: ['ราศีมังกร', 'ความสำเร็จ', 'อำนาจ'], premium: true, downloads: 0, description: 'วอลเปเปอร์มงคลราศีมังกร เสริมความสำเร็จ อำนาจ และความก้าวหน้า' },
+    { id: 1011, name: 'ราศีกุมภ์', image: '/wallpapers/ราศีกุมภ์.webp', day: 'aquarius', tags: ['ราศีกุมภ์', 'สร้างสรรค์', 'อัจฉริยะ'], premium: true, downloads: 0, description: 'วอลเปเปอร์มงคลราศีกุมภ์ เสริมความคิดสร้างสรรค์ นวัตกรรม และความเป็นอัจฉริยะ' },
+    { id: 1012, name: 'ราศีมีน', image: '/wallpapers/ราศีมีน.webp', day: 'pisces', tags: ['ราศีมีน', 'จิตวิญญาณ', 'เมตตา'], premium: true, downloads: 0, description: 'วอลเปเปอร์มงคลราศีมีน เสริมญาณทิพย์ พลังจิตวิญญาณ และเมตตา' },
+];
+
+// Zodiac wallpaper IDs for cost lookup
+const ZODIAC_IDS = new Set(ZODIAC_WALLPAPERS.map(w => w.id));
+const getWallpaperCost = (wallpaper: Wallpaper) => ZODIAC_IDS.has(wallpaper.id) ? 10 : 15;
 
 // Tab types
 type TabType = 'collection' | 'custom';
@@ -62,6 +100,8 @@ function WallpapersContent() {
     const [userCredits, setUserCredits] = useState<number | null>(null);
     const [wallpapers, setWallpapers] = useState<Wallpaper[]>(INITIAL_WALLPAPERS);
     const [loading, setLoading] = useState(true);
+    const [selectedCategory, setSelectedCategory] = useState<CategoryType>('day');
+    const [selectedZodiac, setSelectedZodiac] = useState('all');
 
     // Fetch Wallpapers from Supabase
     useEffect(() => {
@@ -127,10 +167,13 @@ function WallpapersContent() {
         selectedDay === 'all' || wp.day === selectedDay || wp.day === 'all'
     );
 
+    const filteredZodiacWallpapers = ZODIAC_WALLPAPERS.filter(wp =>
+        selectedZodiac === 'all' || wp.day === selectedZodiac
+    );
+
     const handleDownload = async (wallpaper: Wallpaper) => {
         // Dynamic import SweetAlert2
-        // -expect-error Temporary type mismatch with external/runtime data.
-            const Swal = (await import('sweetalert2')).default;
+        const Swal = (await import('sweetalert2')).default;
 
         // 1. Check Auth (Skip if not premium? No, require auth for tracking usually, but for now lets require auth for all as per previous logic)
         const { data: { session } } = await supabase.auth.getSession();
@@ -147,7 +190,7 @@ function WallpapersContent() {
                 cancelButtonText: 'ยกเลิก',
                 background: '#1e293b',
                 color: '#fff'
-            }).then((result: any) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
                     router.push('/login');
                 }
@@ -157,7 +200,7 @@ function WallpapersContent() {
 
         // 2. Handle Premium Logic
         if (wallpaper.premium) {
-            const COST = 15;
+            const COST = getWallpaperCost(wallpaper);
 
             // Check balance
             if (userCredits === null || userCredits < COST) {
@@ -171,7 +214,7 @@ function WallpapersContent() {
                     confirmButtonColor: '#10b981',
                     background: '#1e293b',
                     color: '#fff'
-                }).then((res: any) => {
+                }).then((res) => {
                     if (res.isConfirmed) router.push('/topup');
                 });
                 return;
@@ -225,7 +268,7 @@ function WallpapersContent() {
         // 4. Download Logic
         const link = document.createElement('a');
         link.href = wallpaper.image;
-        link.download = `namemongkol-${wallpaper.id}-${Date.now()}.png`; // Unique name
+        link.download = `namemongkol-${wallpaper.id}-${Date.now()}.webp`; // Unique name
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -235,7 +278,7 @@ function WallpapersContent() {
             Swal.fire({
                 icon: 'success',
                 title: 'ดาวน์โหลดสำเร็จ',
-                text: `หัก 15 เครดิตเรียบร้อยแล้ว`,
+                text: `หัก ${getWallpaperCost(wallpaper)} เครดิตเรียบร้อยแล้ว`,
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
@@ -297,23 +340,72 @@ function WallpapersContent() {
                             transition={{ duration: 0.3 }}
                             className="space-y-6"
                         >
-                            {/* Day Filter */}
-                            <div className="flex bg-slate-900/50 p-1.5 rounded-xl border border-white/10 overflow-x-auto max-w-full no-scrollbar w-fit">
-                                {DAYS.map((d) => (
+                            {/* Category Selector */}
+                            <div className="space-y-4">
+                                <div className="flex gap-2">
                                     <button
-                                        key={d.value}
-                                        onClick={() => setSelectedDay(d.value)}
-                                        className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedDay === d.value
-                                            ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
-                                            : 'text-slate-400 hover:text-white hover:bg-white/5'
-                                            }`}
+                                        onClick={() => setSelectedCategory('day')}
+                                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                                            selectedCategory === 'day'
+                                                ? 'bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 border border-amber-500/40 shadow-lg shadow-amber-500/10'
+                                                : 'bg-slate-800/50 text-slate-400 border border-white/10 hover:text-white hover:border-white/20'
+                                        }`}
                                     >
-                                        {d.label}
+                                        <Sun size={16} />
+                                        ตามวันเกิด
                                     </button>
-                                ))}
+                                    <button
+                                        onClick={() => setSelectedCategory('zodiac')}
+                                        className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                                            selectedCategory === 'zodiac'
+                                                ? 'bg-gradient-to-r from-purple-500/20 to-indigo-500/20 text-purple-300 border border-purple-500/40 shadow-lg shadow-purple-500/10'
+                                                : 'bg-slate-800/50 text-slate-400 border border-white/10 hover:text-white hover:border-white/20'
+                                        }`}
+                                    >
+                                        <Star size={16} />
+                                        ตามราศี
+                                    </button>
+                                </div>
+
+                                {/* Day Filter - show when 'day' category is selected */}
+                                {selectedCategory === 'day' && (
+                                    <div className="flex bg-slate-900/50 p-1.5 rounded-xl border border-white/10 overflow-x-auto max-w-full no-scrollbar w-fit">
+                                        {DAYS.map((d) => (
+                                            <button
+                                                key={d.value}
+                                                onClick={() => setSelectedDay(d.value)}
+                                                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedDay === d.value
+                                                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
+                                                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                                    }`}
+                                            >
+                                                {d.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {/* Zodiac Filter - show when 'zodiac' category is selected */}
+                                {selectedCategory === 'zodiac' && (
+                                    <div className="flex bg-slate-900/50 p-1.5 rounded-xl border border-white/10 overflow-x-auto max-w-full no-scrollbar">
+                                        {ZODIAC_SIGNS.map((z) => (
+                                            <button
+                                                key={z.value}
+                                                onClick={() => setSelectedZodiac(z.value)}
+                                                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedZodiac === z.value
+                                                    ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg shadow-purple-500/20'
+                                                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                                    }`}
+                                            >
+                                                <span className="text-base">{z.emoji}</span>
+                                                {z.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
 
-                            {loading && (
+                            {selectedCategory === 'day' && loading && (
                                 <div className="flex items-center justify-center py-4">
                                     <span className="animate-pulse text-slate-400">กำลังโหลดข้อมูล...</span>
                                 </div>
@@ -321,7 +413,7 @@ function WallpapersContent() {
 
                             {/* Grid */}
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
-                                {filteredWallpapers.map((wp) => (
+                                {(selectedCategory === 'day' ? filteredWallpapers : filteredZodiacWallpapers).map((wp) => (
                                     <motion.div
                                         key={wp.id}
                                         initial={{ opacity: 0, scale: 0.9 }}
@@ -474,7 +566,7 @@ function WallpapersContent() {
                                         <div className="flex justify-between items-center text-sm md:text-base">
                                             <span className="text-slate-400">ราคาดาวน์โหลด</span>
                                             <div className="text-right">
-                                                <span className="font-bold text-amber-500 text-xl">15</span>
+                                                <span className="font-bold text-amber-500 text-xl">{getWallpaperCost(selectedWallpaper)}</span>
                                                 <span className="ml-1 text-xs text-slate-500">Credits</span>
                                             </div>
                                         </div>
@@ -489,7 +581,7 @@ function WallpapersContent() {
                                             }`}
                                     >
                                         <Download size={20} />
-                                        {selectedWallpaper.premium ? 'แลกด้วย 15 เครดิต' : 'ดาวน์โหลดฟรี'}
+                                        {selectedWallpaper.premium ? `แลกด้วย ${getWallpaperCost(selectedWallpaper)} เครดิต` : 'ดาวน์โหลดฟรี'}
                                     </button>
                                 </div>
                             </div>
