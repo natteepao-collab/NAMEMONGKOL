@@ -99,6 +99,7 @@ function WallpapersContent() {
     const [selectedWallpaper, setSelectedWallpaper] = useState<Wallpaper | null>(null);
     const [userCredits, setUserCredits] = useState<number | null>(null);
     const [wallpapers, setWallpapers] = useState<Wallpaper[]>(INITIAL_WALLPAPERS);
+    const [zodiacWallpapers, setZodiacWallpapers] = useState<Wallpaper[]>(ZODIAC_WALLPAPERS);
     const [loading, setLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState<CategoryType>('day');
     const [selectedZodiac, setSelectedZodiac] = useState('all');
@@ -117,6 +118,10 @@ function WallpapersContent() {
                     // use fallback
                 } else if (data && data.length > 0) {
                     setWallpapers(data);
+                    setZodiacWallpapers(prev => prev.map(zodiacWallpaper => {
+                        const matchedWallpaper = data.find(item => item.id === zodiacWallpaper.id);
+                        return matchedWallpaper ? { ...zodiacWallpaper, downloads: matchedWallpaper.downloads } : zodiacWallpaper;
+                    }));
                 }
             } catch (err) {
                 console.error('Fetch error:', err);
@@ -167,9 +172,22 @@ function WallpapersContent() {
         selectedDay === 'all' || wp.day === selectedDay || wp.day === 'all'
     );
 
-    const filteredZodiacWallpapers = ZODIAC_WALLPAPERS.filter(wp =>
+    const filteredZodiacWallpapers = zodiacWallpapers.filter(wp =>
         selectedZodiac === 'all' || wp.day === selectedZodiac
     );
+
+    const incrementLocalDownloads = (wallpaper: Wallpaper) => {
+        if (ZODIAC_IDS.has(wallpaper.id)) {
+            setZodiacWallpapers(prev => prev.map(item =>
+                item.id === wallpaper.id ? { ...item, downloads: item.downloads + 1 } : item
+            ));
+            return;
+        }
+
+        setWallpapers(prev => prev.map(item =>
+            item.id === wallpaper.id ? { ...item, downloads: item.downloads + 1 } : item
+        ));
+    };
 
     const handleDownload = async (wallpaper: Wallpaper) => {
         // Dynamic import SweetAlert2
@@ -253,16 +271,18 @@ function WallpapersContent() {
         try {
             const { error: rpcError } = await supabase.rpc('increment_wallpaper_downloads', { wallpaper_id: wallpaper.id });
             if (!rpcError) {
-                // Optimistic UI Update
-                setWallpapers(prev => prev.map(w => w.id === wallpaper.id ? { ...w, downloads: w.downloads + 1 } : w));
-                if (selectedWallpaper?.id === wallpaper.id) {
-                    setSelectedWallpaper(prev => prev ? { ...prev, downloads: prev.downloads + 1 } : null);
-                }
+                incrementLocalDownloads(wallpaper);
             } else {
                 console.error("Failed to increment downloads", rpcError);
+                if (ZODIAC_IDS.has(wallpaper.id)) {
+                    incrementLocalDownloads(wallpaper);
+                }
             }
         } catch (e) {
             console.error("Failed to increment downloads", e);
+            if (ZODIAC_IDS.has(wallpaper.id)) {
+                incrementLocalDownloads(wallpaper);
+            }
         }
 
         // 4. Download Logic
@@ -272,6 +292,11 @@ function WallpapersContent() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+
+        setSelectedWallpaper(prev => prev && prev.id === wallpaper.id
+            ? { ...prev, downloads: prev.downloads + 1 }
+            : prev
+        );
 
         // Success Message (for premium mostly, but useful for all)
         if (wallpaper.premium) {
