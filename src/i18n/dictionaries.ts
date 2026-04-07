@@ -270,8 +270,8 @@ const dictionaries: Record<SupportedLanguage, TranslationDict> = {
                     score: 'ผลรวมเลขศาสตร์',
                 },
                 unlock: {
-                    button: 'โหลดเพิ่ม 50 รายชื่อ',
-                    cost: 'ใช้ 5 Credits',
+                    button: 'โหลดเพิ่ม 20 รายชื่อ',
+                    cost: 'ใช้ 10 Credits',
                 },
                 empty: 'ไม่พบรายชื่อที่ตรงกับเงื่อนไข',
                 showingPrefix: 'แสดงผล',
@@ -597,8 +597,8 @@ const dictionaries: Record<SupportedLanguage, TranslationDict> = {
                     score: 'Numerology Sum',
                 },
                 unlock: {
-                    button: 'Load 50 more names',
-                    cost: 'Use 5 credits',
+                    button: 'Load 20 more names',
+                    cost: 'Use 10 credits',
                 },
                 empty: 'No names match these filters',
                 showingPrefix: 'Showing',

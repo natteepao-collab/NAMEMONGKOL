@@ -5,7 +5,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/utils/supabase';
-import { Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, X, Lock, Unlock } from 'lucide-react';
+import { Sparkles, ChevronDown, ChevronUp, CheckCircle, XCircle, Filter, X, Lock, Unlock, Type } from 'lucide-react';
 import Swal from 'sweetalert2';
 
 import { calculateScore } from '@/utils/numerologyUtils';
@@ -119,11 +119,22 @@ function NameRow({ name }: { name: string }) {
 
 const ITEMS_PER_PAGE = 60;
 
+// Thai consonants for letter filter
+const THAI_LETTERS = [
+    'ก','ข','ฃ','ค','ฅ','ฆ','ง','จ','ฉ','ช','ซ','ฌ','ญ','ฎ','ฏ','ฐ','ฑ','ฒ','ณ',
+    'ด','ต','ถ','ท','ธ','น','บ','ป','ผ','ฝ','พ','ฟ','ภ','ม','ย','ร','ล','ว',
+    'ศ','ษ','ส','ห','ฬ','อ','ฮ',
+];
+
+const UNLOCK_COST = 10;
+const UNLOCK_AMOUNT = 20;
+
 export default function SearchPage() {
     const router = useRouter();
     const { t } = useLanguage();
     const [selectedDay, setSelectedDay] = useState<DayKey | 'all'>('all');
-    const [selectedGender, setSelectedGender] = useState<'all' | 'male' | 'female' | 'neutral'>('all'); // NEW
+    const [selectedGender, setSelectedGender] = useState<'all' | 'male' | 'female' | 'neutral'>('all');
+    const [selectedLetter, setSelectedLetter] = useState<string>('all');
     const [targetSum, setTargetSum] = useState('');
     const [isSumFocused, setIsSumFocused] = useState(false);
     const [hasTyped, setHasTyped] = useState(false);
@@ -214,7 +225,12 @@ export default function SearchPage() {
                 if (!suitability.suitable.includes(targetDayName)) return false;
             }
 
-            // 3. Numerology Sum Filter
+            // 3. Letter Filter (first Thai character)
+            if (selectedLetter !== 'all') {
+                if (!name.startsWith(selectedLetter)) return false;
+            }
+
+            // 4. Numerology Sum Filter
             if (targetSum) {
                 const score = calculateScore(name);
                 if (score !== parseInt(targetSum)) return false;
@@ -222,7 +238,7 @@ export default function SearchPage() {
 
             return true;
         }).map(item => item.name); // Return just names for display
-    }, [selectedDay, selectedGender, targetSum, names, loading]);
+    }, [selectedDay, selectedGender, selectedLetter, targetSum, names, loading]);
 
     // Reset to page 1 when filters change is now handled in event handlers
 
@@ -230,13 +246,18 @@ export default function SearchPage() {
 
     const handleDayChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedDay(e.target.value as DayKey | 'all');
-        setVisibleCount(10); // Reset to initial 10
+        setVisibleCount(10);
+    };
+
+    const handleLetterChange = (letter: string) => {
+        setSelectedLetter(letter);
+        setVisibleCount(10);
     };
 
     const handleSumChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTargetSum(e.target.value);
         setHasTyped(true);
-        setVisibleCount(10); // Reset to initial 10
+        setVisibleCount(10);
     };
 
     const handleUnlock = async () => {
@@ -310,10 +331,10 @@ export default function SearchPage() {
                 return;
             }
 
-            if (latestCredits < 5) {
+            if (latestCredits < UNLOCK_COST) {
                 const result = await Swal.fire({
                     title: 'เครดิตไม่เพียงพอ',
-                    text: 'การปลดล็อกต้องใช้ 5 เครดิต กดเพื่อเติมเงิน',
+                    text: `การปลดล็อกต้องใช้ ${UNLOCK_COST} เครดิต กดเพื่อเติมเงิน`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'เติมเครดิต',
@@ -329,8 +350,8 @@ export default function SearchPage() {
             }
 
             const result = await Swal.fire({
-                title: 'ปลดล็อก 5 เครดิต',
-                text: 'เพื่อดูรายชื่อที่เหลือทั้งหมด',
+                title: `ปลดล็อก ${UNLOCK_COST} เครดิต`,
+                text: `โหลดเพิ่มอีก ${UNLOCK_AMOUNT} รายชื่อ`,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'ยืนยัน',
@@ -344,7 +365,7 @@ export default function SearchPage() {
 
             if (!result.isConfirmed) return;
 
-            const { error } = await supabase.rpc('deduct_credits', { amount: 5 });
+            const { error } = await supabase.rpc('deduct_credits', { amount: UNLOCK_COST });
             if (error) {
                 console.error('deduct_credits error:', error);
                 await Swal.fire({
@@ -358,14 +379,14 @@ export default function SearchPage() {
                 return;
             }
 
-            const updatedCredits = latestCredits - 5;
+            const updatedCredits = latestCredits - UNLOCK_COST;
             setUserCredits(updatedCredits);
-            setVisibleCount(prev => prev + 50);
+            setVisibleCount(prev => prev + UNLOCK_AMOUNT);
             window.dispatchEvent(new Event('force_credits_update'));
 
             await Swal.fire({
                 title: 'โหลดรายชื่อสำเร็จ!',
-                text: 'เพิ่มรายชื่ออีก 50 ชื่อเรียบร้อยแล้ว',
+                text: `เพิ่มรายชื่ออีก ${UNLOCK_AMOUNT} ชื่อเรียบร้อยแล้ว`,
                 icon: 'success',
                 timer: 1500,
                 showConfirmButton: false,
@@ -550,6 +571,47 @@ export default function SearchPage() {
                                     <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform duration-300 ${isSumFocused ? 'rotate-180' : ''}`} />
                                 )}
                             </div>
+                        </div>
+                    </div>
+
+                    {/* Letter Filter (ก-ฮ) */}
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-2 text-sm text-slate-400">
+                            <Type className="w-4 h-4" />
+                            <span>กรองตามตัวอักษรแรก</span>
+                            {selectedLetter !== 'all' && (
+                                <button
+                                    onClick={() => handleLetterChange('all')}
+                                    className="ml-auto text-xs text-amber-400 hover:text-amber-300 transition-colors"
+                                >
+                                    ล้างตัวกรอง
+                                </button>
+                            )}
+                        </div>
+                        <div className="flex flex-wrap gap-1.5">
+                            <button
+                                onClick={() => handleLetterChange('all')}
+                                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                                    selectedLetter === 'all'
+                                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
+                                        : 'bg-slate-800/60 text-slate-400 border border-white/10 hover:text-white hover:border-white/20'
+                                }`}
+                            >
+                                ทั้งหมด
+                            </button>
+                            {THAI_LETTERS.map((letter) => (
+                                <button
+                                    key={letter}
+                                    onClick={() => handleLetterChange(letter)}
+                                    className={`w-9 h-9 rounded-lg text-sm font-medium transition-all flex items-center justify-center ${
+                                        selectedLetter === letter
+                                            ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20 scale-110'
+                                            : 'bg-slate-800/60 text-slate-400 border border-white/10 hover:text-white hover:border-white/20 hover:bg-white/5'
+                                    }`}
+                                >
+                                    {letter}
+                                </button>
+                            ))}
                         </div>
                     </div>
                 </div>
