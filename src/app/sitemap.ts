@@ -60,7 +60,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.7,
     }));
 
-    // Fetch dynamic wallpapers
+    // Wallpaper sub-page category URLs (marketing-friendly)
+    const wallpaperDays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const wallpaperZodiac = ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'];
+
+    const wallpaperCategoryUrls: MetadataRoute.Sitemap = [
+        ...wallpaperDays.map((day) => ({
+            url: `${baseUrl}/wallpapers/day/${day}`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly' as const,
+            priority: 0.7,
+        })),
+        { url: `${baseUrl}/wallpapers/zodiac`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.7 },
+        ...wallpaperZodiac.map((sign) => ({
+            url: `${baseUrl}/wallpapers/zodiac/${sign}`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly' as const,
+            priority: 0.7,
+        })),
+        { url: `${baseUrl}/wallpapers/custom`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.6 },
+    ];
+
+    // Fetch dynamic wallpapers (individual IDs for deep-link)
     let wallpaperUrls: MetadataRoute.Sitemap = [];
     try {
         if (!supabase) throw new Error('Supabase is not configured');
@@ -73,7 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                 url: `${baseUrl}/wallpapers?id=${wp.id}`,
                 lastModified: wp.created_at ? new Date(wp.created_at) : new Date(),
                 changeFrequency: 'weekly' as const,
-                priority: 0.7,
+                priority: 0.6,
             }))
         }
     } catch (error) {
@@ -113,5 +134,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const allArticleSlugs = new Set(localArticleUrls.map(a => a.url));
     const dbOnlyArticles = articleUrls.filter(a => !allArticleSlugs.has(a.url));
 
-    return [...staticUrls, ...meaningUrls, ...wallpaperUrls, ...localArticleUrls, ...dbOnlyArticles];
+    return [...staticUrls, ...meaningUrls, ...wallpaperCategoryUrls, ...wallpaperUrls, ...localArticleUrls, ...dbOnlyArticles];
 }

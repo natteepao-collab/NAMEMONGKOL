@@ -111,7 +111,7 @@ export const WallpaperUpsell = ({ result, day = 'sunday' }: WallpaperUpsellProps
                                     ดูวอลเปเปอร์ทั้งหมด
                                 </Link>
                                 <Link
-                                    href={`/wallpapers?day=${day}`}
+                                    href={`/wallpapers/day/${day}`}
                                     className="flex items-center gap-2 bg-white/5 hover:bg-white/10 text-white font-medium py-3 px-6 rounded-xl border border-white/10 transition-all hover:border-white/30"
                                 >
                                     ดูเฉพาะวันเกิดเรา <ArrowRight size={18} />

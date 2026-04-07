@@ -30,6 +30,32 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion', 'canvas-confetti', 'date-fns'],
   },
+  async redirects() {
+    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const dayRedirects = days.map((day) => ({
+      source: '/wallpapers',
+      has: [{ type: 'query' as const, key: 'day', value: day }],
+      destination: `/wallpapers/day/${day}`,
+      permanent: true,
+    }));
+    const zodiacSigns = ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'];
+    const zodiacRedirects = zodiacSigns.map((sign) => ({
+      source: '/wallpapers',
+      has: [{ type: 'query' as const, key: 'zodiac', value: sign }],
+      destination: `/wallpapers/zodiac/${sign}`,
+      permanent: true,
+    }));
+    return [
+      ...dayRedirects,
+      ...zodiacRedirects,
+      {
+        source: '/wallpapers',
+        has: [{ type: 'query' as const, key: 'tab', value: 'custom' }],
+        destination: '/wallpapers/custom',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 const bundleAnalyzer = withBundleAnalyzer({

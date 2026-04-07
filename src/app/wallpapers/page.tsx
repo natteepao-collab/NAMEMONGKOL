@@ -332,7 +332,7 @@ export default function WallpapersPage() {
                                 ดูวอลเปเปอร์ทั้งหมด
                             </Link>
                             <Link
-                                href="/wallpapers?tab=custom"
+                                href="/wallpapers/custom"
                                 className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-base shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 hover:scale-105 transition-all flex items-center gap-2"
                             >
                                 <Sparkles className="w-5 h-5" />

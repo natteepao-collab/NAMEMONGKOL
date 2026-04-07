@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState, Suspense, useEffect } from 'react';
+import React, { useState, Suspense, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Download, Sparkles, Lock, Palette, ImageIcon, Crown, Sun, Star } from 'lucide-react';
+import { Download, Sparkles, Lock, Palette, ImageIcon, Crown, Sun, Star, Share2, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/utils/supabase';
 import dynamic from 'next/dynamic';
@@ -88,11 +88,20 @@ const getWallpaperCost = (wallpaper: Wallpaper) => ZODIAC_IDS.has(wallpaper.id) 
 // Tab types
 type TabType = 'collection' | 'custom';
 
-function WallpapersContent() {
+export interface WallpaperPageProps {
+    initialCategory?: CategoryType;
+    initialDay?: string;
+    initialZodiac?: string;
+    initialTab?: TabType;
+}
+
+function WallpapersContent({ initialCategory: propCategory, initialDay: propDay, initialZodiac: propZodiac, initialTab: propTab }: WallpaperPageProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const initialDay = searchParams.get('day') || 'all';
-    const initialTab = (searchParams.get('tab') as TabType) || 'collection';
+    // Props from sub-routes take precedence, then fallback to query params for backward compat
+    const initialDay = propDay || searchParams.get('day') || 'all';
+    const initialTab = propTab || (searchParams.get('tab') as TabType) || 'collection';
+    const initialCat = propCategory || (searchParams.get('zodiac') ? 'zodiac' : undefined);
 
     const [activeTab, setActiveTab] = useState<TabType>(initialTab);
     const [selectedDay, setSelectedDay] = useState(initialDay);
@@ -101,8 +110,9 @@ function WallpapersContent() {
     const [wallpapers, setWallpapers] = useState<Wallpaper[]>(INITIAL_WALLPAPERS);
     const [zodiacWallpapers, setZodiacWallpapers] = useState<Wallpaper[]>(ZODIAC_WALLPAPERS);
     const [loading, setLoading] = useState(true);
-    const [selectedCategory, setSelectedCategory] = useState<CategoryType>('day');
-    const [selectedZodiac, setSelectedZodiac] = useState('all');
+    const [selectedCategory, setSelectedCategory] = useState<CategoryType>(initialCat || 'day');
+    const [selectedZodiac, setSelectedZodiac] = useState(propZodiac || searchParams.get('zodiac') || 'all');
+    const [showCopied, setShowCopied] = useState(false);
 
     // Fetch Wallpapers from Supabase
     useEffect(() => {
@@ -143,30 +153,43 @@ function WallpapersContent() {
     }, [wallpaperId, wallpapers]);
 
 
-    // Fetch User Credits
-    useEffect(() => {
-        const fetchCredits = async () => {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session?.user) {
-                const { data } = await supabase
-                    .from('user_profiles')
-                    .select('credits, welcome_credits, welcome_credits_granted_at')
-                    .eq('id', session.user.id)
-                    .maybeSingle();
-                if (data) {
-                    let total = data.credits ?? 0;
-                    if (data.welcome_credits && data.welcome_credits > 0 && data.welcome_credits_granted_at) {
-                        const grantedAt = new Date(data.welcome_credits_granted_at).getTime();
-                        if (Date.now() < grantedAt + 30 * 24 * 60 * 60 * 1000) {
-                            total += data.welcome_credits;
-                        }
+    // Reusable function to fetch user credits from DB
+    const fetchUserCredits = useCallback(async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user) {
+            const { data } = await supabase
+                .from('user_profiles')
+                .select('credits, welcome_credits, welcome_credits_granted_at')
+                .eq('id', session.user.id)
+                .maybeSingle();
+            if (data) {
+                let total = data.credits ?? 0;
+                if (data.welcome_credits && data.welcome_credits > 0 && data.welcome_credits_granted_at) {
+                    const grantedAt = new Date(data.welcome_credits_granted_at).getTime();
+                    if (Date.now() < grantedAt + 30 * 24 * 60 * 60 * 1000) {
+                        total += data.welcome_credits;
                     }
-                    setUserCredits(total);
                 }
+                setUserCredits(total);
             }
-        };
-        fetchCredits();
+        }
     }, []);
+
+    // Fetch credits on mount
+    useEffect(() => {
+        fetchUserCredits();
+    }, [fetchUserCredits]);
+
+    // Listen for force_credits_update events (from other components / tabs)
+    useEffect(() => {
+        const handleCreditUpdate = () => {
+            fetchUserCredits();
+        };
+        window.addEventListener('force_credits_update', handleCreditUpdate);
+        return () => {
+            window.removeEventListener('force_credits_update', handleCreditUpdate);
+        };
+    }, [fetchUserCredits]);
 
     const filteredWallpapers = wallpapers.filter(wp =>
         selectedDay === 'all' || wp.day === selectedDay || wp.day === 'all'
@@ -176,17 +199,86 @@ function WallpapersContent() {
         selectedZodiac === 'all' || wp.day === selectedZodiac
     );
 
-    const incrementLocalDownloads = (wallpaper: Wallpaper) => {
+    // Build the shareable URL for the current filter state
+    const getShareUrl = () => {
+        const base = typeof window !== 'undefined' ? window.location.origin : '';
+        if (activeTab === 'custom') return `${base}/wallpapers/custom`;
+        if (selectedCategory === 'zodiac' && selectedZodiac !== 'all') return `${base}/wallpapers/zodiac/${selectedZodiac}`;
+        if (selectedCategory === 'day' && selectedDay !== 'all') return `${base}/wallpapers/day/${selectedDay}`;
+        if (selectedCategory === 'zodiac') return `${base}/wallpapers/zodiac`;
+        return `${base}/wallpapers`;
+    };
+
+    const handleCopyLink = async () => {
+        try {
+            await navigator.clipboard.writeText(getShareUrl());
+            setShowCopied(true);
+            setTimeout(() => setShowCopied(false), 2000);
+        } catch {
+            // fallback
+            const textArea = document.createElement('textarea');
+            textArea.value = getShareUrl();
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            setShowCopied(true);
+            setTimeout(() => setShowCopied(false), 2000);
+        }
+    };
+
+    // Navigate to sub-route when category buttons are pressed
+    const navigateDay = (day: string) => {
+        setSelectedDay(day);
+        if (day === 'all') {
+            router.push('/wallpapers', { scroll: false });
+        } else {
+            router.push(`/wallpapers/day/${day}`, { scroll: false });
+        }
+    };
+    const navigateZodiac = (sign: string) => {
+        setSelectedZodiac(sign);
+        if (sign === 'all') {
+            router.push('/wallpapers', { scroll: false });
+        } else {
+            router.push(`/wallpapers/zodiac/${sign}`, { scroll: false });
+        }
+    };
+    const navigateCategory = (cat: CategoryType) => {
+        setSelectedCategory(cat);
+        if (cat === 'zodiac') {
+            router.push('/wallpapers/zodiac', { scroll: false });
+        } else {
+            router.push('/wallpapers', { scroll: false });
+        }
+    };
+    const navigateTab = (tab: TabType) => {
+        setActiveTab(tab);
+        if (tab === 'custom') {
+            router.push('/wallpapers/custom', { scroll: false });
+        } else {
+            router.push('/wallpapers', { scroll: false });
+        }
+    };
+
+    const updateLocalDownloads = (wallpaper: Wallpaper, newCount?: number) => {
+        const updater = (item: Wallpaper) =>
+            item.id === wallpaper.id
+                ? { ...item, downloads: newCount ?? item.downloads + 1 }
+                : item;
+
         if (ZODIAC_IDS.has(wallpaper.id)) {
-            setZodiacWallpapers(prev => prev.map(item =>
-                item.id === wallpaper.id ? { ...item, downloads: item.downloads + 1 } : item
-            ));
-            return;
+            setZodiacWallpapers(prev => prev.map(updater));
+        } else {
+            setWallpapers(prev => prev.map(updater));
         }
 
-        setWallpapers(prev => prev.map(item =>
-            item.id === wallpaper.id ? { ...item, downloads: item.downloads + 1 } : item
-        ));
+        // Also sync modal state
+        setSelectedWallpaper(prev =>
+            prev && prev.id === wallpaper.id
+                ? { ...prev, downloads: newCount ?? prev.downloads + 1 }
+                : prev
+        );
     };
 
     const handleDownload = async (wallpaper: Wallpaper) => {
@@ -253,13 +345,14 @@ function WallpapersContent() {
 
             if (!confirm.isConfirmed) return;
 
-            // Deduct
+            // Deduct credits
             try {
                 const { error } = await supabase.rpc('deduct_credits', { amount: COST });
                 if (error) throw error;
 
-                // Update local state
+                // Optimistic local update + sync from DB for accuracy
                 setUserCredits(prev => (prev !== null ? prev - COST : null));
+                window.dispatchEvent(new Event('force_credits_update'));
             } catch (error) {
                 console.error('Deduct error:', error);
                 Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถตัดเครดิตได้ กรุณาลองใหม่', 'error');
@@ -267,39 +360,82 @@ function WallpapersContent() {
             }
         }
 
-        // 3. Increment Download Count (Realtime)
+        // 3. Increment Download Count
         try {
-            const { error: rpcError } = await supabase.rpc('increment_wallpaper_downloads', { wallpaper_id: wallpaper.id });
-            if (!rpcError) {
-                incrementLocalDownloads(wallpaper);
+            const { data: rpcData, error: rpcError } = await supabase.rpc('increment_wallpaper_downloads', { wallpaper_id: wallpaper.id });
+
+            if (rpcError) {
+                throw rpcError;
+            }
+
+            // Use actual count from DB if returned, otherwise fallback to +1
+            const row = Array.isArray(rpcData) ? rpcData[0] : rpcData;
+            if (row && row.success && typeof row.new_downloads === 'number') {
+                updateLocalDownloads(wallpaper, row.new_downloads);
             } else {
-                console.error("Failed to increment downloads", rpcError);
-                if (ZODIAC_IDS.has(wallpaper.id)) {
-                    incrementLocalDownloads(wallpaper);
-                }
+                updateLocalDownloads(wallpaper);
             }
         } catch (e) {
-            console.error("Failed to increment downloads", e);
-            if (ZODIAC_IDS.has(wallpaper.id)) {
-                incrementLocalDownloads(wallpaper);
-            }
+            console.error('Failed to increment downloads:', e);
+            // ตาม policy: ให้ดาวน์โหลดต่อได้ แต่แจ้งเตือนว่าเคาน์เตอร์อาจไม่อัปเดตทันที
+            Swal.fire({
+                icon: 'warning',
+                title: 'ระบบบันทึกยอดดาวน์โหลดล่าช้า',
+                text: 'ดาวน์โหลดไฟล์ได้ปกติ แต่ยอดดาวน์โหลดอาจอัปเดตภายหลัง',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                background: '#1e293b',
+                color: '#fff'
+            });
         }
 
-        // 4. Download Logic
-        const link = document.createElement('a');
-        link.href = wallpaper.image;
-        link.download = `namemongkol-${wallpaper.id}-${Date.now()}.webp`; // Unique name
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        // 4. Convert WebP → PNG via Canvas and trigger download
+        const filename = `namemongkol-${wallpaper.id}-${Date.now()}`;
+        try {
+            const img = new window.Image();
+            img.crossOrigin = 'anonymous';
+            const pngBlob = await new Promise<Blob>((resolve, reject) => {
+                img.onload = () => {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.naturalWidth;
+                        canvas.height = img.naturalHeight;
+                        const ctx = canvas.getContext('2d');
+                        if (!ctx) { reject(new Error('Canvas not supported')); return; }
+                        ctx.drawImage(img, 0, 0);
+                        canvas.toBlob((blob) => {
+                            if (blob) resolve(blob);
+                            else reject(new Error('toBlob failed'));
+                        }, 'image/png');
+                    } catch (err) { reject(err); }
+                };
+                img.onerror = () => reject(new Error('Image load failed'));
+                img.src = wallpaper.image;
+            });
+            const url = URL.createObjectURL(pngBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${filename}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        } catch {
+            // Fallback: download original WebP if PNG conversion fails
+            const link = document.createElement('a');
+            link.href = wallpaper.image;
+            link.download = `${filename}.webp`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
 
-        setSelectedWallpaper(prev => prev && prev.id === wallpaper.id
-            ? { ...prev, downloads: prev.downloads + 1 }
-            : prev
-        );
-
-        // Success Message (for premium mostly, but useful for all)
+        // 5. Re-fetch credits from DB to ensure accuracy after transaction
         if (wallpaper.premium) {
+            await fetchUserCredits();
+
             Swal.fire({
                 icon: 'success',
                 title: 'ดาวน์โหลดสำเร็จ',
@@ -329,28 +465,38 @@ function WallpapersContent() {
                         </p>
                     </div>
 
-                    {/* Main Tabs */}
-                    <div className="flex bg-slate-900/80 p-1.5 rounded-2xl border border-white/10 w-fit">
+                    {/* Main Tabs + Share */}
+                    <div className="flex items-center gap-3 flex-wrap">
+                        <div className="flex bg-slate-900/80 p-1.5 rounded-2xl border border-white/10 w-fit">
+                            <button
+                                onClick={() => navigateTab('collection')}
+                                className={`px-6 py-3 rounded-xl text-sm font-bold whitespace-nowrap transition-all flex items-center gap-2 ${activeTab === 'collection'
+                                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
+                                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                    }`}
+                            >
+                                <ImageIcon size={18} />
+                                คอลเลกชันมงคล
+                            </button>
+                            <button
+                                onClick={() => navigateTab('custom')}
+                                className={`px-6 py-3 rounded-xl text-sm font-bold whitespace-nowrap transition-all flex items-center gap-2 ${activeTab === 'custom'
+                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/20'
+                                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                    }`}
+                            >
+                                <Palette size={18} />
+                                สร้างวอลเปเปอร์ส่วนตัว
+                                <Crown size={14} className="text-amber-400" />
+                            </button>
+                        </div>
+                        {/* Share / Copy Link */}
                         <button
-                            onClick={() => setActiveTab('collection')}
-                            className={`px-6 py-3 rounded-xl text-sm font-bold whitespace-nowrap transition-all flex items-center gap-2 ${activeTab === 'collection'
-                                ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
-                                : 'text-slate-400 hover:text-white hover:bg-white/5'
-                                }`}
+                            onClick={handleCopyLink}
+                            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium bg-white/5 border border-white/10 text-slate-300 hover:bg-white/10 hover:text-white transition-all"
                         >
-                            <ImageIcon size={18} />
-                            คอลเลกชันมงคล
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('custom')}
-                            className={`px-6 py-3 rounded-xl text-sm font-bold whitespace-nowrap transition-all flex items-center gap-2 ${activeTab === 'custom'
-                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/20'
-                                : 'text-slate-400 hover:text-white hover:bg-white/5'
-                                }`}
-                        >
-                            <Palette size={18} />
-                            สร้างวอลเปเปอร์ส่วนตัว
-                            <Crown size={14} className="text-amber-400" />
+                            {showCopied ? <Check size={16} className="text-emerald-400" /> : <Share2 size={16} />}
+                            {showCopied ? 'คัดลอกแล้ว!' : 'แชร์ลิงก์หมวดนี้'}
                         </button>
                     </div>
                 </div>
@@ -369,7 +515,7 @@ function WallpapersContent() {
                             <div className="space-y-4">
                                 <div className="flex gap-2">
                                     <button
-                                        onClick={() => setSelectedCategory('day')}
+                                        onClick={() => navigateCategory('day')}
                                         className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
                                             selectedCategory === 'day'
                                                 ? 'bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-300 border border-amber-500/40 shadow-lg shadow-amber-500/10'
@@ -380,7 +526,7 @@ function WallpapersContent() {
                                         ตามวันเกิด
                                     </button>
                                     <button
-                                        onClick={() => setSelectedCategory('zodiac')}
+                                        onClick={() => navigateCategory('zodiac')}
                                         className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${
                                             selectedCategory === 'zodiac'
                                                 ? 'bg-gradient-to-r from-purple-500/20 to-indigo-500/20 text-purple-300 border border-purple-500/40 shadow-lg shadow-purple-500/10'
@@ -398,7 +544,7 @@ function WallpapersContent() {
                                         {DAYS.map((d) => (
                                             <button
                                                 key={d.value}
-                                                onClick={() => setSelectedDay(d.value)}
+                                                onClick={() => navigateDay(d.value)}
                                                 className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedDay === d.value
                                                     ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
                                                     : 'text-slate-400 hover:text-white hover:bg-white/5'
@@ -416,7 +562,7 @@ function WallpapersContent() {
                                         {ZODIAC_SIGNS.map((z) => (
                                             <button
                                                 key={z.value}
-                                                onClick={() => setSelectedZodiac(z.value)}
+                                                onClick={() => navigateZodiac(z.value)}
                                                 className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${selectedZodiac === z.value
                                                     ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg shadow-purple-500/20'
                                                     : 'text-slate-400 hover:text-white hover:bg-white/5'
@@ -618,10 +764,10 @@ function WallpapersContent() {
     );
 }
 
-export default function WallpapersPage() {
+export default function WallpapersPage(props: WallpaperPageProps = {}) {
     return (
         <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-amber-500"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-500"></div></div>}>
-            <WallpapersContent />
+            <WallpapersContent {...props} />
         </Suspense>
     );
 }
