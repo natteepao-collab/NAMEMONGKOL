@@ -17,6 +17,12 @@ export const metadata: Metadata = {
         locale: 'th_TH',
         type: 'website',
     },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'สร้างวอลเปเปอร์มงคลส่วนตัว AI 2569 | NameMongkol',
+        description: 'ออกแบบวอลเปเปอร์เสริมดวงเฉพาะบุคคลด้วย AI',
+        images: [`${siteUrl}/api/og?variant=default&title=สร้างวอลเปเปอร์%20AI&subtitle=ออกแบบเสริมดวงเฉพาะบุคคล&tag=Custom%20Wallpaper`],
+    },
     alternates: {
         canonical: `${siteUrl}/wallpapers/custom`,
     },

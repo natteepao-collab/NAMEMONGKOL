@@ -17,6 +17,12 @@ export const metadata: Metadata = {
         locale: 'th_TH',
         type: 'website',
     },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'วอลเปเปอร์มงคลตามราศี 2569 | NameMongkol',
+        description: 'รวมวอลเปเปอร์มงคลเสริมดวงครบทั้ง 12 ราศี',
+        images: [`${siteUrl}/api/og?variant=default&title=วอลเปเปอร์ตามราศี&subtitle=เสริมดวงครบ%2012%20ราศี&tag=Wallpapers`],
+    },
     alternates: {
         canonical: `${siteUrl}/wallpapers/zodiac`,
     },

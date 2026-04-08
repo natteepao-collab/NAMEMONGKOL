@@ -10,7 +10,7 @@ export async function checkNirunName(name: string): Promise<boolean> {
 
     if (!nirunSet) {
         const lines = premiumNamesRaw.split('\n');
-        nirunSet = new Set(lines.map(line => line.trim()));
+        nirunSet = new Set(lines.map(line => line.trim()).filter(Boolean));
     }
 
     return nirunSet.has(name.trim());

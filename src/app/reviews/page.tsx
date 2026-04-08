@@ -35,6 +35,9 @@ export const metadata: Metadata = {
         description: 'ประสบการณ์จริงจากผู้ใช้ NameMongkol',
         images: [`${siteUrl}/api/og?variant=default&title=รีวิวจากทางบ้าน`],
     },
+    alternates: {
+        canonical: `${siteUrl}/reviews`,
+    },
 };
 
 async function getReviews() {

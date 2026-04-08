@@ -25,6 +25,9 @@ export const metadata: Metadata = {
         description: 'เข้าสู่ระบบเพื่อใช้งานบริการวิเคราะห์ชื่อมงคลครบวงจร',
         images: [`${siteUrl}/api/og?variant=default&title=เข้าสู่ระบบ&subtitle=สมาชิก%20NameMongkol&tag=Login`],
     },
+    alternates: {
+        canonical: `${siteUrl}/login`,
+    },
     robots: {
         index: true,
         follow: true,

@@ -595,7 +595,7 @@ function WallpapersContent({ initialCategory: propCategory, initialDay: propDay,
                                     >
                                         <Image
                                             src={wp.image}
-                                            alt={`วอลเปเปอร์มงคล ${wp.name} สำหรับ${wp.tags.join(' ')}`}
+                                            alt={`วอลเปเปอร์มงคล ${wp.name} สำหรับ${wp.tags.join(', ')}`}
                                             fill
                                             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 20vw, 16vw"
                                             className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -672,7 +672,7 @@ function WallpapersContent({ initialCategory: propCategory, initialDay: propDay,
                                 <div className="relative w-full h-full p-4 md:p-6 transition-transform duration-500 group-hover:scale-105">
                                     <Image
                                         src={selectedWallpaper.image}
-                                        alt={`วอลเปเปอร์มงคล ${selectedWallpaper.name} สำหรับ${selectedWallpaper.tags.join(' ')}`}
+                                        alt={`วอลเปเปอร์มงคล ${selectedWallpaper.name} สำหรับ${selectedWallpaper.tags.join(', ')}`}
                                         fill
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                         className="object-contain drop-shadow-2xl"

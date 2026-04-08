@@ -24,6 +24,9 @@ export const metadata: Metadata = {
         description: 'สมัครสมาชิกฟรี! รับเครดิตต้อนรับทันที พร้อมใช้งานบริการวิเคราะห์ชื่อมงคลครบวงจร',
         images: [`${siteUrl}/api/og?variant=default&title=สมัครสมาชิก&subtitle=รับเครดิตฟรี%20ทันที&tag=Register`],
     },
+    alternates: {
+        canonical: `${siteUrl}/register`,
+    },
     robots: {
         index: true,
         follow: true,

@@ -26,6 +26,9 @@ export const metadata: Metadata = {
         description: 'เติมเครดิตง่ายๆ ผ่าน QR Code พร้อมเพย์ ใช้งานได้ทันที',
         images: [`${siteUrl}/api/og?variant=default&title=เติมเครดิต%20Top%20Up&subtitle=สแกน%20QR%20พร้อมเพย์%20รับเครดิตทันที&tag=Top-up`],
     },
+    alternates: {
+        canonical: `${siteUrl}/topup`,
+    },
     robots: {
         index: true,
         follow: true,

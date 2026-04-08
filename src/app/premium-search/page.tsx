@@ -24,6 +24,9 @@ export const metadata: Metadata = {
         description: 'ค้นหาชื่อมงคล Pro จากฐานข้อมูลคัดพิเศษ เลือกเน้นเสริมดวงได้เฉพาะเจาะจง',
         images: [`${siteUrl}/api/og?variant=default&title=ค้นหาชื่อมงคล%20Pro`],
     },
+    alternates: {
+        canonical: `${siteUrl}/premium-search`,
+    },
 };
 
 // Enhanced JSON-LD Schema for SEO

@@ -129,6 +129,8 @@ const THAI_LETTERS = [
 const UNLOCK_COST = 10;
 const UNLOCK_AMOUNT = 20;
 
+const stripInvisible = (s: string) => s.replace(/[\s\u200B\u200C\u200D\uFEFF]+/g, '');
+
 export default function SearchPage() {
     const router = useRouter();
     const { t } = useLanguage();
@@ -183,15 +185,34 @@ export default function SearchPage() {
     useEffect(() => {
         const fetchNames = async () => {
             setLoading(true);
-            const { data, error } = await supabase
-                .from('auspicious_names')
-                .select('name, gender') // Select gender
-                .order('name', { ascending: true });
+            // Supabase default limit is 1000 rows — fetch all with pagination
+            let allData: { name: string; gender: string | null }[] = [];
+            let from = 0;
+            const pageSize = 1000;
+            let hasMore = true;
 
-            if (data) {
-                setNames(data.map(d => ({ name: d.name, gender: d.gender || 'neutral' })));
-            } else if (error) {
-                console.error('Error fetching names:', error);
+            while (hasMore) {
+                const { data, error } = await supabase
+                    .from('auspicious_names')
+                    .select('name, gender')
+                    .order('name', { ascending: true })
+                    .range(from, from + pageSize - 1);
+
+                if (error) {
+                    console.error('Error fetching names:', error);
+                    break;
+                }
+                if (data && data.length > 0) {
+                    allData = allData.concat(data);
+                    from += pageSize;
+                    hasMore = data.length === pageSize;
+                } else {
+                    hasMore = false;
+                }
+            }
+
+            if (allData.length > 0) {
+                setNames(allData.map(d => ({ name: stripInvisible(d.name), gender: d.gender || 'neutral' })).filter(d => d.name));
             }
             setLoading(false);
         };
@@ -227,7 +248,7 @@ export default function SearchPage() {
 
             // 3. Letter Filter (first Thai character)
             if (selectedLetter !== 'all') {
-                if (!name.startsWith(selectedLetter)) return false;
+                if (name.charAt(0) !== selectedLetter) return false;
             }
 
             // 4. Numerology Sum Filter

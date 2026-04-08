@@ -24,6 +24,9 @@ export const metadata: Metadata = {
         description: 'วิเคราะห์ชื่อมงคลขั้นสูง แม่นยำกว่าด้วยเวลาตกฟากและลัคนาราศี',
         images: [`${siteUrl}/api/og?variant=default&title=วิเคราะห์ชื่อมงคลขั้นสูง`],
     },
+    alternates: {
+        canonical: `${siteUrl}/premium-analysis`,
+    },
 };
 
 // Enhanced JSON-LD Schema - Service type for astrology/naming services
