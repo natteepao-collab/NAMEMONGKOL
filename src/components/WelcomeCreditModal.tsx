@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { User } from '@supabase/supabase-js';
-import { X, Sparkles, Gift, Clock, Smartphone } from 'lucide-react';
+import { X, Sparkles, Gift, Clock, Star } from 'lucide-react';
 import Link from 'next/link';
 import confetti from 'canvas-confetti';
 import { supabase } from '@/utils/supabase';
@@ -180,20 +180,20 @@ export const WelcomeCreditModal: React.FC<WelcomeCreditModalProps> = ({ user }) 
                         </div>
                     </div>
 
-                    {/* LINE Bonus Row */}
-                    <div className="w-full bg-slate-900/30 border border-green-500/20 rounded-xl p-4 mb-3 flex items-center justify-between">
+                    {/* Review Bonus Row */}
+                    <div className="w-full bg-slate-900/30 border border-violet-500/20 rounded-xl p-4 mb-3 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center">
-                                <Smartphone size={20} className="text-green-400" />
+                            <div className="w-10 h-10 rounded-full bg-violet-500/10 flex items-center justify-center">
+                                <Star size={20} className="text-violet-400" />
                             </div>
                             <div className="text-left">
-                                <p className="text-xs text-slate-400 uppercase font-semibold tracking-wider">ยืนยัน LINE</p>
-                                <p className="text-slate-300 text-sm font-medium">เชื่อมต่อ LINE OA</p>
+                                <p className="text-xs text-slate-400 uppercase font-semibold tracking-wider">เขียนรีวิว</p>
+                                <p className="text-slate-300 text-sm font-medium">แชร์ประสบการณ์ของคุณ</p>
                             </div>
                         </div>
                         <div className="text-right">
-                            <span className="text-2xl font-black text-green-400">+80</span>
-                            <span className="text-green-500/70 text-xs font-bold ml-1">Credits</span>
+                            <span className="text-2xl font-black text-violet-400">+30</span>
+                            <span className="text-violet-500/70 text-xs font-bold ml-1">Credits</span>
                         </div>
                     </div>
 
@@ -216,12 +216,12 @@ export const WelcomeCreditModal: React.FC<WelcomeCreditModalProps> = ({ user }) 
                     </button>
 
                     <Link
-                        href="/profile"
+                        href="/reviews"
                         onClick={handleClose}
-                        className="w-full border border-green-500/30 hover:border-green-500/60 text-green-400 hover:text-green-300 font-semibold py-3 rounded-xl transition-all flex items-center justify-center gap-2 text-sm"
+                        className="w-full border border-violet-500/30 hover:border-violet-500/60 text-violet-400 hover:text-violet-300 font-semibold py-3 rounded-xl transition-all flex items-center justify-center gap-2 text-sm"
                     >
-                        <Smartphone size={16} />
-                        รับเพิ่ม 80 เครดิต ยืนยัน LINE →
+                        <Star size={16} />
+                        เขียนรีวิว รับเพิ่ม 30 เครดิต →
                     </Link>
 
                     <p className="mt-4 text-[10px] text-slate-500">

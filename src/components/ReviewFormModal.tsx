@@ -631,7 +631,7 @@ export const ReviewFormModal: React.FC<ReviewFormModalProps> = ({ isOpen, onClos
                             <Sparkles className="text-emerald-400" size={20} />
                             <div className="text-left">
                                 <p className="text-xs text-slate-400">เมื่อได้รับการอนุมัติ</p>
-                                <p className="text-emerald-400 font-bold">+50 Credits</p>
+                                <p className="text-emerald-400 font-bold">+30 Credits</p>
                             </div>
                         </div>
 
