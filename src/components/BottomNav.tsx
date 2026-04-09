@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Search, Crown, Sparkles, History, Home } from 'lucide-react';
 
@@ -36,11 +37,11 @@ export const BottomNav = () => {
     }, []);
 
     const navItems = [
-        { name: 'หน้าหลัก', icon: Home, path: '/' },
-        { name: 'ค้นหา', icon: Search, path: '/search' },
-        { name: 'ชื่อมงคล Pro', icon: Crown, path: '/premium-search' },
-        { name: 'Premium', icon: Sparkles, path: '/premium-analysis' },
-        { name: 'ประวัติ', icon: History, path: '/history' },
+        { name: 'หน้าหลัก', icon: Home, iconImage: '/icon/วิเคราะห์ชื่อ.png', path: '/' },
+        { name: 'ค้นหา', icon: Search, iconImage: '/icon/ค้นหาชื่อมงคล.png', path: '/search' },
+        { name: 'ชื่อมงคล Pro', icon: Crown, iconImage: '/icon/คัดสรรชื่อมงคล.png', path: '/premium-search' },
+        { name: 'Premium', icon: Sparkles, iconImage: '/icon/ออกแบบชื่อมงคล.png', path: '/premium-analysis' },
+        { name: 'ประวัติ', icon: History, iconImage: '/icon/ประวัติการใช้งาน.png', path: '/history' },
     ];
 
     return (
@@ -77,14 +78,27 @@ export const BottomNav = () => {
                                         : 'bg-[#16181f] border border-white/40 group-hover:border-white group-hover:bg-[#1a1d26]'
                                     }`}
                             >
-                                <Icon
-                                    size={16}
-                                    strokeWidth={isActive ? 2.3 : 1.7}
-                                    className={`transition-all duration-300 ${isActive
-                                            ? 'text-[#c9933a] drop-shadow-[0_0_3px_rgba(201,147,58,0.55)]'
-                                            : 'text-white/80 group-hover:text-white group-active:scale-90'
-                                        }`}
-                                />
+                                {item.iconImage ? (
+                                    <Image
+                                        src={item.iconImage}
+                                        alt={item.name}
+                                        width={20}
+                                        height={20}
+                                        className={`h-5 w-5 object-contain transition-all duration-300 ${isActive
+                                            ? 'drop-shadow-[0_0_3px_rgba(201,147,58,0.55)]'
+                                            : 'opacity-90 group-hover:opacity-100 group-active:scale-90'
+                                            }`}
+                                    />
+                                ) : (
+                                    <Icon
+                                        size={16}
+                                        strokeWidth={isActive ? 2.3 : 1.7}
+                                        className={`transition-all duration-300 ${isActive
+                                                ? 'text-[#c9933a] drop-shadow-[0_0_3px_rgba(201,147,58,0.55)]'
+                                                : 'text-white/80 group-hover:text-white group-active:scale-90'
+                                            }`}
+                                    />
+                                )}
                             </div>
 
                             {/* Label */}
