@@ -1,15 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import Script from 'next/script';
-import { Shield, Lock, Eye, FileText, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { Shield, Lock, Eye, FileText, ArrowLeft, CheckCircle2, UserCheck, Cookie, Scale } from 'lucide-react';
 import { Metadata } from 'next';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.namemongkol.com';
 
 export const metadata: Metadata = {
     title: 'นโยบายความเป็นส่วนตัว | NameMongkol - PDPA',
-    description: 'นโยบายความเป็นส่วนตัว NameMongkol อธิบายการเก็บรวบรวม ใช้ และปกป้องข้อมูลส่วนบุคคล รวมถึงข้อมูลภาพลายมือสำหรับวิเคราะห์ด้วย AI ตามกฎหมาย PDPA',
-    keywords: ['นโยบายความเป็นส่วนตัว', 'PDPA', 'การคุ้มครองข้อมูล', 'NameMongkol', 'ข้อมูลส่วนบุคคล', 'วิเคราะห์ลายมือ', 'ภาพฝ่ามือ', 'AI Palm Analysis', 'เบอร์มงคล'],
+    description: 'นโยบายความเป็นส่วนตัว NameMongkol อธิบายการเก็บรวบรวม ใช้ และปกป้องข้อมูลส่วนบุคคล รวมถึงข้อมูลภาพลายมือ ข้อมูลออร่า และวอลเปเปอร์ สำหรับวิเคราะห์ด้วย AI ตามกฎหมาย PDPA',
+    keywords: ['นโยบายความเป็นส่วนตัว', 'PDPA', 'การคุ้มครองข้อมูล', 'NameMongkol', 'ข้อมูลส่วนบุคคล', 'วิเคราะห์ลายมือ', 'ภาพฝ่ามือ', 'AI Palm Analysis', 'เบอร์มงคล', 'สิทธิ์ผู้ใช้', 'คุกกี้', 'Cookies', 'วิเคราะห์ออร่า', 'วอลเปเปอร์มงคล'],
 
     alternates: { canonical: `${siteUrl.replace(/\/$/, '')}/privacy` },
     openGraph: {
@@ -141,7 +141,9 @@ export default function PrivacyPage() {
                                             { title: 'ข้อมูลบัญชีผู้ใช้', desc: 'เมื่อท่านลงชื่อเข้าใช้ด้วย Google เราได้รับข้อมูลพื้นฐาน เช่น ชื่อ, อีเมล และรูปภาพโปรไฟล์' },
                                             { title: 'ข้อมูลการวิเคราะห์', desc: 'ชื่อ, นามสกุล, วันเกิด และเบอร์โทรศัพท์ที่ท่านระบุเพื่อทำการวิเคราะห์' },
                                             { title: 'ข้อมูลธุรกรรม', desc: 'ประวัติการเติมเครดิตและการใช้เครดิต (ไม่เก็บข้อมูลบัตรเครดิต)' },
-                                            { title: 'ข้อมูลภาพลายมือ', desc: 'ภาพฝ่ามือที่ท่านอัปโหลดเพื่อวิเคราะห์ลายมือด้วย AI จะถูกส่งไปประมวลผลและไม่ถูกจัดเก็บถาวรในระบบ' }
+                                            { title: 'ข้อมูลภาพลายมือ', desc: 'ภาพฝ่ามือที่ท่านอัปโหลดเพื่อวิเคราะห์ลายมือด้วย AI จะถูกส่งไปประมวลผลและไม่ถูกจัดเก็บถาวรในระบบ' },
+                                            { title: 'ข้อมูลออร่าและพลังงาน', desc: 'ผลวิเคราะห์ออร่า สีออร่า และคะแนนพลังงานที่คำนวณจากชื่อและวันเกิดของท่าน' },
+                                            { title: 'ข้อมูลการดาวน์โหลด', desc: 'ประวัติการดาวน์โหลดวอลเปเปอร์มงคล เก็บเพื่อจัดส่งคอนเทนต์ตามสิทธิ์ที่ท่านซื้อ' }
                                         ].map((item, idx) => (
                                             <div key={idx} className="flex items-start gap-3 text-slate-300">
                                                 <CheckCircle2 size={18} className="shrink-0 mt-0.5 text-blue-500/50" />
@@ -169,6 +171,8 @@ export default function PrivacyPage() {
                                             'ให้บริการวิเคราะห์ชื่อตามหลักโหราศาสตร์ 4 ศาสตร์',
                                             'วิเคราะห์เบอร์โทรศัพท์มงคลตามหลักเลขศาสตร์',
                                             'วิเคราะห์ลายมือด้วย AI จากภาพฝ่ามือ',
+                                            'วิเคราะห์ออร่าและพลังงานจากชื่อและวันเกิด',
+                                            'จัดส่งวอลเปเปอร์มงคลตามสิทธิ์ที่ซื้อ',
                                             'จัดการสิทธิ์ Premium และการดาวน์โหลด',
                                             'บันทึกประวัติการใช้งานเพื่อดูย้อนหลัง',
                                             'พัฒนาฟีเจอร์ใหม่ๆ ให้ตรงใจคุณ'
@@ -206,7 +210,67 @@ export default function PrivacyPage() {
                             </div>
                         </section>
 
-                        {/* Section 4 */}
+                        {/* Section 4: PDPA Rights */}
+                        <section className="bg-[#1e293b]/50 p-6 md:p-8 rounded-3xl border border-white/5 hover:border-amber-500/20 transition-all duration-300 group">
+                            <div className="flex items-start gap-4 md:gap-6">
+                                <div className="shrink-0 p-3 rounded-2xl bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20 transition-colors">
+                                    <Scale size={24} />
+                                </div>
+                                <div className="space-y-4">
+                                    <h2 className="text-xl md:text-2xl font-bold text-white group-hover:text-purple-200 transition-colors">
+                                        4. สิทธิ์ของท่านตาม PDPA
+                                    </h2>
+                                    <p className="text-slate-300">ท่านมีสิทธิ์ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 ดังนี้:</p>
+                                    <div className="grid md:grid-cols-2 gap-3">
+                                        {[
+                                            { title: 'สิทธิ์เข้าถึง', desc: 'ขอสำเนาข้อมูลส่วนบุคคลที่เราเก็บรวบรวม' },
+                                            { title: 'สิทธิ์แก้ไข', desc: 'แก้ไขข้อมูลที่ไม่ถูกต้องหรือไม่เป็นปัจจุบัน' },
+                                            { title: 'สิทธิ์ลบ', desc: 'ขอลบข้อมูลส่วนบุคคลทั้งหมดออกจากระบบ' },
+                                            { title: 'สิทธิ์คัดค้าน', desc: 'คัดค้านการประมวลผลข้อมูลในบางกรณี' },
+                                            { title: 'สิทธิ์ถอนความยินยอม', desc: 'เพิกถอนความยินยอมได้ทุกเมื่อ' },
+                                            { title: 'สิทธิ์โอนย้ายข้อมูล', desc: 'ขอรับข้อมูลในรูปแบบที่อ่านได้ด้วยเครื่อง' },
+                                        ].map((item, idx) => (
+                                            <div key={idx} className="flex items-start gap-3 text-slate-300 bg-black/20 px-4 py-3 rounded-lg">
+                                                <CheckCircle2 size={18} className="shrink-0 mt-0.5 text-purple-500/50" />
+                                                <span><strong className="text-slate-200">{item.title}:</strong> {item.desc}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <p className="text-sm text-slate-400 mt-2">
+                                        หากต้องการใช้สิทธิ์ใดๆ สามารถติดต่อเราผ่าน LINE OA และเราจะดำเนินการให้ภายใน 30 วัน
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Section 5: Cookies */}
+                        <section className="bg-[#1e293b]/50 p-6 md:p-8 rounded-3xl border border-white/5 hover:border-amber-500/20 transition-all duration-300 group">
+                            <div className="flex items-start gap-4 md:gap-6">
+                                <div className="shrink-0 p-3 rounded-2xl bg-cyan-500/10 text-cyan-400 group-hover:bg-cyan-500/20 transition-colors">
+                                    <Cookie size={24} />
+                                </div>
+                                <div className="space-y-4">
+                                    <h2 className="text-xl md:text-2xl font-bold text-white group-hover:text-cyan-200 transition-colors">
+                                        5. คุกกี้และการวิเคราะห์ข้อมูล
+                                    </h2>
+                                    <div className="space-y-3 text-slate-300">
+                                        <div className="bg-black/20 p-4 rounded-xl border border-white/5">
+                                            <h3 className="font-semibold text-cyan-400 mb-1">คุกกี้ที่จำเป็น (Essential Cookies)</h3>
+                                            <p className="text-sm">ใช้เพื่อรักษาสถานะการล็อกอิน การตั้งค่าภาษา และการทำงานพื้นฐานของเว็บไซต์</p>
+                                        </div>
+                                        <div className="bg-black/20 p-4 rounded-xl border border-white/5">
+                                            <h3 className="font-semibold text-cyan-400 mb-1">คุกกี้วิเคราะห์ (Analytics Cookies)</h3>
+                                            <p className="text-sm">เราใช้เครื่องมือวิเคราะห์เพื่อเข้าใจพฤติกรรมผู้ใช้ เพื่อพัฒนาประสิทธิภาพเว็บไซต์ โดยไม่เก็บข้อมูลที่ระบุตัวตนได้</p>
+                                        </div>
+                                    </div>
+                                    <p className="text-sm text-slate-400">
+                                        เราจะไม่ใช้คุกกี้เพื่อการโฆษณาหรือติดตามข้ามแพลตฟอร์มโดยเด็ดขาด
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Section 6: Account Deletion */}
                         <section className="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-[#1e293b] to-[#0f172a] border border-white/10 text-center space-y-4">
                             <h2 className="text-xl font-bold text-white">ต้องการลบบัญชีผู้ใช้?</h2>
                             <p className="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">

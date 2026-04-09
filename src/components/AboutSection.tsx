@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Sparkles, Sun, Heart, UserCheck, Star, Users, Target, LayoutDashboard, Search, Layers, ChevronLeft, Calendar, Infinity as InfinityIcon, Cpu, ShieldCheck, Zap, Lock, Quote, ScanLine } from 'lucide-react';
+import { Sparkles, Sun, Heart, UserCheck, Star, Users, Target, LayoutDashboard, Search, Layers, ChevronLeft, Calendar, Infinity as InfinityIcon, Cpu, ShieldCheck, Zap, Lock, Quote, ScanLine, Flame, Image } from 'lucide-react';
 
 const AboutSection = () => {
     return (
@@ -286,6 +286,68 @@ const AboutSection = () => {
                             </div>
                         </Link>
                     </div>
+
+                    {/* Feature 7: Aura Analysis (New) */}
+                    <div className="mt-8">
+                        <Link href="/aura-analysis" className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-violet-500/30 group relative overflow-hidden block">
+                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform rotate-0">
+                                <Flame size={120} />
+                            </div>
+                            <div className="flex flex-col md:flex-row items-center gap-8">
+                                <div className="shrink-0 w-20 h-20 rounded-2xl bg-violet-500/10 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-violet-900/20">
+                                    <Flame className="text-violet-400" size={40} />
+                                </div>
+                                <div className="text-center md:text-left space-y-2">
+                                    <div className="flex items-center justify-center md:justify-start gap-3">
+                                        <h3 className="text-2xl font-bold text-white">7. วิเคราะห์ออร่าด้วย AI (Aura Analysis)</h3>
+                                        <span className="px-2.5 py-0.5 rounded-full bg-violet-500/20 border border-violet-500/30 text-xs font-bold text-violet-400 animate-pulse">
+                                            NEW
+                                        </span>
+                                    </div>
+                                    <p className="text-slate-400 max-w-2xl leading-relaxed">
+                                        ระบบ AI วิเคราะห์พลังงานออร่าและบุคลิกภาพจากชื่อและวันเกิด แสดงสีออร่าหลัก
+                                        พลังงาน 6 ด้าน พร้อมคำแนะนำเสริมดวง ช่วยให้เข้าใจตัวเองและดึงศักยภาพที่ซ่อนอยู่
+                                    </p>
+                                </div>
+                                <div className="ml-auto">
+                                    <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 group-hover:bg-violet-600 group-hover:text-white group-hover:border-violet-500 transition-all font-medium">
+                                        ดูออร่าของคุณ <ChevronLeft className="rotate-180" size={18} />
+                                    </span>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+
+                    {/* Feature 8: Wallpapers (New) */}
+                    <div className="mt-8">
+                        <Link href="/wallpapers" className="glass-card p-8 rounded-2xl hover:bg-slate-800/50 transition-all duration-300 border border-white/5 hover:border-pink-500/30 group relative overflow-hidden block">
+                            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity transform rotate-0">
+                                <Image size={120} />
+                            </div>
+                            <div className="flex flex-col md:flex-row items-center gap-8">
+                                <div className="shrink-0 w-20 h-20 rounded-2xl bg-pink-500/10 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg shadow-pink-900/20">
+                                    <Image className="text-pink-400" size={40} />
+                                </div>
+                                <div className="text-center md:text-left space-y-2">
+                                    <div className="flex items-center justify-center md:justify-start gap-3">
+                                        <h3 className="text-2xl font-bold text-white">8. วอลเปเปอร์มงคล (Auspicious Wallpapers)</h3>
+                                        <span className="px-2.5 py-0.5 rounded-full bg-pink-500/20 border border-pink-500/30 text-xs font-bold text-pink-400 animate-pulse">
+                                            NEW
+                                        </span>
+                                    </div>
+                                    <p className="text-slate-400 max-w-2xl leading-relaxed">
+                                        วอลเปเปอร์มงคลประจำราศีและวันเกิด ออกแบบด้วยศิลปะดิจิทัลระดับพรีเมียม
+                                        เสริมพลังบวกทุกครั้งที่ปลดล็อกหน้าจอ ดาวน์โหลดฟรีหรืออัปเกรดความละเอียดสูง
+                                    </p>
+                                </div>
+                                <div className="ml-auto">
+                                    <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 group-hover:bg-pink-600 group-hover:text-white group-hover:border-pink-500 transition-all font-medium">
+                                        ดูวอลเปเปอร์ <ChevronLeft className="rotate-180" size={18} />
+                                    </span>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
                 </section>
 
                 {/* 5.5 How It Works (GEO Optimized - Procedures) */}
@@ -440,17 +502,19 @@ const AboutSection = () => {
 
                 {/* SEO Hidden Content */}
                 <div className="sr-only">
-                    <h2>คำถามที่พบบ่อยเกี่ยวกับ ชื่อมงคล เช็คเบอร์มงคล วิเคราะห์ลายมือ</h2>
+                    <h2>คำถามที่พบบ่อยเกี่ยวกับ ชื่อมงคล เช็คเบอร์มงคล วิเคราะห์ลายมือ วิเคราะห์ออร่า วอลเปเปอร์มงคล</h2>
                     <p>
                         ต้องการ ดูดวงชื่อ หรือหา นามสกุลมงคล ใช่ไหม?
                         เรามีบริการ วิเคราะห์ชื่อมงคล ฟรี ด้วยโปรแกรมอัจฉริยะ
                         ช่วย ตั้งชื่อลูก เปลี่ยนชื่อ ให้ถูกโฉลก
                         เสริมดวงด้วย เลขศาสตร์ และ ทักษาปกรณ์
                         ป้องกันอักษร กาลกิณี
-                        เช็คเบอร์มงคล วิเคราะห์เบอร์โทรศัพท์ เบอร์มงคล
+                        เช็คเบอร์มงคล วิเคราะห์เบอร์โทรศัพท์ เบอร์มงคล คู่เลขมงคล คู่มิตร คู่ศัตรู
                         วิเคราะห์ลายมือ ดูดวงลายมือ ดูลายมือออนไลน์
                         เส้นชีวิต เส้นสมอง เส้นหัวใจ เส้นวาสนา
                         AI Palmistry หัตถศาสตร์
+                        วิเคราะห์ออร่า ดูดวงออร่า สีออร่า พลังงานออร่า Aura Analysis
+                        วอลเปเปอร์มงคล วอลเปเปอร์ราศี วอลเปเปอร์วันเกิด wallpaper มงคล
                     </p>
                 </div>
 
