@@ -120,7 +120,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         { key: 'reviews', nameKey: 'sidebar.reviews', icon: MessageCircle, iconImage: '/icon/รีวิวจากทางบ้าน.png', path: '/reviews' },
         { key: 'name-analysis', nameKey: 'sidebar.bulkNameFilter', icon: ClipboardList, iconImage: '/icon/ระบบคัดกรองชื่อ.png', path: '/name-analysis' },
         { key: 'history', nameKey: 'sidebar.history', icon: HistoryIcon, iconImage: '/icon/ประวัติการใช้งาน.png', path: '/history' },
-        { key: 'about', nameKey: 'sidebar.about', icon: Info, path: '/about', mobileOnly: true },
+        { key: 'about', nameKey: 'sidebar.about', icon: Info, iconImage: '/icon/เกี่ยวกับเรา.png', path: '/about', mobileOnly: true },
     ];
 
     const menuItems: MenuItem[] = [...baseMenuItems];
