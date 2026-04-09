@@ -88,11 +88,11 @@ export const PhoneSeoContent = () => {
                                 <span className="text-emerald-400/70 text-[10px]">มงคล</span>
                             </div>
                             <div>
-                                <h3 className="font-bold text-emerald-400">ผู้นำสมัยใหม่ โดดเด่น</h3>
-                                <p className="text-xs text-slate-500">ชื่อเสียง, การเป็นที่ยอมรับ</p>
+                                <h3 className="font-bold text-emerald-400">ผู้นำวิสัยทัศน์</h3>
+                                <p className="text-xs text-slate-500">ชื่อเสียง, ความก้าวหน้า</p>
                             </div>
                         </div>
-                        <p className="text-sm text-slate-300 mb-2">มีรสนิยม ทันสมัย ชอบของแบรนด์เนม มีความเป็นผู้นำสูง เด่นดังในสังคม มักเกี่ยวข้องกับต่างชาติหรือเทคโนโลยี</p>
+                        <p className="text-sm text-slate-300 mb-2">ทะเยอทะยาน มุ่งมั่นสูง รักความก้าวหน้า เรียนรู้เร็ว เป็นผู้นำที่ทันสมัย ประสบความสำเร็จไว มีวิสัยทัศน์ไกล เก่งเรื่องเทคโนโลยีและต่างประเทศ</p>
                         <div className="flex items-center gap-1.5 text-xs text-emerald-400/80">
                             <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">ชื่อเสียง</span>
                             <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">ความก้าวหน้า</span>
@@ -128,9 +128,9 @@ export const PhoneSeoContent = () => {
                                 <p className="text-xs text-slate-500">รวยและฉลาด</p>
                             </div>
                         </div>
-                        <p className="text-sm text-slate-300 mb-2">สุดยอดเลขมงคล หาเงินเก่งด้วยปัญญา บริหารเงินดี ชีวิตสุขสบาย ความรักสมหวัง มีผู้อุปถัมภ์ไม่ขาด</p>
+                        <p className="text-sm text-slate-300 mb-2">เลขมหาเศรษฐี หาเงินเก่งด้วยปัญญา บริหารเงินดี ชีวิตสุขสบาย ความรักสมหวัง มีผู้อุปถัมภ์ไม่ขาด</p>
                         <div className="flex items-center gap-1.5 text-xs text-emerald-400/80">
-                            <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">รวย</span>
+                            <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">มหาเศรษฐี</span>
                             <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">โอกาสดีๆ</span>
                         </div>
                     </div>
@@ -187,6 +187,69 @@ export const PhoneSeoContent = () => {
                         <div className="flex items-center gap-1.5 text-xs text-rose-400/80">
                             <span className="px-2 py-0.5 rounded bg-rose-500/10 border border-rose-500/20">ถูกโกง</span>
                             <span className="px-2 py-0.5 rounded bg-rose-500/10 border border-rose-500/20">เพื่อนทรยศ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Pair Classification Types — AEO keyword target */}
+            <div className="mb-16 md:mb-20">
+                <div className="text-center mb-10">
+                    <span className="px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-sm font-semibold border border-purple-500/20 mb-4 inline-block">
+                        🔮 หลักโหราศาสตร์
+                    </span>
+                    <h2 className="text-3xl font-bold text-white mb-4">หลักการจำแนกคู่เลข 4 ประเภท</h2>
+                    <p className="phone-analysis-soft-text max-w-2xl mx-auto leading-relaxed">
+                        ตามหลักเลขศาสตร์ไทยที่อิงโหราศาสตร์ (ดาวพระเคราะห์ 9 ดวง) คู่เลขแบ่งออกเป็น 4 ประเภทหลัก
+                    </p>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
+                    <div className="p-5 rounded-xl bg-emerald-950/30 border border-emerald-500/20">
+                        <h3 className="font-bold text-emerald-400 text-lg mb-2">🤝 คู่มิตร (เกื้อกูล)</h3>
+                        <p className="text-sm text-slate-300 mb-3 leading-relaxed">
+                            เลขที่ส่งเสริมซึ่งกันและกัน ดึงดูดโชคลาภ ความรัก การค้าขาย ตามหลัก &quot;อาทิตย์เป็นมิตรกับครู จันทร์โฉมตรูพุธนงเยาว์&quot;
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {['15/51','24/42','36/63','78/87'].map(p => (
+                                <span key={p} className="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">{p}</span>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="p-5 rounded-xl bg-blue-950/30 border border-blue-500/20">
+                        <h3 className="font-bold text-blue-400 text-lg mb-2">⚡ คู่สมพล (เสริมพลัง)</h3>
+                        <p className="text-sm text-slate-300 mb-3 leading-relaxed">
+                            เลขที่เพิ่มพลังอำนาจ บารมี ความสามารถ และความสำเร็จ ช่วยให้ดวงมีกำลังมากขึ้น
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {['16/61','28/82','35/53','49/94'].map(p => (
+                                <span key={p} className="px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold">{p}</span>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="p-5 rounded-xl bg-amber-950/30 border border-amber-500/20">
+                        <h3 className="font-bold text-amber-400 text-lg mb-2">🌀 คู่ธาตุ (มั่นคง)</h3>
+                        <p className="text-sm text-slate-300 mb-3 leading-relaxed">
+                            เลขคู่ธาตุที่ส่งเสริมความมั่นคง ยั่งยืน มีชื่อเสียง แบ่งตามธาตุ 4: ไฟ ดิน ลม น้ำ
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {[{p:'17/71',e:'ไฟ'},{p:'28/82',e:'ดิน'},{p:'39/93',e:'ลม'},{p:'46/64',e:'น้ำ'}].map(d => (
+                                <span key={d.p} className="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">{d.p} <span className="text-amber-400/60">({d.e})</span></span>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="p-5 rounded-xl bg-rose-950/30 border border-rose-500/20">
+                        <h3 className="font-bold text-rose-400 text-lg mb-2">⚔️ คู่ศัตรู (ขัดแย้ง)</h3>
+                        <p className="text-sm text-slate-300 mb-3 leading-relaxed">
+                            เลขที่ส่งผลลบ ก่อให้เกิดอุปสรรค ทะเลาะวิวาท คดีความ ควรหลีกเลี่ยงในเบอร์โทรศัพท์
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {['13/31','48/84','67/76','25/52'].map(p => (
+                                <span key={p} className="px-2.5 py-1 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold">{p}</span>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -424,7 +487,7 @@ export const PhoneSeoContent = () => {
                 <div className="phone-analysis-surface-card p-6 md:p-8 rounded-2xl">
                     <h3 className="text-lg font-bold text-rose-400 mb-4">⚠️ ผลรวมที่ควรระวัง</h3>
                     <div className="flex flex-wrap gap-3">
-                        {[{n:26,l:'ขัดแย้ง'},{n:35,l:'สูญเสีย'},{n:44,l:'วนซ้ำ'},{n:47,l:'อุปสรรค'}].map(s=>
+                        {[{n:10,l:'อุปสรรค'},{n:13,l:'อุบัติเหตุ'},{n:17,l:'เผด็จการ'},{n:27,l:'หนี้สิน'},{n:43,l:'ปากร้าย'},{n:67,l:'รักร้าว'}].map(s=>
                             <span key={s.n} className="px-3 py-1.5 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm font-semibold">
                                 {s.n} <span className="text-rose-400/60 font-normal">— {s.l}</span>
                             </span>
