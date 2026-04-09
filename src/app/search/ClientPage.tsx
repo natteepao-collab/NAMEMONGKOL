@@ -131,6 +131,15 @@ const UNLOCK_AMOUNT = 20;
 
 const stripInvisible = (s: string) => s.replace(/[\s\u200B\u200C\u200D\uFEFF]+/g, '');
 
+// Thai leading vowels that appear before the consonant in written form
+const THAI_LEADING_VOWELS = new Set(['\u0E40', '\u0E41', '\u0E42', '\u0E43', '\u0E44']); // เ แ โ ใ ไ
+
+/** Returns the first consonant of a Thai name, skipping any leading vowels */
+const getFirstConsonant = (name: string): string => {
+    if (!name) return '';
+    return THAI_LEADING_VOWELS.has(name.charAt(0)) ? name.charAt(1) : name.charAt(0);
+};
+
 export default function SearchPage() {
     const router = useRouter();
     const { t } = useLanguage();
@@ -246,9 +255,9 @@ export default function SearchPage() {
                 if (!suitability.suitable.includes(targetDayName)) return false;
             }
 
-            // 3. Letter Filter (first Thai character)
+            // 3. Letter Filter — uses getFirstConsonant to correctly handle leading vowels (เ แ โ ไ ใ)
             if (selectedLetter !== 'all') {
-                if (name.charAt(0) !== selectedLetter) return false;
+                if (getFirstConsonant(name) !== selectedLetter) return false;
             }
 
             // 4. Numerology Sum Filter
