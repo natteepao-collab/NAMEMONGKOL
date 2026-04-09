@@ -103,23 +103,25 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         nameKey: string;
         icon: React.ElementType;
         iconImage?: string;
+        iconPadding?: string;
+        iconScale?: number;
         path: string;
         mobileOnly?: boolean;
         subItems?: MenuItem[];
     };
 
     const baseMenuItems: MenuItem[] = [
-        { key: 'analyze', nameKey: 'sidebar.analyzeName', icon: Home, iconImage: '/icon/วิเคราะห์ชื่อ.png', path: '/' },
-        { key: 'aura-analysis', nameKey: 'sidebar.auraAnalysis', icon: Sparkles, iconImage: '/icon/วิเคราะห์ออร่า.png', path: '/aura-analysis' },
-        { key: 'phone', nameKey: 'sidebar.phoneAnalysis', icon: Smartphone, iconImage: '/icon/วิเคราะห์เบอร์โทร.png', path: '/phone-analysis' },
-        { key: 'palm-analysis', nameKey: 'sidebar.palmAnalysis', icon: Hand, iconImage: '/icon/วิเคราะห์ลายมือ.png', path: '/palm-analysis' },
-        { key: 'search', nameKey: 'sidebar.search', icon: Search, iconImage: '/icon/ค้นหาชื่อมงคล.png', path: '/search' },
-        { key: 'premium-search', nameKey: 'sidebar.premiumSearch', icon: Sparkles, iconImage: '/icon/คัดสรรชื่อมงคล.png', path: '/premium-search' },
+        { key: 'analyze', nameKey: 'sidebar.analyzeName', icon: Home, iconImage: '/icon/วิเคราะห์ชื่อ.png', iconPadding: 'p-2.5', path: '/' },
+        { key: 'aura-analysis', nameKey: 'sidebar.auraAnalysis', icon: Sparkles, iconImage: '/icon/วิเคราะห์ออร่า.png', iconPadding: 'p-2.5', path: '/aura-analysis' },
+        { key: 'phone', nameKey: 'sidebar.phoneAnalysis', icon: Smartphone, iconImage: '/icon/วิเคราะห์เบอร์โทร.png', iconPadding: 'p-2', path: '/phone-analysis' },
+        { key: 'palm-analysis', nameKey: 'sidebar.palmAnalysis', icon: Hand, iconImage: '/icon/วิเคราะห์ลายมือ.png', iconPadding: 'p-2.5', path: '/palm-analysis' },
+        { key: 'search', nameKey: 'sidebar.search', icon: Search, iconImage: '/icon/ค้นหาชื่อมงคล.png', iconPadding: 'p-2.5', path: '/search' },
+        { key: 'premium-search', nameKey: 'sidebar.premiumSearch', icon: Sparkles, iconImage: '/icon/คัดสรรชื่อมงคล.png', iconPadding: 'p-2', path: '/premium-search' },
         { key: 'premium-analysis', nameKey: 'sidebar.premiumAnalysis', icon: Crown, iconImage: '/icon/ออกแบบชื่อมงคล.png', path: '/premium-analysis' },
-        { key: 'wallpapers', nameKey: 'sidebar.wallpapers', icon: ImageIcon, iconImage: '/icon/วอลเปเปอร์มงคล.png', path: '/wallpapers' },
-        { key: 'reviews', nameKey: 'sidebar.reviews', icon: MessageCircle, iconImage: '/icon/รีวิวจากทางบ้าน.png', path: '/reviews' },
-        { key: 'name-analysis', nameKey: 'sidebar.bulkNameFilter', icon: ClipboardList, iconImage: '/icon/ระบบคัดกรองชื่อ.png', path: '/name-analysis' },
-        { key: 'history', nameKey: 'sidebar.history', icon: HistoryIcon, iconImage: '/icon/ประวัติการใช้งาน.png', path: '/history' },
+        { key: 'wallpapers', nameKey: 'sidebar.wallpapers', icon: ImageIcon, iconImage: '/icon/วอลเปเปอร์มงคล.png', iconPadding: 'p-2.5', path: '/wallpapers' },
+        { key: 'reviews', nameKey: 'sidebar.reviews', icon: MessageCircle, iconImage: '/icon/รีวิวจากทางบ้าน.png', iconPadding: 'p-2.5', path: '/reviews' },
+        { key: 'name-analysis', nameKey: 'sidebar.bulkNameFilter', icon: ClipboardList, iconImage: '/icon/ระบบคัดกรองชื่อ.png', iconPadding: 'p-2.5', path: '/name-analysis' },
+        { key: 'history', nameKey: 'sidebar.history', icon: HistoryIcon, iconImage: '/icon/ประวัติการใช้งาน.png', iconPadding: 'p-2.5', path: '/history' },
         { key: 'about', nameKey: 'sidebar.about', icon: Info, iconImage: '/icon/เกี่ยวกับเรา.png', path: '/about', mobileOnly: true },
     ];
 
@@ -372,18 +374,18 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                                         <div className="flex items-center gap-3 relative z-10 pl-3">
                                             {/* Icon Box */}
                                             {item.iconImage ? (
-                                                <div className="w-11 h-11 shrink-0 flex items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_10px_rgba(245,158,11,0.35)]">
+                                                <div className={`w-10 h-10 shrink-0 flex items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_10px_rgba(245,158,11,0.35)] ${item.iconPadding ?? ''}`}>
                                                     <Image
                                                         src={item.iconImage}
                                                         alt={premiumLabel}
-                                                        width={44}
-                                                        height={44}
-                                                        className="h-11 w-11 object-contain drop-shadow-[0_1px_3px_rgba(0,0,0,0.12)]"
+                                                        width={40}
+                                                        height={40}
+                                                        className="h-full w-full object-contain drop-shadow-[0_1px_3px_rgba(0,0,0,0.12)]"
                                                     />
                                                 </div>
                                             ) : (
-                                                <div className="w-11 h-11 rounded-xl bg-slate-100 dark:bg-black/40 flex items-center justify-center shrink-0 border border-slate-200 dark:border-white/5 shadow-inner group-hover:border-amber-500/30 transition-colors">
-                                                    <item.icon size={22} className="text-amber-500 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
+                                                <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-black/40 flex items-center justify-center shrink-0 border border-slate-200 dark:border-white/5 shadow-inner group-hover:border-amber-500/30 transition-colors">
+                                                    <item.icon size={20} className="text-amber-500 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
                                                 </div>
                                             )}
 
@@ -427,28 +429,29 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                                     {/* Icon Container */}
                                     {item.iconImage ? (
                                         <div
-                                            className={`flex h-9 w-9 lg:h-10 lg:w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${isActive
+                                            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl overflow-hidden transition-all duration-300 ${isActive
                                                 ? 'scale-105 drop-shadow-[0_0_10px_rgba(251,191,36,0.4)]'
                                                 : 'group-hover:scale-105 group-hover:drop-shadow-[0_0_6px_rgba(255,255,255,0.15)]'
-                                                }`}
+                                                } ${item.iconPadding ?? ''}`}
                                         >
                                             <Image
                                                 src={item.iconImage}
                                                 alt={defaultLabel}
                                                 width={40}
                                                 height={40}
-                                                className={`h-9 w-9 lg:h-10 lg:w-10 object-contain transition-all duration-300 drop-shadow-[0_1px_3px_rgba(0,0,0,0.12)] ${isActive ? 'brightness-110 saturate-110' : 'brightness-100 group-hover:brightness-110 group-hover:saturate-110'}`}
+                                                style={item.iconScale ? { transform: `scale(${item.iconScale})`, transformOrigin: 'center' } : undefined}
+                                                className={`h-full w-full object-contain transition-all duration-300 drop-shadow-[0_1px_3px_rgba(0,0,0,0.12)] ${isActive ? 'brightness-110 saturate-110' : 'brightness-100 group-hover:brightness-110 group-hover:saturate-110'}`}
                                             />
                                         </div>
                                     ) : (
                                         <div
-                                            className={`flex h-9 w-9 lg:h-10 lg:w-10 shrink-0 items-center justify-center rounded-lg lg:rounded-xl border shadow-lg transition-all duration-200 ${isActive
+                                            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border shadow-lg transition-all duration-200 ${isActive
                                                 ? iconTheme.activeWrapper
                                                 : iconTheme.wrapper
                                                 } ${item.path === '/premium-analysis' ? 'animate-pulse' : ''}`}
                                         >
                                             <item.icon
-                                                className={`h-[18px] w-[18px] lg:h-[20px] lg:w-[20px] transition-colors duration-200 ${isActive
+                                                className={`h-5 w-5 transition-colors duration-200 ${isActive
                                                     ? iconTheme.activeIcon
                                                     : iconTheme.icon
                                                     }`}
