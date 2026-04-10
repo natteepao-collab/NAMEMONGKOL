@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Search, Crown, Sparkles, History, Home } from 'lucide-react';
+import { Search, Crown, Sparkles, Image as ImageIcon, Home } from 'lucide-react';
 
 export const BottomNav = () => {
     const pathname = usePathname();
@@ -41,7 +41,7 @@ export const BottomNav = () => {
         { name: 'ค้นหา', icon: Search, iconImage: '/icon/ค้นหาชื่อมงคล.png', path: '/search' },
         { name: 'ชื่อมงคล Pro', icon: Crown, iconImage: '/icon/คัดสรรชื่อมงคล.png', path: '/premium-search' },
         { name: 'Premium', icon: Sparkles, iconImage: '/icon/ออกแบบชื่อมงคล.png', path: '/premium-analysis' },
-        { name: 'ประวัติ', icon: History, iconImage: '/icon/ประวัติการใช้งาน.png', path: '/history' },
+        { name: 'วอลเปเปอร์', icon: ImageIcon, iconImage: '/icon/วอลเปเปอร์มงคล.png', path: '/wallpapers' },
     ];
 
     return (
