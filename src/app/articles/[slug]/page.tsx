@@ -204,7 +204,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                     url: imageUrl,
                     width: 1200,
                     height: 630,
-                    alt: article.title,
+                    alt: article.coverImageAlt || article.title,
                 }
             ],
             type: 'article',
@@ -335,6 +335,7 @@ export default async function ArticlePage({ params }: Props) {
                             "@id": canonicalUrl
                         },
                         "keywords": article.keywords?.join(', ') || '',
+                        "articleSection": article.category || '',
                         "wordCount": wordCount,
                         "inLanguage": "th",
                         ...(isPalmistryArticle && {
