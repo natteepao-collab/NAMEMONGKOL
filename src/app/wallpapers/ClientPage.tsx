@@ -28,7 +28,8 @@ const INITIAL_WALLPAPERS: Wallpaper[] = [
     { id: 1, name: 'มหาเทพประทานทรัพย์ (วันอาทิตย์)', image: '/wallpapers/sunday.webp', day: 'sunday', tags: ['การเงิน', 'อำนาจ'], premium: false, downloads: 2540 },
     { id: 2, name: 'เสน่ห์เมตตามหานิยม (วันจันทร์)', image: '/wallpapers/monday.webp', day: 'monday', tags: ['ความรัก', 'เมตตา'], premium: false, downloads: 3120 },
     { id: 3, name: 'นักรบกล้าหาญ (วันอังคาร)', image: '/wallpapers/tuesday.webp', day: 'tuesday', tags: ['การงาน', 'แข่งขัน'], premium: false, downloads: 1890 },
-    { id: 4, name: 'วาจาเรียกทรัพย์ (วันพุธ)', image: '/wallpapers/wednesday.webp', day: 'wednesday', tags: ['การเจรจา', 'ค้าขาย'], premium: false, downloads: 2100 },
+    { id: 4, name: 'วาจาเรียกทรัพย์ (วันพุธกลางวัน)', image: '/wallpapers/Wednesday_lunch.webp', day: 'wednesday', tags: ['การเจรจา', 'ค้าขาย'], premium: false, downloads: 2100 },
+    { id: 10, name: 'ราหูคุ้มครอง (วันพุธกลางคืน)', image: '/wallpapers/Wednesday_night.webp', day: 'wednesday_night', tags: ['ป้องกันภัย', 'แคล้วคลาด'], premium: false, downloads: 0 },
     { id: 5, name: 'ปัญญาบารมี (วันพฤหัสบดี)', image: '/wallpapers/thursday.webp', day: 'thursday', tags: ['การเรียน', 'ผู้ใหญ่เมตตา'], premium: false, downloads: 2750 },
     { id: 6, name: 'ทรัพย์สินพอกพูน (วันศุกร์)', image: '/wallpapers/friday.webp', day: 'friday', tags: ['การเงิน', 'ความสุข'], premium: false, downloads: 3420 },
     { id: 7, name: 'อำนาจบารมี (วันเสาร์)', image: '/wallpapers/saturday.webp', day: 'saturday', tags: ['อำนาจ', 'แคล้วคลาด'], premium: false, downloads: 1980 },
@@ -41,7 +42,8 @@ const DAYS = [
     { value: 'sunday', label: 'วันอาทิตย์' },
     { value: 'monday', label: 'วันจันทร์' },
     { value: 'tuesday', label: 'วันอังคาร' },
-    { value: 'wednesday', label: 'วันพุธ' },
+    { value: 'wednesday', label: 'วันพุธ(กลางวัน)' },
+    { value: 'wednesday_night', label: 'วันพุธ(กลางคืน)' },
     { value: 'thursday', label: 'วันพฤหัส' },
     { value: 'friday', label: 'วันศุกร์' },
     { value: 'saturday', label: 'วันเสาร์' },
@@ -113,6 +115,8 @@ function WallpapersContent({ initialCategory: propCategory, initialDay: propDay,
     const [selectedCategory, setSelectedCategory] = useState<CategoryType>(initialCat || 'day');
     const [selectedZodiac, setSelectedZodiac] = useState(propZodiac || searchParams.get('zodiac') || 'all');
     const [showCopied, setShowCopied] = useState(false);
+    const [downloadingId, setDownloadingId] = useState<number | null>(null);
+    const [downloadStep, setDownloadStep] = useState<string>('');
 
     // Fetch Wallpapers from Supabase
     useEffect(() => {
@@ -285,10 +289,14 @@ function WallpapersContent({ initialCategory: propCategory, initialDay: propDay,
         // Dynamic import SweetAlert2
         const Swal = (await import('sweetalert2')).default;
 
-        // 1. Check Auth (Skip if not premium? No, require auth for tracking usually, but for now lets require auth for all as per previous logic)
+        // 1. Check Auth
+        setDownloadingId(wallpaper.id);
+        setDownloadStep('กำลังตรวจสอบสิทธิ์...');
         const { data: { session } } = await supabase.auth.getSession();
 
         if (!session) {
+            setDownloadingId(null);
+            setDownloadStep('');
             Swal.fire({
                 title: 'กรุณาเข้าสู่ระบบ',
                 text: 'ท่านต้องเข้าสู่ระบบก่อนจึงจะสามารถดาวน์โหลดวอลเปเปอร์มงคลได้',
@@ -343,9 +351,14 @@ function WallpapersContent({ initialCategory: propCategory, initialDay: propDay,
                 color: '#fff'
             });
 
-            if (!confirm.isConfirmed) return;
+            if (!confirm.isConfirmed) {
+                setDownloadingId(null);
+                setDownloadStep('');
+                return;
+            }
 
             // Deduct credits
+            setDownloadStep('กำลังหักเครดิต...');
             try {
                 const { error } = await supabase.rpc('deduct_credits', { amount: COST });
                 if (error) throw error;
@@ -355,12 +368,15 @@ function WallpapersContent({ initialCategory: propCategory, initialDay: propDay,
                 window.dispatchEvent(new Event('force_credits_update'));
             } catch (error) {
                 console.error('Deduct error:', error);
+                setDownloadingId(null);
+                setDownloadStep('');
                 Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถตัดเครดิตได้ กรุณาลองใหม่', 'error');
                 return;
             }
         }
 
         // 3. Increment Download Count
+        setDownloadStep('กำลังบันทึกยอดดาวน์โหลด...');
         try {
             const { data: rpcData, error: rpcError } = await supabase.rpc('increment_wallpaper_downloads', { wallpaper_id: wallpaper.id });
 
@@ -392,6 +408,7 @@ function WallpapersContent({ initialCategory: propCategory, initialDay: propDay,
         }
 
         // 4. Convert WebP → PNG via Canvas and trigger download
+        setDownloadStep('กำลังแปลงไฟล์ภาพ...');
         const filename = `namemongkol-${wallpaper.id}-${Date.now()}`;
         try {
             const img = new window.Image();
@@ -431,6 +448,12 @@ function WallpapersContent({ initialCategory: propCategory, initialDay: propDay,
             link.click();
             document.body.removeChild(link);
         }
+
+        setDownloadStep('เสร็จสิ้น! 🎉');
+        setTimeout(() => {
+            setDownloadingId(null);
+            setDownloadStep('');
+        }, 1500);
 
         // 5. Re-fetch credits from DB to ensure accuracy after transaction
         if (wallpaper.premium) {
@@ -745,14 +768,31 @@ function WallpapersContent({ initialCategory: propCategory, initialDay: propDay,
 
                                     <button
                                         onClick={() => handleDownload(selectedWallpaper)}
+                                        disabled={downloadingId === selectedWallpaper.id}
                                         data-track="wallpapers.detail.download"
-                                        className={`w-full py-3.5 md:py-4 rounded-xl font-bold text-base md:text-lg flex items-center justify-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] ${selectedWallpaper.premium
+                                        className={`w-full py-3.5 md:py-4 rounded-xl font-bold text-base md:text-lg flex items-center justify-center gap-2 transition-all ${
+                                            downloadingId === selectedWallpaper.id
+                                                ? 'opacity-80 cursor-not-allowed'
+                                                : 'hover:scale-[1.02] active:scale-[0.98]'
+                                        } ${selectedWallpaper.premium
                                             ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black shadow-lg shadow-amber-500/20 ring-4 ring-amber-500/10'
                                             : 'bg-white text-black hover:bg-slate-100 shadow-lg shadow-white/10'
                                             }`}
                                     >
-                                        <Download size={20} />
-                                        {selectedWallpaper.premium ? `แลกด้วย ${getWallpaperCost(selectedWallpaper)} เครดิต` : 'ดาวน์โหลดฟรี'}
+                                        {downloadingId === selectedWallpaper.id ? (
+                                            <>
+                                                <svg className="animate-spin h-5 w-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                                                </svg>
+                                                <span className="truncate">{downloadStep || 'กำลังดาวน์โหลด...'}</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Download size={20} />
+                                                {selectedWallpaper.premium ? `แลกด้วย ${getWallpaperCost(selectedWallpaper)} เครดิต` : 'ดาวน์โหลดฟรี'}
+                                            </>
+                                        )}
                                     </button>
                                 </div>
                             </div>
