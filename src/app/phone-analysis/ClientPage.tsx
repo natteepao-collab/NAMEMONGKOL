@@ -16,15 +16,23 @@ const PhoneHeader = () => {
     const { t } = useLanguage();
 
     return (
-        <div className="relative z-10 text-center w-full max-w-3xl mx-auto mb-8 md:mb-10 animate-fade-in-up">
-            <span className="phone-analysis-label inline-block mb-4 md:mb-5">
-                ✦ เช็คเบอร์มงคลฟรี
-            </span>
-            <div role="heading" aria-hidden="true" className="phone-analysis-title text-3xl md:text-5xl font-bold text-white mb-3 md:mb-4 tracking-tight leading-[1.12]">
-                {t('pages.phoneAnalysis.heroTitle')}{' '}
-                <span className="phone-analysis-title-highlight text-transparent bg-clip-text">{t('pages.phoneAnalysis.heroHighlight')}</span>
+        <div className="relative z-10 text-center w-full max-w-3xl mx-auto mb-10 sm:mb-14 md:mb-16 animate-fade-in-up">
+            {/* Decorative glowing orb behind the text for a premium feel */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] sm:w-[80%] h-[150%] bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 blur-[60px] md:blur-[80px] -z-10 rounded-full pointer-events-none" />
+            
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-5 hover:border-amber-500/30 transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.1)]">
+                <span className="text-amber-400 animate-pulse">✦</span>
+                <span className="text-xs md:text-sm font-semibold text-amber-100 tracking-wider uppercase">เช็คเบอร์มงคลฟรี</span>
             </div>
-            <p className="phone-analysis-subtitle text-base sm:text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
+            
+            <div role="heading" aria-hidden="true" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-[1.2] tracking-tight drop-shadow-2xl">
+                {t('pages.phoneAnalysis.heroTitle')}{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-orange-400 drop-shadow-[0_0_30px_rgba(251,191,36,0.3)]">
+                    {t('pages.phoneAnalysis.heroHighlight')}
+                </span>
+            </div>
+            
+            <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
                 {t('pages.phoneAnalysis.heroSubtitle')}
             </p>
         </div>

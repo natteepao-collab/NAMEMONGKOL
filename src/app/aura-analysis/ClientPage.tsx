@@ -383,16 +383,22 @@ export default function ClientPage() {
 
             <div className="max-w-4xl mx-auto px-4 pt-24 pb-8 sm:pt-28 sm:pb-12">
                 {/* Page Header */}
-                <div className="text-center mb-12 sm:mb-14 md:mb-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4">
-                        <Sparkles size={14} className="text-amber-400" />
-                        <span className="text-xs font-medium text-amber-300 tracking-wide">AI Personality Analysis</span>
+                <div className="text-center mb-10 sm:mb-14 md:mb-16 relative">
+                    {/* Decorative glowing orb behind the text for a premium feel */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] sm:w-[80%] h-[150%] bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-amber-500/10 blur-[60px] md:blur-[80px] -z-10 rounded-full pointer-events-none" />
+                    
+                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-5 hover:border-amber-500/30 transition-all duration-300 shadow-[0_0_20px_rgba(245,158,11,0.1)]">
+                        <Sparkles size={16} className="text-amber-400 animate-pulse" />
+                        <span className="text-xs md:text-sm font-semibold text-amber-100 tracking-wider uppercase">AI Personality Analysis</span>
                     </div>
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
-                        วิเคราะห์<span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">ออร่า</span>และตัวตนผ่านชื่อ
+                    
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-[1.2] tracking-tight drop-shadow-2xl">
+                        ค้นหาตัวตนด้วย <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-orange-400 drop-shadow-[0_0_30px_rgba(251,191,36,0.3)]">ออร่า</span>
+                        <br className="hidden sm:block" /> และพลังงานจากชื่อ
                     </h1>
-                    <p className="text-sm sm:text-base text-slate-400 max-w-xl mx-auto">
-                        ค้นพบบุคลิกภาพ พลังงาน และภาพลักษณ์ที่ซ่อนอยู่ในชื่อของคุณ ด้วยระบบ AI
+                    
+                    <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+                        ถอดรหัสความหมายที่ซ่อนอยู่ในตัวอักษร ด้วยระบบ AI ขั้นสูง <br className="hidden md:block"/> ค้นพบ <span className="font-medium text-amber-200">12 Archetype</span> พลังงานสีมงคล และศาสตร์แห่งตัวตนที่แท้จริงของคุณ 
                     </p>
                 </div>
 
