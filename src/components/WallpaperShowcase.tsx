@@ -7,12 +7,11 @@ import Image from 'next/image';
 import { supabase } from '@/utils/supabase';
 
 
-// Fallback data
 const INITIAL_WALLPAPERS = [
-    { id: 1, name: 'เสริมดวงวันอาทิตย์', image: '/wallpapers/sunday.webp', day: 'sunday', downloads: 2540 },
-    { id: 2, name: 'เสริมดวงวันจันทร์', image: '/wallpapers/monday.webp', day: 'monday', downloads: 3120 },
-    { id: 3, name: 'เสริมดวงวันอังคาร', image: '/wallpapers/tuesday.webp', day: 'tuesday', downloads: 1890 },
-    { id: 4, name: 'เสริมดวงวันพุธ', image: '/wallpapers/wednesday.webp', day: 'wednesday', downloads: 2100 },
+    { id: 1, name: 'สิงห์ทองนำโชค (วันอาทิตย์)', image: '/wallpapers/sunday.webp', day: 'sunday', downloads: 2540 },
+    { id: 2, name: 'เทพพระจันทร์ประทานพร (วันจันทร์)', image: '/wallpapers/monday.webp', day: 'monday', downloads: 3120 },
+    { id: 3, name: 'พระปางไสยาสน์ (วันอังคาร)', image: '/wallpapers/tuesday.webp', day: 'tuesday', downloads: 1890 },
+    { id: 4, name: 'พระแม่ลักษมี เรียกทรัพย์ (พุธกลางวัน)', image: '/wallpapers/Wednesday_lunch.webp', day: 'wednesday', downloads: 2100 },
 ];
 
 export const WallpaperShowcase = () => {
