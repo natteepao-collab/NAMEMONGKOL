@@ -279,8 +279,22 @@ export default function AdminWallpapersPage() {
                                         </div>
                                     </td>
                                     <td className="p-4">
-                                        <span className="capitalize text-slate-300 bg-slate-800 px-2 py-1 rounded text-sm border border-slate-700">
-                                            {wp.day}
+                                        <span className={`capitalize px-2 py-1 rounded text-sm border ${
+                                            wp.day === 'wednesday' ? 'text-green-300 bg-green-900/30 border-green-700/40' :
+                                            wp.day === 'wednesday_night' ? 'text-purple-300 bg-purple-900/30 border-purple-700/40' :
+                                            'text-slate-300 bg-slate-800 border-slate-700'
+                                        }`}>
+                                            {{
+                                                sunday: 'อาทิตย์',
+                                                monday: 'จันทร์',
+                                                tuesday: 'อังคาร',
+                                                wednesday: 'พุธ (กลางวัน)',
+                                                wednesday_night: 'พุธ (กลางคืน)',
+                                                thursday: 'พฤหัสบดี',
+                                                friday: 'ศุกร์',
+                                                saturday: 'เสาร์',
+                                                all: 'ทุกวัน'
+                                            }[wp.day] || wp.day}
                                         </span>
                                     </td>
                                     <td className="p-4">
@@ -398,14 +412,15 @@ export default function AdminWallpapersPage() {
                                         onChange={e => setCurrentWallpaper({ ...currentWallpaper, day: e.target.value })}
                                         className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-emerald-500 appearance-none"
                                     >
-                                        <option value="all">All Days</option>
-                                        <option value="sunday">Sunday</option>
-                                        <option value="monday">Monday</option>
-                                        <option value="tuesday">Tuesday</option>
-                                        <option value="wednesday">Wednesday</option>
-                                        <option value="thursday">Thursday</option>
-                                        <option value="friday">Friday</option>
-                                        <option value="saturday">Saturday</option>
+                                        <option value="all">ทุกวัน (All Days)</option>
+                                        <option value="sunday">วันอาทิตย์ (Sunday)</option>
+                                        <option value="monday">วันจันทร์ (Monday)</option>
+                                        <option value="tuesday">วันอังคาร (Tuesday)</option>
+                                        <option value="wednesday">วันพุธ กลางวัน (Wednesday Day)</option>
+                                        <option value="wednesday_night">วันพุธ กลางคืน (Wednesday Night)</option>
+                                        <option value="thursday">วันพฤหัสบดี (Thursday)</option>
+                                        <option value="friday">วันศุกร์ (Friday)</option>
+                                        <option value="saturday">วันเสาร์ (Saturday)</option>
                                     </select>
                                 </div>
 
