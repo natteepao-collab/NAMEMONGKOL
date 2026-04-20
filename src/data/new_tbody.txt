@@ -1,0 +1,502 @@
+                <tbody class="divide-y divide-slate-700/50">
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">กษิดิศ</td>
+                        <td class="px-4 py-3 text-slate-400">กะ-สิ-ดิด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นใหญ่ในแผ่นดิน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ขุนพล</td>
+                        <td class="px-4 py-3 text-slate-400">ขุน-พน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำกองทัพ ผู้กล้าหาญ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ชยพล</td>
+                        <td class="px-4 py-3 text-slate-400">ชะ-ยะ-พน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ชัยชนะที่ทรงพลัง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">เตชินท์</td>
+                        <td class="px-4 py-3 text-slate-400">เต-ชิน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีเดชและอำนาจยิ่งใหญ่</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ปรินทร</td>
+                        <td class="px-4 py-3 text-slate-400">ปะ-ริน-ทอน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">เป็นใหญ่กว่าผู้อื่น</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">รณพีร์</td>
+                        <td class="px-4 py-3 text-slate-400">รน-นะ-พี</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">วีรบุรุษผู้กล้าหาญในสนามรบ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">สิรวิชญ์</td>
+                        <td class="px-4 py-3 text-slate-400">สิ-ระ-วิด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">นักปราชญ์ผู้เป็นยอด</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">กฤตเดช</td>
+                        <td class="px-4 py-3 text-slate-400">กริต-ตะ-เดด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจที่สร้างสมไว้</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ก้องภพ</td>
+                        <td class="px-4 py-3 text-slate-400">ก้อง-พบ</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีชื่อเสียงเลื่องลือไปทั่วโลก</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">กันตพล</td>
+                        <td class="px-4 py-3 text-slate-400">กัน-ตะ-พน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีกำลังอันน่าพอใจ แข็งแกร่ง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">เกียรติภูมิ</td>
+                        <td class="px-4 py-3 text-slate-400">เกียด-ติ-พูม</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีเกียรติยศและอำนาจบารมี</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ขจรเดช</td>
+                        <td class="px-4 py-3 text-slate-400">ขะ-จอน-เดด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจเลื่องลือไปไกล</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">คณเดช</td>
+                        <td class="px-4 py-3 text-slate-400">คะ-นะ-เดด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นมหาอำนาจของหมู่คณะ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">คณิน</td>
+                        <td class="px-4 py-3 text-slate-400">คะ-นิน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นใหญ่กว่าคนทั้งหลาย</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">จอมพล</td>
+                        <td class="px-4 py-3 text-slate-400">จอม-พน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นใหญ่สูงสุดในกองทัพ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">จิรเดช</td>
+                        <td class="px-4 py-3 text-slate-400">จิ-ระ-เดด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจและบารมีตลอดกาล</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">จิระศักดิ์</td>
+                        <td class="px-4 py-3 text-slate-400">จิ-ระ-สัก</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีศักดิ์ศรีและอำนาจยาวนาน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ฉกาจ</td>
+                        <td class="px-4 py-3 text-slate-400">ฉะ-กาด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เก่งกาจ ห้าวหาญ เด็ดเดี่ยว</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ชนินทร์</td>
+                        <td class="px-4 py-3 text-slate-400">ชะ-นิน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นใหญ่ในหมู่ชน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ชยธร</td>
+                        <td class="px-4 py-3 text-slate-400">ชะ-ยะ-ทอน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้ทรงไว้ซึ่งชัยชนะ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ชัชชน</td>
+                        <td class="px-4 py-3 text-slate-400">ชัด-ชน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">นักสู้ผู้แข็งแกร่ง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ชาญวิทย์</td>
+                        <td class="px-4 py-3 text-slate-400">ชาน-วิด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่มีความรู้และความเชี่ยวชาญ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ไชยยศ</td>
+                        <td class="px-4 py-3 text-slate-400">ไช-ยะ-ยด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีเกียรติยศและชัยชนะ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ฐานทัต</td>
+                        <td class="px-4 py-3 text-slate-400">ถา-นะ-ทัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้ให้หลักแหล่งมั่นคง แข็งแกร่ง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ฐานพัฒน์</td>
+                        <td class="px-4 py-3 text-slate-400">ถา-นะ-พัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่มีฐานะเจริญรุ่งเรือง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ฐิติพศ</td>
+                        <td class="px-4 py-3 text-slate-400">ทิ-ติ-พด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจตั้งมั่นอย่างถาวร</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ณรงค์เดช</td>
+                        <td class="px-4 py-3 text-slate-400">นะ-รง-เดด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีเดชและอำนาจในการรบ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ดนัยเดช</td>
+                        <td class="px-4 py-3 text-slate-400">ดะ-ไน-เดด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ลูกชายผู้มีอำนาจและบารมี</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ตรีภพ</td>
+                        <td class="px-4 py-3 text-slate-400">ตรี-พบ</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นใหญ่ในสามโลก</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">เตชัส</td>
+                        <td class="px-4 py-3 text-slate-400">เต-ชัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีเดช มีตบะน่าเกรงขาม</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ทศพล</td>
+                        <td class="px-4 py-3 text-slate-400">ทด-สะ-พน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีพละกำลังมหาศาล (กำลังสิบประการ)</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ทิพยเดช</td>
+                        <td class="px-4 py-3 text-slate-400">ทิบ-พะ-ยะ-เดด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจและบารมีดุจเทวดา</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ธนเดช</td>
+                        <td class="px-4 py-3 text-slate-400">ทะ-นะ-เดด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจเพราะมีทรัพย์</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ธรรศ</td>
+                        <td class="px-4 py-3 text-slate-400">ทัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีความกล้าหาญเด็ดเดี่ยว</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ธราธิป</td>
+                        <td class="px-4 py-3 text-slate-400">ทะ-รา-ทิบ</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">พระเจ้าแผ่นดิน ผู้นำแผ่นดิน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ธัชพล</td>
+                        <td class="px-4 py-3 text-slate-400">ทัด-ชะ-พน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีกำลังเป็นสัญลักษณ์แห่งชัยชนะ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ธาดา</td>
+                        <td class="px-4 py-3 text-slate-400">ทา-ดา</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้สร้าง ผู้นำ ผู้ก่อตั้ง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ธีร์ทัต</td>
+                        <td class="px-4 py-3 text-slate-400">ที-ทัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำทางปัญญา ผู้ให้ความรู้</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">นพรัตน์</td>
+                        <td class="px-4 py-3 text-slate-400">นบ-พะ-รัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีความประเสริฐสูงสุด (ดุจแก้วเก้าประการ)</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">นรเศรษฐ์</td>
+                        <td class="px-4 py-3 text-slate-400">นอ-ระ-เสด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้ประเสริฐสุดในหมู่มนุษย์</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">นเรศวร</td>
+                        <td class="px-4 py-3 text-slate-400">นะ-เร-สวน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">พระราชา ผู้เป็นใหญ่</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">นฤเบศ</td>
+                        <td class="px-4 py-3 text-slate-400">นะ-รึ-เบด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นใหญ่ในหมู่คน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">นวัช</td>
+                        <td class="px-4 py-3 text-slate-400">นะ-วัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เกิดใหม่เพื่อความยิ่งใหญ่</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">บุรินทร์</td>
+                        <td class="px-4 py-3 text-slate-400">บุ-ริน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นเจ้าเมือง ผู้นำเมือง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">บดินทร์</td>
+                        <td class="px-4 py-3 text-slate-400">บอ-ดิน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">พระเจ้าแผ่นดิน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">บดีศวร</td>
+                        <td class="px-4 py-3 text-slate-400">บอ-ดี-สวน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นเจ้าเป็นใหญ่</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">บรรหาร</td>
+                        <td class="px-4 py-3 text-slate-400">บัน-หาน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่มีวิสัยทัศน์ ผู้บริหารจัดการ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ปณิธาน</td>
+                        <td class="px-4 py-3 text-slate-400">ปะ-นิ-ทาน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่มีความปรารถนาและตั้งใจแน่วแน่</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ปภังกร</td>
+                        <td class="px-4 py-3 text-slate-400">ปะ-พัง-กอน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่สร้างแสงสว่างและความเจริญ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ปรเมศวร์</td>
+                        <td class="px-4 py-3 text-slate-400">ปอ-ระ-เมด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นใหญ่สูงสุด</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ปราบต์</td>
+                        <td class="px-4 py-3 text-slate-400">ปราบ</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีชัยชนะเหนือศัตรู</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">พชรเดช</td>
+                        <td class="px-4 py-3 text-slate-400">พัด-ชะ-ระ-เดด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจกล้าแข็งดุจเพชร</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">พลวัต</td>
+                        <td class="px-4 py-3 text-slate-400">พะ-ละ-วัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีพละกำลังและความก้าวหน้าตลอดเวลา</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">พลกฤต</td>
+                        <td class="px-4 py-3 text-slate-400">พะ-ละ-กริต</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้สร้างพลังและอำนาจ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">พศวัต</td>
+                        <td class="px-4 py-3 text-slate-400">พด-สะ-วัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจที่สามารถบังคับบัญชาได้</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ภูบดี</td>
+                        <td class="px-4 py-3 text-slate-400">พู-บอ-ดี</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">พระเจ้าแผ่นดิน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ภูเบศ</td>
+                        <td class="px-4 py-3 text-slate-400">พู-เบด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นใหญ่ในแผ่นดิน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ภูมิภัทร</td>
+                        <td class="px-4 py-3 text-slate-400">พู-มิ-พัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เจริญและยิ่งใหญ่ในแผ่นดิน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ภูมินทร์</td>
+                        <td class="px-4 py-3 text-slate-400">พู-มิน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นใหญ่ในแผ่นดิน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ภูมิรพี</td>
+                        <td class="px-4 py-3 text-slate-400">พู-มิ-ระ-พี</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่สว่างไสวดุจดวงอาทิตย์บนแผ่นดิน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ภูดิศ</td>
+                        <td class="px-4 py-3 text-slate-400">พู-ดิด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">เจ้าแห่งแผ่นดิน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">มหรรณพ</td>
+                        <td class="px-4 py-3 text-slate-400">มะ-หัน-นบ</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีความยิ่งใหญ่กว้างขวางดุจมหาสมุทร</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ยศกร</td>
+                        <td class="px-4 py-3 text-slate-400">ยด-สะ-กอน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้สร้างยศและบารมี</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">รชานนท์</td>
+                        <td class="px-4 py-3 text-slate-400">ระ-ชา-นน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้ยินดีในสมบัติและความเป็นใหญ่</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">รัชชานนท์</td>
+                        <td class="px-4 py-3 text-slate-400">รัด-ชา-นน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้ยินดีในความเป็นราชา</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">รัฐภูมิ</td>
+                        <td class="px-4 py-3 text-slate-400">รัด-ถะ-พูม</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำแห่งแว่นแคว้น</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ฤทธินันท์</td>
+                        <td class="px-4 py-3 text-slate-400">ริด-ทิ-นัน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้ยินดีในอำนาจและฤทธิ์เดช</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ลัทธพล</td>
+                        <td class="px-4 py-3 text-slate-400">ลัด-ทะ-พน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้ได้รับพลังและอำนาจ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">เลิศพงศ์</td>
+                        <td class="px-4 py-3 text-slate-400">เลิด-พง</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีตระกูลที่ยิ่งใหญ่และโดดเด่น</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">วงศกร</td>
+                        <td class="px-4 py-3 text-slate-400">วง-สะ-กอน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่สร้างตระกูลให้ยิ่งใหญ่</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">วชิรวิทย์</td>
+                        <td class="px-4 py-3 text-slate-400">วะ-ชิ-ระ-วิด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ปราชญ์ผู้นำที่เฉียบขาดดุจสายฟ้า</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">วทัญญู</td>
+                        <td class="px-4 py-3 text-slate-400">วะ-ทัน-ยู</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่ใจบุญและเอื้อเฟื้อเผื่อแผ่</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">วิชยุตม์</td>
+                        <td class="px-4 py-3 text-slate-400">วิด-ชะ-ยุด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้ได้รับชัยชนะอันสูงสุด</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">วีรภัทร</td>
+                        <td class="px-4 py-3 text-slate-400">วี-ระ-พัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ชายผู้กล้าหาญและมีความเจริญ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">วีรากร</td>
+                        <td class="px-4 py-3 text-slate-400">วี-รา-กอน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">บ่อเกิดแห่งความกล้าหาญ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ศักดินา</td>
+                        <td class="px-4 py-3 text-slate-400">สัก-ดิ-นา</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจและสิทธิ์ในการปกครอง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">ศุภกร</td>
+                        <td class="px-4 py-3 text-slate-400">สุ-พะ-กอน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่สร้างสรรค์สิ่งดีงามและเป็นมงคล</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">สหรัฐ</td>
+                        <td class="px-4 py-3 text-slate-400">สะ-หะ-รัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">การรวมตัวแห่งอำนาจและความยิ่งใหญ่</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">สมัชญ์</td>
+                        <td class="px-4 py-3 text-slate-400">สะ-มัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่มีเกียรติยศและชื่อเสียงกว้างไกล</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">สรวิชญ์</td>
+                        <td class="px-4 py-3 text-slate-400">สอ-ระ-วิด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจและสติปัญญาเป็นเลิศ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">สีหนาท</td>
+                        <td class="px-4 py-3 text-slate-400">สี-หะ-นาด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจดุจเสียงคำรามของราชสีห์</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">สุรสีห์</td>
+                        <td class="px-4 py-3 text-slate-400">สุ-ระ-สี</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้กล้าหาญดุจพญาราชสีห์</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อติรุจ</td>
+                        <td class="px-4 py-3 text-slate-400">อะ-ติ-รุด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่มีความสง่างามยิ่ง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อดิศวร</td>
+                        <td class="px-4 py-3 text-slate-400">อะ-ดิ-สวน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นใหญ่และมีอำนาจยิ่ง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อธิบดี</td>
+                        <td class="px-4 py-3 text-slate-400">อะ-ทิบ-บอ-ดี</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นใหญ่ ผู้นำระดับสูง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อนันต์ยศ</td>
+                        <td class="px-4 py-3 text-slate-400">อะ-นัน-ยด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มียศและอำนาจไม่มีที่สิ้นสุด</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อนุราช</td>
+                        <td class="px-4 py-3 text-slate-400">อะ-นุ-ราด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่สืบทอดความยิ่งใหญ่ (ราชาองค์รอง)</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อรรถพล</td>
+                        <td class="px-4 py-3 text-slate-400">อัด-ถะ-พน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีกำลังและสติปัญญาเป็นทรัพย์สมบัติ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อัครเดช</td>
+                        <td class="px-4 py-3 text-slate-400">อัก-คระ-เดด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจสูงสุด</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อัครวินท์</td>
+                        <td class="px-4 py-3 text-slate-400">อัก-คระ-วิน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่มั่งคั่งและยิ่งใหญ่ที่สุด</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อัจฉริยะ</td>
+                        <td class="px-4 py-3 text-slate-400">อัด-ฉะ-ริ-ยะ</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่เก่งกาจและมีความคิดสร้างสรรค์</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อาชวิน</td>
+                        <td class="px-4 py-3 text-slate-400">อา-ชะ-วิน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่ซื่อตรงและมีสัจจะ</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อาทิตย์</td>
+                        <td class="px-4 py-3 text-slate-400">อา-ทิด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่มอบแสงสว่าง (ดุจพระอาทิตย์)</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อิทธิกร</td>
+                        <td class="px-4 py-3 text-slate-400">อิด-ทิ-กอน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้สร้างอำนาจและบารมี</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อิทธิพล</td>
+                        <td class="px-4 py-3 text-slate-400">อิด-ทิ-พน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีพลังและอิทธิพลในการขับเคลื่อน</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อิทธิพัทธ์</td>
+                        <td class="px-4 py-3 text-slate-400">อิด-ทิ-พัด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้มีอำนาจมั่นคงแข็งแรง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">อิศเรศ</td>
+                        <td class="px-4 py-3 text-slate-400">อิด-สะ-เรด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้เป็นใหญ่และมีอำนาจสูงสุด</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">เอกดนัย</td>
+                        <td class="px-4 py-3 text-slate-400">เอก-กะ-ดะ-ไน</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">บุตรชายคนเดียวผู้เป็นที่หนึ่ง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">เอกบุรุษ</td>
+                        <td class="px-4 py-3 text-slate-400">เอก-กะ-บุ-หรุด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ชายผู้เป็นหนึ่ง มีความเป็นผู้นำสูง</td>
+                    </tr>
+                    <tr class="hover:bg-slate-800/50">
+                        <td class="px-4 py-3 font-bold text-white">โอภาส</td>
+                        <td class="px-4 py-3 text-slate-400">โอ-พาด</td>
+                        <td class="px-4 py-3 border-l border-slate-700/50">ผู้นำที่มีความสว่างไสวและรุ่งเรือง</td>
+                    </tr>
+                </tbody>

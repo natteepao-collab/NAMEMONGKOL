@@ -1,4 +1,5 @@
 
+import { articleBoyNames2569 } from './article-boy-names-2569';
 import { articleGirlNames2569 } from './article-girl-names-2569';
 
 export interface FaqItem {
@@ -27,6 +28,7 @@ export interface Article {
 }
 
 export const articles: Article[] = [
+    articleBoyNames2569,
     articleGirlNames2569,
     {
         id: '33',

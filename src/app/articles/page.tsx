@@ -151,6 +151,7 @@ export default async function ArticlesPage() {
                     'description': article.excerpt,
                     'url': `https://www.namemongkol.com/articles/${article.slug}`,
                     'datePublished': article.date,
+                    ...(article.coverImage && { 'image': `https://www.namemongkol.com${article.coverImage}` }),
                     'author': {
                         '@type': 'Person',
                         'name': article.author,
@@ -326,40 +327,42 @@ export default async function ArticlesPage() {
                             <Link
                                 key={article.slug}
                                 href={`/articles/${article.slug}`}
-                                className="group flex flex-col bg-slate-900/40 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10"
+                                className="group bg-slate-900/40 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10"
                             >
-                                <div className="aspect-video w-full bg-slate-800 relative overflow-hidden">
-                                    <ArticleImage
-                                        src={article.coverImage as string}
-                                        alt={(article as any).coverImageAlt || `ภาพหน้าปกบทความ ${article.title} - บทความชื่อมงคล NameMongkol`}
-                                        priority={index < 8}
-                                        className="group-hover:scale-105"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent opacity-60" />
-                                    <div className="absolute top-3 right-3 px-2.5 py-0.5 bg-black/60 backdrop-blur-md rounded-full text-[10px] text-white font-medium border border-white/10 z-10">
-                                        {article.category}
-                                    </div>
-                                </div>
-
-                                <div className="p-4 flex flex-col flex-grow relative bg-[#0f172a] group-hover:bg-[#131c33] transition-colors">
-                                    <div className="flex items-center gap-2 text-[11px] text-slate-500 mb-2.5">
-                                        <Calendar size={11} />
-                                        <span>{new Date(parseThaiDate(article.date)).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                                <article className="flex flex-col h-full">
+                                    <div className="aspect-video w-full bg-slate-800 relative overflow-hidden">
+                                        <ArticleImage
+                                            src={article.coverImage as string}
+                                            alt={(article as any).coverImageAlt || `บทความ: ${article.title} - เคล็ดลับตั้งชื่อมงคล`}
+                                            priority={index < 8}
+                                            className="group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent opacity-60" />
+                                        <div className="absolute top-3 right-3 px-2.5 py-0.5 bg-black/60 backdrop-blur-md rounded-full text-[10px] text-white font-medium border border-white/10 z-10">
+                                            {article.category}
+                                        </div>
                                     </div>
 
-                                    <h2 className="text-sm font-bold text-slate-100 mb-2 leading-snug group-hover:text-purple-400 transition-colors line-clamp-2">
-                                        {article.title}
-                                    </h2>
+                                    <div className="p-4 flex flex-col flex-grow relative bg-[#0f172a] group-hover:bg-[#131c33] transition-colors">
+                                        <div className="flex items-center gap-2 text-[11px] text-slate-500 mb-2.5">
+                                            <Calendar size={11} />
+                                            <time dateTime={article.date}>{new Date(parseThaiDate(article.date)).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
+                                        </div>
 
-                                    <p className="text-slate-400 text-xs leading-relaxed mb-4 line-clamp-2">
-                                        {article.excerpt}
-                                    </p>
+                                        <h2 className="text-sm font-bold text-slate-100 mb-2 leading-snug group-hover:text-purple-400 transition-colors line-clamp-2">
+                                            {article.title}
+                                        </h2>
 
-                                    <div className="mt-auto pt-3 border-t border-white/5 flex justify-between items-center">
-                                        <span className="text-purple-400 text-xs font-medium group-hover:underline decoration-purple-500/30 underline-offset-4">อ่านเพิ่มเติม →</span>
-                                        <span className="text-slate-600 text-[10px]">{article.author}</span>
+                                        <p className="text-slate-400 text-xs leading-relaxed mb-4 line-clamp-2">
+                                            {article.excerpt}
+                                        </p>
+
+                                        <div className="mt-auto pt-3 border-t border-white/5 flex justify-between items-center">
+                                            <span className="text-purple-400 text-xs font-medium group-hover:underline decoration-purple-500/30 underline-offset-4">อ่านเพิ่มเติม →</span>
+                                            <span className="text-slate-600 text-[10px]" itemProp="author">{article.author}</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </article>
                             </Link>
                         ))}
                     </div>
