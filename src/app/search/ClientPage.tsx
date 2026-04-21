@@ -2,6 +2,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useMemo, useEffect } from 'react';
+import ReviewBadge from '@/components/ReviewBadge';
+import UserStatsBadge from '@/components/UserStatsBadge';
+import PopularNames from '@/components/PopularNames';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/utils/supabase';
@@ -454,33 +457,41 @@ export default function SearchPage() {
                 <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-amber-600/10 rounded-full blur-[120px]"></div>
             </div>
 
-            <div className="relative z-10 w-full max-w-[1400px] px-4 pt-32 md:pt-32 pb-28">
-                <div className="text-center mb-12">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-sm mb-4">
-                        <Sparkles className="w-4 h-4" />
-                        <span>{t('pages.search.badge')}</span>
-                    </div>
-                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-4 leading-tight pb-1">
-                        {t('pages.search.title')}
-                    </h1>
-                    <p className="text-slate-400 max-w-2xl mx-auto mb-6">
-                        {t('pages.search.description')}
-                    </p>
 
-                    {/* Pro Tip / Guidance Block */}
-                    <div className="max-w-2xl mx-auto bg-amber-900/20 border border-amber-500/20 rounded-xl p-4 text-left flex gap-4 items-start relative overflow-hidden group">
-                        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                        <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400 shrink-0 relative z-10">
-                            <Sparkles className="w-5 h-5" />
-                        </div>
-                        <div className="relative z-10">
-                            <h3 className="text-amber-200 font-semibold mb-1 text-sm">💡 {t('pages.search.tipTitle')}</h3>
-                            <p className="text-slate-400 text-sm leading-relaxed">
-                                {t('pages.search.tipBody')} <Link href="/" className="text-amber-400 hover:underline decoration-amber-400/30 underline-offset-4">{t('pages.search.links.l1Title')}</Link>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                        <div className="relative z-10 w-full max-w-[1400px] px-4 pt-32 md:pt-32 pb-28">
+                                {/* Social Proof & Engagement Section */}
+                                <div className="flex flex-col items-center gap-3 mb-8">
+                                    <div className="flex flex-wrap gap-3 justify-center">
+                                        <ReviewBadge rating={4.8} count={512} />
+                                        <UserStatsBadge users={12000} />
+                                    </div>
+                                    <PopularNames />
+                                </div>
+                                <div className="text-center mb-12">
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-sm mb-4">
+                                        <Sparkles className="w-4 h-4" />
+                                        <span>{t('pages.search.badge')}</span>
+                                    </div>
+                                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-4 leading-tight pb-1">
+                                        {t('pages.search.title')}
+                                    </h1>
+                                    <p className="text-slate-400 max-w-2xl mx-auto mb-6">
+                                        {t('pages.search.description')}
+                                    </p>
+                                    {/* Pro Tip / Guidance Block */}
+                                    <div className="max-w-2xl mx-auto bg-amber-900/20 border border-amber-500/20 rounded-xl p-4 text-left flex gap-4 items-start relative overflow-hidden group">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                                        <div className="p-2 bg-amber-500/10 rounded-lg text-amber-400 shrink-0 relative z-10">
+                                            <Sparkles className="w-5 h-5" />
+                                        </div>
+                                        <div className="relative z-10">
+                                            <h3 className="text-amber-200 font-semibold mb-1 text-sm">💡 {t('pages.search.tipTitle')}</h3>
+                                            <p className="text-slate-400 text-sm leading-relaxed">
+                                                {t('pages.search.tipBody')} <Link href="/" className="text-amber-400 hover:underline decoration-amber-400/30 underline-offset-4">{t('pages.search.links.l1Title')}</Link>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
 
                 {/* Search & Filter Section */}
                 <div className="max-w-4xl mx-auto mb-12 space-y-4">
