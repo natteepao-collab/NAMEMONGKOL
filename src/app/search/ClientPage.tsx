@@ -30,17 +30,17 @@ function NameRow({ name }: { name: string }) {
                 className={`group cursor-pointer border-b border-white/5 last:border-0 transition-all duration-300 ${isExpanded ? 'bg-white/[0.04]' : 'hover:bg-white/[0.04]'}`}
                 onClick={() => setIsExpanded(!isExpanded)}
             >
-                <td className="px-4 md:px-8 py-5">
-                    <div className="flex items-center gap-3 transition-transform duration-300 group-hover:translate-x-1">
+                <td className="px-3 md:px-8 py-3 md:py-5">
+                    <div className="flex items-center gap-2 md:gap-3 transition-transform duration-300 group-hover:translate-x-1">
                         <div className={`p-1 rounded-full bg-white/5 transition-colors ${isExpanded ? 'text-amber-400 bg-amber-400/10' : 'text-slate-500 group-hover:text-amber-400 group-hover:bg-amber-400/10'}`}>
-                            {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                            {isExpanded ? <ChevronUp className="w-3.5 h-3.5 md:w-4 md:h-4" /> : <ChevronDown className="w-3.5 h-3.5 md:w-4 md:h-4" />}
                         </div>
-                        <span className="text-lg font-medium text-slate-200 group-hover:text-amber-200 transition-colors">
+                        <span className="text-base md:text-lg font-medium text-slate-200 group-hover:text-amber-200 transition-colors">
                             {name}
                         </span>
                     </div>
                 </td>
-                <td className="px-4 md:px-8 py-5 text-slate-400 group-hover:text-slate-300 transition-colors">
+                <td className="px-3 md:px-8 py-3 md:py-5 text-xs md:text-base text-slate-400 group-hover:text-slate-300 transition-colors">
                     {day !== '-' && day !== 'ไม่ระบุ' ? (
                         day
                     ) : suitability.suitable.length === 8 ? (
@@ -63,8 +63,8 @@ function NameRow({ name }: { name: string }) {
                         '-'
                     )}
                 </td>
-                <td className="px-4 md:px-8 py-5 text-center">
-                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/10 to-purple-500/10 text-amber-300 font-bold border border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.05)] group-hover:border-amber-500/40 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] group-hover:text-amber-200 group-hover:scale-110 transition-all duration-300">
+                <td className="px-3 md:px-8 py-3 md:py-5 text-center">
+                    <span className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 text-sm md:text-base rounded-lg md:rounded-xl bg-gradient-to-br from-amber-500/10 to-purple-500/10 text-amber-300 font-bold border border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.05)] group-hover:border-amber-500/40 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.15)] group-hover:text-amber-200 group-hover:scale-110 transition-all duration-300">
                         {score}
                     </span>
                 </td>
@@ -72,13 +72,13 @@ function NameRow({ name }: { name: string }) {
             {isExpanded && suitability && (
                 <tr className="bg-white/[0.02] animate-fade-in">
                     <td colSpan={3} className="p-0">
-                        <div className="px-8 py-6 space-y-4 border-b border-white/5 bg-gradient-to-b from-black/20 to-transparent shadow-inner">
-                            <div className="flex items-start gap-4 p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
-                                <div className="mt-1 min-w-[24px] text-emerald-400 p-1 rounded-full bg-emerald-500/10">
-                                    <CheckCircle className="w-4 h-4" />
+                        <div className="px-4 md:px-8 py-4 md:py-6 space-y-3 md:space-y-4 border-b border-white/5 bg-gradient-to-b from-black/20 to-transparent shadow-inner">
+                            <div className="flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
+                                <div className="mt-1 min-w-[20px] md:min-w-[24px] text-emerald-400 p-1 rounded-full bg-emerald-500/10">
+                                    <CheckCircle className="w-3.5 h-3.5 md:w-4 md:h-4" />
                                 </div>
                                 <div>
-                                    <span className="font-semibold text-emerald-300 block mb-2 text-sm uppercase tracking-wider">วันที่ใช้ได้ (มงคล)</span>
+                                    <span className="font-semibold text-emerald-300 block mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wider">วันที่ใช้ได้ (มงคล)</span>
                                     <div className="flex flex-wrap gap-2">
                                         {suitability.suitable.length > 0 ? (
                                             suitability.suitable.map((d, i) => (
@@ -93,12 +93,12 @@ function NameRow({ name }: { name: string }) {
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-4 p-4 rounded-xl bg-rose-500/5 border border-rose-500/10">
-                                <div className="mt-1 min-w-[24px] text-rose-400 p-1 rounded-full bg-rose-500/10">
-                                    <XCircle className="w-4 h-4" />
+                            <div className="flex items-start gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-rose-500/5 border border-rose-500/10">
+                                <div className="mt-1 min-w-[20px] md:min-w-[24px] text-rose-400 p-1 rounded-full bg-rose-500/10">
+                                    <XCircle className="w-3.5 h-3.5 md:w-4 md:h-4" />
                                 </div>
                                 <div>
-                                    <span className="font-semibold text-rose-300 block mb-2 text-sm uppercase tracking-wider">วันที่ห้ามใช้ (กาลกิณี)</span>
+                                    <span className="font-semibold text-rose-300 block mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wider">วันที่ห้ามใช้ (กาลกิณี)</span>
                                     <div className="flex flex-wrap gap-2">
                                         {suitability.unsuitable.length > 0 ? (
                                             suitability.unsuitable.map((d, i) => (
@@ -458,24 +458,24 @@ export default function SearchPage() {
             </div>
 
 
-                        <div className="relative z-10 w-full max-w-[1400px] px-4 pt-32 md:pt-32 pb-28">
+                        <div className="relative z-10 w-full max-w-[1400px] px-4 pt-24 md:pt-32 pb-20 md:pb-28">
                                 {/* Social Proof & Engagement Section */}
-                                <div className="flex flex-col items-center gap-3 mb-8">
-                                    <div className="flex flex-wrap gap-3 justify-center">
+                                <div className="flex flex-col items-center gap-3 mb-6 md:mb-8">
+                                    <div className="flex flex-wrap gap-2 md:gap-3 justify-center">
                                         <ReviewBadge rating={4.8} count={512} />
                                         <UserStatsBadge users={12000} />
                                     </div>
                                     <PopularNames />
                                 </div>
-                                <div className="text-center mb-12">
-                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-sm mb-4">
-                                        <Sparkles className="w-4 h-4" />
+                                <div className="text-center mb-8 md:mb-12">
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/20 text-amber-300 text-xs md:text-sm mb-3 md:mb-4">
+                                        <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4" />
                                         <span>{t('pages.search.badge')}</span>
                                     </div>
-                                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-4 leading-tight pb-1">
+                                    <h1 className="text-2xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400 mb-3 md:mb-4 leading-tight pb-1">
                                         {t('pages.search.title')}
                                     </h1>
-                                    <p className="text-slate-400 max-w-2xl mx-auto mb-6">
+                                    <p className="text-slate-400 text-sm md:text-base max-w-2xl mx-auto mb-5 md:mb-6 px-2">
                                         {t('pages.search.description')}
                                     </p>
                                     {/* Pro Tip / Guidance Block */}
@@ -494,11 +494,11 @@ export default function SearchPage() {
                                 </div>
 
                 {/* Search & Filter Section */}
-                <div className="max-w-4xl mx-auto mb-12 space-y-4">
+                <div className="max-w-4xl mx-auto mb-8 md:mb-12 space-y-4">
 
 
                     {/* Filters */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                         {/* Day Filter */}
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -507,7 +507,7 @@ export default function SearchPage() {
                             <select
                                 value={selectedDay}
                                 onChange={handleDayChange}
-                                className="block w-full pl-11 pr-4 py-3 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all appearance-none cursor-pointer"
+                                className="block w-full pl-11 pr-4 py-2.5 md:py-3 text-sm md:text-base bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all appearance-none cursor-pointer"
                             >
                                 <option value="all">{t('pages.search.filters.dayAny')}</option>
                                 {Object.keys(thaksaConfig).map((key) => (
@@ -532,7 +532,7 @@ export default function SearchPage() {
                                     setSelectedGender(e.target.value as any);
                                     setVisibleCount(10);
                                 }}
-                                className="block w-full pl-12 pr-4 py-3 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all appearance-none cursor-pointer"
+                                className="block w-full pl-12 pr-4 py-2.5 md:py-3 text-sm md:text-base bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all appearance-none cursor-pointer"
                             >
                                 <option value="all" className="bg-[#1e293b]">{t('pages.search.filters.genderAll')}</option>
                                 <option value="male" className="bg-[#1e293b]">{t('pages.search.filters.genderMale')}</option>
@@ -556,7 +556,7 @@ export default function SearchPage() {
                                     e.target.select();
                                 }}
                                 onBlur={() => setTimeout(() => setIsSumFocused(false), 200)} // Delay to allow click
-                                className="block w-full px-4 py-3 bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                className="block w-full px-4 py-2.5 md:py-3 text-sm md:text-base bg-[#1e293b]/80 border border-white/10 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-transparent backdrop-blur-xl transition-all appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                 placeholder={t('pages.search.filters.sumPlaceholder')}
                             />
 
@@ -616,9 +616,9 @@ export default function SearchPage() {
                     </div>
 
                     {/* Letter Filter (ก-ฮ) */}
-                    <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-sm text-slate-400">
-                            <Type className="w-4 h-4" />
+                    <div className="space-y-2 mt-2">
+                        <div className="flex items-center gap-2 text-xs md:text-sm text-slate-400">
+                            <Type className="w-3.5 h-3.5 md:w-4 md:h-4" />
                             <span>กรองตามตัวอักษรแรก</span>
                             {selectedLetter !== 'all' && (
                                 <button
@@ -629,10 +629,10 @@ export default function SearchPage() {
                                 </button>
                             )}
                         </div>
-                        <div className="flex flex-wrap gap-1.5">
+                        <div className="flex flex-wrap gap-1 md:gap-1.5">
                             <button
                                 onClick={() => handleLetterChange('all')}
-                                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                                className={`px-2.5 md:px-3 py-1 md:py-1.5 rounded-lg text-xs md:text-sm font-medium transition-all ${
                                     selectedLetter === 'all'
                                         ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20'
                                         : 'bg-slate-800/60 text-slate-400 border border-white/10 hover:text-white hover:border-white/20'
@@ -644,7 +644,7 @@ export default function SearchPage() {
                                 <button
                                     key={letter}
                                     onClick={() => handleLetterChange(letter)}
-                                    className={`w-9 h-9 rounded-lg text-sm font-medium transition-all flex items-center justify-center ${
+                                    className={`w-7 h-7 md:w-9 md:h-9 rounded-lg text-xs md:text-sm font-medium transition-all flex items-center justify-center ${
                                         selectedLetter === letter
                                             ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black shadow-lg shadow-amber-500/20 scale-110'
                                             : 'bg-slate-800/60 text-slate-400 border border-white/10 hover:text-white hover:border-white/20 hover:bg-white/5'
@@ -669,9 +669,9 @@ export default function SearchPage() {
                     <table className="w-full text-left">
                         <thead>
                             <tr className="bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-amber-500/10 border-b border-white/10 text-amber-200">
-                                <th className="px-4 md:px-8 py-5 font-semibold text-lg tracking-wide">{t('pages.search.table.name')}</th>
-                                <th className="px-4 md:px-8 py-5 font-semibold text-lg tracking-wide">{t('pages.search.table.day')}</th>
-                                <th className="px-4 md:px-8 py-5 font-semibold text-lg tracking-wide text-center">{t('pages.search.table.score')}</th>
+                                <th className="px-3 md:px-8 py-3 md:py-5 font-semibold text-sm md:text-lg tracking-wide">{t('pages.search.table.name')}</th>
+                                <th className="px-3 md:px-8 py-3 md:py-5 font-semibold text-sm md:text-lg tracking-wide">{t('pages.search.table.day')}</th>
+                                <th className="px-3 md:px-8 py-3 md:py-5 font-semibold text-sm md:text-lg tracking-wide text-center">{t('pages.search.table.score')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
@@ -696,16 +696,16 @@ export default function SearchPage() {
                                                     <button
                                                         onClick={handleUnlock}
                                                         disabled={isUnlocking}
-                                                        className={`group relative flex items-center gap-3 px-8 py-4 rounded-2xl shadow-lg shadow-amber-500/20 transition-all ${isUnlocking
+                                                        className={`group relative flex items-center gap-2 md:gap-3 px-5 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl shadow-lg shadow-amber-500/20 transition-all ${isUnlocking
                                                             ? 'bg-amber-500/60 text-black cursor-not-allowed'
                                                             : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black hover:scale-105 active:scale-95'
                                                             }`}
                                                     >
-                                                        <div className="p-1.5 bg-black/20 rounded-lg">
-                                                            <Lock size={18} />
+                                                        <div className="p-1 md:p-1.5 bg-black/20 rounded-md md:rounded-lg">
+                                                            <Lock className="w-4 h-4 md:w-5 md:h-5" />
                                                         </div>
-                                                        <span className="text-lg">{t('pages.search.unlock.button')}</span>
-                                                        <div className="bg-black/80 text-amber-500 text-xs px-2 py-1 rounded-md font-bold flex items-center gap-1">
+                                                        <span className="text-base md:text-lg">{t('pages.search.unlock.button')}</span>
+                                                        <div className="bg-black/80 text-amber-500 text-[10px] md:text-xs px-1.5 md:px-2 py-0.5 md:py-1 rounded-md font-bold flex items-center gap-1">
                                                             {t('pages.search.unlock.cost')}
                                                         </div>
                                                     </button>

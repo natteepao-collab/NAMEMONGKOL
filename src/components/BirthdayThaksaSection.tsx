@@ -114,15 +114,16 @@ export const BirthdayThaksaSection = () => {
                             className="bg-slate-900/40 rounded-2xl border border-white/5 backdrop-blur-sm overflow-hidden hover:border-amber-500/20 transition-colors"
                         >
                             {/* Day Image */}
-                            <Image
-                                src={day.image}
-                                alt={day.alt}
-                                width={800}
-                                height={800}
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                className="w-full h-auto"
-                                loading="lazy"
-                            />
+                            <div className="w-full flex justify-center bg-gradient-to-b from-slate-900/40 to-transparent pt-6 sm:pt-8 pb-2 px-4">
+                                <Image
+                                    src={day.image}
+                                    alt={day.alt}
+                                    width={600}
+                                    height={600}
+                                    className="w-full max-w-[280px] md:max-w-[340px] h-auto object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)] hover:scale-[1.03] transition-transform duration-500"
+                                    loading="lazy"
+                                />
+                            </div>
 
                             <div className="p-5 md:p-6">
                                 {/* Day Title */}

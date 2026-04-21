@@ -378,35 +378,7 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
       <div className="relative w-full aspect-[5/4] sm:aspect-[4/5] bg-[#061f16] rounded-xl overflow-hidden border border-emerald-700/30 flex flex-col items-center justify-center mb-2 sm:mb-3">
         {isCameraOpen && (
           <div className="absolute inset-0 z-[1] pointer-events-none">
-            {/* Palm-shaped guide overlay — light dim outside, amber outline inside */}
-            <svg
-              className="absolute inset-0 w-full h-full"
-              viewBox="0 0 300 400"
-              preserveAspectRatio="xMidYMid slice"
-            >
-              <defs>
-                <mask id="palmCutout">
-                  <rect width="300" height="400" fill="white" />
-                  <path d={PALM_GUIDE_PATH} fill="black" />
-                </mask>
-              </defs>
-              {/* Light dim outside the palm shape — 25% so camera feed stays visible */}
-              <rect
-                width="300" height="400"
-                fill="rgba(0,0,0,0.25)"
-                mask="url(#palmCutout)"
-              />
-              {/* Main palm outline — amber glow */}
-              <path
-                d={PALM_GUIDE_PATH}
-                fill="none"
-                stroke="rgba(251,191,36,0.6)"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="animate-pulse"
-              />
-            </svg>
+            {/* Palm outline removed as requested, leaving a clean camera feed */}
           </div>
         )}
 
@@ -480,7 +452,7 @@ export default function PalmScanner({ onAnalyze, onReset, isAnalyzing, result }:
               {/* Instruction hint — merged into bottom bar */}
               <div className="text-center mb-3 pointer-events-none">
                 <span className="text-amber-300/80 text-[11px] font-medium">
-                  🖐️ วางฝ่ามือตรงกรอบ • หงายมือขึ้น
+                  🖐️ ถ่ายให้เห็นฝ่ามือชัดเจน • หงายมือขึ้น
                 </span>
               </div>
 

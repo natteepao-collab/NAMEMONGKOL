@@ -340,16 +340,16 @@ export default function ClientPage() {
                             {/* Animated Glow Effect */}
                             <div className="absolute -inset-1.5 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-400 rounded-2xl blur opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
                             
-                            <div className="relative flex flex-col items-center gap-1.5 px-8 py-4 bg-gradient-to-b from-slate-900 to-slate-800 border border-amber-500/50 rounded-2xl leading-none w-full sm:w-auto">
-                                <div className="absolute -top-4 -right-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[12px] font-bold px-4 py-1.5 rounded-full shadow-lg border border-white/30 transform rotate-12 group-hover:rotate-6 transition-transform whitespace-nowrap overflow-hidden">
-                                    <span className="animate-[shimmer_2s_infinite] absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full"></span>
+                            <div className="relative flex flex-col items-center gap-1 sm:gap-1.5 px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-b from-slate-900 to-slate-800 border border-amber-500/50 rounded-2xl leading-none w-full sm:w-auto">
+                                <div className="absolute -top-3 -right-2 sm:-top-4 sm:-right-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[10px] sm:text-[12px] font-bold px-3 py-1 sm:px-4 sm:py-1.5 rounded-full shadow-lg border border-white/30 transform rotate-12 group-hover:rotate-6 transition-transform whitespace-nowrap overflow-hidden z-10">
+                                    <span className="animate-[shimmer_2s_infinite] absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full" />
                                     🎁 รับ 30 เครดิตฟรี!
                                 </div>
-                                <div className="flex items-center gap-2 text-amber-400 font-extrabold text-xl lg:text-2xl tracking-wide">
-                                    <MessageCircle size={24} className="text-amber-400" />
+                                <div className="flex items-center gap-1.5 sm:gap-2 text-amber-400 font-extrabold text-lg sm:text-xl lg:text-2xl tracking-wide">
+                                    <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
                                     <span>เขียนเรื่องราวของคุณ</span>
                                 </div>
-                                <div className="text-amber-500/70 text-sm font-medium">แบ่งปันประสบการณ์เพื่อเป็นวิทยาทาน</div>
+                                <div className="text-amber-500/70 text-[11px] sm:text-sm font-medium mt-1">แบ่งปันประสบการณ์เพื่อเป็นวิทยาทาน</div>
                             </div>
                         </motion.button>
 
@@ -360,9 +360,9 @@ export default function ClientPage() {
                             whileTap={{ scale: 0.95 }}
                             transition={{ delay: 0.4 }}
                             onClick={() => router.push('/')}
-                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-5 rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-lg hover:bg-white/10 hover:border-white/30 transition-all backdrop-blur-sm"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 sm:px-8 sm:py-5 rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-base sm:text-lg hover:bg-white/10 hover:border-white/30 transition-all backdrop-blur-sm mt-3 sm:mt-0"
                         >
-                            <Search size={22} className="text-slate-300" />
+                            <Search className="w-5 h-5 sm:w-[22px] sm:h-[22px] text-slate-300" />
                             {t('pages.reviews.ctaAnalyze')}
                         </motion.button>
                     </div>
@@ -382,14 +382,14 @@ export default function ClientPage() {
                 </div>
 
                 {/* Filter Bar */}
-                <div className="flex flex-wrap items-center justify-center gap-2 mb-12 bg-slate-900/60 p-2 rounded-2xl border border-slate-700/50 backdrop-blur-md max-w-fit mx-auto shadow-xl">
+                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10 sm:mb-14">
                     {categories.map((category) => (
                         <button
                             key={category.id}
                             onClick={() => setSelectedCategory(category.id)}
-                            className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 ${selectedCategory === category.id
-                                ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/40'
-                                : 'bg-transparent text-slate-400 hover:bg-white/10 hover:text-white'
+                            className={`px-3 py-1.5 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${selectedCategory === category.id
+                                ? 'cosmic-chip-active'
+                                : 'cosmic-chip'
                                 }`}
                         >
                             {category.label}
@@ -411,7 +411,7 @@ export default function ClientPage() {
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.95 }}
                                 transition={{ duration: 0.3 }}
-                                className="break-inside-avoid bg-gradient-to-b from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-7 hover:border-amber-500/30 hover:shadow-2xl hover:shadow-amber-500/5 transition-all group relative overflow-hidden"
+                                className="break-inside-avoid glass-card ancient-frame rounded-2xl sm:rounded-3xl p-4 sm:p-7 group relative overflow-hidden mb-4 sm:mb-6"
                             >
                                 {/* Owner Actions - Adjusted z-index and position */}
                                 {currentUser && (currentUser.id === review.user_id || isAdmin) && (
@@ -439,7 +439,7 @@ export default function ClientPage() {
                                 )}
 
                                 <div className="flex items-center gap-3 mb-4 relative z-10">
-                                    <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white font-bold text-lg shadow-lg overflow-hidden">
+                                    <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-amber-500/40 bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white font-bold text-base sm:text-lg shadow-[0_0_15px_rgba(245,158,11,0.3)] overflow-hidden shrink-0">
                                         {review.avatar ? (
                                             <Image
                                                 src={review.avatar}
@@ -454,8 +454,8 @@ export default function ClientPage() {
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-white font-bold">{review.nickname}</span>
+                                        <div className="flex items-center gap-1.5 sm:gap-2">
+                                            <span className="text-white font-bold text-sm sm:text-base">{review.nickname}</span>
                                             {/* Verified Badge - E-E-A-T Signal */}
                                             {review.is_verified && (
                                                 <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 text-[10px] font-semibold border border-emerald-500/20">
@@ -494,17 +494,17 @@ export default function ClientPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex gap-1 mb-4">
+                                <div className="flex gap-1.5 mb-4">
                                     {[...Array(5)].map((_, i) => (
                                         <Star
                                             key={i}
                                             size={16}
-                                            className={`${i < review.rating ? 'fill-amber-400 text-amber-400' : 'fill-slate-700 text-slate-700'}`}
+                                            className={`${i < review.rating ? 'fill-amber-400 text-amber-400 drop-shadow-[0_0_6px_rgba(251,191,36,0.5)]' : 'fill-slate-700/50 text-slate-700'}`}
                                         />
                                     ))}
                                 </div>
 
-                                <p className="text-slate-300 leading-relaxed mb-6 relative z-10">
+                                <p className="cosmic-text-soft leading-relaxed mb-6 relative z-10 italic">
                                     &quot;{review.content}&quot;
                                 </p>
 
@@ -544,26 +544,26 @@ export default function ClientPage() {
                                 </div>
 
                                 {/* Helpful Vote & Share - User Engagement */}
-                                <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/5">
+                                <div className="flex items-center justify-between mt-5 pt-4 border-t border-amber-500/10">
                                     <button
                                         onClick={(e) => { e.stopPropagation(); handleHelpfulVote(review.id); }}
                                         disabled={userVotedReviews.has(review.id)}
                                         className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${userVotedReviews.has(review.id)
-                                                ? 'bg-amber-500/20 text-amber-400 cursor-default'
-                                                : 'bg-white/5 text-slate-400 hover:bg-amber-500/10 hover:text-amber-400'
+                                                ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30 cursor-default'
+                                                : 'bg-white/5 text-slate-400 hover:bg-amber-500/10 hover:text-amber-400 hover:border hover:border-amber-500/20'
                                             }`}
                                     >
-                                        <ThumbsUp size={14} className={userVotedReviews.has(review.id) ? 'fill-amber-400' : ''} />
+                                        <ThumbsUp size={14} className={userVotedReviews.has(review.id) ? 'fill-amber-400 drop-shadow-[0_0_4px_rgba(251,191,36,0.6)]' : ''} />
                                         <span>{t('pages.reviews.helpful')}</span>
                                         {(helpfulVotes[review.id] || 0) > 0 && (
-                                            <span className="px-1.5 py-0.5 rounded-md bg-white/10 text-amber-400 font-semibold">
+                                            <span className="ml-1 text-amber-300 font-bold">
                                                 {helpfulVotes[review.id]}
                                             </span>
                                         )}
                                     </button>
                                     <button
                                         onClick={(e) => { e.stopPropagation(); handleShareReview(review); }}
-                                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
+                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white transition-colors border border-transparent hover:border-white/10"
                                     >
                                         <Share2 size={14} />
                                         <span>{t('pages.reviews.share')}</span>

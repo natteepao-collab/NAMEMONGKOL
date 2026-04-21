@@ -87,30 +87,30 @@ export default function PopularNames() {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
+        <div className="grid grid-cols-4 md:grid-cols-5 gap-2 md:gap-5">
           {popular.map((item, index) => (
             <div 
               key={index + item.name} 
-              className="group relative flex flex-col justify-between p-5 rounded-2xl bg-gradient-to-br from-[#1e293b]/80 to-[#0f172a]/80 border border-white/10 hover:border-amber-500/40 hover:bg-[#1e293b] hover:shadow-[0_8px_30px_rgba(245,158,11,0.15)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-md"
+              className="group relative flex flex-col justify-between p-2 md:p-5 rounded-lg md:rounded-2xl bg-gradient-to-br from-[#1e293b]/80 to-[#0f172a]/80 border border-white/10 hover:border-amber-500/40 hover:bg-[#1e293b] hover:shadow-[0_8px_30px_rgba(245,158,11,0.15)] hover:-translate-y-1.5 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-md"
             >
               {/* Ranking Badge */}
-              <div className={`absolute top-0 right-0 w-10 h-10 rounded-bl-2xl flex items-center justify-center text-sm font-bold border-b border-l border-white/5 z-10 transition-all duration-300 ${index < 3 ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-black border-amber-500/50 shadow-[-4px_4px_15px_rgba(245,158,11,0.3)]' : 'bg-white/5 text-slate-300 group-hover:bg-white/10'}`}>
+              <div className={`absolute top-0 right-0 w-6 h-6 md:w-10 md:h-10 rounded-bl-lg md:rounded-bl-2xl flex items-center justify-center text-[10px] md:text-sm font-bold border-b border-l border-white/5 z-10 transition-all duration-300 ${index < 3 ? 'bg-gradient-to-br from-amber-400 to-amber-600 text-black border-amber-500/50 shadow-[-4px_4px_15px_rgba(245,158,11,0.3)]' : 'bg-white/5 text-slate-300 group-hover:bg-white/10'}`}>
                   {index + 1}
               </div>
 
-              <div className="flex flex-col items-center text-center gap-4 pt-4 pb-2 z-10">
-                <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-100 to-slate-400 group-hover:from-amber-200 group-hover:to-amber-500 transition-all duration-300 leading-tight">
+              <div className="flex flex-col items-center text-center gap-1.5 md:gap-4 pt-3 mt-1 md:mt-0 md:pt-4 pb-1 md:pb-2 z-10 w-full">
+                <span className="text-xs md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-100 to-slate-400 group-hover:from-amber-200 group-hover:to-amber-500 transition-all duration-300 leading-tight truncate w-full px-1">
                     {item.name}
                 </span>
                 
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/40 border border-white/5 group-hover:bg-amber-500/10 group-hover:border-amber-500/30 transition-all duration-300 shadow-inner">
-                  <Star className="w-3.5 h-3.5 text-amber-400 group-hover:fill-amber-400 drop-shadow-[0_0_5px_rgba(245,158,11,0.5)] transition-all duration-300" />
-                  <span className="text-xs font-semibold text-amber-300">ผลรวม {item.score}</span>
+                <div className="inline-flex items-center gap-0.5 md:gap-1.5 px-1.5 md:px-3.5 py-0.5 md:py-1.5 rounded-full bg-black/40 border border-white/5 group-hover:bg-amber-500/10 group-hover:border-amber-500/30 transition-all duration-300 shadow-inner max-w-full">
+                  <Star className="w-2 h-2 md:w-3.5 md:h-3.5 text-amber-400 group-hover:fill-amber-400 drop-shadow-[0_0_5px_rgba(245,158,11,0.5)] transition-all duration-300 flex-shrink-0" />
+                  <span className="text-[8px] md:text-xs font-semibold text-amber-300 whitespace-nowrap overflow-hidden text-ellipsis">คะแนน {item.score}</span>
                 </div>
               </div>
               
               {/* Decorative Glow */}
-              <div className="absolute -bottom-10 -right-10 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
+              <div className="absolute -bottom-4 -right-4 md:-bottom-10 md:-right-10 w-12 h-12 md:w-24 md:h-24 bg-amber-500/10 rounded-full blur-md md:blur-2xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
             </div>
           ))}
         </div>
