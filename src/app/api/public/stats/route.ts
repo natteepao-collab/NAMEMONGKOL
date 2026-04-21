@@ -4,12 +4,13 @@ import { createClient } from '@supabase/supabase-js';
 export const dynamic = 'force-dynamic';
 export const revalidate = 300; // Cache 5 minutes
 
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+const getSupabase = () => createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
 );
 
 export async function GET() {
+    const supabase = getSupabase();
     try {
         const [analysisRes, usersRes, reviewsRes] = await Promise.all([
             supabase.from('analysis_results').select('*', { count: 'exact', head: true }),

@@ -3,12 +3,13 @@ import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 
 // Initialize Supabase Admin Client (Service Role)
-const supabaseAdmin = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+const getSupabaseAdmin = () => createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 );
 
 export async function GET(req: NextRequest) {
+    const supabaseAdmin = getSupabaseAdmin();
     try {
         const { searchParams } = new URL(req.url);
         const page = parseInt(searchParams.get('page') || '1');
@@ -77,6 +78,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
+    const supabaseAdmin = getSupabaseAdmin();
     try {
         const body = await req.json();
         const { id, status } = body;
@@ -139,6 +141,7 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+    const supabaseAdmin = getSupabaseAdmin();
     try {
         const { searchParams } = new URL(req.url);
         const id = searchParams.get('id');

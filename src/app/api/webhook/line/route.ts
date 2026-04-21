@@ -11,9 +11,10 @@ import { createClient } from '@supabase/supabase-js';
 import { createHash } from 'crypto';
 
 // Setup LINE SDK
+// Setup LINE SDK
 const config = {
-    channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || '',
-    channelSecret: process.env.CHANNEL_SECRET || '',
+    channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || 'DUMMY_TOKEN_FOR_BUILD',
+    channelSecret: process.env.CHANNEL_SECRET || 'DUMMY_SECRET_FOR_BUILD',
 };
 const client = new Client(config);
 

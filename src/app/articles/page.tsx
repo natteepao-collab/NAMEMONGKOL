@@ -48,11 +48,16 @@ const parseThaiDate = (dateStr: string) => {
 };
 
 async function fetchArticlesFromDb() {
-    const { data: articles } = await supabase
-        .from('articles')
-        .select('*')
-        .eq('is_published', true);
-    return (articles as ArticleRow[]) || [];
+    try {
+        const { data: articles } = await supabase
+            .from('articles')
+            .select('*')
+            .eq('is_published', true);
+        return (articles as ArticleRow[]) || [];
+    } catch (e) {
+        console.warn('⚠️ Could not fetch articles from database during build:', e);
+        return [];
+    }
 }
 
 const getCachedDbArticles = unstable_cache(
