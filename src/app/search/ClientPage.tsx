@@ -193,40 +193,26 @@ export default function SearchPage() {
         fetchCredits();
     }, []);
 
-    // Fetch names from DB
+    // Fetch names from cached API
     useEffect(() => {
         const fetchNames = async () => {
             setLoading(true);
-            // Supabase default limit is 1000 rows — fetch all with pagination
-            let allData: { name: string; gender: string | null }[] = [];
-            let from = 0;
-            const pageSize = 1000;
-            let hasMore = true;
-
-            while (hasMore) {
-                const { data, error } = await supabase
-                    .from('auspicious_names')
-                    .select('name, gender')
-                    .order('name', { ascending: true })
-                    .range(from, from + pageSize - 1);
-
-                if (error) {
-                    console.error('Error fetching names:', error);
-                    break;
+            try {
+                const res = await fetch('/api/public/names');
+                const json = await res.json();
+                
+                if (json.success && json.data) {
+                    const allData = json.data as { name: string; gender: string | null }[];
+                    setNames(allData.map(d => ({ 
+                        name: stripInvisible(d.name), 
+                        gender: d.gender || 'neutral' 
+                    })).filter(d => d.name));
                 }
-                if (data && data.length > 0) {
-                    allData = allData.concat(data);
-                    from += pageSize;
-                    hasMore = data.length === pageSize;
-                } else {
-                    hasMore = false;
-                }
+            } catch (err) {
+                console.error('Error fetching names API:', err);
+            } finally {
+                setLoading(false);
             }
-
-            if (allData.length > 0) {
-                setNames(allData.map(d => ({ name: stripInvisible(d.name), gender: d.gender || 'neutral' })).filter(d => d.name));
-            }
-            setLoading(false);
         };
         fetchNames();
     }, []);

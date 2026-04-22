@@ -1,13 +1,5 @@
 import { Sparkles, TrendingUp, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { supabase } from '@/utils/supabase';
-import { calculateScore } from '@/utils/numerologyUtils';
-import { analyzeNameSuitability } from '@/utils/thaksaUtils';
-
-interface NameItem {
-  name: string;
-  gender: string;
-}
 
 export default function PopularNames() {
   const [popular, setPopular] = useState<{ name: string; score: number }[]>([]);
@@ -17,45 +9,13 @@ export default function PopularNames() {
     const fetchPopular = async () => {
       setLoading(true);
       try {
-          // ดึงข้อมูลจำนวนมากเพื่อนำมาสุ่ม (เผื่อในกรณีที่ order random ไม่ทำงาน)
-          const { data, error } = await supabase
-            .from('auspicious_names')
-            .select('name, gender')
-            .limit(2000); 
-
-          if (error) {
-              console.error('Error fetching popular names:', error);
-              setLoading(false);
-              return;
-          }
-
-          if (data && data.length > 0) {
-              // สุ่มชื่อจากผลลัพธ์
-              const shuffled = (data as NameItem[]).sort(() => 0.5 - Math.random());
-              
-              const processed = shuffled.map((item) => ({
-                name: item.name,
-                score: calculateScore(item.name),
-                suitable: analyzeNameSuitability(item.name).suitable,
-              }));
-
-              // พยายามหาชื่อที่ใช้ได้ 8 วันก่อน
-              let filtered = processed.filter(item => item.suitable.length === 8);
-              
-              // ถ้าได้ไม่ถึง 10 ชื่อ ให้ผ่อนปรนเอาชื่อที่ใช้ได้ 7 วัน หรือ 6 วันมาเติมให้ครบ
-              if (filtered.length < 10) {
-                  filtered = [...filtered, ...processed.filter(item => item.suitable.length === 7)];
-              }
-              if (filtered.length < 10) {
-                  filtered = [...filtered, ...processed.filter(item => item.suitable.length === 6)];
-              }
-
-              // คัดให้เหลือ 10 ชื่อตามลำดับ
-              const top10 = filtered.slice(0, 10).map(({ name, score }) => ({ name, score }));
-              setPopular(top10);
+          const res = await fetch('/api/public/popular-names');
+          const json = await res.json();
+          if (json.success && json.data) {
+              setPopular(json.data);
           }
       } catch (err) {
-          console.error(err);
+          console.error('Error fetching popular names:', err);
       } finally {
           setLoading(false);
       }
