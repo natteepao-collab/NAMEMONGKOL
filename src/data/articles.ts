@@ -2,6 +2,7 @@
 import { articleBoyNames2569 } from './article-boy-names-2569';
 import { articleGirlNames2569 } from './article-girl-names-2569';
 import { articleMondayGirlNames2569 } from './article-monday-girl-names-2569';
+import { articleNicknameKalakini } from './article-nickname-kalakini';
 
 export interface FaqItem {
     question: string;
@@ -29,6 +30,7 @@ export interface Article {
 }
 
 export const articles: Article[] = [
+    articleNicknameKalakini,
     articleBoyNames2569,
     articleGirlNames2569,
     {
