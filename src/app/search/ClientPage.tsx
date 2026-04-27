@@ -17,6 +17,18 @@ import { thaksaConfig, DayKey } from '@/data/thaksa';
 import { getPrediction } from '@/utils/getPrediction';
 import { useLanguage } from '@/components/LanguageProvider';
 
+const getDayBadgeProps = (d: string) => {
+    if (d.includes('อาทิตย์')) return { label: 'อา.', className: 'bg-rose-500/15 text-rose-300 border border-rose-500/20' };
+    if (d.includes('จันทร์')) return { label: 'จัน.', className: 'bg-amber-400/15 text-amber-300 border border-amber-400/20' };
+    if (d.includes('อังคาร')) return { label: 'อัง.', className: 'bg-pink-500/15 text-pink-300 border border-pink-500/20' };
+    if (d.includes('พุธ (กลางวัน)')) return { label: 'พุธวัน.', className: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20' };
+    if (d.includes('พุธ (กลางคืน')) return { label: 'พุธคืน.', className: 'bg-teal-500/15 text-teal-300 border border-teal-500/20' };
+    if (d.includes('พฤหัส')) return { label: 'พฤ.', className: 'bg-orange-500/15 text-orange-300 border border-orange-500/20' };
+    if (d.includes('ศุกร์')) return { label: 'ศุก.', className: 'bg-sky-500/15 text-sky-300 border border-sky-500/20' };
+    if (d.includes('เสาร์')) return { label: 'เสา.', className: 'bg-purple-500/15 text-purple-300 border border-purple-500/20' };
+    return { label: d, className: 'bg-slate-500/15 text-slate-300 border border-slate-500/20' };
+};
+
 function NameRow({ name }: { name: string }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const day = getDayFromName(name);
@@ -41,26 +53,23 @@ function NameRow({ name }: { name: string }) {
                     </div>
                 </td>
                 <td className="px-3 md:px-8 py-3 md:py-5 text-xs md:text-base text-slate-400 group-hover:text-slate-300 transition-colors">
-                    {day !== '-' && day !== 'ไม่ระบุ' ? (
-                        day
-                    ) : suitability.suitable.length === 8 ? (
-                        <span className="text-emerald-400 font-medium">ใช้ได้ทุกวัน</span>
-                    ) : suitability.suitable.length > 0 ? (
-                        <span className="text-slate-400 text-sm">
-                            {suitability.suitable.map(d => {
-                                if (d.includes('อาทิตย์')) return 'อา.';
-                                if (d.includes('จันทร์')) return 'จ.';
-                                if (d.includes('อังคาร')) return 'อ.';
-                                if (d.includes('พุธ (กลางวัน)')) return 'พ.(วัน)';
-                                if (d.includes('พุธ (กลางคืน')) return 'พ.(คืน)';
-                                if (d.includes('พฤหัส')) return 'พฤ.';
-                                if (d.includes('ศุกร์')) return 'ศ.';
-                                if (d.includes('เสาร์')) return 'ส.';
-                                return d;
-                            }).join(', ')}
+                    {suitability.suitable.length === 8 ? (
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-400 text-xs font-semibold border border-emerald-500/30">
+                            ใช้ได้ทุกวัน
                         </span>
+                    ) : suitability.suitable.length > 0 ? (
+                        <div className="flex flex-wrap gap-1.5">
+                            {suitability.suitable.map((d, i) => {
+                                const { label, className } = getDayBadgeProps(d);
+                                return (
+                                    <span key={i} className={`inline-block px-2 py-0.5 rounded-md text-[11px] md:text-xs font-bold shadow-sm ${className}`}>
+                                        {label}
+                                    </span>
+                                );
+                            })}
+                        </div>
                     ) : (
-                        '-'
+                        <span className="text-slate-500">-</span>
                     )}
                 </td>
                 <td className="px-3 md:px-8 py-3 md:py-5 text-center">
@@ -81,11 +90,14 @@ function NameRow({ name }: { name: string }) {
                                     <span className="font-semibold text-emerald-300 block mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wider">วันที่ใช้ได้ (มงคล)</span>
                                     <div className="flex flex-wrap gap-2">
                                         {suitability.suitable.length > 0 ? (
-                                            suitability.suitable.map((d, i) => (
-                                                <span key={i} className="px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-200 text-sm hover:bg-emerald-500/20 transition-colors">
-                                                    {d}
-                                                </span>
-                                            ))
+                                            suitability.suitable.map((d, i) => {
+                                                const { label, className } = getDayBadgeProps(d);
+                                                return (
+                                                    <span key={i} className={`inline-block px-3 py-1 rounded-lg text-sm font-bold shadow-md ${className}`}>
+                                                        {label}
+                                                    </span>
+                                                );
+                                            })
                                         ) : (
                                             <span className="text-slate-500 italic">- ไม่มี -</span>
                                         )}
@@ -101,11 +113,17 @@ function NameRow({ name }: { name: string }) {
                                     <span className="font-semibold text-rose-300 block mb-1 md:mb-2 text-xs md:text-sm uppercase tracking-wider">วันที่ห้ามใช้ (กาลกิณี)</span>
                                     <div className="flex flex-wrap gap-2">
                                         {suitability.unsuitable.length > 0 ? (
-                                            suitability.unsuitable.map((d, i) => (
-                                                <span key={i} className="px-3 py-1 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-200 text-sm hover:bg-rose-500/20 transition-colors">
-                                                    {d}
-                                                </span>
-                                            ))
+                                            suitability.unsuitable.map((d, i) => {
+                                                const { label, className } = getDayBadgeProps(d);
+                                                // Make unsuitable badges grayscale or faded to indicate they shouldn't be used, or keep their colors but with an X icon?
+                                                // Wait, the user might still want to see the original color so they recognize the day.
+                                                // Let's keep the original color but maybe with some opacity or a border, actually full color is fine.
+                                                return (
+                                                    <span key={i} className={`inline-block px-3 py-1 rounded-lg text-sm font-bold shadow-md opacity-70 ${className}`}>
+                                                        {label}
+                                                    </span>
+                                                );
+                                            })
                                         ) : (
                                             <span className="text-slate-500 italic">- ไม่มี -</span>
                                         )}
