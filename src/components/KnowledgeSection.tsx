@@ -128,12 +128,12 @@ export const KnowledgeSection: React.FC = () => {
 
                                 <button
                                     type="button"
-                                    onClick={() => setEnlargedImageSrc('/images/thai-numerology-decoding-chart.png')}
+                                    onClick={() => setEnlargedImageSrc('/images/thai-numerology-decoding-chart.webp')}
                                     className="block w-full cursor-zoom-in rounded-xl overflow-hidden shadow-lg border border-white/10"
                                     aria-label="คลิกเพื่อดูตารางถอดรหัสเลขศาสตร์แบบขยาย"
                                 >
                                     <Image
-                                        src="/images/thai-numerology-decoding-chart.png"
+                                        src="/images/thai-numerology-decoding-chart.webp"
                                         alt="ตารางถอดรหัสเลขศาสตร์ อักษรไทย-อังกฤษ สำหรับวิเคราะห์ชื่อมงคล (Thai Numerology Decoding Chart)"
                                         width={800}
                                         height={600}

@@ -113,6 +113,20 @@ export const metadata: Metadata = {
     keywords: 'บทความชื่อมงคล 2569, ตั้งชื่อลูก 2569, หลักการตั้งชื่อ, เลขศาสตร์ชื่อ, ทักษาปกรณ์, อายตนะ 6, ผลรวมมงคล, อักษรกาลกิณี, เปลี่ยนชื่อเสริมดวง, ชื่อลูกชายมงคล, ชื่อลูกสาวมงคล, ความหมายชื่อ, ชื่อมงคลปีมะเมีย, วิเคราะห์ชื่อ AI',
 
     alternates: { canonical: `${baseUrl.replace(/\/$/, '')}/articles` },
+
+    // Robots directives for AI crawlers & snippet optimization
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-snippet': -1,
+            'max-image-preview': 'large',
+            'max-video-preview': -1,
+        },
+    },
+
     openGraph: {
         title: 'บทความชื่อมงคล 2569 - คู่มือตั้งชื่อลูก เลขศาสตร์ ทักษา | NameMongkol',
         description: 'รวม 50+ บทความศาสตร์ตั้งชื่อมงคลครบทุกเรื่อง วิธีตั้งชื่อลูก เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6 พร้อมตัวอย่างชื่อมงคลกว่า 500 ชื่อ',
@@ -120,136 +134,213 @@ export const metadata: Metadata = {
         siteName: 'NameMongkol',
         locale: 'th_TH',
         type: 'website',
-        images: [`${baseUrl}/api/og?variant=default&title=บทความชื่อมงคล%202569&subtitle=รวมความรู้ศาสตร์การตั้งชื่อ%20เลขศาสตร์%20ทักษา%20อายตนะ&tag=Articles`],
+        images: [
+            {
+                url: `${baseUrl}/api/og?variant=default&title=บทความชื่อมงคล%202569&subtitle=รวมความรู้ศาสตร์การตั้งชื่อ%20เลขศาสตร์%20ทักษา%20อายตนะ&tag=Articles`,
+                width: 1200,
+                height: 630,
+                alt: 'บทความชื่อมงคล 2569 – NameMongkol คลังความรู้การตั้งชื่อ เลขศาสตร์ ทักษาปกรณ์',
+            },
+        ],
     },
     twitter: {
         card: 'summary_large_image',
         title: 'บทความชื่อมงคล 2569 - คู่มือตั้งชื่อลูก เลขศาสตร์ ทักษา | NameMongkol',
         description: 'รวม 50+ บทความศาสตร์ตั้งชื่อมงคล วิธีตั้งชื่อลูก เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6',
-        images: [`${baseUrl}/api/og?variant=default&title=บทความชื่อมงคล%202569`],
+        images: [
+            {
+                url: `${baseUrl}/api/og?variant=default&title=บทความชื่อมงคล%202569`,
+                alt: 'บทความชื่อมงคล 2569 – NameMongkol',
+            },
+        ],
     },
 };
 
 export default async function ArticlesPage() {
     const articles = await getArticles();
 
-    // JSON-LD Schema for Article List
-    const jsonLd = {
+    // Organization Schema (EEAT signal – author/publisher identity)
+    const organizationJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        '@id': 'https://www.namemongkol.com/#organization',
+        'name': 'NameMongkol',
+        'url': 'https://www.namemongkol.com',
+        'logo': {
+            '@type': 'ImageObject',
+            'url': `${baseUrl}/logo.png`,
+            'width': 200,
+            'height': 60,
+        },
+        'sameAs': [
+            'https://www.facebook.com/namemongkol',
+        ],
+        'description': 'ผู้ให้บริการวิเคราะห์ชื่อมงคล ตั้งชื่อลูก เปลี่ยนชื่อเสริมดวง ด้วยระบบ AI ผสาน 4 ศาสตร์ที่ครบถ้วนที่สุดในประเทศไทย',
+    };
+
+    // WebSite Schema (enables Google Sitelinks Searchbox)
+    const websiteJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        '@id': 'https://www.namemongkol.com/#website',
+        'url': 'https://www.namemongkol.com',
+        'name': 'NameMongkol',
+        'publisher': { '@id': 'https://www.namemongkol.com/#organization' },
+        'inLanguage': 'th-TH',
+        'potentialAction': {
+            '@type': 'SearchAction',
+            'target': 'https://www.namemongkol.com/search?q={search_term_string}',
+            'query-input': 'required name=search_term_string',
+        },
+    };
+
+    // WebPage Schema with speakable – helps AI assistants (ChatGPT, Perplexity, Gemini) read this page
+    const webpageJsonLd = {
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
-        'name': 'บทความชื่อมงคล 2569 - คู่มือตั้งชื่อลูก เลขศาสตร์ ทักษา',
-        'description': 'รวม 50+ บทความศาสตร์ตั้งชื่อมงคลครบทุกเรื่อง วิธีตั้งชื่อลูก เลขศาสตร์ ทักษาปกรณ์ อายตนะ 6',
+        '@id': 'https://www.namemongkol.com/articles#webpage',
         'url': 'https://www.namemongkol.com/articles',
-        'isPartOf': {
-            '@type': 'WebSite',
-            'name': 'NameMongkol',
-            'url': 'https://www.namemongkol.com',
+        'name': 'บทความชื่อมงคล 2569 - คู่มือตั้งชื่อลูก เลขศาสตร์ ทักษา อายตนะ 6',
+        'description': 'รวม 50+ บทความศาสตร์ตั้งชื่อมงคล 2569 ครบทุกเรื่อง: วิธีตั้งชื่อลูกชายหญิง เลขศาสตร์ผลรวมมงคล ทักษาปกรณ์ อายตนะ 6 อักษรกาลกิณี เปลี่ยนชื่อเสริมดวง โดยผู้เชี่ยวชาญ',
+        'isPartOf': { '@id': 'https://www.namemongkol.com/#website' },
+        'publisher': { '@id': 'https://www.namemongkol.com/#organization' },
+        'inLanguage': 'th-TH',
+        'dateModified': new Date().toISOString(),
+        // speakable: tells AI assistants which CSS selectors contain the most important content
+        'speakable': {
+            '@type': 'SpeakableSpecification',
+            'cssSelector': ['h1', '.articles-intro', '.faq-section'],
+        },
+        'breadcrumb': {
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+                { '@type': 'ListItem', 'position': 1, 'name': 'หน้าหลัก', 'item': 'https://www.namemongkol.com' },
+                { '@type': 'ListItem', 'position': 2, 'name': 'บทความชื่อมงคล', 'item': 'https://www.namemongkol.com/articles' },
+            ],
         },
         'mainEntity': {
             '@type': 'ItemList',
-            'itemListElement': articles.slice(0, 10).map((article, index) => ({
+            'name': 'รายการบทความชื่อมงคล 2569',
+            'numberOfItems': articles.length,
+            'itemListElement': articles.slice(0, 15).map((article, index) => ({
                 '@type': 'ListItem',
                 'position': index + 1,
                 'item': {
                     '@type': 'Article',
+                    '@id': `https://www.namemongkol.com/articles/${article.slug}`,
                     'headline': article.title,
                     'description': article.excerpt,
                     'url': `https://www.namemongkol.com/articles/${article.slug}`,
                     'datePublished': article.date,
-                    ...(article.coverImage && { 'image': `https://www.namemongkol.com${article.coverImage}` }),
+                    'dateModified': article.date,
+                    'inLanguage': 'th-TH',
+                    ...(article.coverImage && {
+                        'image': {
+                            '@type': 'ImageObject',
+                            'url': `https://www.namemongkol.com${article.coverImage}`,
+                            'width': 1200,
+                            'height': 630,
+                        },
+                    }),
                     'author': {
-                        '@type': 'Person',
-                        'name': article.author,
+                        '@type': 'Organization',
+                        '@id': 'https://www.namemongkol.com/#organization',
+                        'name': article.author || 'NameMongkol',
                     },
+                    'publisher': {
+                        '@type': 'Organization',
+                        '@id': 'https://www.namemongkol.com/#organization',
+                        'name': 'NameMongkol',
+                        'logo': {
+                            '@type': 'ImageObject',
+                            'url': `${baseUrl}/logo.png`,
+                        },
+                    },
+                    'isPartOf': { '@id': 'https://www.namemongkol.com/articles#webpage' },
                 },
             })),
         },
     };
 
-    // FAQ Schema for common questions
+    // FAQ Schema for common questions (AEO – answer engine ready)
     const faqJsonLd = {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
+        '@id': 'https://www.namemongkol.com/articles#faq',
+        'isPartOf': { '@id': 'https://www.namemongkol.com/articles#webpage' },
         'mainEntity': [
             {
                 '@type': 'Question',
                 'name': 'ตั้งชื่อลูก 2569 ใช้หลักอะไรบ้าง?',
                 'acceptedAnswer': {
                     '@type': 'Answer',
-                    'text': 'การตั้งชื่อลูกปี 2569 ควรใช้หลักเลขศาสตร์ (ผลรวมตัวเลขมงคล) ทักษาปกรณ์ (อักษรตามวันเกิด) และอายตนะ 6 (ความสมดุลพลังชีวิต) รวมถึงหลีกเลี่ยงอักษรกาลกิณีประจำวันเกิด'
-                }
+                    'text': 'การตั้งชื่อลูกปี 2569 ควรใช้หลักเลขศาสตร์ (ผลรวมตัวเลขมงคล) ทักษาปกรณ์ (อักษรตามวันเกิด) และอายตนะ 6 (ความสมดุลพลังชีวิต) รวมถึงหลีกเลี่ยงอักษรกาลกิณีประจำวันเกิด',
+                },
             },
             {
                 '@type': 'Question',
                 'name': 'เลขศาสตร์ชื่อคืออะไร?',
                 'acceptedAnswer': {
                     '@type': 'Answer',
-                    'text': 'เลขศาสตร์ชื่อ คือการคำนวณค่าตัวเลขจากพยัญชนะและสระในชื่อ แล้วหาผลรวมเพื่อดูว่าตกเลขมงคลหรือไม่ เลขที่ดี เช่น 14, 15, 24, 32, 36, 41, 45, 59 เป็นต้น'
-                }
+                    'text': 'เลขศาสตร์ชื่อ คือการคำนวณค่าตัวเลขจากพยัญชนะและสระในชื่อ แล้วหาผลรวมเพื่อดูว่าตกเลขมงคลหรือไม่ เลขที่ดี เช่น 14, 15, 24, 32, 36, 41, 45, 59 เป็นต้น',
+                },
             },
             {
                 '@type': 'Question',
                 'name': 'อักษรกาลกิณีคืออะไร?',
                 'acceptedAnswer': {
                     '@type': 'Answer',
-                    'text': 'อักษรกาลกิณี คือตัวอักษรที่ไม่ควรมีในชื่อตามวันเกิด เช่น คนเกิดวันอาทิตย์ห้ามมี ศ ษ ส ห ฬ ฮ, วันจันทร์ห้ามมี บ ป ผ ฝ พ ฟ ภ เป็นต้น'
-                }
+                    'text': 'อักษรกาลกิณี คือตัวอักษรที่ไม่ควรมีในชื่อตามวันเกิด เช่น คนเกิดวันอาทิตย์ห้ามมี ศ ษ ส ห ฬ ฮ, วันจันทร์ห้ามมี บ ป ผ ฝ พ ฟ ภ เป็นต้น',
+                },
             },
             {
                 '@type': 'Question',
                 'name': 'ทักษาปกรณ์ มีหลักอะไรบ้าง?',
                 'acceptedAnswer': {
                     '@type': 'Answer',
-                    'text': 'ทักษาปกรณ์แบ่งอักษรออกเป็น 8 หมวด ได้แก่ บริวาร ศรี เดช อายุ มนตรี กาลกิณี อุตสาหะ และมูละ โดยแต่ละวันเกิดจะมีอักษรที่เหมาะสมต่างกัน'
-                }
+                    'text': 'ทักษาปกรณ์แบ่งอักษรออกเป็น 8 หมวด ได้แก่ บริวาร ศรี เดช อายุ มนตรี กาลกิณี อุตสาหะ และมูละ โดยแต่ละวันเกิดจะมีอักษรที่เหมาะสมต่างกัน',
+                },
             },
             {
                 '@type': 'Question',
                 'name': 'เปลี่ยนชื่อแก้ดวงได้จริงไหม?',
                 'acceptedAnswer': {
                     '@type': 'Answer',
-                    'text': 'การเปลี่ยนชื่อสามารถช่วยปรับพลังชีวิตได้ เพราะชื่อถูกเรียกทุกวัน สร้างคลื่นพลังงานส่งผลต่อจิตใต้สำนึก แต่ต้องเลือกชื่อใหม่ที่ถูกหลักเลขศาสตร์และทักษาด้วย'
-                }
-            }
-        ]
-    };
-
-    // Breadcrumb Schema
-    const breadcrumbJsonLd = {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        'itemListElement': [
-            {
-                '@type': 'ListItem',
-                'position': 1,
-                'name': 'หน้าหลัก',
-                'item': 'https://www.namemongkol.com'
+                    'text': 'การเปลี่ยนชื่อสามารถช่วยปรับพลังชีวิตได้ เพราะชื่อถูกเรียกทุกวัน สร้างคลื่นพลังงานส่งผลต่อจิตใต้สำนึก แต่ต้องเลือกชื่อใหม่ที่ถูกหลักเลขศาสตร์และทักษาด้วย',
+                },
             },
             {
-                '@type': 'ListItem',
-                'position': 2,
-                'name': 'บทความชื่อมงคล',
-                'item': 'https://www.namemongkol.com/articles'
-            }
-        ]
+                '@type': 'Question',
+                'name': 'NameMongkol วิเคราะห์ชื่อด้วยหลักอะไรบ้าง?',
+                'acceptedAnswer': {
+                    '@type': 'Answer',
+                    'text': 'ระบบ AI ของ NameMongkol วิเคราะห์ชื่อครบ 4 ศาสตร์หลัก ได้แก่ เลขศาสตร์ (คำนวณผลรวมตัวเลข) ทักษาปกรณ์ (วิเคราะห์อักษรตามวันเกิด) อายตนะ 6 (ความสมดุล 6 ด้านของชีวิต) และนิรันดร์ศาสตร์ (ความสมดุลระหว่างชื่อกับนามสกุล)',
+                },
+            },
+        ],
     };
 
     return (
         <>
             <Script
-                id="articles-list-json-ld"
+                id="articles-org-json-ld"
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+            />
+            <Script
+                id="articles-website-json-ld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+            />
+            <Script
+                id="articles-webpage-json-ld"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(webpageJsonLd) }}
             />
             <Script
                 id="articles-faq-json-ld"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-            />
-            <Script
-                id="articles-breadcrumb-json-ld"
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
             />
             <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans selection:bg-purple-500 selection:text-white relative overflow-hidden pb-28">
                 {/* Background Decor */}
@@ -282,8 +373,8 @@ export default async function ArticlesPage() {
                             รวมบทความศาสตร์มงคล เคล็ดลับการตั้งชื่อ และเกร็ดความรู้เพื่อชีวิตที่ดีกว่า
                         </p>
 
-                        {/* SEO Rich Content Introduction */}
-                        <div className="bg-slate-800/40 border border-slate-700/50 rounded-xl p-6 mb-8">
+                        {/* SEO Rich Content Introduction – speakable target for AI assistants */}
+                        <div className="articles-intro bg-slate-800/40 border border-slate-700/50 rounded-xl p-6 mb-8">
                             <h2 className="text-xl font-bold text-amber-400 mb-3 flex items-center gap-2">
                                 <BookOpen size={20} />
                                 คลังความรู้การตั้งชื่อครบวงจร
@@ -313,17 +404,19 @@ export default async function ArticlesPage() {
                             </div>
                         </div>
 
-                        {/* Search Bar (Placeholder - Functional search logic can be added later if needed) */}
-                        <div className="mt-8 relative max-w-lg">
+                        {/* Search Bar */}
+                        <form role="search" aria-label="ค้นหาบทความชื่อมงคล" className="mt-8 relative max-w-lg">
                             <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
                                 <Search size={20} />
                             </div>
                             <input
-                                type="text"
+                                type="search"
+                                name="q"
                                 placeholder="ค้นหาบทความ... เช่น ชื่อลูกชาย, เลขศาสตร์, ทักษา"
+                                aria-label="ค้นหาบทความ"
                                 className="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-slate-200 placeholder:text-slate-500 focus:ring-2 focus:ring-purple-500/50 focus:border-transparent outline-none transition-all"
                             />
-                        </div>
+                        </form>
                     </div>
 
                     {/* Grid — 1 col mobile / 2 col tablet / 4 col desktop */}
@@ -334,7 +427,11 @@ export default async function ArticlesPage() {
                                 href={`/articles/${article.slug}`}
                                 className="group bg-slate-900/40 backdrop-blur-sm border border-white/5 rounded-2xl overflow-hidden hover:border-purple-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/10"
                             >
-                                <article className="flex flex-col h-full">
+                                <article
+                                    className="flex flex-col h-full"
+                                    itemScope
+                                    itemType="https://schema.org/Article"
+                                >
                                     <div className="aspect-video w-full bg-slate-800 relative overflow-hidden">
                                         <ArticleImage
                                             src={article.coverImage as string}
@@ -351,16 +448,23 @@ export default async function ArticlesPage() {
                                     <div className="p-4 flex flex-col flex-grow relative bg-[#0f172a] group-hover:bg-[#131c33] transition-colors">
                                         <div className="flex items-center gap-2 text-[11px] text-slate-500 mb-2.5">
                                             <Calendar size={11} />
-                                            <time dateTime={article.date}>{new Date(parseThaiDate(article.date)).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
+                                            <time
+                                                dateTime={new Date(parseThaiDate(article.date)).toISOString()}
+                                                itemProp="datePublished"
+                                            >
+                                                {new Date(parseThaiDate(article.date)).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' })}
+                                            </time>
                                         </div>
 
-                                        <h2 className="text-sm font-bold text-slate-100 mb-2 leading-snug group-hover:text-purple-400 transition-colors line-clamp-2">
+                                        <h2 className="text-sm font-bold text-slate-100 mb-2 leading-snug group-hover:text-purple-400 transition-colors line-clamp-2" itemProp="headline">
                                             {article.title}
                                         </h2>
 
-                                        <p className="text-slate-400 text-xs leading-relaxed mb-4 line-clamp-2">
+                                        <p className="text-slate-400 text-xs leading-relaxed mb-4 line-clamp-2" itemProp="description">
                                             {article.excerpt}
                                         </p>
+                                        <meta itemProp="url" content={`https://www.namemongkol.com/articles/${article.slug}`} />
+                                        <meta itemProp="author" content={article.author || 'NameMongkol'} />
 
                                         <div className="mt-auto pt-3 border-t border-white/5 flex justify-between items-center">
                                             <span className="text-purple-400 text-xs font-medium group-hover:underline decoration-purple-500/30 underline-offset-4">อ่านเพิ่มเติม →</span>
@@ -378,9 +482,9 @@ export default async function ArticlesPage() {
                         </div>
                     )}
 
-                    {/* SEO Content Section - FAQ */}
-                    <section className="max-w-4xl mx-auto mt-16 border-t border-slate-700/50 pt-12">
-                        <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                    {/* SEO Content Section - FAQ (speakable target for AI assistants) */}
+                    <section className="faq-section max-w-4xl mx-auto mt-16 border-t border-slate-700/50 pt-12" aria-labelledby="faq-heading">
+                        <h2 id="faq-heading" className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
                             <span className="text-3xl">❓</span>
                             คำถามที่พบบ่อยเกี่ยวกับการตั้งชื่อมงคล
                         </h2>
